@@ -1,0 +1,108 @@
+.date-time-outer-core-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 15px;
+    width: 100%;
+}
+
+.date-time-tab-main-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.date-time-tab-calender-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+.date-time-tab-times-slots {
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.single-time-slot {
+    width: 200px;
+    height: 40px;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: var(--tertiary-color);
+    font-size: var(--sub-section-size);
+    line-height: var(--sub-section-height);
+    font-weight: var(--sub-section-weight);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.single-time-slot:hover {
+    background-color: var(--tertiary-color);
+    color: #fff;
+}
+
+
+
+/* Calender Styling */
+.date-time-tab-calender-section .react-calendar__navigation {
+    margin-bottom: 0px !important;
+}
+
+.react-calendar__month-view__weekdays {
+    font-weight: 400 !important;
+}
+
+.react-calendar__tile--weekend {
+    color: inherit !important;
+}
+
+.custom-tile {
+    border: 1px solid var(--border-color) !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr[title] {
+    text-decoration: none !important;
+}
+
+.react-calendar__month-view__days .react-calendar__tile react-calendar__month-view__days__day {
+    border: 1px solid var(--border-color) !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    border: 1px solid var(--border-color) !important;
+}
+
+.react-calendar__tile--active {
+    border-radius: 0px !important;
+}
+
+@media only screen and (max-width: 480px) {
+    .date-time-tab-main-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .date-time-tab-calender-section {
+        width: 100%;
+    }
+
+    .date-time-tab-times-slots {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

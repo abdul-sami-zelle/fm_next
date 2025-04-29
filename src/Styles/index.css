@@ -1,0 +1,243 @@
+:root{
+  --text-primary: #000000;
+  --text-white: #fff;
+  --button-color: #2F7A97;
+  --bg-color: #FFFFFF;
+  --work-sans-font: "Work Sans", sans-serif;
+  /* --primary-color: #C30000; */
+  
+  /* --primary-color: #C61B1A; */
+  --button-color: #484F59;
+  --footer-bg-color: #484F59;
+  --footer-nav-items-color: #F8F8F8;
+  --mobile-nav-item-bg: #F0F0F0;
+  --banner-bg-color: #F8E6CD;
+  --footer-nav-heading: #FAFAFA;
+  --Poppins-font: "Poppins", sans-serif;
+  --products-bg: #C9EFF4;
+  --product-text-color: #000000;
+  --hover-btn-bg: #595959;
+  --service-card-bg: #f7f7f7;
+  --global-padding: 35px 60px;
+  --inner-padding: 35px 60px 0px 60px;
+  --heading-line-height: 28px;
+  --tertiary-color:#4487C5;
+  --tick-color: #595959;
+
+
+  --primary-color: #C61B1A;    /* Main brand color (e.g., blue) */
+  --secondary-color: #595959;  /* Supporting color (e.g., gray) */
+  --tertiary-color: #4487C5;   /* Accent color (e.g., teal) */
+  --quaternary-color: #484F59; /* Additional highlight (e.g., yellow) */
+
+
+  --text-primary: #000000; 
+  /* --text-primary: '#000000'; */
+  --text-secondary: #484F59; 
+  --text-tertiary: #4487C5;  /* Accent text */
+  --text-quaternary: #C61B1A;  /* Highlighted text */
+
+  --border-color: #D7D7D7;
+  --secondary-background: #f1f1f1;
+  --tertiary-background: #f9f9f9;
+  --quaternary-background: #f1f1f1;
+
+
+  /* font sizings */
+
+  /* Section Sizing */
+  --section-size: 20px;
+  --section-weight: 500;
+  --section-height: 1.5;
+
+  /* sub section */
+  --sub-section-size: 15px;
+  --sub-section-weight: 500;
+  --sub-section-height: 1.5;
+
+  --content-one-size: 12px;
+  --content-one-weight: 500;
+  --content-one-height: 1.5;  
+
+  --content-two-weight: 400;
+
+  --attribute-size: 12px;
+  --attribute-weight: 500;
+  --attribute-height: 1.5;
+
+  --product-name: 15px;
+  --product-weight: 600;
+  --product-height: 1.3
+
+  
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* @font-face {
+  font-family: "Gotham-Book";
+  src: local("Gotham-Book"),
+   url("./Assets/fonts/Gotham-Book.otf") format("opentype");
+  font-weight: bold;
+ } */
+
+ /* @font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/Gotham-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/Gotham-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/Gotham-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/Gotham-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./Assets/fonts/Gotham-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+} */
+
+body {
+  font-family: var(--Poppins-font);
+  color: var(--text-primary) !important;
+  line-height: 1.5 !important;
+}
+
+body::-webkit-scrollbar {
+  width: 4px; /* Slim width */
+  height: 4px; /* Slim height for horizontal scrollbar */
+}
+
+/* Style the scrollbar track */
+body::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the scrollbar thumb */
+body::-webkit-scrollbar-thumb {
+  background: #888; /* Darker gray for the thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the scrollbar thumb on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker shade on hover */
+  overflow: hidden;
+}
+
+button {
+  font-family: var(--Poppins-font);
+}
+
+input{
+  font-family: var(--Poppins-font);
+}
+
+h3{
+  color: var(--text-primary);
+}
+
+.filters-heading{
+  font-size: 16px !important;
+  line-height: 19px !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+}
+
+.filter-inner-text{
+  font-size: 14px !important;
+  line-height: 18px !important;
+  font-weight: 500 !important;
+  color: var(--text-primary) !important;
+  opacity: 0.8 !important;
+}
+
+.add-button-round{
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    /* padding: 5px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alice-carousel > div {
+  width: 100% !important;
+}
+
+.alice-carousel__stage-item{
+  max-width: 100% !important;
+  /* width: 1055px !important; */
+}
+
+/* input:-internal-autofill-selected {
+    background-color: transparent !important;
+} */
+
+input:-webkit-autofill {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 3px;
+  background: 
+    radial-gradient(farthest-side,#4487C5 95%,#0000) 50% 0/12px 12px no-repeat,
+    radial-gradient(farthest-side,#0000 calc(100% - 5px),#595959 calc(100% - 4px)) content-box;
+  animation: l6 2s infinite ;
+}
+@keyframes l6 {to{transform: rotate(1turn)}}
+
+
+
+
+/* HTML: <div class="loader"></div> */
+.loader_2 {
+  width: 25px;
+  --b: 3px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #595959;
+  -webkit-mask:
+    repeating-conic-gradient(#0000 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+    radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+  -webkit-mask-composite: destination-in;
+          mask-composite: intersect;
+  animation: l7 1s infinite;
+  /* margin-right: 8px; */
+}
+@keyframes l7 {to{transform: rotate(.5turn)}}
