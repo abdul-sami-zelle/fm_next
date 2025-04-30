@@ -83,7 +83,7 @@ const Home = () => {
 
   return (
    <>
-     <Head>
+     <head>
       <title>Home Page Website</title>
       <meta name="description" content="Welcome to my home website. We provide amazing services." />
       <meta name="keywords" content="awesome, website, services" />
@@ -93,7 +93,7 @@ const Home = () => {
       <meta property="og:image" content="https://fm.skyhub.pk/uploads/productCategory/1728285163433_186_Image%20Placeholder.jpg" />
       <meta property="og:url" content="https://myawesomewebsite.com" />
       <meta name="twitter:card" content="summary_large_image" />
-    </Head>
+    </head>
     <div className='home-page-main-container'>
       <NearStorePopUp />
       <Sliderr images={slides ? slides : []} />
