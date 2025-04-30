@@ -82,6 +82,18 @@ const Home = () => {
   };
 
   return (
+   <>
+     <Head>
+      <title>Home Page Website</title>
+      <meta name="description" content="Welcome to my home website. We provide amazing services." />
+      <meta name="keywords" content="awesome, website, services" />
+      <meta name="author" content="Your Name" />
+      <meta property="og:title" content="My home Website" />
+      <meta property="og:description" content="Welcome to my awesome website. We provide amazing services." />
+      <meta property="og:image" content="https://fm.skyhub.pk/uploads/productCategory/1728285163433_186_Image%20Placeholder.jpg" />
+      <meta property="og:url" content="https://myawesomewebsite.com" />
+      <meta name="twitter:card" content="summary_large_image" />
+    </Head>
     <div className='home-page-main-container'>
       <NearStorePopUp />
       <Sliderr images={slides ? slides : []} />
@@ -135,6 +147,7 @@ const Home = () => {
       <InstaGallery />
       <InstaTwoImageGallery />
     </div>
+    </>
   )
 }
 
