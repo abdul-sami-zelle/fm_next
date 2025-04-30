@@ -1,6 +1,6 @@
-'use client';
+// 'use client';
 
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import '../Styles/index.css';
 import '../Styles/App.css'
 
@@ -39,31 +39,38 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../Styles/App.css'; // Global styles for the entire app
 import '../Styles/index.css' // Global styles for the entire app
 
+
+export const metadata = {
+  title: 'Default Layout Title',
+  description: 'Default Layout Description',
+};
+
+
 export default function RootLayout({ children }) {
   // const { title, description, image } = useSEOContext();
   // const { mainLoader, isWarrantyModalOpen } = useGlobalContext();
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    if(typeof window !== 'undefined') {
-      const handleScroll = () => {
-        if (window.scrollY > 300) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      };
+  // useEffect(() => {
+  //   if(typeof window !== 'undefined') {
+  //     const handleScroll = () => {
+  //       if (window.scrollY > 300) {
+  //         setIsVisible(true);
+  //       } else {
+  //         setIsVisible(false);
+  //       }
+  //     };
   
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
+  //     window.addEventListener('scroll', handleScroll);
+  //     return () => window.removeEventListener('scroll', handleScroll);
+  //   }
+  // }, []);
 
-  const handleClickTop = () => {
-    if(typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+  // const handleClickTop = () => {
+  //   if(typeof window !== 'undefined') {
+  //     window.scrollTo({ top: 0, behavior: 'smooth' });
+  //   }
+  // };
 
   return (
     <html lang="en">
@@ -99,12 +106,12 @@ export default function RootLayout({ children }) {
                                             <Shopvia />
                                             <main>{children}</main>
                                             <Footer />
-                                            <button
+                                            {/* <button
                                               onClick={handleClickTop}
                                               className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}
                                             >
                                               <IoIosArrowUp size={30} className="lead-to-top-btn" />
-                                            </button>
+                                            </button> */}
                                             {/* <DynamicMetaTags title={title} description={description} image={image} /> */}
                                             {/* {mainLoader && <Loader />} */}
                                             {/* {isWarrantyModalOpen && <WarrantyModal />} */}

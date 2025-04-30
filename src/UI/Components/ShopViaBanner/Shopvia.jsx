@@ -1,3 +1,5 @@
+'use client'
+
 // import React, { useState } from 'react'
 // import './Shopvia.css'
 // import closeIcon from '../../../Assets/icons/cancel.png'

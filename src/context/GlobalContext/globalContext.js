@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { url } from "../../utils/api";
 import { useCart } from "../cartContext/cartContext";

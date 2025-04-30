@@ -50,9 +50,9 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
           )}
           
 
-          {!imagePreloader && <div className='image_preloader'>
+          {/* {!imagePreloader && <div className='image_preloader'>
             <img src={'/Assets/Loader-animations/loader-check-two.gif'} alt="" />
-          </div>}
+          </div>} */}
         </div>
 
         <div className={`dining-paypal-div ${showBanners ? 'show-banners' : ''} ${paddingTop ? 'padding-top' : ''}`}>

@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useState, useContext} from "react";
 
 import heartImg from '../../Assets/icons/like.png'

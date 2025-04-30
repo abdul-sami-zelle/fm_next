@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react'
 import './Header.css';
 // import { Link, useNavigate } from 'react-router-dom';
@@ -46,7 +48,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const Header = ({ checkoutPage }) => {
 

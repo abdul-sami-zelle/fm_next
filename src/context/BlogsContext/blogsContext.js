@@ -1,3 +1,5 @@
+'use client'
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { url } from '../../utils/api';
 import axios from 'axios';

@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { formatPhoneNumber, url } from "../../utils/api";
 import axios from "axios";
