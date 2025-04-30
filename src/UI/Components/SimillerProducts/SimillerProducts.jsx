@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './SimillerProducts.css'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { url } from '../../../utils/api'
 import heart from '../../../Assets/icons/heart-vector.png'
@@ -13,6 +13,7 @@ import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
 import { toast } from 'react-toastify'
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
+import { useRouter } from 'next/navigation'
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -81,7 +82,7 @@ const SimillerProducts = ({collection, isPadding}) => {
 
         // const handleQuickViewClose = () => { setQuickView(false) }
 
-    const navigate = useNavigate();
+    const navigate = useRouter();
     // const handleCardClick = (item) => {
     //     navigate(`/product/${item.slug}`, {state: {products: item}})
     // }
@@ -153,7 +154,7 @@ const SimillerProducts = ({collection, isPadding}) => {
   };
 
   const handleProductClick = (item) => {
-    navigate(`/product/${item.slug}`, { state: item });
+    navigate.push(`/product/${item.slug}`, { state: item });
   };
     
   return (

@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import './CartItems.css';
 import { url } from '../../../../utils/api';
-import { Link } from 'react-router-dom';
-import { useCart } from '../../../../context/cartContext/cartContext';
+import Link from 'next/link';
+import { useCart } from '@/context/cartContext/cartContext';
 
 // Assets
-import minusBtn from '../../../../Assets/icons/minus-white.png';
-import plusBtn from '../../../../Assets/icons/plus-white.png';
-import closeBtn from '../../../../Assets/icons/close-btn.png';
-import plusCharcol from '../../../../Assets/icons/plus.png';
-import minusCharcol from '../../../../Assets/icons/minus.png'
-import crossBtn from '../../../../Assets/icons/Mask group (1).png'
+// import minusBtn from '../../../../Assets/icons/minus-white.png';
+// import plusBtn from '../../../../Assets/icons/plus-white.png';
+// import closeBtn from '../../../../Assets/icons/close-btn.png';
+// import plusCharcol from '../../../../Assets/icons/plus.png';
+// import minusCharcol from '../../../../Assets/icons/minus.png'
+// import crossBtn from '../../../../Assets/icons/Mask group (1).png'
 import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
 import guardIcon from '../../../../Assets/icons/guard-icon.png';
 import { IoInformationCircle } from "react-icons/io5";
-import check from "../../../../Assets/check.png";
-import { useList } from '../../../../context/wishListContext/wishListContext';
+// import check from "../../../../Assets/check.png";
+import { useList } from '@/context/wishListContext/wishListContext';
 import { FaArrowsRotate } from "react-icons/fa6";
 import ToggleSwitch from '../../../../Global-Components/ToggleSwitch/ToggleSwitch';
 
@@ -103,7 +103,7 @@ const CartItems = ({
 
             <div className='cart-product'>
                 <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
-                    <img src={closeBtn} alt='close btn' />
+                    <img src={'/Assets/icons/close-btn.png'} alt='close btn' />
                 </button>
                 <div className='cart-item-name'>
                     <h3>{cartProductName}</h3>
@@ -119,11 +119,11 @@ const CartItems = ({
                         <div className='price-and-count'>
                             <div className='product-count'>
                                 <button onClick={handleDecreament}>
-                                    <img src={minusBtn} alt='minus' />
+                                    <img src={'/Assets/icons/minus-white.png'} alt='minus' />
                                 </button>
                                 <p>{quantity}</p>
                                 <button onClick={handleIncreament}>
-                                    <img src={plusBtn} alt='plus' />
+                                    <img src={'/Assets/icons/plus-white.png'} alt='plus' />
                                 </button>
                             </div>
                         </div>
@@ -143,7 +143,7 @@ const CartItems = ({
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
-                            <img src={crossBtn} alt='cross' />
+                            <img src={'/Assets/icons/Mask group (1).png'} alt='cross' />
                         </button>
                         <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
                             {/* <img src={rotatedArrow} className={`${saveForLeter ? 'arrow-rotate' : ''}`} />  */}
@@ -174,11 +174,11 @@ const CartItems = ({
 
                             <div className='desktop-quantity'>
                                 <button onClick={handleDecreament}>
-                                    <img src={minusCharcol} alt='minus' />
+                                    <img src={'/Assets/icons/minus.png'} alt='minus' />
                                 </button>
                                 <p className='cart-product-quantity'>{quantity}</p>
                                 <button onClick={handleIncreament}>
-                                    <img src={plusCharcol} alt='plus' />
+                                    <img src={'/Assets/icons/plus.png'} alt='plus' />
                                 </button>
                             </div>
 
@@ -189,11 +189,11 @@ const CartItems = ({
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
                             <div className='desktop-quantity'>
                                 <button onClick={handleDecreament}>
-                                    <img src={minusCharcol} alt='minus' />
+                                    <img src={'/Assets/icons/minus.png'} alt='minus' />
                                 </button>
                                 <p>{quantity}</p>
                                 <button onClick={handleIncreament}>
-                                    <img src={plusCharcol} alt='plus' />
+                                    <img src={'/Assets/icons/plus.png'} alt='plus' />
                                 </button>
                             </div>
                             <p className='cart-open-total-price'>{formatedTotalPrice}</p>
@@ -202,7 +202,7 @@ const CartItems = ({
                     <div className='desktop-cart-product-content-section-two'>
                         <div className='desktop-card-protection-div'>
                             <div className='guard-and-heading'>
-                                <img effect='blur' src={guardIcon} alt='guard' className='protection-guard-icon' />
+                                <img effect='blur' src={'/Assets/icons/guard-icon.png'} alt='guard' className='protection-guard-icon' />
                                 <div className='guard-title-and-details'>
                                     <div className='guard-title-and-details-head'>
                                         <h3 className='protection-guard-title'>Platinum Elite Furniture</h3>
@@ -216,14 +216,14 @@ const CartItems = ({
                                             <p className='protection-price-message detail'>
                                                 Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.
                                             </p>
-                                            <Link>Details</Link>
+                                            <Link href={'#'}>Details</Link>
                                         </div>
                                     </span>
                                 </div>
                             </div>
 
                             {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
-                                <img src={check} alt="" srcset="" />
+                                <img src={'/Assets/check.png'} alt="" srcset="" />
                                 <p>Protection Applied</p>
                             </div>
                                 : <div className='protection-btns-accept-and-cancel'>

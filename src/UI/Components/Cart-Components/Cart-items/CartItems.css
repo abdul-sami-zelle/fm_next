@@ -346,7 +346,7 @@
 
 .protection-price-message{
     font-size: var(--content-one-size) !important;
-    line-height: var(content-one-height) !important;
+    line-height: var(--content-one-height) !important;
     font-weight: var(--content-one-weight) !important;
     color: var(--text-primary) !important;
 }

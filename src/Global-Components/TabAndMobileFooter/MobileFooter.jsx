@@ -18,9 +18,12 @@ import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
 import axios from 'axios';
 import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import { useParams } from 'next/navigation';
 
 const MobileFooter = ({ checkoutPage }) => {
-    const footerHide = window.location.pathname
+    
+        const categorySlug = useParams()
+        const footerHide = categorySlug?.category
 
     const [googleRating, setGoogleRating] = useState(null);
 

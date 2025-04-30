@@ -206,7 +206,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
     const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay);
-    console.log("Default timings from footer ", defaultStoreTimings)
+    // console.log("Default timings from footer ", defaultStoreTimings)
 
     const nearStoreDetails = [
         {
@@ -243,7 +243,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const handleClick = () => {
         if (defaultStore?.latitude && defaultStore?.longitude) {
-            // Construct the Google Maps URL with the latitude and longitude
             const googleMapsUrl = `https://www.google.com/maps?q=${defaultStore?.latitude},${defaultStore?.longitude}`;
             // Open the URL in a new tab
             window.open(googleMapsUrl, "_blank");

@@ -3,18 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './BlogSlider.css';
-import diningRoomBlogImage from '../../../Assets/Furniture Mecca/Landing Page/blogs/Some-Basics-on-cleaning-Leather-Furniture 1.png';
-import livingRoomBlogImage from '../../../Assets/Furniture Mecca/Landing Page/blogs/Some-Basics-On-Keeping-Your-Living-Room-Furniture-Clean 1.png';
-import mattressBlogImage from '../../../Assets/Furniture Mecca/Landing Page/blogs/Perks-Of-Using-High-Quality-Mattresses-For-Sleeping 1.png';
 import BlogCard from './BlogCard';
-import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
-import rightArrow from '../../../Assets/icons/right-arrow.png'
 import { useBlog } from '../../../context/BlogsContext/blogsContext';
-// import { useNavigate } from 'react-router-dom';
 import BlogCardShimmer from './BlogCardShimmer/BlogCardShimmer';
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
-import { truncateTitle } from '../../../utils/api';
+import { useRouter } from 'next/navigation';
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -30,7 +24,7 @@ function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-right ${className}`} >
-      {/* <img src={rightArrow} alt='arrow' /> */}
+      
       <IoChevronForward />
     </div>
   )
@@ -39,15 +33,10 @@ function SampleNextArrow(props) {
 
 const BlogSlider = () => {
 
-  // const navigate = useNavigate()
+  const navigate = useRouter()
   const { 
     blogs,
-    fetchBlogCategories,
-    blogCategories,
-    setBlogCategories,
     fetchBlogs,
-    activeCategory,
-    setActiveCategory
    } = useBlog()
 
    useEffect(() => {
@@ -59,7 +48,7 @@ const BlogSlider = () => {
   const maxLength = 50;
 
   const handleNavigateToSingleBlog = (item) => {
-    // navigate(`/single-blog/${item.id}`, { state: item })
+    navigate.push(`/single-blog/${item.id}`, { state: item })
   }
 
 
@@ -69,7 +58,6 @@ const BlogSlider = () => {
   var settings = {
     dots: false,
     infinite: true,
-    // arrows: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,

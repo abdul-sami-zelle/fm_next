@@ -1,24 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react'
+'use client'
+
+import React, { use, useEffect, useRef, useState } from 'react'
 import './ProductDisplay.css';
-import ProductDetailSticky from '../../Components/Product-Display-Components/ProductDetailSticky/ProductDetailSticky';
-import ProductStickyTabBar from '../../Components/Product-Display-Components/ProductStickyTabBar/ProductStickyTabBar';
-import ProductDescriptionTab from '../../Components/Product-Display-Components/ProductTabs/ProductDescriptionTab/ProductDescriptionTab';
-import ProductDetailTab from '../../Components/Product-Display-Components/ProductTabs/ProductDetailTab/ProductDetailTab';
-import ProductRecommendationTab from '../../Components/Product-Display-Components/ProductTabs/ProductRecommendationTab/ProductRecommendationTab';
-import ProductReviewTab from '../../Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
-import { useLocation, useParams } from 'react-router-dom';
+import ProductDetailSticky from '@/UI/Components/Product-Display-Components/ProductDetailSticky/ProductDetailSticky';
+import ProductStickyTabBar from '@/UI/Components/Product-Display-Components/ProductStickyTabBar/ProductStickyTabBar';
+import ProductDescriptionTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductDescriptionTab/ProductDescriptionTab';
+import ProductDetailTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductDetailTab/ProductDetailTab';
+import ProductRecommendationTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductRecommendationTab/ProductRecommendationTab';
+import ProductReviewTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
+// import { useLocation, useParams } from 'react-router-dom';
+
 import axios from 'axios';
 import { url } from '../../../utils/api';
-import { useCart } from '../../../context/cartContext/cartContext';
-import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb';
-import GalleryModal from '../../Components/Product-Display-Components/GalleryModal/GalleryModal';
-import { useProductPage } from '../../../context/ProductPageContext/productPageContext';
+import { useCart } from '@/context/cartContext/cartContext';
+import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
+import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
+import { useParams } from 'next/navigation';
 
-const ProductDisplay = () => {
+const ProductDisplay = ({params}) => {
 
-  const { slug } = useParams();
-  const location = useLocation();
-  const [product, setProduct] = useState(location.state || null);
+  const { slug } = use(params);
+
+  console.log("product display slug", slug);
+//   const location = useLocation();
+//   const [product, setProduct] = useState(location?.state || null);
+const [product, setProduct] = useState(null);
 
   const [isSticky, setIsSticky] = useState(false)
 
@@ -262,6 +269,7 @@ const ProductDisplay = () => {
           isSticky={isSticky}
           handleGalleryModal={handleOpenModal}
           isCartLoading={isCartLoading}
+          params={params}
         // parentCategories={parentCategories}
         />
 
@@ -311,6 +319,7 @@ const ProductDisplay = () => {
       <ProductReviewTab
         reviewRef={sectionRefs.Reviews}
         product={product}
+        params={params}
       />
     </div>
   )

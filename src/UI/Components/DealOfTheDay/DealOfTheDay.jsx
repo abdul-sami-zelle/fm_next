@@ -104,14 +104,10 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   }
 
   useEffect(() => {
-    // if(!allProducts.length) {
     getDealOfTheMonthProducts()
-    // }
   }, []);
 
   useEffect(() => { getDealOfTheMonthProducts(); }, [categorySlug])
-  console.log("cat slug", categorySlug)
-  // useEffect(() => {getDealOfTheMonthProducts()}, [allProducts])
 
 
 

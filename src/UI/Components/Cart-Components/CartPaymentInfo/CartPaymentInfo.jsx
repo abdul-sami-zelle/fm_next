@@ -6,7 +6,7 @@ import discoverCArd from '../../../../Assets/Furniture Mecca/Cart Page/discover-
 import americanExpressCard from '../../../../Assets/Furniture Mecca/Cart Page/american-express-card.png'
 import { useRef } from 'react';
 import CartContinueBtn from '../CartContinueBtn/CartContinueBtn';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const CartPaymentInfo = ({ isPaymentTrue }) => {
 
@@ -66,7 +66,7 @@ const CartPaymentInfo = ({ isPaymentTrue }) => {
                     </div>
                 </div>
             </div>
-            <Link to={'/summery-page'}>
+            <Link href={'/summery-page'}>
                 <CartContinueBtn text={'Continue'} />
             </Link>
         </div>

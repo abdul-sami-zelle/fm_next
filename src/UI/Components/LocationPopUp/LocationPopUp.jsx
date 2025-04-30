@@ -90,12 +90,12 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         onClick={(e) => e.stopPropagation()}
       >
         <button className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch}>
-          <img src={closeBtn} alt='close btn' />
+          <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' />
         </button>
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>
             <span>
-              <img src={deliverTo} alt='delivery' />
+              <img src={'/Assets/icons/delivery.png'} alt='delivery' />
             </span>
             <h3>Delivery Location</h3>
           </div>

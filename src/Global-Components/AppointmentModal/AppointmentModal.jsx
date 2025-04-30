@@ -154,7 +154,7 @@ const AppointmentModal = (
                         <div className={`pagination-tab-line`}></div>
                         <div className='appointment-modal-tab-pagination'>
                             {tabs.map((item, index) => (
-                                <div className='appointment-modal-tab-btn-container'>
+                                <div key={index} className='appointment-modal-tab-btn-container'>
                                     <button key={index} onClick={() => handleSelectedTab(index + 1)} className={`appointment-modal-tab-btn ${(selectedTab >= index + 1) ? 'selected-tab' : ''}`}>{item.id}</button>
                                     <p>{item.title}</p>
                                 </div>

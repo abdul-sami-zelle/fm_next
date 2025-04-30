@@ -4,12 +4,13 @@ import filledStar from '../../../Assets/icons/Star 19.png';
 import axios from 'axios';
 import { formatedPrice, url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+// import { useNavigate } from 'react-router-dom';
 
 const AlsoNeed = ({productsUid}) => {
     
     // States and variables
-    const navigate = useNavigate()
+    const navigate = useRouter()
     const filledStars = [filledStar, filledStar, filledStar, filledStar]
     const relatedProduct = productsUid.map((item) => item)
     const [data, setData] = useState();
@@ -46,7 +47,7 @@ const AlsoNeed = ({productsUid}) => {
     };
 
     const handleNavigate = (item) => {
-        navigate(`/product/${item.slug}`, {state: {products: item}})
+        navigate.push(`/product/${item.slug}`, {state: {products: item}})
     }
 
   return (

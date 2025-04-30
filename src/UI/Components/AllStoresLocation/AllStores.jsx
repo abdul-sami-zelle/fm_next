@@ -41,10 +41,13 @@ const AllStores = () => {
 
     const handleModalPopUp = (index) => {
 
-      if(window.innerWidth <= 900){
-        setModalIndex(index);
-        setCardClicked(true)
+      if(typeof window !== 'undefined') {
+        if(window.innerWidth <= 900){
+          setModalIndex(index);
+          setCardClicked(true)
+        }
       }
+
     }
     const closeModal = () => {
       setCardClicked(false);

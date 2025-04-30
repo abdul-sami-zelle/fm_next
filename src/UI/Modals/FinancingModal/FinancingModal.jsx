@@ -6,7 +6,7 @@ import accimaIcon from '../../../Assets/icons/accima.webp'
 import progressiveIcon  from '../../../Assets/icons/progressive.webp'
 import ammericanFinanceIcon from '../../../Assets/icons/ammerican-financ.webp'
 import welFragoIcon from '../../../Assets/icons/visa.png'
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const FinancingModal = ({applyFinancing, handleCloseModal}) => {
 
@@ -46,7 +46,7 @@ const FinancingModal = ({applyFinancing, handleCloseModal}) => {
         <h3>Apply for Financing</h3>
 
         {financingOptions.map((item, index) => (
-            <Link className='financing-option-button' key={index} to={item.link} target='_blank' onClick={handleCloseModal}>
+            <Link className='financing-option-button' key={index} href={item.link} target='_blank' onClick={handleCloseModal}>
                 {item.icon && <img src={item.icon} alt='icon' />}
                 {item.name}
             </Link>

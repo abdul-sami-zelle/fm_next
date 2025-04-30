@@ -97,7 +97,7 @@ const BestSellerSlider = (
     const [cardsPerPage] = useState(6);
     const [totalPages] = useState(Math.ceil(allProducts.length / cardsPerPage));
     const [applyFilter, setApplyFilter] = useState(false);
-    const [width, setWidth] = useState(window.innerWidth);
+    const [width, setWidth] = useState(0);
     const [activeItem, setActiveItem] = useState(0)
     const [MobileActiveIndex, setMobileActiveIndex] = useState(0)
     const [mobIndex, setMobIndex] = useState(0)
@@ -119,11 +119,23 @@ const BestSellerSlider = (
         setMobIndex(index)
     }
 
+    // useEffect(() => {
+    //     const handleResizer = () => setWidth(window.innerWidth);
+    //     window.addEventListener("resize", handleResizer);
+    //     return () => window.removeEventListener("resize", handleResizer)
+    // })
+
     useEffect(() => {
-        const handleResizer = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handleResizer);
-        return () => window.removeEventListener("resize", handleResizer)
-    })
+        if(typeof window !== 'undefined') {
+            const handleResizer = () => setWidth(window.innerWidth);
+        
+            // Set initial width on client
+            setWidth(window.innerWidth);
+        
+            window.addEventListener("resize", handleResizer);
+            return () => window.removeEventListener("resize", handleResizer);
+        }
+      }, []);
 
     // product slice to show 6 product maxx
     const handleCardClicked = (item) => {

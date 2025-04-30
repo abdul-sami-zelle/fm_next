@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import './ProductDetailSticky.css'
 import ProductGallery from '../ProductGallery/ProductGallery'
 import ProductDimension from '../ProductDimenson/ProductDimension'
@@ -7,7 +7,7 @@ import RatingReview from '../../starRating/starRating'
 import { FaShareSquare } from 'react-icons/fa'
 import axios from 'axios'
 import { formatedPrice, truncateTitle, url ,getDeliveryDate} from '../../../../utils/api'
-import { useNavigate, useParams } from 'react-router-dom'
+// import { useNavigate, useParams } from 'react-router-dom'
 import AlsoNeed from '../../AlsoNeed/AlsoNeed'
 import SizeVariant from '../../SizeVariant/SizeVariant'
 import { FaLocationDot, FaPlus, FaWindowMinimize } from 'react-icons/fa6'
@@ -33,6 +33,7 @@ import { useAppointment } from '../../../../context/AppointmentContext/Appointme
 import { useCart } from '../../../../context/cartContext/cartContext'
 import { BsTruck } from "react-icons/bs";
 import ProductDisplayShimmer from '../ProductDisplayShimmers/ProductDisplayShimmer'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -60,12 +61,13 @@ const ProductDetailSticky = (
     handleGalleryModal,
     isSticky,
     isCartLoading,
+    params,
     // parentCategories,
   }) => {
 
   // console.log("product data initial state", productData)
 
-  const navigate = useNavigate()
+  const navigate = useRouter()
   const { setAppointmentPayload } = useAppointment()
   const [selectedTab, setSelectedTab] = useState(1);
 
@@ -80,7 +82,7 @@ const ProductDetailSticky = (
     selectedVariationData
   } = useProductPage();
 
-  const { slug } = useParams()
+  const { slug } = use(params);
   const [getBySlug, setGetBySlug] = useState({})
 
   const getProductDataWithSlug = async (slug) => {
@@ -198,7 +200,7 @@ const ProductDetailSticky = (
   }
 
   const handleNavigate = () => {
-    navigate('/contact-us')
+    navigate.push('/contact-us')
   }
 
   // Zoom gallery

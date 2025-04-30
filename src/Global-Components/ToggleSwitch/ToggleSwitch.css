@@ -2,7 +2,7 @@
     display: none;
 }
 
-.checkbox-wrapper-7 .tgl,
+/* .checkbox-wrapper-7 .tgl,
 .checkbox-wrapper-7 .tgl:after,
 .checkbox-wrapper-7 .tgl:before,
 .checkbox-wrapper-7 .tgl *,
@@ -27,6 +27,26 @@
 .checkbox-wrapper-7 .tgl *:before::selection,
 .checkbox-wrapper-7 .tgl+.tgl-btn::selection {
     background: none;
+} */
+
+.checkbox-wrapper-7 .tgl,
+.checkbox-wrapper-7 .tgl *,
+.checkbox-wrapper-7 .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+
+/* Remove selection background for .tgl and all children */
+.checkbox-wrapper-7 .tgl::selection,
+.checkbox-wrapper-7 .tgl *::selection,
+.checkbox-wrapper-7 .tgl + .tgl-btn::selection {
+  background: none;
+}
+
+/* Firefox specific selection reset */
+.checkbox-wrapper-7 .tgl::-moz-selection,
+.checkbox-wrapper-7 .tgl *::-moz-selection,
+.checkbox-wrapper-7 .tgl + .tgl-btn::-moz-selection {
+  background: none;
 }
 
 .checkbox-wrapper-7 .tgl+.tgl-btn {

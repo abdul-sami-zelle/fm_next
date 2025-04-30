@@ -48,12 +48,12 @@ const DealOfTheDayCard = ({
     
 
     // Deal of the day product name limitations
-    const maxLength = 40;
-    const truncateTitle = (title, maxLength) => {
-      if(!title) return '';  
-      return title.length > maxLength ? title.slice(0, maxLength) + '...' : title 
+    // const maxLength = 40;
+    // const truncateTitle = (title, maxLength) => {
+    //   if(!title) return '';  
+    //   return title.length > maxLength ? title.slice(0, maxLength) + '...' : title 
       
-    };
+    // };
     const {isInWishList} = useList()
     return (
       <div 

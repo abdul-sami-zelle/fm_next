@@ -82,7 +82,7 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
                 </div>
                 <div className='share-product-social-platforms'>
                     {socialPlatforms.map((item, index) => (
-                        <div className='share-product-single-social-platform'>
+                        <div key={index} className='share-product-single-social-platform'>
                             {/* <img src={item.img} alt={item.name} /> */}
                             <Link href={item.link} target='_blank'>{item.img}</Link>
                             {/* <p>{item.name}</p> */}

@@ -6,13 +6,12 @@ import MobileViewPaypalBanner from '../../../Assets/images/Group 382.png';
 import installmentBanner from '../../../Assets/Furniture Mecca/Landing Page/Pay option banner/New Main Financing.jpg';
 // import fullBed from '../../../Assets/to-be-change/hp-fourth_hero_mat_desktop_1b_3200x1388.png';
 import mobileViewFullBed from '../../../Assets/images/Rectangle 703.png'
-import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
+// import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 import { url } from '../../../utils/api';
 
 const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, mainImgShow, showBanners, paddingTop }) => {
   const [imagePreloader, setImagePreloader] = useState(false);
 
-  console.log("mobile Latest banner banner", mobileMainImage)
 
 
   return (
@@ -52,7 +51,7 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
           
 
           {!imagePreloader && <div className='image_preloader'>
-            <img src={loader} alt="" />
+            <img src={'/Assets/Loader-animations/loader-check-two.gif'} alt="" />
           </div>}
         </div>
 

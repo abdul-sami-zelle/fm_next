@@ -31,7 +31,7 @@ const CartSidePannel = (
       } = useGlobalContext();
 
 
-      console.log("card Data", cartData)
+      // console.log("card Data", cartData)
     
       
 

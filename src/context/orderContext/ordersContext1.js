@@ -193,10 +193,12 @@ export const MyOrdersProvider = ({ children }) => {
     };
 
     const handleClickTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
+        if(typeof window !== 'undefined') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+        }
     }
 
     const handleTabOpen = (tabId, scrollTop) => {

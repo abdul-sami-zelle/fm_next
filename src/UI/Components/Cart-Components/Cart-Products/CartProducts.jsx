@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import './CartProducts.css';
 import CartItems from '../Cart-items/CartItems';
 import CartPaymnetMethoud from '../CArtAddPaymentMethoud/CartPaymnetMethoud';
-import { useCart } from '../../../../context/cartContext/cartContext';
+import { useCart } from '@/context/cartContext/cartContext';
 import EmptyCart from '../Empty-Cart/EmptyCart';
 import MobileCart from '../Mobile-Cart/MobileCart';
-import Breadcrumb from '../../../../Global-Components/BreadCrumb/BreadCrumb';
+import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import { IoLocationOutline } from "react-icons/io5";
 import LocationPopUp from '../../LocationPopUp/LocationPopUp';
-import guardIcon from '../../../../Assets/icons/guard-icon.png'
-import { formatedPrice } from '../../../../utils/api';
-import { useGlobalContext } from '../../../../context/GlobalContext/globalContext';
-import SnakBar from '../../../../Global-Components/SnakeBar/SnakBar';
+// import guardIcon from '../../../../Assets/icons/guard-icon.png'
+import { formatedPrice } from '@/utils/api';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 
 const CartProducts = () => {
@@ -108,7 +108,7 @@ const CartProducts = () => {
 
                 <div className='cart-products-heading'>
                     <Breadcrumb />
-                    <h3>Cart ({cartProducts.products.length} items)</h3>
+                    <h3>Cart ({cartProducts.products?.length} items)</h3>
                 </div>
 
 
@@ -135,7 +135,7 @@ const CartProducts = () => {
                         <div className='cart-protect-or-not-container'>
 
                             <div className='cart-protect-card' onClick={handleCartProtected}>
-                                <img src={guardIcon} alt='guard icon' className='cart-protection-card-icon' />
+                                <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
                                 <div className='cart-protection-plan-details-container'>
                                     <p className='cart-protection-plan-card-header'>Protect Entire Order</p>
                                     <p className='cart-protection-plan-cart-desc'>{formatedPrice(200)}</p>
@@ -151,7 +151,7 @@ const CartProducts = () => {
                             </div>
 
                             <div className='cart-protect-card' onClick={handleCartAssembly}>
-                                <img src={guardIcon} alt='guard icon' className='cart-protection-card-icon' />
+                                <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
                                 <div className='cart-protection-plan-details-container'>
                                     <p className='cart-protection-plan-card-header'>Professional Assembly (+ $210)</p>
                                     <p className='cart-protection-plan-cart-desc'>Use professional assembly for all products and save up to $80</p>
@@ -177,9 +177,9 @@ const CartProducts = () => {
                         <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
                         <div className='cart-protect-or-not-container'>
                             {selectedShippingMethods &&
-                                selectedShippingMethods.map((option, index) => (
+                                selectedShippingMethods?.map((option, index) => (
                                     <div className='cart-protect-card' onClick={() => handleChange(null, option)}>
-                                        <img src={guardIcon} alt='guard icon' className='cart-protection-card-icon' />
+                                        <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
                                         <div className='cart-protection-plan-details-container'>
                                             <p className='cart-protection-plan-card-header'>{option.name}</p>
                                         </div>
@@ -215,11 +215,11 @@ const CartProducts = () => {
                                 ))}
                         </div>
                     </div>
-                    {cartProducts.products.length <= 0 && <EmptyCart />}
-                    {cartProducts.products.map((items, index) => {
+                    {cartProducts.products?.length <= 0 && <EmptyCart />}
+                    {cartProducts && cartProducts?.products?.map((items, index) => {
                         return <CartItems
                             key={items.product_uid}
-                            totalProducts={cartProducts?.products.length}
+                            totalProducts={cartProducts?.products?.length}
                             attributes={items.attributes}
                             onlyMobile={false}
                             productData={items}
@@ -227,7 +227,7 @@ const CartProducts = () => {
                             issingleProtected={issingleProtected}
                             handleSingleProtected={() => { }}
                             cartIndex={items.product_uid}
-                            productsLength={cartProducts.products.length}
+                            productsLength={cartProducts.products?.length}
                             handleRomoveProduct={() => {
                                 handleShowSnakeToust(items.name);
                                 removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)
@@ -254,8 +254,8 @@ const CartProducts = () => {
                     </div>}
                 </div>
                 <div className='mobile-cart-items'>
-                    {cartProducts.products.length <= 0 && <EmptyCart />}
-                    {cartProducts.products.map((items, index) => (
+                    {cartProducts.products?.length <= 0 && <EmptyCart />}
+                    {cartProducts && cartProducts?.products?.map((items, index) => (
                         <MobileCart
                             key={items.product_uid}
                             attributes={items.attributes}
@@ -264,7 +264,7 @@ const CartProducts = () => {
                             issingleProtected={issingleProtected}
                             handleSingleProtected={() => { }}
                             cartIndex={items.product_uid}
-                            productsLength={cartProducts.products.length}
+                            productsLength={cartProducts.products?.length}
                             handleRomoveProduct={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
                             cartProductName={items.name}
                             cartPRoductImage={items.image?.image_url}

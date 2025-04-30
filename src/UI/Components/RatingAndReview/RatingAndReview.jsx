@@ -73,7 +73,7 @@ const RatingAndReview = ({ rating, data }) => {
 
                     <div className='customer-images-section-not'>
 
-                        <img src={no_image} />
+                        <img src={'/Assets/no_image.png'} alt=' no image icon' />
                     </div>
 
 

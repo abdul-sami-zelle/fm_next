@@ -2,20 +2,14 @@ import React, { useState } from 'react'
 import './ProductDescriptionTab.css'
 import { url } from '../../../../../utils/api'
 
-import performanceIcon from '../../../../../Assets/icon/performance-fabric.svg'
-import pillow from '../../../../../Assets/icon/pillows.svg'
-import spaceIcon from '../../../../../Assets/icon/home-dimention.svg'
-import seatDepth from '../../../../../Assets/icon/sofa-side.svg'
-import seatCushion from '../../../../../Assets/icon/sofa-front.svg'
-
 const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop }) => {
 
   const featuresData = [
-    {icon: performanceIcon, title: 'Upholstery Material', secondTitle: 'Performance Fabric'},
-    {icon: pillow, title: '# of Accent Pillows', secondTitle: '2'},
-    {icon: spaceIcon, title: 'Lifestyle Size', secondTitle: 'Small Space'},
-    {icon: seatDepth, title: 'Seat Depth', secondTitle: '20.00"'},
-    {icon: seatCushion, title: 'Seat Cushion Style', secondTitle: 'Loose'},
+    {icon: '/Assets/icon/performance-fabric.svg', title: 'Upholstery Material', secondTitle: 'Performance Fabric'},
+    {icon: '/Assets/icon/pillows.svg', title: '# of Accent Pillows', secondTitle: '2'},
+    {icon: '/Assets/icon/home-dimention.svg', title: 'Lifestyle Size', secondTitle: 'Small Space'},
+    {icon: '/Assets/icon/sofa-side.svg', title: 'Seat Depth', secondTitle: '20.00"'},
+    {icon: '/Assets/icon/sofa-front.svg', title: 'Seat Cushion Style', secondTitle: 'Loose'},
   ]
 
 

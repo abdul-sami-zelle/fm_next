@@ -36,7 +36,7 @@ import { AppointmentProvider } from '@/context/AppointmentContext/AppointmentCon
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import '../styles/App.css'; // Global styles for the entire app
+import '../Styles/App.css'; // Global styles for the entire app
 import '../Styles/index.css' // Global styles for the entire app
 
 export default function RootLayout({ children }) {
@@ -45,20 +45,24 @@ export default function RootLayout({ children }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if(typeof window !== 'undefined') {
+      const handleScroll = () => {
+        if (window.scrollY > 300) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   const handleClickTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if(typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (

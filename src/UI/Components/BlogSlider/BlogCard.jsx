@@ -1,15 +1,12 @@
 import React from 'react'
 import './BlogCard.css';
-import rightArrowWithooutOutline from '../../../Assets/icons/arrow-right-without-outline-black.png'
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { url } from '../../../utils/api';
 
 const BlogCard = (
     {
         img, 
-        category, 
         title, 
         comments,
         navigateToSingleBlog,
@@ -37,7 +34,6 @@ const BlogCard = (
                 <img src={`${url}${img}`} alt='img' />
             </div>
             <div className='blog-arther-details'>
-                {/* <p>{category}</p> */}
                 <h3>{title}</h3>
                 <div className='blog-created-by-and-comments'>
                     <div className='blog-star-rating'>

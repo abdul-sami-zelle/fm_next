@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import './ProductReviewTab.css'
 import WriteReview from '../../../WriteReview/WriteReview'
 import RatingAndReview from '../../../RatingAndReview/RatingAndReview'
 import axios from 'axios'
 import { url } from '../../../../../utils/api'
-import { useLocation, useParams } from 'react-router-dom'
+// import { useLocation, useParams } from 'react-router-dom'
 import ProductComments from '../../../ProductComments/ProductComments'
 import SnakBar from '../../../../../Global-Components/SnakeBar/SnakBar'
 
-const ProductReviewTab = ({ id, reviewRef, productData }) => {
+const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
 
-  const { slug } = useParams();
-  const location = useLocation();
+  const { slug } = use(params);
+  // const location = useLocation();
   const [product, setProduct] = useState(productData || null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);

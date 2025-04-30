@@ -23,7 +23,7 @@ const MobileCart = (
     return (
         <div className='mobile-cart'>
             <button className='mobile-delete-product' onClick={() => handleRomoveProduct(cartIndex)}>
-                <img src={deleteIcon} alt='delete icon' />
+                <img src={'/Assets/icons/delete-red.png'} alt='delete icon' />
             </button>
             <h3 className='mobile-priduct-name'>{productData.name}</h3>
             <div className='mobile-cart-product-image-and-containt'>
@@ -35,11 +35,11 @@ const MobileCart = (
                     <div className='mobile-cart-product-count-and-total-price'>
                         <div className='mobile-cart-product-count'>
                             <button onClick={handleDecreament}>
-                                <img src={minusBtn} alt='minus' />
+                                <img src={'/Assets/icons/minus.png'} alt='minus' />
                             </button>
                             <p>{quantity}</p>
                             <button onClick={handleIncreament}>
-                                <img src={plusBtn} alt='plus-btn' />
+                                <img src={'/Assets/icons/plus.png'} alt='plus-btn' />
                             </button>
                         </div>
                         <p> {formatedPrice(productTotalPrice)}</p>

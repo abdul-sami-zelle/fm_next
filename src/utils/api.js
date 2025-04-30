@@ -118,10 +118,15 @@ export const formatedPrice = (price) => {
 }
 
 export function openLink(link) {
-  if (link) {
+  // if (link) {
+  //   window.location.href = link;
+  // } else {
+  //   console.error("No link provided!");
+  // }
+  if (typeof window !== 'undefined' && link) {
     window.location.href = link;
   } else {
-    console.error("No link provided!");
+    console.error("No link provided or window is not available!");
   }
 }
 

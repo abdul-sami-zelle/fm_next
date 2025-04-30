@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './FrequentlyBought.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import star from '../../../Assets/icons/black-star.png'
 import { url } from '../../../utils/api';
@@ -10,6 +10,7 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo';
 import QuickView from '../QuickView/QuickView';
+import { useRouter } from 'next/navigation';
 
 const FrequentlyBought = ({ relatedProducts, isPadding }) => {
 
@@ -42,7 +43,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
     }, [])
 
     // const {products} = useProducts()
-    const navigate = useNavigate()
+    const navigate = useRouter();
     
 
     // wish list
@@ -73,7 +74,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const handleProductClick = (item) => {
-        navigate(`/product/${item.slug}`, { state: item });
+        navigate.push(`/product/${item.slug}`, { state: item });
     };
 
 
