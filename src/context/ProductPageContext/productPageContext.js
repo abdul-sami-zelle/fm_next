@@ -15,8 +15,9 @@ export const ProductPageProvider = ({ children }) => {
         return list?.find(obj => obj?.uid === uid) || null;
     }
     
-    useEffect(()=>{
-    },[singleProductData])
+    // useEffect(()=>{
+    //     console.log("single Product Data", singleProductData)
+    // },[singleProductData])
     
     return (
         <ProductPageContext.Provider value={{ 

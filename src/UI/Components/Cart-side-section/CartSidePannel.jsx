@@ -114,7 +114,7 @@ const CartSidePannel = (
           })}
         </div>
 
-        <div className='cart-side-section-buttons'>
+        <div className='cart-side-section-buttons'> 
 
         
           {cartProducts?.products?.length > 0 ? (

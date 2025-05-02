@@ -19,7 +19,7 @@ const CategoriesClient = ({ category }) => {
 
 //   const {category} = use(params);
 
-  const navigate = useRouter();
+  const router = useRouter();
   const location = usePathname();
   const [loading, setLoading] = useState(false);
   const { setTitle, setDescription, setImage } = useSEOContext();
@@ -102,10 +102,10 @@ const CategoriesClient = ({ category }) => {
   }, [])
 
   const handleNavigate = (slug, item) => {
-    navigate.push(`/${category}/${item.slug}`, { state: item });
+    router.push(`/${category}/${item.slug}`, { state: item });
   };
 
-  console.log("banner main image", `https://fmapi.myfurnituremecca.com${categoryData?.bannerImage}`)
+  // console.log("banner main image", `https://fmapi.myfurnituremecca.com${categoryData?.bannerImage}`)
 
 
   return (
@@ -133,8 +133,6 @@ const CategoriesClient = ({ category }) => {
           api={`/api/v1/products/get-deal-of-month-products?limit=10&slug=${category}`}
         />
       )}
-
-
 
       <CategoriesGetScop text={paragraph} contentImages={contentImages} isTrue={true} />
 

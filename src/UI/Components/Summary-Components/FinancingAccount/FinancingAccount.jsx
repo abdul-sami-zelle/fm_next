@@ -8,7 +8,7 @@ const FinancingAccount = ({topHeadng, buttonText, askQuestion, applyText}) => {
     <div className='payment-type-financing-main-container'>
       <div className='payment-type-financing-heading'>
         <h3>{topHeadng}</h3>
-        <img src={acima} alt='financing card' />
+        <img src={'/Assets/icons/acima.png'} alt='financing card' />
       </div>
       <div className='payment-type-financing-inputs-main'>
         <button>

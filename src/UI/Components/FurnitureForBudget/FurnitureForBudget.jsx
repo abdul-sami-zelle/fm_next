@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation'
 
 const FurnitureForBudget = ({ budgetCardData }) => {
     
-    const navigate = useRouter();
+    const router = useRouter();
 
     const navigateToDetails = (uid, max_price, category) => {
-        navigate.push(`/furniture-for-every-budget?category=${category}&categoryUid=${uid}&max_price=${max_price}`);
+        router.push(`/furniture-for-every-budget?category=${category}&categoryUid=${uid}&max_price=${max_price}`);
     }
     return (
         <div className='furniture-for-budget-main-secton'>

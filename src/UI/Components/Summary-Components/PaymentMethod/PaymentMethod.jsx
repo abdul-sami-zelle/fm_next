@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './PaymentMethod.css';
 import { useMyOrders } from '../../../../context/orderContext/ordersContext';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PaymentTypes from '../PaymentTypes/PaymentTypes';
 import CreditCard from '../CreditCard/CreditCard';
 import FinancingAccount from '../FinancingAccount/FinancingAccount';
@@ -25,7 +25,8 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
   
 
   // new design scripts
-  const [selectedPaymentType, setSelectedPaymentType] = useState('financing-account');
+  const [selectedPaymentType, setSelectedPaymentType] = useState('credit-card');
+  // const [selectedPaymentType, setSelectedPaymentType] = useState('financing-account');
 
 
   return (

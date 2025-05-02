@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 
 function FinanceBanner2({image,mobileImage}) {
-  const navigate = useRouter;
+  const router = useRouter;
   const handleNavigate = () => {
-    navigate.push(`/financing`);
+    router.push(`/financing`);
   }
   return (
     <div className="finance_banner_2">

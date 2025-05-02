@@ -47,12 +47,14 @@ export const CartProvider = ({ children }) => {
     });
 
     const [isProfessionalAssembly, setIsProfessionalAssembly] = useState(() => {
-        if (typeof window !== "undefined") {
+        // if (typeof window !== "undefined") {
+        console.log("cart assembly state", localStorage.getItem('cart2'))
             const savedCart = localStorage.getItem('cart2');
             const savedIsProfessionalAssembly = savedCart ? JSON.parse(savedCart).is_professional_assembly : 0;
+            console.log("cart assembly state", savedIsProfessionalAssembly)
             return savedIsProfessionalAssembly === 1; // If saved value is 1, set true; otherwise, false
-        }
-        return null
+        // }
+        // return null
     });
 
     useEffect(() => {

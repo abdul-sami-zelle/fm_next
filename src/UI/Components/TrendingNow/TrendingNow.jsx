@@ -38,9 +38,9 @@ const TrendingNow = ({ data }) => {
         pauseOnHover: false,
     };
 
-    const navigate = useRouter();
+    const router = useRouter();
     const handleNavigate = (item) => {
-        navigate.push(`/product/${item.link_url}`)
+        router.push(`/product/${item.link_url}`)
     }
 
 
@@ -74,7 +74,7 @@ const TrendingNow = ({ data }) => {
                         </div>
                         <div className='trending-items-cards'>
                             {productArray.map((item, index) => (
-                                <div key={item.uid} className='trending-item-category' onClick={() => handleNavigate(item)}>
+                                <div key={item.uid || `product-${index}`} className='trending-item-category' onClick={() => handleNavigate(item)}>
                                     <img
                                         src={`${url}${item.image_url}`}
                                         alt={item.alt_text}

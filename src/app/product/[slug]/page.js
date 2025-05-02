@@ -16,16 +16,33 @@ import { useCart } from '@/context/cartContext/cartContext';
 import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 
 const ProductDisplay = ({params}) => {
 
   const { slug } = use(params);
+  const {singleProductData} = useProductPage();
 
-  console.log("product display slug", slug);
-//   const location = useLocation();
-//   const [product, setProduct] = useState(location?.state || null);
-const [product, setProduct] = useState(null);
+  // const location = useSearchParams();
+  // const dataState = location.get('dataState');
+
+  // console.log("dataState", dataState)
+
+  // useEffect(() => {
+  //   const param = location.get('dataState');
+  //   if (param) {
+  //     try {
+  //       setDataState(JSON.parse(param));
+  //       console.log('Before fetch API', JSON.parse(param));
+  //     } catch (err) {
+  //       console.error('Failed to parse query param:', err);
+  //     }
+  //   }
+  // }, [location]);
+  // const dataState = location.get('dataState');
+  // console.log("Before fetch api", dataState)
+  const [product, setProduct] = useState(singleProductData || null);
+// const [product, setProduct] = useState(null);
 
   const [isSticky, setIsSticky] = useState(false)
 

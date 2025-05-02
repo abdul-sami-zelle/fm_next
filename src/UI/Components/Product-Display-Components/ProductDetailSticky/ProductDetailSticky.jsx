@@ -27,7 +27,7 @@ import { PiStorefrontLight } from "react-icons/pi";
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import AppointmentModal from '../../../../Global-Components/AppointmentModal/AppointmentModal'
 import LocationPopUp from '../../LocationPopUp/LocationPopUp'
-import ConfirmationModal from '../../../../Global-Components/AppointmentModal/ConfirmationModal/ConfirmationModal'
+// import ConfirmationModal from '../../../../Global-Components/AppointmentModal/ConfirmationModal/ConfirmationModal'
 import SnakBar from '../../../../Global-Components/SnakeBar/SnakBar'
 import { useAppointment } from '../../../../context/AppointmentContext/AppointmentContext';
 import { useCart } from '../../../../context/cartContext/cartContext'
@@ -67,7 +67,7 @@ const ProductDetailSticky = (
 
   // console.log("product data initial state", productData)
 
-  const navigate = useRouter()
+  const router = useRouter()
   const { setAppointmentPayload } = useAppointment()
   const [selectedTab, setSelectedTab] = useState(1);
 
@@ -200,7 +200,7 @@ const ProductDetailSticky = (
   }
 
   const handleNavigate = () => {
-    navigate.push('/contact-us')
+    router.push('/contact-us')
   }
 
   // Zoom gallery
@@ -259,7 +259,7 @@ const ProductDetailSticky = (
 
   const [appointmentModal, setAppointmentModal] = useState(false);
   const handleShowAppointmentModal = () => {
-    console.log("clicked")
+    // console.log("clicked")
     setAppointmentModal(true);
   }
 
@@ -333,7 +333,7 @@ const ProductDetailSticky = (
 
   const { eachProtectionValue } = useCart();
 
-  console.log("products data", Object.keys(product).length)
+  // console.log("products data", Object.keys(product).length)
 
 
 

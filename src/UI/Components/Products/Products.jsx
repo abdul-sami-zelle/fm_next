@@ -84,15 +84,7 @@ const Products = ({ navigationType }) => {
 
     const query = params.get('query');
     const searchParams = useSearchParams()
-    // const setSearchParams = (value) => {
-    //     const params = new URLSearchParams(searchParams.toString());
-    //     if (value) {
-    //         params.set(value);
-    //     } else {
-    //         params.delete(value)
-    //     }
-
-    // }
+    
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
     const navigate = useRouter();
@@ -249,15 +241,17 @@ const Products = ({ navigationType }) => {
     };
 
     const handleClearFilters = () => {
-        setPriceRange([300, 900])
+        setPriceRange([priceRange[0], priceRange[1]])
         setColorValue([]);
         setRatingValue([]);
-        const pathname = window.location.pathname;
-        router.replace(pathname, { shallow: true });
         fetchProductData();
         fetchFilters();
         setActivePage(1);
         setActivePageIndex(1);
+        const pathname = window.location.pathname;
+        router.replace(pathname, { shallow: true });
+        
+        
     }
 
     const filterProducts = async (filter) => {
@@ -406,9 +400,9 @@ const Products = ({ navigationType }) => {
     };
 
     useEffect(() => {
-        if (navigationType !== 'POP' || !products?.length > 0) {
+        // if (navigationType !== 'POP' || !products?.length > 0) {
             fetchProductData()
-        }
+        // }
     }, [location.pathname])
 
     // Product Click Functions 

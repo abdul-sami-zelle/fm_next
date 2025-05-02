@@ -53,7 +53,7 @@ const BestSellerSlider = (
     }) => {
 
     // States and Variables
-    const navigate = useRouter()
+    const router = useRouter()
 
     const [currentSlug, setCurrentSlug] = useState();
     const [loading, setLoading] = useState(false);
@@ -142,7 +142,7 @@ const BestSellerSlider = (
 
         addSingleProduct(item)
         addToCart(item)
-        navigate.push(`/product/${item.slug}`, { state: item })
+        router.push(`/product/${item.slug}`)
 
     }
 

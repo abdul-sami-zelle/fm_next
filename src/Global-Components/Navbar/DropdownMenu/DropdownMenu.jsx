@@ -1,9 +1,12 @@
+
 import React, { useState } from 'react'
 import './DropdownMenu.css';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { formatedPrice, url } from '../../../utils/api';
 // import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
+import { useRouter } from 'next/navigation';
 
 const DropdownMenu = (
     {
@@ -18,10 +21,12 @@ const DropdownMenu = (
     // const segment = location.pathname.split('/');
     // const lastSegment = segment[segment.length - 1];
 
+    const {singleProductData, setSingleProductData} = useProductPage();
+
     const lastSegment = 'product'
 
     const [activeIndex, setActiveIndex] = useState(null);
-    // const navigate = useRouter();
+    const router = useRouter();
 
     const handleActiveIndex = (index) => {
         setActiveIndex(index);
@@ -38,7 +43,9 @@ const DropdownMenu = (
     const chunkedNavData = chunkArray(dropDownNavData, 11);
 
     const handleNavigate = (item) => {
-        // navigate(`/product/${item.slug}`, { state: item });
+        console.log("cliecked item", item)
+        router.push(`/product/${item.slug}`);
+        setSingleProductData(item);
     }
 
 
@@ -69,11 +76,10 @@ const DropdownMenu = (
             {
                 products && <div className='mattresses-images-div' >
                     {products?.map((item, index) => {
-                        return <Link
+                        return <div
                             key={index}
                             className='mattress-image'
                             onClick={() => handleNavigate(item)}
-                            href={{ pathname: `/product/${item.slug}`, state: item }}
                         >
                             <img src={url + item.image} alt={item.name} />
                             <Link className='image-title' href={item.slug}>{item.name}</Link>
@@ -86,7 +92,7 @@ const DropdownMenu = (
                                     </span>
                                 }
                             </div>
-                        </Link>
+                        </div>
                     })}
                 </div>
             }

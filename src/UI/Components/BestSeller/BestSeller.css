@@ -65,6 +65,24 @@
     border-bottom: 3px solid var(--primary-color);
 }
 
+.products-slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 5px;
+    z-index: 0;
+}
+
+.best-seller-slider {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    transition: transform 0.5s ease-in-out;
+    gap: 15px;
+    padding: 4px;
+    width: 100%;
+    z-index: 0;
+}
+
 /* Best Seller Product Cards */
 .category-products-main-container{
     display: grid;
@@ -309,7 +327,7 @@
     z-index: 99999;
 }
 
-.mobile-view-best-seller-slider-arrows img{
+.mobile-view-best-seller-slider-arrows img{ 
     width: auto;
     height: 100%;
     object-fit: contain;

@@ -53,7 +53,7 @@ const BestSeller = ({ categoryData }) => {
     const [data, setData] = useState(categoryData)
     const bestSellerNav = ['Living Room', 'Bedroom', 'Dining Room']
     const [activeItem, setActiveItem] = useState(0);
-    const navigate = useRouter()
+    const router = useRouter()
 
     // Functions
     const getBestSellerProducts = async (slug) => {
@@ -61,7 +61,7 @@ const BestSeller = ({ categoryData }) => {
         try {
             setLoading(true);
             const response = await axios.get(`${url}${api}`)
-            console.log("fetched products ", response)
+            // console.log("fetched products ", response)
             setAllProducts(response.data.products);
             setLoading(false)
 
@@ -93,7 +93,7 @@ const BestSeller = ({ categoryData }) => {
     };
 
     const handleProductClick = (item) => {
-        navigate.push(`/product/${item.slug}`, { state: { products: item } });
+        router.push(`/product/${item.slug}`);
     }
 
     const itemPerPage = 6
@@ -166,7 +166,7 @@ const BestSeller = ({ categoryData }) => {
 
         addSingleProduct(item)
         addToCart(item)
-        navigate.push(`/product/${item.slug}`, { state: item })
+        router.push(`/product/${item.slug}`)
 
     }
 
@@ -206,7 +206,7 @@ const BestSeller = ({ categoryData }) => {
                                 ) : <></>}
                             </div>
 
-                            <div className='products-slider-container'>
+                            <div className='products-slider-container'> 
                                 {!loading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
                                     {products && products.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
                                         <BestSellerProductCard

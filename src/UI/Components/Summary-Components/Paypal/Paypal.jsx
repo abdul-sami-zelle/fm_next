@@ -7,7 +7,7 @@ const Paypal = () => {
     <div className='payment-type-paypal-main-container'>
       <div className='payment-type-paypal-heading'>
         <h3>Paypal</h3>
-        <img src={paypal} alt='paypal' />
+        <img src={'/Assets/icons/paypal-1.png'} alt='paypal' />
       </div>
     </div>
   )

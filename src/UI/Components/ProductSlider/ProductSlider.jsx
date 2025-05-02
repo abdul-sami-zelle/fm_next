@@ -6,6 +6,7 @@ import { useSingleProductContext } from '../../../context/singleProductContext/s
 import { useCart } from '../../../context/cartContext/cartContext';
 import ProductSliderShimmer from './ProductSliderShimmer/ProductSliderShimmer';
 import { useRouter } from 'next/navigation';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
 const ProductSlider = ({ cardData }) => {
 
@@ -14,7 +15,7 @@ const ProductSlider = ({ cardData }) => {
   const [startPos, setStartPos] = useState(0);
   const [scrollPos, setScrollPos] = useState(0);
 
-  const navigate = useRouter();
+  const router = useRouter();
 
   const getPositionX = (event) => {
     return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
@@ -46,13 +47,15 @@ const ProductSlider = ({ cardData }) => {
     }
   };
   const { addSingleProduct } = useSingleProductContext();
+  const {singleProductData, setSingleProductData} = useProductPage();
   const { addToCart } = useCart()
 
   const handleCardClicked = (item) => {
     // addSingleProduct(item)
     addSingleProduct(item)
     addToCart(item)
-    navigate.push(`/product/${item.slug}`, { state: item })
+    router.push(`/product/${item.slug}`)
+    setSingleProductData(item)
     // addQuantityIntoProduct(item.uid, setAllProducts, allProducts)
 
   }

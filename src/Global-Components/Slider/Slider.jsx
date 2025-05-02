@@ -67,14 +67,14 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
         autoplay: true,
         autoplaySpeed: autoSlideSpeed,  // Using the passed prop for auto-slide speed
         pauseOnHover: false,
-        prevArrow: imagePreloader ? <CustomPrevArrow /> : <></>,
-        nextArrow: imagePreloader ? <CustomNextArrow /> : <></>,
+        prevArrow: imagePreloader ? <CustomPrevArrow /> : null,
+        nextArrow: imagePreloader ? <CustomNextArrow /> : null,
         beforeChange: () => setIsDragging(true),
         afterChange: () => setIsDragging(false),
     };
 
     return (
-        <React.Fragment data-role="slider">
+        <div data-role="slider">
             <div className="slider" style={{ cursor: 'grab', height: height || "calc(100vw * 0.26355)" }}>
                 <Slider {...settings}>
                     {images && images?.desktop?.map((img, index) => (
@@ -122,7 +122,7 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                     <div className='mobile-view-slider-shimmer'></div>
                 )}
             </div>
-        </React.Fragment>
+        </div>
     );
 };
 

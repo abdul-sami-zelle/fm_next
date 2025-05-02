@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './CreditCard.css'
-import { useMyOrders } from '../../../../context/orderContext/ordersContext';
+import { useMyOrders } from '@/context/orderContext/ordersContext';
 
-import masterCard from '../../../../Assets/icons/mastercard-1.png';
-import visaCard from '../../../../Assets/icons/visa-1.png'
-import americanExpressCard from '../../../../Assets/icons/ae-1.png';
-import discover from '../../../../Assets/icons/discover-1.png'
-import paypal from '../../../../Assets/icons/paypal-1.png'
+// import masterCard from '../../../../Assets/icons/mastercard-1.png';
+// import visaCard from '../../../../Assets/icons/visa-1.png'
+// import americanExpressCard from '../../../../Assets/icons/ae-1.png';
+// import discover from '../../../../Assets/icons/discover-1.png'
+// import paypal from '../../../../Assets/icons/paypal-1.png'
 
 
 
@@ -19,14 +19,14 @@ const CreditCard = () => {
         activePaymentMethods
     } = useMyOrders();
 
-    const checkPaymentMethodById = (id) => {
-        const paymentMethod = activePaymentMethods?.find(pm => pm.id === id);
-        if (paymentMethod) {
-            return paymentMethod;
-        } else {
-            return paymentMethod;
-        }
-    };
+    // const checkPaymentMethodById = (id) => {
+    //     const paymentMethod = activePaymentMethods?.find(pm => pm.id === id);
+    //     if (paymentMethod) {
+    //         return paymentMethod;
+    //     } else {
+    //         return paymentMethod;
+    //     }
+    // };
 
 
     const detectCardType = (cardNumber) => {
@@ -70,10 +70,10 @@ const CreditCard = () => {
     return (
         <div className='credit-card-type-main-container'>
             <div className='credit-card-type-head'>
-                <img src={masterCard} alt='card' />
-                <img src={visaCard} alt='card' />
-                <img src={discover} alt='card' />
-                <img src={americanExpressCard} alt='card' />
+                <img src={'/Assets/icons/mastercard-1.png'} alt='card' />
+                <img src={'/Assets/icons/visa-1.png'} alt='card' />
+                <img src={'/Assets/icons/discover-1.png'} alt='card' />
+                <img src={'/Assets/icons/ae-1.png'} alt='card' />
             </div>
             <div className='credit-card-type-body'>
                 <div className='credit-card-inputs'>

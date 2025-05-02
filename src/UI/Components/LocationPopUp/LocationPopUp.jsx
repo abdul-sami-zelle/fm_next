@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './LocationPopUp.css';
-import deliverTo from '../../../Assets/icons/delivery.png'
-import closeBtn from '../../../Assets/icons/close-btn-black.png';
-import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
+// import deliverTo from '../../../Assets/icons/delivery.png'
+// import closeBtn from '../../../Assets/icons/close-btn-black.png';
+// import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { CiLocationOn } from "react-icons/ci";
 

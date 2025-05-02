@@ -82,7 +82,7 @@ const SimillerProducts = ({collection, isPadding}) => {
 
         // const handleQuickViewClose = () => { setQuickView(false) }
 
-    const navigate = useRouter();
+    const router = useRouter();
     // const handleCardClick = (item) => {
     //     navigate(`/product/${item.slug}`, {state: {products: item}})
     // }
@@ -154,7 +154,7 @@ const SimillerProducts = ({collection, isPadding}) => {
   };
 
   const handleProductClick = (item) => {
-    navigate.push(`/product/${item.slug}`, { state: item });
+    router.push(`/product/${item.slug}`, { state: item });
   };
     
   return (

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 import "./termsConditionsModal.css";
 import { url } from "../../utils/api";

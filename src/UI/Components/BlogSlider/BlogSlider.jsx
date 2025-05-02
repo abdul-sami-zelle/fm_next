@@ -33,7 +33,7 @@ function SampleNextArrow(props) {
 
 const BlogSlider = () => {
 
-  const navigate = useRouter()
+  const router = useRouter()
   const { 
     blogs,
     fetchBlogs,
@@ -48,7 +48,7 @@ const BlogSlider = () => {
   const maxLength = 50;
 
   const handleNavigateToSingleBlog = (item) => {
-    navigate.push(`/single-blog/${item.id}`, { state: item })
+    router.push(`/single-blog/${item.id}`, { state: item })
   }
 
 

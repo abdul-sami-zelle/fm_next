@@ -145,7 +145,7 @@ const Cart = () => {
 
   const payCards = ['/Assets/icons/mastercard-1.png', '/Assets/icons/visa-1.png', '/Assets/icons/discover-1.png', '/Assets/icons/ae-1.png', '/Assets/icons/paypal-1.png'];
 
-  const navigate = useRouter();
+  const router = useRouter();
   const [quickViewProduct, setQuickViewProduct] = useState({})
   const [quickViewClicked, setQuickView] = useState(false);
   const handleQuickViewOpen = (item) => {
@@ -158,7 +158,7 @@ const Cart = () => {
   }
 
   const navigateToCheckout = () => {
-    navigate.push("/check-out");
+    router.push("/check-out");
   }
 
   // Slick
@@ -302,16 +302,15 @@ const Cart = () => {
     const [snakebarOpen, setSnakebarOpen] = useState(false);
   
     const handleOpenSnakeBar = () => {
-      console.log("snakebar open function called")
       // setAppointmentModal(false);
       setSnakebarOpen(true);
     }
-    const handleCloseSnakeBar = () => {
-      setSnakebarOpen(false);
-    }
+    // const handleCloseSnakeBar = () => {
+    //   setSnakebarOpen(false);
+    // }
 
   const handleProductClick = (item) => {
-    navigate.push(`/product/${item.slug}`, { state: item });
+    router.push(`/product/${item.slug}`);
   };
 
 
@@ -355,7 +354,7 @@ const Cart = () => {
               <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
             </div> */}
 
-            <div className='cart-order-summary-price-details'>
+            <div className='cart-order-summary-price-details'> 
 
               {/* {filteredOrderPriceDetails.map((price, index) => (
                 <div key={index} className='cart-order-summary-price-detail-single-item'>

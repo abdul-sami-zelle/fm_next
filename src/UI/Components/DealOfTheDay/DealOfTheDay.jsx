@@ -15,6 +15,7 @@ import ShareProduct from '../ShareProduct/ShareProduct';
 import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer';
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
+import { useRouter } from 'next/navigation';
 
 
 
@@ -38,7 +39,7 @@ function SampleNextArrow(props) {
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api }) => {
 
-  // const navigate = useNavigate();
+  const router = useRouter();
   // const { categorySlug } = useParams();
   const categorySlug = 'living-room'
 
@@ -144,7 +145,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   const { addSingleProduct } = useSingleProductContext();
   const handleDealCardClick = (items) => {
     addSingleProduct(items)
-    // navigate(`/product/${items.slug}`, { state: items })
+    router.push(`/product/${items.slug}`)
   }
 
   let productCount = 0

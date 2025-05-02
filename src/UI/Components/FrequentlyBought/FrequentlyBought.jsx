@@ -43,7 +43,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
     }, [])
 
     // const {products} = useProducts()
-    const navigate = useRouter();
+    const router = useRouter();
     
 
     // wish list
@@ -74,7 +74,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const handleProductClick = (item) => {
-        navigate.push(`/product/${item.slug}`, { state: item });
+        router.push(`/product/${item.slug}`, { state: item });
     };
 
 

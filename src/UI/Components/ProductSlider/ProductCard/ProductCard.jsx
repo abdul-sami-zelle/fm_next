@@ -56,7 +56,7 @@ const ProductCard = ({
           // onClick={() => handleCardClicked(productData)}
           href={{ pathname: `/product/${productData?.slug}`, state: productData }}
         >
-          <div href={productLink}>{btnTxt}</div>
+          <div>{btnTxt}</div>
           <img src={'/Assets/icons/arrow-left-black.png'} alt="arrow left" />
         </Link>
       </div>

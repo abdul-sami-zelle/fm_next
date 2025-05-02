@@ -11,20 +11,20 @@ import { useUserDashboardContext } from '@/context/userDashboardContext/userDash
 // Assets
 import logo from '../../Assets/Logo/m_logo_360 2.png'
 import searchIcon from '../../Assets/icons/search-icon-charcol.png';
-import HeartIcon from '../../Assets/icon/favourites-icon.svg';
-import cartIcon from '../../Assets/icons/shopping-bag.png';
+// import HeartIcon from '../../Assets/icon/favourites-icon.svg';
+// import cartIcon from '../../Assets/icons/shopping-bag.png';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import profileIcon from '../../Assets/icon/profile-icon.svg'
 import locationIcon from '../../Assets/icons/location-red.png';
 import navToggler from '../../Assets/icons/Union.png'
 import searchRed from '../../Assets/icons/search-red.png'
-import mobileUserIcon from '../../Assets/icons/user-charcol.png';
-import usaFlag from '../../Assets/icons/usa-flage.png';
+// import mobileUserIcon from '../../Assets/icons/user-charcol.png';
+// import usaFlag from '../../Assets/icons/usa-flage.png';
 
 import crossIcon from '../../Assets/icons/close-btn.png';
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-import { PiShoppingCartThin } from "react-icons/pi";
+// import { PiShoppingCartThin } from "react-icons/pi";
 
 // Components
 import Nav from '../Navbar/Nav';
@@ -49,6 +49,7 @@ import { IoLocationOutline } from "react-icons/io5";
 
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
 const Header = ({ checkoutPage }) => {
 
@@ -69,7 +70,7 @@ const Header = ({ checkoutPage }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [currentInd, setCurrentInd] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
-  // const navigate = useRouter()
+  const router = useRouter()
 
   const {
     increamentQuantity,
@@ -77,9 +78,11 @@ const Header = ({ checkoutPage }) => {
     removeFromCart,
     cartProducts
   } = useCart()
+  
   const cartItemCount = cartProducts?.products?.length || 0;
   const { info, fetchAllstores } = useGlobalContext();
   const [isMobileSearched, setIsMobileSearched] = useState(false);
+  const {singleProductData, setSingleProductData} = useProductPage();
 
   const navLinks = [
     { name: "Living Room", link: 'living-room-category', hasDropdown: true },
@@ -235,7 +238,9 @@ const Header = ({ checkoutPage }) => {
   }
 
   const handleNavigateToSingleProduct = (items) => {
-    // navigate(`/product/${items.slug}`, { state: items })
+    // navigate.push(`/product/${items.slug}`, { state: items })
+    router.push(`/product/${items.slug}`);
+    setSingleProductData(items)
     setSearchQuery('')
     setSearchedProducts([])
     setIsSearchInputFocused(false)
@@ -246,7 +251,8 @@ const Header = ({ checkoutPage }) => {
   // Navigate To product archive page with search query
   const handleNavigateToSearchedProducts = (e) => {
     e.stopPropagation();
-    // navigate(`/searched-products?query=${searchQuery}`)
+    // navigate.push(`/searched-products?query=${searchQuery}`)
+    router.push(`/searched-products?query=${searchQuery}`);
     setSearchQuery('')
     setIsSearchInputFocused(false)
     setSearchedProducts([]);
@@ -255,7 +261,7 @@ const Header = ({ checkoutPage }) => {
 
   const handleNavigateToMobileViewSearchedProducts = (e) => {
     e.stopPropagation();
-    // navigate(`/searched-products?query=${mobileProductSearch}`)
+    router.push(`/searched-products?query=${mobileProductSearch}`)
     setIsMobileSearched(false);
     setMobileSearchProduct('');
     setSearchedProducts([]);
@@ -354,13 +360,14 @@ const Header = ({ checkoutPage }) => {
           setUserToken(token);
           setIsTokenValid(true);
           setMainLoader(false);
-          // navigate(`/user-dashboard/${uid}`)
+          router.push({pathname: `/user-dashboard/${uid}`})
         } else {
           localStorage.removeItem('userToken');
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
           // navigate("/my-account", { state: { message: "decided" } })
+          router.push({pathname: `/my-account`, query: {message: "decided"}})
         }
       } catch (error) {
         localStorage.removeItem('userToken');
@@ -372,11 +379,12 @@ const Header = ({ checkoutPage }) => {
       setMainLoader(false);
     }
     else if (token === undefined) {
-      // navigate("/my-account", { state: { message: "decided" } });
+      // navigate.push("/my-account", { state: { message: "decided" } });
+      router.push({pathname: `/my-account`, query: {message: "decided"}})
     }
     else {
       setMainLoader(false);
-      // navigate("/my-account")
+      router.push({pathname: "/my-account"})
     }
   }
 

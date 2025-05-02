@@ -52,7 +52,7 @@ const Home = () => {
     setBestSellerNav1,
   } = useLPContentContext();
 
-  const {blogs} = useBlog()
+  const { blogs } = useBlog()
 
   useEffect(() => {
     if (!slides.length) {
@@ -75,10 +75,10 @@ const Home = () => {
     }
   }, []);
 
-  const navigate = useRouter();
+  const router = useRouter();
   const handleNavigate = (slug, item) => {
     const queryString = new URLSearchParams(item).toString();
-    navigate.push(`/${slug}${queryString}`);
+    router.push(`/${slug}${queryString}`);
   };
 
   return (
@@ -88,7 +88,7 @@ const Home = () => {
       <FinanceBannerSlider images={financingBanners} />
       <MobileFinancingSlider images={financingBanners} />
       <Category title={'Shop by Category'} categoryData={landingPageCategories} handleNavigate={handleNavigate} />
-      
+
       <LandingPageFinancing />
       <TrendingNow data={trendingNow ? trendingNow : null} />
 
@@ -131,7 +131,7 @@ const Home = () => {
 
       <GetTheScop />
       {blogs?.length > 0 && <BlogSlider />}
-      
+
       <InstaGallery />
       <InstaTwoImageGallery />
     </div>

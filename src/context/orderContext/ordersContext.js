@@ -69,7 +69,7 @@ export const MyOrdersProvider = ({ children }) => {
             phone: ""
         },
 
-        payment_method: "",
+        c: "",
         card_info: {
             card_holder_name: '',
             card_number: '',
@@ -126,12 +126,14 @@ export const MyOrdersProvider = ({ children }) => {
     }
 
     const getActivePaymentMethods = async () => {
+        console.log("start default")
         const data = await fetchActivePaymentMethods();
         setActivePaymentMethods(data?.activePaymentMethods);
     };
 
 
     useEffect(() => {
+        // console.log("start default")
         const storeOrders = localStorage.getItem('myOrders');
         if (storeOrders) {
             try {
@@ -382,7 +384,9 @@ export const MyOrdersProvider = ({ children }) => {
             setThankyouState,
             orderPlacedInfo,
             handleZipCode,
-            handleZipCodeChange
+            handleZipCodeChange,
+            getActivePaymentMethods,
+            setOrderPayload
         }}>
             {children}
         </MyOrderContext.Provider>
