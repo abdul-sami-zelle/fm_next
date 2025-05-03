@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import './Register.css'
-import registerIcon from '../../../../Assets/Furniture Mecca/login-register/5564823 1.png'
+// import registerIcon from '../../../../Assets/Furniture Mecca/login-register/5564823 1.png'
 
 const Register = ({signinClicked, handleBtnClicked}) => {
     
   return (
     <div className={`register-main-container ${signinClicked ? 'register-section-slide-to-left' : ''}`}>
-        <img src={registerIcon} alt='registration icon' />
+        <img src={'/Assets/Furniture Mecca/login-register/5564823 1.png'} alt='registration icon' />
         <h3 className='register-have-an-account'>{signinClicked ? "Don't have an account" : 'Already have an account?'}</h3>
         <span>
             <p className='register-para'>

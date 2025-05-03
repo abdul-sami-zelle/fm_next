@@ -46,7 +46,6 @@ const CartProducts = () => {
         }
     }, [cartProducts])
 
-    useEffect(() => { console.log("protected product", productProtectCount) }, [productProtectCount])
 
 
     const [locationDetails, setLocationDetails] = useState({

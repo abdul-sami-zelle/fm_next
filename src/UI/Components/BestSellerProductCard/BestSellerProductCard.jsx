@@ -5,6 +5,7 @@ import { useList } from '../../../context/wishListContext/wishListContext';
 import RatingReview from '../starRating/starRating';
 import { formatedPrice,  url } from '../../../utils/api';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const BestSellerProductCard = (
     { 
@@ -33,7 +34,7 @@ const BestSellerProductCard = (
         href={{pathname: `/product/${productData.slug}`, state: productData}}
     >
         <div className='category-product-image'>
-            <img src={`${url}${productMainImage}`} alt='product' effect='blur' />
+            <Image src={`${url}${productMainImage}`} width={340} height={210} alt='product' effect='blur' />
         </div>
         <div className='category-containt-section'>
             <div className='category-product-rating-and-name'>

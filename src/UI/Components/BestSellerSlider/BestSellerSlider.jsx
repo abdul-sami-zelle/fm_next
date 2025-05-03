@@ -25,6 +25,7 @@ import { VscHeartFilled } from "react-icons/vsc";
 
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -119,11 +120,6 @@ const BestSellerSlider = (
         setMobIndex(index)
     }
 
-    // useEffect(() => {
-    //     const handleResizer = () => setWidth(window.innerWidth);
-    //     window.addEventListener("resize", handleResizer);
-    //     return () => window.removeEventListener("resize", handleResizer)
-    // })
 
     useEffect(() => {
         if(typeof window !== 'undefined') {
@@ -210,45 +206,45 @@ const BestSellerSlider = (
         { icon: star }
     ]
 
-    var settings = {
-        dots: false,
-        infinite: true,
-        arrows: false,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        arrows: true,
-        nextArrow: <BestSellerNextArrow to="next" />,
-        prevArrow: <BestSellerPrevArrow to="prev" />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: false,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 1
-                }
-            }
-        ]
-    };
+    // var settings = {
+    //     dots: false,
+    //     infinite: true,
+    //     arrows: false,
+    //     speed: 500,
+    //     slidesToShow: 3,
+    //     slidesToScroll: 1,
+    //     initialSlide: 0,
+    //     arrows: true,
+    //     nextArrow: <BestSellerNextArrow to="next" />,
+    //     prevArrow: <BestSellerPrevArrow to="prev" />,
+    //     responsive: [
+    //         {
+    //             breakpoint: 1024,
+    //             settings: {
+    //                 slidesToShow: 2,
+    //                 slidesToScroll: 1,
+    //                 infinite: false,
+    //                 dots: false
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 600,
+    //             settings: {
+    //                 slidesToShow: 2,
+    //                 slidesToScroll: 1,
+    //                 initialSlide: 2
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 480,
+    //             settings: {
+    //                 slidesToShow: 1,
+    //                 slidesToScroll: 1,
+    //                 initialSlide: 1
+    //             }
+    //         }
+    //     ]
+    // };
 
 
     const sliderRef = useRef(null);
@@ -358,7 +354,7 @@ const BestSellerSlider = (
                             </div>
 
                             <div className='best-seller-slider-main-banner-mobile-view'>
-                                <img src={url + bestSellerNav1[activeItem].image.image_url} alt='main banner' />
+                                <Image src={url + bestSellerNav1[activeItem].image.image_url} width={540} height={810} alt='main banner' />
                             </div>
 
                             <div className='products-slider-container'>

@@ -241,3 +241,11 @@ input:-webkit-autofill {
   /* margin-right: 8px; */
 }
 @keyframes l7 {to{transform: rotate(.5turn)}}
+
+.shipping-and-delivery-main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 35px;
+  padding: var(--global-padding);
+}

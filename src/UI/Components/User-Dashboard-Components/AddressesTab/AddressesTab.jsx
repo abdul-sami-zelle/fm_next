@@ -168,7 +168,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
           <div className='billing-address-details'>
             <div className='title-and-edit-icon'>
               <h3>Billing Address</h3>
-              <img src={editIcon} alt='edit icon' onClick={() => handleEditBillingAddress('billing-address')} />
+              <img src={'/Assets/icons/edit.png'} alt='edit icon' onClick={() => handleEditBillingAddress('billing-address')} />
             </div>
             <div className='billing-address-show'>
               <p>{userAddresses?.billing_address?.first_name} {userAddresses?.billing_address?.last_name}</p>
@@ -190,7 +190,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
           <div className='address-edit-modal-head'>
             <h3 className='address-edit-main-heading'>{modalType === 'billing-address' ? 'Billing Address Update' : 'Shipping Address Update'}</h3>
             <button className='address-edit-modal-close-button' onClick={handleEditShippingClose}>
-              <img src={crossBtn} alt='cross btn' />
+              <img src={'/Assets/icons/close-btn.png'} alt='cross btn' />
             </button>
           </div>
           <div className='address-edit-modal-body'>

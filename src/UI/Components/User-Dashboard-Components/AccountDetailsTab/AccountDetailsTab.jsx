@@ -86,7 +86,6 @@ const AccountDetailsTab = () => {
   
   useDisableBodyScroll(openBillingModal)
 
-  useEffect(() => { console.log("user detail", userDetails) }, [userDetails])
 
   return (
     <div className='account-details-main-section'>

@@ -78,7 +78,6 @@ const CategoriesClient = ({ category }) => {
         }// Data to send
       });
       const result = await response.json();
-      console.log("CAtegory PAge Data", result)
       setCategoryData(result.categories[0])
 
       setTitle(result.categories[0].meta.title);
@@ -105,7 +104,6 @@ const CategoriesClient = ({ category }) => {
     router.push(`/${category}/${item.slug}`, { state: item });
   };
 
-  // console.log("banner main image", `https://fmapi.myfurnituremecca.com${categoryData?.bannerImage}`)
 
 
   return (

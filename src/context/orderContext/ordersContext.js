@@ -126,14 +126,12 @@ export const MyOrdersProvider = ({ children }) => {
     }
 
     const getActivePaymentMethods = async () => {
-        console.log("start default")
         const data = await fetchActivePaymentMethods();
         setActivePaymentMethods(data?.activePaymentMethods);
     };
 
 
     useEffect(() => {
-        // console.log("start default")
         const storeOrders = localStorage.getItem('myOrders');
         if (storeOrders) {
             try {

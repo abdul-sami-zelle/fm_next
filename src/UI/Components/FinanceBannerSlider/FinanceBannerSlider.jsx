@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './FinanceBannerSlider.css';
 import { url } from "../../../utils/api";
+import Image from "next/image";
 
 
 function FinanceBannerSlider({ images }) {
@@ -26,8 +27,10 @@ function FinanceBannerSlider({ images }) {
             <Slider {...settings}>
                 {images?.desktop?.map((image, index) => (
                     <div className="carousel-slide" key={index}>
-                        <img
+                        <Image
                             src={`${url}${image.image_url}`}
+                            width={1599}
+                            height={218}
                             alt={`slide ${index + 1}`}
                         />
                     </div>

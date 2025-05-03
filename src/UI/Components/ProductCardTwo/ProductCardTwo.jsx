@@ -184,8 +184,8 @@ const ProductCardTwo = ({
 
             >
                 <div className='product-card-data'
-                    onMouseEnter={() => { setIsHovered(true); console.log("enter") }}
-                    onMouseLeave={() => { setIsHovered(false); console.log("exit") }}
+                    onMouseEnter={() => { setIsHovered(true) }}
+                    onMouseLeave={() => { setIsHovered(false) }}
                     onClick={() => handleCardClick(singleProductData)}
                 >
                     <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`}>

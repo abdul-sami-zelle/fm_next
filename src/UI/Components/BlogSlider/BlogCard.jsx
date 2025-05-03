@@ -3,6 +3,7 @@ import './BlogCard.css';
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import { url } from '../../../utils/api';
+import Image from 'next/image';
 
 const BlogCard = (
     {
@@ -31,7 +32,7 @@ const BlogCard = (
                     <p>{date}</p>
                     <p>{month}</p>
                 </div>
-                <img src={`${url}${img}`} alt='img' />
+                <Image src={`${url}${img}`} width={640} height={330} alt='img' />
             </div>
             <div className='blog-arther-details'>
                 <h3>{title}</h3>

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import './DateTimeTab.css'
 import { Calendar } from 'react-calendar'
@@ -44,12 +46,10 @@ const DateTimeTab = ({selectedTab, setSelectedTab}) => {
       selectedDate: selectedDate.toISOString().split('T')[0]
     }))
     
-    console.log("Selected New Date", selectedDate.toISOString().split('T')[0])
 
     setShowTimeSlots(true)
   }
 
-  useEffect(() => { console.log("set new date", dateState) }, [dateState])
   const  handleSelectTimeSlote = (item) => {
     setAppointmentPayload((prev) => ({
       ...prev, 

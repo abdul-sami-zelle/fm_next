@@ -160,10 +160,6 @@ const ApplyFor = ({setLoading}) => {
             formData.append("resume", applyForData.resume);
         }
 
-        for (let pair of formData.entries()) {
-            console.log("form data", pair[0] + ": " + pair[1]);
-        }
-
 
         // Fetch state information
         const api = `/api/v1/careers/add`
@@ -178,9 +174,7 @@ const ApplyFor = ({setLoading}) => {
             // }
         )
 
-            console.log("Contact Response", response);
             if (response.status === 201) {
-                console.log("updated response", response)
                 alert("Your contact information has been submitted successfully!");
                 setApplyForData({
                     firstName: '',
@@ -203,10 +197,7 @@ const ApplyFor = ({setLoading}) => {
 
     }
 
-    useEffect(() => {
-        // console.log("new Entered Data", newData);
-        console.log("apply Data", applyForData);
-    }, [applyForData])
+   
 
 
     const handleSubmitCareerForm = async () => { }

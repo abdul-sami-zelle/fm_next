@@ -7,6 +7,7 @@ import { url } from '../../../utils/api';
 import TrandingNowShmmer from './TrandingNowShimmer/TrandingNowShmmer';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const TrendingNow = ({ data }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,8 +56,10 @@ const TrendingNow = ({ data }) => {
                                 <Slider {...settings}>
                                     {data?.sliders.map((image, index) => (
                                         <div className="trending-slide" key={index} onClick={() => handleNavigate(image)}>
-                                            <img
+                                            <Image
                                                 src={`${url}${image.image_url}`}
+                                                width={1160}
+                                                height={730}
                                                 alt={`Slide ${index + 1}`}
                                             />
 
@@ -75,8 +78,10 @@ const TrendingNow = ({ data }) => {
                         <div className='trending-items-cards'>
                             {productArray.map((item, index) => (
                                 <div key={item.uid || `product-${index}`} className='trending-item-category' onClick={() => handleNavigate(item)}>
-                                    <img
+                                    <Image
                                         src={`${url}${item.image_url}`}
+                                        width={300}
+                                        height={240}
                                         alt={item.alt_text}
                                         effect='blur'
                                     />

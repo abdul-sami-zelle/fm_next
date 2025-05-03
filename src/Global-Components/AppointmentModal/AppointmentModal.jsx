@@ -34,7 +34,6 @@ const AppointmentModal = (
     const [serviceIndex, setServiceTypeIndex] = useState(null)
     const [loading, setLoading] = useState(false);
     const handleSelectedTab = (tab) => {
-        console.log("selected Tab", tab)
         if (tab < selectedTab) {
             setSelectedTab(tab);
         }

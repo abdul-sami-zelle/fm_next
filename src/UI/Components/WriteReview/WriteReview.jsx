@@ -164,7 +164,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         formData.append("helpful", reviewData.helpful);
 
         images.forEach(image => {
-            console.log("image in for eachhh")
             formData.append("images", image); // 'images' is the key on the backend
         });
 
@@ -175,7 +174,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log("review submit response", reviewResponse)
 
 
             setWriteReview(false)

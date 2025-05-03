@@ -125,7 +125,6 @@ const CheckoutClient = ({params}) => {
       try {
         const response = await axios.put(`${url}/api/v1/unused-cart/edit/${cartUid}`, { cart: cartProducts, checkout: orderPayload.billing });
 
-        console.log("API Response:", response.data);
 
         await new Promise((resolve) => setTimeout(resolve, 0)); // Ensures React processes state updates correctly
         handleTabOpen(1);
@@ -177,7 +176,6 @@ const CheckoutClient = ({params}) => {
   const isPaymentMethodFilled = () => orderPayload.payment_method.trim() !== "";
 
   const handleSubmit = (e) => {
-    console.log("payment method trim", orderPayload)
     e.preventDefault();
     if (isPaymentMethodFilled()) {
 

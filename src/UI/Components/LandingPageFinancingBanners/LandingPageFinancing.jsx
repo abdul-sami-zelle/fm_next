@@ -1,6 +1,7 @@
 import React from 'react'
 import './LandingPageFinancing.css'
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const LandingPageFinancing = () => {
@@ -37,11 +38,11 @@ const LandingPageFinancing = () => {
         <h3 className='landing-page-financing-main-heading'>Flexible Financing Options</h3>
         <div className='landing-page-financing-banners-main-container'>
           <div className='landing-page-financing-left'>
-            <img src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.png'} alt='banner one' />
-            <img src={'/Assets/Furniture Mecca/Landing Page/financing/PAYPAL-BANNER.gif'} alt='banner two' />
+            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.png'} width={900} height={350} alt='banner one' />
+            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/PAYPAL-BANNER.gif'} width={900} height={350} alt='banner two' />
           </div>
           <div className='landing-page-financing-right'>
-            <img src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.png'} alt='banner-three' />
+            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.png'} width={900} height={470}  alt='banner-three' />
             <div className='financing-page-buttons-div'>
               {financingButtons.map((item, index) => (
                 <div key={index} className='financing-page-buttons-div-column'>

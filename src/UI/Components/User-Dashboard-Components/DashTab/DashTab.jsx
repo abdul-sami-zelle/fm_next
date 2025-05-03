@@ -6,11 +6,13 @@ import BarChart from './DashboardComponents/ordersChart';
 import DashboardTab2 from './DashboardComponents/dashTab2';
 import { IoMdLogOut } from "react-icons/io";
 import { useUserDashboardContext } from '../../../../context/userDashboardContext/userDashboard';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+// import { useNavigate } from 'react-router-dom';
 
 
 const DashTab = ({ data }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
   const { setUserToken } = useUserDashboardContext();
 
   const logout = async () => {
@@ -18,7 +20,8 @@ const DashTab = ({ data }) => {
     localStorage.removeItem('uuid');
     localStorage.setItem('cartUid', "null");
     setUserToken(null);
-    navigate("/my-account", { state: { message: "decided" } })
+    // navigate("/my-account", { state: { message: "decided" } })
+    router.push("/my-account",)
   }
   return (
     <div className='dash-tab-main-container'>

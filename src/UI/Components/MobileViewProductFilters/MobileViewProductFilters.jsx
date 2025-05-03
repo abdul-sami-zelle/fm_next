@@ -61,7 +61,6 @@ const MobileViewProductFilters = (
                     [...colorValue, value]
 
             setTempColorValue(updatedColorValue)
-            console.log("mobile color value", updatedColorValue)
     }
 
     const handleMobileRatingFilter = (value) => {
@@ -78,7 +77,6 @@ const MobileViewProductFilters = (
             [...tempCategoryValue, value]
 
         setTempCategoryValue(updatedCategory)
-        console.log("category temp data", tempCategoryValue)
     }
 
 

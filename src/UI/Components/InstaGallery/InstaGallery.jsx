@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './InstaGallery.css';
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const InstaGallery = () => {
@@ -46,12 +47,12 @@ const InstaGallery = () => {
         <div className='images'>
             
             {instaGalleryImages.map((image, index) => {
-                return <img key={index} src={image} alt={`image ${index + 1}`} effect='blur' />
+                return <Image key={index} src={image} width={380} height={345} alt={`image ${index + 1}`} effect='blur' />
             })}
         </div>
         <div className={`icon ${animateMouse ? 'animate' : ''}`}>
             <Link target='_blank' href={'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D'}>
-                <img src={'/Assets/Furniture Mecca/Landing Page/instagram images/insta-icon.png'} alt='icon' className={`${animateMouse ? 'animate' : ''}`} effect='blur'/>
+                <Image src={'/Assets/Furniture Mecca/Landing Page/instagram images/insta-icon.png'} width={100} height={100} alt='icon' className={`${animateMouse ? 'animate' : ''}`} effect='blur'/>
             </Link>
         </div>
     </div>

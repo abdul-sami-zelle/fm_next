@@ -26,21 +26,18 @@ const ProductDisplay = ({params}) => {
   // const location = useSearchParams();
   // const dataState = location.get('dataState');
 
-  // console.log("dataState", dataState)
 
   // useEffect(() => {
   //   const param = location.get('dataState');
   //   if (param) {
   //     try {
   //       setDataState(JSON.parse(param));
-  //       console.log('Before fetch API', JSON.parse(param));
   //     } catch (err) {
   //       console.error('Failed to parse query param:', err);
   //     }
   //   }
   // }, [location]);
   // const dataState = location.get('dataState');
-  // console.log("Before fetch api", dataState)
   const [product, setProduct] = useState(singleProductData || null);
 // const [product, setProduct] = useState(null);
 

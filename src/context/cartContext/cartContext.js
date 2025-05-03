@@ -35,7 +35,6 @@ export const CartProvider = ({ children }) => {
         return []
     });
 
-    useEffect(() => {console.log("card Products in next", cartProducts)}, [cartProducts])
 
     const [isCartProtected, setIsCartProtected] = useState(() => {
         if (typeof window !== "undefined") {
@@ -47,14 +46,12 @@ export const CartProvider = ({ children }) => {
     });
 
     const [isProfessionalAssembly, setIsProfessionalAssembly] = useState(() => {
-        // if (typeof window !== "undefined") {
-        console.log("cart assembly state", localStorage.getItem('cart2'))
+        if (typeof window !== "undefined") {
             const savedCart = localStorage.getItem('cart2');
             const savedIsProfessionalAssembly = savedCart ? JSON.parse(savedCart).is_professional_assembly : 0;
-            console.log("cart assembly state", savedIsProfessionalAssembly)
             return savedIsProfessionalAssembly === 1; // If saved value is 1, set true; otherwise, false
-        // }
-        // return null
+        }
+        return null
     });
 
     useEffect(() => {
@@ -137,7 +134,6 @@ export const CartProvider = ({ children }) => {
         try {
 
             const cartUid = localStorage.getItem('cartUid');
-            console.log(cartUid, "here is vlue of cart uid")
 
             // Check if cartUid is truly undefined or null
             const isCartUidInvalid = !cartUid || cartUid === "undefined" || cartUid === "null";
@@ -176,7 +172,6 @@ export const CartProvider = ({ children }) => {
 
             }
 
-            console.log("API Response:", response.data);
             setIsCartLoading(false);
             return response.data;
         } catch (error) {
@@ -195,7 +190,6 @@ export const CartProvider = ({ children }) => {
     }
 
     const handleCartProtected = async () => {
-        console.log("HandleProtection Clicked");
         setIsCartLoading(true);
         try {
             // Toggle `isCartProtected`
@@ -284,7 +278,6 @@ export const CartProvider = ({ children }) => {
     const updateCartAPI = async (url, newCart, method) => {
         try {
             const response = method === "post" ? await axios.post(url, { cart: newCart }) : await axios.put(url, { cart: newCart });
-            console.log("API Response:", response.data);
             setCartSection(true);
             setIsCartLoading(false);
             method === "post" && setCartUid(response?.data?.data?._id);
@@ -299,12 +292,10 @@ export const CartProvider = ({ children }) => {
 
 
     const updateCartAPI2 = async (url0, newCart, method, custToken, userId) => {
-        console.log(url0, newCart, method, custToken, userId, "here all")
         try {
             const response = method === "post" ?
                 await axios.post(url0, { cart: newCart, userId: userId }, { headers: { authorization: `${custToken}`, "Content-Type": "application/json" } }) :
                 await axios.put(url0, { cart: newCart, userId: userId }, { headers: { authorization: `${custToken}`, "Content-Type": "application/json" } });
-            console.log("API Response:", response.data);
             method === "post" && setCartUid(response?.data?.data?._id);
             setCartSection(true);
             setIsCartLoading(false);
@@ -356,14 +347,12 @@ export const CartProvider = ({ children }) => {
                         ],
                 };
 
-                console.log("Updated Cart:", updatedCart);
                 resolve(updatedCart);
                 return updatedCart;
             });
         });
 
         const cartUid = localStorage.getItem('cartUid');
-        console.log(cartUid, "here is vlue of cart uid")
 
         // Check if cartUid is truly undefined or null
         const isCartUidInvalid = !cartUid || cartUid === "undefined" || cartUid === "null";

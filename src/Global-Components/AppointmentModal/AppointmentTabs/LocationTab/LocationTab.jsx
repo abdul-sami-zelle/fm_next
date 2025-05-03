@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import './LocationTab.css';
 import { IoIosSearch, IoIosArrowDown } from "react-icons/io";

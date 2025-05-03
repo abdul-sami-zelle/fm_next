@@ -32,7 +32,6 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
     try {
       setLoading(true);
       const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
-      console.log("review response ", response)
       setReviews(response.data.reviews);
       setLoading(false);
     } catch (error) {

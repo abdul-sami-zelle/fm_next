@@ -7,11 +7,11 @@ const PaymentMethodTab = () => {
   return (
     <div className='payment-method-main-section'>
       <div className='reminder-container'>
-        <img src={reminderIcon} alt='reminder' />
+        <img src={'/Assets/icons/reminder.png'} alt='reminder' />
         <p>No Saved Methods Found</p>
       </div>
       <div className='add-payment-method'>
-        <img src={addBtn} alt='add-btn' />
+        <img src={'/Assets/icons/add-charcol.png'} alt='add-btn' />
         <p>Add Payment Method</p>
       </div>
     </div>

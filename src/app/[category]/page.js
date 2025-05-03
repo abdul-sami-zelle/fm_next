@@ -1,9 +1,9 @@
 import CategoriesClient from "@/UI/Components/CategoryClient/CategoryClient";
 
-export function generateMetadata({ params }) {
+export async function generateMetadata({ params }) {
   return {
     title: `Category - ${params.category}`,
-    description: `Browse our ${params.category} collection`,
+    description: `Browse our  collection`,
   };
 }
 

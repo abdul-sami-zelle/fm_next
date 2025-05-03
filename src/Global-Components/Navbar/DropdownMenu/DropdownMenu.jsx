@@ -15,11 +15,6 @@ const DropdownMenu = (
         dropDownNavData,
         products
     }) => {
-    // State and variables
-    // const location = useRouter();
-
-    // const segment = location.pathname.split('/');
-    // const lastSegment = segment[segment.length - 1];
 
     const {singleProductData, setSingleProductData} = useProductPage();
 
@@ -43,7 +38,6 @@ const DropdownMenu = (
     const chunkedNavData = chunkArray(dropDownNavData, 11);
 
     const handleNavigate = (item) => {
-        console.log("cliecked item", item)
         router.push(`/product/${item.slug}`);
         setSingleProductData(item);
     }

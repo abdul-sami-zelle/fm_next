@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import './LoginMobileView.css';
 import { url } from '../../../../utils/api';
 import { useUserDashboardContext } from '../../../../context/userDashboardContext/userDashboard';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import loadingIcon from "../../../../Assets/Loader-animations/loader-check-two.gif"
+import { useRouter } from 'next/navigation';
 
 const LoginMobileView = ({mobileSignupClicked, handleRegisteView}) => {
     const [loginEmail, setLoginEmail] = useState('');
@@ -11,7 +12,8 @@ const LoginMobileView = ({mobileSignupClicked, handleRegisteView}) => {
       const [error, setError] = useState('');
       const [loading, setLoading] = useState(false);
       const { setToken } = useUserDashboardContext();
-      const navigate = useNavigate()
+      // const navigate = useNavigate()
+      const router = useRouter()
 
     const handleSubmitLogin = async (e) => {
         e.preventDefault();
@@ -39,7 +41,7 @@ const LoginMobileView = ({mobileSignupClicked, handleRegisteView}) => {
             setLoginEmail('');
             setLoginPassword('');
             setLoading(false);
-            navigate(`/user-dashboard/${result?.data?._id}`)
+            router.push(`/user-dashboard/${result?.data?._id}`)
           } else {
             // Handle error
             setError(result.message || 'Something went wrong');

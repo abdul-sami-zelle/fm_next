@@ -61,7 +61,6 @@ const BestSeller = ({ categoryData }) => {
         try {
             setLoading(true);
             const response = await axios.get(`${url}${api}`)
-            // console.log("fetched products ", response)
             setAllProducts(response.data.products);
             setLoading(false)
 

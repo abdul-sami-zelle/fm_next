@@ -1,6 +1,6 @@
 import React from 'react'
 import './EmptCart.css';
-import emptyCart from '../../../../Assets/icons/empty-cart.png';
+// import emptyCart from '../../../../Assets/icons/empty-cart.png';
 
 const EmptyCart = () => {
   return (

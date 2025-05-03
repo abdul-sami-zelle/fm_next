@@ -3,6 +3,7 @@ import './FurnitureForBudget.css'
 import { url } from '../../../utils/api'
 import FurnitureForBudgetShimmer from './FurnitureForBudgetShimmer/FurnitureForBudgetShimmer'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const FurnitureForBudget = ({ budgetCardData }) => {
     
@@ -28,7 +29,7 @@ const FurnitureForBudget = ({ budgetCardData }) => {
                         }}
                     >
                         <div className='budget-furniture-card-img'>
-                            <img src={url + items.img} alt='img' effect='blur' />
+                            <Image src={url + items.img} width={640} height={400} alt='img' effect='blur' />
                         </div>
                         <div className='budget-furniture-card-details'>
                             <p>{items.sale}</p>

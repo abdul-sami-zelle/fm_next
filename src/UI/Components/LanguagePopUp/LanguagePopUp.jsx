@@ -33,7 +33,7 @@ const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageM
         onClick={(e) => e.stopPropagation()}
       >
         <button className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} onClick={handleCLoseLanguageModal}>
-          <img src={closeBtn} alt='close btn' />
+          <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' />
         </button>
         <div className='select-language-container'>
           <div className='modal-headin-div'>
@@ -44,7 +44,7 @@ const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageM
             <div className={`languages-drop-down ${lanDrop ? 'open-language-dropdown' : ''}`}>
               <div className='selected-language' onClick={handleLanguageDropDown}>
                 <span>
-                  <img src={currentSelectedCountryFlag || usaFlag} alt='usa' />
+                  <img src={currentSelectedCountryFlag || '/Assets/icons/usa-flage.png'} alt='usa' />
                   <h3>{currentSelectedCountry || 'English'}</h3>
                 </span>
               </div>

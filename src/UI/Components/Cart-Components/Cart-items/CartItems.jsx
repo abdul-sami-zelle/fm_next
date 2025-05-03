@@ -11,9 +11,9 @@ import { useCart } from '@/context/cartContext/cartContext';
 // import plusCharcol from '../../../../Assets/icons/plus.png';
 // import minusCharcol from '../../../../Assets/icons/minus.png'
 // import crossBtn from '../../../../Assets/icons/Mask group (1).png'
-import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
-import guardIcon from '../../../../Assets/icons/guard-icon.png';
-import { IoInformationCircle } from "react-icons/io5";
+// import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
+// import guardIcon from '../../../../Assets/icons/guard-icon.png';
+// import { IoInformationCircle } from "react-icons/io5";
 // import check from "../../../../Assets/check.png";
 import { useList } from '@/context/wishListContext/wishListContext';
 import { FaArrowsRotate } from "react-icons/fa6";

@@ -104,7 +104,6 @@ export const LPContentProvider = ({ children }) => {
       const response = await axios.get(`${url}/api/v1/pages/home/upd-finance-slider/get`);
       if (response.status === 200) {
         setFinancingBanners(response?.data?.slider)
-        console.log(response?.data?.slider, "here is data of fin slider")
       } else {
         console.log("UnExpected Error", response.status)
       }

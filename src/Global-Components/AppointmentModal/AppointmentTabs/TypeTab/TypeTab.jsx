@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from 'react'
 import './TypeTab.css';
 import { IoStorefrontOutline } from "react-icons/io5";

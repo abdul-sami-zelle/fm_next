@@ -41,8 +41,13 @@ import '../Styles/index.css' // Global styles for the entire app
 
 
 export const metadata = {
-  title: 'Default Layout Title',
+  title: 'My Furniture Mecca',
   description: 'Default Layout Description',
+  icons: {
+    icon: '/favicon.png', // or .ico, .svg
+    shortcut: '/favicon.ico',
+    apple: '/favicon.png',
+  },
 };
 
 

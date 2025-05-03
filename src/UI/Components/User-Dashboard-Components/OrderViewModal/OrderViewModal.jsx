@@ -7,10 +7,10 @@ const OrderViewModal = ({viewModal, setViewModal}) => {
         setViewModal(false)
     }
   return (
-    <div className={`order-view-modal-main ${viewModal ? 'show-product-modal' : ''}`}>
-        <div className='order-view-modal-inner-sec'>
+    <div className={`order-view-modal-main ${viewModal ? 'show-product-modal' : ''}`} onClick={handleCloseOrderView}>
+        <div className='order-view-modal-inner-sec' onClick={(e) => e.stopPropagation()}>
             <button className='order-close-btn' onClick={handleCloseOrderView}>
-                <img src={closeBtn} alt='close-btn' />
+                <img src={'/Assets/icons/close-btn-black.png'} alt='close-btn' />
             </button>
         </div>
     </div>

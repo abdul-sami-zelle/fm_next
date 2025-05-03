@@ -42,7 +42,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
     // useEffect(() => {getActivePaymentMethods()}, [])
 
     // useEffect(() => {
-    //     console.log("start default")
     //     if(window !== 'undefined') {
     //         const storeOrders = localStorage.getItem('myOrders');
     //         if (storeOrders) {
@@ -58,7 +57,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
     //     // getActivePaymentMethods();
     // }, []);
     const handleSelectPaymentType = (type) => {
-        console.log("selected payment type", type);
         setSelectedPaymentType(type);
         onSelectLabel(type)
         checkPaymentMethodById(type.paymentMethodId)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './OrdersTab.css';
 import arrowLeft from '../../../../Assets/icons/arrow-left-charcol.png';
 import arrowRight from '../../../../Assets/icons/arrow-right-charcol.png';
@@ -160,6 +160,14 @@ const OrdersTab = () => {
     setViewProductModal(true);
     setSelectedProductData(data);
   }
+
+  useEffect(() => {
+    if(viewProductModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [viewProductModal])
   return (
     <div className='dash-orders-main-container'>
       {loading && <Loader />}

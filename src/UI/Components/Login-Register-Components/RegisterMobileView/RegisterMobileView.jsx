@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './RegisterMobileView.css'
 import { url } from '../../../../utils/api';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 
 const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
@@ -134,7 +134,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
                             onChange={(e) => setAcceptTerms(e.target.checked)}
                             required
                         />
-                        <span>I agree to the <Link to={'/privacy-policy'}>Privacy Policy</Link></span>
+                        <span>I agree to the <Link href={'/privacy-policy'}>Privacy Policy</Link></span>
                     </label>
                     <label className="mobile-login-input-label checkbox">
                         <input
@@ -143,7 +143,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
                             onChange={(e) => setAcceptPrivacy(e.target.checked)}
                             required
                         />
-                        <span>I agree to the <Link to={'/terms-and-conditions'} >Terms And Condition</Link></span>
+                        <span>I agree to the <Link href={'/terms-and-conditions'} >Terms And Condition</Link></span>
                     </label>
 
 

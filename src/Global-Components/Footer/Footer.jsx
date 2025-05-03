@@ -19,6 +19,7 @@ import axios from 'axios';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import SnakBar from '../SnakeBar/SnakBar';
 import { useRouter } from 'next/navigation';
+import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const Footer = ({ notLandingPage, checkoutPage }) => {
     const [headerData, setHeaderData] = useState([]);
@@ -45,23 +46,23 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     }
 
-    const navigate = useRouter();
+    const router = useRouter();
 
     // const uid = localStorage.getItem('uuid');
-    const [uid, setUid] = useState(null);
+    // const [uid, setUid] = useState(null);
 
-    useEffect(() => {
-        const storedUid = localStorage.getItem("uuid");
-        setUid(storedUid);
-    }, []);
+    // useEffect(() => {
+    //     const storedUid = localStorage.getItem("uuid");
+    //     setUid(storedUid);
+    // }, []);
 
-    const navigateToRoute = (link) => {
-        if (link === '/user-dashboard/:uid') {
-            navigate.push(`/user-dashboard/${uid}`);
-        } else {
-            navigate.push(link);
-        }
-    };
+    // const navigateToRoute = (link) => {
+    //     if (link === '/user-dashboard/:uid') {
+    //         navigate.push(`/user-dashboard/${uid}`);
+    //     } else {
+    //         navigate.push(link);
+    //     }
+    // };
 
     // State for email input and form submission status
 
@@ -152,7 +153,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     useEffect(() => {
         fetchHeaderPayloads().then(data => {
             setHeaderData(data.data[0].categories);
-            console.log(data.data[0].categories, "here us footer")
         }).catch(error => {
             console.error(error);
         });
@@ -171,6 +171,39 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         { name: 'meccacustomercare@gmail.com', icon: '/Assets/icons/mail.png', link: '#' }
     ]
 
+    const { setUserToken } = useUserDashboardContext();
+
+    const handleClickOnOrders = async () => {
+        if (typeof window !== "undefined") {
+            const token = localStorage.getItem('userToken');
+            const id = localStorage.getItem('uuid');
+
+            try {
+                if (token) {
+                    const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+                        method: "GET",
+                        headers: {
+                            authorization: `${token}`,
+                        },
+                    });
+                    if (response.ok) {
+                        router.push(`/user-dashboard/${id}`);
+                    }
+                } else {
+                    localStorage.removeItem('userToken');
+                    setUserToken(null);
+                    router.push('/my-account')
+                }
+            } catch (error) {
+                console.error("Unexpected Error", error)
+            }
+        }
+    }
+
+
+
+
+
     const footerCustomerCareAndAbout = [
         {
             heading: 'Customer Care', navLinks: [
@@ -186,7 +219,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                 { name: 'About Us', link: '/about-us' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },
-                { name: 'My Account', link: '/user-dashboard' },
+                { name: 'My Account', link: '/user-dashboard/:id' },
                 { name: 'Blogs', link: '/blogs' },
             ]
         },
@@ -206,7 +239,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
     const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay);
-    // console.log("Default timings from footer ", defaultStoreTimings)
 
     const nearStoreDetails = [
         {
@@ -225,7 +257,8 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     ]
 
     const handleNavigateStores = () => {
-        navigate.push(`/store-locator`, { state: defaultStore })
+        // navigate.push(`/store-locator`, { state: defaultStore })
+        router.push(`/store-locator`)
     }
 
     const [snakeBarMessage, setSnakeBarMessage] = useState('');
@@ -363,9 +396,19 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                 <div key={index} className='footer-costumer-care-and-about'>
                                     <h3>{item.heading}</h3>
                                     {item.navLinks.map((navItem, inn) => (
-                                        <Link href={navItem.link} key={inn} className='about-and-care-link'>
-                                            {navItem.name}
-                                        </Link>
+                                        navItem.name === 'My Account' ? (
+                                            <p
+                                                key={inn}
+                                                className="about-and-care-link"
+                                                onClick={handleClickOnOrders} // replace with your function
+                                            >
+                                                {navItem.name}
+                                            </p> // Or null if you don't want anything rendered
+                                        ) : (
+                                            <Link href={navItem.link} key={inn} className="about-and-care-link">
+                                                {navItem.name}
+                                            </Link>
+                                        )
                                     ))}
                                 </div>
                             ))}

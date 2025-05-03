@@ -6,6 +6,8 @@
     margin: 0;
     padding: 15px;
     cursor: pointer;
+    align-items: start;
+    justify-content: space-evenly;
     transition: all 0.3s ease;
     background-color: #fff;
     border-radius: 6px;

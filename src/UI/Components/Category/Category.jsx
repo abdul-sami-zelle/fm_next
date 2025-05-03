@@ -4,6 +4,7 @@ import Breadcrumb from '../../../Global-Components/BreadCrumb/BreadCrumb';
 import CategoryShimmer from '../Loaders/Category/categoryShimmer';
 import { url } from '../../../utils/api';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
  const [isloaded,setIsLoaded] = useState(false);
@@ -20,9 +21,11 @@ const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
           categoryData.map((item, index) => (
            <React.Fragment key={index}>
               <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : `/${item.slug}` } state={item}>
-            <img
+            <Image
               key={item.image}
               src={url + item.image}
+              width={280}
+              height={90}
               alt='img'
               effect='blur'
               onLoad={()=>{setIsLoaded(true)}}

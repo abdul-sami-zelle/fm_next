@@ -1,6 +1,6 @@
 import CheckoutClient from "@/UI/Components/CheckoutClient/CheckoutClient";
 
-export function generateMetadata({ params }) {
+export async function generateMetadata({ params }) {
     return {
       title: `Checkout - ${params.checkout}`,
       description: `Browse our ${params} collection`,
@@ -9,6 +9,5 @@ export function generateMetadata({ params }) {
 
 
 export default function Summary({ params }) {
-    console.log("checkout params", params)
     return <CheckoutClient params={params} />
   }

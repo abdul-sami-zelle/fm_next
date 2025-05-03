@@ -15,7 +15,7 @@ import ShareProduct from '../ShareProduct/ShareProduct';
 import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer';
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 
 
@@ -41,7 +41,9 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
   const router = useRouter();
   // const { categorySlug } = useParams();
-  const categorySlug = 'living-room'
+  // const categorySlug = 'living-room'
+  const params = useParams();
+  const categorySlug = params.categorySlug;
 
 
 

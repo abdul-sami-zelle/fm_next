@@ -328,7 +328,6 @@ const Header = ({ checkoutPage }) => {
   const defaultStore = findDefaultStore()
   const defaultStoreTimings = defaultStore?.timings?.find(day => day.day === currentDay)
 
-  // console.log("def store", stores[5].city);
 
   const [timings, setTimings] = useState();
 

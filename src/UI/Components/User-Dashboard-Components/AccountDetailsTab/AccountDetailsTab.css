@@ -118,8 +118,21 @@
     flex-shrink: 0;
 }
 
+input, label {
+    font-weight: 400;
+    width: 100%;
+}
+
 .user-info-body > label > input {
     width: 80%;
+    background-color: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 18px;
+    outline: none;
+    padding: 8px 10px;
 }
 
 

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -8,6 +10,7 @@ import { url } from '../../utils/api';
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => { 
 
@@ -86,9 +89,11 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                             onMouseMove={handleMouseMove}
                             onClick={handleClick}  // prevent click if dragging
                         >
-                            <img
+                            <Image
                                 src={`${url}${img.image_url}`}
                                 alt={`slide ${index + 1}`}
+                                width={1599}
+                                height={360}
                                 onDragStart={(e) => e.preventDefault()}  // Prevent drag
                                 onLoad={() => setImagePreloader(true)}
                             />
@@ -110,9 +115,11 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                                 onMouseMove={handleMouseMove}
                                 onClick={handleClick}  // prevent click if dragging
                             >
-                                <img
+                                <Image
                                     src={`${url}${img.image_url}`}
                                     alt={`slide ${index + 1}`}
+                                    width={320}
+                                    height={320}
                                     onDragStart={(e) => e.preventDefault()}  // Prevent drag
                                 />
                             </Link>

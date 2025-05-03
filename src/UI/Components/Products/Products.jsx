@@ -82,12 +82,12 @@ const Products = ({ navigationType }) => {
 
     const pathname = usePathname()
 
-    const query = params.get('query');
     const searchParams = useSearchParams()
+    const query = searchParams.get('query');
     
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
-    const navigate = useRouter();
+    // const router = useRouter();
     const [addToCartClicked, setAddToCartClicked] = useState(false);
     const [quickViewClicked, setQuickView] = useState(false);
     const [colors, setColors] = useState([]);
@@ -403,7 +403,8 @@ const Products = ({ navigationType }) => {
         // if (navigationType !== 'POP' || !products?.length > 0) {
             fetchProductData()
         // }
-    }, [location.pathname])
+    }, [location.pathname, query])
+    // useEffect(() => {fetchProductData()}, [query])
 
     // Product Click Functions 
 
@@ -419,7 +420,7 @@ const Products = ({ navigationType }) => {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const handleProductClick = (item) => {
-        navigate.push(`/product/${item.slug}`);
+        router.push(`/product/${item.slug}`);
     };
 
 
@@ -813,7 +814,7 @@ const Products = ({ navigationType }) => {
                                                 justWidth={hideFilters ? '100%' : '100%'}
                                                 tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                                                mainImage={`${item.image.image_url}`}
+                                                mainImage={`${item?.image?.image_url}`}
                                                 productCardContainerClass="product-card"
                                                 ProductSku={item.sku}
                                                 tags={item.tags}
@@ -977,7 +978,7 @@ const Products = ({ navigationType }) => {
                                 colTwo={selectedGrid === 'single-col' ? false : true}
                                 tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                                mainImage={`${item.image.image_url}`}
+                                mainImage={`${item?.image?.image_url}`}
                                 productCardContainerClass="product-card"
                                 ProductSku={item.sku}
                                 tags={item.tags}

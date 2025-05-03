@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import './ReviewTab.css';
 import { useAppointment } from '../../../../context/AppointmentContext/AppointmentContext';

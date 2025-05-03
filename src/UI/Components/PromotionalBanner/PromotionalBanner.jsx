@@ -1,6 +1,6 @@
 'use client'
 
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react'
 import './PromotionalBanner.css';
 // import { Link, useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ const PromotionalBanner = (
     currentSelectedCountry 
   }) => {
 
-  // const navigate = useRouter()
+  const router = useRouter()
   const [currentIndex, setCurrentIndex] = useState(0);
   const dynamicHeading = [0, 1, 2]
   useEffect(() => {
@@ -52,7 +52,7 @@ const PromotionalBanner = (
             },
           });
           if (response.ok) {
-            // navigate(`/user-dashboard/${id}`);
+            router.push(`/user-dashboard/${id}`);
           }
         } else {
           localStorage.removeItem('userToken');
@@ -70,7 +70,7 @@ const PromotionalBanner = (
   }
 
   const handleNavigateToLogin = () => {
-    // navigate('/user-dashboard')
+    router.push('/my-account')
     setIsTokenValid(false)
   }
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Login.css';
 import { url } from '../../../../utils/api';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { useUserDashboardContext } from '../../../../context/userDashboardContext/userDashboard';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import loadingIcon from "../../../../Assets/Loader-animations/loader-check-two.gif";
 import { useCart } from '../../../../context/cartContext/cartContext';
+import { useRouter } from 'next/navigation';
 
 const Login = ({ signupclicked, setSignupclicked }) => {
 
@@ -21,7 +22,8 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
 
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const router = useRouter()
 
   const { setToken } = useUserDashboardContext();
   const { setCartUid } = useCart();
@@ -132,7 +134,6 @@ const Login = ({ signupclicked, setSignupclicked }) => {
         if (isCartConversionNeeded) {
           const convertCart = convertCartAbd();
           convertCart().then(response => {
-            console.log(response); // Full response object
             if (response?.status === 200) {
               setCartUid(response?.existingCartId)
             } else if (response?.status === 201) {
@@ -143,7 +144,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
           });
         }
         setLoading(false);
-        navigate(`/user-dashboard/${result?.data?._id}`)
+        router.push(`/user-dashboard/${result?.data?._id}`)
       } else {
         // Handle error
         setError(result.message || 'Something went wrong');
@@ -244,7 +245,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
                 onChange={(e) => setAcceptTerms(e.target.checked)}
                 required
               />
-              <span className='terms-conditions-agre-container'>I agree to the <Link to={'/privacy-policy'}>Privacy Policy</Link></span>
+              <span className='terms-conditions-agre-container'>I agree to the <Link href={'/privacy-policy'}>Privacy Policy</Link></span>
             </label>
             <label className="signup-sec-label checkbox">
               <input
@@ -254,7 +255,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
                 onChange={(e) => setAcceptPrivacy(e.target.checked)}
                 required
               />
-              <span className='terms-conditions-agre-container'>I agree to the <Link to={'/terms-and-conditions'}>Terms & Conditions</Link></span>
+              <span className='terms-conditions-agre-container'>I agree to the <Link href={'/terms-and-conditions'}>Terms & Conditions</Link></span>
             </label>
 
 

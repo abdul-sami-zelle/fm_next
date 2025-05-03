@@ -65,7 +65,6 @@ const ProductDetailSticky = (
     // parentCategories,
   }) => {
 
-  // console.log("product data initial state", productData)
 
   const router = useRouter()
   const { setAppointmentPayload } = useAppointment()
@@ -96,9 +95,6 @@ const ProductDetailSticky = (
     }
   }
 
-  useEffect(() => {
-    console.log(productData, "here is pdata")
-  }, [])
 
 
   // Effect to fetch data if user came directly via link
@@ -259,7 +255,6 @@ const ProductDetailSticky = (
 
   const [appointmentModal, setAppointmentModal] = useState(false);
   const handleShowAppointmentModal = () => {
-    // console.log("clicked")
     setAppointmentModal(true);
   }
 
@@ -333,7 +328,6 @@ const ProductDetailSticky = (
 
   const { eachProtectionValue } = useCart();
 
-  // console.log("products data", Object.keys(product).length)
 
 
 

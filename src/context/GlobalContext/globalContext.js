@@ -163,7 +163,6 @@ export const GlobalContextProvider = ({ children }) => {
         return distanceA - distanceB; // Sort in ascending order (shortest distance first)
       });
 
-      console.log("stores in context", sortedData)
 
       setStores(sortedData); // Set the sorted data to the state
     }

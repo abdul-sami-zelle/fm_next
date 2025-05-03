@@ -13,7 +13,6 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
   const fetchReviews = async (productUid) => {
     try {
       const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
-      console.log("review response ", response)
       setCustomerPhotos(response.data.reviews[0].images)
       
     } catch (error) {
@@ -23,7 +22,6 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
 
   useEffect(() => {fetchReviews(productData?.uid)}, [])
 
-  useEffect(() => { console.log("Customer Photos", customerPhotos) }, [customerPhotos])
 
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },

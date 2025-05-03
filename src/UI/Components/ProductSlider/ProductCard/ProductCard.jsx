@@ -3,6 +3,7 @@ import './ProductCard.css';
 import arrowLeft from '../../../../Assets/icons/arrow-left-black.png';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ProductCard = ({
   productData,
@@ -23,8 +24,10 @@ const ProductCard = ({
   return (
     <div className="product" >
       <div className="product-img">
-        <img
+        <Image
           src={img}
+          width={720}
+          height={450}
           alt="product"
           onClick={(e) => {handleCardClicked(productData)}}
           onDragStart={(e) => e.preventDefault()} // Prevent drag behavior
@@ -57,7 +60,7 @@ const ProductCard = ({
           href={{ pathname: `/product/${productData?.slug}`, state: productData }}
         >
           <div>{btnTxt}</div>
-          <img src={'/Assets/icons/arrow-left-black.png'} alt="arrow left" />
+          <Image src={'/Assets/icons/arrow-left-black.png'} width={15} height={15} alt="arrow left" />
         </Link>
       </div>
     </div>
