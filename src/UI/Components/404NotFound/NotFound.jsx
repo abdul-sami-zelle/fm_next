@@ -13,7 +13,7 @@ const NotFound = () => {
             <h3 className='something-wrong-text'>Looks like something's off</h3>
             <div className='error-response-div'>
                 <p>Our site is temporarily unavailable</p>
-                <p>We’re working hard to fix the problem</p>
+                <p>We’re working hard to fix the problem here</p>
                 <p>and we’ll have the lights back on soon</p>
             </div>
             <h3 className='appreciation-text'>Thank you for your patience and for shopping with us</h3>
