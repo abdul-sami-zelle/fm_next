@@ -250,7 +250,7 @@ const CheckoutClient = ({params}) => {
           <h3 className='right-section-order-summary-main-heading'>Order Summary</h3>
           <div className='right-section-order-summary-products-container'>
             <div className='right-section-ordered-product-card'>
-              {cartProducts?.products.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
+              {cartProducts?.products?.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
                 <div key={items.uid} className='selected-products'>
                   <div className='selected-single-product'>
                     <img src={`${url}${items.image.image_url}`} alt='img' />
