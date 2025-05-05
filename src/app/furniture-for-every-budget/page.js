@@ -1,4 +1,5 @@
 import FurnitureAtEveryBudgetClient from "@/UI/Components/FurnitureForBudgetClient/FurnitureForBudgetClient";
+import { Suspense } from "react";
 
 export async function generateMetadata() {
     return {
@@ -11,5 +12,10 @@ export async function generateMetadata() {
   
   
   export default function FurnitureAtEveryBudget() {
-    return <FurnitureAtEveryBudgetClient />
+
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <FurnitureAtEveryBudgetClient />
+      </Suspense>
+    )
   }

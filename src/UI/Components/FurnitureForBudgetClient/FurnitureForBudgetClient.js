@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import "./FurnitureAtEveryBudget.css";
 // import star from '../../../Assets/icons/blue-star.png'
 import { url } from "../../../utils/api";
@@ -28,27 +28,30 @@ export default function FurnitureAtEveryBudgetClient() {
 
     const searchParams = useSearchParams();
 
-  const category = searchParams.get('categoryUid');
-  const max_price = searchParams.get('max_price');
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+        const category = searchParams.get('categoryUid');
+        const max_price = searchParams.get('max_price');
+      
+          useEffect(() => {
+              const fetchData = async () => {
+                  try {
+                      const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
+                      if (!response.ok) {
+                          throw new Error("Failed to fetch data");
+                      }
+                      const result = await response.json();
+                      setData(result);
+                  } catch (error) {
+                      setError(error.message);
+                  } finally {
+                      setLoading(false);
+                  }
+              };
+      
+              fetchData();
+          }, []);
+    }, [searchParams])
 
-        fetchData();
-    }, []);
 
     const maxLength = 50;
     // const truncateTitle = (title, maxLength) => {
@@ -108,6 +111,7 @@ export default function FurnitureAtEveryBudgetClient() {
 
     const [variationPayload, setVariationPayload] = useState();
     const getVariationMatch = () => {
+        if (!data?.variations) return;
         const selectedAttr = data?.variations?.find(variation =>
             variation.attributes.some(attribute =>
                 attribute.type === 'select' &&
@@ -139,6 +143,7 @@ export default function FurnitureAtEveryBudgetClient() {
         const defAttImage = data?.variations?.find(attr =>
             attr.uid === data.default_variation
         )
+        if (!defAttImage) return;
         const defAttrColor = defAttImage?.attributes?.find(attribute =>
             attribute?.type === 'color' &&
             attribute?.options?.some(option => option?.value)
@@ -156,9 +161,14 @@ export default function FurnitureAtEveryBudgetClient() {
         getVariationMatch()
     };
 
+    // useEffect(() => {
+    //     getInitialDefaultValues()
+    // }, []);
     useEffect(() => {
-        getInitialDefaultValues()
-    }, []);
+        if (data && data.variations && data.default_variation) {
+            getInitialDefaultValues();
+        }
+    }, [data]);
 
     // if (loading) return <p>Loading...</p>;
     // if (error) return <p>Error: {error}</p>;

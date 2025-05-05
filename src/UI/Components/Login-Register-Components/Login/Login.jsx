@@ -27,7 +27,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
   const { setToken } = useUserDashboardContext();
   const { setCartUid } = useCart();
-  const id = localStorage.getItem('uuid');
+  // const id = localStorage.getItem('uuid');
 
 
   const handleSubmit = async (e) => {

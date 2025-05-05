@@ -10,19 +10,23 @@ export const UserDashboardCtxProvider = ({ children }) => {
     const [isTokenValid, setIsTokenValid] = useState(false); // State to track token validity
 
     const setToken = (token,id) => {
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('uuid', id);
-        setUserToken(token);
-        setUserUid(id)
-        setIsTokenValid(true);
+        if(typeof window !== 'undefined') {
+            localStorage.setItem('userToken', token);
+            localStorage.setItem('uuid', id);
+            setUserToken(token);
+            setUserUid(id)
+            setIsTokenValid(true);
+        }
     };
 
     const removeToken = () => {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('uuid');
-        setUserToken(null);
-        setUserUid(null)
-        setIsTokenValid(false);
+        if(typeof window !== 'undefined') {
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('uuid');
+            setUserToken(null);
+            setUserUid(null)
+            setIsTokenValid(false);
+        }
     };
 
     return (

@@ -26,41 +26,44 @@ const LoginRegisterClient = () => {
 
 
   const checkToken = async () => {
-    const token = localStorage.getItem('userToken');
-    if (token) {
-      try {
-        setMainLoader(true);
-        const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
-          method: "GET",
-          headers: {
-            authorization: `${token}`,
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setUserToken(token);
-          setIsTokenValid(true);
-          setMainLoader(false);
-          router.push("/user-dashboard")
-        } else {
-          console.warn("Token is invalid or expired. Removing it.");
+    if(typeof window !== 'undefined') {
+      const token = localStorage.getItem('userToken');
+      
+      if (token) {
+        try {
+          setMainLoader(true);
+          const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+            method: "GET",
+            headers: {
+              authorization: `${token}`,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setUserToken(token);
+            setIsTokenValid(true);
+            setMainLoader(false);
+            router.push("/user-dashboard")
+          } else {
+            console.warn("Token is invalid or expired. Removing it.");
+            localStorage.removeItem('userToken');
+            setUserToken(null);
+            setIsTokenValid(false);
+            setMainLoader(false);
+          }
+        } catch (error) {
+          console.error("Error verifying token:", error);
           localStorage.removeItem('userToken');
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
         }
-      } catch (error) {
-        console.error("Error verifying token:", error);
-        localStorage.removeItem('userToken');
-        setUserToken(null);
-        setIsTokenValid(false);
+  
         setMainLoader(false);
       }
-
-      setMainLoader(false);
-    }
-    else {
-      setMainLoader(false);
+      else {
+        setMainLoader(false);
+      }
     }
 
   };
@@ -77,9 +80,11 @@ const LoginRegisterClient = () => {
   const [prevState, setPrevState] = useState(null);
   useEffect(() => {
     // Ensure this runs only in the browser
-    const storedUuid = localStorage.getItem('uuid');
-    if (storedUuid) {
-      setPrevState(storedUuid);
+    if(typeof window !== 'undefined'){
+      const storedUuid = localStorage.getItem('uuid');
+      if (storedUuid) {
+        setPrevState(storedUuid);
+      }
     }
   }, []);
 

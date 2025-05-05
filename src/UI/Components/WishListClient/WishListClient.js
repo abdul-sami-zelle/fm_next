@@ -39,7 +39,7 @@ const router = useRouter()
   
   const truncateTitle = (title, maxLength) => {
     if (!title) return '';
-    return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
+    return title?.length > maxLength ? title.slice(0, maxLength) + '...' : title
   };
 
   
@@ -98,11 +98,11 @@ const router = useRouter()
 
       </div>
 
-      <div className={`${wishList.length === 0 ? 'wish-listed-empty-products' : 'wish-listed-products'} `}>
+      <div className={`${wishList?.length === 0 ? 'wish-listed-empty-products' : 'wish-listed-products'} `}>
 
         {loading ? (
           Array.from({ length: 4 }).map((_, index) => <ProductCardShimmer key={index} />)
-        ) : wishList.length === 0 ? (
+        ) : wishList?.length === 0 ? (
           <div className='empty-wishlist'>
             <h3>No items in your wishlist</h3>
           </div>
@@ -144,7 +144,7 @@ const router = useRouter()
       </div>
 
       <div className={`wishlist-mobile-cards ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'}`}>
-        {wishList && wishList.length > 0 ? (
+        {wishList && wishList?.length > 0 ? (
           wishList.map((item, index) => {
             return <ProductCardTwo
               key={index}

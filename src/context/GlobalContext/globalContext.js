@@ -47,8 +47,10 @@ export const GlobalContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem('other_info', JSON.stringify(info));
-    fetchAllstores();
+    if(typeof window !== 'undefined') {
+      localStorage.setItem('other_info', JSON.stringify(info));
+      fetchAllstores();
+    }
   }, [info])
 
   // const [zipCode, setZipCode] = useState(`${info.locationData.zipCode} ${info.locationData.stateCode}`);

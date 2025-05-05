@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProductArchive from "../[category]/[product-archive]/page";
 
 export async function generateMetadata() {
@@ -8,5 +9,9 @@ export async function generateMetadata() {
 }
 
 export default function ActiveCategoryPage() {
-    return <ProductArchive productArchiveHading={`Search Result for:`} />
+    return (
+        <Suspense>
+            <ProductArchive productArchiveHading={`Search Result for:`} />  
+        </Suspense>
+    )
 }

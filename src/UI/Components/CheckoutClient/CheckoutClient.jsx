@@ -250,7 +250,7 @@ const CheckoutClient = ({params}) => {
           <h3 className='right-section-order-summary-main-heading'>Order Summary</h3>
           <div className='right-section-order-summary-products-container'>
             <div className='right-section-ordered-product-card'>
-              {cartProducts?.products.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
+              {cartProducts?.products?.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
                 <div key={items.uid} className='selected-products'>
                   <div className='selected-single-product'>
                     <img src={`${url}${items.image.image_url}`} alt='img' />
@@ -329,7 +329,7 @@ const CheckoutClient = ({params}) => {
               <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
                   <p>Calculated for:</p>
-                  <h3 onClick={handleZipInput}>{info?.locationData.state} {info?.locationData.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3>
+                  <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3>
                 </span>
                 <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
                   <div className='cart-order-summary-zip-code-input-and-button'>
