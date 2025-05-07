@@ -1,6 +1,7 @@
 .App{
     display: flex;
     flex-direction: column;
+    background:transparent;
 }
 
 /* .main_body {
