@@ -105,6 +105,7 @@ const PromotionalBanner = (
           <span>
             <Link href={'#'}>Log In</Link> | <Link href={'#'}>Sign up</Link>
           </span>
+          <Link href={'#'}>Free Design Consultation</Link>
           <Link href={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link href={'/financing'}>Financing</Link>
