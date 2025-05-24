@@ -48,22 +48,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const router = useRouter();
 
-    // const uid = localStorage.getItem('uuid');
-    // const [uid, setUid] = useState(null);
-
-    // useEffect(() => {
-    //     const storedUid = localStorage.getItem("uuid");
-    //     setUid(storedUid);
-    // }, []);
-
-    // const navigateToRoute = (link) => {
-    //     if (link === '/user-dashboard/:uid') {
-    //         navigate.push(`/user-dashboard/${uid}`);
-    //     } else {
-    //         navigate.push(link);
-    //     }
-    // };
-
     // State for email input and form submission status
 
     const [isSubscribed, setIsSubscribed] = useState(false);
@@ -200,10 +184,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     }
 
-
-
-
-
     const footerCustomerCareAndAbout = [
         {
             heading: 'Customer Care', navLinks: [
@@ -287,7 +267,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     return (
         <>
             <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : ''}`}>
-                <div className='footer-nav'>
+                {/* <div className='footer-nav'>
                     {headerData && headerData?.map((items, index) => {
                         return <div key={index} className='footer-nav-links'>
                             <h3 className='footer-nav-link-heading'>{items?.category}</h3>
@@ -296,7 +276,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                             })}
                         </div>
                     })}
-                </div>
+                </div> */}
                 <div
                     className='footer-second-contant-section'>
                     <div className='footer-left-section'>

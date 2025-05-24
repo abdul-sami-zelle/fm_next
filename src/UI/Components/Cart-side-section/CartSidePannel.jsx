@@ -77,7 +77,7 @@ const CartSidePannel = (
         <div className='cart-section-heading-div'>
           <div className='cart-side-section-cart-bag-div'>
             <img src={'/Assets/icons/cart-bag-new.png'} alt='cart icon' />
-            <p className='cart-side-panel-item-count'>{(cartData?.products?.length)}</p>
+            {cartData && (<p className='cart-side-panel-item-count'>{(cartData?.products?.length)}</p>)}
           </div>
           <p>Your Cart </p>
         </div>

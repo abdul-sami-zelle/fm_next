@@ -119,7 +119,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
                     ))
                 ) : (
                     Array.from({ length: 4 }).map((_, index) => (
-                        <ProductCardShimmer />
+                        <ProductCardShimmer key={index} />
                     ))
                 )}
             </div>

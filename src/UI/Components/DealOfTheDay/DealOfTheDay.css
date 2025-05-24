@@ -35,7 +35,7 @@
 }
 
 .deal-of-the-day-end-time p{
-    color: var(--text-white) !important; 
+    color: var(--text-charcol) !important; 
     font-size: 15px !important;
     font-weight: 600 !important;
     line-height: 22px !important;

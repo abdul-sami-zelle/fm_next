@@ -21,7 +21,7 @@ import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerPro
 import BestSellerShimmer from './BestSellerShimmer/BestSellerShimmer';
 import RatingReview from '../starRating/starRating';
 import heartIcon from '../../../Assets/icons/like.png'
-import { VscHeartFilled } from "react-icons/vsc";
+import { VscHeartFilled , VscHeart} from "react-icons/vsc";
 
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
@@ -122,16 +122,16 @@ const BestSellerSlider = (
 
 
     useEffect(() => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             const handleResizer = () => setWidth(window.innerWidth);
-        
+
             // Set initial width on client
             setWidth(window.innerWidth);
-        
+
             window.addEventListener("resize", handleResizer);
             return () => window.removeEventListener("resize", handleResizer);
         }
-      }, []);
+    }, []);
 
     // product slice to show 6 product maxx
     const handleCardClicked = (item) => {
@@ -205,46 +205,6 @@ const BestSellerSlider = (
         { icon: star },
         { icon: star }
     ]
-
-    // var settings = {
-    //     dots: false,
-    //     infinite: true,
-    //     arrows: false,
-    //     speed: 500,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //     initialSlide: 0,
-    //     arrows: true,
-    //     nextArrow: <BestSellerNextArrow to="next" />,
-    //     prevArrow: <BestSellerPrevArrow to="prev" />,
-    //     responsive: [
-    //         {
-    //             breakpoint: 1024,
-    //             settings: {
-    //                 slidesToShow: 2,
-    //                 slidesToScroll: 1,
-    //                 infinite: false,
-    //                 dots: false
-    //             }
-    //         },
-    //         {
-    //             breakpoint: 600,
-    //             settings: {
-    //                 slidesToShow: 2,
-    //                 slidesToScroll: 1,
-    //                 initialSlide: 2
-    //             }
-    //         },
-    //         {
-    //             breakpoint: 480,
-    //             settings: {
-    //                 slidesToShow: 1,
-    //                 slidesToScroll: 1,
-    //                 initialSlide: 1
-    //             }
-    //         }
-    //     ]
-    // };
 
 
     const sliderRef = useRef(null);
@@ -327,158 +287,161 @@ const BestSellerSlider = (
 
     return (
         <>
-            {allProducts && allProducts.length > 0 ? (
-                <div className="best-seller-slider-container">
+            <div className="best-seller-slider-container">
 
-                    <div className='best-seller-imaage-and-cards'>
-                        <div className='best-seller-slider-main-banner'>
-                            <img src={url + bestSellerNav1[activeItem].image.image_url} alt='main banner' />
-                        </div>
-                        <div className='best-seller-slider-div'>
-                            <div className='best-seller-slider-menu-bar'>
-                                <h3>Best Seller</h3>
-                                <div className='best-seller-menu-bar'>
-                                    {bestSellerNav1.map((item, index) => (
-                                        <p
-                                            key={index}
-                                            className={activeItem === index ? 'active' : ''}
-                                            onClick={() => {
-                                                getBestSellerProducts(item.slug)
-                                                handleActiveItem(index)
-                                            }}
-                                        >
-                                            {item.Heading}
-                                        </p>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className='best-seller-slider-main-banner-mobile-view'>
-                                <Image src={url + bestSellerNav1[activeItem].image.image_url} width={540} height={810} alt='main banner' />
-                            </div>
-
-                            <div className='products-slider-container'>
-
-                                <div className='best-seller-slider-wrapper' style={{ overflow: 'hidden' }}>
-                                    <div
-                                        className='best-seller-slider'
-                                        style={{
-                                            transform: `translateX(-${(currentIndex / totalPages) * 100}%)`
-                                        }}>
-                                        {/* {products.slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => ( */}
-                                        {!loading ?
-                                            getDisplayedCards().slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => (
-                                                <BestSellerProductCard
-                                                    productData={item}
-                                                    isDiscountable={item.discount.is_discountable === 1 ? true : false}
-                                                    key={index}
-                                                    productMainImage={item.images?.[0]?.image_url}
-                                                    starIcon={ratingStars}
-                                                    reviews={'200'}
-                                                    productName={item.name}
-                                                    oldPrice={item.regular_price}
-                                                    newPrice={item.newPrice}
-                                                    listed={listed}
-                                                    handleCardClicked={() => handleCardClicked(item)}
-                                                    handleWishListClicked={() => handleWishlisted(item)}
-                                                />
-                                            )) :
-                                            <>
-                                                <BestSellerProductCardShimmer />
-                                                <BestSellerProductCardShimmer />
-                                                <BestSellerProductCardShimmer />
-                                                <BestSellerProductCardShimmer />
-                                                <BestSellerProductCardShimmer />
-                                                <BestSellerProductCardShimmer />
-                                            </>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div className='best-seller-imaage-and-cards'>
+                    <div className='best-seller-slider-main-banner'>
+                        <img src={url + bestSellerNav1[activeItem].image.image_url} alt='main banner' />
                     </div>
-
-                    {/* Mobile View  */}
-                    <div className='best-saller-mobile-container'>
-                        <h3>Best Seller</h3>
-                        <div className='mobile-card-nav-container'>
-                            {bestSellerNav1.map((item, index) => (
-                                <p
-                                    key={index}
-                                    className={`mobile-best-seller-nav-item ${mobIndex === index ? 'mobile-seller-nav-active' : ''}`}
-                                    onClick={() => {
-                                        handleMobileNavClick(index)
-                                        handleMobileActiveindex(index)
-                                        getBestSellerProducts(item.slug)
-                                    }}
-                                >
-                                    {item.Heading}
-                                </p>
-                            ))}
+                    <div className='best-seller-slider-div'>
+                        <div className='best-seller-slider-menu-bar'>
+                            <h3>Best Seller</h3>
+                            <div className='best-seller-menu-bar'>
+                                {bestSellerNav1.map((item, index) => (
+                                    <p
+                                        key={index}
+                                        className={activeItem === index ? 'active' : ''}
+                                        onClick={() => {
+                                            getBestSellerProducts(item.slug)
+                                            handleActiveItem(index)
+                                        }}
+                                    >
+                                        {item.Heading}
+                                    </p>
+                                ))}
+                            </div>
                         </div>
 
-                        <div className='mobile-view-cards-main-container'>
-                            {loading ? (
-                                <BestSellerProductCardShimmer width={'85%'} />
-                            ) : (
-                                <Slider ref={sliderRef} {...mobileSettings}>
-                                    {allProducts.map((item, index) => (
-
-
-                                        <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-                                            <div className='mobile-best-seller-cart-wishlist-container'>
-                                                {
-                                                    isInWishList(item?.uid) ? (
-                                                        <VscHeartFilled
-                                                            size={25}
-                                                            style={{ color: 'var(--primary-color)' }}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleWishlisted(item);
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        <img
-                                                            src={heartIcon}
-                                                            alt='heart'
-                                                            className='mobile-best-seller-heart-icon'
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleWishlisted(item);
-                                                            }}
-                                                        />
-                                                    )
-                                                }
-                                            </div>
-                                            <img src={url + item?.images?.[1]?.image_url} />
-                                            <div className='mobile-card-details-container'>
-                                                <div className='mobile-best-seller-rating-and-review'>
-                                                    <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
-                                                </div>
-                                                <h3>{item?.name}</h3>
-                                                <div className='mobile-best-seller-category-product-price'>
-                                                    <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
-                                                    {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
-                                                </div>
-                                            </div>
-                                            <div className='mobile-best-seller-cart-container'>
-                                                <div className='mobile-best-sseller-card-bag-container'>
-                                                    <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </Slider>
+                        <div className='best-seller-slider-main-banner-mobile-view'>
+                            {/* <Image src={url + bestSellerNav1[activeItem]?.image?.image_url} width={540} height={810} alt='main banner' /> */}
+                            {bestSellerNav1[activeItem]?.image?.image_url && (
+                                <Image
+                                    src={url + bestSellerNav1[activeItem].image.image_url}
+                                    width={540}
+                                    height={810}
+                                    alt="main banner"
+                                />
                             )}
                         </div>
+
+                        <div className='products-slider-container'>
+
+                            <div className='best-seller-slider-wrapper' style={{ overflow: 'hidden' }}>
+                                <div
+                                    className='best-seller-slider'
+                                    style={{
+                                        transform: `translateX(-${(currentIndex / totalPages) * 100}%)`
+                                    }}>
+                                    {/* {products.slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => ( */}
+                                    {!loading ?
+                                        getDisplayedCards().slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => (
+                                            <BestSellerProductCard
+                                                productData={item}
+                                                isDiscountable={item.discount.is_discountable === 1 ? true : false}
+                                                key={index}
+                                                productMainImage={item.images?.[0]?.image_url}
+                                                starIcon={ratingStars}
+                                                reviews={'200'}
+                                                productName={item.name}
+                                                oldPrice={item.regular_price}
+                                                newPrice={item.newPrice}
+                                                listed={listed}
+                                                handleCardClicked={() => handleCardClicked(item)}
+                                                handleWishListClicked={() => handleWishlisted(item)}
+                                            />
+                                        )) :
+                                        <>
+                                            <BestSellerProductCardShimmer />
+                                            <BestSellerProductCardShimmer />
+                                            <BestSellerProductCardShimmer />
+                                            <BestSellerProductCardShimmer />
+                                            <BestSellerProductCardShimmer />
+                                            <BestSellerProductCardShimmer />
+                                        </>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile View  */}
+                <div className='best-saller-mobile-container'>
+                    <h3>Best Seller</h3>
+                    <div className='mobile-card-nav-container'>
+                        {bestSellerNav1.map((item, index) => (
+                            <p
+                                key={index}
+                                className={`mobile-best-seller-nav-item ${mobIndex === index ? 'mobile-seller-nav-active' : ''}`}
+                                onClick={() => {
+                                    handleMobileNavClick(index)
+                                    handleMobileActiveindex(index)
+                                    getBestSellerProducts(item.slug)
+                                }}
+                            >
+                                {item.Heading}
+                            </p>
+                        ))}
                     </div>
 
-                    
+                    <div className='mobile-view-cards-main-container'>
+                        {loading ? (
+                            <BestSellerProductCardShimmer width={'85%'} />
+                        ) : (
+                            <Slider ref={sliderRef} {...mobileSettings}>
+                                {allProducts.map((item, index) => (
 
+
+                                    <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+                                        <div className='mobile-best-seller-cart-wishlist-container'>
+                                            {
+                                                isInWishList(item?.uid) ? (
+                                                    <VscHeartFilled
+                                                        size={25}
+                                                        style={{ color: 'var(--primary-color)' }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <VscHeart
+                                                        size={25}
+                                                        style={{ color: 'var(--primary-color)' }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                )
+                                            }
+                                        </div>
+                                        <img src={url + item?.images?.[1]?.image_url} />
+                                        <div className='mobile-card-details-container'>
+                                            <div className='mobile-best-seller-rating-and-review'>
+                                                <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                                            </div>
+                                            <h3>{item?.name}</h3>
+                                            <div className='mobile-best-seller-category-product-price'>
+                                                <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
+                                                {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                                            </div>
+                                        </div>
+                                        <div className='mobile-best-seller-cart-container'>
+                                            <div className='mobile-best-sseller-card-bag-container'>
+                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </Slider>
+                        )}
+                    </div>
                 </div>
-            ) : (
-                <BestSellerShimmer rowDirection={'row'} />
-            )}
+
+
+
+            </div>
 
         </>
     );

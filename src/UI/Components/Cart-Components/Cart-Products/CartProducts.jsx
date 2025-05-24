@@ -12,6 +12,8 @@ import LocationPopUp from '../../LocationPopUp/LocationPopUp';
 import { formatedPrice } from '@/utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import { LiaShippingFastSolid } from "react-icons/lia"
+import { BsShop } from "react-icons/bs";
 
 
 const CartProducts = () => {
@@ -150,7 +152,10 @@ const CartProducts = () => {
                             </div>
 
                             <div className='cart-protect-card' onClick={handleCartAssembly}>
-                                <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
+                                {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
+                                <svg width="25" height="25" className='cart-protection-card-icon' viewBox="0 0 128 128" fill='var(orange-bg)' xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M77.9776 65.0711L95.3253 48.9711C118.176 50.8111 121.781 34.0978 120.727 25.5111L118.88 23.6711L110.566 31.4911H102.253L96.7108 26.8911V20.4511L105.486 10.3311L103.639 8.49108C81.4697 6.28308 77.9776 23.6711 79.6223 36.5511L61.1481 55.4111M77.9776 65.0711L75.0037 67.8311L63.9193 78.4111M77.9776 65.0711L119.803 105.551C121.497 112.298 121.004 124.595 105.486 119.811L63.9193 78.4111M63.9193 78.4111L56.0678 86.0011L48.2163 93.5911C49.6018 104.018 46.8307 123.859 24.6617 119.811L22.8143 118.891L31.5895 109.691V103.251L24.6617 96.8111H17.7339L8.95874 104.171L7.57318 103.251C7.26528 93.8978 12.3765 76.3871 35.2844 81.1711L54.6822 61.8511M54.6822 61.8511L52.8348 60.0111L24.1999 31.4911L16.3484 30.1111L7.11133 14.9311L14.9628 7.11108L29.7421 17.6911L31.1277 25.5111L59.3007 53.5711L61.1481 55.4111M54.6822 61.8511L61.1481 55.4111M48.2163 79.7911L77.9776 51.1541M87.9356 67.8311L67.6141 88.0711M87.0119 86.6911L108.719 108.311" stroke="white" stroke-width="2" stroke-linecap="round" />
+                                </svg>
                                 <div className='cart-protection-plan-details-container'>
                                     <p className='cart-protection-plan-card-header'>Professional Assembly (+ $210)</p>
                                     <p className='cart-protection-plan-cart-desc'>Use professional assembly for all products and save up to $80</p>
@@ -178,7 +183,8 @@ const CartProducts = () => {
                             {selectedShippingMethods &&
                                 selectedShippingMethods?.map((option, index) => (
                                     <div className='cart-protect-card' onClick={() => handleChange(null, option)}>
-                                        <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
+                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
+                                        <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' />
                                         <div className='cart-protection-plan-details-container'>
                                             <p className='cart-protection-plan-card-header'>{option.name}</p>
                                         </div>
@@ -279,7 +285,7 @@ const CartProducts = () => {
                             handleDecreament={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
                             removeProtection={() => removeProtection(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
                             addProtection={() => addSingleProtection(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-                        
+
                         />
                     ))}
                     {isCartLoading && <div className="cart_products_overlay">

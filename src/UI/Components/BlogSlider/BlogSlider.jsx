@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
-    <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} >
+    <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} style={{top: '45% !important'}} >
       {/* <img src={leftArrow} alt='arrow' /> */}
       <IoChevronBack />
     </div>

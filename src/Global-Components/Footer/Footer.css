@@ -328,6 +328,9 @@ p.footer-nav-items > a{
 .footer-rights-reserved-container{
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid #FFF;
+    padding-top: 20px;
 }
 
 .footer-rights-reserved-container p{
@@ -368,8 +371,8 @@ p.footer-nav-items > a{
     display: flex;
     width: 100%;
     height: auto;
-    border-top: 1px solid var(--border-color);
-    padding: 40px 0 60px 0;
+    /* border-top: 1px solid var(--border-color); */
+    padding: 0px 0 35px 0;
 }
 
 /* Left Section Styling */
@@ -520,96 +523,12 @@ p.footer-nav-items > a{
     gap: 12px;
 }
 
-.near-store-image-div{
-    display: flex;
-    width: 260px;
-    height: auto;
-}
-
-.near-store-image-div img{
-    width: 220px;
-    height: auto;
-    object-fit: contain;
-}
-
-.near-store-details-section{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-}
-
-.near-store-details-section > span{
-    display: flex;
-    width: 100%;
-    gap: 10px;
-}
-
-.near-store-details-section > span > img{
-    width: auto;
-    height: 17px;
-    object-fit: contain;
-}
-
-.near-store-details-section > span > p{
-    font-size: var(--content-one-size);
-    line-height: var(--content-one-height);
-    font-weight: var(--content-two-weight);
-    color: var(--text-white);
-}
-
 .footer-near-store-tel{
     font-size: var(--content-one-size) !important;
     line-height: var(--content-one-height) !important;
     font-weight: var(--content-two-weight) !important;
     color: var(--text-white) !important;
     text-decoration: none !important;
-}
-
-.appointment-and-outlet-div{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 8px;
-}
-
-.appointment-and-outlet-div a{
-    color: var(--text-white);
-}
-
-.appointment-and-outlet-div a p{
-    font-size: var(--content-one-size) !important;
-    line-height: var(--content-one-height) !important;
-    font-weight: var(--content-one-weight) !important;
-    color: var(--text-white) !important;
-}
-
-.appointment-and-outlet-div a:hover{
-    color: #dfdfdf;
-}
-
-.appointment-and-outlet-div a p:hover{
-    color: #dfdfdf !important;
-}
-
-.appointment-and-outlet-div span{
-    color: var(--text-white);
-    cursor: pointer;
-}
-
-.appointment-and-outlet-div span p{
-    font-size: var(--content-one-size) !important;
-    line-height: var(--content-one-height) !important;
-    font-weight: var(--content-one-weight) !important;
-    color: var(--text-white) !important;
-}
-
-.appointment-and-outlet-div span:hover{
-    color: #dfdfdf;
-}
-
-.appointment-and-outlet-div span p:hover{
-    color: #dfdfdf !important;
 }
 
 /* Right Section Styling */

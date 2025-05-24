@@ -140,7 +140,7 @@
 }
 
 .deal-of-the-day-product-discount p{
-  color: var(--text-white);
+  color: var(--text-charcol);
   font-size: 12px;
   font-weight: 600;
   line-height: 18px;
@@ -186,7 +186,7 @@
 }
 
 .deal-of-the-day-icon-one:hover .deal-of-month-cart-icon{
-  color: #FFF !important;
+  color: var(--text-charcol) !important;
 }
 
 
@@ -217,11 +217,11 @@
 }
 
 .deal-of-the-day-icon-two:hover .deal-of-month-heart-icon{
-  color: #FFF !important;
+  color: var(--text-charcol) !important;
 }
 
 .deal-of-the-day-icon-two.active-wish-list-btn .deal-of-month-heart-icon{
-  color: #FFF !important;
+  color: var(--text-charcol) !important;
 }
 
 
@@ -249,7 +249,7 @@
 }
 
 .deal-of-the-day-icon-three:hover .deal-of-month-share-icon{
-  color: #FFF !important;
+  color: var(--text-charcol) !important;
 }
 
 .deal-of-the-day-product-under-line{

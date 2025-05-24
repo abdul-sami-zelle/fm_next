@@ -87,7 +87,7 @@ const DealOfTheDayCard = ({
         </div>
 
         <div className='deal-of-the-day-product-image'>
-          <img src={heartIcon} alt='heart-icon' className='mobile-view-deal-day-card-heart-icon' />
+          <Image src={heartIcon} width={20} height={20} alt='heart-icon' className='mobile-view-deal-day-card-heart-icon' />
           <div className='deal-of-the-day-product-discount'><p>{dicountPercent}</p></div>
           <Image src={`${url}${productImage}`} width={400} height={250} alt='img' effect='blur' />
           <div className='deal-of-the-day-card-icons-div'>

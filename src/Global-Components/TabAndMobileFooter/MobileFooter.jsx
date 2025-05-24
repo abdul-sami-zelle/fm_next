@@ -19,6 +19,7 @@ import axios from 'axios';
 import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 
 const MobileFooter = ({ checkoutPage }) => {
     
@@ -27,22 +28,7 @@ const MobileFooter = ({ checkoutPage }) => {
 
     const [googleRating, setGoogleRating] = useState(null);
 
-    // const fetchGoogleRating = async () => {
-    //     const api = `${url}/api/v1/stores/get-top-rated`;
-
-    //     try {
-    //         let response;
-    //         response = await axios.get(api);
-    //         const stores = response.data.data;
-    //         setGoogleRating(stores)
-    //     } catch (error) {
-    //         console.error("Error fetching stores data", error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchGoogleRating();
-    // }, [])
+    
 
     const socialIcons = [
         { socialIcon: facebookIcon, socialLink: 'https://www.facebook.com/myfurnituremecca' },
@@ -134,12 +120,12 @@ const MobileFooter = ({ checkoutPage }) => {
                 </div>
                 <div className={`mobile-view-near-store-containt-section ${locationAccordion ? 'show-mobile-footer-location' : ''}`}>
                     <div className='near-store-image-div'>
-                        <img src={`${url}${defaultStore?.images?.[0]?.image_url}`} alt='near store' />
+                        {defaultStore?.images?.[0]?.image_url && (<Image src={`${url}${defaultStore?.images?.[0]?.image_url}`} width={220} height={32} alt='near store' />)}
                     </div>
                     <div className='near-store-details-section'>
-                        {nearStoreDetails.map((item, index) => (
+                        { nearStoreDetails.map((item, index) => (
                             <span key={index}>
-                                <img src={item.icon} alt='icon' />
+                                <Image src={item.icon} width={17} height={17} alt='icon' />
                                 <p>{item.details}</p>
                             </span>
                         ))}
@@ -170,7 +156,7 @@ const MobileFooter = ({ checkoutPage }) => {
                         <div className={`mobile-footer-nav-items ${footerAccordionIndex === index ? 'show-footer-accordion' : ''}`}>
                             {item.navLinks.map((innerItems, innerIndex) => (
                                 <Link className='footer-nav-span' key={innerIndex} href={innerItems.link}>
-                                    <img src={arrowRightWhite} alt='arrow right' />
+                                    <Image src={arrowRightWhite} width={10} height={10} alt='arrow right' />
                                     {innerItems.name}
                                 </Link>
                             ))}
@@ -178,15 +164,6 @@ const MobileFooter = ({ checkoutPage }) => {
                     </div>
                 ))}
 
-
-                {/* <div className='mobile-footer-line'></div> */}
-                {/* <div className='mobile-view-right'>
-                    <p>2020 - 2024 Furniture Mecca. All Rights Reserved</p>
-                    <span>
-                        <p>Designed & maintained by </p>
-                        <Link target='_blank' href={'https://zellesolutions.com/'}>Zelle Solutions</Link>
-                    </span>
-                </div> */}
             </div>
 
 
@@ -207,7 +184,7 @@ const MobileFooter = ({ checkoutPage }) => {
             <div className='contact-container'>
                 {contactData.map((item, index) => {
                     return <span key={index}>
-                        <img src={item.icon} alt='img' />
+                        <Image src={item.icon} width={22} height={22} alt='img' />
                         {
                             item.title === '215 352 1600' ?
                                 <a href='tel:2153521600'>{item.title}</a> :
@@ -221,7 +198,7 @@ const MobileFooter = ({ checkoutPage }) => {
             <div className='footer-social-icons'>
                 {socialIcons.map((item, index) => {
                     return <Link key={index} target='_blank' href={item.socialLink}>
-                        <img src={item.socialIcon} alt="icon" />
+                        <Image src={item.socialIcon} width={25} height={25} alt="icon" />
                     </Link>
                 })}
             </div>

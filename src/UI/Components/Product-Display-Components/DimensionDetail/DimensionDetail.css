@@ -19,10 +19,18 @@
 }
 
 .dimension-detail-section > h3{
-    font-size: var(--section-size);
+    /* font-size: var(--section-size);
     line-height: var(--section-height);
     font-weight: var(--section-weight);
+    color: var(--text-primary); */
+    font-size: var(--sub-section-size);
+    line-height: var(--sub-section-height);
+    font-weight: var(--sub-section-weight);
     color: var(--text-primary);
+}
+
+div > div > p > strong {
+    
 }
 
 .dimension-detail-section > p {

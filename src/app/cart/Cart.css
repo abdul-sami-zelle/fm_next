@@ -218,8 +218,9 @@
     justify-content: start;
     gap: 0;
     height: max-content;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--orange-bg);
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .cart-summary-update-zip-input {
@@ -338,8 +339,9 @@ mobile-cart-order-summary-total{
     justify-content: start;
     gap: 0;
     height: max-content;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--orange-bg);
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .cart-summary-update-coupon-input {
@@ -356,7 +358,7 @@ mobile-cart-order-summary-total{
     padding: 11px 15px;
     border: none;
     background-color: var(--primary-color);
-    color: #fff;
+    color: var(--text-charcol);
     cursor: pointer;
 }
 
@@ -383,8 +385,8 @@ mobile-cart-order-summary-total{
     padding: 11px;
     align-items: center;
     justify-content: center;
-    background-color: var(--text-primary);
-    color: #fff;
+    background-color: var(--orange-bg);
+    color: var(--text-charcol);
     border-radius: 5px;
     border: none;
     outline: none;
@@ -625,9 +627,9 @@ mobile-cart-order-summary-total{
     justify-content: center;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-bg);
     background-color: transparent;
-    color: var(--text-primary);
+    color: var(--text-orange);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -635,8 +637,10 @@ mobile-cart-order-summary-total{
 }
 
 .financing-month-range-apply-button:hover{
-    background-color: rgba(89, 89, 89, 0.2);
-    color: var(--secondary-color);
+    /* background-color: rgba(89, 89, 89, 0.2); */
+    /* color: var(--secondary-color); */
+    background-color: var(--orange-bg);
+    color: var(--text-charcol);
 }
 
 .mobile-total-save-and-checkout-button{

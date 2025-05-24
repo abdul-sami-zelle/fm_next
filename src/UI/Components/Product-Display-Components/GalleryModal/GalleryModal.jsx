@@ -84,6 +84,20 @@ const GalleryModal = (
     setDragging(false);
   };
 
+  const getStartIndex = (current, total) => {
+    if (total <= 3) return 0;
+    if (current === 0) return 0;
+    if (current === total - 1) return total - 3;
+    return current - 1;
+  };
+
+  const getEndIndex = (current, total) => {
+    if (total <= 3) return total;
+    if (current === 0) return 3;
+    if (current === total - 1) return total;
+    return current + 2;
+  };
+
 
   return (
     <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
@@ -96,7 +110,7 @@ const GalleryModal = (
         <div className='dimension-left-thumbnail-section'>
           <div className='dimension-modal-products-thumb-heading'>
             <p>Product Photos {(updatedSimpleImages?.length)}</p>
-            <MdKeyboardArrowDown size={20} color='var(--secondary-color)' className='dimension-modal-arrow-down ' />
+            {/* <MdKeyboardArrowDown size={20} color='var(--secondary-color)' className='dimension-modal-arrow-down ' /> */}
           </div>
           <div className='thumb-images-main-container'>
             {productData?.type === 'variable' ?
@@ -135,13 +149,13 @@ const GalleryModal = (
             }}
           >
 
-            <button
+            {/* <button
               className={`dimension-main-slider-arrow dimension-slider-arrow-back ${activeIndex === 0 ? 'dimension-modal-disabled-button' : ''}`}
               onClick={handlePrevImage}
               disabled={activeIndex === 0}
             >
               <IoIosArrowBack size={20} color='var(--secondary-color)' className='product-gallery-arrow' />
-            </button>
+            </button> */}
 
             <div
               className='dimension-modal-main-slider-images'
@@ -171,40 +185,88 @@ const GalleryModal = (
 
             </div>
 
-            <button
+            {/* <button
               className={`dimension-main-slider-arrow dimension-slider-arrow-right ${activeIndex === updatedSimpleImages?.length - 1 ? 'disabled-button' : ''}`}
               onClick={handleNextImage}
             >
               <IoIosArrowForward size={20} color='var(--secondary-color)' className='product-gallery-arrow' />
-            </button>
+            </button> */}
+
+            <div className='slider-dots-and-view-all-button'>
+              {productData?.type === 'variable' ? <div style={{
+                paddingLeft: "0"
+              }} className="pagination-dots">
+
+
+                {updatedVariationImages
+                  ?.map((_, i) => i)
+                  .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
+                  .map((index) => (
+                    <span
+                      key={index}
+                      className={`dot ${currentIndex === index ? "active" : ""}`}
+                      onClick={() => handleDotClick(index)}
+                    />
+                  ))}
+
+
+              </div> :
+                <div style={{
+                  paddingLeft: "0"
+                }} className="pagination-dots">
+
+                  {updatedSimpleImages
+                    ?.map((_, i) => i)
+                    .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
+                    .map((index) => (
+                      <span
+                        key={index}
+                        className={`dot ${currentIndex === index ? "active" : ""}`}
+                        onClick={() => handleDotClick(index)}
+                      />
+                    ))}
+                </div>
+              }
+            </div>
 
           </div>
 
-          <div className='slider-dots-and-view-all-button'>
+          {/* <div className='slider-dots-and-view-all-button'>
             {productData?.type === 'variable' ? <div style={{
               paddingLeft: "0"
             }} className="pagination-dots">
-              {updatedVariationImages?.map((_, index) => (
-                <span
-                  key={index}
-                  className={`dot ${currentIndex === index ? "active" : ""}`} // Highlight active dot
-                  onClick={() => handleDotClick(index)} // Navigate when clicking dots
-                />
-              ))}
+              
+
+              {updatedVariationImages
+                        ?.map((_, i) => i)
+                        .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
+                        .map((index) => (
+                            <span
+                                key={index}
+                                className={`dot ${currentIndex === index ? "active" : ""}`}
+                                onClick={() => handleDotClick(index)}
+                            />
+                        ))}
+
+
             </div> :
               <div style={{
                 paddingLeft: "0"
               }} className="pagination-dots">
-                {updatedSimpleImages?.map((_, index) => (
-                  <span
-                    key={index}
-                    className={`dot ${currentIndex === index ? "active" : ""}`} // Highlight active dot
-                    onClick={() => handleDotClick(index)} // Navigate when clicking dots
-                  />
-                ))}
+
+                {updatedSimpleImages
+                        ?.map((_, i) => i)
+                        .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
+                        .map((index) => (
+                            <span
+                                key={index}
+                                className={`dot ${currentIndex === index ? "active" : ""}`}
+                                onClick={() => handleDotClick(index)}
+                            />
+                        ))}
               </div>
             }
-          </div>
+          </div> */}
         </div>
         {/* Pagination Dots */}
 

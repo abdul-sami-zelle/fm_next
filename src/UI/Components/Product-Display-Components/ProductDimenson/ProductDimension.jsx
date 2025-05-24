@@ -13,7 +13,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
   const fetchReviews = async (productUid) => {
     try {
       const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
-      setCustomerPhotos(response.data.reviews[0].images)
+      setCustomerPhotos(response?.data?.reviews[0]?.images)
       
     } catch (error) {
       console.error("UnExpected Server Error", error);
@@ -25,7 +25,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
 
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },
-    ...(customerPhotos.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
+    ...(customerPhotos?.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
     { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} /> , title: 'Zoom' },
   ]
 

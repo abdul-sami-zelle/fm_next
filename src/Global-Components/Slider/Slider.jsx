@@ -12,7 +12,7 @@ import { IoChevronBack } from "react-icons/io5";
 import Link from 'next/link';
 import Image from 'next/image';
 
-const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => { 
+const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);

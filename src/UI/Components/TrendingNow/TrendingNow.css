@@ -135,12 +135,12 @@
 }
 
 .tranding-now-cart-bag {
-    color: #FFFFFF;
+    color: var(--text-charcol);
 }
 
 .mobile-tranding-now-cart-bag {
     display: none;
-    color: #FFFFFF;
+    color: var(--text-charcol);
 
 }
 
@@ -202,7 +202,6 @@
     width: 100%;
     height: auto;
     overflow: hidden;
-    /* background-color: green; */
     gap: 10px;
 
 }
@@ -246,14 +245,16 @@
 
 .trending-slide img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: fill;
+    display: block;
 }
 
 .trending-items-cards {
     display: grid;
     grid-template-columns: auto auto;
-    gap: 10px;
+    row-gap: 10px;
+    column-gap: 10px;
     padding: 5px;
 }
 
@@ -268,15 +269,11 @@
 }
 
 .trending-item-category img {
-    width: auto;
+    width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
     transition: transform 0.3s ease;
 }
-
-/* .trending-item-category:hover img {
-    transform: scale(0.8);
-} */
 
 @media only screen and (min-width: 481px) and (max-width: 780px) {
     .trending-now-main-container {

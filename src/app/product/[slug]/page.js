@@ -23,23 +23,7 @@ const ProductDisplay = ({params}) => {
   const { slug } = use(params);
   const {singleProductData} = useProductPage();
 
-  // const location = useSearchParams();
-  // const dataState = location.get('dataState');
-
-
-  // useEffect(() => {
-  //   const param = location.get('dataState');
-  //   if (param) {
-  //     try {
-  //       setDataState(JSON.parse(param));
-  //     } catch (err) {
-  //       console.error('Failed to parse query param:', err);
-  //     }
-  //   }
-  // }, [location]);
-  // const dataState = location.get('dataState');
   const [product, setProduct] = useState(singleProductData || null);
-// const [product, setProduct] = useState(null);
 
   const [isSticky, setIsSticky] = useState(false)
 
@@ -90,7 +74,6 @@ const ProductDisplay = ({params}) => {
   const [variationData, setVariationData] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
-  // const [cartSection, setCartSection] = useState(false);
   const [quantity, setQuantity] = useState(1)
 
   const decreaseLocalQuantity = () => {

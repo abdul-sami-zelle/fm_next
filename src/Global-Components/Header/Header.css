@@ -20,7 +20,11 @@
     display: flex;
     align-items: center;
     padding: 0px 34px 0px 0;
-    margin-top: 7px;
+    /* margin-top: 7px; */
+}
+
+.logo-container > a {
+    height: 45px;
 }
 
 .with-logo-profile-icon {
@@ -1040,7 +1044,7 @@
 }
 
 /* large screen 1300px desktop size */
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1200px) {
     .near-by-city-time {
         display: none;
     }
@@ -1066,6 +1070,18 @@
     .header-icons-container {
         display: flex;
         width: 15%;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1270px) {
+    .near-by-city-time span a {
+        font-size: 9px;
+    }
+    .deliver-to span {
+        font-size: 9px;
+    }
+    .search-bar-container {
+        padding-right: 10px;
     }
 }
 

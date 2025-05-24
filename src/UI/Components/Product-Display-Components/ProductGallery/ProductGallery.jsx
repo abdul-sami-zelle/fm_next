@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import './ProductGallery.css';
 
 // Assets
@@ -14,10 +14,10 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { url } from '../../../../utils/api';
 
 const ProductGallery = (
-    { 
-        productImages, 
-        productData, 
-        selectedVariationData, 
+    {
+        productImages,
+        productData,
+        selectedVariationData,
         handleMouseMove,
         handleMouseDown,
         handleMouseUp,
@@ -29,6 +29,19 @@ const ProductGallery = (
     }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const getStartIndex = (current, total) => {
+        if (total <= 3) return 0;
+        if (current === 0) return 0;
+        if (current === total - 1) return total - 3;
+        return current - 1;
+    };
+
+    const getEndIndex = (current, total) => {
+        if (total <= 3) return total;
+        if (current === 0) return 3;
+        if (current === total - 1) return total;
+        return current + 2;
+    };
 
     // Function to handle clicking pagination dots
     const handleDotClick = (index) => {
@@ -205,28 +218,28 @@ const ProductGallery = (
 
     const handleDragMove = (e) => {
         if (!isDragging) return;
-    
-        const imageLength = productData.type === 'variable' 
-            ? selectedVariationData?.images.length 
+
+        const imageLength = productData.type === 'variable'
+            ? selectedVariationData?.images.length
             : productData?.images.length;
-    
+
         const index = activeIndex;
-    
+
         const currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
         const distance = currentX - startX;
-    
+
         // Prevent dragging forward at the last image
         if (index >= imageLength - 1 && distance < 0) {
             setDragDistance(0); // Reset distance to prevent movement
             return;
         }
-    
+
         // Prevent dragging backward at the first image
         if (index <= 0 && distance > 0) {
             setDragDistance(0); // Reset distance to prevent movement
             return;
         }
-    
+
         setDragDistance(distance);
     };
 
@@ -310,7 +323,7 @@ const ProductGallery = (
                 </div>
 
                 {/* Main Slider Section */}
-                <div 
+                <div
                     className='product-gallery-main-slider-section'
                     ref={sliderRef}
                     onMouseDown={handleDragStart}
@@ -321,7 +334,7 @@ const ProductGallery = (
                     onTouchMove={handleDragMove}
                     onTouchEnd={handleDragEnd}
                 >
-                    <button
+                    {/* <button
                         onClick={handlePrevImage}
                         disabled={activeIndex === 0}
                         className={`product-gallery-main-slider-arrow product-gallery-arrow-back ${activeIndex === 0 ? 'disabled-button' : ''}`}
@@ -330,7 +343,7 @@ const ProductGallery = (
                             size={20}
                             className='product-gallery-arrow'
                         />
-                    </button>
+                    </button> */}
 
                     <div
                         className='product-gallery-main-slider-images'
@@ -344,7 +357,7 @@ const ProductGallery = (
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                    // onClick={handleZoomImage}
+                                // onClick={handleZoomImage}
                                 >
 
                                     <img
@@ -358,6 +371,7 @@ const ProductGallery = (
                                         }}
                                         onMouseDown={handleMouseDown}
                                         onDragStart={(e) => e.preventDefault()}
+                                        onClick={handleGalleryModal}
                                     />
 
 
@@ -370,7 +384,7 @@ const ProductGallery = (
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                    // onClick={handleZoomImage}
+                                // onClick={handleZoomImage}
                                 >
                                     <img
                                         src={`${url}${slideItem.image_url}`}
@@ -387,9 +401,13 @@ const ProductGallery = (
                                 </div>
                             ))
                         }
+
+                        
+
+
                     </div>
 
-                    <button
+                    {/* <button
                         onClick={handleNextImage}
                         disabled={activeIndex === productImages?.length - 1}
                         className={`product-gallery-main-slider-arrow product-gallery-arrow-right ${activeIndex === productImages?.length - 1 ? 'disabled-button' : ''}`}
@@ -398,25 +416,44 @@ const ProductGallery = (
                             size={20}
                             className='product-gallery-arrow'
                         />
-                    </button>
+                    </button> */}
+
+                    <div className='slider-dots-and-view-all-button'>
+                            <div className="pagination-dots">
+                                {productData?.images
+                                    ?.map((_, i) => i)
+                                    .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
+                                    .map((index) => (
+                                        <span
+                                            key={index}
+                                            className={`dot ${currentIndex === index ? "active" : ""}`}
+                                            onClick={() => handleDotClick(index)}
+                                        />
+                                    ))}
+                            </div>
+                            <h3 onClick={handleGalleryModal}>View All</h3>
+                        </div>
                 </div>
 
-                
+
             </div>
-            
+
             {/* Pagination Dots */}
-            <div className='slider-dots-and-view-all-button'>
+            {/* <div className='slider-dots-and-view-all-button'>
                 <div className="pagination-dots">
-                    {productData?.images?.map((_, index) => (
+                    {productData?.images
+                        ?.map((_, i) => i)
+                        .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
+                        .map((index) => (
                             <span
                                 key={index}
-                                className={`dot ${currentIndex === index ? "active" : ""}`} // Highlight active dot
-                                onClick={() => handleDotClick(index)} // Navigate when clicking dots
+                                className={`dot ${currentIndex === index ? "active" : ""}`}
+                                onClick={() => handleDotClick(index)}
                             />
                         ))}
                 </div>
                 <h3 onClick={handleGalleryModal}>View All</h3>
-            </div>
+            </div> */}
 
         </>
     );

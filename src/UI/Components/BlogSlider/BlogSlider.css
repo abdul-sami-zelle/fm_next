@@ -19,7 +19,7 @@
 }
 
 .blogs-main-container h3 span{
-    color: var(--primary-color);
+    color: var(--text-orange);
 }
 
 .blogs-main-para{
@@ -167,11 +167,13 @@
         object-fit: contain !important;
     }
 
-    .blog-slider-arrow-left{
+    .blog-slider-arrow-left .slick-slider{
         left: 15px !important;
+        top: 45% !important;
     }
 
     .blog-slider-arrow-right{
         right: 15px !important;
+        top: 45% !important;
     }
 }

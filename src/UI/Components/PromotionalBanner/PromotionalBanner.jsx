@@ -12,6 +12,7 @@ import { useUserDashboardContext } from '../../../context/userDashboardContext/u
 import { url, useDisableBodyScroll } from '../../../utils/api';
 // import crossButton from '../../../Assets/icons/close-btn.png'
 import crossButton from '../../../Assets/icons/close-btn.png'
+import Image from 'next/image';
 
 
 const PromotionalBanner = (
@@ -100,6 +101,10 @@ const PromotionalBanner = (
 
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
+          <Link href={'/blogs'}>Blogs</Link>
+          <span>
+            <Link href={'#'}>Log In</Link> | <Link href={'#'}>Sign up</Link>
+          </span>
           <Link href={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link href={'/financing'}>Financing</Link>
@@ -107,7 +112,7 @@ const PromotionalBanner = (
         </div>
         <div className='header-main-banner-language-div'>
           <button onClick={handleLanguageModal}>
-            <img src={currentSelectedCountryFlag || usaFlag} alt='flag' />
+            <Image src={currentSelectedCountryFlag || usaFlag} width={22} height={22} alt='flag' />
             {currentSelectedCountry || 'English'}
           </button>
         </div>

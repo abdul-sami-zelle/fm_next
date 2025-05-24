@@ -253,7 +253,9 @@ const Cart = () => {
   //   return true; // Always include other items
   // });
 
+
   // Apply Financing Modal
+ 
   const [applyFinancing, setApplyFinancing] = useState(false);
   const handleOpenFinancingModal = () => {
     setApplyFinancing(true);

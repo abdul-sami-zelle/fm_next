@@ -1,27 +1,27 @@
 .furniture-mecca-promotional-banner{
     display: flex;
     width: 100%;
-    height: 42px;
+    height: 32px;
     align-items: center;
     justify-content: space-between;
     padding: 11px 70px 11px 20px;
-    background-color: var(--secondary-background);
+    background-color: var(--orange-bg);
 }
 
 .rotating-message{
-    color: var(--text-primary);
+    color: var(--text-charcol);
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
 }
 
 .rotating-message span a{
-    color: var(--text-primary);
+    color: var(--text-charcol);
 }
 
 .toll-free-ancor{
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-charcol);
 }
 
 .header-links-and-select-language{
@@ -32,11 +32,30 @@
 
 .banner-link-container{
     display: flex;
-    width: 253px;
+    width: max-content;
     height: 25px;
     align-items: center;
     gap: 30px;
     /* border-right: 1px solid var(--secondary-color); */
+}
+
+.banner-link-container > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: 100%;
+    gap: 15px;
+}
+
+.banner-link-container > span > a {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    text-decoration: none;
+    color: var(--text-charcol);
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .banner-link-container a{
@@ -44,7 +63,7 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--text-charcol);
     cursor: pointer;
 }
 
@@ -53,7 +72,7 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--text-charcol);
     cursor: pointer;
 }
 
@@ -79,7 +98,7 @@
 }
 
 .header-main-banner-language-div img{
-    height: 32px;
+    height: 22px;
     width: auto;
     object-fit: cover;
 }
@@ -116,7 +135,7 @@
     line-height: 12px;
     font-weight: 600;
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--text-charcol);
 }
 
 /* Login warning modal */
@@ -196,7 +215,7 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-charcol);
 }
 
 .navigate-to-login-btn-container{
@@ -211,7 +230,7 @@
     align-items: center;
     justify-content: center;
     background-color: #FFFFFF;
-    color: var(--text-primary);
+    color: var(--text-charcol);
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -222,9 +241,9 @@
 }
 
 .navigate-to-login-btn:hover{
-    background-color: var(--text-primary);
+    background-color: var(--text-charcol);
     color: #FFFFFF;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--text-charcol);
 }
 
 @media only screen and (max-width: 480px){

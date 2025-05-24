@@ -1,6 +1,8 @@
 :root{
   --text-primary: #000000;
+  --text-charcol: #000000CC;
   --text-white: #fff;
+  --text-orange: #FF8416;
   --button-color: #2F7A97;
   --bg-color: #FFFFFF;
   --work-sans-font: "Work Sans", sans-serif;
@@ -9,6 +11,7 @@
   /* --primary-color: #C61B1A; */
   --button-color: #484F59;
   --footer-bg-color: #484F59;
+  --orange-bg: #FF8416;
   --footer-nav-items-color: #F8F8F8;
   --mobile-nav-item-bg: #F0F0F0;
   --banner-bg-color: #F8E6CD;
@@ -25,7 +28,8 @@
   --tick-color: #595959;
 
 
-  --primary-color: #C61B1A;    /* Main brand color (e.g., blue) */
+  /* --primary-color: #C61B1A;    Main brand color (e.g., blue) */
+  --primary-color: #FF8416;
   --secondary-color: #595959;  /* Supporting color (e.g., gray) */
   --tertiary-color: #4487C5;   /* Accent color (e.g., teal) */
   --quaternary-color: #484F59; /* Additional highlight (e.g., yellow) */
@@ -35,7 +39,8 @@
   /* --text-primary: '#000000'; */
   --text-secondary: #484F59; 
   --text-tertiary: #4487C5;  /* Accent text */
-  --text-quaternary: #C61B1A;  /* Highlighted text */
+  /* --text-quaternary: #C61B1A;  Highlighted text */
+  --text-quaternary: #FF8416;
 
   --border-color: #D7D7D7;
   --secondary-background: #f1f1f1;

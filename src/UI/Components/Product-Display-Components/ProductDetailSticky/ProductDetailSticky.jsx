@@ -6,7 +6,7 @@ import { useProductPage } from '../../../../context/ProductPageContext/productPa
 import RatingReview from '../../starRating/starRating'
 import { FaShareSquare } from 'react-icons/fa'
 import axios from 'axios'
-import { formatedPrice, truncateTitle, url ,getDeliveryDate} from '../../../../utils/api'
+import { formatedPrice, truncateTitle, url, getDeliveryDate } from '../../../../utils/api'
 // import { useNavigate, useParams } from 'react-router-dom'
 import AlsoNeed from '../../AlsoNeed/AlsoNeed'
 import SizeVariant from '../../SizeVariant/SizeVariant'
@@ -338,86 +338,9 @@ const ProductDetailSticky = (
       {Object.keys(product).length > 0 ? (
         <div className='product-detail-sticky-gallery-and-detail'>
 
-        <div className='product-detail-product-gallery-section'>
+          <div className='product-detail-product-gallery-section'>
 
-          <div className='mobile-view-slider-top-details'>
-            {
-              product?.tags?.length > 0 && <div className="product-tagging">
-                {
-                  product?.tags[0] && product?.tags[0].type.toLowerCase() === "text" ?
-                    <div className='text-tag' style={{ backgroundColor: product?.tags[0].bg_color, color: product?.tags[0].text_color }} >
-                      {product?.tags[0].text}
-                    </div> :
-                    <div className='image-tag' >
-                      <img src={url + product?.tags[0]?.image} alt="" srcset="" />
-                    </div>
-                }
-              </div>
-            }
-
-            <h3>{product?.name}</h3>
-            {/* <p>SKU : {product.sku}</p> */}
-            <div className='product-detail-rating-and-share'>
-              {/* <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} /> */}
-
-              <p>SKU : {product.sku}</p>
-
-              <span
-                className='single-product-share'
-                onClick={() => handleShareModal(productData)}
-              >
-                <FaShareSquare className='single-product-share-icon' size={20} />
-              </span>
-            </div>
-            {product?.type === "simple" ? <>
-              {product?.sale_price !== "" ? <div className='single-product-prices'>
-
-                <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
-                <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
-              </div> : <div className='single-product-prices'>
-                <h3 className='single-product-new-price'>{formatedPrice(productData?.regular_price)}</h3>
-              </div>
-              }
-            </> : <>
-              {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
-
-                <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
-                <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
-              </div> : <div className='single-product-prices'>
-                <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.regular_price)}</h3>
-              </div>
-              }
-            </>}
-
-            <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
-
-          </div>
-
-          <ProductGallery
-            productData={product}
-            selectedVariationData={selectedVariationData}
-            productImages={product?.images}
-            zoomIn={zoomIn}
-            setZoomIn={setZoomIn}
-            handleMouseMove={handleMouseMove}
-            handleMouseDown={handleMouseDown}
-            handleMouseUp={handleMouseUp}
-            dragging={dragging}
-            setDragging={setDragging}
-            position={position}
-            setPosition={setPosition}
-            handleGalleryModal={handleGalleryModal}
-
-          />
-          <ProductDimension productData={product} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
-          {product?.weight_dimension && <DimensionDetail productData={product} />}
-
-        </div>
-
-        <div className='product-detail-product-info-section'>
-
-          <div className='product-detail-info-sticky'>
-            <div className='product-detail-name-and-rating-etc'>
+            <div className='mobile-view-slider-top-details'>
               {
                 product?.tags?.length > 0 && <div className="product-tagging">
                   {
@@ -431,11 +354,14 @@ const ProductDetailSticky = (
                   }
                 </div>
               }
-              <h3>{product?.name}</h3>
-              <p>SKU : {product.sku}</p>
 
+              <h3>{product?.name}</h3>
+              {/* <p>SKU : {product.sku}</p> */}
               <div className='product-detail-rating-and-share'>
-                <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+                {/* <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} /> */}
+
+                <p>SKU : {product.sku}</p>
+
                 <span
                   className='single-product-share'
                   onClick={() => handleShareModal(productData)}
@@ -443,204 +369,278 @@ const ProductDetailSticky = (
                   <FaShareSquare className='single-product-share-icon' size={20} />
                 </span>
               </div>
-
               {product?.type === "simple" ? <>
                 {product?.sale_price !== "" ? <div className='single-product-prices'>
-                  <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
+
                   <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
+                  <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
                 </div> : <div className='single-product-prices'>
                   <h3 className='single-product-new-price'>{formatedPrice(productData?.regular_price)}</h3>
                 </div>
                 }
               </> : <>
                 {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
-                  <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
+
                   <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
+                  <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
                 </div> : <div className='single-product-prices'>
                   <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.regular_price)}</h3>
                 </div>
                 }
               </>}
 
-              
+              <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
 
             </div>
 
-            
+            <ProductGallery
+              productData={product}
+              selectedVariationData={selectedVariationData}
+              productImages={product?.images}
+              zoomIn={zoomIn}
+              setZoomIn={setZoomIn}
+              handleMouseMove={handleMouseMove}
+              handleMouseDown={handleMouseDown}
+              handleMouseUp={handleMouseUp}
+              dragging={dragging}
+              setDragging={setDragging}
+              position={position}
+              setPosition={setPosition}
+              handleGalleryModal={handleGalleryModal}
 
+            />
+            <ProductDimension productData={product} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
+            {product?.weight_dimension && <DimensionDetail productData={product} />}
 
           </div>
 
-          <div className='product-detail-other-info'>
+          <div className='product-detail-product-info-section'>
 
-
-            <div className='single-product-frame-color'>
-              <SizeVariant
-                productType={product.type}
-                productData={product.variations}
-                attributes={product.attributes}
-                selectedColor={selectedColor}
-                selectVariation={selectVariation}
-                handleSelectColor={handleSelectColor}
-                handleSelectVariation={handleSelectVariation}
-                handleSelectedVariationData={handleSelectedVariationData}
-              />
-            </div>
-
-            <div className='add-cart-or-add-items-div' ref={cartDivRef}>
-              <div className='item-count'>
-                <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
-
-                  <FaWindowMinimize size={15} className='minus-icon' />
-                </button>
-
-                <input
-                  type='number'
-                  value={quantity}
-                  onChange={handleQuantityChange}
-                />
-                <button className='plus-btn' onClick={increaseLocalQuantity}>
-
-                  <FaPlus size={15} className='plus-icon' />
-                </button>
-              </div>
-              <div
-                className='product-details-add-to-wishlist-icon'
-                onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
-                style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--secondary-color)' }}
-              >
-                {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'red' : 'var(--secondary-color)'} />
-                  : <IoMdHeartEmpty size={20} />}
-              </div>
-
-              
-
-
-
-              <button
-                className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
-                onClick={() => {
-                  handleClick();
-                  addToCart0(product, variationData, !isProtected ? 1 : 0, quantity)
-                  // handleAddToCartProduct(product);
-                }
-                }>
-                {isCartLoading && <div className="loader_2"></div>}
-                {isCartLoading ? ' Almost there...' : 'Add To Cart'}
-              </button>
-            </div>
-
-            
-
-            {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
-
-            <div className='get-in-timeline-offer'>
-              <BsTruck size={21} color='var(--secondary-color)' />
-              <div className='get-offer-details'>
-                <h3 >Get it by <span style={{fontWeight:"600",color:"var(--primary-color)"}}>{getDeliveryDate()}</span></h3>
-                <p>
-                  Fully assembled & placed in your room, or in-store pickup.
-                </p>
-                <span className='location' onClick={handleOpenLocationModal}>
-                  <FaLocationDot size={17} color='var(--tertiary-color)' />
-                  <p>{info.locationData.zipCode} {info.locationData.stateCode}</p>
-                </span>
-              </div>
-            </div>
-
-            <div className='product-details-protection-plan-container'>
-              <h3>Protect Your Investment</h3>
-              <div className='product-details-protection-plan-details-and-add'>
-
-                <div className='product-details-protection-plan'>
-                  <SiAdguard size={21} color='var(--secondary-color)' />
-
-                  <div className='product-details-info'>
-                    <p>5-Year Platinum Protection</p>
-
-                    <span>
-                      <p>+${eachProtectionValue}</p>
-                      <strong onClick={handleWarrantyModal}>
-                        What's Covered
-                      </strong>
-                    </span>
-
+            <div className='product-detail-info-sticky'>
+              <div className='product-detail-name-and-rating-etc'>
+                {
+                  product?.tags?.length > 0 && <div className="product-tagging">
+                    {
+                      product?.tags[0] && product?.tags[0].type.toLowerCase() === "text" ?
+                        <div className='text-tag' style={{ backgroundColor: product?.tags[0].bg_color, color: product?.tags[0].text_color }} >
+                          {product?.tags[0].text}
+                        </div> :
+                        <div className='image-tag' >
+                          <img src={url + product?.tags[0]?.image} alt="" srcset="" />
+                        </div>
+                    }
                   </div>
+                }
+                <h3>{product?.name}</h3>
+                <p>SKU : {product.sku}</p>
 
+                <div className='product-detail-rating-and-share'>
+                  <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+                  <span
+                    className='single-product-share'
+                    onClick={() => handleShareModal(productData)}
+                  >
+                    <FaShareSquare className='single-product-share-icon' size={20} />
+                  </span>
                 </div>
 
-                {protectionCheck ? (
-                  <button
-                    onClick={() => handleProtection('single-protection', false)}
-                    className='product-detail-add-protection-plan-button'>
-                    Applied
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleProtection('single-protection', true)}
-                    className='product-detail-add-protection-plan-button'>
-                    Add
-                  </button>
-                )}
+                {product?.type === "simple" ? <>
+                  {product?.sale_price !== "" ? <div className='single-product-prices'>
+                    <del className='single-product-old-price'>{formatedPrice(productData?.regular_price)}</del>
+                    <h3 className='single-product-new-price'>{formatedPrice(productData?.sale_price)}</h3>
+                  </div> : <div className='single-product-prices'>
+                    <h3 className='single-product-new-price'>{formatedPrice(productData?.regular_price)}</h3>
+                  </div>
+                  }
+                </> : <>
+                  {selectedVariationData?.sale_price !== "" ? <div className='single-product-prices'>
+                    <del className='single-product-old-price'>{formatedPrice(selectedVariationData?.regular_price)}</del>
+                    <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.sale_price)}</h3>
+                  </div> : <div className='single-product-prices'>
+                    <h3 className='single-product-new-price'>{formatedPrice(selectedVariationData?.regular_price)}</h3>
+                  </div>
+                  }
+                </>}
+
 
 
               </div>
 
-              <div className='product-detail-chat-option-container'>
-                <p>Product Question?</p>
-                <button onClick={handleNavigate}>Contact Us</button>
-              </div>
+
+
 
             </div>
 
-            <div className='see-in-person-container'>
+            <div className='product-detail-other-info'>
 
-              <div className='see-it-in-person-head'>
-                <PiStorefrontLight size={20} color='var(--secondary-color)' />
-                <h3>See it in Person</h3>
+
+              <div className='single-product-frame-color'>
+                <SizeVariant
+                  productType={product.type}
+                  productData={product.variations}
+                  attributes={product.attributes}
+                  selectedColor={selectedColor}
+                  selectVariation={selectVariation}
+                  handleSelectColor={handleSelectColor}
+                  handleSelectVariation={handleSelectVariation}
+                  handleSelectedVariationData={handleSelectedVariationData}
+                />
               </div>
 
-              <div className='see-it-in-person-body' onClick={handleCloseMiles}>
+              <div className='add-cart-or-add-items-div' ref={cartDivRef}>
+                <div className='item-count'>
+                  <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
 
-                <p>This collection is on display in 3 stores within</p>
+                    <FaWindowMinimize size={15} className='minus-icon' />
+                  </button>
 
-                <div className='see-it-in-person-distance-and-zip'>
+                  <input
+                    type='number'
+                    value={quantity}
+                    onChange={handleQuantityChange}
+                  />
+                  <button className='plus-btn' onClick={increaseLocalQuantity}>
 
-                  <div className='see-it-in-person-distance-drop-down'>
-                    <span onClick={handleMilesDropdown}>
-                      <p>{miles}</p>
-                      <MdOutlineKeyboardArrowDown size={15} color='var(--tertiary-color)' />
-                    </span>
-                    <div className={`miles-dropdown-body ${showMiles ? 'show-miles-dropdown' : ''}`}>
-                      {milesData.map((item, index) => (
-                        <p key={index} onClick={() => {
-                          setMiles(item.distance);
-                          setShowMiles(false)
-                        }}>{item.distance}</p>
-                      ))}
-                    </div>
-                  </div>
+                    <FaPlus size={15} className='plus-icon' />
+                  </button>
+                </div>
+                <div
+                  className='product-details-add-to-wishlist-icon'
+                  onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
+                  style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--secondary-color)' }}
+                >
+                  {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'red' : 'var(--secondary-color)'} />
+                    : <IoMdHeartEmpty size={20} />}
+                </div>
 
-                  <p>of</p>
 
-                  <span onClick={handleOpenLocationModal}>
+
+
+
+                <button
+                  className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
+                  onClick={() => {
+                    handleClick();
+                    addToCart0(product, variationData, !isProtected ? 1 : 0, quantity)
+                    // handleAddToCartProduct(product);
+                  }
+                  }>
+                  {isCartLoading && <div className="loader_2"></div>}
+                  {isCartLoading ? ' Almost there...' : 'Add To Cart'}
+                </button>
+              </div>
+
+
+
+              {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
+
+              <div className='get-in-timeline-offer'>
+                <BsTruck size={21} color='var(--secondary-color)' />
+                <div className='get-offer-details'>
+                  <h3 >Get it by <span style={{ fontWeight: "600", color: "var(--primary-color)" }}>{getDeliveryDate()}</span></h3>
+                  <p>
+                    Fully assembled & placed in your room, or in-store pickup.
+                  </p>
+                  <span className='location' onClick={handleOpenLocationModal}>
                     <FaLocationDot size={17} color='var(--tertiary-color)' />
                     <p>{info.locationData.zipCode} {info.locationData.stateCode}</p>
                   </span>
+                </div>
+              </div>
 
+              <div className='product-details-protection-plan-container'>
+                <h3>Protect Your Investment</h3>
+                <div className='product-details-protection-plan-details-and-add'>
+
+                  <div className='product-details-protection-plan'>
+                    <SiAdguard size={21} color='var(--secondary-color)' />
+
+                    <div className='product-details-info'>
+                      <p>5-Year Platinum Protection</p>
+
+                      <span>
+                        <p>+${eachProtectionValue}</p>
+                        <strong onClick={handleWarrantyModal}>
+                          What's Covered
+                        </strong>
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  {protectionCheck ? (
+                    <button
+                      onClick={() => handleProtection('single-protection', false)}
+                      className='product-detail-add-protection-plan-button'>
+                      Applied
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleProtection('single-protection', true)}
+                      className='product-detail-add-protection-plan-button'>
+                      Add
+                    </button>
+                  )}
+
+
+                </div>
+
+                <div className='product-detail-chat-option-container'>
+                  <p>Product Question?</p>
+                  <button onClick={handleNavigate}>Contact Us</button>
                 </div>
 
               </div>
 
-              <div className='see-it-in-person-book-appointment-container'>
-                <SlCalender size={20} color='var(--tertiary-color)' />
-                <p onClick={handleShowAppointmentModal}>MAKE AN APPOINTMENT</p>
+              <div className='see-in-person-container'>
+
+                <div className='see-it-in-person-head'>
+                  <PiStorefrontLight size={20} color='var(--secondary-color)' />
+                  <h3>See it in Person</h3>
+                </div>
+
+                <div className='see-it-in-person-body' onClick={handleCloseMiles}>
+
+                  <p>This collection is on display in 3 stores within</p>
+
+                  <div className='see-it-in-person-distance-and-zip'>
+
+                    <div className='see-it-in-person-distance-drop-down'>
+                      <span onClick={handleMilesDropdown}>
+                        <p>{miles}</p>
+                        <MdOutlineKeyboardArrowDown size={15} color='var(--tertiary-color)' />
+                      </span>
+                      <div className={`miles-dropdown-body ${showMiles ? 'show-miles-dropdown' : ''}`}>
+                        {milesData.map((item, index) => (
+                          <p key={index} onClick={() => {
+                            setMiles(item.distance);
+                            setShowMiles(false)
+                          }}>{item.distance}</p>
+                        ))}
+                      </div>
+                    </div>
+
+                    <p>of</p>
+
+                    <span onClick={handleOpenLocationModal}>
+                      <FaLocationDot size={17} color='var(--tertiary-color)' />
+                      <p>{info.locationData.zipCode} {info.locationData.stateCode}</p>
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <div className='see-it-in-person-book-appointment-container'>
+                  <SlCalender size={20} color='var(--tertiary-color)' />
+                  <p onClick={handleShowAppointmentModal}>MAKE AN APPOINTMENT</p>
+                </div>
+
+
+
               </div>
-
-              
-
-            </div>
-            <div className='talk-with-expert-main-container'>
+              <div className='talk-with-expert-main-container'>
                 <p>Talk with an Expert</p>
                 <div className='talk-with-expert-options'>
 
@@ -662,14 +662,14 @@ const ProductDetailSticky = (
                 </div>
               </div>
 
+            </div>
           </div>
         </div>
-      </div>
       ) : (
         <ProductDisplayShimmer />
       )}
 
-      
+
 
       <ShareProduct
         isSharePopup={isSharePopup}

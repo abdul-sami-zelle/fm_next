@@ -50,6 +50,7 @@ import { IoLocationOutline } from "react-icons/io5";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
+import Image from 'next/image';
 
 const Header = ({ checkoutPage }) => {
 
@@ -78,11 +79,11 @@ const Header = ({ checkoutPage }) => {
     removeFromCart,
     cartProducts
   } = useCart()
-  
+
   const cartItemCount = cartProducts?.products?.length || 0;
   const { info, fetchAllstores } = useGlobalContext();
   const [isMobileSearched, setIsMobileSearched] = useState(false);
-  const {singleProductData, setSingleProductData} = useProductPage();
+  const { singleProductData, setSingleProductData } = useProductPage();
 
   const navLinks = [
     { name: "Living Room", link: 'living-room-category', hasDropdown: true },
@@ -205,6 +206,12 @@ const Header = ({ checkoutPage }) => {
   // }
 
   // Card title words limit
+
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const maxLength = 15;
   // const nameLength = 20;
@@ -359,14 +366,14 @@ const Header = ({ checkoutPage }) => {
           setUserToken(token);
           setIsTokenValid(true);
           setMainLoader(false);
-          router.push({pathname: `/user-dashboard/${uid}`})
+          router.push({ pathname: `/user-dashboard/${uid}` })
         } else {
           localStorage.removeItem('userToken');
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
           // navigate("/my-account", { state: { message: "decided" } })
-          router.push({pathname: `/my-account`, query: {message: "decided"}})
+          router.push({ pathname: `/my-account`, query: { message: "decided" } })
         }
       } catch (error) {
         localStorage.removeItem('userToken');
@@ -379,11 +386,11 @@ const Header = ({ checkoutPage }) => {
     }
     else if (token === undefined) {
       // navigate.push("/my-account", { state: { message: "decided" } });
-      router.push({pathname: `/my-account`, query: {message: "decided"}})
+      router.push({ pathname: `/my-account`, query: { message: "decided" } })
     }
     else {
       setMainLoader(false);
-      router.push({pathname: "/my-account"})
+      router.push({ pathname: "/my-account" })
     }
   }
 
@@ -578,10 +585,8 @@ const Header = ({ checkoutPage }) => {
             <img src={'/Assets/icon/favourites-icon.svg'} alt="heart" />
           </Link>
           <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>
-            {/* <img src={cartIcon} alt="cart" /> */}
             <HiOutlineShoppingBag className='cartIcon' strokeWidth={1} />
-            {/* <PiShoppingCartThin size={22} /> */}
-            <p className='header-cart-products-count'>{cartItemCount}</p>
+            {hasMounted && (<p className='header-cart-products-count'>{cartItemCount}</p>)}
           </button>
         </div>
       </div>
@@ -617,7 +622,7 @@ const Header = ({ checkoutPage }) => {
           </div>
           {/* <img className='nav-toggler' src={navToggler} alt="togle button" onClick={showMobileNav} /> */}
           <Link className='center_section_logo' href='/'>
-            <img className='mobile-logo' src={logo} alt='mobile-logo' />
+            <Image className='mobile-logo' src={'/Assets/Logo/m_logo_360 2.png'} width={120} height={32} alt='mobile-logo' />
           </Link>
           <div className='mobile-view-cart-and-location'>
             {/* <img src={locationIcon} alt='location' onClick={handleNearStorePopUp} /> */}
@@ -626,14 +631,15 @@ const Header = ({ checkoutPage }) => {
             <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>
               {/* <img src={cartIcon} alt="cart" /> */}
               <HiOutlineShoppingBag className='cartIcon' strokeWidth={1.5} />
-              <p className='header-cart-products-count'>{cartItemCount}</p>
+              {/* <p className='header-cart-products-count'>{cartItemCount}</p> */}
+              {hasMounted && (<p className='header-cart-products-count'>{cartItemCount}</p>)}
             </button>
           </div>
         </div>
 
         <div className='mobile-view-search-section'>
           <div className='mobile-view-search'>
-            <img src={searchIcon} alt='search-icon' />
+            <Image src={searchIcon} width={32} height={32} alt='search-icon' />
             <input
               type='text'
               placeholder='Search Furniture Mecca'
