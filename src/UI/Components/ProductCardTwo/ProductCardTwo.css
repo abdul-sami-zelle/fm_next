@@ -602,7 +602,7 @@
     font-size: var(--section-size) !important;
     line-height: 15px !important;
     font-weight: var(--section-weight) !important;
-    color: var(--text-primary) !important;
+    color: var(--text-orange) !important;
 
 }
 
@@ -610,6 +610,7 @@
     font-size: 10px;
     line-height: 12px;
     font-weight: 400;
+    color: var(--text-primary);
 }
 
 .product-del-price-with-sale-price {
@@ -618,6 +619,7 @@
     font-weight: var(--sub-section-weight);
     color: var(--text-primary);
     opacity: 0.5;
+    margin-left: 5px;
 }
 
 .category-product-price {

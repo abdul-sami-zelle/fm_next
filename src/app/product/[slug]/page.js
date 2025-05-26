@@ -17,11 +17,12 @@ import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 import { useParams, useSearchParams } from 'next/navigation';
+import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 
-const ProductDisplay = ({params}) => {
+const ProductDisplay = ({ params }) => {
 
   const { slug } = use(params);
-  const {singleProductData} = useProductPage();
+  const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
 
@@ -43,12 +44,12 @@ const ProductDisplay = ({params}) => {
       setProduct(null); // Reset product state to trigger loading state
       await fetchProductBySlug(slug);
     };
-  
+
     if (slug) {
       fetchProduct();
     }
   }, [slug]);
-  
+
 
 
   const sectionRefs = {
@@ -114,7 +115,7 @@ const ProductDisplay = ({params}) => {
     selectedVariationData
   } = useProductPage();
 
-   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0); // For main slider image
   const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
   const thumbnailContainerRef = useRef(null); // To control the vertical scroll
@@ -228,7 +229,7 @@ const ProductDisplay = ({params}) => {
     setActiveIndex(index); // Ensure the main slider image updates
     setThumbActiveIndex(index); // Ensure the thumbnail updates
     // setZoomIn(false);
-};
+  };
 
   useEffect(() => {
     if (dimensionModal) {
@@ -237,6 +238,30 @@ const ProductDisplay = ({params}) => {
       document.body.style.overflow = 'auto'
     }
   }, [dimensionModal])
+
+  console.log("single product data", product)
+  const [recomandedProducts, setRecomandedProducts] = useState([])
+  const fetchRecomandedProducts = async () => {
+    console.log("product id", product._id);
+    const api = `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}`;
+    try {
+      const response = await fetch(api);
+      console.log("check response",response)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      console.log("check response")
+      const data = await response.json();
+      setRecomandedProducts(data.recommendations)
+      console.log("response", data);
+    } catch (error) {
+      console.log("UnExpected Server Error", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchRecomandedProducts();
+  }, [product])
 
 
   return (
@@ -298,26 +323,42 @@ const ProductDisplay = ({params}) => {
         />
 
 
-        <GalleryModal
-          dimensionModal={dimensionModal}
-          handleCloseDimensionModal={handleCloseDimensionModal}
-          productData={product}
-          variationData={selectedVariationData}
-          handleNextImage={handleNextImage}
-          handlePrevImage={handlePrevImage}
-          activeIndex={activeIndex}
-          handleThumbnailClick={handleThumbnailClick}
-          thumbActiveIndex={thumbActiveIndex}
-          currentIndex={currentIndex}
-          handleDotClick={handleDotClick}
-        />
+
+
+        <DesignYourRoom data={recomandedProducts} />
 
       </div>
+
+
+
+
       <ProductReviewTab
         reviewRef={sectionRefs.Reviews}
         product={product}
         params={params}
       />
+
+
+
+
+
+
+
+      <GalleryModal
+        dimensionModal={dimensionModal}
+        handleCloseDimensionModal={handleCloseDimensionModal}
+        productData={product}
+        variationData={selectedVariationData}
+        handleNextImage={handleNextImage}
+        handlePrevImage={handlePrevImage}
+        activeIndex={activeIndex}
+        handleThumbnailClick={handleThumbnailClick}
+        thumbActiveIndex={thumbActiveIndex}
+        currentIndex={currentIndex}
+        handleDotClick={handleDotClick}
+      />
+
+
     </div>
   )
 }

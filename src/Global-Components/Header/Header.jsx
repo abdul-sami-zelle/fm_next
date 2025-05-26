@@ -429,7 +429,7 @@ const Header = ({ checkoutPage }) => {
       <div className='header'>
         <div className='logo-container'>
           <Link href={'/'}>
-            <img src={'/Assets/Logo/m_logo_360 2.png'} alt="logo" />
+            <img src={'/Assets/Logo/main-logo.png'} alt="logo" />
           </Link>
         </div>
 
@@ -578,11 +578,11 @@ const Header = ({ checkoutPage }) => {
 
         <div className='header-icons-container'>
           <Link href="/user-dashboard" style={{ paddingTop: '4px' }} onClick={(event) => moveToLoginDash(event)}>
-            <img src={'/Assets/icon/profile-icon.svg'} alt="profile" />
+            <Image src={'/Assets/icons/profile.png'} width={23} height={23} alt="profile" />
           </Link>
 
           <Link href={'/wishlist'}>
-            <img src={'/Assets/icon/favourites-icon.svg'} alt="heart" />
+            <Image src={'/Assets/icon/like.png'} width={31} height={27} alt="heart" />
           </Link>
           <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>
             <HiOutlineShoppingBag className='cartIcon' strokeWidth={1} />

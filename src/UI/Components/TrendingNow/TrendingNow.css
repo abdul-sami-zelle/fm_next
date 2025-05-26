@@ -116,7 +116,7 @@
     justify-content: center;
     width: 80%;
     height: 80%;
-    background-color: var(--primary-color);
+    background-color: #FFF;
     border-radius: 0.625rem;
     cursor: pointer;
 }
@@ -129,18 +129,18 @@
     justify-content: center;
     width: 80%;
     height: 80%;
-    background-color: var(--primary-color);
+    background-color: #FFF;
     border-radius: 0.625rem;
     cursor: pointer;
 }
 
 .tranding-now-cart-bag {
-    color: var(--text-charcol);
+    color: var(--text-orange);
 }
 
 .mobile-tranding-now-cart-bag {
     display: none;
-    color: var(--text-charcol);
+    color: var(--text-orange);
 
 }
 

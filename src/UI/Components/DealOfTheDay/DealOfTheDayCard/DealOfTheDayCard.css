@@ -74,7 +74,7 @@
   font-size: var(--section-size) !important;
   line-height: 1.2 !important;
   font-weight: var(--section-weight) !important;
-  color: var(--text-primary) !important;
+  color: var(--text-orange) !important;
 }
 
 .deal-of-the-day-product-image{

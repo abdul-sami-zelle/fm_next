@@ -1,34 +1,35 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { FiStar } from "react-icons/fi";
 
-function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
+function RatingReview({ rating, setRating, disabled, size, bgColor, bgColor2 }) {
   const [hoverRating, setHoverRating] = useState(null);
 
   const handleMouseEnter = (event, star) => {
-    if (disabled) return; 
+    if (disabled) return;
 
     const rect = event.target.getBoundingClientRect();
-    const hoverPosition = event.clientX - rect.left; 
+    const hoverPosition = event.clientX - rect.left;
     const starWidth = rect.width;
-    const fraction = hoverPosition / starWidth; 
-    const roundedFraction = Math.round(fraction * 2) / 2; 
+    const fraction = hoverPosition / starWidth;
+    const roundedFraction = Math.round(fraction * 2) / 2;
     setHoverRating(star - 1 + roundedFraction);
   };
 
   const handleMouseLeave = () => {
-    if (disabled) return; 
+    if (disabled) return;
     setHoverRating(null);
   };
 
   const handleClick = (event, star) => {
-    if (disabled) return; 
+    if (disabled) return;
 
     const rect = event.target.getBoundingClientRect();
-    const clickPosition = event.clientX - rect.left; 
+    const clickPosition = event.clientX - rect.left;
     const starWidth = rect.width;
-    const fraction = clickPosition / starWidth; 
+    const fraction = clickPosition / starWidth;
     const preciseRating = star - 1 + fraction;
-    const roundedRating = Math.round(preciseRating * 2) / 2; 
+    const roundedRating = Math.round(preciseRating * 2) / 2;
     setRating(roundedRating);
   };
 
@@ -46,8 +47,8 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
             style={{
               position: "relative",
               cursor: disabled ? "not-allowed" : "pointer",
-              fontSize: size? size : `25px`,
-              lineHeight:size? size : `25px`,
+              fontSize: size ? size : `25px`,
+              lineHeight: size ? size : `25px`,
               zIndex: 0
 
             }}
@@ -55,20 +56,29 @@ function RatingReview({ rating, setRating, disabled,size,bgColor,bgColor2 }) {
             onMouseEnter={(e) => handleMouseEnter(e, star)}
             onMouseLeave={handleMouseLeave}
           >
-            <FaStar
+            <FiStar
               style={{
-                color: bgColor2? bgColor2 : "#d4d4d4",
-                
+                color: bgColor2 ? 'var(--orange-bg)' : "#d4d4d4",
+                fill: bgColor2 ? 'var(--orange-bg)' : "#d4d4d4",
+                stroke: "var(--text-charcol)",                        // Border color
+                strokeWidth: "1px",   
               }}
+              // style={{
+              //   fill:  "var(--orange-bg)",   // Fill color
+              //   stroke: "var(--text-charcol)",                        // Border color
+              //   strokeWidth: "1px",                     // Border width
+              // }}
             />
-            <FaStar
+            <FiStar
               style={{
-                color: bgColor ? bgColor : "var(--tertiary-color)",
+                fill: bgColor ? bgColor : "var(--orange-bg)",
+                stroke: 'var(--text-charcol)',
+                strokeWidth: '1px',
                 position: "absolute",
                 top: "0px",
                 left: 0,
                 clipPath: `inset(0 ${100 - fillLevel * 100}% 0 0)`,
-                
+
               }}
             />
           </span>
