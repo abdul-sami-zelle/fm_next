@@ -108,7 +108,7 @@ const CartProducts = () => {
             <div className='cart-products-main-container'>
 
                 <div className='cart-products-heading'>
-                    <Breadcrumb />
+                    {/* <Breadcrumb /> */}
                     <h3>Cart ({cartProducts.products?.length} Items)</h3>
                 </div>
 

@@ -596,7 +596,7 @@ const Products = ({ navigationType }) => {
 
     return (
         <div className='products-main-container'>
-            <Breadcrumb category={products.categories} />
+            {/* <Breadcrumb category={products.categories} /> */}
             <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
                 {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
                     <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>

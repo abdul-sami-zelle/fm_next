@@ -13,7 +13,7 @@ const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
 
     <div className='category-main-container'>
       <div className="category-bread-crumb-and-title">
-        <Breadcrumb />
+        {/* <Breadcrumb /> */}
         <h3 className='category-heading'>{title}</h3>
       </div>
       <div className='category-cards-container'>

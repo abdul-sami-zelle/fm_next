@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import paypalIcon from '../../../../Assets/icons/paypal-1.png';
+// import paypalIcon from '/Assets/icons/paypal-1.png';
 import './Paypal.css';
 import { url } from '../../../../utils/api';
+import Image from 'next/image';
 
 const Paypal = () => {
   const paypalRef = useRef(null);
@@ -51,7 +52,7 @@ const Paypal = () => {
     <div className='payment-type-paypal-main-container'>
       <div className='payment-type-paypal-heading'>
         <h3>Paypal</h3>
-        <img src={paypalIcon} alt='paypal' />
+        <Image src={'/Assets/icons/paypal-1.png'} width={35} height={35} alt='paypal' />
       </div>
       <div ref={paypalRef} id="paypal-button-container"></div>
     </div>

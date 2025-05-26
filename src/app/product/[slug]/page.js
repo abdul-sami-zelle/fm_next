@@ -262,7 +262,7 @@ const ProductDisplay = ({ params }) => {
   return (
     <div>
       <div className='product-display-page-main-container'>
-        <Breadcrumb category={product?.categories} />
+        {/* <Breadcrumb category={product?.categories} /> */}
         <ProductDetailSticky
           productData={product}
           decreaseLocalQuantity={decreaseLocalQuantity}
