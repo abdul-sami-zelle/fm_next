@@ -103,7 +103,7 @@ const PromotionalBanner = (
         <div className='banner-link-container'>
           <Link href={'/blogs'}>Blogs</Link>
           <span>
-            <Link href={'#'}>Log In</Link> | <Link href={'#'}>Sign up</Link>
+            <Link href={'/user-dashboard'}>Log In</Link> | <Link href={'/user-dashboard'}>Sign up</Link>
           </span>
           <Link href={'#'}>Free Design Consultation</Link>
           <Link href={'/store-locator'}>Stores</Link>

@@ -122,7 +122,7 @@
 }
 
 .select-type-attribute.select-select-variation p{
-    color: #FFF;
+    color: var(--text-charcol);
 }
 
 .select-type-attribute p{

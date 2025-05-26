@@ -51,13 +51,13 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
     // Custom arrows
     const CustomPrevArrow = ({ onClick }) => (
         <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <IoChevronBack />
+            <IoChevronBack color='var(--text-charcol)'/>
         </div>
     );
 
     const CustomNextArrow = ({ onClick }) => (
         <div className="arrow right-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <IoChevronForward />
+            <IoChevronForward color='var(--text-charcol)' />
         </div>
     );
 

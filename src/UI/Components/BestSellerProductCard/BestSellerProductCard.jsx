@@ -49,8 +49,8 @@ const BestSellerProductCard = (
            
             <div className='category-product-price-and-heart'>
                 <div className='category-product-price'>
-                    {productData.sale_price === '' ? <p>{formatedPrice(newPrice)}</p> : <del>{formatedPrice(oldPrice)}</del>}
                     <p>{formatedPrice(newPrice)}</p>  
+                    {productData.sale_price === '' ? <p>{formatedPrice(newPrice)}</p> : <del>{formatedPrice(oldPrice)}</del>}
                 </div>
                 {isInWishList(productData.uid) ? <VscHeartFilled size={25} style={{color: 'var(--primary-color)'}} onClick={(e) => {e.stopPropagation(); handleWishListClicked(productData)}} /> : <img src={'/Assets/icons/like.png'} alt='heart' className='hide-on-mobile' onClick={(e) => {e.stopPropagation(); handleWishListClicked(productData)}} />}
                 

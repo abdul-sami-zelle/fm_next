@@ -216,7 +216,7 @@
     width: 100%;
     align-items: center;
     justify-content: start;
-    gap: 10px;
+    gap: 5px;
 }
 
 .quick-view-var-one p{
@@ -238,7 +238,7 @@
     font-size: var(--section-size) !important;
     font-weight: var(--section-weight) !important;
     line-height: var(--section-height) !important;
-    color: var(--text-primary) !important;
+    color: var(--text-orange) !important;
 }
 
 .quick-view-product-price-tag del{
@@ -323,9 +323,9 @@
     align-items: center;
     justify-content: center;
     background-color:  #FFFFFF;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-bg);
     border-radius: 8px;
-    color: var(--text-primary);
+    color: var(--text-orange);
     font-size: var(--sub-section-size);
     font-weight: var(--sub-section-weight);
     line-height: var(--sub-section-height);
@@ -334,9 +334,9 @@
 }
 
 .quick-view-add-to-cart:hover{
-    background-color: var(--text-primary);
-    border: 1px solid var(--text-primary);
-    color: var(--text-white);
+    background-color: var(--orange-bg);
+    border: 1px solid var(--orange-bg);
+    color: var(--text-charcol);
 }
 
 .quick-view-details-section{

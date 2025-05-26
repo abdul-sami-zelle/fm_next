@@ -109,14 +109,14 @@ const CartProducts = () => {
 
                 <div className='cart-products-heading'>
                     <Breadcrumb />
-                    <h3>Cart ({cartProducts.products?.length} items)</h3>
+                    <h3>Cart ({cartProducts.products?.length} Items)</h3>
                 </div>
 
 
                 <div className='zipcode-and-protection-plan-container'>
                     <span className='update-zip-code-on-cart-page'>
-                        <IoLocationOutline size={20} />
-                        <p className='update-zip-on-cart-details'>Product availability and delivery options for 19134</p>
+                        <IoLocationOutline size={15} />
+                        <p className='update-zip-on-cart-details'>Product Availability And Delivery Options For 19134</p>
                         <p className='update-zip-on-cart-update-location' onClick={handleLocationModal}>Change Location</p>
                     </span>
                     <div className='mobile-view-update-zip-on-cart-page'>
@@ -130,7 +130,7 @@ const CartProducts = () => {
                         <h3
                             className='protection-plan-on-cart-container'
                         >
-                            Add Furniture Mecca Platinum Protection Plan
+                            Add Furniture Mecca Platinum Protection Plan & Professional Assembly
                         </h3>
 
                         <div className='cart-protect-or-not-container'>
@@ -182,7 +182,7 @@ const CartProducts = () => {
                         <div className='cart-protect-or-not-container'>
                             {selectedShippingMethods &&
                                 selectedShippingMethods?.map((option, index) => (
-                                    <div className='cart-protect-card' onClick={() => handleChange(null, option)}>
+                                    <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
                                         {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                         <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' />
                                         <div className='cart-protection-plan-details-container'>

@@ -622,7 +622,7 @@ const Header = ({ checkoutPage }) => {
           </div>
           {/* <img className='nav-toggler' src={navToggler} alt="togle button" onClick={showMobileNav} /> */}
           <Link className='center_section_logo' href='/'>
-            <Image className='mobile-logo' src={'/Assets/Logo/m_logo_360 2.png'} width={120} height={32} alt='mobile-logo' />
+            <Image className='mobile-logo' src={'/Assets/Logo/main-logo.png'} width={120} height={32} alt='mobile-logo' />
           </Link>
           <div className='mobile-view-cart-and-location'>
             {/* <img src={locationIcon} alt='location' onClick={handleNearStorePopUp} /> */}
@@ -650,7 +650,7 @@ const Header = ({ checkoutPage }) => {
           </div>
           <div onClick={() => { moveToLoginDash() }}>
             {/* <img className='mobile-user-icon' src={mobileUserIcon} alt='user-icon' /> */}
-            <  CiUser strokeWidth={0.8} className='mobile-user-icon' />
+            <CiUser strokeWidth={0.8} className='mobile-user-icon' />
           </div>
         </div>
 

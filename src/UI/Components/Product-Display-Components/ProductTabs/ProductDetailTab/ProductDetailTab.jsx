@@ -38,12 +38,12 @@ const ProductDetailTab = ({id, detailsRef, productData}) => {
           {/* <p>Care Instructions</p> */}
         </div>
 
-        <div className='product-detail-right-section-items product-detail-second-tab'>
+        {/* <div className='product-detail-right-section-items product-detail-second-tab'>
           <span>
             <h3># of Accent Pillows:</h3>
             <p>2</p>
           </span>
-        </div>
+        </div> */}
 
         <div className='product-detail-right-section-items'>
           <span>

@@ -647,7 +647,7 @@ p.footer-nav-items > a{
 }
 
 .footer-costumer-care-and-about .about-and-care-link:hover{
-    color: #dfdfdf;
+    color: var(--text-orange);
 }
 
 .mobile-view-footer-main-div{

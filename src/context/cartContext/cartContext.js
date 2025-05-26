@@ -333,6 +333,7 @@ export const CartProvider = ({ children }) => {
                             ...updatedProducts,
                             {
                                 product_uid: product?.uid,
+                                _id: product?._id,
                                 name: product?.name,
                                 isVariable: isSimple ? 0 : 1,
                                 variation_uid: isSimple ? 0 : variationData?.uid,

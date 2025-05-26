@@ -90,9 +90,9 @@ const Products = ({ navigationType }) => {
     // const router = useRouter();
     const [addToCartClicked, setAddToCartClicked] = useState(false);
     const [quickViewClicked, setQuickView] = useState(false);
+    const [quickViewProduct, setQuickViewProduct] = useState({})
     const [colors, setColors] = useState([]);
     const [mobileFilters, setMobileFilters] = useState(false);
-    const [quickViewProduct, setQuickViewProduct] = useState({})
     const [noProducts, setNoProducts] = useState();
     const [filtereState, setFilterState] = useState(false);
     const [clearFilters, setClearFilters] = useState(true);
@@ -102,7 +102,7 @@ const Products = ({ navigationType }) => {
     const currentRoute = pathSegments[pathSegments?.length - 1];
 
     // Filters Section
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState('color-filter');
     const [ratingOpen, setRatingOpen] = useState(false);
 
     // Sub Categories show

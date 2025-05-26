@@ -443,7 +443,7 @@ mobile-cart-order-summary-total{
 
 .cart-related-products-slider-main-div {
     position: relative;
-    display: flex;
+    /* display: flex; */
     width: 100%;
     height: auto;
     align-items: center;

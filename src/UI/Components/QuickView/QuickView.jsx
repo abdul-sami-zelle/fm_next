@@ -182,14 +182,14 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                     {
                         setQuickViewProduct.sale_price === "0" ?
                             <h3 className='-quick-view-product-price-tag'>{formatedPrice(setQuickViewProduct.regular_price)}</h3> :
-                            <h3 className='quick-view-product-price-tag'> <del>{formatedPrice(setQuickViewProduct.regular_price)}</del>  {formatedPrice(setQuickViewProduct.sale_price)}</h3>
+                            <h3 className='quick-view-product-price-tag'>  {formatedPrice(setQuickViewProduct.sale_price)} <del>{formatedPrice(setQuickViewProduct.regular_price)}</del>  </h3>
                     }
                 </> :
                     <>
                         {
                             variableProductData?.sale_price === "0" ?
                                 <h3 className='-quick-view-product-price-tag'>{formatedPrice(variableProductData?.regular_price)}</h3> :
-                                <h3 className='quick-view-product-price-tag'> <del>{formatedPrice(variableProductData?.regular_price)}</del>  {formatedPrice(variableProductData?.sale_price)}</h3>
+                                <h3 className='quick-view-product-price-tag'>  {formatedPrice(variableProductData?.sale_price)} <del>{formatedPrice(variableProductData?.regular_price)}</del> </h3>
                         }
                     </>}
                 <div className='quick-view-add-item-or-cart-btn'>

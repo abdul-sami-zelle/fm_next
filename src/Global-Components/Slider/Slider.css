@@ -55,16 +55,16 @@
 
 .left-arrow {
     left: 20px !important;
-    background-color: #fff;
+    background-color: var(--orange-bg);
     border-radius: 30px;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-bg);
 }
 
 .right-arrow {
     right: 20px !important;
-    background-color: #fff;
+    background-color: var(--orange-bg);
     border-radius: 30px;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-bg);
 }
 
 .main-slider-dots-contianer {

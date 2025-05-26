@@ -412,7 +412,7 @@ const ProductCardTwo = ({
                                     }
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
-                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or $35/week for 48 mos</p>
+                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "0" ? Math.round(priceTag * 0.26) : Math.round(sale_price * 0.26)}/week</p>
                                         <GoInfo onClick={(e) => { e.stopPropagation(); handleInfoModal() }}
                                         />
                                     </span>

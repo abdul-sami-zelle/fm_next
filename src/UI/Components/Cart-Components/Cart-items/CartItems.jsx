@@ -159,10 +159,11 @@ const CartItems = ({
                                 )
                             })}
                             <div className='cart-side-section-price-and-count'>
+                            <p>{formatedSalePrice}</p>
                                 <p><del style={{
                                     color: "var(--secondary-color)", opacity: 0.8
                                 }} >{formatedRegularPrice}</del></p>
-                                <p>{formatedSalePrice}</p>
+                                
                             </div>
 
                             

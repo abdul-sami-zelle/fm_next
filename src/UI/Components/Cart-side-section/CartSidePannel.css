@@ -203,7 +203,7 @@
     left: 5px;
     width: 3px;
     height: 7px;
-    border: solid white;
+    border: solid var(--text-charcol);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     display: block;

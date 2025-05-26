@@ -102,19 +102,29 @@ const Cart = () => {
     setIsCouponOpen(!isCouponOpen)
   }
 
-  const [latestProducts, setLatestProducts] = useState([]);
+const [latestProducts, setLatestProducts] = useState([]);
+
+useEffect(() => {
   const getLatestProducts = async () => {
-    const api = `${url}/api/v1/products/get`;
+    const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+
+    const payload = {
+      cart: cartProducts?.products?.map(item => item._id) || []
+    };
+
     try {
-      const response = await axios.get(api);
-      setLatestProducts(response.data.products)
+      const response = await axios.post(api, payload);
+      setLatestProducts(response.data.recommendations);
     } catch (error) {
       console.error("error", error);
     }
-  }
+  };
 
-  useEffect(() => {
+  if (cartProducts?.products?.length > 0) {
     getLatestProducts();
+  }
+}, [cartProducts]);
+  useEffect(() => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
@@ -134,9 +144,6 @@ const Cart = () => {
   }, [isStarted])
 
   useEffect(() => { setSelectedShippingMethods(null) }, [info])
-
-  const productsUids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const newProducts = latestProducts.filter((product) => productsUids.includes(product.uid));
 
   // const maxLength = 30;
   // const truncateTitle = (title, maxLength) => {
@@ -162,7 +169,7 @@ const Cart = () => {
   }
 
   // Slick
-  let totalSlides = newProducts?.length;
+  let totalSlides = latestProducts?.length;
   const [currentSlide, setCurrentSlide] = useState(0);
   let settings = {
     dots: false,
@@ -527,12 +534,12 @@ const Cart = () => {
 
       </div>
 
-      {/* <div className='cart-related-products-display-section'>
+      <div className='cart-related-products-display-section'>
         <h3>You May Also Like</h3>
         <div className='cart-related-products-slider-main-div'>
           <Slider {...settings}>
-            {newProducts && newProducts.length > 0 ? (
-              newProducts.map((item, index) => (
+            {latestProducts && latestProducts?.length > 0 ? (
+              latestProducts.map((item, index) => (
                 <div key={index} className='cart-latest-product-cards-container'>
                   <ProductCardTwo
                     key={index}
@@ -617,7 +624,7 @@ const Cart = () => {
 
           </Slider>
         </div>
-      </div> */}
+      </div>
 
       <div className='space-between-checkout-and-related-products'></div>
 

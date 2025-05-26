@@ -56,10 +56,10 @@ function RatingReview({ rating, setRating, disabled, size, bgColor, bgColor2 }) 
             onMouseEnter={(e) => handleMouseEnter(e, star)}
             onMouseLeave={handleMouseLeave}
           >
-            <FiStar
+            <FaStar
               style={{
-                color: bgColor2 ? 'var(--orange-bg)' : "#d4d4d4",
-                fill: bgColor2 ? 'var(--orange-bg)' : "#d4d4d4",
+                color: bgColor2 ? 'var(--orange-bg) !important' : "#d4d4d4",
+                fill: bgColor2 ? 'var(--orange-bg) !important' : "#d4d4d4",
                 stroke: "var(--text-charcol)",                        // Border color
                 strokeWidth: "1px",   
               }}
@@ -69,10 +69,10 @@ function RatingReview({ rating, setRating, disabled, size, bgColor, bgColor2 }) 
               //   strokeWidth: "1px",                     // Border width
               // }}
             />
-            <FiStar
+            <FaStar
               style={{
-                fill: bgColor ? bgColor : "var(--orange-bg)",
-                stroke: 'var(--text-charcol)',
+                fill: bgColor ? bgColor : "var(--orange-bg) !important",
+                stroke: 'var(--text-charcol) !important',
                 strokeWidth: '1px',
                 position: "absolute",
                 top: "0px",

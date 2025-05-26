@@ -75,8 +75,8 @@
 .wishlist-heart {
     cursor: pointer;
     position: unset !important;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
 }
 
 .heart-icon-div {
@@ -400,7 +400,7 @@
     font-size: 13px;
     line-height: 1.5;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--tertiary-color);
 }
 
 .product-card-quick-view-container {
@@ -423,10 +423,10 @@
     /* height: 100%; */
     padding: 3px 20px;
     border-radius: 5px;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-bg);
     outline: none;
     background-color: transparent;
-    color: var(--text-primary);
+    color: var(--text-orange);
     font-size: 13px;
     line-height: 1.5;
     font-weight: 500;
@@ -435,8 +435,8 @@
 }
 
 .card-two-quick-view-button:hover {
-    background-color: var(--text-primary);
-    color: #fff;
+    background-color: var(--orange-bg);
+    color: var(--text-charcol);
 }
 
 .quick-view-eye-icon {
@@ -493,7 +493,7 @@
     font-size: 13px !important;
     line-height: 1.5 !important;
     font-weight: 600 !important;
-    color: var(--text-primary) !important;
+    color: var(--tertiary-color) !important;
 }
 
 
@@ -868,8 +868,8 @@
     }
 
     .wishlist-heart {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
     }
 
     .tag-and-heart img {

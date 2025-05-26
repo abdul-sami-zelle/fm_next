@@ -48,10 +48,11 @@ const CartSideSection = (
                             )
                         })}
                         <div className='cart-side-section-price-and-count'>
+                        <p>{formatedPrice(sale_price)}</p>
                             <p><del style={{
                                 color: "#989898"
                             }} >{formatedPrice(regular_price)}</del></p>
-                            <p>{formatedPrice(sale_price)}</p>
+                            
 
                         </div>
                         {

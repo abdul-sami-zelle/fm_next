@@ -8,13 +8,13 @@
 
 .dimension-card{
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 5px;
     width: 100%;
     align-items: center;
     justify-content: center;
     border: 1px solid var(--text-primary);
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
