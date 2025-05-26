@@ -239,21 +239,16 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal])
 
-  console.log("single product data", product)
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const fetchRecomandedProducts = async () => {
-    console.log("product id", product._id);
     const api = `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}`;
     try {
       const response = await fetch(api);
-      console.log("check response",response)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      console.log("check response")
       const data = await response.json();
       setRecomandedProducts(data.recommendations)
-      console.log("response", data);
     } catch (error) {
       console.log("UnExpected Server Error", error);
     }

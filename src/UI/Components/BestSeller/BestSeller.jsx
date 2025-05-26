@@ -88,7 +88,9 @@ const BestSeller = () => {
 
     useEffect(() => {
         getBestSellerProducts(currentSlug)
-    }, [params]);
+    }, [params, currentSlug]);
+
+
 
     useEffect(() => {
         if (products?.length === 0) {
