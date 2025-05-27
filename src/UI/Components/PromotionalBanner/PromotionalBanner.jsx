@@ -101,11 +101,11 @@ const PromotionalBanner = (
 
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
-          <Link href={'/blogs'}>Blogs</Link>
+          <Link href={'#'}>Blogs</Link>
           <span>
-            <Link href={'/user-dashboard'}>Log In</Link> | <Link href={'/user-dashboard'}>Sign up</Link>
+            <Link href={'/my-account'}>Log In</Link> | <Link href={'/my-account'}>Sign up</Link>
           </span>
-          <Link href={'#'}>Free Design Consultation</Link>
+          <Link href={'/free-design-consultation'}>Free Design Consultation</Link>
           <Link href={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link href={'/financing'}>Financing</Link>

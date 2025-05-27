@@ -39,6 +39,8 @@ const BlogSlider = () => {
     fetchBlogs,
    } = useBlog()
 
+  //  console.log("blog data", blogs)
+
    useEffect(() => {
     fetchBlogs(null)
    }, [])

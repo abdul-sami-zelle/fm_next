@@ -74,7 +74,7 @@ const ProductCommentsSection = ({ data }) => {
     return (
         <div className="product-comment-section-main-container">
             <div className="sort-by-related">
-                <p>Showing {sortedData?.length} {sortedData?.length > 1 ? "reviews" : "review"}</p>
+                <p>Showing {sortedData?.length} {sortedData?.length > 1 ? "Reviews" : "Review"}</p>
                 <div className={`
                     input-select-container `}>
                     <fieldset className="select-container" ref={selectRef}>

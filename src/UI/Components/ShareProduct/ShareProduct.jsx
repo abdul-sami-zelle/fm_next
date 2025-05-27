@@ -13,11 +13,17 @@ import { RiWhatsappFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProduct }) => {
 
+    const path = useSearchParams();
+    console.log("pathname", window.location.origin)
     const copyRef = useRef()
-    let generatedLink = `https://fm.myfurnituremecca.com/product/${selectedProduct?.slug}`
+    let generatedLink;
+    if(window !== 'undefined') {
+        generatedLink = `${window.location.origin}/product/${selectedProduct?.slug}`
+    }
 
     const handleCloseShareProductPopup = () => {
         setIsSharePopup(null)

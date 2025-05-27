@@ -523,6 +523,10 @@ p.footer-nav-items > a{
     gap: 12px;
 }
 
+.near-store-details-section {
+    padding: 0 !important;
+}
+
 .footer-near-store-tel{
     font-size: var(--content-one-size) !important;
     line-height: var(--content-one-height) !important;

@@ -141,6 +141,7 @@ const ProductDetailSticky = (
   // Variation Select and auto select
   const [selectedColor, setSelectedColor] = useState();
   const handleSelectColor = (value) => {
+    console.log("selected color", value);
     setSelectedColor(value);
   }
 
@@ -148,18 +149,24 @@ const ProductDetailSticky = (
 
   const [selectVariation, setSelectVariation] = useState(0);
   const handleSelectVariation = (value) => {
+    console.log("selected variation", value)
     setSelectVariation(value);
   }
+  useEffect(() => {console.log("selectedVariation", selectVariation)}, [selectVariation])
   const [selectedUid, setSelectedUid] = useState(null);
 
   const handleSelectedVariationData = (value) => {
+    console.log("selected vaariation uid", value)
     setSelectedUid(value);
 
-    const selectedIndex = productData?.variations?.findIndex(variation => variation?.uid === value);
-
-    setVariationData(productData?.variations?.[selectedIndex]);
+    const selectedIndex = productData?.variations?.find(variation => variation?.uid === value);
+    // console.log("selected index", selectedIndex)
+    // console.group("product varaition data console", selectedIndex)
+    setVariationData(productData?.variations?.findIndex(variation => variation?.uid === value));
 
   };
+
+  useEffect(() => {console.log("vaiation data update", variationData)}, [variationData])
 
   // Protection Plan
   const { setWarrantyModalState } = useGlobalContext();
@@ -328,9 +335,6 @@ const ProductDetailSticky = (
 
   const { eachProtectionValue } = useCart();
 
-
-
-
   return (
     <div className='product-detail-sticky-section-main-container'>
 
@@ -389,7 +393,7 @@ const ProductDetailSticky = (
                 }
               </>}
 
-              <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+              <RatingReview rating={(product?.rating_count)} disabled={true} size={"20px"} />
 
             </div>
 
@@ -435,7 +439,7 @@ const ProductDetailSticky = (
                 <p>SKU : {product.sku}</p>
 
                 <div className='product-detail-rating-and-share'>
-                  <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} />
+                  <RatingReview rating={(product?.rating_count)} disabled={true} size={"20px"} />
                   <span
                     className='single-product-share'
                     onClick={() => handleShareModal(productData)}

@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 // import { useState, useEffect } from 'react';
 import '../Styles/index.css';
@@ -38,17 +38,18 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../Styles/App.css'; // Global styles for the entire app
 import '../Styles/index.css' // Global styles for the entire app
+import { usePathname } from 'next/navigation';
 
 
-export const metadata = {
-  title: 'My Furniture Mecca',
-  description: 'Default Layout Description',
-  icons: {
-    icon: '/favicon.png', // or .ico, .svg
-    shortcut: '/favicon.ico',
-    apple: '/favicon.png',
-  },
-};
+// export const metadata = {
+//   title: 'My Furniture Mecca',
+//   description: 'Default Layout Description',
+//   icons: {
+//     icon: '/favicon.png', // or .ico, .svg
+//     shortcut: '/favicon.ico',
+//     apple: '/favicon.png',
+//   },
+// };
 
 
 export default function RootLayout({ children }) {
@@ -77,6 +78,9 @@ export default function RootLayout({ children }) {
   //   }
   // };
 
+  const pathname = usePathname();
+  const hideHeaderFooter = pathname.startsWith('/order-confirmation');
+
   return (
     <html lang="en">
      <head>
@@ -84,6 +88,7 @@ export default function RootLayout({ children }) {
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
         rel="stylesheet"
       />
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
       </head>
       <body>
 
@@ -113,10 +118,10 @@ export default function RootLayout({ children }) {
                                               transition={Zoom}
                                               autoClose={1000}
                                             />
-                                            <Header />
-                                            <Shopvia />
+                                            {!hideHeaderFooter && <Header />}
+                                            {!hideHeaderFooter && <Shopvia />}
                                             <main>{children}</main>
-                                            <Footer />
+                                            {!hideHeaderFooter && <Footer />}
                                             {/* <button
                                               onClick={handleClickTop}
                                               className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}

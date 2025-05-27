@@ -22,10 +22,12 @@ import ShippingAndDelivery from "../../UI/Pages/ShippingAndDelivery/ShippingAndD
 import TermsAndConditions from "../../UI/Pages/TermsAndCondition/TermsAndConditions";
 import PrivacyPolicy from "../../UI/Pages/PrivacyPolicy/PrivacyPolicy";
 import Contact from "../../UI/Pages/Contact/Contact";
-import OrderConfirmationPage from "../../UI/Pages/OrderConfirmationPage/OrderConfirmationPage";
+// import OrderConfirmationPage from "";
 import ReturnPolicy from "../../UI/Pages/returnPolicy/ReturnPolicy";
 import AboutUs from "../../UI/Pages/AboutUs/AboutUs";
 import ProductDisplay from "../../UI/Pages/ProductDisplay/ProductDisplay";
+import FreeDesignConsultation from "@/app/free-design-consultation/page";
+import OrderConfirmationPage from "@/app/order-confirmation/[id]/page";
 
 
 const routes = (
@@ -178,10 +180,10 @@ const routes = (
             path="/about-us"
             element={<AboutUs />}
         />
-        {/* <Route 
-            path="/product-display/:slug"
-            element={<ProductDisplay />}
-        /> */}
+        <Route 
+            path="/free-design-consultation"
+            element={<FreeDesignConsultation />}
+        />
 
         <Route exact path="/order-confirmation/:_id" element={<OrderConfirmationPage />} />
 

@@ -1,7 +1,7 @@
 .dimension-detail-main-container{
     display: flex;
     width: 100%;
-    align-items: start;
+    align-items: stretch;
     justify-content: start;
     padding: 25px 0;
     gap: 30px;

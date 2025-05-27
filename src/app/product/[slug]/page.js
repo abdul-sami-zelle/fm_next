@@ -258,6 +258,8 @@ const ProductDisplay = ({ params }) => {
     fetchRecomandedProducts();
   }, [product])
 
+  useEffect(() => {console.log("product data", product)}, [product])
+
 
   return (
     <div>

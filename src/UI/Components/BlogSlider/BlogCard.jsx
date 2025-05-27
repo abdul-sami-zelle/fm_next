@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import { url } from '../../../utils/api';
 import Image from 'next/image';
+import RatingReview from '../starRating/starRating';
 
 const BlogCard = (
     {
@@ -38,9 +39,10 @@ const BlogCard = (
                 <h3>{title}</h3>
                 <div className='blog-created-by-and-comments'>
                     <div className='blog-star-rating'>
-                        {stars.map((item, index) => (
+                        {/* {stars.map((item, index) => (
                             <p key={index}>{item.star}</p>
-                        ))}
+                        ))} */}
+                        <RatingReview rating={5} disabled={true} size={"20px"} />
                         (200)
                     </div>
                     <span className='mobile-view-blog-card-author'>By: <p>Furniture Mecca</p></span>

@@ -136,7 +136,9 @@ const SizeVariant = ({
 
     // Handle Select Attribute Selection
     const handleSelectClick = (attributeName, value, name) => {
-
+        console.log("selected attribute name", attributeName);
+        console.log("selected attribute value", value);
+        console.log("selected simple name", name);
         setSelectedSelectAttrs((prevState) => {
             const updatedAttrs = {
                 ...prevState,
@@ -167,6 +169,8 @@ const SizeVariant = ({
 
         handleSelectVariation(value); // Pass the selected value to the parent if needed
     };
+
+    
 
     
 

@@ -4,6 +4,7 @@ import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 const Pagination = ({ activePageIndex, totalPages, handleActivePage, handlePrevPage, handleNextPage }) => {
+    console.log("total pages in pagination", totalPages)
     return (
         <div className='view-more-products-button-div'>
 
@@ -26,15 +27,23 @@ const Pagination = ({ activePageIndex, totalPages, handleActivePage, handlePrevP
                         />
                         Prev
                     </span>
-                    {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
+                    {Array.from({ length: totalPages }).map((_, index) => {
 
                         const pageNumber = index + 1;
-                        const shouldShow =
+                        {/* const shouldShow =
                             pageNumber === activePageIndex ||
                             pageNumber === activePageIndex - 1 ||
                             pageNumber === activePageIndex + 1 ||
                             (activePageIndex === 1 && pageNumber === 3) ||
-                            (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2);
+                            (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2); */}
+
+                        const shouldShow =
+                            totalPages <= 3 || // ✅ Always show if total pages are 3 or less
+                            pageNumber === activePageIndex ||
+                            pageNumber === activePageIndex - 1 ||
+                            pageNumber === activePageIndex + 1 ||
+                            (activePageIndex === 1 && pageNumber === 3) ||
+                            (activePageIndex === totalPages && pageNumber === totalPages - 2);
 
                         return shouldShow ? (
                             <span
@@ -47,19 +56,19 @@ const Pagination = ({ activePageIndex, totalPages, handleActivePage, handlePrevP
                         ) : null;
                     })}
                     <span
-                        className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
+                        className={activePageIndex === totalPages ? 'disabled' : ''}
                         onClick={handleNextPage}
                         style={{
-                            pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                            color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
+                            pointerEvents: activePageIndex === totalPages ? 'none' : 'auto',
+                            color: activePageIndex === totalPages ? '#ccc' : 'var(--tertiary-color)',
                         }}
                     >
                         Next
                         <FaRegArrowAltCircleRight
                             size={18}
                             style={{
-                                pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                                color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
+                                pointerEvents: activePageIndex === totalPages ? 'none' : 'auto',
+                                color: activePageIndex === totalPages ? '#ccc' : 'var(--tertiary-color)',
                             }}
                         />
                     </span>

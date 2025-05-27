@@ -8,6 +8,7 @@ import installmentBanner from '../../../Assets/Furniture Mecca/Landing Page/Pay 
 import mobileViewFullBed from '../../../Assets/images/Rectangle 703.png'
 // import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 import { url } from '../../../utils/api';
+import Image from 'next/image';
 
 const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, mainImgShow, showBanners, paddingTop }) => {
   const [imagePreloader, setImagePreloader] = useState(false);
@@ -40,9 +41,7 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
       <div className={`full-width-container ${customWidth ? 'hide' : ''}`}>
         
         <div className={`dining-image-div ${mainImgShow ? 'show-main-img' : ''}`}>
-          <img 
-            // onLoad={() => setImagePreloader(true)} 
-            src={mainImage} alt='dining ' className='desktop-main-banner' />
+          <img src={mainImage} alt='dining ' className='desktop-main-banner' />
           {mobileMainImage !== undefined ? (
             <img  src={url+mobileMainImage} alt='mobile-main-image' className='mobile-main-banner' />
           ) : (

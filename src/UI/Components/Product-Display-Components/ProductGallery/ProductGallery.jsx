@@ -5,8 +5,6 @@ import './ProductGallery.css';
 import {
     IoIosArrowUp,
     IoIosArrowDown,
-    IoIosArrowBack,
-    IoIosArrowForward,
     IoMdArrowDropleft
 } from "react-icons/io";
 
@@ -334,16 +332,6 @@ const ProductGallery = (
                     onTouchMove={handleDragMove}
                     onTouchEnd={handleDragEnd}
                 >
-                    {/* <button
-                        onClick={handlePrevImage}
-                        disabled={activeIndex === 0}
-                        className={`product-gallery-main-slider-arrow product-gallery-arrow-back ${activeIndex === 0 ? 'disabled-button' : ''}`}
-                    >
-                        <IoIosArrowBack
-                            size={20}
-                            className='product-gallery-arrow'
-                        />
-                    </button> */}
 
                     <div
                         className='product-gallery-main-slider-images'
@@ -402,21 +390,7 @@ const ProductGallery = (
                             ))
                         }
 
-                        
-
-
                     </div>
-
-                    {/* <button
-                        onClick={handleNextImage}
-                        disabled={activeIndex === productImages?.length - 1}
-                        className={`product-gallery-main-slider-arrow product-gallery-arrow-right ${activeIndex === productImages?.length - 1 ? 'disabled-button' : ''}`}
-                    >
-                        <IoIosArrowForward
-                            size={20}
-                            className='product-gallery-arrow'
-                        />
-                    </button> */}
 
                     <div className='slider-dots-and-view-all-button'>
                             <div className="pagination-dots">
@@ -437,23 +411,6 @@ const ProductGallery = (
 
 
             </div>
-
-            {/* Pagination Dots */}
-            {/* <div className='slider-dots-and-view-all-button'>
-                <div className="pagination-dots">
-                    {productData?.images
-                        ?.map((_, i) => i)
-                        .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
-                        .map((index) => (
-                            <span
-                                key={index}
-                                className={`dot ${currentIndex === index ? "active" : ""}`}
-                                onClick={() => handleDotClick(index)}
-                            />
-                        ))}
-                </div>
-                <h3 onClick={handleGalleryModal}>View All</h3>
-            </div> */}
 
         </>
     );

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './BlogCard.css'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import arrowRight from '../../../../Assets/icons/blog-btn-arrow.png'
 import { url } from '../../../../utils/api'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const BlogCard = (
   {
@@ -57,12 +58,12 @@ const BlogCard = (
         <img src={blogMainImage} alt='main' className='blog-card-main-image-class' />
       </div>
       <div className='blog-card-content-div'>
-        <Link className='blog-card-category'>{blogCategory}</Link>
+        <Link className='blog-card-category' href={'#'}>{blogCategory}</Link>
         <h3 className='blog-card-main-title'> {truncateTitle(blogTitle, maxLength)} </h3>
         <div className={`blog-card-footer-buttons ${animButton === ind ? 'increase-padding-anim' : ''}`}>
           <button className='blog-card-read-more-btn'>
             Read more
-            <img src={arrowRight} alt='arrow' className='blog-card-btn-arrow' />
+            <Image src={'/Assets/icons/blog-btn-arrow.png'} width={20} height={20} alt='arrow' className='blog-card-btn-arrow' />
           </button>
           <p className='blog-card-post-date'>{blogPostDate}</p>
         </div>

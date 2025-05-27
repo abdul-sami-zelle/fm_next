@@ -51,7 +51,7 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
     // Custom arrows
     const CustomPrevArrow = ({ onClick }) => (
         <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <IoChevronBack color='var(--text-charcol)'/>
+            <IoChevronBack color='var(--text-charcol)' />
         </div>
     );
 
@@ -96,6 +96,10 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                                 height={360}
                                 onDragStart={(e) => e.preventDefault()}  // Prevent drag
                                 onLoad={() => setImagePreloader(true)}
+                                priority={index === 0}
+                                placeholder="blur"
+                                blurDataURL="/blur.jpg" // or generate a small blur
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </Link>
                     ))}

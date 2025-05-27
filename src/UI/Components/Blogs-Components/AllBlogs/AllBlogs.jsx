@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import './AllBlogs.css';
 import BlogCard from '../BlogCard/BlogCard';
 import BlogCardShimmer from '../../Loaders/blogCardShimmer/BlogCardShimmer';
-import { useNavigate, useParams } from 'react-router-dom';
 import { url } from '../../../../utils/api';
+import { useRouter } from 'next/navigation';
 
 const AllBlogs = ({blogData}) => {
 
   // States and Variables
-  const navigate = useNavigate();
+  const router = useRouter();
 
   // Functions
   const handleNavigate = (item) => {
-    navigate(`/single-blog/${item.slug}`, {state:  item});
+    router.push(`/single-blog/${item.slug}`, {state:  item});
   }
 
 
