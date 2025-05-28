@@ -18,7 +18,6 @@ import { usePathname, useSearchParams } from 'next/navigation';
 const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProduct }) => {
 
     const path = useSearchParams();
-    console.log("pathname", window.location.origin)
     const copyRef = useRef()
     let generatedLink;
     if(window !== 'undefined') {

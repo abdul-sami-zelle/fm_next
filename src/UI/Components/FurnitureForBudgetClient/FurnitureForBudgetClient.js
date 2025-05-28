@@ -27,12 +27,10 @@ export default function FurnitureAtEveryBudgetClient() {
 
 
     const searchParams = useSearchParams();
+    const category = searchParams.get('categoryUid');
+    const max_price = searchParams.get('max_price');
 
     useEffect(() => {
-        const category = searchParams.get('categoryUid');
-        const max_price = searchParams.get('max_price');
-      
-          useEffect(() => {
               const fetchData = async () => {
                   try {
                       const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
@@ -50,7 +48,30 @@ export default function FurnitureAtEveryBudgetClient() {
       
               fetchData();
           }, []);
-    }, [searchParams])
+
+    // useEffect(() => {
+    //     const category = searchParams.get('categoryUid');
+    //     const max_price = searchParams.get('max_price');
+      
+    //       useEffect(() => {
+    //           const fetchData = async () => {
+    //               try {
+    //                   const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
+    //                   if (!response.ok) {
+    //                       throw new Error("Failed to fetch data");
+    //                   }
+    //                   const result = await response.json();
+    //                   setData(result);
+    //               } catch (error) {
+    //                   setError(error.message);
+    //               } finally {
+    //                   setLoading(false);
+    //               }
+    //           };
+      
+    //           fetchData();
+    //       }, []);
+    // }, [searchParams])
 
 
     const maxLength = 50;
@@ -232,7 +253,7 @@ export default function FurnitureAtEveryBudgetClient() {
                         ))
                     ) : (
                         Array.from({ length: 4 }).map((_, index) => (
-                            <ProductCardShimmer />
+                            <ProductCardShimmer key={index} />
                         ))
                     )}
                 </div>
@@ -277,7 +298,7 @@ export default function FurnitureAtEveryBudgetClient() {
                         ))
                     ) : (
                         Array.from({ length: 4 }).map((_, index) => (
-                            <ProductCardShimmer />
+                            <ProductCardShimmer key={index} />
                         ))
                     )}
                 </div>

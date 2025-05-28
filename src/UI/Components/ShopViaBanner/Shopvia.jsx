@@ -25,7 +25,7 @@
 
 import React, { useState } from 'react'
 import './Shopvia.css'
-import closeIcon from '../../../Assets/icons/cancel.png'
+import { IoClose } from "react-icons/io5";
 
 const Shopvia = () => {
   const [closeBanner, setCloseBanner] = useState(false);
@@ -37,7 +37,8 @@ const Shopvia = () => {
         <div className='text-div'>
             <span> Shop via <a  href='tel:2153521600'>215 352 1600</a></span>
         </div>
-        <img src={'/Assets/icons/cancel.png'} alt="close" onClick={handleCloseBanner} />
+        <IoClose size={15} color='#FFFFFF' />
+        {/* <img src={'/Assets/icons/cancel.png'} alt="close" onClick={handleCloseBanner} /> */}
     </div>
   )
 }

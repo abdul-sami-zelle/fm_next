@@ -19,7 +19,7 @@ const AllBlogs = ({blogData}) => {
   return (
     <div className='blog-page-blog-cards-main-container'>
       {blogData && blogData.length >= 0 ? (
-        blogData.slice(0, 9).map((item, index) => (
+        blogData.map((item, index) => (
         <div key={index} className='blog-cards-col'>
           <BlogCard
             singleBlog={item} 

@@ -8,7 +8,7 @@ const SearchTag = () => {
       <h3 className='search-main-heading'>Search</h3>
       <div className='search-tags-container'>
         {searchTags.map((item, index) => (
-            <p className='search-tag-item'>{item}</p>
+            <p key={index} className='search-tag-item'>{item}</p>
         ))}
       </div>
     </div>

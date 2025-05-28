@@ -46,7 +46,7 @@ const BlogHead = ({blogCategories }) => {
     </div>
     <div className='mobile-view-blog-head-main-container'>
       {blogCategories.slice(0, 6).map((item, index) => (
-        <p className='mobile-view-blog-head-category-type'>{item.name}</p>
+        <p key={index} className='mobile-view-blog-head-category-type'>{item.name}</p>
       ))}
     </div>
     </>

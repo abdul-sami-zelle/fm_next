@@ -1,12 +1,15 @@
 import React from 'react'
 import './TrandingBlogs.css'
-import { url } from '../../../../utils/api'
-import {useNavigate } from 'react-router-dom'
+// import { url } from '../../../../utils/api'
+import { url } from '@/utils/api'
+import { useRouter } from 'next/navigation'
+// import {useNavigate } from 'react-router-dom'
 
 const TrandingBlogs = ({blogs}) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const router = useRouter()
     const navigateToSingleBlog = (item) => {
-        navigate(`/single-blog/${item.slug}`, {state:  item});
+        router.push(`/single-blog/${item.slug}`, {state:  item});
     }
 
     return (

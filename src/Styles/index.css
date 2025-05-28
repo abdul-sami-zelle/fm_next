@@ -1,17 +1,22 @@
 :root{
   --text-primary: #000000;
   --text-charcol: #000000CC;
+  --text-gray: #595959;
   --text-white: #fff;
   --text-orange: #FF8416;
+  --text-red: #C61B1A;
   --button-color: #2F7A97;
   --bg-color: #FFFFFF;
   --work-sans-font: "Work Sans", sans-serif;
   /* --primary-color: #C30000; */
   
   /* --primary-color: #C61B1A; */
+  --bg-red: #C61B1A;
   --button-color: #484F59;
   --footer-bg-color: #484F59;
   --orange-bg: #FF8416;
+  --orange-fill: #f0a150;
+  --orange-outline: #963A0B;
   --footer-nav-items-color: #F8F8F8;
   --mobile-nav-item-bg: #F0F0F0;
   --banner-bg-color: #F8E6CD;

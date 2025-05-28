@@ -132,7 +132,7 @@ export default function SaleClient({slug}) {
                             })
                         ) : (
                             Array.from({ length: 12 }).map((_, index) => (
-                                <ProductCardShimmer />
+                                <ProductCardShimmer key={index} />
                             ))
                         )}
 
@@ -140,7 +140,7 @@ export default function SaleClient({slug}) {
                 </div>
 
                 <div className="banner-1-content">
-                    <img src={`${url}${salesData?.data?.banner1?.desktop?.[0]?.image_url}`} alt="" srcset="" />
+                    <img src={`${url}${salesData?.data?.banner1?.desktop?.[0]?.image_url}`} alt="img" />
                 </div>
 
                 <div className="content_1_section">
@@ -148,7 +148,7 @@ export default function SaleClient({slug}) {
                         <div dangerouslySetInnerHTML={{ __html: salesData?.data?.content1 || "" }} />
                     </div>
                     <div className="right_side_cont">
-                        <img src={salesData ? url + salesData?.data?.banner2[0]?.image_url : ""} alt="" srcset="" />
+                        {salesData && (<img src={url + salesData?.data?.banner2[0]?.image_url} alt="img" />)}
                     </div>
                 </div>
 

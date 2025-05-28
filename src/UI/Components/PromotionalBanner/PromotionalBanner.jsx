@@ -101,7 +101,7 @@ const PromotionalBanner = (
 
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
-          <Link href={'#'}>Blogs</Link>
+          <Link href={'/blogs'}>Blogs</Link>
           <span>
             <Link href={'/my-account'}>Log In</Link> | <Link href={'/my-account'}>Sign up</Link>
           </span>

@@ -48,7 +48,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 import Image from 'next/image';
 
@@ -197,6 +197,8 @@ const Header = ({ checkoutPage }) => {
   }
 
   const handleSearchInputFocus = () => setIsSearchInputFocused(true);
+  const path = usePathname();
+  useEffect(() => {setIsSearchInputFocused(false)}, [path])
 
   // const handleBlur = () => {
 
@@ -447,7 +449,7 @@ const Header = ({ checkoutPage }) => {
             />
             {isLoading ? <div className='input-loader'></div> : <></>}
           </div>
-          <div className={`search-product-display-div ${searchedProducts.length > 0 ? 'search-product-display-div-focused' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <div className={`search-product-display-div ${isSearchInputFocused === true && searchedProducts.length > 0 ? 'search-product-display-div-focused' : ''}`} onClick={(e) => e.stopPropagation()}>
             <div className='search-products-display-left'>
               <div className='searched-products'>
                 {searchedProducts.slice(0, 4).map((items, index) => (
@@ -459,7 +461,8 @@ const Header = ({ checkoutPage }) => {
                     // onClick={() => handleNavigateToSingleProduct(items)}
                     href={{ pathname: `/product/${items.slug}`, state: items }}
                   >
-                    <img src={`${url}${items.image.image_url}`} alt='main' />
+                    {items?.image?.image_url && (<Image src={`${url}${items?.image?.image_url}`} width={80} height={40} alt='main' />)}
+                    
                     <div className='searched-product-name-and-sku'>
                       <h3>{highLightText(items.name, searchQuery)}</h3>
                       <p>SKU: ({items.sku})</p>

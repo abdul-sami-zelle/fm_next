@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 11px 70px 11px 20px;
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
 }
 
 .rotating-message{

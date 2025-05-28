@@ -71,7 +71,7 @@
 }
 
 .best-seller-menu-bar p.active {
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--orange-outline);
     font-size: 18px;
     font-weight: 600;
     line-height: 27px;

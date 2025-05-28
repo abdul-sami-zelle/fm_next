@@ -35,7 +35,7 @@ const ProductCardTwo = ({
     showExtraLines,
     titleHeight,
 }) => {
-
+    console.log("sale price of product ", sale_price)
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     const getPriorityAttribute = (attributes) => {
@@ -211,7 +211,8 @@ const ProductCardTwo = ({
                                         <VscHeartFilled
                                             // size={25}
                                             className='wishlist-heart'
-                                            style={{ color: 'var(--primary-color)' }}
+                                            style={{ color: 'var(--orange-fill)' }}
+                                            stroke='var(--orange-outline)'
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleWishListclick(singleProductData)
@@ -221,7 +222,7 @@ const ProductCardTwo = ({
                                         <VscHeart
                                             size={25}
                                             className='wishlist-heart'
-                                            style={{ float: 'right', color: 'var(--primary-color)' }}
+                                            style={{ float: 'right', color: 'var(--orange-outline)' }}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleWishListclick(singleProductData)
@@ -242,7 +243,7 @@ const ProductCardTwo = ({
                                         <VscHeartFilled
                                             size={25}
                                             className='wishlist-heart'
-                                            style={{ color: 'var(--primary-color)' }}
+                                            style={{ color: 'var(--orange-fill)' }}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleWishListclick(singleProductData)
@@ -252,7 +253,7 @@ const ProductCardTwo = ({
                                         <VscHeart
                                             size={25}
                                             className='wishlist-heart'
-                                            style={{ float: 'right', color: 'var(--primary-color)' }}
+                                            style={{ float: 'right', color: 'var(--orange-outline)' }}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleWishListclick(singleProductData)
@@ -397,13 +398,14 @@ const ProductCardTwo = ({
 
 
                                     {
-                                        sale_price === "0" ?
-                                            <h3 className={`product-price-del ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</h3> :
+                                        sale_price === "" ?
+                                            <h3 className={`product-regular-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</h3> :
                                             <div className='price-and-rating-container'>
                                                 <h3 className={`product-price-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
                                                     ${sale_price}
-                                                    <del className={`product-del-price-with-sale-price ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</del>
+                                                    <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</del>
+                                                    
                                                 </h3>
                                                 <div className={`mobile-view-rating-stars ${colTwo ? 'apply-two-col-styling' : ''}`}>
                                                     <RatingReview rating={3} size={"12px"} disabled={true} />

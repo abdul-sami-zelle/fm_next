@@ -423,10 +423,10 @@
     /* height: 100%; */
     padding: 3px 20px;
     border-radius: 5px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     outline: none;
     background-color: transparent;
-    color: var(--text-orange);
+    color: var(--text-gray);
     font-size: 13px;
     line-height: 1.5;
     font-weight: 500;
@@ -435,8 +435,7 @@
 }
 
 .card-two-quick-view-button:hover {
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
 }
 
 .quick-view-eye-icon {
@@ -602,8 +601,15 @@
     font-size: var(--section-size) !important;
     line-height: 15px !important;
     font-weight: var(--section-weight) !important;
-    color: var(--text-orange) !important;
+    color: var(--text-red) !important;
 
+}
+
+.product-regular-price {
+    font-size: var(--section-size) !important;
+    line-height: 15px !important;
+    font-weight: var(--section-weight) !important;
+    color: var(--text-red) !important;
 }
 
 .product-price-starting-at {

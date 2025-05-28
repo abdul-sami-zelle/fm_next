@@ -220,3 +220,15 @@ export const calculateDiscountPercentage = (sale_price, regular_price) => {
   const discount = Math.round(((regular - sale) / regular) * 100);
   return `-${discount}%`;
 };
+
+
+
+export function getOptionNames(attributes) {
+  if (!Array.isArray(attributes)) return [];
+
+  return attributes.flatMap(attr =>
+    Array.isArray(attr.options)
+      ? attr.options.map(option => option.name)
+      : []
+  );
+}

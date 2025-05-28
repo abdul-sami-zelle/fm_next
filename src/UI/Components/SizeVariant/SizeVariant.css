@@ -118,11 +118,11 @@
 }
 
 .select-type-attribute.select-select-variation{
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
 }
 
 .select-type-attribute.select-select-variation p{
-    color: var(--text-charcol);
+    color: var(--text-gray);
 }
 
 .select-type-attribute p{

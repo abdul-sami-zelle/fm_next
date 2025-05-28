@@ -4,7 +4,7 @@ import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 const Pagination = ({ activePageIndex, totalPages, handleActivePage, handlePrevPage, handleNextPage }) => {
-    console.log("total pages in pagination", totalPages)
+    
     return (
         <div className='view-more-products-button-div'>
 
@@ -30,12 +30,6 @@ const Pagination = ({ activePageIndex, totalPages, handleActivePage, handlePrevP
                     {Array.from({ length: totalPages }).map((_, index) => {
 
                         const pageNumber = index + 1;
-                        {/* const shouldShow =
-                            pageNumber === activePageIndex ||
-                            pageNumber === activePageIndex - 1 ||
-                            pageNumber === activePageIndex + 1 ||
-                            (activePageIndex === 1 && pageNumber === 3) ||
-                            (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2); */}
 
                         const shouldShow =
                             totalPages <= 3 || // ✅ Always show if total pages are 3 or less

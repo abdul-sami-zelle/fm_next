@@ -19,7 +19,8 @@ const BlogPage = () => {
     activeCategory,
   } = useBlog()
 
-  
+  useEffect(() => {console.log("blog category", blogCategories)}, [blogCategories])
+  useEffect(() => {console.log("blog category id", blogCategories?.[activeCategory]?._id)}, [blogCategories])
 
   useEffect(() => {
     fetchBlogs(blogCategories?.[activeCategory]?._id)
@@ -31,9 +32,7 @@ const BlogPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalBlogs = blogs?.length || 0;
-  console.log("total blogs", totalBlogs)
   const totalPages = Math.ceil(totalBlogs / blogsPerPage);
-  console.log("total pages", totalPages)
   // Calculate the blogs to show for the current page
   const startIndex = (currentPage - 1) * blogsPerPage;
   const endIndex = startIndex + blogsPerPage;
@@ -42,31 +41,31 @@ const BlogPage = () => {
 
 
   // Handle next and previous buttons
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // const handleNext = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
 
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  // const handlePrev = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //   }
+  // };
 
 
   // pagination
-  const totalPage = 4;
-  const [activePage, setActivePage] = useState()
-  const [activePageIndex, setActivePageIndex] = useState(1)
+  // const totalPage = 4;
+  // const [activePage, setActivePage] = useState()
+  // const [activePageIndex, setActivePageIndex] = useState(1)
 
-  const handleActivePage = ([page]) => {
+  const handleActivePage = (page) => {
     setCurrentPage(page);
   }
 
   const handlePrevPage = () => {
-    if (activePage > 1) {
-      setCurrentPage(activePage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(prev => prev - 1);
 
       window.scrollTo({
         top: 0,
@@ -77,9 +76,9 @@ const BlogPage = () => {
   };
 
   const handleNextPage = () => {
-
-    if (activePage < totalPages?.totalPages) {
-      setActivePage(activePage + 1);
+    console.log("next page func called")
+    if (currentPage < totalPages) {
+      setCurrentPage(prev => prev + 1);
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -95,7 +94,7 @@ const BlogPage = () => {
         <h3 className='mobile-view-blog-page-main-heading'>Exciting Blogs</h3>
       </div>
       <BlogHead  blogCategories={blogCategories} />
-      <AllBlogs blogData={blogs} />
+      <AllBlogs blogData={blogsToShow} />
       <Pagination 
         activePageIndex={currentPage} 
         totalPages={totalPages} 

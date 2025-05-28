@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './FirstToKnow.css';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import axios from 'axios';
 import LoaderAnimation from '../../../../Assets/Loader-animations/Animation - 1728736748029 (1).gif';
 import checked from '../../../../Assets/checked.png';
-import { url } from '../../../../utils/api';
+// import { url } from '../../../../utils/api';
+import { url } from '@/utils/api';
 
 const FirstToKnow = () => {
   const [email, setEmail] = useState('');
@@ -80,7 +82,7 @@ const FirstToKnow = () => {
               )}
               {error && <p style={{ color: 'red' ,textAlign:"center" , fontSize:"12px",margin:"0" }}>{error}</p>}
             </form>
-            <span className='first-to-know-privacy-policy'>By signing up you agree to our <Link  to={'/terms-and-conditions'} className='first-to-know-link'>Terms of use</Link> and <Link to={'/privacy-policy'} className='first-to-know-link'>Privacy Policy</Link></span>
+            <span className='first-to-know-privacy-policy'>By signing up you agree to our <Link  href={'/terms-and-conditions'} className='first-to-know-link'>Terms of use</Link> and <Link href={'/privacy-policy'} className='first-to-know-link'>Privacy Policy</Link></span>
           </>
         ) : (
           <div className='subscription_done'>

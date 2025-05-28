@@ -145,15 +145,15 @@
     font-size: 15px;
     line-height: 21px;
     font-weight: 600;
-    color: var(--text-primary);
-    opacity: 0.5;
+    color: var(--text-gray);
+    opacity: 0.6;
 }
 
 .category-product-price p{
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 .category-product-price-and-heart img{
@@ -212,7 +212,7 @@
         font-size: 15px;
         line-height: 18px;
         font-weight: 600;
-        color: var(--text-primary);
+        color: var(--text-red);
     }
 }
 

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Nav.css';
 import DropdownMenu from './DropdownMenu/DropdownMenu';
-// import { useLocation, useNavigate, Link } from 'react-router-dom';
 import Link from 'next/link'
-// import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Nav = ({ navLinks, sale_data }) => {
     const [dropdownOpen, setDropdownOpen] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
-    // const location = useRouter();
-    // const navigate = useRouter();
+    const path = usePathname();
+    
 
     // Functions
     const handleMouseEnter = (index) => {
@@ -22,8 +21,8 @@ const Nav = ({ navLinks, sale_data }) => {
 
     useEffect(() => {
         setDropdownOpen(null);
-        setActiveIndex(location.pathname);
-    }, []);
+        setActiveIndex(path);
+    }, [path]);
 
     return (
         <div className='navbar'>

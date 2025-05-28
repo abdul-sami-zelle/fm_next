@@ -98,7 +98,8 @@
     font-size: var(--content-one-size) !important;
     line-height: var(--content-one-height) !important;
     font-weight: var(--content-two-weight) !important;
-    opacity: 0.5 !important;
+    color: var(--text-gray);
+    opacity: 0.6 !important;
 
 }
 
@@ -106,7 +107,7 @@
     font-size: var(--sub-section-size) !important;
     line-height: var(--sub-section-height) !important;
     font-weight: var(--sub-section-weight) !important;
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 .might-need-product-rating {

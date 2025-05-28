@@ -172,16 +172,15 @@
     border-radius: 5px;
     font-size: 12px;
     font-weight: 500;
-    background-color: var(--text-orange);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     transition: background-color 1s;
     cursor: pointer;
 }
 
-.write_review_btn:hover {
-    background-color: var(--text-charcol);
-    color: var(--text-orange);
-}
+/* .write_review_btn:hover {
+    background-color: var(--orange-fill);
+} */
 
 .image-preview-container {
     display: flex;

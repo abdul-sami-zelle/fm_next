@@ -541,7 +541,7 @@ const ProductDetailSticky = (
               <div className='get-in-timeline-offer'>
                 <BsTruck size={21} color='var(--secondary-color)' />
                 <div className='get-offer-details'>
-                  <h3 >Get it by <span style={{ fontWeight: "600", color: "var(--primary-color)" }}>{getDeliveryDate()}</span></h3>
+                  <h3 >Get it by <span style={{ fontWeight: "600", color: "var(--text-red)" }}>{getDeliveryDate()}</span></h3>
                   <p>
                     Fully assembled & placed in your room, or in-store pickup.
                   </p>

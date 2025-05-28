@@ -210,6 +210,7 @@ const BestSellerSlider = (
     const sliderRef = useRef(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentDotPosition, setCurrentDotPosition] = useState(1);
+    const [bannerLoading,, setBannerLoading] = useState(false);
 
     const [dotStartIndex, setDotStartIndex] = useState(0);
 
@@ -284,14 +285,22 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
+    useEffect(() => {console.log("loading state", bannerLoading)}, [bannerLoading]);
+
 
     return (
         <>
             <div className="best-seller-slider-container">
 
                 <div className='best-seller-imaage-and-cards'>
+                    
                     <div className='best-seller-slider-main-banner'>
-                        <img src={url + bestSellerNav1[activeItem].image.image_url} alt='main banner' />
+                        {bannerLoading === true? (
+                            <div className='best-seller-main-cover-shimmer'></div>
+                    ) : (
+                        <img src={url + bestSellerNav1[activeItem].image.image_url} onLoad={() => {setBannerLoading(true)}} alt='main banner' />
+                    )}
+                        
                     </div>
                     <div className='best-seller-slider-div'>
                         <div className='best-seller-slider-menu-bar'>

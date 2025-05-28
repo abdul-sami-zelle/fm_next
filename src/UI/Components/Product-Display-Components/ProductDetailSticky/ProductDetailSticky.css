@@ -149,15 +149,15 @@
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-primary);
-    opacity: 0.5;
+    color: var(--text-gray);
+    opacity: 0.6;
 }
 
 .single-product-new-price{
     font-size: var(--section-size);
     line-height: var(--section-height);
     font-weight: var(--section-weight);
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 /* Attributes */
@@ -316,7 +316,7 @@
     display: flex;
     width: 100%;
     height: 40px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 8px;
     align-items: center;
     justify-content: center;
@@ -324,7 +324,7 @@
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-orange);
+    color: var(--text-gray);
     background-color: transparent;
     cursor: pointer;
     outline: none;
@@ -334,9 +334,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
-    /* border: 1px solid var(--text-primary); */
+    background-color: var(--orange-fill);
 }
 
 .add-to-cart-btn::after {

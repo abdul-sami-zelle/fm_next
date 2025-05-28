@@ -8,8 +8,8 @@ const NextUp = () => {
     <div className='next-up-main-container'>
       <h3 className='next-up-main-heading'>Next Up</h3>
       <div className='next-up-items-container'>
-        {Array.from({length: 6}).map((item) => (
-            <div className='next-up-single-item'>
+        {Array.from({length: 6}).map((item, index) => (
+            <div key={index} className='next-up-single-item'>
                 <FaArrowRight size={20} />
                 <p className='next-up-single-item-para'>Bob’s Supports Operation Homefront Transitional Housing (Apartments)</p>
             </div>

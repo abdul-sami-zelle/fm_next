@@ -54,17 +54,30 @@
 }
 
 .left-arrow {
-    left: 20px !important;
+    left: -60px !important;
     background-color: var(--orange-bg);
     border-radius: 30px;
     border: 1px solid var(--orange-bg);
+    
+    transition: all 0.3s ease-in-out;
 }
 
+
+
 .right-arrow {
-    right: 20px !important;
+    right: -60px !important;
     background-color: var(--orange-bg);
     border-radius: 30px;
     border: 1px solid var(--orange-bg);
+    transition: all 0.3s ease-in-out;
+}
+
+.slider:hover .left-arrow {
+    left: 20px !important;
+}
+
+.slider:hover .right-arrow {
+    right: 20px !important;
 }
 
 .main-slider-dots-contianer {

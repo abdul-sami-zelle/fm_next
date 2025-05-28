@@ -50,7 +50,7 @@ const BlogSlider = () => {
   const maxLength = 50;
 
   const handleNavigateToSingleBlog = (item) => {
-    router.push(`/single-blog/${item.id}`, { state: item })
+    router.push(`/single-blog/${item.slug}`, { state: item })
   }
 
 

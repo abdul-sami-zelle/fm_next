@@ -39,14 +39,13 @@
     font-size: 16px;
     line-height: 22px;
     font-weight: 500;
-    color: var(--text-orange);
-    border: 1px solid var(--orange-bg);
+    color: var(--text-gray);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
 }
 
 .design-your-room-shuffle-button-container > button:hover {
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
 }

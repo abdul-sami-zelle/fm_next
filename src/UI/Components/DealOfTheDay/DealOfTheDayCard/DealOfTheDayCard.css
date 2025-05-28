@@ -65,8 +65,8 @@
   font-size: var(--sub-section-size);
   line-height: var(--sub-section-height);
   font-weight: var(--sub-section-weight);
-  color: var(--text-primary);
-  opacity: 0.5;
+  color: var(--text-gray);
+  opacity: 0.6;
   margin-left: 4px;
 }
 
@@ -74,7 +74,7 @@
   font-size: var(--section-size) !important;
   line-height: 1.2 !important;
   font-weight: var(--section-weight) !important;
-  color: var(--text-orange) !important;
+  color: var(--text-red) !important;
 }
 
 .deal-of-the-day-product-image{
@@ -132,7 +132,8 @@
 .deal-of-the-day-product-discount{
   display: flex;
   position: absolute;
-  background-color: var(--primary-color);
+  border: 1px solid var(--bg-red);
+  background-color: #FFF;
   top: 10px;
   right: 10px;
   padding: 5px 15px;
@@ -140,10 +141,11 @@
 }
 
 .deal-of-the-day-product-discount p{
-  color: var(--text-charcol);
+  color: var(--text-red);
   font-size: 12px;
   font-weight: 600;
   line-height: 18px;
+  opacity: 0.6;
 }
 
 .deal-of-the-day-card-icons-div{

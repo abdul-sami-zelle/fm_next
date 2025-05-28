@@ -16,27 +16,10 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Slider from "react-slick";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { getOptionNames } from "../../../utils/api";
 
 
-const SamplePrevArrow = (props) => {
-    const { className, style, onClick } = props;
-    return (
-        <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} style={{ top: '45% !important' }} >
-            {/* <img src={leftArrow} alt='arrow' /> */}
-            <IoChevronBack />
-        </div>
-    )
-}
 
-function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-right ${className}`} >
-
-            <IoChevronForward />
-        </div>
-    )
-}
 
 
 export default function OrderConfirmationPage() {
@@ -60,11 +43,15 @@ export default function OrderConfirmationPage() {
     }, [path]);
 
     // Fetch order details based on _id
+    const [mainOrderProduct, setMainOrderProduct] = useState(null)
+    const [remainingOrderProducts, setRemainingOrderProducts] = useState([]);
+
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
                 const response = await axios.get(`${url}/api/v1/orders/get_by_id?_id=${params.id}`);
                 setOrder(response.data.order); // Store order data in state
+                setMainOrderProduct(response.data.order.items[0])
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -74,6 +61,13 @@ export default function OrderConfirmationPage() {
 
         fetchOrderDetails();
     }, [params.id]); // Re-run the effect when _id changes
+
+
+
+    const handleSelectedProduct = (item) => {
+        setMainOrderProduct(item)
+    }
+
 
     if (loading) {
         return <div>Loading...</div>; // Show loading state while fetching data
@@ -88,14 +82,9 @@ export default function OrderConfirmationPage() {
     }
 
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-    };
+    // const startingProduct = order.items[0];
+
+
 
 
 
@@ -170,15 +159,7 @@ export default function OrderConfirmationPage() {
                                 {order.billing.email} {/* Use order data */}
                             </p>
 
-                            {/* <p style={{ marginTop: "30px" }} className="sub_heading">
-                                Shipping Address
-                            </p>
-                            <p className="sub_content">
-                                {order.billing.address_1} 
-                            </p>
-                            <p className="sub_content">
-                                {order.billing.city}, {order.billing.state} 
-                            </p> */}
+
                             <p style={{ marginTop: "10px" }} className="sub_heading">
                                 Billing Address
                             </p>
@@ -214,7 +195,7 @@ export default function OrderConfirmationPage() {
                     </div>
                 </div>
 
-                <div className="checkout-need-help-or-continue-shopping">
+                {/* <div className="checkout-need-help-or-continue-shopping">
                     <span className="checkout-page-contact-us-link-item">
                         <p className="checkout-need-help-heading">Need help?</p>
                         <Link className="checkout-contact-item" href={'/contact-us'}>Contact us</Link>
@@ -222,13 +203,59 @@ export default function OrderConfirmationPage() {
                     <button className="checkout-continue-shopping-button" onClick={handleNavigate}>
                         Go To Home
                     </button>
-                </div>
+                </div> */}
 
             </div>
 
 
             <div className="order_details">
                 <div className="cart_product_items">
+
+                    <div className="order-products-main-product-container">
+                        <div className="order-product-main-image-container">
+                            <Image src={url + mainOrderProduct?.image} width={588} height={320} alt="product image" />
+                        </div>
+                        <div className="order-product-details-container">
+                            <h3>{mainOrderProduct.name}</h3>
+                            <div className="order-container-attributes-and-price-container">
+                                <div className="order-price-attributes-container">
+                                    {getOptionNames(mainOrderProduct.attributes).map((item, index) => (
+                                        <p key={index}>{item}</p>
+                                    ))}
+                                </div>
+                                <div className="order-product-price-container">
+                                    {mainOrderProduct.sale_price === "" ? (
+                                        <p className="order-product-regular-price">{formatedPrice(mainOrderProduct.regular_price)}</p>
+                                    ) : (
+                                        <span className="order-product-sale-price-container">
+                                            <h3>{formatedPrice(mainOrderProduct.sale_price)}</h3>
+                                            <del>{formatedPrice(mainOrderProduct.regular_price)}</del>
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="order-remaining-products-container">
+                        {order.items.map((item, index) => (
+                            <div 
+                                key={index} 
+                                className={`order-thumb-product ${item._id === mainOrderProduct._id ? 'active-current-product' : ''}`}
+                                onClick={() => handleSelectedProduct(item)}
+                            >
+                                <div className="order-thumb-image-container">
+                                    <Image src={url + item.image} width={80} height={80} alt="remaining img" />
+                                </div>
+                                {item.sale_price === "" ? (
+                                    <p className="remaining_price">{formatedPrice(item.regular_price)}</p>
+                                ) : (
+                                    <p className="remaining_price">{formatedPrice(item.sale_price)}</p>
+                                )}
+                            </div>
+                        ))}
+
+
+                    </div>
 
                     {/* {order.items.map((item, index) => (
                         <CartItemOC
@@ -247,27 +274,11 @@ export default function OrderConfirmationPage() {
                         />
                     ))} */}
 
-                    <Slider {...settings}>
-                        {order.items.map((item, index) => (
-                            <div className="order-confirmation-main-contianer">
-                            <CartItemOC
-                                image={item.image}
-                                name={item.name}
-                                quantity={item.quantity}
-                                price={item.total}
-                                sku={item.sku}
-                                key={index}
-                                item={item}
-                                regular_price={item?.regular_price}
-                                options={item.attributes}
-                                cart_protected={order.cart_protected}
-                                is_protected={order.is_protected}
-                                protected_price={order.protected_price}
-                            />
-                            </div>
-                        ))}
-                    </Slider>
+
+
                 </div>
+
+
                 <div className="cart_product_calculations">
                     <div className="row">
                         <p className="label">Sub Total</p>
@@ -293,6 +304,17 @@ export default function OrderConfirmationPage() {
                     <div className="row">
                         <p className="label_result">Total</p>
                         <p className="value_result">{formatedPrice(order.total)}</p> {/* Use order data */}
+                    </div>
+
+
+                    <div className="checkout-need-help-or-continue-shopping">
+                        <span className="checkout-page-contact-us-link-item">
+                            <p className="checkout-need-help-heading">Need help?</p>
+                            <Link className="checkout-contact-item" href={'/contact-us'}>Contact us</Link>
+                        </span>
+                        <button className="checkout-continue-shopping-button" onClick={handleNavigate}>
+                            Go To Home
+                        </button>
                     </div>
                 </div>
             </div>

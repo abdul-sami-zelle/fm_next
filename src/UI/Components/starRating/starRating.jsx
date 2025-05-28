@@ -58,8 +58,8 @@ function RatingReview({ rating, setRating, disabled, size, bgColor, bgColor2 }) 
           >
             <FaStar
               style={{
-                color: bgColor2 ? 'var(--orange-bg) !important' : "#d4d4d4",
-                fill: bgColor2 ? 'var(--orange-bg) !important' : "#d4d4d4",
+                color: bgColor2 ? 'var(--tertiary-color) !important' : "#d4d4d4",
+                fill: bgColor2 ? 'var(--tertiary-color) !important' : "#d4d4d4",
                 stroke: "var(--text-charcol)",                        // Border color
                 strokeWidth: "1px",   
               }}
@@ -71,8 +71,8 @@ function RatingReview({ rating, setRating, disabled, size, bgColor, bgColor2 }) 
             />
             <FaStar
               style={{
-                fill: bgColor ? bgColor : "var(--orange-bg) !important",
-                stroke: 'var(--text-charcol) !important',
+                fill: bgColor ? bgColor : "var(--tertiary-color) !important",
+                stroke: 'var(--tertiary-color) !important',
                 strokeWidth: '1px',
                 position: "absolute",
                 top: "0px",
