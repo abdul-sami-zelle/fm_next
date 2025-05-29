@@ -612,7 +612,7 @@ export const CartProvider = ({ children }) => {
 
         cartProducts.products.forEach(item => {
             const regularPrice = parseFloat(item.regular_price) || 0;
-            const salePrice = item.sale_price !== "0" ? parseFloat(item.sale_price) : regularPrice;
+            const salePrice = item.sale_price !== "" ? parseFloat(item.sale_price) : regularPrice;
             const quantity = item.quantity || 1;
             const isProtectedValue = isCartProtected ? 0 : (item.is_protected === 0 ? 0 : item.quantity > 1 ? eachProtectionValue2 : eachProtectionValue);
 

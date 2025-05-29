@@ -82,20 +82,23 @@ export const MyOrdersProvider = ({ children }) => {
         },
         shipping_lines: {
             id: "",
-            method_id: selectedOption?.id,
-            tax: selectedOption?.tax,
-            cost: selectedOption?.cost
+            method_id: "",
+            // method_id: selectedOption?.id,
+            tax: "",
+            cost: "",
+            // tax: selectedOption?.tax,
+            // cost: selectedOption?.cost,
         },
         items: [],
         discount: 0,
         tax: 5,
+        payment_method: '',
         cart_protected: cartProducts?.is_all_protected,
         is_shipping: 1,
         shipping_cost: 10,
         professional_assembled: cartProducts?.is_professional_assembly
     })
 
-    useEffect(() => {console.log("order details", orderPayload)}, [orderPayload])
 
     const [emptyField, setEmptyField] = useState({});
     const [loading, setLoading] = useState(true); // Loading state
@@ -127,7 +130,6 @@ export const MyOrdersProvider = ({ children }) => {
 
     const getActivePaymentMethods = async () => {
         const data = await fetchActivePaymentMethods();
-        console.log("payment method data", data)
         setActivePaymentMethods(data?.activePaymentMethods);
     };
 

@@ -17,7 +17,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
         
     ]
 
-    console.log("selected pyment type", selectedPaymentType)
 
     const {
             creditCardData,
@@ -26,7 +25,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
             getActivePaymentMethods,
             setOrderPayload,
         } = useMyOrders();
-        console.log("set active payment method", activePaymentMethods)
         
     
         const checkPaymentMethodById = (id) => {
@@ -59,7 +57,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
     //     // getActivePaymentMethods();
     // }, []);
     const handleSelectPaymentType = (type) => {
-        console.log("payment type", type)
         setSelectedPaymentType(type.type);
         onSelectLabel(type.type)
         checkPaymentMethodById(type.paymentMethodId)

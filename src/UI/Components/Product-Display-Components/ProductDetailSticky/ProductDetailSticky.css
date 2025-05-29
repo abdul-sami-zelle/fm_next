@@ -201,33 +201,36 @@
 .item-count {
     display: flex;
     height: 40px;
+    width: 100%;
+    max-width: 135px;
+    border: 1.5px solid var(--orange-outline);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .minus-btn {
     display: flex;
     background-color: transparent;
     border: none;
-    border-right: 1.5px solid var(--text-primary);
+    border-right: 1.5px solid var(--orange-outline);
     padding: 0 5px;
     align-items: center;
     justify-content: center;
-    width: 45px;
+    width: 45px !important;
     cursor: pointer;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border: 1px solid var(--text-primary);
+    /* border: 1px solid var(--text-primary); */
 }
 
-.minus-btn:focus {
+/* .minus-btn:focus {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-}
+} */
 
 .minus-btn:hover {
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border: 1px solid var(--text-primary);
-    background-color: var(--text-primary);
+    /* border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px; */
+    /* border: 1px solid var(--text-primary); */
+    background-color: var(--orange-fill);
 }
 
 .minus-btn.disabled {
@@ -236,21 +239,22 @@
 }
 
 .minus-icon {
-    color: var(--text-primary) !important;
+    color: var(--text-gray) !important;
     margin-top: -12px;
 }
 
 .minus-btn:hover .minus-icon {
-    color: #FFFFFF !important;
+    color: var(--text-gray) !important;
 }
 
 .item-count input {
-    width: 45px;
+    width: 45px !important;
     border: none;
     outline: none;
     text-align: center;
-    border-top: 1px solid var(--text-primary);
-    border-bottom: 1px solid var(--text-primary);
+    color: var(--text-gray);
+    /* border-top: 1px solid var(--text-primary);
+    border-bottom: 1px solid var(--text-primary); */
     border-radius: 0;
 }
 
@@ -265,15 +269,15 @@
     display: flex;
     background-color: transparent;
     border: none;
-    border-left: 1.5px solid var(--text-primary);
+    border-left: 1.5px solid var(--orange-outline);
     padding: 0 5px;
     align-items: center;
     justify-content: center;
-    width: 45px;
+    width: 45px !important;
     cursor: pointer;
-    border: 1px solid var(--text-primary);
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+    /* border: 1px solid var(--text-primary); */
+    /* border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px; */
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
@@ -283,20 +287,20 @@
 }
 
 .plus-btn:hover {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    background-color: var(--text-primary);
-    border: 1px solid var(--text-primary);
+    /* border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px; */
+    background-color: var(--orange-fill);
+    /* border: 1px solid var(--text-primary); */
 
 }
 
 .plus-icon {
-    color: var(--text-primary) !important;
+    color: var(--text-gray) !important;
     transition: all 0.3s ease-in-out;
 }
 
 .plus-btn:hover .plus-icon {
-    color: #FFFFFF !important;
+    color: var(--text-gray) !important;
 }
 
 /* Add To Wish list */

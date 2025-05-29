@@ -536,7 +536,7 @@ const ProductDetailSticky = (
                 <div
                   className='product-details-add-to-wishlist-icon'
                   onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
-                  style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--secondary-color)' }}
+                  style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--orange-outline)' }}
                 >
                   {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'red' : 'var(--secondary-color)'} />
                     : <IoMdHeartEmpty size={20} />}

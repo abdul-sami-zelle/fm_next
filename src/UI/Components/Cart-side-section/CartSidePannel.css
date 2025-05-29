@@ -179,7 +179,7 @@
     appearance: none;
     width: 16px;
     height: 16px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 4px;
     position: relative;
     padding: 0px !important;
@@ -192,8 +192,8 @@
 .order-summary-checkbox:checked {
     /* background-color: #28828A;
     border-color: #28828A; */
-    background-color: var(--orange-bg);
-    border-color: var(--orange-bg);
+    background-color: var(--orange-fill);
+    border-color: var(--orange-outline);
 }
 
 .order-summary-checkbox:checked::after {
@@ -203,7 +203,7 @@
     left: 5px;
     width: 3px;
     height: 7px;
-    border: solid var(--text-charcol);
+    border: solid var(--text-gray);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     display: block;

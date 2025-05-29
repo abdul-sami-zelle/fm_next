@@ -126,13 +126,13 @@
 }
 
 .update-zip-btn{
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
     width: 32%;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-charcol);
+    color: var(--text-gray);
     border: none;
     outline: none;
     border-radius: 4px;
@@ -140,12 +140,13 @@
     line-height: 18px;
     font-weight: 600;
     cursor: pointer;
+    border: 0px solid var(--orange-outline);
 }
 
-.update-zip-btn:hover {
+/* .update-zip-btn:hover {
     background-color: var(--text-charcol);
     color: var(--text-orange);
-}
+} */
 
 .use-current-location{
     display: flex;
@@ -157,8 +158,8 @@
     border-radius: 4px;
     cursor: pointer;
     padding: 0 10px;
-    color: var(--text-orange);
-    border: 1px solid var(--orange-bg);
+    color: var(--text-gray);
+    border: 1px solid var(--orange-outline);
 }
 
 
@@ -170,28 +171,28 @@
 } */
 
 .location-pop-up-location-icon {
-    color: var(--text-orange);
+    color: var(--text-gray);
 }
 
 .use-current-location h3{
     font-size: 12px;
     font-weight: 600;
     line-height: 15px;
-    color: var(--text-orange);
+    color: var(--text-gray);
 }
 
 .use-current-location:hover {
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
     /* background-color: rgba(89, 89, 89, 0.2); */
-    color: var(--secondary-color);
+    /* color: var(--secondary-color); */
 }
 
 .use-current-location:hover > h3 {
-    color: var(--text-charcol);
+    color: var(--text-gray);
 }
 
 .use-current-location:hover .location-pop-up-location-icon {
-    color: var(--text-charcol);
+    color: var(--text-gray);
 }
 
 .location-modal-detail-section{

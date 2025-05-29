@@ -103,6 +103,7 @@ const CartProducts = () => {
         setShowSnakeBar(false)
     }
 
+
     return (
         <>
             <div className='cart-products-main-container'>

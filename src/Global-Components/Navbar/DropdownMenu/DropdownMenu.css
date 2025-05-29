@@ -100,12 +100,12 @@
 }
 
 .mattres-links a:hover{
-    color: var(--primary-color);
+    color: var(--text-red);
     text-decoration: underline;
 }
 
 .mattres-links.active a{
-    color: var(--primary-color);
+    color: var(--text-red);
     font-weight: 600;
 }
 
@@ -200,6 +200,13 @@
     letter-spacing: normal !important;
 }
 
+.regular-price {
+    font-size: 15px;
+    line-height: 21px;
+    font-weight: 500;
+    color: var(--text-red);
+}
+
 .price{
     color: var(--text-primary);
     letter-spacing: normal;
@@ -220,7 +227,7 @@
     font-size: 15px;
     line-height: 21px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-red);
 }
 
 .price .new{

@@ -3,10 +3,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { url } from "../../utils/api";
 import { useCart } from "../cartContext/cartContext";
+import { useMyOrders } from "../orderContext/ordersContext";
 
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
+
 
   const [stores, setStores] = useState([]);
   const [shippingMethods, setShippingMethods] = useState(null);
@@ -15,6 +17,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [taxLoader, setTaxLoader] = useState(false);
   const { subTotal, cartProducts } = useCart();
   const [mainLoader, setMainLoader] = useState(false);
+
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
 
@@ -172,7 +175,6 @@ export const GlobalContextProvider = ({ children }) => {
 
   const setAllShippingMethods = async () => {
     const data = await getShippingMethodss();
-    console.log("shipping methos", data)
     setShippingMethods(data?.shippingZones[0]);
   };
 
@@ -183,6 +185,8 @@ export const GlobalContextProvider = ({ children }) => {
 
 
   function calculateTotalTax(subtotal, taxRate) {
+    console.log("sub total val", subtotal);
+    console.log("tax rate val", taxRate);
     if (isNaN(subtotal) || isNaN(taxRate) || subtotal < 0 || taxRate < 0) {
       throw new Error("Invalid input: subtotal and taxRate must be non-negative numbers.");
     }
@@ -193,9 +197,12 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleChange = (e, option) => {
-    console.log("select option ", option)
+    console.log("delivery option e", e);
+    console.log("selected delivery opetion", option)
     setSelectedOption(option);
   };
+
+  
 
   const [selectedShippingMethods, setSelectedShippingMethods] = useState(null);
   function getShippingMethods(subtotal, shippingMethods) {
@@ -292,6 +299,9 @@ export const GlobalContextProvider = ({ children }) => {
     const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
     return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
   }
+
+  useEffect(() => {console.log("selected shiping", selectedShippingMethods)})
+
 
   return (
     <GlobalContext.Provider value={{

@@ -127,7 +127,7 @@
     height: 48px;
     background-color: white;
     align-items: center;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--orange-outline);
     /* padding: 11px 12px; */
     gap: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -158,7 +158,8 @@
     padding: 10px;
     border: none;
     outline: none;
-    background-color: var(--primary-color);
+    border-left: 1px solid var(--orange-outline);
+    background-color: var(--orange-fill);
 }
 
 /* .pop-up-header-search img{
@@ -181,22 +182,22 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border: 1px solid var(--text-orange);
-    background-color: var(--text-orange);
+    border: 1px solid var(--orange-outline);
+    background-color: var(--orange-fill);
     outline: none;
     border-radius: 4px;
     font-size: 12px;
     line-height: 15px;
     font-weight: 500;
-    color: var(--text-charcol);
+    color: var(--text-gray);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .current-location-button:hover{
-    background-color: var(--text-charcol);
-    border: 1px solid var(--text-charcol);
-    color: var(--text-orange);
+    background-color: var(--orange-fill);
+    border: 1px solid var(--orange-outline);
+    color: var(--text-gray);
 }
 
 .delivery-zip-button{
@@ -205,14 +206,14 @@
     width: max-content;
     padding: 10px;
     background-color: #FFFFFF;
-    border: 1px solid var(--text-orange);
+    border: 1px solid var(--orange-outline);
     outline: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
     line-height: 15px;
     font-weight: 500;
-    color: var(--text-orange);
+    color: var(--text-gray);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,9 +227,9 @@
     border: 1px solid var(--text-primary);
     color: #FFFFFF; */
     /* background-color: rgba(89, 89, 89, 0.2); */
-    background-color: var(--text-orange);
-    color: var(--text-charcol);
-    border: 1px solid var(--text-orange);
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
+    border: 1px solid var(--orange-outline);
 }
 
 /* .pop-up-header-location p{

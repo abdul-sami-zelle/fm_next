@@ -31,6 +31,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
         handleZipCodeChange
     } = useMyOrders();
 
+
     
 
     const [error, setError] = useState({})
@@ -113,7 +114,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         className={`delivery-input-container ${focusedField === 'first_name' || orderPayload.billing?.first_name ? "focused" : ""}`}
-                        style={{ border: error.first_name ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.first_name ? '1px solid var(--orange-outline)' : '' }}
                         onClick={() => firstNameRef.current?.focus()}
                     >
                         <label
@@ -136,7 +137,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         onClick={() => lastNameRef.current?.focus()}
-                        style={{ border: error.last_name ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.last_name ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'last_name' || orderPayload.billing?.last_name ? "focused" : ""}`}
                     >
                         <label
@@ -161,7 +162,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         onClick={() => emailRef.current?.focus()}
-                        style={{ border: error.email ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
                     >
                         <label
@@ -183,7 +184,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         onClick={() => phoneRef.current?.focus()}
-                        style={{ border: error.phone ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.phone ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-phone ${focusedField === 'phone' || orderPayload.billing?.phone ? "focused" : ""}`}
                     >
                         <label
@@ -210,7 +211,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div
                     onClick={() => addressOneRef.current?.focus()}
-                    style={{ border: error.address_1 ? '1px solid var(--primary-color)' : '' }}
+                    style={{ border: error.address_1 ? '1px solid var(--orange-outline)' : '' }}
                     className={`delivery-input-container ${focusedField === 'address_1' || orderPayload.billing?.address_1 ? "focused" : ""}`}
                 >
                     <label
@@ -250,7 +251,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 <div className='delivery-options-city-and-state'>
                 <div
                         onClick={() => postalCodeRef.current?.focus()}
-                        style={{ border: error.postal_code ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.postal_code ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-postal-code ${focusedField === 'postal_code' || orderPayload.billing?.postal_code ? "focused" : ""}`}
                     >
                         <label
@@ -274,7 +275,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         onClick={() => cityRef.current?.focus()}
-                        style={{ border: error.city ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.city ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'city' || orderPayload.billing?.city ? "focused" : ""}`}
                     >
                         <label
@@ -296,7 +297,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     <div
                         onClick={() => stateRef.current?.focus()}
-                        style={{ border: error.state ? '1px solid var(--primary-color)' : '' }}
+                        style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'state' || orderPayload.billing?.state ? "focused" : ""}`}
                     >
                         <label

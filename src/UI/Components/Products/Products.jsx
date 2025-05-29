@@ -8,6 +8,7 @@ import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaPlus, FaTruck, FaLocationDot, FaMinus } from "react-icons/fa6";
 
+
 // Components
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 import QuickView from '../QuickView/QuickView';
@@ -611,7 +612,9 @@ const Products = ({ navigationType }) => {
                 // if no product found
                 noProducts ? (
                     <div className='product-not-found-container'>
-                        <h3>We didn’t find any products that match your selections.Try Adjusting Your Filter for More Results.</h3>
+                        <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='no found' />
+                        <h3>No Products Found</h3>
+                        <p>Your search did not match any product.</p>
                     </div>
                 ) : (
                     // If Product Fount
@@ -710,6 +713,7 @@ const Products = ({ navigationType }) => {
 
                         {filtereState ? (
                             <div className='product-not-found-container' >
+                                <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='empty' />
                                 <p>
                                     We didn’t find any products that match all your selections.Try Adjusting Your Filters for More Results.
                                 </p>

@@ -37,7 +37,7 @@ const Shopvia = () => {
         <div className='text-div'>
             <span> Shop via <a  href='tel:2153521600'>215 352 1600</a></span>
         </div>
-        <IoClose size={15} color='#FFFFFF' />
+        <IoClose size={15} color='#FFFFFF' onClick={handleCloseBanner} />
         {/* <img src={'/Assets/icons/cancel.png'} alt="close" onClick={handleCloseBanner} /> */}
     </div>
   )

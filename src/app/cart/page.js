@@ -113,6 +113,7 @@ useEffect(() => {
 }, [cartProducts]);
   useEffect(() => {
     if (shippingMethods) {
+      console.log("shiping method call", shippingMethods)
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
@@ -230,24 +231,6 @@ useEffect(() => {
     }
   }
 
-
-  // const orderPriceDetails = [
-  //   { title: 'Subtotal', price: formatedPrice(subTotal) },
-  //   // { title: 'Protection plan', price: formatedPrice(protectionPrice) },
-  //   // { title: 'Professional Assembly', price: formatedPrice(assemblyPrice) },
-  //   { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
-  // ]
-
-
-
-  // Define conditional visibility logic
-  // const filteredOrderPriceDetails = orderPriceDetails.filter((_, index) => {
-  //   if (index === 1) return isCheck[0]; // Show 'Professional Assembly' if isCheck[0] is true
-  //   if (index === 2) return isCheck[1]; // Show 'Elite Title' if isCheck[1] is true
-  //   return true; // Always include other items
-  // });
-
-
   // Apply Financing Modal
  
   const [applyFinancing, setApplyFinancing] = useState(false);
@@ -301,9 +284,6 @@ useEffect(() => {
       // setAppointmentModal(false);
       setSnakebarOpen(true);
     }
-    // const handleCloseSnakeBar = () => {
-    //   setSnakebarOpen(false);
-    // }
 
   const handleProductClick = (item) => {
     router.push(`/product/${item.slug}`);
@@ -369,7 +349,7 @@ useEffect(() => {
 
               <div className='cart-order-summary-price-detail-save-discount'>
                 <p>Savings</p>
-                <p style={{ color: "var(--primary-color)" }} >-{formatedPrice(savings)}</p>
+                <p style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
               </div>
 
               {isCartProtected ? (

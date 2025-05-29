@@ -61,7 +61,7 @@ const CartItems = ({
         currency: 'USD'
     }).format(regular_price)
 
-    const productTotalPrice = sale_price !== "0" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? (quantity > 1 ? eachProtectionValue2 : eachProtectionValue) : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? (quantity > 1 ? eachProtectionValue2 : eachProtectionValue) : 0));
+    const productTotalPrice = sale_price !== "" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? (quantity > 1 ? eachProtectionValue2 : eachProtectionValue) : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? (quantity > 1 ? eachProtectionValue2 : eachProtectionValue) : 0));
 
     const formatedTotalPrice = Intl.NumberFormat('en-us', {
         style: 'currency',
@@ -159,17 +159,24 @@ const CartItems = ({
                                 )
                             })}
                             <div className='cart-side-section-price-and-count'>
-                            <p>{formatedSalePrice}</p>
-                                <p><del style={{
-                                    color: "var(--secondary-color)", opacity: 0.8
-                                }} >{formatedRegularPrice}</del></p>
-                                
+                                {sale_price !== "" ? (
+                                    <span>
+                                        <p>{formatedSalePrice}</p>
+                                        <p><del style={{
+                                            color: "var(--secondary-color)", opacity: 0.8
+                                        }} >{formatedRegularPrice}</del></p>
+                                    </span>
+                                ) : (
+                                    <p>{formatedRegularPrice}</p>
+                                )}
+
+
                             </div>
 
-                            
+
 
                         </div>
-                        
+
 
                         <div className={`desktop-total-price-and-remove-item ${isCartOpen ? 'hide-total-and-remove-item' : ''}`}>
 
@@ -184,7 +191,7 @@ const CartItems = ({
                             </div>
 
                             <p className='cart-product-card-total-price'>{formatedTotalPrice}</p>
-                           
+
                         </div>
 
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
@@ -228,7 +235,7 @@ const CartItems = ({
                                 <p>Protection Applied</p>
                             </div>
                                 : <div className='protection-btns-accept-and-cancel'>
-                                   
+
                                     <ToggleSwitch
                                         id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
                                         checked={isProtectionClicked === 'yes-protect'}

@@ -40,12 +40,12 @@
 }
 
 .nav-link:hover {
-    color: var(--primary-color);
+    color: var(--text-red);
     /* border-bottom: 2px solid var(--primary-color); */
 }
 
 .nav-link.active-nav-link {
-    color: var(--primary-color) !important;
+    color: var(--text-red) !important;
     /* border-bottom: 2px solid var(--primary-color) !important; */
 }
 
@@ -58,7 +58,7 @@
 }
 
 .nav-item.active .nav-link {
-    color: var(--primary-color);
+    color: var(--text-red);
     /* border-bottom: 2px solid var(--primary-color); */
 }
 

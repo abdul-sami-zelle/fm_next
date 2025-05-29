@@ -173,9 +173,8 @@ const CheckoutClient = ({params}) => {
 
 
 
-  const isPaymentMethodFilled = () => orderPayload?.setOrderPayload?.trim() !== "";
+  const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
   // const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
-  console.log("pay method filled", orderPayload)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -272,7 +271,7 @@ const CheckoutClient = ({params}) => {
 
                         <div className='right-section-price'>
                           {items.sale_price === '' ? (
-                            <p>{formatedPrice(items.regular_price)}</p>
+                            <p className='checkout-product-single-price'>{formatedPrice(items.regular_price)}</p>
                           ) : (
                             <div className='order-summary-prices-container' style={{ display: 'flex', flexDirection: 'column' }}>
                               <p>{formatedPrice(items.sale_price)}</p>
@@ -299,7 +298,7 @@ const CheckoutClient = ({params}) => {
               
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Savings</p>
-                <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--primary-color)" }} >-{formatedPrice(savings)}</p>
+                <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
               </div>
 
               {isCartProtected ? (

@@ -84,7 +84,7 @@
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  border: 1px solid var(--text-orange);
+  border: 1px solid var(--orange-outline);
   background-color: #fff;
   transition: all 0.3s ease;
 }
@@ -94,8 +94,8 @@
   border-color: var(--secondary-color); */
   /* box-shadow: 0 0 5px rgb(54, 54, 54); */
 
-  background-color: var(--orange-bg);
-  border-color: var(--orange-bg);
+  background-color: var(--orange-fill);
+  border-color: var(--orange-outline);
 }
 
 .checkbox1:hover span {
@@ -338,10 +338,9 @@
 
 .order-summary-prices-container p {
     font-size: var(--section-size);
-    /* line-height: var(--section-height); */
     line-height: 1.2;
     font-weight: var(--section-weight);
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 .selected-product-color {
@@ -424,6 +423,13 @@
     justify-content: end;
     width: max-content;
     height: 100%;
+}
+
+.checkout-product-single-price {
+    font-size: var(--section-size);
+    line-height: 1.2;
+    font-weight: var(--section-weight);
+    color: var(--text-red);
 }
 
 .right-section-show-more-button-container {
@@ -527,7 +533,7 @@
     font-weight: var(--section-weight);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
-    color: var(--primary-color);
+    color: var(--text-red);
     cursor: pointer;
 }
 
@@ -555,7 +561,7 @@
     justify-content: start;
     gap: 0;
     height: max-content;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
 }
 
@@ -565,7 +571,7 @@
     border: none;
     padding: 10px;
     outline: none;
-    color: var(--text-primary);
+    color: var(--text-gray);
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-two-weight);
@@ -575,8 +581,8 @@
     height: 40px;
     padding: 11px 15px;
     border: none;
-    background-color: var(--primary-color);
-    color: #fff;
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     cursor: pointer;
 
 }
@@ -672,19 +678,18 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     background-color: transparent;
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-orange);
+    color: var(--text-gray);
     cursor: pointer;
 }
 
 .right-section-place-order-button:hover {
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
 }
 
 @media only screen and (max-width: 1024px) {

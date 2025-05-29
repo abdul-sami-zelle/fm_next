@@ -20,7 +20,6 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
     }));
   };
 
-  useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
 
   // const { addOrder } = useOrder()

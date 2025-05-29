@@ -140,7 +140,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                             onChange={handleInputChange} // Update state on input change
                         />
                         <button className='header-search-button' onClick={() => handleButtonClick()}>
-                            <IoIosSearch size={22} height={22} color='var(--text-charcol)' />
+                            <IoIosSearch size={22} height={22} color='var(--text-gray)' />
                         </button>
                     </div>
                     <div className='pop-up-header-location'>

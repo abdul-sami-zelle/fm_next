@@ -79,7 +79,7 @@ const DropdownMenu = (
                             <Link className='image-title' href={item.slug}>{item.name}</Link>
                             <div className='pricing'>
                                 {item.sale_price === "" ?
-                                    <p className='price'>${item.regular_price}</p>
+                                    <p className='regular-price'>${item.regular_price}</p>
                                     : <span className='sale-price-container'>
                                         <p className='price-sale-price'>{formatedPrice(item.sale_price)}</p>
                                         <del className='price'>{formatedPrice(item.regular_price)}</del>

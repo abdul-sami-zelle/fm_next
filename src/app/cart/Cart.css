@@ -190,7 +190,7 @@
     font-weight: var(--section-weight);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
-    color: var(--primary-color);
+    color: var(--text-red);
     cursor: pointer;
 }
 
@@ -218,7 +218,7 @@
     justify-content: start;
     gap: 0;
     height: max-content;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     overflow: hidden;
 }
@@ -229,7 +229,7 @@
     border: none;
     padding: 10px;
     outline: none;
-    color: var(--text-primary);
+    color: var(--text-gray);
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-two-weight);
@@ -239,8 +239,8 @@
     height: 40px;
     padding: 11px 15px;
     border: none;
-    background-color: var(--primary-color);
-    color: #fff;
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     cursor: pointer;
 
 }
@@ -339,7 +339,7 @@ mobile-cart-order-summary-total{
     justify-content: start;
     gap: 0;
     height: max-content;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     overflow: hidden;
 }
@@ -350,15 +350,15 @@ mobile-cart-order-summary-total{
     border: none;
     padding: 10px;
     outline: none;
-    color: var(--text-primary);
+    color: var(--text-gray);
 }
 
 .cart-summary-update-coupon-btn {
     height: 40px;
     padding: 11px 15px;
     border: none;
-    background-color: var(--primary-color);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     cursor: pointer;
 }
 
@@ -385,10 +385,10 @@ mobile-cart-order-summary-total{
     padding: 11px;
     align-items: center;
     justify-content: center;
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     border-radius: 5px;
-    border: none;
+    border: 1px solid var(--orange-outline);
     outline: none;
     font-weight: var(--sub-section-weight);
     line-height: var(--sub-section-height);
@@ -627,9 +627,9 @@ mobile-cart-order-summary-total{
     justify-content: center;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     background-color: transparent;
-    color: var(--text-orange);
+    color: var(--text-gray);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -639,8 +639,8 @@ mobile-cart-order-summary-total{
 .financing-month-range-apply-button:hover{
     /* background-color: rgba(89, 89, 89, 0.2); */
     /* color: var(--secondary-color); */
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
 }
 
 .mobile-total-save-and-checkout-button{

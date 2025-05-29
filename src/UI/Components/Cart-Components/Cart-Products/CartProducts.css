@@ -171,7 +171,7 @@
   .radio-mark {
     height: 16px;
     width: 16px;
-    border: 3px solid var(--orange-bg);
+    border: 3px solid var(--orange-outline);
     border-radius: 50%;
     position: relative;
     box-sizing: border-box;
@@ -186,7 +186,7 @@
     height: 7px;
     width: 7px;
     border-radius: 50%;
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.2s ease;
