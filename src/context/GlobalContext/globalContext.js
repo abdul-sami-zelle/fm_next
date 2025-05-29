@@ -172,6 +172,7 @@ export const GlobalContextProvider = ({ children }) => {
 
   const setAllShippingMethods = async () => {
     const data = await getShippingMethodss();
+    console.log("shipping methos", data)
     setShippingMethods(data?.shippingZones[0]);
   };
 

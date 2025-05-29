@@ -127,6 +127,7 @@ export const MyOrdersProvider = ({ children }) => {
 
     const getActivePaymentMethods = async () => {
         const data = await fetchActivePaymentMethods();
+        console.log("payment method data", data)
         setActivePaymentMethods(data?.activePaymentMethods);
     };
 

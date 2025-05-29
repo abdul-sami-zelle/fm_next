@@ -26,7 +26,7 @@ const SizeVariant = ({
 
 
     useEffect(() => {
-        if (!productData?.length || !attributes?.length) return;
+        // if (!productData?.length || !attributes?.length) return;
 
         let defaultSelections = {};
 
@@ -59,6 +59,57 @@ const SizeVariant = ({
         }
 
     }, [attributes, productData, productType]); // ✅ Removed `selectedVariationData` from deps
+
+
+    // let defaultSelections = {};
+    // useEffect(() => {
+    //     if (attributes && attributes.length > 0 && productData?.length > 0) {
+    //         let defaultSelections = {};
+    //         if (productType === 'simple') {
+    //             // Automatically select all variations for simple products
+    //             attributes.forEach(attr => {
+    //                 defaultSelections[attr.name] = attr.options?.[0]?.value;
+    //             });
+    //             setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
+    //             const defaultVariation = productData[0]; // Default to the first variation
+    //             if (defaultVariation) {
+    //                 handleSelectedVariationData(defaultVariation.uid); // Notify parent
+    //                 setSelectedVariationData(defaultVariation); // Set the first variation
+    //             }
+    //         }
+    //         else {
+    //             let initialVariation = selectedVariationData;
+
+    //             if (!initialVariation && productData?.length > 0) {
+    //                 initialVariation = productData[0]; // Default to the first variation
+    //             }
+
+    //             if (initialVariation) {
+    //                 // Initialize attributes from the default variation
+    //                 initialVariation.attributes.forEach(attr => {
+    //                     defaultSelections[attr.name] = attr.options?.[0]?.value;
+    //                 });
+
+    //                 setSelectedVariationData(initialVariation); // Set context
+    //                 handleSelectedVariationData(initialVariation.uid); // Notify parent
+    //             }
+    //         }
+    //         setSelectedSelectAttrs(defaultSelections); // Initialize selected attributes
+    //     } else {
+    //         if (productType === 'simple') {
+    //             // Automatically select all variations for simple products
+    //             attributes.forEach(attr => {
+    //                 defaultSelections[attr.name] = attr.options?.[0]?.value;
+    //             });
+    //             setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
+    //             const defaultVariation = productData[0]; // Default to the first variation
+    //             if (defaultVariation) {
+    //                 handleSelectedVariationData(defaultVariation.uid); // Notify parent
+    //                 setSelectedVariationData(defaultVariation); // Set the first variation
+    //             }
+    //         }
+    //     }
+    // }, [attributes, productData, productType]);
 
 
     const handleImageVariation = (attributeName, index, name, value) => {

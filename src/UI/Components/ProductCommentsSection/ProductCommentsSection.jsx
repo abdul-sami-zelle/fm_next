@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './ProductCommentsSection.css';
 import arrowDown from '../../../Assets/icons/arrow-down.png';
 import Comments from '../Comments/Comments';
+import Image from 'next/image';
 
 const ProductCommentsSection = ({ data }) => {
     const [isClicked, setIsClicked] = useState(false);
@@ -83,8 +84,10 @@ const ProductCommentsSection = ({ data }) => {
                         </legend>
                         <span onClick={handleClicked}>
                             <p>{selectedOption}</p> {/* Display selected option */}
-                            <img
-                                src={arrowDown}
+                            <Image
+                                src={'/Assets/icons/arrow-down.png'}
+                                width={15}
+                                height={15}
                                 alt="arrow down"
                                 className={`${isClicked ? 'rotate-input-arrow-down' : 'not-rotated'}`}
                             />

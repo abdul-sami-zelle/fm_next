@@ -17,6 +17,8 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
         
     ]
 
+    console.log("selected pyment type", selectedPaymentType)
+
     const {
             creditCardData,
             setCreditCardData,
@@ -24,7 +26,7 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
             getActivePaymentMethods,
             setOrderPayload,
         } = useMyOrders();
-
+        console.log("set active payment method", activePaymentMethods)
         
     
         const checkPaymentMethodById = (id) => {
@@ -81,7 +83,6 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
                     <input 
                         type='radio' 
                         checked={selectedPaymentType === item.type}
-                        // checked={selectPaymentMethod === 'credit-card'}
                         name='selectedPaymentType'
                         onChange={() => handleSelectPaymentType(item.type)}
                     />

@@ -173,7 +173,9 @@ const CheckoutClient = ({params}) => {
 
 
 
-  const isPaymentMethodFilled = () => orderPayload.payment_method.trim() !== "";
+  const isPaymentMethodFilled = () => orderPayload?.setOrderPayload?.trim() !== "";
+  // const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
+  console.log("pay method filled", orderPayload)
 
   const handleSubmit = (e) => {
     e.preventDefault();
