@@ -59,8 +59,9 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
     //     // getActivePaymentMethods();
     // }, []);
     const handleSelectPaymentType = (type) => {
-        setSelectedPaymentType(type);
-        onSelectLabel(type)
+        console.log("payment type", type)
+        setSelectedPaymentType(type.type);
+        onSelectLabel(type.type)
         checkPaymentMethodById(type.paymentMethodId)
     }
 
@@ -84,7 +85,7 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
                         type='radio' 
                         checked={selectedPaymentType === item.type}
                         name='selectedPaymentType'
-                        onChange={() => handleSelectPaymentType(item.type)}
+                        onChange={() => handleSelectPaymentType(item)}
                     />
                      
                     <div className='payment-types-select-label'>

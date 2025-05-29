@@ -193,6 +193,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleChange = (e, option) => {
+    console.log("select option ", option)
     setSelectedOption(option);
   };
 

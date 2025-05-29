@@ -142,7 +142,7 @@ const ProductStickyTabBar = (
                                 {productData.sale_price !== '' ? (
                                     <span>
                                         <h3>{formatedPrice(productData?.sale_price)}</h3>
-                                        <del>was {formatedPrice(productData?.regular_price)}</del>
+                                        <p>was <del> {formatedPrice(productData?.regular_price)} </del> </p>
                                     </span>
                                 ) : (
                                     <h3>{formatedPrice(productData?.regular_price)}</h3>

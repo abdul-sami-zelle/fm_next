@@ -173,7 +173,19 @@
     color: var(--text-red);
 }
 
-.product-detail-fixed-sale-price>span>del {
+.product-detail-fixed-sale-price>span>p {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+    font-size: var(--sub-section-size);
+    line-height: var(--sub-section-height);
+    font-weight: var(--sub-section-weight);
+    color: var(--text-gray);
+    opacity: 0.6;
+}
+
+.product-detail-fixed-sale-price>span>p > del {
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);

@@ -6,12 +6,6 @@ import CartMainImage from '@/UI/Components/Cart-Components/CartMainImage/CartMai
 import CartProducts from '@/UI/Components/Cart-Components/Cart-Products/CartProducts';
 import { IoIosArrowDown } from "react-icons/io";
 import axios from 'axios'
-// import ProductCard from '../../Components/ProductCard/ProductCard'
-// import heart from '../../../Assets/icons/heart-vector.png';
-// import star from '../../../Assets/icons/black-star.png'
-// import { useNavigate } from 'react-router-dom'
-// import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
-// import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
 import Slider from 'react-slick'
 import { useCart } from '@/context/cartContext/cartContext';
 import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/productCardShimmer';
@@ -20,13 +14,6 @@ import { toast } from 'react-toastify';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { formatedPrice, url } from '../../utils/api';
 import QuickView from '@/UI/Components/QuickView/QuickView';
-
-// import masterCard from '../../../Assets/icons/mastercard-1.png';
-// import visaCard from '../../../Assets/icons/visa-1.png'
-// import americanExpressCard from '../../../Assets/icons/ae-1.png';
-// import discover from '../../../Assets/icons/discover-1.png'
-// import paypal from '../../../Assets/icons/paypal-1.png'
-
 
 import FinancingModal from '@/UI/Modals/FinancingModal/FinancingModal';
 import AppointmentModal from '@/Global-Components/AppointmentModal/AppointmentModal';

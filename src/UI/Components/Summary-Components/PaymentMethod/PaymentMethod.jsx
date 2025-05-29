@@ -11,7 +11,7 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
 
   // const {handleTabOpen, handleClickTop} = useMyOrders()
   const [selectedLabel, setSelectedLabel] = useState('')
-  const { setOrderPayload } = useMyOrders()
+  const {orderPayload, setOrderPayload } = useMyOrders()
   const handleSelectedLabel = (method) => {
     setSelectedLabel(method);
     setOrderPayload((prev) => ({
@@ -19,6 +19,8 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
       payment_method: method
     }));
   };
+
+  useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
 
   // const { addOrder } = useOrder()

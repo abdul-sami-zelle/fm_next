@@ -68,8 +68,6 @@ export const MyOrdersProvider = ({ children }) => {
             email: "",
             phone: ""
         },
-
-        c: "",
         card_info: {
             card_holder_name: '',
             card_number: '',
@@ -84,9 +82,9 @@ export const MyOrdersProvider = ({ children }) => {
         },
         shipping_lines: {
             id: "",
-            method_id: "",
-            tax: "",
-            cost: ""
+            method_id: selectedOption?.id,
+            tax: selectedOption?.tax,
+            cost: selectedOption?.cost
         },
         items: [],
         discount: 0,
@@ -96,6 +94,8 @@ export const MyOrdersProvider = ({ children }) => {
         shipping_cost: 10,
         professional_assembled: cartProducts?.is_professional_assembly
     })
+
+    useEffect(() => {console.log("order details", orderPayload)}, [orderPayload])
 
     const [emptyField, setEmptyField] = useState({});
     const [loading, setLoading] = useState(true); // Loading state
