@@ -25,6 +25,21 @@ const ProductDisplay = ({ params }) => {
   const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
+  console.log("main product data", product)
+
+  const [productDetails , setProductDetails] = useState({})
+  useEffect(() => {
+    setProductDetails({
+      collection: product?.collectionName ? product?.collectionName : '-',
+    color: '',
+    brand: product?.brand !== '' ? product?.brand : 'Furniture Mecca',
+    category: product?.categories?.find(item => item.is_main === 1)?.name,
+    stock: product?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : product?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
+    mpn: product?.mpn,
+    gtin: product?.gtin,
+    protection: 'Available'
+    })
+  }, [product])
 
   const [isSticky, setIsSticky] = useState(false)
 
@@ -92,6 +107,7 @@ const ProductDisplay = ({ params }) => {
 
   const handleClick = () => {
     setIsLoading(true);
+    setCartSection(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -99,7 +115,7 @@ const ProductDisplay = ({ params }) => {
 
   const handleAddToCartProduct = (product) => {
     setCartSection(true);
-    addToCart(product, quantity, !isProtectionCheck);
+    // addToCart(product, quantity, !isProtectionCheck);
   }
 
   const handleCartClose = () => {
@@ -289,6 +305,7 @@ const ProductDisplay = ({ params }) => {
           handleGalleryModal={handleOpenModal}
           isCartLoading={isCartLoading}
           params={params}
+          setProductDetails={setProductDetails}
         // parentCategories={parentCategories}
         />
 
@@ -313,6 +330,7 @@ const ProductDisplay = ({ params }) => {
         <ProductDetailTab
           detailsRef={sectionRefs.Details}
           productData={product}
+          productDetails={productDetails}
         />
         <ProductRecommendationTab
           recommendationRef={sectionRefs.Recommendations}

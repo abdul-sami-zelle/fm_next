@@ -605,7 +605,27 @@
 
 }
 
+.single-price-starting-at{
+    display: flex;
+    width: 100%;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.regular-price-starting-at {
+    font-size: 10px;
+    line-height: 12px;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
 .product-regular-price {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+    margin-bottom: 10px;
     font-size: var(--section-size) !important;
     line-height: 15px !important;
     font-weight: var(--section-weight) !important;

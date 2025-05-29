@@ -285,7 +285,6 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
-    useEffect(() => {console.log("loading state", bannerLoading)}, [bannerLoading]);
 
 
     return (

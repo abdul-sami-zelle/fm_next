@@ -35,6 +35,8 @@ export const CartProvider = ({ children }) => {
         return []
     });
 
+    useEffect(() => {console.log("cart added Products", cartProducts)}, [cartProducts])
+
 
     const [isCartProtected, setIsCartProtected] = useState(() => {
         if (typeof window !== "undefined") {
@@ -309,10 +311,15 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
+        console.log("add cart product", product);
+        console.log("add cart variation data", variationData);
+        console.log("add cart isProtected", isProtected);
+        console.log("add cart quantity", quantity);
         setIsCartLoading(true);
 
         const isSimple = product.type === "simple";
         const productUid = isSimple ? product.uid : variationData?.uid;
+        console.log("product uid", productUid)
 
         const newCart = await new Promise((resolve) => {
             setCartProducts((prev) => {
@@ -348,6 +355,8 @@ export const CartProvider = ({ children }) => {
                         ],
                 };
 
+                console.log("updated cart", updatedCart)
+
                 resolve(updatedCart);
                 return updatedCart;
             });
@@ -375,6 +384,53 @@ export const CartProvider = ({ children }) => {
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
 
+    
+    // const addToCart0 = (product, variationData, isProtected, quantity) => {
+    //     setCartProducts((prev) => {
+    //         const updatedProducts = prev.products || []; // Ensure products array exists
+
+    //         const existingProduct =
+    //             product.type === "simple"
+    //                 ? updatedProducts.find((item) => item.product_uid === product?.uid)
+    //                 : updatedProducts.find((item) => item.variation_uid === variationData?.uid);
+
+    //         if (existingProduct) {
+    //             return {
+    //                 ...prev,
+    //                 products: updatedProducts.map((item) =>
+    //                     product.type === "simple"
+    //                         ? item.product_uid === product.uid
+    //                             ? { ...item, quantity: item.quantity + parseInt(quantity) }
+    //                             : item
+    //                         : item.variation_uid === product.default_variation
+    //                             ? { ...item, quantity: item.quantity + parseInt(quantity) }
+    //                             : item
+    //                 ),
+    //             };
+    //         } else {
+    //             return {
+    //                 ...prev,
+    //                 products: [
+    //                     ...updatedProducts,
+    //                     {
+    //                         product_uid: product?.uid,
+    //                         name: product?.name,
+    //                         isVariable: product?.type === "simple" ? 0 : 1,
+    //                         variation_uid: product?.type === "simple" ? 0 : variationData?.uid,
+    //                         image: product?.type === "simple" ? product?.image : variationData?.images?.[0],
+    //                         attributes: product.type === "simple" ? product.attributes : variationData?.attributes,
+    //                         sale_price: product.type === "simple" ? product.sale_price : variationData?.sale_price,
+    //                         regular_price: product.type === "simple" ? product.regular_price : variationData?.regular_price,
+    //                         quantity: parseInt(quantity),
+    //                         sku: product.type === "simple" ? product.sku : variationData?.sku,
+    //                         is_protected: isProtected,
+    //                     },
+    //                 ],
+    //             };
+    //         }
+    //     });
+    // };
+    
     const addSingleProtection = async (uid, isVariable = false) => {
         setIsCartLoading(true);
         try {

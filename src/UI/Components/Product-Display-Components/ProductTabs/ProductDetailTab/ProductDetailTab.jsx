@@ -2,7 +2,7 @@ import React from 'react'
 import './ProductDetailTab.css'
 import { url } from '../../../../../utils/api';
 
-const ProductDetailTab = ({id, detailsRef, productData}) => {
+const ProductDetailTab = ({id, detailsRef, productData, productDetails}) => {
 
   return (
     <div
@@ -24,8 +24,8 @@ const ProductDetailTab = ({id, detailsRef, productData}) => {
 
         <div className='product-detail-right-section-items product-detail-second-tab'>
           <span>
-            <h3>Dimensions (in):</h3>
-            <p>L: 88.5" x W: 37.5" x H: 37"</p>
+            <h3>Collection:</h3>
+            <p>{productDetails?.collection}</p>
           </span>
           {/* <p>More Dimensions</p> */}
         </div>
@@ -33,9 +33,16 @@ const ProductDetailTab = ({id, detailsRef, productData}) => {
         <div className='product-detail-right-section-items'>
           <span>
             <h3>Color:</h3>
-            <p>Sugar Shack Cafe</p>
+            <p>{productDetails?.color}</p>
           </span>
           {/* <p>Care Instructions</p> */}
+        </div>
+
+        <div className='product-detail-right-section-items product-detail-second-tab'>
+        <span>
+            <h3>Brand:</h3>
+            <p>{productDetails?.brand}</p>
+          </span>
         </div>
 
         {/* <div className='product-detail-right-section-items product-detail-second-tab'>
@@ -47,15 +54,33 @@ const ProductDetailTab = ({id, detailsRef, productData}) => {
 
         <div className='product-detail-right-section-items'>
           <span>
-            <h3>Brand:</h3>
-            <p>Furniture Mecca</p>
+            <h3>Category:</h3>
+            <p>{productDetails?.category}</p>
           </span>
         </div>
 
         <div className='product-detail-right-section-items product-detail-second-tab'>
         <span>
-            <h3>Collection:</h3>
-            <p>Furniture Mecca</p>
+            <h3>Stock:</h3>
+            <p> {productDetails?.stock} </p>
+          </span>
+        </div>
+        <div className='product-detail-right-section-items'>
+          <span>
+            <h3>MPN:</h3>
+            <p>{productDetails?.mpn}</p>
+          </span>
+        </div>
+        <div className='product-detail-right-section-items product-detail-second-tab'>
+        <span>
+            <h3>GTIN:</h3>
+            <p> {productDetails?.gtin} </p>
+          </span>
+        </div>
+        <div className='product-detail-right-section-items'>
+          <span>
+            <h3>Protection Plan:</h3>
+            <p>{productDetails?.protection}</p>
           </span>
         </div>
       </div>

@@ -230,10 +230,10 @@
     align-items: center;
     justify-content: center;
     background-color: #fff;
-    border: 1px solid var(--text-orange);
+    border: 1px solid var(--orange-outline);
     height: 50px;
     border-radius: 3px;
-    color: var(--text-orange);
+    color: var(--text-gray);
     font-size: 15px;
     line-height: 23px;
     font-weight: 600;
@@ -242,9 +242,9 @@
 }
 
 .cart-side-section-view-cart:hover {
-    background-color: var(--text-charcol);
-    color: var(--text-orange);
-    border: 1px solid transparent;
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
+    border: 1px solid var(--orange-outline);
 }
 
 .cart-side-section-checkout {
@@ -252,11 +252,11 @@
     width: 50%;
     align-items: center;
     justify-content: center;
-    background-color: var(--orange-bg);
-    border: 1px solid var(--orange-bg);
+    background-color: var(--orange-fill);
+    border: 1px solid var(--orange-outline);
     height: 50px;
     border-radius: 3px;
-    color: var(--text-charcol);
+    color: #000000;
     font-size: 15px;
     line-height: 23px;
     font-weight: 600;
@@ -264,10 +264,7 @@
 }
 
 .cart-side-section-checkout:hover {
-    background-color: var(--text-charcol);
-    /* border: 1px solid var(--text-charcol); */
-    border: 1px solid transparent;
-    color: var(--text-orange);
+    background-color: var(--text-frill);
 }
 
 .cart-side-paner-total-and-sub-total-container {

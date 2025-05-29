@@ -47,11 +47,11 @@
 }
 
 .product-sticky-tab-bar-item-container.active-tab {
-    border-bottom: 1px solid #4478C5;
+    border-bottom: 1px solid var(--orange-outline);
 }
 
 .product-sticky-tab-bar-item-container.active-tab>p {
-    color: #4478C5;
+    color: var(--text-gray);
 }
 
 
@@ -112,7 +112,7 @@
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-one-weight);
-    color: var(--text-primary);
+    color: var(--tertiary-color);
 }
 
 .product-sticky-fixed-delivery-detail>i {
@@ -149,7 +149,7 @@
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-primary);
+    color: var(--text-red);
 }
 
 .product-detail-fixed-sale-price>span {
@@ -163,22 +163,22 @@
     font-size: var(--section-size);
     line-height: var(--section-height);
     font-weight: var(--section-weight);
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 .product-detail-fixed-sale-price>span>h3 {
     font-size: var(--section-size);
     line-height: var(--section-height);
     font-weight: var(--section-weight);
-    color: var(--text-orange);
+    color: var(--text-red);
 }
 
 .product-detail-fixed-sale-price>span>del {
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-primary);
-    opacity: 0.5;
+    color: var(--text-gray);
+    opacity: 0.6;
 }
 
 .product-sticky-fixed-add-to-cart>button {
@@ -186,10 +186,10 @@
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     background-color: transparent;
     border-radius: 5px;
-    color: var(--text-orange);
+    color: var(--text-gray);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -198,8 +198,7 @@
 }
 
 .product-sticky-fixed-add-to-cart>button:hover {
-    background-color: var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
 }
 
 .product-sticky-fixed-tabs-container {

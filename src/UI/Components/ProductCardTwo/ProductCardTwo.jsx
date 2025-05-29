@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import './ProductCardTwo.css';
-import { url } from '../../../utils/api';
+import { formatedPrice, url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { VscHeartFilled } from "react-icons/vsc";
@@ -35,7 +35,6 @@ const ProductCardTwo = ({
     showExtraLines,
     titleHeight,
 }) => {
-    console.log("sale price of product ", sale_price)
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     const getPriorityAttribute = (attributes) => {
@@ -399,7 +398,10 @@ const ProductCardTwo = ({
 
                                     {
                                         sale_price === "" ?
-                                            <h3 className={`product-regular-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</h3> :
+                                            <h3 className={`product-regular-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>
+                                                <p className='regular-price-starting-at'>Starting at</p>
+                                                {formatedPrice(priceTag)}
+                                            </h3> :
                                             <div className='price-and-rating-container'>
                                                 <h3 className={`product-price-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
@@ -414,7 +416,7 @@ const ProductCardTwo = ({
                                     }
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
-                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "0" ? Math.round(priceTag * 0.26) : Math.round(sale_price * 0.26)}/week</p>
+                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? Math.round(priceTag * 0.26) : Math.round(sale_price * 0.26)}/week</p>
                                         <GoInfo onClick={(e) => { e.stopPropagation(); handleInfoModal() }}
                                         />
                                     </span>

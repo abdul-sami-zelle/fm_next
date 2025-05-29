@@ -62,6 +62,7 @@ const ProductDetailSticky = (
     isSticky,
     isCartLoading,
     params,
+    setProductDetails,
     // parentCategories,
   }) => {
 
@@ -155,18 +156,34 @@ const ProductDetailSticky = (
   useEffect(() => {console.log("selectedVariation", selectVariation)}, [selectVariation])
   const [selectedUid, setSelectedUid] = useState(null);
 
+  
+
   const handleSelectedVariationData = (value) => {
-    console.log("selected vaariation uid", value)
+    if (selectedUid === value) {
+        return;
+    }
     setSelectedUid(value);
 
-    const selectedIndex = productData?.variations?.find(variation => variation?.uid === value);
-    // console.log("selected index", selectedIndex)
-    // console.group("product varaition data console", selectedIndex)
-    setVariationData(productData?.variations?.findIndex(variation => variation?.uid === value));
+    const selectedIndex = productData?.variations?.findIndex(variation => variation?.uid === value);
 
+    setVariationData(productData?.variations?.[selectedIndex]);
   };
 
-  useEffect(() => {console.log("vaiation data update", variationData)}, [variationData])
+  // useEffect(() => {console.log("var data", variationData)}, []);
+
+  useEffect(() => {
+    setProductDetails((prev) => ({
+      ...prev,
+      color: variationData?.attributes?.find(item => item.type === 'color').options[0]?.name
+    }))
+  }, [])
+  useEffect(() => {
+    setProductDetails((prev) => ({
+      ...prev,
+      color: variationData?.attributes?.find(item => item.type === 'color').options[0]?.name
+    }))
+  }, [variationData])
+
 
   // Protection Plan
   const { setWarrantyModalState } = useGlobalContext();
@@ -362,9 +379,12 @@ const ProductDetailSticky = (
               <h3>{product?.name}</h3>
               {/* <p>SKU : {product.sku}</p> */}
               <div className='product-detail-rating-and-share'>
-                {/* <RatingReview rating={(product?.average_rating)} disabled={true} size={"20px"} /> */}
-
-                <p>SKU : {product.sku}</p>
+                {product.type === 'simple' ? (
+                  <p>SKU : {product.sku}</p>
+                ) : (
+                  <p>{selectedVariationData?.sku}</p>
+                )}
+                {/* <p>SKU : {product.sku}</p> */}
 
                 <span
                   className='single-product-share'
@@ -436,7 +456,12 @@ const ProductDetailSticky = (
                   </div>
                 }
                 <h3>{product?.name}</h3>
-                <p>SKU : {product.sku}</p>
+                {/* <p>SKU : {product.sku}</p> */}
+                {product?.type === "simple"  ? (
+                  <p>SKU : {product.sku}</p>
+                ) : (
+                  <p>{selectedVariationData?.sku}</p>
+                )}
 
                 <div className='product-detail-rating-and-share'>
                   <RatingReview rating={(product?.rating_count)} disabled={true} size={"20px"} />
@@ -536,12 +561,12 @@ const ProductDetailSticky = (
 
 
 
-              {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>}
+              {/* {product.may_also_need && product.may_also_need.length > 0 ? <AlsoNeed productsUid={product.may_also_need} /> : <></>} */}
 
               <div className='get-in-timeline-offer'>
                 <BsTruck size={21} color='var(--secondary-color)' />
                 <div className='get-offer-details'>
-                  <h3 >Get it by <span style={{ fontWeight: "600", color: "var(--text-red)" }}>{getDeliveryDate()}</span></h3>
+                  <h3 >Get it by <span style={{ fontWeight: "600", color: "var(--tertiary-color)" }}>{getDeliveryDate()}</span></h3>
                   <p>
                     Fully assembled & placed in your room, or in-store pickup.
                   </p>

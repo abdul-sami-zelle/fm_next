@@ -24,7 +24,7 @@ const CartSideSection = (
     }) => {
     const { eachProtectionValue, isCartProtected } = useCart();
 
-    const productTotalPrice = sale_price !== "0" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
+    const productTotalPrice = sale_price !== "" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
 
 
     return (
@@ -47,14 +47,21 @@ const CartSideSection = (
                                 <p key={index} >{item?.options[0].name}</p>
                             )
                         })}
-                        <div className='cart-side-section-price-and-count'>
-                        <p>{formatedPrice(sale_price)}</p>
-                            <p><del style={{
-                                color: "#989898"
-                            }} >{formatedPrice(regular_price)}</del></p>
-                            
+                        {sale_price === '' ? (
+                            <div className='cart-side-section-price-and-count'>
 
-                        </div>
+                                <p> {formatedPrice(regular_price)} </p>
+                            </div>
+                        ) : (
+                            <div className='cart-side-section-price-and-count'>
+
+                                <p> {formatedPrice(sale_price)} </p>
+                                <p><del style={{
+                                    color: "#989898"
+                                }} >{formatedPrice(regular_price)}</del></p>
+                            </div>
+                        )}
+
                         {
                             isCartProtected ?
                                 <></>

@@ -86,7 +86,8 @@ const CartSidePannel = (
            {cartProducts?.products?.length <= 0 && <EmptyCart />}
           {cartProducts && cartProducts?.products?.map((items, index) => {
             return <CartSideSection
-              key={items.product_uid ?? index}
+              // key={items.product_uid ?? index}
+              key={index}
               attributes={items.attributes}
               handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
               closeBtn={'/Assets/icons/close-btn.png'}

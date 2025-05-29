@@ -17,61 +17,50 @@ const SizeVariant = ({
     const [selectedImageName, setSelectedImageName] = useState();
     const [selectedColorName, setSelectedColorName] = useState();
     const [selectedSelectAttrs, setSelectedSelectAttrs] = useState({}); // For multiple select attributes
-    
-    
-    let defaultSelections = {};
-    useEffect(() => {
-        if (attributes && attributes.length > 0 && productData?.length > 0) {
-            let defaultSelections = {};
-            if (productType === 'simple') {
-                // Automatically select all variations for simple products
-                attributes.forEach(attr => {
-                    defaultSelections[attr.name] = attr.options?.[0]?.value;
-                });
-                setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
-                const defaultVariation = productData[0]; // Default to the first variation
-                if (defaultVariation) {
-                    handleSelectedVariationData(defaultVariation.uid); // Notify parent
-                    setSelectedVariationData(defaultVariation); // Set the first variation
-                }
-            } 
-            else {
-                let initialVariation = selectedVariationData;
 
-                if (!initialVariation && productData?.length > 0) {
-                    initialVariation = productData[0]; // Default to the first variation
-                }
 
-                if (initialVariation) {
-                    // Initialize attributes from the default variation
-                    initialVariation.attributes.forEach(attr => {
-                        defaultSelections[attr.name] = attr.options?.[0]?.value;
-                    });
-                    
-                    setSelectedVariationData(initialVariation); // Set context
-                    handleSelectedVariationData(initialVariation.uid); // Notify parent
-                }
-            }
-            setSelectedSelectAttrs(defaultSelections); // Initialize selected attributes
-        }else{
-             if (productType === 'simple') {
-                // Automatically select all variations for simple products
-                attributes.forEach(attr => {
-                    defaultSelections[attr.name] = attr.options?.[0]?.value;
-                });
-                setSelectedSelectAttrs(defaultSelections); // Set all attributes selected
-                const defaultVariation = productData[0]; // Default to the first variation
-                if (defaultVariation) {
-                    handleSelectedVariationData(defaultVariation.uid); // Notify parent
-                    setSelectedVariationData(defaultVariation); // Set the first variation
-                }
-            }
-        }
-    }, [attributes, productData, selectedVariationData, productType, handleSelectedVariationData]);
 
 
 
     // Handle Image Selection
+
+
+    useEffect(() => {
+        if (!productData?.length || !attributes?.length) return;
+
+        let defaultSelections = {};
+
+        if (productType === 'simple') {
+            attributes.forEach(attr => {
+                defaultSelections[attr.name] = attr.options?.[0]?.value;
+            });
+
+            setSelectedSelectAttrs(defaultSelections);
+            const defaultVariation = productData[0];
+
+            if (defaultVariation?.uid !== selectedVariationData?.uid) {
+                setSelectedVariationData(defaultVariation);
+                handleSelectedVariationData(defaultVariation.uid);
+            }
+        } else {
+            const initialVariation = selectedVariationData || productData[0];
+            if (initialVariation) {
+                initialVariation.attributes.forEach(attr => {
+                    defaultSelections[attr.name] = attr.options?.[0]?.value;
+                });
+
+                setSelectedSelectAttrs(defaultSelections);
+
+                if (initialVariation?.uid !== selectedVariationData?.uid) {
+                    setSelectedVariationData(initialVariation);
+                    handleSelectedVariationData(initialVariation.uid);
+                }
+            }
+        }
+
+    }, [attributes, productData, productType]); // ✅ Removed `selectedVariationData` from deps
+
+
     const handleImageVariation = (attributeName, index, name, value) => {
         setImageVariation(index); // Update image variation
         setSelectedImageName(name); // Optionally store image name
@@ -92,11 +81,9 @@ const SizeVariant = ({
                 });
             });
 
-            if (matchedVariation) {
-                handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
-                setSelectedVariationData(matchedVariation); // Set the context with matched variation
-            } else {
-                console.log("No matching variation found");
+            if (matchedVariation && matchedVariation.uid !== selectedVariationData?.uid) {
+                setSelectedVariationData(matchedVariation);
+                handleSelectedVariationData(matchedVariation.uid);
             }
 
             return updatedAttrs; // Update the selected attributes
@@ -121,11 +108,9 @@ const SizeVariant = ({
                 });
             });
 
-            if (matchedVariation) {
-                handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
-                setSelectedVariationData(matchedVariation); // Set the context with matched variation
-            } else {
-                console.log("No matching variation found");
+            if (matchedVariation && matchedVariation.uid !== selectedVariationData?.uid) {
+                setSelectedVariationData(matchedVariation);
+                handleSelectedVariationData(matchedVariation.uid);
             }
 
             return updatedAttrs; // Update the selected attributes
@@ -155,13 +140,9 @@ const SizeVariant = ({
                 });
             });
 
-
-
-            if (matchedVariation) {
-                handleSelectedVariationData(matchedVariation.uid); // Pass the matched UID
-                setSelectedVariationData(matchedVariation); // Set the context with matched variation
-            } else {
-                console.log("No matching variation found");
+            if (matchedVariation && matchedVariation.uid !== selectedVariationData?.uid) {
+                setSelectedVariationData(matchedVariation);
+                handleSelectedVariationData(matchedVariation.uid);
             }
 
             return updatedAttrs; // Update the selected attributes
@@ -170,9 +151,9 @@ const SizeVariant = ({
         handleSelectVariation(value); // Pass the selected value to the parent if needed
     };
 
-    
 
-    
+
+
 
 
     return (
@@ -191,15 +172,15 @@ const SizeVariant = ({
                                     <div className="attribute-single-color" key={index}>
                                         <div title={option.name}
                                             className={`attribute-color-variation-box ${selectedSelectAttrs[attribute.name] === option.value
-                                                    ? 'show-tick-mark selected'
-                                                    : ''
+                                                ? 'show-tick-mark selected'
+                                                : ''
                                                 }`}
                                             onClick={() => handleClickColor(attribute.name, option.value, option.name)}
-                                            
+
                                             style={{
                                                 backgroundColor: option.value,
                                                 border: selectedSelectAttrs[attribute.name] === option.value ? `1px solid ${option.value}` : 'none',
-                                                
+
                                                 boxShadow: selectedSelectAttrs[attribute.name] === option.value ? `inset 0 0 0 2px #FFFF` : '',
                                                 "--tick-color": option.value
 
@@ -224,8 +205,8 @@ const SizeVariant = ({
                                     >
                                         <div
                                             className={`variation-image-div ${imageVariation === index
-                                                    ? 'active-selected-image-variation'
-                                                    : ''
+                                                ? 'active-selected-image-variation'
+                                                : ''
                                                 }`}
                                         >
                                             <img src={`${url}${option.value}`} alt={option.name} />
@@ -235,7 +216,7 @@ const SizeVariant = ({
                                 ))}
                             </div>
                         </div>
-                        
+
                     ) : attribute.type === 'select' ? (
 
                         <div className="attribute-type">
@@ -247,8 +228,8 @@ const SizeVariant = ({
                                     <div
                                         key={index}
                                         className={`select-type-attribute ${selectedSelectAttrs[attribute.name] === option.value
-                                                ? 'select-select-variation'
-                                                : ''
+                                            ? 'select-select-variation'
+                                            : ''
                                             }`}
                                         onClick={() =>
                                             handleSelectClick(
