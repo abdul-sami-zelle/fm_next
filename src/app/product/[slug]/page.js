@@ -31,7 +31,7 @@ const ProductDisplay = ({ params }) => {
   useEffect(() => {
     setProductDetails({
       collection: product?.collectionName ? product?.collectionName : '-',
-    color: '',
+    color: product?.default_attributes?.find(item => item.type === 'color')?.options[0]?.name,
     brand: product?.brand !== '' ? product?.brand : 'Furniture Mecca',
     category: product?.categories?.find(item => item.is_main === 1)?.name,
     stock: product?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : product?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
