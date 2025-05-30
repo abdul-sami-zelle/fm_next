@@ -133,14 +133,22 @@
     transition: color 0.3s ease;
 }
 
+.featured-product-button-arrow {
+    color: var(--text-gray);
+}
+
 .product-detail-btn:hover{
     gap: 20px;
     /* padding-bottom: 5px; */
-    border-bottom: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--tertiary-color);
+}
+
+.product-detail-btn:hover .featured-product-button-arrow {
+    color: var(--tertiary-color);
 }
 
 .product-detail-btn:hover > div{
-    color: var(--primary-color);
+    color: var(--tertiary-color);
 }
 
 @media only screen and (max-width: 700px){

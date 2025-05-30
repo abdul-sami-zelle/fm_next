@@ -16,6 +16,7 @@ import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { useParams, useRouter } from 'next/navigation';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 
 
@@ -23,7 +24,7 @@ const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`arrow ${className}`} >
-      <IoIosArrowDropleftCircle style={{ backgroundColor: '#FFFFFF', borderRadius: '50%' }} />
+      <MdKeyboardArrowLeft stroke='var(--orange-outline)' style={{ backgroundColor: 'var(--orange-fill)', borderRadius: '50%' }} />
     </div>
   )
 }
@@ -32,7 +33,7 @@ function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`arrow ${className}`} >
-      <IoIosArrowDroprightCircle size={22} style={{ backgroundColor: '#FFFFFF', borderRadius: '50%', }} />
+      <MdKeyboardArrowRight stroke='var(--orange-outline)' size={22} style={{ backgroundColor: 'var(--orange-fill)', borderRadius: '50%', }} />
     </div>
   )
 }

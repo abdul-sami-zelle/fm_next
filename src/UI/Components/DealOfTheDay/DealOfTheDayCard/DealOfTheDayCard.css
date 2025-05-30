@@ -172,24 +172,24 @@
   height: 35px;
   width: 35px;
   background-color: #fff;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--orange-outline) !important;
   cursor: pointer;
   transition: background-color 0.5s ease;
 }
 
-.deal-of-month-cart-icon{
+/* .deal-of-month-cart-icon{
   color: var(--text-primary) !important;
   opacity: 0.8;
   font-weight: 300;
-}
+} */
 
 .deal-of-the-day-icon-one:hover{
-  background-color: var(--primary-color);
+  background-color: var(--orange-fill) !important;
 }
 
-.deal-of-the-day-icon-one:hover .deal-of-month-cart-icon{
-  color: var(--text-charcol) !important;
-}
+/* .deal-of-the-day-icon-one:hover .deal-of-month-cart-icon{
+  color: var(--text-gray) !important;
+} */
 
 
 .deal-of-the-day-icon-two{
@@ -199,32 +199,32 @@
   height: 35px;
   width: 35px;
   background-color: #fff;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--orange-outline) !important;
   cursor: pointer;
   transition: background-color 0.5s ease;
 }
 
 .deal-of-the-day-icon-two:hover{
-  background-color: var(--primary-color);
+  background-color: var(--orange-fill) !important;
 }
 
 .deal-of-the-day-icon-two.active-wish-list-btn{
-  background-color: var(--primary-color);
+  background-color: var(--orange-fill) !important;
 }
 
-.deal-of-month-heart-icon{
-  color: var(--text-primary) !important;
+/* .deal-of-month-heart-icon{
+  color: var(--text-gray) !important;
   opacity: 0.8;
   font-weight: 300;
-}
+} */
 
-.deal-of-the-day-icon-two:hover .deal-of-month-heart-icon{
-  color: var(--text-charcol) !important;
-}
+/* .deal-of-the-day-icon-two:hover .deal-of-month-heart-icon{
+  color: var(--text-gray) !important;
+} */
 
-.deal-of-the-day-icon-two.active-wish-list-btn .deal-of-month-heart-icon{
-  color: var(--text-charcol) !important;
-}
+/* .deal-of-the-day-icon-two.active-wish-list-btn .deal-of-month-heart-icon{
+  color: var(--text-gray) !important;
+} */
 
 
 
@@ -235,24 +235,24 @@
   height: 35px;
   width: 35px;
   background-color: #fff;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--orange-outline) !important;
   cursor: pointer;
   transition: background-color 0.5s ease;
 }
 
 .deal-of-the-day-icon-three:hover{
-  background-color: var(--primary-color);
+  background-color: var(--orange-fill) !important;
 }
 
-.deal-of-month-share-icon{
-  color: var(--text-primary) !important;
+/* .deal-of-month-share-icon{
+  color: var(--text-grayy) !important;
   opacity: 0.8;
   font-weight: 300;
-}
+} */
 
-.deal-of-the-day-icon-three:hover .deal-of-month-share-icon{
-  color: var(--text-charcol) !important;
-}
+/* .deal-of-the-day-icon-three:hover .deal-of-month-share-icon{
+  color: var(--text-gray) !important;
+} */
 
 .deal-of-the-day-product-under-line{
   display: flex;

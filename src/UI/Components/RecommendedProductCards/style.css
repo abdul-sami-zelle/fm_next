@@ -19,6 +19,7 @@
     height: 40px;
     display: flex;
     flex-direction: row;
+    margin-bottom: 5px;
     flex: 0 1 auto;
 }
 
@@ -75,7 +76,7 @@
     max-width: 100%;
     min-height: 150px;
     max-height: 300px;
-    height: 250px;
+    height: 210px;
     -o-object-fit: contain;
     object-fit: contain;
     transform: scale(1);
@@ -120,6 +121,7 @@
 
 .info_container_rpc {
     flex: 0 1 auto;
+    margin-top: 10px;
 }
 
 .rpc_product_name {

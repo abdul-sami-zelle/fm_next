@@ -98,7 +98,7 @@
     align-items: center;
     justify-content: center;
     width: max-content;
-    gap: 10px;
+    gap: 5px;
 }
 
 .product-sticky-fixed-delivery-detail>p {

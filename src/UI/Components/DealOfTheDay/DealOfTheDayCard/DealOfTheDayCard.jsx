@@ -95,21 +95,21 @@ const DealOfTheDayCard = ({
                   className={`deal-of-the-day-icon-one`}
                   onClick={() => handleCartSection(dealDayData)} 
               > 
-                <LiaShoppingBagSolid className='deal-of-month-cart-icon' size={20}/>
+                <LiaShoppingBagSolid className='deal-of-month-cart-icon' color='var(--text-gray)' size={20}/>
               </button>
             
               <button  
                   className={`deal-of-the-day-icon-two ${isInWishList(dealDayData.uid) ? 'active-wish-list-btn' : ''}`}
                   onClick={(e) => {e.stopPropagation(); handleWishListClick(dealDayData)}} 
               >
-                <IoMdHeartEmpty className='deal-of-month-heart-icon' size={20} />
+                <IoMdHeartEmpty className='deal-of-month-heart-icon' size={20} color='var--text-gray' />
               </button>
 
               <button 
                   className={`deal-of-the-day-icon-three `} 
                   onClick={(e) => {e.stopPropagation() ; handleShareProduct(dealDayData)}}
               >
-                <RiShareBoxLine className='deal-of-month-share-icon' size={20} />
+                <RiShareBoxLine className='deal-of-month-share-icon' color='var(--text-gray)' size={20} />
               </button>
           </div> 
         </div>

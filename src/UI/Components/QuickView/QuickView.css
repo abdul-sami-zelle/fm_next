@@ -126,7 +126,7 @@
 .quick-view-slider {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 220px;
     margin: auto;
     overflow: hidden;
     border: 1px solid var(--border-color);
@@ -162,8 +162,8 @@
     outline: none;
     cursor: pointer;
     z-index: 1;
-    background-color: #fff;
-    border: 1px solid var(--border-color);
+    background-color: var(--orange-fill);
+    border: 1px solid var(--orange-outline);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,11 +179,11 @@
 }
 
 .quick-view-arrow.disabled:hover {
-    background-color: #fff;
+    background-color: var(--orange-fill);
 }
 
 .quick-view-arrow.disabled:hover .quick-view-product-gallery-arrow-left{
-    color: var(--secondary-color);
+    color: var(--text-gray);
 }
 
 
@@ -192,24 +192,24 @@
 }
 
 .quick-view-arrow.quick-view-left:hover{
-    background-color: var(--tertiary-color);
+    background-color: var(--orange-fill);
 }
 
-.quick-view-arrow.quick-view-left:hover .quick-view-product-gallery-arrow-left {
-    color: var(--text-white) !important;
-}
+/* .quick-view-arrow.quick-view-left:hover .quick-view-product-gallery-arrow-left {
+    color: var(--text-gray) !important;
+} */
 
 .quick-view-arrow.quick-view-right {
     right: 10px;
 }
 
 .quick-view-arrow.quick-view-right:hover {
-    background-color:  var(--tertiary-color);
+    background-color:  var(--orange-fill);
 }
 
-.quick-view-arrow.quick-view-right:hover .quick-view-product-gallery-arrow-right {
-    color: var(--text-white);
-}
+/* .quick-view-arrow.quick-view-right:hover .quick-view-product-gallery-arrow-right {
+    color: var(--text-gray);
+} */
 
 .quick-view-variations{
     display: flex;
@@ -238,15 +238,15 @@
     font-size: var(--section-size) !important;
     font-weight: var(--section-weight) !important;
     line-height: var(--section-height) !important;
-    color: var(--text-orange) !important;
+    color: var(--text-red) !important;
 }
 
 .quick-view-product-price-tag del{
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-primary);
-    opacity: 0.5;
+    color: var(--text-gray);
+    opacity: 0.6;
 }
 
 .quick-view-add-item-or-cart-btn{
@@ -259,9 +259,10 @@
     display: flex;
     height: 40px;
     width: 130px;
-    border: 1px solid #d7d7d7;
+    border: 1px solid var(--orange-outline);
     background-color: #fff;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .quick-view-add-or-minus-item button{
@@ -275,10 +276,8 @@
     cursor: pointer;
 }
 
-.quick-view-add-or-minus-item button img{
-    width: 25px;
-    height: auto;
-    object-fit: contain;
+.quick-view-add-or-minus-item button:hover {
+    background-color: var(--orange-fill);
 }
 
 .quick-view-add-item-or-cart-btn input{
@@ -286,9 +285,10 @@
     border: none;
     outline: none;
     text-align: center;
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--orange-outline);
+    border-right: 1px solid var(--orange-outline);
     border-radius: 0;
+    color: var(--text-gray);
 }
 
 .quick-view-add-item-or-cart-btn input[type="number"]::-webkit-outer-spin-button,
@@ -312,7 +312,7 @@
     width: max-content;
     height: 100%;
     width: 40px;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-outline);
     border-radius: 50%;
     cursor: pointer;
 }
@@ -323,9 +323,9 @@
     align-items: center;
     justify-content: center;
     background-color:  #FFFFFF;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     border-radius: 8px;
-    color: var(--text-orange);
+    color: var(--text-gray);
     font-size: var(--sub-section-size);
     font-weight: var(--sub-section-weight);
     line-height: var(--sub-section-height);
@@ -334,9 +334,7 @@
 }
 
 .quick-view-add-to-cart:hover{
-    background-color: var(--orange-bg);
-    border: 1px solid var(--orange-bg);
-    color: var(--text-charcol);
+    background-color: var(--orange-fill);
 }
 
 .quick-view-details-section{
@@ -418,7 +416,7 @@
 
 
 .quick-view-details.show-details{
-    height: 220px;
+    height: 275px;
     padding: 5px 3px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -445,6 +443,28 @@
 
 .quick-view-details.show-details::-webkit-scrollbar-thumb:hover {
     background: #555; /* Thumb on hover */
+}
+
+
+/* Dots */
+.quick-view-dots {
+  display: flex;
+  justify-content: center;
+  /* margin-top: 10px; */
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: var(--text-gray);
 }
 
 .dimension-views{

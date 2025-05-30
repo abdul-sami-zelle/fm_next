@@ -300,7 +300,7 @@ export const GlobalContextProvider = ({ children }) => {
     return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
   }
 
-  useEffect(() => {console.log("selected shiping", selectedShippingMethods)})
+  // useEffect(() => {console.log("selected shiping", selectedShippingMethods)})
 
 
   return (

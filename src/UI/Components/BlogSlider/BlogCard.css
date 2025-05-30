@@ -170,9 +170,18 @@
     transition: gap 0.3s ease;
 }
 
+.blog-card-button-arrow {
+    color: #000;
+    transition: gap 0.3s ease;
+}
+
+.blog-para-and-see-more:hover .blog-card-button-arrow {
+    color: var(--tertiary-color);
+}
+
 .blog-para-and-see-more button:hover{
-    color: var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
+    color: var(--tertiary-color);
+    border-bottom: 1px solid var(--tertiary-color);
     gap: 10px;
 }
 

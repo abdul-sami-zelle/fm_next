@@ -13,9 +13,9 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
     return (
         <div className="recommendedProductCard">
             <div className="rpc_header_container">
-                <button onClick={handleRemoveProduct} className="remove-icon-header"><IoClose /></button>
+                <button onClick={handleRemoveProduct} className="remove-icon-header"><IoClose size={20} /></button>
                 <div className="header-label"></div>
-                <button onClick={handleSingleShuffle}  className="remove-icon-header"><GrPowerCycle /></button>
+                <button onClick={handleSingleShuffle}  className="remove-icon-header"><GrPowerCycle size={20} /></button>
             </div>
             <div className="rpc_body">
                 <div className="image_wrapper_rpc">

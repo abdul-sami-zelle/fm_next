@@ -8,9 +8,12 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { CiCamera, CiYoutube } from "react-icons/ci";
 import axios from "axios";
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter.js";
+import Image from "next/image";
 
 
 export default function WriteReview({ product_id, productData, snakeBarOpen, review_enable, product_name, product_permalink, }) {
+
+    console.log("review product data", productData)
 
     const [reviewData, setReviewData] = useState(
         {
@@ -246,7 +249,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                                     </p>
                                 </div>
                             </div>
-                            <img src={productImage} alt="product" />
+                            {productData?.image.image_url !== undefined && <Image src={url+productData?.image?.image_url} width={220} height={120} alt="product" />}
                         </div>
 
 

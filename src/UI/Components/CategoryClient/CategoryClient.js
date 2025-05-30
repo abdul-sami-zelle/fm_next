@@ -114,7 +114,7 @@ const CategoriesClient = ({ category }) => {
         showBanners={false}
         mainImgShow={true}
         mobileMainImage={location.state ? location.state?.bannerImage2 : categoryData?.bannerImage2}
-        mainImage={url + (location.state ? location.state?.bannerImage : categoryData?.bannerImage)}
+        mainImage={location.state ? location.state?.bannerImage : categoryData?.bannerImage}
       />
 
       <Category title={location.state ? location.state?.name : categoryData?.name} categorySlug={category} categoryData={categoryPageData} handleNavigate={handleNavigate} />

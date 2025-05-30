@@ -158,7 +158,7 @@ const DesignYourRoom = ({ data }) => {
 
     return (
         <div className='design-your-room-main-container'>
-            <h3>Design Your Room</h3>
+            <h3>Build Your Room</h3>
             <div className='design-your-room-cards-container'>
                 {displayedProducts.map((item, index) => (
                     <RecomProductCard

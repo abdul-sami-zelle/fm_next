@@ -340,7 +340,7 @@ p.footer-nav-items > a{
     line-height: 23px;
 }
 
-.footer-rights-reserved-container p a{
+.footer-rights-reserved-container a{
     color: white;
     font-size: 15px;
     font-weight: 400;
@@ -348,8 +348,8 @@ p.footer-nav-items > a{
     text-decoration: none;
 }
 
-.footer-rights-reserved-container p a:hover{
-    color: #dfdfdf;
+.footer-rights-reserved-container a:hover{
+    color: var(--orange-fill);
 }
 
 .rating-stars{
@@ -487,6 +487,7 @@ p.footer-nav-items > a{
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
     color: var(--text-white);
+    text-decoration: none;
 }
 
 .footer-left-contact-section span p:hover{
@@ -532,6 +533,10 @@ p.footer-nav-items > a{
     line-height: var(--content-one-height) !important;
     font-weight: var(--content-two-weight) !important;
     color: var(--text-white) !important;
+    text-decoration: none !important;
+}
+
+.appointment-and-outlet-div > a {
     text-decoration: none !important;
 }
 
@@ -651,7 +656,7 @@ p.footer-nav-items > a{
 }
 
 .footer-costumer-care-and-about .about-and-care-link:hover{
-    color: var(--text-orange);
+    color: var(--orange-fill);
 }
 
 .mobile-view-footer-main-div{

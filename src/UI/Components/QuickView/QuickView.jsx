@@ -2,11 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import './QuickView.css';
-import minusBtn from '../../../Assets/icons/minus.png'
-import plusBtn from '../../../Assets/icons/plus.png';
 import CartSidePannel from '../Cart-side-section/CartSidePannel';
 import { useCart } from '../../../context/cartContext/cartContext';
-import crossBtn from '../../../Assets/icons/close-btn.png'
 import { formatedPrice, url } from '../../../utils/api';
 import QuickViewVariations from '../SizeVariant/QuickViewVariations';
 import { VscHeartFilled } from "react-icons/vsc";
@@ -14,14 +11,19 @@ import { VscHeart } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import RatingReview from '../starRating/starRating';
+import { FaPlus, FaMinus, FaArrowDown } from 'react-icons/fa';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 // Assets
 import {
     IoIosArrowDown,
-    IoIosArrowBack,
-    IoIosArrowForward,
 } from "react-icons/io";
+import SizeVariant from '../SizeVariant/SizeVariant';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
+
+    console.log("quick view data", setQuickViewProduct)
+
+
 
     const {
         increamentQuantity,
@@ -36,6 +38,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     const [viewDetails, setViewDetails] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [variableProductData, setVariableData] = useState();
 
 
     const handleCartSectionClose = () => {
@@ -55,6 +58,33 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setViewDetails(prevIndex => (prevIndex === index ? null : index));
     }
 
+    const images =
+        setQuickViewProduct?.type === 'simple'
+            ? setQuickViewProduct?.images || []
+            : variableProductData?.images || [];
+
+    // const handleNext = () => {
+    //     if (currentIndex < images.length - 1) {
+    //         setCurrentIndex(prev => prev + 1);
+    //     }
+    // };
+
+    const [productDetails, setProductDetails] = useState({})
+    useEffect(() => {
+        setProductDetails({
+            collection: setQuickViewProduct?.collectionName ? setQuickViewProduct?.collectionName : '-',
+            color: setQuickViewProduct?.default_attributes?.find(item => item.type === 'color')?.options[0]?.name,
+            brand: setQuickViewProduct?.brand !== '' ? setQuickViewProduct?.brand : 'Furniture Mecca',
+            category: setQuickViewProduct?.categories?.find(item => item.is_main === 1)?.name,
+            stock: setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
+            mpn: setQuickViewProduct?.mpn,
+            gtin: setQuickViewProduct?.gtin,
+            protection: 'Available'
+        })
+    }, [setQuickViewProduct])
+
+    useEffect(() => { console.log("dimention data of quick view", productDetails) }, [productDetails])
+
     const quickViewData = [
         {
             name: "Dimensions",
@@ -66,10 +96,14 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         {
             name: 'Details',
             para: [
-                { id: 1, name: 'Dimensions (in)', val: `L: 88.5" x W: 37.5" x H: 37"` },
-                { id: 2, name: 'Color', val: `Sugar Shack Cafe` },
-                { id: 3, name: 'Color Family', val: `Brown` },
-                { id: 4, name: 'Weight Capacity', val: `900 lbs` },
+                { id: 1, name: 'Collection', val: productDetails?.collection },
+                { id: 2, name: 'Color', val: productDetails?.color },
+                { id: 3, name: 'Brand', val: productDetails?.brand },
+                { id: 4, name: 'Category', val: productDetails?.category },
+                { id: 4, name: 'Stock', val: productDetails?.stock },
+                { id: 4, name: 'MPN', val: productDetails?.mpn },
+                { id: 4, name: 'GTIN', val: productDetails?.gtin },
+                { id: 4, name: 'Protection Plan', val: productDetails?.protection },
             ]
         },
     ]
@@ -84,7 +118,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
     const [quantity, setQuantity] = useState(1)
 
-    const [variableProductData, setVariableData] = useState();
+    
 
     const increaseLocalQuantity = () => {
         setQuantity(quantity + 1);
@@ -124,6 +158,10 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         }
     }
 
+    // dots
+
+
+
 
     return (
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
@@ -134,25 +172,32 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 <button className='quick-view-close-modal-button' onClick={quickViewClose}>
                     <img src={'/Assets/icons/close-btn.png'} alt='close' />
                 </button>
+
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>
                     <div className='quick-view-rating'>
                         <div className='quick-view-start'>
                             <RatingReview rating={parseFloat(setQuickViewProduct?.average_rating)} size={"12px"} disabled={true} />
-                            
+
                         </div>
 
                     </div>
                 </div>
+
                 <div className='quick-view-image-and-variations'>
+
+
                     <div className="quick-view-slider">
-                        <button className={`quick-view-arrow quick-view-left ${currentIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev}>
-                            
-                            <IoIosArrowBack
+                        
+                        {/* <button className={`quick-view-arrow quick-view-left ${currentIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev}>
+
+                            <MdKeyboardArrowLeft
                                 size={15}
+                                color='var(--text-gray)'
                                 className='quick-view-product-gallery-arrow-left'
                             />
-                        </button>
+                        </button> */}
+
                         <div className="quick-view-slider-container">
                             {setQuickViewProduct?.type === "simple" ? <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                                 {setQuickViewProduct.images && setQuickViewProduct.images.map((image, index) => (
@@ -166,22 +211,54 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 </div>
                             }
                         </div>
-                        <button className={`quick-view-arrow quick-view-right ${currentIndex === imagesLenght - 1 ? 'disabled' : ''}`} onClick={handleNext}>
-                            
-                            <IoIosArrowForward
+                        {/* <button className={`quick-view-arrow quick-view-right ${currentIndex === imagesLenght - 1 ? 'disabled' : ''}`} onClick={handleNext}>
+
+                            <MdKeyboardArrowRight
                                 size={15}
+                                color='var(--text-gray)'
                                 className='quick-view-product-gallery-arrow-right'
                             />
-                        </button>
+                        </button> */}
+
+                        <div className="quick-view-dots">
+                            {(() => {
+                                let start = 0;
+                                let end = 3;
+
+                                if (currentIndex === 0) {
+                                    start = 0;
+                                    end = 3;
+                                } else if (currentIndex === images.length - 1) {
+                                    start = Math.max(images.length - 3, 0);
+                                    end = images.length;
+                                } else {
+                                    start = currentIndex - 1;
+                                    end = currentIndex + 2;
+                                }
+
+                                return images.slice(start, end).map((_, idx) => {
+                                    const actualIndex = start + idx;
+                                    return (
+                                        <span
+                                            key={actualIndex}
+                                            className={`dot ${actualIndex === currentIndex ? 'active' : ''}`}
+                                            onClick={() => setCurrentIndex(actualIndex)}
+                                        ></span>
+                                    );
+                                });
+                            })()}
+                        </div>
                     </div>
+
+
                     <div className='quick-view-variations'>
                         <QuickViewVariations default_uid={setQuickViewProduct.default_uid} attributes={setQuickViewProduct.attributes} productData={setQuickViewProduct} variations={setQuickViewProduct.variations} onChangeVar={handleVariationSelected} />
                     </div>
                 </div>
                 {setQuickViewProduct.type === "simple" ? <>
                     {
-                        setQuickViewProduct.sale_price === "0" ?
-                            <h3 className='-quick-view-product-price-tag'>{formatedPrice(setQuickViewProduct.regular_price)}</h3> :
+                        setQuickViewProduct.sale_price === "" ?
+                            <h3 className='quick-view-product-price-tag'>{formatedPrice(setQuickViewProduct.regular_price)}</h3> :
                             <h3 className='quick-view-product-price-tag'>  {formatedPrice(setQuickViewProduct.sale_price)} <del>{formatedPrice(setQuickViewProduct.regular_price)}</del>  </h3>
                     }
                 </> :
@@ -195,11 +272,13 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 <div className='quick-view-add-item-or-cart-btn'>
                     <div className='quick-view-add-or-minus-item'>
                         <button onClick={decreaseLocalQuantity}>
-                            <img src={'/Assets/icons/minus.png'} alt='minus' />
+                            {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
+                            <FaMinus color='var(--text-gray)' size={15} />
                         </button>
                         <input type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                         <button onClick={increaseLocalQuantity}>
-                            <img src={'/Assets/icons/plus.png'} alt='plus' />
+                            {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
+                            <FaPlus color='var(--text-gray)' size={15} />
                         </button>
                     </div>
                     <div className='quick-view-wish-list-container'>
@@ -207,7 +286,8 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                             isInWishList(setQuickViewProduct.uid) ?
                                 <VscHeartFilled
                                     size={20}
-                                    style={{ color: 'var(--primary-color)' }}
+                                    style={{ color: 'var(--orange-fill)', stroke: 'var(--orange-outline)' }}
+                                    stroke='var(--orange-outline)'
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleWishList(setQuickViewProduct)
@@ -216,7 +296,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 :
                                 <VscHeart
                                     size={20}
-                                    style={{ color: 'var(--primary-color)' }}
+                                    style={{ color: 'var(--orange-outline)' }}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleWishList(setQuickViewProduct)
@@ -252,7 +332,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     className={`quick-view-details ${viewDetails === index ? "show-details" : ""}`}
                                     style={shouldSetHeight ? { height: "120px !important" } : {}}
                                 >
-                                    {items.name === "Description" ? (
+                                    {items?.name === "Description" ? (
                                         <p dangerouslySetInnerHTML={{ __html: items.para }} />
                                     ) : isDimensionSection ? (
                                         <div className='dimension-views'>

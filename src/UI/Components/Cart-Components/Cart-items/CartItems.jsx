@@ -18,6 +18,8 @@ import { useCart } from '@/context/cartContext/cartContext';
 import { useList } from '@/context/wishListContext/wishListContext';
 import { FaArrowsRotate } from "react-icons/fa6";
 import ToggleSwitch from '../../../../Global-Components/ToggleSwitch/ToggleSwitch';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+import { IoIosClose } from "react-icons/io";
 
 const CartItems = ({
     cartProductName,
@@ -103,7 +105,8 @@ const CartItems = ({
 
             <div className='cart-product'>
                 <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
-                    <img src={'/Assets/icons/close-btn.png'} alt='close btn' />
+                    {/* <img src={'/Assets/icons/close-btn.png'} alt='close btn' /> */}
+                    <IoIosClose color='var(--text-rgay)' size={20} />
                 </button>
                 <div className='cart-item-name'>
                     <h3>{cartProductName}</h3>
@@ -143,7 +146,8 @@ const CartItems = ({
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
-                            <img src={'/Assets/icons/Mask group (1).png'} alt='cross' />
+                            {/* <img src={'/Assets/icons/Mask group (1).png'} alt='cross' /> */}
+                            <IoIosClose color='var(--text-gray)' size={30} />
                         </button>
                         <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
                             {/* <img src={rotatedArrow} className={`${saveForLeter ? 'arrow-rotate' : ''}`} />  */}
@@ -182,11 +186,13 @@ const CartItems = ({
 
                             <div className='desktop-quantity'>
                                 <button onClick={handleDecreament}>
-                                    <img src={'/Assets/icons/minus.png'} alt='minus' />
+                                    {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
+                                    <FaMinus color='var(--text-gray)' size={15} />
                                 </button>
                                 <p className='cart-product-quantity'>{quantity}</p>
                                 <button onClick={handleIncreament}>
-                                    <img src={'/Assets/icons/plus.png'} alt='plus' />
+                                    {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
+                                    <FaPlus color='var(--text-gray)' size={15} />
                                 </button>
                             </div>
 
@@ -197,11 +203,13 @@ const CartItems = ({
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
                             <div className='desktop-quantity'>
                                 <button onClick={handleDecreament}>
-                                    <img src={'/Assets/icons/minus.png'} alt='minus' />
+                                    {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
+                                    <FaMinus color='var(--text-gray)' size={15} />
                                 </button>
                                 <p>{quantity}</p>
                                 <button onClick={handleIncreament}>
-                                    <img src={'/Assets/icons/plus.png'} alt='plus' />
+                                    {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
+                                    <FaPlus color='var(--text-gray)' size={15} />
                                 </button>
                             </div>
                             <p className='cart-open-total-price'>{formatedTotalPrice}</p>

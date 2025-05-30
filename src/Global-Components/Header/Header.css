@@ -606,12 +606,12 @@
 
 .header-cart-products-count {
     position: absolute;
-    top: 42%;
-    left: 41%;
-    font-size: 8px;
+    top: 15%;
+    left: 42%;
+    font-size: 12px;
     line-height: 14px;
-    font-weight: 600;
-    color: var(--primary-color);
+    font-weight: 400;
+    color: var(--orange-outline);
 }
 
 .header-nav-container {

@@ -5,6 +5,7 @@ import { CiStar } from "react-icons/ci";
 import { url } from '../../../utils/api';
 import Image from 'next/image';
 import RatingReview from '../starRating/starRating';
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 const BlogCard = (
     {
@@ -55,7 +56,8 @@ const BlogCard = (
                 </p>
                 <button>
                     Read more
-                    <img src={'/Assets/icons/arrow-right-without-outline-black.png'} alt='right arrow' />
+                    <MdKeyboardArrowRight size={20} className='blog-card-button-arrow' />
+                    {/* <img src={'/Assets/icons/arrow-right-without-outline-black.png'} alt='right arrow' /> */}
                 </button>
             </div>
         </div> 

@@ -4,6 +4,7 @@ import arrowLeft from '../../../../Assets/icons/arrow-left-black.png';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Link from 'next/link';
 import Image from 'next/image';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const ProductCard = ({
   productData,
@@ -60,7 +61,8 @@ const ProductCard = ({
           href={{ pathname: `/product/${productData?.slug}`, state: productData }}
         >
           <div>{btnTxt}</div>
-          <Image src={'/Assets/icons/arrow-left-black.png'} width={15} height={15} alt="arrow left" />
+          <MdKeyboardArrowRight size={20} className='featured-product-button-arrow' />
+          {/* <Image src={'/Assets/icons/arrow-left-black.png'} width={15} height={15} alt="arrow left" /> */}
         </Link>
       </div>
     </div>

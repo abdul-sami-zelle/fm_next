@@ -4,6 +4,7 @@ import { CiDeliveryTruck, CiLocationOn } from "react-icons/ci";
 import { formatedPrice } from '../../../../utils/api';
 import LocationPopUp from '../../LocationPopUp/LocationPopUp';
 import { useGlobalContext } from '../../../../context/GlobalContext/globalContext';
+import { BsTruck } from "react-icons/bs";
 
 const ProductStickyTabBar = (
     {
@@ -127,19 +128,20 @@ const ProductStickyTabBar = (
                         <div className='product-sticky-fixed-details'>
                             <h3>{productData?.name}</h3>
                             <span className='product-sticky-fixed-delivery-detail'>
-                                <CiDeliveryTruck size={20} color='var(--secondary-color)' />
+                                {/* <CiDeliveryTruck size={20} color='var(--secondary-color)' /> */}
+                                <BsTruck size={20} color='var(--secondary-color)' />
                                 <p>Get it by</p>
                                 <strong>{getDeliveryDate()}</strong>
                                 <i onClick={handleSearchModal}>
                                     <CiLocationOn scale={20} />
-                                    <p>{info.locationData.zipCode} {info.locationData.stateCode}</p>
+                                    <p>{info?.locationData?.zipCode} {info?.locationData?.stateCode}</p>
                                 </i>
                             </span>
                         </div>
                         <div className='product-sticky-fixed-add-to-cart'>
                             <div className='product-detail-fixed-sale-price'>
                                 <p>Sale</p>
-                                {productData.sale_price !== '' ? (
+                                {productData?.sale_price !== '' ? (
                                     <span>
                                         <h3>{formatedPrice(productData?.sale_price)}</h3>
                                         <p>was <del> {formatedPrice(productData?.regular_price)} </del> </p>

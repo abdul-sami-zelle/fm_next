@@ -238,12 +238,12 @@ const BestSeller = () => {
                                     <div className='best-seller-slider'>
 
 
-                                        <BestSellerProductCardShimmer />
-                                        <BestSellerProductCardShimmer />
-                                        <BestSellerProductCardShimmer />
-                                        <BestSellerProductCardShimmer />
-                                        <BestSellerProductCardShimmer />
-                                        <BestSellerProductCardShimmer />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
+                                        <BestSellerProductCardShimmer width={'340px !important'} />
 
 
                                     </div>

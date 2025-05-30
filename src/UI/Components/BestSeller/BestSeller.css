@@ -62,7 +62,7 @@
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 3px solid var(--orange-outline);
 }
 
 .products-slider-container {

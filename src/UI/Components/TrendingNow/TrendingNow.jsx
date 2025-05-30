@@ -8,6 +8,7 @@ import TrandingNowShmmer from './TrandingNowShimmer/TrandingNowShmmer';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const TrendingNow = ({ data }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -44,6 +45,8 @@ const TrendingNow = ({ data }) => {
         router.push(`/product/${item.link_url}`)
     }
 
+    console.log("tranding data", data)
+
 
     return (
         <>
@@ -55,7 +58,7 @@ const TrendingNow = ({ data }) => {
                             <div className="tranding-slides">
                                 <Slider {...settings}>
                                     {data?.sliders.map((image, index) => (
-                                        <div className="trending-slide" key={index} onClick={() => handleNavigate(image)}>
+                                        <Link href={`/product${image.link_url}`} className="trending-slide" key={index}>
                                             <Image
                                                 src={`${url}${image.image_url}`}
                                                 width={1160}
@@ -64,7 +67,7 @@ const TrendingNow = ({ data }) => {
                                             />
 
 
-                                        </div>
+                                        </Link>
                                     ))}
                                 </Slider>
                                 <div className='tranding-cart-overlay-main-container'>
@@ -77,7 +80,7 @@ const TrendingNow = ({ data }) => {
                         </div>
                         <div className='trending-items-cards'>
                             {productArray.map((item, index) => (
-                                <div key={item.uid || `product-${index}`} className='trending-item-category' onClick={() => handleNavigate(item)}>
+                                <Link href={`/product${item.link_url}`} key={item.uid || `product-${index}`} className='trending-item-category'>
                                     <Image
                                         src={`${url}${item.image_url}`}
                                         width={300}
@@ -91,7 +94,7 @@ const TrendingNow = ({ data }) => {
                                             <HiOutlineShoppingBag size={20} className='tranding-now-cart-bag' />
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

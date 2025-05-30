@@ -12,7 +12,7 @@ import Image from 'next/image';
 
 const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, mainImgShow, showBanners, paddingTop }) => {
   const [imagePreloader, setImagePreloader] = useState(false);
-
+  console.log("main baneer image", mainImage)
 
 
   return (
@@ -41,7 +41,11 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
       <div className={`full-width-container ${customWidth ? 'hide' : ''}`}>
         
         <div className={`dining-image-div ${mainImgShow ? 'show-main-img' : ''}`}>
-          <img src={mainImage} alt='dining ' className='desktop-main-banner' />
+          {mainImage !== undefined ? (
+            <Image src={url+mainImage} width={1580} height={360} alt='dining ' className='desktop-main-banner' />
+            ) : (
+              <div className='category-main-banner-shimmer'></div>
+            )}
           {mobileMainImage !== undefined ? (
             <img  src={url+mobileMainImage} alt='mobile-main-image' className='mobile-main-banner' />
           ) : (

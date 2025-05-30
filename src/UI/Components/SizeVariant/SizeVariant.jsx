@@ -19,6 +19,11 @@ const SizeVariant = ({
     const [selectedSelectAttrs, setSelectedSelectAttrs] = useState({}); // For multiple select attributes
 
 
+    console.log("selected variatiion data", selectedVariationData)
+    // console.log("product type", productType);
+    // console.log("attributed", attributes);
+    // console.log("product data of variation", productData)
+
 
 
 
@@ -26,7 +31,7 @@ const SizeVariant = ({
 
 
     useEffect(() => {
-        // if (!productData?.length || !attributes?.length) return;
+        // if (!productData || attributes.length === 0) return;
 
         let defaultSelections = {};
 
@@ -38,10 +43,15 @@ const SizeVariant = ({
             setSelectedSelectAttrs(defaultSelections);
             const defaultVariation = productData[0];
 
-            if (defaultVariation?.uid !== selectedVariationData?.uid) {
+            // if (defaultVariation?.uid !== selectedVariationData?.uid) {
+            //     setSelectedVariationData(defaultVariation);
+            //     handleSelectedVariationData(defaultVariation.uid);
+            // }
+            if (defaultVariation) {
                 setSelectedVariationData(defaultVariation);
                 handleSelectedVariationData(defaultVariation.uid);
             }
+            console.log("def attributes", defaultSelections);
         } else {
             const initialVariation = selectedVariationData || productData[0];
             if (initialVariation) {
@@ -51,14 +61,46 @@ const SizeVariant = ({
 
                 setSelectedSelectAttrs(defaultSelections);
 
-                if (initialVariation?.uid !== selectedVariationData?.uid) {
+                if (initialVariation) {
                     setSelectedVariationData(initialVariation);
                     handleSelectedVariationData(initialVariation.uid);
                 }
             }
+            console.log("initial variations", initialVariation)
         }
 
-    }, [attributes, productData, productType]); // ✅ Removed `selectedVariationData` from deps
+    }, [attributes, productData, productType]); 
+
+
+    // useEffect(() => {
+    //     if (!attributes || !productData || attributes.length === 0) return;
+
+    //     let defaultSelections = {};
+    //     let initialVariation;
+
+    //     if (productType === 'simple') {
+    //         // productData is an array
+    //         attributes.forEach(attr => {
+    //             defaultSelections[attr.name] = attr.options?.[0]?.value;
+    //         });
+    //         initialVariation = productData[0];
+    //     } else {
+    //         // productData.variations is an array
+    //         initialVariation = selectedVariationData || productData?.variations?.[0] || productData[0];
+    //         if (initialVariation?.attributes) {
+    //             initialVariation.attributes.forEach(attr => {
+    //                 defaultSelections[attr.name] = attr.options?.[0]?.value;
+    //             });
+    //         }
+    //     }
+
+    //     if (initialVariation) {
+    //         setSelectedSelectAttrs(defaultSelections);
+    //         setSelectedVariationData(initialVariation);
+    //         handleSelectedVariationData(initialVariation.uid);
+    //     }
+    // }, [attributes, productData, productType]);
+
 
 
     // let defaultSelections = {};

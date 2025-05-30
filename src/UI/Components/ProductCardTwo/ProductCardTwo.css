@@ -135,6 +135,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 10px;
+    padding-bottom: 5px;
     /* position: relative; */
     height: auto;
 }
@@ -278,7 +279,7 @@
     text-overflow: ellipsis;
     line-height: 1.4;
     /* Adjust as needed */
-    max-height: 2.8em;
+    /* max-height: 2.8em; */
 }
 
 .product-title.apply-col-two-styling {
@@ -295,7 +296,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
-    max-height: 2.8em;
+    /* max-height: 2.8em; */
 }
 
 .attr-var {

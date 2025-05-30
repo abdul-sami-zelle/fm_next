@@ -55,9 +55,9 @@
 
 .left-arrow {
     left: -60px !important;
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
     border-radius: 30px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     
     transition: all 0.3s ease-in-out;
 }
@@ -66,9 +66,9 @@
 
 .right-arrow {
     right: -60px !important;
-    background-color: var(--orange-bg);
+    background-color: var(--orange-fill);
     border-radius: 30px;
-    border: 1px solid var(--orange-bg);
+    border: 1px solid var(--orange-outline);
     transition: all 0.3s ease-in-out;
 }
 

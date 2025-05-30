@@ -5,6 +5,7 @@ import './LocationPopUp.css';
 // import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { CiLocationOn } from "react-icons/ci";
+import Image from 'next/image';
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
@@ -95,7 +96,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>
             <span>
-              <img src={'/Assets/icons/delivery.png'} alt='delivery' />
+              <Image src={'/Assets/icon/location-outlined.svg'} width={80} height={80} alt='delivery' />
             </span>
             <h3>Delivery Location</h3>
           </div>

@@ -9,13 +9,14 @@ import BlogCardShimmer from './BlogCardShimmer/BlogCardShimmer';
 import { IoChevronForward } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} style={{top: '45% !important'}} >
       {/* <img src={leftArrow} alt='arrow' /> */}
-      <IoChevronBack />
+      <MdKeyboardArrowLeft color='var(--text-gray)' />
     </div>
   )
 }
@@ -25,7 +26,7 @@ function SampleNextArrow(props) {
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-right ${className}`} >
       
-      <IoChevronForward />
+      <MdKeyboardArrowRight color='var(--text-gray)' />
     </div>
   )
 }

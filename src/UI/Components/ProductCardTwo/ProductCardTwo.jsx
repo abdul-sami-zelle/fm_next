@@ -183,8 +183,7 @@ const ProductCardTwo = ({
 
             >
                 <div className='product-card-data'
-                    onMouseEnter={() => { setIsHovered(true) }}
-                    onMouseLeave={() => { setIsHovered(false) }}
+                    
                     onClick={() => handleCardClick(singleProductData)}
                 >
                     <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`}>
@@ -234,7 +233,11 @@ const ProductCardTwo = ({
 
                     <div className='product-main-image-container'>
 
-                        <div className='product-card-product-image-inner-container'>
+                        <div 
+                            className='product-card-product-image-inner-container'
+                            onMouseEnter={() => { setIsHovered(true) }}
+                    onMouseLeave={() => { setIsHovered(false) }}
+                        >
 
                             <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
                                 {

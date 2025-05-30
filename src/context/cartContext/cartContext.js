@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
         return []
     });
 
-    useEffect(() => {console.log("cart added Products", cartProducts)}, [cartProducts])
+    // useEffect(() => {console.log("cart added Products", cartProducts)}, [cartProducts])
 
 
     const [isCartProtected, setIsCartProtected] = useState(() => {

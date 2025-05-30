@@ -78,6 +78,14 @@ const SimillerProducts = ({ collection, isPadding }) => {
 
   }
 
+  // useEffect(() => {
+  //   if(quickViewProduct) {
+  //     document.body.style.overflow = 'hidden';
+  //   } else {
+  //     document.body.style.overflow = 'auto'
+  //   }
+  // }, [quickViewProduct])
+
   const handleQuickViewClose = () => { setQuickView(false) }
 
   // const handleQuickViewClose = () => { setQuickView(false) }

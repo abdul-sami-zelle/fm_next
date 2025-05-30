@@ -203,7 +203,7 @@
     height: 40px;
     width: 100%;
     max-width: 135px;
-    border: 1.5px solid var(--orange-outline);
+    border: 1px solid var(--orange-outline);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -212,7 +212,7 @@
     display: flex;
     background-color: transparent;
     border: none;
-    border-right: 1.5px solid var(--orange-outline);
+    border-right: 1px solid var(--orange-outline);
     padding: 0 5px;
     align-items: center;
     justify-content: center;
@@ -269,7 +269,7 @@
     display: flex;
     background-color: transparent;
     border: none;
-    border-left: 1.5px solid var(--orange-outline);
+    border-left: 1px solid var(--orange-outline);
     padding: 0 5px;
     align-items: center;
     justify-content: center;
@@ -324,10 +324,11 @@
     border-radius: 8px;
     align-items: center;
     justify-content: center;
+    gap: 5px;
     z-index: 9;
-    font-size: var(--sub-section-size);
-    line-height: var(--sub-section-height);
-    font-weight: var(--sub-section-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
     color: var(--text-gray);
     background-color: transparent;
     cursor: pointer;

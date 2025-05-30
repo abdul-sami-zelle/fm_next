@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import './FAQ.css'
 // import AddBtn from '../../../Assets/icons/add-icon.png';
 import { IoCheckmark } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaMinus } from "react-icons/fa6";
 
 const FAQ = () => {
 
@@ -118,7 +118,8 @@ const FAQ = () => {
                             <div className='question-section' onClick={() => handleToggle(index)}>
                                 <p>{item.question}</p>
                                 <i className='add-button-round'>
-                                    <FaPlus size={15} color='var(--secondary-color)' className={activeIndex === index ? 'rotate' : 'rotate-back'} />
+                                    {activeIndex === index ? <FaMinus size={15} color='var(--secondary-color)'  /> : <FaPlus size={15} color='var(--secondary-color)'  />}
+                                    {/* <FaPlus size={15} color='var(--secondary-color)' className={activeIndex === index ? 'rotate' : 'rotate-back'} /> */}
                                 </i>
                                 {/* <img src={item.icon} alt='add btn' className={`${activeIndex === index ? 'rotate' : ''}`} /> */}
                             </div>

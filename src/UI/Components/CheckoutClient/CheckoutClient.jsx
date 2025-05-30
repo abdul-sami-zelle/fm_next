@@ -352,7 +352,8 @@ const CheckoutClient = ({params}) => {
               </div>
 
               <div className='right-section-order-place-container'>
-                <span className='right-section-place-order-terms-and-rights'>
+                <p>By placing this order I agree to the Furniture Mecca <Link href={'#'}>Terms & Conditions</Link></p>
+                {/* <span className='right-section-place-order-terms-and-rights'>
                   By placing this order I agree to the Furniture Mecca
                   <Link
                     href={'#'}
@@ -360,7 +361,7 @@ const CheckoutClient = ({params}) => {
                       handleOpenTermsConditionsModal()
                     }}
                   >Terms & Conditions</Link>
-                </span>
+                </span> */}
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>

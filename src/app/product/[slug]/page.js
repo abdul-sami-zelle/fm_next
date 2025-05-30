@@ -25,7 +25,7 @@ const ProductDisplay = ({ params }) => {
   const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
-  console.log("main product data", product)
+  // console.log("main product data", product)
 
   const [productDetails , setProductDetails] = useState({})
   useEffect(() => {
@@ -91,6 +91,8 @@ const ProductDisplay = ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
   const [quantity, setQuantity] = useState(1)
+
+  // useEffect(() => {console.log("variation data on main page", variationData)}, [variationData])
 
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
@@ -274,7 +276,7 @@ const ProductDisplay = ({ params }) => {
     fetchRecomandedProducts();
   }, [product])
 
-  useEffect(() => {console.log("product data", product)}, [product])
+  // useEffect(() => {console.log("product data", product)}, [product])
 
 
   return (

@@ -8,6 +8,8 @@ import ProductSliderShimmer from './ProductSliderShimmer/ProductSliderShimmer';
 import { useRouter } from 'next/navigation';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+
 const ProductSlider = ({ cardData }) => {
 
   const sliderRef = useRef(null);

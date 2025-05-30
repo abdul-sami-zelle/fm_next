@@ -7,10 +7,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import './Slider.css';
 
 import { url } from '../../utils/api';
-import { IoChevronForward } from "react-icons/io5";
-import { IoChevronBack } from "react-icons/io5";
 import Link from 'next/link';
 import Image from 'next/image';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
 
@@ -51,13 +50,13 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
     // Custom arrows
     const CustomPrevArrow = ({ onClick }) => (
         <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <IoChevronBack color='var(--text-charcol)' />
+            <MdKeyboardArrowLeft color='var(--text-gray)' />
         </div>
     );
 
     const CustomNextArrow = ({ onClick }) => (
         <div className="arrow right-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <IoChevronForward color='var(--text-charcol)' />
+            <MdKeyboardArrowRight color='var(--text-gray)' />
         </div>
     );
 

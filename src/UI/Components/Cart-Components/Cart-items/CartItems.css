@@ -200,7 +200,7 @@
 
 .cross-btn{
     position: absolute;
-    top: 5px;
+    top: 1px;
     right: 0;
     background-color: transparent;
     border: none;
@@ -503,6 +503,7 @@
     /* border-right: 1px solid #2F7A97; */
     border-right: 1px solid var(--orange-outline);
     margin: 0 !important;
+    color: var(--text-gray);
 }
 
 .cart-product-card-total-price{
