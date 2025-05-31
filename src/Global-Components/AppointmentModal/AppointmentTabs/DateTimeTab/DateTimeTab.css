@@ -56,12 +56,65 @@
 
 
 /* Calender Styling */
+.date-time-tab-calender-section .react-calendar {
+    width: 100% !important;
+    height: auto !important;
+    border: 1px solid var(--border-color);
+}
+
 .date-time-tab-calender-section .react-calendar__navigation {
     margin-bottom: 0px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 42px !important;
+}
+
+ /* Month Button Set */
+
+.date-time-tab-calender-section .react-calendar__navigation__next-button {
+
+    border: none !important;
+    outline: none !important;
+    cursor: pointer !important;
+    width: 45px !important;
+    height: 100% !important;
+    background-color: transparent !important;
+}
+
+.date-time-tab-calender-section .react-calendar__navigation__prev-button {
+    display: flex !important;
+    align-items: center !important;
+     justify-content: center !important;
+    border: none !important;
+    outline: none !important;
+    cursor: pointer !important;
+    width: 45px !important;
+    height: 100% !important;
+    background-color:  transparent !important;
+}
+
+/* Year Button Hide */
+
+.date-time-tab-calender-section .react-calendar__navigation__next2-button {
+    display: none;
+}
+
+.date-time-tab-calender-section .react-calendar__navigation__prev2-button {
+    display: none;
+}
+
+.date-time-tab-calender-section .react-calendar__navigation__label {
+    background-color: transparent !important;
+    height: 100% !important;
+    outline: none !important;
+    border: none !important;
 }
 
 .react-calendar__month-view__weekdays {
     font-weight: 400 !important;
+    height: 42px !important;
 }
 
 .react-calendar__tile--weekend {
@@ -70,22 +123,44 @@
 
 .custom-tile {
     border: 1px solid var(--border-color) !important;
+    height: 42px !important;
+    
+}
+
+.selected-date {
+  background-color: var(--tertiary-color) !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+
+.today-date {
+  border: 2px solid var(--tertiary-color) !important;
+  /* border-radius: 5px !important; */
+  color: var(--tertiary-color) !important;
+  background-color: transparent !important;
 }
 
 .react-calendar__month-view__weekdays__weekday abbr[title] {
     text-decoration: none !important;
+    text-align: center !important;
 }
 
-.react-calendar__month-view__days .react-calendar__tile react-calendar__month-view__days__day {
+.react-calendar__month-view__days .react-calendar__tile .react-calendar__month-view__days__day {
     border: 1px solid var(--border-color) !important;
 }
 
 .react-calendar__month-view__weekdays__weekday {
     border: 1px solid var(--border-color) !important;
+    text-align: center !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .react-calendar__tile--active {
     border-radius: 0px !important;
+    height: 42px !important;
 }
 
 @media only screen and (max-width: 480px) {

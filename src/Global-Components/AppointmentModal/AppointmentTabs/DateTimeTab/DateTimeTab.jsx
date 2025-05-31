@@ -5,21 +5,32 @@ import './DateTimeTab.css'
 import { Calendar } from 'react-calendar'
 import 'react-calendar/dist/cjs/Calendar.js'
 import { useAppointment } from '../../../../context/AppointmentContext/AppointmentContext'
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
-const DateTimeTab = ({selectedTab, setSelectedTab}) => {
+const DateTimeTab = ({ selectedTab, setSelectedTab }) => {
   const { appointmentPayload, setAppointmentPayload } = useAppointment();
-  const [dateState, setDateState] = useState(new Date().toISOString().split('T')[0]);
+  const [dateState, setDateState] = useState(new Date());
+  const today = new Date();
   const timeSlots = [
-    { time: '10:00 AM - 11: 00 PM'},
-    { time: '11:00 AM - 12: 00 PM'},
-    { time: '12:00 AM - 01: 00 PM'},
-    { time: '01:00 AM - 02: 00 PM'},
-    { time: '02:00 AM - 03: 00 PM'},
-    { time: '03:00 AM - 04: 00 PM'},
-    { time: '04:00 AM - 05: 00 PM'},
+    { time: '10:00 AM - 11: 00 PM' },
+    { time: '11:00 AM - 12: 00 PM' },
+    { time: '12:00 AM - 01: 00 PM' },
+    { time: '01:00 AM - 02: 00 PM' },
+    { time: '02:00 AM - 03: 00 PM' },
+    { time: '03:00 AM - 04: 00 PM' },
+    { time: '04:00 AM - 05: 00 PM' },
   ]
 
-  const today = new Date();
+
+
+  // useEffect(() => { 
+  //   console.log("current or selected date", dateState) ;
+  //   console.log("current date", today)
+  // }, [dateState])
+
+
+
+
   // Set today's time to midnight for accurate comparisons.
   today.setHours(0, 0, 0, 0);
   // Calculate the date 30 days from today.
@@ -37,25 +48,45 @@ const DateTimeTab = ({selectedTab, setSelectedTab}) => {
     }));
   }, []);
 
-  const changeDate = (e) => {
-    // setDateState(e)
-    const selectedDate = new Date(e);
+
+  // const [currentDate, setCurrentDate] = useState();
+  const changeDate = (date) => {
+    setDateState(date); // this updates the calendar selection
+    const selectedDate = new Date(date);
     selectedDate.setMinutes(selectedDate.getMinutes() - selectedDate.getTimezoneOffset());
     setAppointmentPayload((prev) => ({
       ...prev,
       selectedDate: selectedDate.toISOString().split('T')[0]
-    }))
+    }));
+    setShowTimeSlots(true);
+    // if(today.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+    //   setCurrentDate(date.toISOString().split('T')[0]);
+    // }
     
+  };
 
-    setShowTimeSlots(true)
-  }
+  useEffect(() => {
 
-  const  handleSelectTimeSlote = (item) => {
+  }, [dateState])
+
+  const handleSelectTimeSlote = (item) => {
     setAppointmentPayload((prev) => ({
-      ...prev, 
+      ...prev,
       selectedSlot: item,
     }))
   }
+
+
+  const isSameDay = (d1, d2) => {
+    const date1 = d1 instanceof Date ? d1 : new Date(d1);
+    const date2 = d2 instanceof Date ? d2 : new Date(d2);
+
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  };
 
 
   return (
@@ -69,7 +100,21 @@ const DateTimeTab = ({selectedTab, setSelectedTab}) => {
             formatShortWeekday={(locale, date) =>
               date.toLocaleDateString(locale, { weekday: 'short' }).slice(0, 2)
             }
-            tileClassName={() => 'custom-tile'}
+            tileClassName={({ date, view }) => {
+              let classes = ['custom-tile']; // keep your existing class
+
+              if (view === 'month') {
+                if (isSameDay(date, dateState)) {
+                  classes.push('selected-date');
+                } else if (isSameDay(date, today)) {
+                  classes.push('today-date');
+                }
+              }
+
+              return classes.join(' ');
+            }}
+            prevLabel={<MdKeyboardArrowLeft color='var(--text-gray)' size={20} />}
+            nextLabel={<MdKeyboardArrowRight color='var(--text-gray)' size={20} />}
           />
         </div>
         <div className='date-time-tab-times-slots'>
@@ -83,7 +128,7 @@ const DateTimeTab = ({selectedTab, setSelectedTab}) => {
         <button onClick={() => setSelectedTab(selectedTab - 1)}>Previous</button>
       </div>
     </div>
-   
+
   )
 }
 

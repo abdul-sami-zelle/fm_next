@@ -25,6 +25,8 @@ import { toast } from 'react-toastify';
 import BestSellerShimmer from '../BestSellerSlider/BestSellerShimmer/BestSellerShimmer';
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
+import useSWR from 'swr';
+import { fetcher, simpleFetcher } from '@/utils/Fetcher';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -56,11 +58,11 @@ const BestSeller = () => {
     const router = useRouter()
     const params = usePathname();
 
-    
 
 
 
-    const {bestSelling} = useLPContentContext()
+
+    const { bestSelling } = useLPContentContext()
 
     useEffect(() => {
         setMainBanner(bestSelling.categories[0].image)
@@ -68,6 +70,41 @@ const BestSeller = () => {
     }, []);
 
     // Functions
+    const [newSlug, setNewSlug] = useState(null)
+    useEffect(() => {
+        const splitedParam = params.split('/')
+        const newSlug = splitedParam[1]
+
+        if (newSlug) setNewSlug(newSlug)
+    }, [])
+
+    const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${newSlug}&best_selling_product=1&per_page=6`
+    const [categorySellerCount, setCategorySellerCount] = useState(0)
+
+    const { data: categorySellerData, error: categorySellerError, isLoading: categorySellerLoading } = useSWR(categorySeller, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        shouldRetryOnError: false,
+        dedupingInterval: 1000 * 60 * 60 * 24 * 365
+    })
+
+    if (categorySellerError && categorySellerCount < 3) {
+        setTimeout(() => {
+            setCategorySellerCount(retryCount + 1)
+            mutate();
+        }, 1000)
+    }
+
+    // console.log("best seller.....", categorySellerData)
+
+    useEffect(() => {
+        if (categorySellerData) {
+            setAllProducts(categorySellerData.products);
+        }
+    }, [categorySellerData])
+
+
+
     const getBestSellerProducts = async (slug) => {
         const splitedParam = params.split('/')
         const newSlug = splitedParam[1]
@@ -84,11 +121,11 @@ const BestSeller = () => {
         }
     }
 
-    
 
-    useEffect(() => {
-        getBestSellerProducts(currentSlug)
-    }, [params, currentSlug]);
+
+    // useEffect(() => {
+    //     getBestSellerProducts(currentSlug)
+    // }, [params, currentSlug]);
 
 
 
@@ -201,127 +238,127 @@ const BestSeller = () => {
 
     return (
         <>
-                <div className={`category-besst-seller-main-container `}>
-                    {/* {loading && <Loader />} */}
-                    <div className='category-best-seller-and-banner-container'>
+            <div className={`category-besst-seller-main-container `}>
+                {/* {loading && <Loader />} */}
+                <div className='category-best-seller-and-banner-container'>
 
-                        <div className='category-best-seller-cards-section'>
+                    <div className='category-best-seller-cards-section'>
 
-                            <div className='category-best-seller-menu'>
-                                <h3>Best Seller</h3>
-                                {bestSelling ? (
-                                    <div className='category-best-seller-menu-items'>
-                                        {bestSelling.categories.map((item, index) => (
-                                            <p key={index} className={activeItem === index ? 'active' : ''} onClick={() => handleActiveItem(index, item)}>{item.Heading}</p>
-                                        ))}
-                                    </div>
-                                ) : <></>}
-                            </div>
+                        <div className='category-best-seller-menu'>
+                            <h3>Best Seller</h3>
+                            {bestSelling ? (
+                                <div className='category-best-seller-menu-items'>
+                                    {bestSelling.categories.map((item, index) => (
+                                        <p key={index} className={activeItem === index ? 'active' : ''} onClick={() => handleActiveItem(index, item)}>{item.Heading}</p>
+                                    ))}
+                                </div>
+                            ) : <></>}
+                        </div>
 
-                            <div className='products-slider-container'> 
-                                {!loading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
-                                    {products && products.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
+                        <div className='products-slider-container'>
+                            {!loading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
+                                {products && products.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
+                                    <BestSellerProductCard
+                                        key={index}
+                                        productData={item}
+                                        productMainImage={item.image.image_url}
+                                        starIcon={item.ratingStars}
+                                        reviews={item.reviewCount}
+                                        productName={item.name}
+                                        oldPrice={item.regular_price}
+                                        newPrice={item.sale_price}
+                                        handleCardClicked={() => handleProductClick(item)}
+                                    />
+                                ))}
+                            </div> :
+
+                                <div className='best-seller-slider'>
+
+
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'340px !important'} />
+
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div className='category-best-seller-banners-section'>
+                        <img src={url + bestSelling.cover_img.image_url} className='banner_one' alt='banner one' />
+                        <img src={mainBanner && (url + mainBanner.image_url)} alt='banner two' className='banner_two' />
+                    </div>
+
+                </div>
+
+                <div className='mobile-view-category-best-seller'>
+                    <div className='mobile-view-category-best-seller-heading-section'>
+                        <h3>Best Seller</h3>
+                    </div>
+                    <div className='mobile-view-category-best-seller-nav-and-banner'>
+                        <img src={bestSellerMobileBanner} alt='mobile-main-banner' />
+                        <div className='mobile-view-category-best-seller-nav-items'>
+                            {bestSellerNav.map((items, index) => (
+                                <p
+                                    key={index}
+                                    onClick={() => { handleMobileNavClick(index); handleActiveItem(index) }}
+                                    className={`mobile-view-nav-link ${mobiIndex === index ? 'mobile-view-nav-active' : ''}`}
+
+                                >
+                                    {items}
+                                </p>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className='mobile-view-category-best-seller-card-section'>
+
+                        <div className='mobile-view-best-seller-slider'>
+                            {!loading ? (
+                                <Slider {...settings}>
+                                    {products && products.map((item, index) => (
                                         <BestSellerProductCard
-                                            key={index}
                                             productData={item}
-                                            productMainImage={item.image.image_url}
-                                            starIcon={item.ratingStars}
-                                            reviews={item.reviewCount}
+                                            isDiscountable={item.discount.is_discountable === 1 ? true : false}
+                                            key={index}
+                                            productMainImage={item.images?.[0]?.image_url}
+                                            starIcon={ratingStars}
+                                            reviews={'200'}
                                             productName={item.name}
                                             oldPrice={item.regular_price}
                                             newPrice={item.sale_price}
-                                            handleCardClicked={() => handleProductClick(item)}
+                                            listed={listed}
+                                            handleCardClicked={() => handleCardClicked(item)}
+                                            handleWishListClicked={() => handleWishlisted(item)}
                                         />
-                                    ))}
-                                </div> :
-
-                                    <div className='best-seller-slider'>
-
-
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-                                        <BestSellerProductCardShimmer width={'340px !important'} />
-
-
-                                    </div>
-                                }
-                            </div>
-                        </div>
-
-                        <div className='category-best-seller-banners-section'>
-                            <img src={url + bestSelling.cover_img.image_url} className='banner_one' alt='banner one' />
-                            <img src={mainBanner && (url + mainBanner.image_url)} alt='banner two'  className='banner_two' />
+                                    ))
+                                    }
+                                </Slider>
+                            ) : (
+                                <BestSellerProductCardShimmer width={'85%'} />
+                            )}
                         </div>
 
                     </div>
 
-                    <div className='mobile-view-category-best-seller'>
-                        <div className='mobile-view-category-best-seller-heading-section'>
-                            <h3>Best Seller</h3>
-                        </div>
-                        <div className='mobile-view-category-best-seller-nav-and-banner'>
-                            <img src={bestSellerMobileBanner} alt='mobile-main-banner' />
-                            <div className='mobile-view-category-best-seller-nav-items'>
-                                {bestSellerNav.map((items, index) => (
-                                    <p
-                                        key={index}
-                                        onClick={() => { handleMobileNavClick(index); handleActiveItem(index) }}
-                                        className={`mobile-view-nav-link ${mobiIndex === index ? 'mobile-view-nav-active' : ''}`}
-
-                                    >
-                                        {items}
-                                    </p>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className='mobile-view-category-best-seller-card-section'>
-
-                            <div className='mobile-view-best-seller-slider'>
-                                {!loading ? (
-                                    <Slider {...settings}>
-                                        {products && products.map((item, index) => (
-                                            <BestSellerProductCard
-                                                productData={item}
-                                                isDiscountable={item.discount.is_discountable === 1 ? true : false}
-                                                key={index}
-                                                productMainImage={item.images?.[0]?.image_url}
-                                                starIcon={ratingStars}
-                                                reviews={'200'}
-                                                productName={item.name}
-                                                oldPrice={item.regular_price}
-                                                newPrice={item.sale_price}
-                                                listed={listed}
-                                                handleCardClicked={() => handleCardClicked(item)}
-                                                handleWishListClicked={() => handleWishlisted(item)}
-                                            />
-                                        ))
-                                        }
-                                    </Slider>
-                                ) : (
-                                    <BestSellerProductCardShimmer width={'85%'} />
-                                )}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div className='category-pagination-dots'>
-                        {Array.from({ length: maxIndex }, (_, index) => (
-                            <span
-                                key={index}
-                                className={`category-dot ${currentIndex === index ? 'category-dot-active-active' : ''}`}
-                                onClick={() => handlePageChange(index)}
-                            ></span>
-                        ))}
-                    </div>
                 </div>
-            
-        </> 
+
+                <div className='category-pagination-dots'>
+                    {Array.from({ length: maxIndex }, (_, index) => (
+                        <span
+                            key={index}
+                            className={`category-dot ${currentIndex === index ? 'category-dot-active-active' : ''}`}
+                            onClick={() => handlePageChange(index)}
+                        ></span>
+                    ))}
+                </div>
+            </div>
+
+        </>
     )
 }
 

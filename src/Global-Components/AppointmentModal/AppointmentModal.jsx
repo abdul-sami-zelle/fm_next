@@ -21,7 +21,9 @@ const AppointmentModal = (
         handleOpenSnakeBar, 
         setErrorMessage,
         selectedTab, 
-        setSelectedTab
+        setSelectedTab,
+        serviceIndex,
+        setServiceTypeIndex
     }) => {
 
     const tabs = [
@@ -31,7 +33,7 @@ const AppointmentModal = (
         { id: 4, title: 'Review' },
     ]
 
-    const [serviceIndex, setServiceTypeIndex] = useState(null)
+    // const [serviceIndex, setServiceTypeIndex] = useState(null)
     const [loading, setLoading] = useState(false);
     const handleSelectedTab = (tab) => {
         if (tab < selectedTab) {
@@ -116,6 +118,7 @@ const AppointmentModal = (
     const handleAppointmentModalClose = () => {
         setConfirmAppointment(false);
         setSelectedTab(1)
+        setServiceTypeIndex(null)
         setAppointmentPayload({
             serviceType: '',
             selectedCategories: [],

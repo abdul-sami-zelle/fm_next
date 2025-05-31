@@ -40,13 +40,7 @@ const TrendingNow = ({ data }) => {
         pauseOnHover: false,
     };
 
-    const router = useRouter();
-    const handleNavigate = (item) => {
-        router.push(`/product/${item.link_url}`)
-    }
-
-    console.log("tranding data", data)
-
+    
 
     return (
         <>

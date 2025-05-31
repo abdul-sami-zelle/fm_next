@@ -6,19 +6,16 @@ import './DealOfTheDay.css';
 
 import DealOfTheDayCard from './DealOfTheDayCard/DealOfTheDayCard';
 
-import axios from 'axios';
-import { url, calculateDiscountPercentage } from '../../../utils/api';
+import { calculateDiscountPercentage } from '../../../utils/api';
 import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import ShareProduct from '../ShareProduct/ShareProduct';
 import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer';
-import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { IoIosArrowDropleftCircle } from "react-icons/io";
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
-
-
+import useSWR from 'swr';
+import { fetcher } from '@/utils/Fetcher';
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -41,12 +38,6 @@ function SampleNextArrow(props) {
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api }) => {
 
   const router = useRouter();
-  // const { categorySlug } = useParams();
-  // const categorySlug = 'living-room'
-  const params = useParams();
-  const categorySlug = params.categorySlug;
-
-
 
   // const [dealEndTime, setDealEndTime] = useState(null); 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -95,25 +86,39 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   // Destructure timeLeft
   const { days, hours, minutes, seconds } = timeLeft;
 
-  // const [allProducts, setAllProducts] = useState([])
-  const getDealOfTheMonthProducts = async () => {
-    // const api = `/api/v1/products/get-deal-of-month-products?limit=10`
-    try {
-      const response = await axios.get(`${url}${api}`);
-      setAllProducts(response.data.products)
-      setDealEndTime(response.data.dealOfMonthTiming.datetime);
-    } catch (error) {
-      console.error("error geting deal of the month products", error);
+  // Fetcher
+    const [dealCounter, setDealCounter] = useState(0)
+    const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(api, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        shouldRetryOnError: false,
+        dedupingInterval: 1000 * 60 * 60 * 24 * 365
+    })
+
+    if (dealError && dealCounter < 3) {
+        setTimeout(() => {
+            setDealCounter(retryCount + 1)
+            mutate();
+        }, 1000)
     }
-  }
 
-  useEffect(() => {
-    getDealOfTheMonthProducts()
-  }, []);
+    useEffect(() => {
+        if (dealData) {
+            setAllProducts(dealData.products)
+            setDealEndTime(dealData.dealOfMonthTiming.datetime);
+        }
+    }, [dealData])
 
-  useEffect(() => { getDealOfTheMonthProducts(); }, [categorySlug])
-
-
+  // const getDealOfTheMonthProducts = async () => {
+  //   // const api = `/api/v1/products/get-deal-of-month-products?limit=10`
+  //   try {
+  //     const response = await axios.get(`${url}${api}`);
+  //     setAllProducts(response.data.products)
+  //     setDealEndTime(response.data.dealOfMonthTiming.datetime);
+  //   } catch (error) {
+  //     console.error("error geting deal of the month products", error);
+  //   }
+  // }
 
   const getPublishedProducts = () => {
     // Filter products where parent === 0
@@ -144,7 +149,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     return productWithDiscount;
   };
 
-
   const { addSingleProduct } = useSingleProductContext();
   const handleDealCardClick = (items) => {
     addSingleProduct(items)
@@ -173,7 +177,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
       })
     }
   }
-
   const handleCartPanel = (items) => {
 
   }
@@ -186,8 +189,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedProduct(items)
     setSelectedUid(items.uid);
   }
-
-
 
   const sliderRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);

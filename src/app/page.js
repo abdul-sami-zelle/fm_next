@@ -27,9 +27,11 @@ import InstaTwoImageGallery from '@/UI/Components/InstaTwoImageGallery/InstaTwoI
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
 import LandingPageFinancing from '@/UI/Components/LandingPageFinancingBanners/LandingPageFinancing';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
-import { useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const Home = () => {
+
+
   const { postData,
     data,
     landingPageCategories,

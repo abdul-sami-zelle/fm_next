@@ -31,8 +31,30 @@ const DeliveryInfo = forwardRef((props, ref) => {
         handleZipCodeChange
     } = useMyOrders();
 
+    // const [billing, setBilling] = useState({
+    //     first_name: "",
+    //     last_name: "",
+    //     address_1: "",
+    //     city: "",
+    //     state: "",
+    //     postal_code: "",
+    //     country: "USA",
+    //     email: "",
+    //     phone: ""
+    // })
 
-    
+    // const handleBillingDataChange = (e) => {
+    //     const {name, value} = e.target;
+    //     setBilling((prev) => ({
+    //         ...prev,
+    //         [name]: value
+    //     }))
+    // }
+
+    // useEffect(() => {console.log("billing values", billing)}, [billing])
+
+
+
 
     const [error, setError] = useState({})
 
@@ -41,7 +63,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
     // };
 
     const handleNavigateToSignup = () => {
-        
+
         navigate.push('/my-account');
     }
 
@@ -81,28 +103,28 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
             <div className='delivery-form-signup-container'>
                 <h3>Your Information</h3>
-             
-                <div
-                        className={`input-container ${focusedField === 'signupEmail' || signupEmail ? "focused" : ""}`}
-                        style={{ border: error?.signupEmail ? '1px solid var(--primary-color)' : '' }}
-                        onClick={() => signupEmailRef.current?.focus()}
-                    >
-                        <label
-                            className="floating-label"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="text"
-                            className="input-field-email"
-                            ref={signupEmailRef}
-                            onFocus={() => setFocusedField("signupEmail")}
-                            onBlur={() => setFocusedField("")}
-                            onChange={(e) => setSignupEmail(e.target.value)}
-                            name='signupEmail'
 
-                        />
-                    </div>
+                <div
+                    className={`input-container ${focusedField === 'signupEmail' || signupEmail ? "focused" : ""}`}
+                    style={{ border: error?.signupEmail ? '1px solid var(--primary-color)' : '' }}
+                    onClick={() => signupEmailRef.current?.focus()}
+                >
+                    <label
+                        className="floating-label"
+                    >
+                        Email
+                    </label>
+                    <input
+                        type="text"
+                        className="input-field-email"
+                        ref={signupEmailRef}
+                        onFocus={() => setFocusedField("signupEmail")}
+                        onBlur={() => setFocusedField("")}
+                        onChange={(e) => setSignupEmail(e.target.value)}
+                        name='signupEmail'
+
+                    />
+                </div>
                 <span>Already have an account <p onClick={handleNavigateToSignup}>SIGN IN</p></span>
                 <p>You Can Create an Account After Checkout.</p>
             </div>
@@ -207,7 +229,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 </div>
 
-                
+
 
                 <div
                     onClick={() => addressOneRef.current?.focus()}
@@ -249,7 +271,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 </div>
 
                 <div className='delivery-options-city-and-state'>
-                <div
+                    <div
                         onClick={() => postalCodeRef.current?.focus()}
                         style={{ border: error.postal_code ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-postal-code ${focusedField === 'postal_code' || orderPayload.billing?.postal_code ? "focused" : ""}`}
@@ -319,7 +341,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 </div>
 
-                
+
             </div>
 
         </div>

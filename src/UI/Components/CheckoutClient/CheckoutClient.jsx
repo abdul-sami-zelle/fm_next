@@ -2,16 +2,9 @@
 
 import React, { useState, useRef } from 'react'
 import './CheckoutClient.css';
-// import OrderSummary from '../../Components/Summary-Components/OrderSummary/OrderSummary';
-// import Coupon from '../../Components/Summary-Components/Coupon/Coupon';
 import PaymentMethod from '@/UI/Components/Summary-Components/PaymentMethod/PaymentMethod';
-// import TrustFor from '../../Components/Summary-Components/Trust-for-varaities/TrustFor';
-// import HappyCustomers from '../../Components/Summary-Components/Happy-Customer/HappyCustomers';
-// import ShipingAndDelivery from '../../Components/Summary-Components/ShippingAndDelivery/ShipingAndDelivery';
-// import PaymentInfo from '../../Components/Summary-Components/PaymentInfo/PaymentInfo';
 import { useMyOrders } from '@/context/orderContext/ordersContext';
 import Loader from '@/UI/Components/Loader/Loader';
-// import ShippingForm from '../../Components/Summary-Components/ShippingForm/ShippingForm';
 import { useCart } from '@/context/cartContext/cartContext';
 import { formatedPrice, truncateTitle, url } from '../../../utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
@@ -20,9 +13,10 @@ import Link from 'next/link';
 import DeliveryInfo from '@/UI/Components/DeliveryInfo/DeliveryInfo';
 import axios from 'axios';
 import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/termsConditionModal';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 
-const CheckoutClient = ({params}) => {
+const CheckoutClient = () => {
 
   const deliveryInfoRef = useRef(null);
 
@@ -32,27 +26,16 @@ const CheckoutClient = ({params}) => {
 
 
   const [isTermsConditionsOpen, setIsTermsConditionsOpen] = useState(false);
-  const handleOpenTermsConditionsModal = () => {
-    setIsTermsConditionsOpen(true);
-  }
+
 
   const handleCloseTermsConditionsModal = () => {
     setIsTermsConditionsOpen(false);
   }
 
-
-//   const checkoutSections = [
-//     { id: 1, name: 'Delivery', navOp: 'delivery' },
-//     // { id: 2, name: 'Review', navOp: 'review' },
-//     { id: 2, name: 'Payment', navOp: 'payment-method' },
-//   ]
-
   const checkoutSectionsData = [
     { id: 1, name: 'Delivery', navOp: 'delivery' },
     { id: 2, name: 'Payments', navOp: 'payment-method' },
   ]
-
-//   const [currentOption, setCurrentOption] = useState(0);
 
   const [currentId, setCurrentId] = useState(0)
   const {
@@ -104,8 +87,6 @@ const CheckoutClient = ({params}) => {
       if (!isValid) {
         return; // Stop here if validation fails
       }
-
-      // If validation passes, proceed to the next tab
       handleTabOpen(1);
     }
   };
@@ -121,47 +102,21 @@ const CheckoutClient = ({params}) => {
         setIsLoading(false)
         return; // Stop here if validation fails
       }
-
       try {
         const response = await axios.put(`${url}/api/v1/unused-cart/edit/${cartUid}`, { cart: cartProducts, checkout: orderPayload.billing });
-
-
         await new Promise((resolve) => setTimeout(resolve, 0)); // Ensures React processes state updates correctly
         handleTabOpen(1);
         setIsLoading(false)
         return response.data;
       } catch (error) {
         console.error("Error updating cart:", error);
-        // setIsCartLoading(false);
         setIsLoading(false)
         throw error; // Avoid calling setCartSection on error if not needed
       }
-
-
-      // Proceed only if validation passes
-
     }
   };
 
-  // const protectionPrice = isCheck[0] ? 210 : 0;
-  // const assemblyPrice = isCheck[1] ? 250 : 0;
-
-  // const orderPriceDetails = [
-  //   { title: 'Subtotal', price: formatedPrice(subTotal) },
-  //   { title: 'Protection plan', price: formatedPrice(protectionPrice) },
-  //   { title: 'Professional Assembly', price: formatedPrice(assemblyPrice) },
-  //   { title: `Tax (${totalTax?.tax_name})`, price: totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0 }
-  // ]
-
-  // Define conditional visibility logic
-//   const filteredOrderPriceDetails = orderPriceDetails.filter((_, index) => {
-//     if (index === 1) return isCheck[0]; // Show 'Professional Assembly' if isCheck[0] is true
-//     if (index === 2) return isCheck[1]; // Show 'Elite Title' if isCheck[1] is true
-//     return true; // Always include other items
-//   });
-
   const handleClickSave = () => {
-    // addProducts(cartProducts?.products);
     handlePaymentInfo();
     sendProducts();
   };
@@ -174,17 +129,25 @@ const CheckoutClient = ({params}) => {
 
 
   const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
-  // const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+  const [snakeBarMessage, setSnakeBarMessage] = useState()
+  const handleShowSnakeToust = (name) => {
+    setShowSnakeBar(true)
+    setSnakeBarMessage(name)
+  }
+
+  const handleCloseSnakeBar = () => {
+    setShowSnakeBar(false)
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isPaymentMethodFilled()) {
-
       // Proceed with form submission
       handleClickSave();
-      // navigate('/')
     } else {
-      alert("Please select a payment method!");
+      handleShowSnakeToust("Please select a payment method!")
     }
   };
 
@@ -195,49 +158,43 @@ const CheckoutClient = ({params}) => {
 
   return (
     <div className='summary-main-container'>
-      {/* {showThankyou && <ThankYou/>} */}
       {isLoader && <Loader />}
       {!showThankyou &&
         <div className='summary-left-main-outer-container'>
-            <div className='checkout-pages-toggle-nav'>
-              
+          <div className='checkout-pages-toggle-nav'>
+            {checkoutSectionsData.map((item, index) => (
+              <div
+                onClick={() => {
+                  index === 0 ?
+                    handleTabOpen(index) :
+                    moveToNextTab();
+                }}
+                className={`checkout-page-select-option-container ${selectedTab === index ? 'selected-option' : ''}`}
+                key={item.id}
+              >
+                <h3>{item.name}</h3>
 
-              {checkoutSectionsData.map((item, index) => (
-                <div
-                  onClick={() => {
-                    index === 0 ?
-                      handleTabOpen(index) :
-                      moveToNextTab();
-                  }}
-                  className={`checkout-page-select-option-container ${selectedTab === index ? 'selected-option' : ''}`}
-                  key={item.id}
-                >
-                  <h3>{item.name}</h3>
-                  
-                  <label className='checkbox1'>
-                    <input
-                      type='checkbox'
-                      checked={selectedTab === index}
-                      readOnly
-                    />
-                    <span></span>
-                  </label>
+                <label className='checkbox1'>
+                  <input
+                    type='checkbox'
+                    checked={selectedTab === index}
+                    readOnly
+                  />
+                  <span></span>
+                </label>
 
 
-                </div>
-              ))}
-
-
-
-            </div>
+              </div>
+            ))}
+          </div>
           <div className='summary-left-section'>
             {
               selectedTab === 0 ?
                 <div className='shipping-details-and-coupen-show'>
-                 
+
                   <DeliveryInfo ref={deliveryInfoRef} onSubmit={handleDeliveryFormSubmit} />
                 </div> :
-                
+
                 selectedTab === 1 ? <PaymentMethod handleSubmitOrder={handleSubmit} />
                   : <></>
             }
@@ -246,10 +203,11 @@ const CheckoutClient = ({params}) => {
 
       }
       {!showThankyou && <div className={` ${currentId === 1 ? 'summary-right-section' : currentId === 2 ? 'summery-right-section-according-payment' : 'summery-right-section-low-height'}`}>
-        
+
         <div className='right-section-order-summary-main-container'>
           <h3 className='right-section-order-summary-main-heading'>Order Summary</h3>
           <div className='right-section-order-summary-products-container'>
+
             <div className='right-section-ordered-product-card'>
               {cartProducts?.products?.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
                 <div key={items.uid} className='selected-products'>
@@ -285,17 +243,18 @@ const CheckoutClient = ({params}) => {
                 </div>
               ))}
             </div>
+
             <div className='right-section-show-more-button-container'>
               {cartProducts?.products?.length > 2 && <p className='show-more-products-button' onClick={handleShowMore}> {showAll ? 'See Less' : ` See All ${cartProducts?.products?.length} Items`}</p>}
             </div>
 
             <div className='right-section-order-pricing-details'>
-              
+
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Subtotal</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(subTotal0)}</p>
               </div>
-              
+
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Savings</p>
                 <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
@@ -317,6 +276,7 @@ const CheckoutClient = ({params}) => {
               ) : (
                 <></>
               )}
+
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : selectedOption?.cost}</p>
@@ -353,15 +313,6 @@ const CheckoutClient = ({params}) => {
 
               <div className='right-section-order-place-container'>
                 <p>By placing this order I agree to the Furniture Mecca <Link href={'#'}>Terms & Conditions</Link></p>
-                {/* <span className='right-section-place-order-terms-and-rights'>
-                  By placing this order I agree to the Furniture Mecca
-                  <Link
-                    href={'#'}
-                    onClick={() => {
-                      handleOpenTermsConditionsModal()
-                    }}
-                  >Terms & Conditions</Link>
-                </span> */}
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
@@ -379,6 +330,12 @@ const CheckoutClient = ({params}) => {
       <TermsConditionsModal
         openModal={isTermsConditionsOpen}
         closeModal={handleCloseTermsConditionsModal}
+      />
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
       />
     </div>
   )

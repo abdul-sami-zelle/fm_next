@@ -13,6 +13,8 @@ import { useLPContentContext } from '@/context/LPContentContext/LPContentContext
 import DealOfTheDay from '@/UI/Components/DealOfTheDay/DealOfTheDay';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { fetcher } from '@/utils/Fetcher';
+import useSWR, { mutate } from 'swr';
 
 const CategoriesClient = ({ category }) => {
 
@@ -22,7 +24,7 @@ const CategoriesClient = ({ category }) => {
   const [loading, setLoading] = useState(false);
   const { setTitle, setDescription, setImage } = useSEOContext();
   const [contentImages, setContentImages] = useState([]);
-  const [error, setError] = useState(null);
+  const [checkError, setCheckError] = useState(null);
 
 
   const {
@@ -41,6 +43,34 @@ const CategoriesClient = ({ category }) => {
     setDealEndTime,
     setParagraph
   } = useLPContentContext();
+
+  const [retryCount, setRetryCount] = useState(0);
+  const subcategoryAPI = `${url}/api/v1/sub-category/get/${category}`
+  // const key = [subcategoryAPI, 'GET', { 'Content-Type': 'application/json' }];
+  const { data: subCategories, error: subCategoryError, checkLoading: subCategoryLoding } = useSWR(subcategoryAPI, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if (subCategoryError && retryCount < 3) {
+    setTimeout(() => {
+      setRetryCount(retryCount + 1)
+      mutate();
+    }, 1000)
+  }
+
+  // console.log("fether data.....", subCategories)
+
+  useEffect(() => {
+    if (subCategories) {
+      setCategoryPageData(subCategories.sub_categories);
+      setBestSelling(subCategories.bestSelling);
+      setParagraph(subCategories.content);
+      setContentImages(subCategories.content_images);
+    }
+  }, [subCategories])
 
 
   const getPageData = async () => {
@@ -66,6 +96,35 @@ const CategoriesClient = ({ category }) => {
     }
   };
 
+
+  const productCategoryApi = `${url}/api/v1/productCategory/get?slug=${category}`
+  const [productCAtegoryCount, setProductCategoryCount] = useState(0)
+  const { data: productCategory, error: productCategoryError, checkLoading: productCategoryLoading} = useSWR(productCategoryApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if(productCategoryError && productCAtegoryCount < 3 ) {
+    setTimeout(() => {
+      setProductCategoryCount(productCAtegoryCount + 1);
+      mutate()
+    }, 1000)
+  }
+
+  // console.log("product categories data.....", productCategory)
+
+  useEffect(() => {
+    if(productCategory) {
+      setCategoryData(productCategory.categories[0])
+
+      setTitle(productCategory.categories[0].meta.title);
+      setDescription(productCategory.categories[0].meta.description);
+      setImage(url + productCategory.categories[0].meta.og_image);
+    }
+  }, [productCategory])
+
   const getCategoryData = async () => {
     try {
       setLoading(true);
@@ -88,15 +147,15 @@ const CategoriesClient = ({ category }) => {
     }
   };
 
-  useEffect(() => {
-    getPageData();
-    getCategoryData();
-  }, [category]);
+  // useEffect(() => {
+  //   getPageData();
+  //   getCategoryData();
+  // }, [category]);
 
-  useEffect(() => {
-    getPageData();
-    getCategoryData();
-  }, [])
+  // useEffect(() => {
+  //   getPageData();
+  //   getCategoryData();
+  // }, [])
 
   const handleNavigate = (slug, item) => {
     router.push(`/${category}/${item.slug}`, { state: item });
@@ -126,7 +185,7 @@ const CategoriesClient = ({ category }) => {
           dealEndTime={dealEndTime}
           categorySlug={category}
           setDealEndTime={setDealEndTime}
-          api={`/api/v1/products/get-deal-of-month-products?limit=10&slug=${category}`}
+          api={`${url}/api/v1/products/get-deal-of-month-products?limit=10&slug=${category}`}
         />
       )}
 
