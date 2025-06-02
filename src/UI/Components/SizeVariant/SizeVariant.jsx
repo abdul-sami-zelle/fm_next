@@ -19,12 +19,6 @@ const SizeVariant = ({
     const [selectedSelectAttrs, setSelectedSelectAttrs] = useState({}); // For multiple select attributes
 
 
-    console.log("selected variatiion data", selectedVariationData)
-    // console.log("product type", productType);
-    // console.log("attributed", attributes);
-    // console.log("product data of variation", productData)
-
-
 
 
     // Handle Image Selection
@@ -51,7 +45,6 @@ const SizeVariant = ({
                 setSelectedVariationData(defaultVariation);
                 handleSelectedVariationData(defaultVariation.uid);
             }
-            console.log("def attributes", defaultSelections);
         } else {
             const initialVariation = selectedVariationData || productData[0];
             if (initialVariation) {
@@ -66,7 +59,6 @@ const SizeVariant = ({
                     handleSelectedVariationData(initialVariation.uid);
                 }
             }
-            console.log("initial variations", initialVariation)
         }
 
     }, [attributes, productData, productType]); 
@@ -214,9 +206,7 @@ const SizeVariant = ({
 
     // Handle Select Attribute Selection
     const handleSelectClick = (attributeName, value, name) => {
-        console.log("selected attribute name", attributeName);
-        console.log("selected attribute value", value);
-        console.log("selected simple name", name);
+        
         setSelectedSelectAttrs((prevState) => {
             const updatedAttrs = {
                 ...prevState,

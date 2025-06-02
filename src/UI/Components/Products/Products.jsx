@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Products.css';
 
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -33,6 +33,8 @@ import SectionLoader from '../Loader/SectionLoader';
 import Image from 'next/image';
 import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/Fetcher';
 
 const Products = ({ navigationType }) => {
 
@@ -109,27 +111,48 @@ const Products = ({ navigationType }) => {
     // Sub Categories show
     const  categorySlug = useParams();
     const parentCategory = categorySlug.category
-    const getSubCategories = async () => {
 
-        const api = `/api/v1/sub-category/get/${parentCategory}`
-
-        try {
-            const response = await axios.get(`${url}${api}`);
-            if (response.status === 200) {
-                const result = response.data.sub_categories
-                setSubCategories(result)
-            } else {
-                console.log("UnExpected Error", response.status)
-            }
-        } catch (error) {
-            console.log("UnExpected Server Error", error);
-        }
+    const subCategoryApi = parentCategory ? `/api/v1/sub-category/get/${parentCategory}` : null;
+    const [subCAtegoryCount, setSubCategoryCount] = useState(0);
+    const {data: subCategoryData, error: subCategoryError, isLoading: subCategoryLoading} = useSWR(subCategoryApi, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        dedupingInterval: 1000 * 60 * 60
+    })
+    if(subCategoryError && subCAtegoryCount < 3) {
+        setTimeout(() => {
+            setSubCategoryCount(subCAtegoryCount + 1);
+        }, 1000)
     }
-
-    useEffect(() => {getSubCategories()}, [])
     useEffect(() => {
-            getSubCategories()
-    }, [subCategorySlug])
+        if(subCategoryData) {
+            console.log("sub category data", subCategoryData)
+            const result = subCategoryData.sub_categories
+            setSubCategories(result)
+        }
+    }, [subCategoryData])
+
+    // const getSubCategories = async () => {
+
+    //     const api = `/api/v1/sub-category/get/${parentCategory}`
+
+    //     try {
+    //         const response = await axios.get(`${url}${api}`);
+    //         if (response.status === 200) {
+    //             const result = response.data.sub_categories
+    //             setSubCategories(result)
+    //         } else {
+    //             console.log("UnExpected Error", response.status)
+    //         }
+    //     } catch (error) {
+    //         console.log("UnExpected Server Error", error);
+    //     }
+    // }
+
+    // useEffect(() => {getSubCategories()}, [])
+    // useEffect(() => {
+    //         getSubCategories()
+    // }, [subCategorySlug])
 
     // Hide and Show Filter section
     const handleFilterSection = () => {
@@ -448,6 +471,8 @@ const Products = ({ navigationType }) => {
 
     // Pagination Click Functions
 
+    const pageCache = useRef({})
+
     const handleActivePage = (index) => {
         if (index !== activePageIndex) {
             const params = new URLSearchParams(window.location.search); // Use current URL
@@ -464,15 +489,18 @@ const Products = ({ navigationType }) => {
             setActivePageIndex(index);
     
             // Call sorting and filtering with updated query
-            sortProducts(selectedRelevanceValue);
-            filterProducts(queryString);
+            if(pageCache.current[index]) {
+                setProducts(pageCache.current[index]);
+            } else {
+                sortProducts(selectedRelevanceValue);
+                filterProducts(queryString);
+            }
     
             // Smooth scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
     
-
     const handlePrevPage = () => {
         if (activePage > 1) {
 
@@ -487,9 +515,14 @@ const Products = ({ navigationType }) => {
             router.replace(`${pathname}?${queryString}`, {shallow: true});
             setActivePage(activePage - 1);
             setActivePageIndex(activePageIndex - 1);
-            sortProducts(selectedRelevanceValue)
 
-            filterProducts(params.toString())
+            if(pageCache.current[index]) {
+                setProducts(pageCache.current[index]);
+            }else {
+                sortProducts(selectedRelevanceValue)
+                filterProducts(params.toString())
+            }
+
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -514,8 +547,12 @@ const Products = ({ navigationType }) => {
             // setSearchParams(params.toString());
             setActivePage(activePage + 1);
             setActivePageIndex(activePageIndex + 1);
-            sortProducts(selectedRelevanceValue)
-            filterProducts(params.toString())
+            if(pageCache.current[index]) {
+                setProducts(pageCache.current[index]);
+            } else {
+                sortProducts(selectedRelevanceValue)
+                filterProducts(params.toString())
+            }
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'

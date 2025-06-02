@@ -28,24 +28,25 @@ import { useLPContentContext } from '@/context/LPContentContext/LPContentContext
 import LandingPageFinancing from '@/UI/Components/LandingPageFinancingBanners/LandingPageFinancing';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { url } from '@/utils/api';
 
 const Home = () => {
 
 
   const { postData,
-    data,
+    // data,
     landingPageCategories,
     landingPageFOEB,
     content2,
     featuredProducts,
     slides,
-    getHomeSliderImages,
-    getLandingPageContent2,
-    getFeaturedProducts,
+    // getHomeSliderImages,
+    // getLandingPageContent2,
+    // getFeaturedProducts,
     trendingNow,
-    getTrendingProductsData,
+    // getTrendingProductsData,
     financingBanners,
-    getFinanceBannerImagesFromApi,
+    // getFinanceBannerImagesFromApi,
     allProducts,
     setAllProducts,
     dealEndTime,
@@ -59,24 +60,24 @@ const Home = () => {
   const { blogs } = useBlog()
 
   useEffect(() => {
-    if (!slides.length) {
-      getHomeSliderImages();
-    }
-    if (!data) {
-      postData();
-    }
-    if (Object.keys(content2).length === 0) {
-      getLandingPageContent2();
-    }
-    if (!featuredProducts.length) {
-      getFeaturedProducts();
-    }
-    if (!trendingNow) {
-      getTrendingProductsData();
-    }
-    if (!financingBanners?.length) {
-      getFinanceBannerImagesFromApi();
-    }
+    // if (!slides.length) {
+    //   getHomeSliderImages();
+    // }
+    // if (!data) {
+    //   postData();
+    // }
+    // if (Object.keys(content2).length === 0) {
+    //   getLandingPageContent2();
+    // }
+    // if (!featuredProducts.length) {
+    //   getFeaturedProducts();
+    // }
+    // if (!trendingNow) {
+    //   getTrendingProductsData();
+    // }
+    // if (!financingBanners?.length) {
+    //   getFinanceBannerImagesFromApi();
+    // }
   }, []);
 
   const router = useRouter();
@@ -127,7 +128,7 @@ const Home = () => {
         setAllProducts={setAllProducts}
         dealEndTime={dealEndTime}
         setDealEndTime={setDealEndTime}
-        api={`/api/v1/products/get-deal-of-month-products?limit=10`}
+        api={`${url}/api/v1/products/get-deal-of-month-products?limit=10`}
       />
       {landingPageFOEB && (
         <FurnitureForBudget budgetCardData={landingPageFOEB} />

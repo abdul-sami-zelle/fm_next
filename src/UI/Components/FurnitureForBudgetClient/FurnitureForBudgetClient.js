@@ -26,6 +26,7 @@ export default function FurnitureAtEveryBudgetClient() {
     const router = useRouter()
 
 
+
     const searchParams = useSearchParams();
     const category = searchParams.get('categoryUid');
     const max_price = searchParams.get('max_price');

@@ -34,6 +34,7 @@ function SampleNextArrow(props) {
 
 const SimillerProducts = ({ collection, isPadding }) => {
   const simillerProducts = collection.map((item) => item);
+  
   const [data, setData] = useState()
   const fetchData = async () => {
     const api = `/api/v1/products/get/`;

@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { url } from "../../utils/api";
 import axios from "axios";
 import BestSellerSliderMainBanner from '../../Assets/Furniture Mecca/Landing Page/best seller products/Home Page Banner 396x595.jpg';
+import { fetcher } from "@/utils/Fetcher";
+import useSWR, { mutate } from "swr";
 
 const LPContentContext = createContext();
 
@@ -19,44 +21,109 @@ export const LPContentProvider = ({ children }) => {
   const [slides, setSlides] = useState([])
 
   // Standard Function
-  const getHomeSliderImages = async () => {
-    try {
-      // if (slides === null) {
-      const response = await axios.get(`${url}/api/v1/pages/home/upd-slider/get`, { timeOut })
-      if (response.status === 200) {
-        setSlides(response.data.slider || [])
-      } else {
-        console.log(`UnExpected Error ${response.status} `);
-      }
-      // }
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
-    }
+  const slidersApi = `${url}/api/v1/pages/home/upd-slider/get`;
+  const [sliderCount, setSliderCount] = useState(0)
+  const { data: sliderData, error: sliderError, isLoading: sliderLoading } = useSWR(slidersApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365,
+  })
+
+  if (sliderError && sliderCount < 3) {
+    setTimeout(() => {
+      setSliderCount(sliderCount + 1);
+      mutate()
+    }, 1000)
   }
 
-  // Standard Function
-  const getLandingPageContent2 = async () => {
-    const api = `/api/v1/content2/get`
-    try {
-      setLoading(true);
-      if (content2 === null) {
-        const response = await axios.get(`${url}${api}`, { timeOut })
-        if (response.status === 200) {
-          setContent2(response.data);
-          setLoading(false);
-        } else {
-          console.log("UnExpected Error", response.status)
-          setLoading(false);
-        }
-      }
-
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
-      setLoading(false);
+  useEffect(() => {
+    if (sliderData) {
+      setSlides(sliderData.slider || [])
     }
+  }, [sliderData])
+
+  // const getHomeSliderImages = async () => {
+  //   try {
+  //     // if (slides === null) {
+  //     const response = await axios.get(`${url}/api/v1/pages/home/upd-slider/get`, { timeOut })
+  //     if (response.status === 200) {
+  //       setSlides(response.data.slider || [])
+  //     } else {
+  //       console.log(`UnExpected Error ${response.status} `);
+  //     }
+  //     // }
+  //   } catch (error) {
+  //     console.error("UnExpected Server Error", error);
+  //   }
+  // }
+
+  // Standard Function
+
+
+  const landingPageContent2Api = `/api/v1/content2/get`;
+  const [constent2Counter, setContent2Counter] = useState(0);
+  const {data: contentTwoData, error: content2Error, isLoading: content2Loader} = useSWR(landingPageContent2Api, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+  if(content2Error && constent2Counter < 3) {
+    setTimeout(() => {
+      setContent2Counter(constent2Counter + 1);
+    }, 1000)
+  }
+  useEffect(() => {
+    if(contentTwoData) {
+      setContent2(contentTwoData.data);
+    }
+  }, [contentTwoData])
+
+
+  // const getLandingPageContent2 = async () => {
+  //   const api = `/api/v1/content2/get`
+  //   try {
+  //     setLoading(true);
+  //     if (content2 === null) {
+  //       const response = await axios.get(`${url}${api}`, { timeOut })
+  //       if (response.status === 200) {
+  //         setContent2(response.data);
+  //         setLoading(false);
+  //       } else {
+  //         console.log("UnExpected Error", response.status)
+  //         setLoading(false);
+  //       }
+  //     }
+
+  //   } catch (error) {
+  //     console.error("UnExpected Server Error", error);
+  //     setLoading(false);
+  //   }
+  // }
+
+  // Standard Function
+  const featuredApi = `${url}/api/v1/products/featured-products?totalProduct=5`;
+  const [featureCount, setFeatureCount] = useState(0);
+  const {data: featureData, error: featureError, isLoading: featureLoading} = useSWR(featuredApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 *  60 * 60 * 24 * 365,
+  }) 
+
+  if(featureError && featureCount < 3) {
+    setTimeout(() => {
+      setFeatureCount(featureCount + 1)
+    }, 1000)
   }
 
-  // Standard Function
+  useEffect(() => {
+    if(featureData) {
+      const filteredProducts = featureData.products.filter(
+          (product) => product.parent === 0
+        );
+      setFeaturedProducts(filteredProducts);
+    }
+  }, [featureData])
+
   const getFeaturedProducts = async () => {
     const api = "/api/v1/products/featured-products?totalProduct=5";
     try {
@@ -81,66 +148,130 @@ export const LPContentProvider = ({ children }) => {
   const [trendingNow, setTrendingNow] = useState(null);
 
   // Standard Function
-  const getTrendingProductsData = async () => {
-    try {
-      if (trendingNow === null) {
-        const response = await axios.get(`${url}/api/v1/pages/home/trending-now/get`, { timeOut });
-        if (response.status === 200) {
-          setTrendingNow(response.data?.data)
-        } else {
-          console.log("UnExpected Error", response.status)
-        }
-      }
+  const trandingNowApi = `${url}/api/v1/pages/home/trending-now/get`;
+  const [trandingCount, setTrandingCount] = useState(0)
+  const {data: trandingData, error: trandingError, isLoading: trandingLoader} = useSWR(trandingNowApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  });
+  if(trandingError && trandingCount < 3) {
+    setTimeout(() => {
+      setTrandingCount(trandingCount + 1);
+    }, 1000);
+  }
 
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
+  useEffect(() => {
+    if(trandingData) {
+      setTrendingNow(trandingData.data)
     }
-  };
+  }, [trandingData])
+
+  // const getTrendingProductsData = async () => {
+  //   try {
+  //     if (trendingNow === null) {
+  //       const response = await axios.get(`${url}/api/v1/pages/home/trending-now/get`, { timeOut });
+  //       if (response.status === 200) {
+  //         setTrendingNow(response.data?.data)
+  //       } else {
+  //         console.log("UnExpected Error", response.status)
+  //       }
+  //     }
+
+  //   } catch (error) {
+  //     console.error("UnExpected Server Error", error);
+  //   }
+  // };
 
   const [financingBanners, setFinancingBanners] = useState(null)
   // Standard Function
-  const getFinanceBannerImagesFromApi = async () => {
-    try {
-      const response = await axios.get(`${url}/api/v1/pages/home/upd-finance-slider/get`);
-      if (response.status === 200) {
-        setFinancingBanners(response?.data?.slider)
-      } else {
-        console.log("UnExpected Error", response.status)
-      }
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
-    }
+
+  const financingApi = `${url}/api/v1/pages/home/upd-finance-slider/get`;
+  const [financingTry, setFinancingTry] = useState(0);
+  const { data: financingData, error: finaningError, isLoading: finaincingLoading } = useSWR(financingApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if (finaningError && financingTry < 3) {
+    setTimeout(() => {
+      setFinancingTry(financingTry + 1);
+      mutate();
+    }, 1000);
   }
+  useEffect(() => {
+    if (financingData) {
+      setFinancingBanners(financingData.slider)
+    }
+  }, [financingData]);
+
+  // const getFinanceBannerImagesFromApi = async () => {
+  //   try {
+  //     const response = await axios.get(`${url}/api/v1/pages/home/upd-finance-slider/get`);
+  //     if (response.status === 200) {
+  //       setFinancingBanners(response?.data?.slider)
+  //     } else {
+  //       console.log("UnExpected Error", response.status)
+  //     }
+  //   } catch (error) {
+  //     console.error("UnExpected Server Error", error);
+  //   }
+  // }
 
   // set handling
-  const postData = async () => {
-    if (data === null) {
-      try {
-        const response = await axios.get(`${url}/api/v1/content1/get`, {
-          timeout: timeOut,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
 
-        if (response.status === 200) {
-          const result = response.data
-          setData(result);
-          setLandingPageCategories(result?.landingPageContent?.sectional_schema?.shop_by_category);
-          setLandingPageFOEB(result?.landingPageContent?.sectional_schema?.furniture_for_every_budget);
-          setLoading(false)
-        } else {
-          console.log("UnExpected Error", response.status)
-          setLoading(false)
-        }
-      } catch (error) {
-        console.log("UnExpected Server Error", error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
+
+  const categoryApi = `${url}/api/v1/content1/get`;
+  const header = { "Content-Type": "application/json" };
+  const [categoryCount, setCategoryCount] = useState(0);
+  const { data: categoriesData, error: categoriesError, isLoading: categoriesLoading } = useSWR(categoryApi,  fetcher, header, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if (categoriesError && categoryCount < 3) {
+    setTimeout(() => {
+      setCategoryCount(categoryCount + 1);
+    }, 1000)
+  }
+  useEffect(() => {
+    if (categoriesData) {
+      setData(categoriesData);
+      setLandingPageCategories(categoriesData?.landingPageContent?.sectional_schema?.shop_by_category);
+      setLandingPageFOEB(categoriesData?.landingPageContent?.sectional_schema?.furniture_for_every_budget);
     }
-  };
+  }, [categoriesData]);
+
+  // const postData = async () => {
+  //   if (data === null) {
+  //     try {
+  //       const response = await axios.get(`${url}/api/v1/content1/get`, {
+  //         timeout: timeOut,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+
+  //       if (response.status === 200) {
+  //         const result = response.data
+  //         setData(result);
+  //         setLandingPageCategories(result?.landingPageContent?.sectional_schema?.shop_by_category);
+  //         setLandingPageFOEB(result?.landingPageContent?.sectional_schema?.furniture_for_every_budget);
+  //         setLoading(false)
+  //       } else {
+  //         console.log("UnExpected Error", response.status)
+  //         setLoading(false)
+  //       }
+  //     } catch (error) {
+  //       console.log("UnExpected Server Error", error);
+  //       setError(error.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
 
   const [allProducts, setAllProducts] = useState([])
   const [dealEndTime, setDealEndTime] = useState(null);
@@ -173,7 +304,7 @@ export const LPContentProvider = ({ children }) => {
 
   return (
     <LPContentContext.Provider value={{
-      postData,
+      // postData,
       data,
       loading,
       landingPageCategories,
@@ -185,13 +316,13 @@ export const LPContentProvider = ({ children }) => {
       setFeaturedProducts,
       slides,
       setSlides,
-      getHomeSliderImages,
-      getLandingPageContent2,
-      getFeaturedProducts,
+      // getHomeSliderImages,
+      // getLandingPageContent2,
+      // getFeaturedProducts,
       trendingNow,
-      getTrendingProductsData,
+      // getTrendingProductsData,
       financingBanners,
-      getFinanceBannerImagesFromApi,
+      // getFinanceBannerImagesFromApi,
       allProducts,
       setAllProducts,
       dealEndTime,

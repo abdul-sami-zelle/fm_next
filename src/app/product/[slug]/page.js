@@ -16,8 +16,10 @@ import { useCart } from '@/context/cartContext/cartContext';
 import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
-import { useParams, useSearchParams } from 'next/navigation';
+// import { useParams, useSearchParams } from 'next/navigation';
 import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/Fetcher';
 
 const ProductDisplay = ({ params }) => {
 
@@ -25,7 +27,7 @@ const ProductDisplay = ({ params }) => {
   const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
-  // console.log("main product data", product)
+
 
   const [productDetails , setProductDetails] = useState({})
   useEffect(() => {
@@ -43,27 +45,48 @@ const ProductDisplay = ({ params }) => {
 
   const [isSticky, setIsSticky] = useState(false)
 
+  const singleProductApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null;
+  const [singleProductCount, setSingleProductCount] = useState(0);
 
-  const fetchProductBySlug = async (slug) => {
-    try {
-      const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
-      const fetchedProduct = response.data.products[0] || {};
-      setProduct(fetchedProduct);
-    } catch (error) {
-      console.error('Error fetching product by slug:', error);
-    }
-  };
+  const {data: singleProductContent, error: singleProductError, isLoading: singleProductLoading} = useSWR(singleProductApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if(singleProductError && singleProductCount < 3) {
+    setTimeout(() => {
+      setSingleProductCount(singleProductCount + 1);
+    }, 1000)
+  }
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      setProduct(null); // Reset product state to trigger loading state
-      await fetchProductBySlug(slug);
-    };
-
-    if (slug) {
-      fetchProduct();
+    if(singleProductContent ) {
+      setProduct(singleProductContent.products[0])
     }
-  }, [slug]);
+  }, [singleProductContent])
+
+
+  // const fetchProductBySlug = async (slug) => {
+  //   try {
+  //     const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
+  //     const fetchedProduct = response.data.products[0] || {};
+  //     setProduct(fetchedProduct);
+  //   } catch (error) {
+  //     console.error('Error fetching product by slug:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     setProduct(null); // Reset product state to trigger loading state
+  //     await fetchProductBySlug(slug);
+  //   };
+
+  //   if (slug) {
+  //     fetchProduct();
+  //   }
+  // }, [slug]);
 
 
 
@@ -258,23 +281,45 @@ const ProductDisplay = ({ params }) => {
   }, [dimensionModal])
 
   const [recomandedProducts, setRecomandedProducts] = useState([])
-  const fetchRecomandedProducts = async () => {
-    const api = `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}`;
-    try {
-      const response = await fetch(api);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setRecomandedProducts(data.recommendations)
-    } catch (error) {
-      console.log("UnExpected Server Error", error);
-    }
+
+  const recomandationApi = product ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
+  const [recomandationCount, setRecomandationCount] = useState(0)
+
+  const {data: recomandationData, error: recomandationError, isLoading: recomandationLoading} = useSWR(recomandationApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
+
+  if(recomandationError && recomandationCount < 3 ) {
+    setTimeout(() => {
+      setRecomandationCount(recomandationCount + 1);
+    }, 1000)
   }
 
   useEffect(() => {
-    fetchRecomandedProducts();
-  }, [product])
+    if(recomandationData) {
+      setRecomandedProducts(recomandationData.recommendations)
+    }
+  }, [recomandationData])
+
+  // const fetchRecomandedProducts = async () => {
+  //   const api = `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}`;
+  //   try {
+  //     const response = await fetch(api);
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     setRecomandedProducts(data.recommendations)
+  //   } catch (error) {
+  //     console.log("UnExpected Server Error", error);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchRecomandedProducts();
+  // }, [product])
 
   // useEffect(() => {console.log("product data", product)}, [product])
 

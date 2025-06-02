@@ -19,8 +19,8 @@ const BlogPage = () => {
     activeCategory,
   } = useBlog()
 
-  useEffect(() => {console.log("blog category", blogCategories)}, [blogCategories])
-  useEffect(() => {console.log("blog category id", blogCategories?.[activeCategory]?._id)}, [blogCategories])
+  // useEffect(() => {console.log("blog category", blogCategories)}, [blogCategories])
+  // useEffect(() => {console.log("blog category id", blogCategories?.[activeCategory]?._id)}, [blogCategories])
 
   useEffect(() => {
     fetchBlogs(blogCategories?.[activeCategory]?._id)

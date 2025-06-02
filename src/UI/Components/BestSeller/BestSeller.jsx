@@ -69,16 +69,17 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
+    useEffect(() => {}, [currentSlug])
+
     // Functions
-    const [newSlug, setNewSlug] = useState(null)
     useEffect(() => {
         const splitedParam = params.split('/')
         const newSlug = splitedParam[1]
 
-        if (newSlug) setNewSlug(newSlug)
+        if (newSlug) setCurrentSlug(newSlug)
     }, [])
 
-    const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${newSlug}&best_selling_product=1&per_page=6`
+    const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
     const [categorySellerCount, setCategorySellerCount] = useState(0)
 
     const { data: categorySellerData, error: categorySellerError, isLoading: categorySellerLoading } = useSWR(categorySeller, fetcher, {
@@ -105,21 +106,21 @@ const BestSeller = () => {
 
 
 
-    const getBestSellerProducts = async (slug) => {
-        const splitedParam = params.split('/')
-        const newSlug = splitedParam[1]
-        const api = `/api/v1/products/by-category?categorySlug=${newSlug}&best_selling_product=1&per_page=6`
-        try {
-            setLoading(true);
-            const response = await axios.get(`${url}${api}`)
-            setAllProducts(response.data.products);
-            setLoading(false)
+    // const getBestSellerProducts = async (slug) => {
+    //     const splitedParam = params.split('/')
+    //     const newSlug = splitedParam[1]
+    //     const api = `/api/v1/products/by-category?categorySlug=${newSlug}&best_selling_product=1&per_page=6`
+    //     try {
+    //         setLoading(true);
+    //         const response = await axios.get(`${url}${api}`)
+    //         setAllProducts(response.data.products);
+    //         setLoading(false)
 
-        } catch (error) {
-            console.error("error geting best seller products", error);
-            setLoading(false);
-        }
-    }
+    //     } catch (error) {
+    //         console.error("error geting best seller products", error);
+    //         setLoading(false);
+    //     }
+    // }
 
 
 

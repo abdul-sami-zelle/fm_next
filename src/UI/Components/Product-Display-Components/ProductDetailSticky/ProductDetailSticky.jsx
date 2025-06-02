@@ -34,6 +34,8 @@ import { useCart } from '../../../../context/cartContext/cartContext'
 import { BsTruck } from "react-icons/bs";
 import ProductDisplayShimmer from '../ProductDisplayShimmers/ProductDisplayShimmer'
 import { useRouter } from 'next/navigation'
+import useSWR from 'swr'
+import { fetcher } from '@/utils/Fetcher'
 
 
 
@@ -85,48 +87,80 @@ const ProductDetailSticky = (
   const { slug } = use(params);
   const [getBySlug, setGetBySlug] = useState({})
 
-  const getProductDataWithSlug = async (slug) => {
-    const api = `/api/v1/products/get-by-slug/`
-    try {
-      const response = await axios.get(`${url}${api}${slug}`)
-      const temporaryProduct = response.data.products[0] || {};
-      setGetBySlug(temporaryProduct)
-    } catch (error) {
-      console.error("Error Fetching fetching data with slug", error);
-    }
+  const getBySlugApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null;
+  const [getBySlugCount, setGetBySlugCount] = useState(0)
+
+  const {data: getBySlugData, error: getByErrorSlug, isLoading: getBySlugLoading} = useSWR(getBySlugApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  });
+
+  if(getByErrorSlug && getBySlugCount < 3) {
+    setTimeout(() => {
+      setGetBySlugCount(getBySlugCount + 1);
+    }, 1000)
   }
+
+  useEffect(() => {
+    if(getBySlugData) {
+      const temporaryProduct = getBySlugData.products[0] || {};
+      setGetBySlug(temporaryProduct)
+    }
+  }, [getBySlugData])
+
+  // const getProductDataWithSlug = async (slug) => {
+  //   const api = `/api/v1/products/get-by-slug/`
+  //   try {
+  //     const response = await axios.get(`${url}${api}${slug}`)
+  //     const temporaryProduct = response.data.products[0] || {};
+  //     setGetBySlug(temporaryProduct)
+  //   } catch (error) {
+  //     console.error("Error Fetching fetching data with slug", error);
+  //   }
+  // }
 
 
 
   // Effect to fetch data if user came directly via link
-  useEffect(() => {
-    if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
-      getProductDataWithSlug(slug);
-    }
-    setSingleProductData(productData)
-    setSelectedVariationUid(productData?.default_variation)
-    setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
+  // useEffect(() => {
+  //   if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
+  //     getProductDataWithSlug(slug);
+  //   }
+  //   setSingleProductData(productData)
+  //   setSelectedVariationUid(productData?.default_variation)
+  //   setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
 
-  }, [slug]);
+  // }, [slug]);
+
+  useEffect(() => {
+    if(getBySlugData && Object.keys(getBySlugData).length > 0 && 'images' in getBySlugData) {
+      setSingleProductData(getBySlugData)
+    setSelectedVariationUid(getBySlugData?.default_variation)
+    setSelectedVariationData(findObjectByUID(getBySlugData?.default_variation, productData?.variations));
+    }
+  }, [getBySlug])
   // productData in this effect dependancy
 
-  const [product, setProduct] = useState(
-    Object.keys(productData || {}).length > 0 && productData.images !== undefined
-      ? productData
-      : getBySlug
-  );
+  // const [product, setProduct] = useState(
+  //   Object.keys(productData || {}).length > 0 && productData.images !== undefined
+  //     ? productData
+  //     : getBySlug
+  // );
+
+  const [product, setProduct] = useState(getBySlug)
 
   useEffect(() => {
-
-    if (
-      Object.keys(productData || {}).length > 0 &&
-      productData.images !== undefined &&
-      productData !== product
-    ) {
-      setProduct(productData);
-    } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
-      setProduct(getBySlug);
-    }
+    setProduct(getBySlug)
+    // if (
+    //   Object.keys(productData || {}).length > 0 &&
+    //   productData.images !== undefined &&
+    //   productData !== product
+    // ) {
+    //   setProduct(productData);
+    // } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
+    //   setProduct(getBySlug);
+    // }
   }, [productData, slug, getBySlug])
   // product from this dependancy
 
@@ -142,7 +176,6 @@ const ProductDetailSticky = (
   // Variation Select and auto select
   const [selectedColor, setSelectedColor] = useState();
   const handleSelectColor = (value) => {
-    console.log("selected color", value);
     setSelectedColor(value);
   }
 
@@ -150,10 +183,8 @@ const ProductDetailSticky = (
 
   const [selectVariation, setSelectVariation] = useState(0);
   const handleSelectVariation = (value) => {
-    console.log("selected variation", value)
     setSelectVariation(value);
   }
-  // useEffect(() => {console.log("selectedVariation", selectVariation)}, [selectVariation])
   const [selectedUid, setSelectedUid] = useState(null);
 
   
@@ -165,12 +196,10 @@ const ProductDetailSticky = (
     setSelectedUid(value);
 
     const selectedIndex = productData?.variations?.findIndex(variation => variation?.uid === value);
-    // console.log("variation product on hande selecet", productData?.variations?.findIndex(variation => variation?.uid === value));
 
     setVariationData(productData?.variations?.[selectedIndex]);
   };
 
-  // useEffect(() => {console.log("var data", variationData)}, []);
 
   useEffect(() => {
     setProductDetails((prev) => ({
@@ -210,6 +239,8 @@ const ProductDetailSticky = (
   // }, [isSingleProtectionChecked,])
 
   // Add To WishList and Remove
+  
+  
   const { addToList, removeFromList, isInWishList } = useList()
   const handleWishList = (item) => {
 
@@ -348,7 +379,7 @@ const ProductDetailSticky = (
     setSnakebarOpen(false);
   }
 
-  useEffect(() => { }, [addCartSticky])
+  // useEffect(() => { }, [addCartSticky])
 
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
 
@@ -493,14 +524,7 @@ const ProductDetailSticky = (
                   </div>
                   }
                 </>}
-
-
-
               </div>
-
-
-
-
             </div>
 
             <div className='product-detail-other-info'>

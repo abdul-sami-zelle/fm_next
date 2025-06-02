@@ -7,6 +7,8 @@ import { url } from '../../../../../utils/api'
 // import { useLocation, useParams } from 'react-router-dom'
 import ProductComments from '../../../ProductComments/ProductComments'
 import SnakBar from '../../../../../Global-Components/SnakeBar/SnakBar'
+import useSWR from 'swr'
+import { fetcher } from '@/utils/Fetcher'
 
 const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
 
@@ -28,35 +30,80 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
     setSnakebarOpen(false);
   }
 
-  const fetchReviews = async (productUid) => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
-      setReviews(response.data.reviews);
-      setLoading(false);
-    } catch (error) {
-      setError('Failed to fetch reviews');
-      setLoading(false);
-    }
-  };
+  const slugProductsApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null
+  const [slugProductCount, setSlugProductCount] = useState(0);
 
-  const fetchProductBySlug = async (slug) => {
-    try {
-      const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
-      const fetchedProduct = response.data.products[0] || {};
-      setProduct(fetchedProduct);
-    } catch (error) {
-      console.error('Error fetching product by slug:', error);
-    }
-  };
+  const {date: slugProducts, error: slugErrors, isLoading: slugLoading} = useSWR(slugProductsApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60
+  })
+
+  if(slugErrors && slugProductCount < 3 ) {
+    setTimeout(() => {
+      setSlugProductCount(slugProductCount + 1);
+    }, 1000)
+  }
 
   useEffect(() => {
-    if (!product) {
-      fetchProductBySlug(slug);
-    } else if (product?.uid) {
-      fetchReviews(product?.uid);
+    if(slugProducts) {
+      const fetchedProduct = slugProducts.products[0] || {};
+      setProduct(fetchedProduct);
     }
-  }, [product, slug]);
+  }, [slugProducts])
+
+
+  // const fetchProductBySlug = async (slug) => {
+  //   try {
+  //     const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
+  //     const fetchedProduct = response.data.products[0] || {};
+  //     setProduct(fetchedProduct);
+  //   } catch (error) {
+  //     console.error('Error fetching product by slug:', error);
+  //   }
+  // };
+
+  const reviewsApi = product?.uid ? `${url}/api/v1/reviews/get-by-product/${product?.uid}` : null
+  const [reviewFuncCount, setReviewCount] = useState(0);
+  const {data: reviewData, error: reviewError, isLoading: reviewLoading} = useSWR(reviewsApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60
+  })
+
+  if(reviewError && reviewFuncCount < 3) {
+    setTimeout(() => {
+      setReviewCount;
+    }, 1000)
+  }
+
+  useEffect(() => {
+    if(reviewData) {
+      setReviews(reviewData.reviews);
+    }
+  }, [reviewData])
+
+  // const fetchReviews = async (productUid) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
+  //     setReviews(response.data.reviews);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setError('Failed to fetch reviews');
+  //     setLoading(false);
+  //   }
+  // };
+
+  
+
+  // useEffect(() => {
+  //   if (!product) {
+  //     fetchProductBySlug(slug);
+  //   } else if (product?.uid) {
+  //     fetchReviews(product?.uid);
+  //   }
+  // }, [product, slug]);
 
   return (
     <div

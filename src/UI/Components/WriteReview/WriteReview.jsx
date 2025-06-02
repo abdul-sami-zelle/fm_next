@@ -13,7 +13,6 @@ import Image from "next/image";
 
 export default function WriteReview({ product_id, productData, snakeBarOpen, review_enable, product_name, product_permalink, }) {
 
-    console.log("review product data", productData)
 
     const [reviewData, setReviewData] = useState(
         {

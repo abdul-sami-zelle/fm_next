@@ -45,13 +45,6 @@ const ProductDetailTab = ({id, detailsRef, productData, productDetails}) => {
           </span>
         </div>
 
-        {/* <div className='product-detail-right-section-items product-detail-second-tab'>
-          <span>
-            <h3># of Accent Pillows:</h3>
-            <p>2</p>
-          </span>
-        </div> */}
-
         <div className='product-detail-right-section-items'>
           <span>
             <h3>Category:</h3>

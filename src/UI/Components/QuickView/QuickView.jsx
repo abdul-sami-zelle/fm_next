@@ -21,10 +21,6 @@ import SizeVariant from '../SizeVariant/SizeVariant';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
-    console.log("quick view data", setQuickViewProduct)
-
-
-
     const {
         increamentQuantity,
         decreamentQuantity,
@@ -83,7 +79,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         })
     }, [setQuickViewProduct])
 
-    useEffect(() => { console.log("dimention data of quick view", productDetails) }, [productDetails])
 
     const quickViewData = [
         {
@@ -350,8 +345,8 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                         </div>
                                     ) : (
                                         <div className="quick-view-drop-down-dimension-data">
-                                            {items.para.map((item) => (
-                                                <span key={item.id}>
+                                            {items.para.map((item, index) => (
+                                                <span key={index}>
                                                     <h3>{item.name}</h3>
                                                     <p>{item.val}</p>
                                                 </span>

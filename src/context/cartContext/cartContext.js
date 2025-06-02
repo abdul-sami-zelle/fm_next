@@ -311,15 +311,11 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
-        console.log("add cart product", product);
-        console.log("add cart variation data", variationData);
-        console.log("add cart isProtected", isProtected);
-        console.log("add cart quantity", quantity);
+        
         setIsCartLoading(true);
 
         const isSimple = product.type === "simple";
         const productUid = isSimple ? product.uid : variationData?.uid;
-        console.log("product uid", productUid)
 
         const newCart = await new Promise((resolve) => {
             setCartProducts((prev) => {
@@ -355,7 +351,6 @@ export const CartProvider = ({ children }) => {
                         ],
                 };
 
-                console.log("updated cart", updatedCart)
 
                 resolve(updatedCart);
                 return updatedCart;

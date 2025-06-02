@@ -18,10 +18,10 @@ export const MyOrdersProvider = ({ children }) => {
     const { totalTax, calculateTotalTax, getShippingInfo, selectedOption } = useGlobalContext();
     const [showThankyou, setThankyouState] = useState(false);
 
-    let generatedLink;
-    if(window !== 'undefined') {
-        generatedLink = `${window.location.origin}`
-    }
+    // let generatedLink;
+    // if(window !== 'undefined') {
+    //     generatedLink = `${window.location.origin}`
+    // }
 
     const [orderPlacedInfo, setOrderPlacedInfo] = useState({
         orderNumber: 0,
@@ -333,7 +333,7 @@ export const MyOrdersProvider = ({ children }) => {
                     },
                 }));
 
-                openLink(`${generatedLink}/order-confirmation/${response.data.order._id}`)
+                openLink(`https://fmnext.myfurnituremecca.com/order-confirmation/${response.data.order._id}`)
             }
         } catch (error) {
             console.error("Error adding order:", error);

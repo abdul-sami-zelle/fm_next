@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { formatedPrice, url } from '../../utils/api';
 import QuickView from '@/UI/Components/QuickView/QuickView';
-
 import FinancingModal from '@/UI/Modals/FinancingModal/FinancingModal';
 import AppointmentModal from '@/Global-Components/AppointmentModal/AppointmentModal';
 import ProductCardTwo from '@/UI/Components/ProductCardTwo/ProductCardTwo';
@@ -44,7 +43,6 @@ function SampleNextArrow(props) {
 const Cart = () => {
   const [isZipUpdateOpen, setIsZipUpdateOpen] = useState(false)
   const [isCouponOpen, setIsCouponOpen] = useState(false);
-  const [isCheck, setIsCheck] = useState({});
   const [isStarted, setIsStarted] = useState(false);
 
   const {
@@ -56,31 +54,24 @@ const Cart = () => {
     totalTax,
     calculateTotalTax,
     selectedOption,
-    handleChange,
     getShippingMethods,
-    selectedShippingMethods,
     setSelectedShippingMethods,
     CalculateGrandTotal
   } = useGlobalContext();
 
   const {
-    cart,
     subTotal,
     subTotal0,
     savings,
     isCartProtected,
     cartProducts,
     isProfessionalAssembly,
-    handleCartProtected,
-    handleCartAssembly,
   } = useCart();
 
-
-  const subTotalOfAllProducts = cart?.map(item => item.product.sub_total);
-  const subtotal = subTotalOfAllProducts?.reduce((acc, value) => acc + value, 0)
-
-  const protectionPrice = isCheck[0] ? 210 : 0;
-  const assemblyPrice = isCheck[1] ? 250 : 0;
+  // const subTotalOfAllProducts = cart?.map(item => item.product.sub_total);
+  // const subtotal = subTotalOfAllProducts?.reduce((acc, value) => acc + value, 0)
+  // const protectionPrice = isCheck[0] ? 210 : 0;
+  // const assemblyPrice = isCheck[1] ? 250 : 0;
 
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
@@ -89,31 +80,30 @@ const Cart = () => {
     setIsCouponOpen(!isCouponOpen)
   }
 
-const [latestProducts, setLatestProducts] = useState([]);
+  const [latestProducts, setLatestProducts] = useState([]);
 
-useEffect(() => {
-  const getLatestProducts = async () => {
-    const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+  const recomandationApi = 
 
-    const payload = {
-      cart: cartProducts?.products?.map(item => item._id) || []
+  useEffect(() => {
+    const getLatestProducts = async () => {
+      const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+      const payload = {
+        cart: cartProducts?.products?.map(item => item._id) || []
+      };
+      try {
+        const response = await axios.post(api, payload);
+        setLatestProducts(response.data.recommendations);
+      } catch (error) {
+        console.error("error", error);
+      }
     };
-
-    try {
-      const response = await axios.post(api, payload);
-      setLatestProducts(response.data.recommendations);
-    } catch (error) {
-      console.error("error", error);
+    if (cartProducts?.products?.length > 0) {
+      getLatestProducts();
     }
-  };
-
-  if (cartProducts?.products?.length > 0) {
-    getLatestProducts();
-  }
-}, [cartProducts]);
+  }, [cartProducts]);
+  
   useEffect(() => {
     if (shippingMethods) {
-      console.log("shiping method call", shippingMethods)
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
@@ -132,11 +122,6 @@ useEffect(() => {
   }, [isStarted])
 
   useEffect(() => { setSelectedShippingMethods(null) }, [info])
-
-  // const maxLength = 30;
-  // const truncateTitle = (title, maxLength) => {
-  //   return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
-  // };
 
   const payCards = ['/Assets/icons/mastercard-1.png', '/Assets/icons/visa-1.png', '/Assets/icons/discover-1.png', '/Assets/icons/ae-1.png', '/Assets/icons/paypal-1.png'];
 
@@ -207,7 +192,6 @@ useEffect(() => {
     ]
   };
 
-
   const {
     addToList,
     removeFromList,
@@ -232,7 +216,6 @@ useEffect(() => {
   }
 
   // Apply Financing Modal
- 
   const [applyFinancing, setApplyFinancing] = useState(false);
   const handleOpenFinancingModal = () => {
     setApplyFinancing(true);
@@ -278,80 +261,34 @@ useEffect(() => {
   }
 
   const [errorMessage, setErrorMessage] = useState('Something went wrong! Please try again later.');
-    const [snakebarOpen, setSnakebarOpen] = useState(false);
-  
-    const handleOpenSnakeBar = () => {
-      // setAppointmentModal(false);
-      setSnakebarOpen(true);
-    }
+  const [snakebarOpen, setSnakebarOpen] = useState(false);
 
+  const handleOpenSnakeBar = () => {
+    setSnakebarOpen(true);
+  }
   const handleProductClick = (item) => {
     router.push(`/product/${item.slug}`);
   };
 
-
   return (
     <div className='cart-main-container'>
       <CartMainImage />
-
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
           <CartProducts />
         </div>
-
         <div className={`cart-order-summery-section ${cartProducts?.products?.length === 0 ? 'hide-order-summary' : ''}`}>
           <div className='cart-order-summery-inner-section'>
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
-
-            {/* <div className='proffesional-assembly-check-sec'>
-              <label className='order-summary-proffesional-check-item-label'>
-                <input
-                  type="checkbox"
-                  className='order-summary-checkbox'
-                  checked={isProfessionalAssembly}
-                  onChange={() => handleCartAssembly()}
-                />
-                Professional Assembly (+ $210)
-              </label>
-              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-            </div> */}
-
-            {/* {cartProducts.products.length > 1 ? ( */}
-            {/* <div className='proffesional-assembly-check-sec'>
-              <label className='order-summary-proffesional-check-item-label'>
-                <input
-                  type="checkbox"
-                  className='order-summary-checkbox'
-                  checked={isCartProtected}
-                  onChange={() => handleCartProtected()}
-                />
-                Elite Platinum Furniture Protection(+ $199)
-              </label>
-              <p className='order-summary-proffesional-check-item-detail'>Use professional assembly for all products and save up to $80</p>
-            </div> */}
-
-            <div className='cart-order-summary-price-details'> 
-
-              {/* {filteredOrderPriceDetails.map((price, index) => (
-                <div key={index} className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title'>{price.title}</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{price.price}</p>
-                </div>
-            ))} */}
-
+            <div className='cart-order-summary-price-details'>
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Subtotal</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(subTotal0)}</p>
               </div>
-
-
-
-
               <div className='cart-order-summary-price-detail-save-discount'>
                 <p>Savings</p>
                 <p style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
               </div>
-
               {isCartProtected ? (
                 <div className='cart-order-summary-price-detail-single-item'>
                   <p className='cart-order-summary-price-detail-single-item-title'>Protect Entire Order</p>
@@ -368,20 +305,14 @@ useEffect(() => {
               ) : (
                 <></>
               )}
-
-
-
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : selectedOption?.cost}</p>
               </div>
-
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
-
-
               <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
                   <p>Calculated for:</p>
@@ -400,66 +331,13 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="delivery-option-container">
-                <span className='order-summary-deliver-to'>
-                  <p className='delivery-opt-heading' >Delivery Options :</p>
-                  {selectedOption?.id === 'METHOD-2' ? <p className='delivery-opt-heading'>{formatedPrice(selectedOption?.cost)}</p> : <></>}
-                </span>
-                {selectedShippingMethods &&
-                  selectedShippingMethods.map((option, index) => (
-                    <label
-                      key={option.id}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        flexDirection: "row",
-                        justifyContent: "flex-start",
-                        margin: "5px 0",
-                        gap: "10px",
-                      }}
-                      onClick={() => handleDeliveryOptionndex(index)}
-                    >
-                      <input
-                        type="radio"
-                        name="options"
-                        value={option.id}
-                        checked={selectedOption?.id === option.id}
-                        onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-                        style={{
-                          marginTop: "5px",
-                        }}
-                      />
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <p className="delivery-option-container-label">{option.name}</p>
-                        <p className="delivery-option-container-description">{option.description}</p>
-                      </div>
-                    </label>
-                  ))}
-              </div> */}
-
-
-
             </div>
-
             <div className='cart-order-summary-total'>
               <div className='cart-order-summary-price-detail-single-item-total-container'>
                 <p className='cart-order-summary-price-detail-single-item-title-total'>Total</p>
                 <p className='cart-order-summary-price-detail-single-item-price-count'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
-              {/* <div className='cart-order-summary-price-detail-save-discount'>
-                <p>You Save</p>
-                <p>{formatedPrice(savings)}</p>
-              </div> */}
             </div>
-
             <div className='order-summary-coupon-div'>
               <p onClick={handleCouponInput}>Add Coupon Code <IoIosArrowDown className={`cart-order-summary-coupon-arrow ${isCouponOpen ? 'cart-order-summary-coupon-arrow-rotate' : ''}`} size={20} /></p>
               <div className={`cart-order-summary-coupon-input-div ${isCouponOpen ? 'show-coupon-update-input' : ''}`}>
@@ -469,13 +347,11 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-
             <button
               onClick={navigateToCheckout}
               className='cart-summary-proceed-btn'>
               Proceed to Checkout
             </button>
-
             <div className='payment-card-container'>
               <h3 className='payment-cards-heading'>Securely accepted at checkout</h3>
               <div className='payment-cards-inner-container'>
@@ -484,7 +360,6 @@ useEffect(() => {
                 ))}
               </div>
             </div>
-
             <div className='financing-months-range-container'>
               <h3 className='financing-month-range-heading'>$125/month for 48 months</h3>
               <button className='financing-month-range-apply-button' onClick={handleOpenFinancingModal}>
@@ -495,12 +370,9 @@ useEffect(() => {
                 Complete in Store
               </button>
             </div>
-
           </div>
         </div>
-
       </div>
-
       <div className='cart-related-products-display-section'>
         <h3>You May Also Like</h3>
         <div className='cart-related-products-slider-main-div'>
@@ -516,7 +388,6 @@ useEffect(() => {
                     justWidth={'100%'}
                     percent={'12%'}
                     showOnPage={true}
-                    // colTwo={selectedGrid === 'single-col' ? false : true}
                     tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                     tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                     mainImage={`${item.image.image_url}`}
@@ -525,13 +396,6 @@ useEffect(() => {
                     tags={item.tags}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
-                    // stars={[
-                    //   { icon: star, title: 'filled' },
-                    //   { icon: star, title: 'filled' },
-                    //   { icon: star, title: 'filled' },
-                    //   { icon: star, title: 'filled' },
-                    //   { icon: star, title: 'filled' },
-                    // ]}
                     reviewCount={item.reviewCount}
                     lowPriceAddvertisement={item.lowPriceAddvertisement}
                     priceTag={item.regular_price}
@@ -545,41 +409,6 @@ useEffect(() => {
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleQuickViewOpen(item)}
                     handleWishListclick={() => handleWishList(item)}
-                  // key={index}
-                  // slug={item.slug}
-                  // singleProductData={item}
-                  // maxWidthAccordingToComp="98%"
-                  // // justWidth={'320px'}
-                  // tagIcon={item.productTag ? item.productTag : heart}
-                  // tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                  // mainImage={`${item.image.image_url}`}
-                  // productCardContainerClass="product-card"
-                  // ProductSku={item.sku}
-                  // percent={'12%'}
-                  // tags={item.tags}
-                  // ProductTitle={truncateTitle(item.name, maxLength)}
-                  // stars={[
-                  //   { icon: star, title: 'filled' },
-                  //   { icon: star, title: 'filled' },
-                  //   { icon: star, title: 'filled' },
-                  //   { icon: star, title: 'filled' },
-                  //   { icon: star, title: 'filled' },
-                  // ]}
-                  // reviewCount={item.reviewCount}
-                  // lowPriceAddvertisement={item.lowPriceAddvertisement}
-                  // priceTag={item.regular_price}
-                  // sale_price={item.sale_price}
-                  // financingAdd={item.financingAdd}
-                  // learnMore={item.learnMore}
-                  // mainIndex={index}
-                  // deliveryTime={item.deliveryTime}
-                  // stock={item.manage_stock}
-                  // attributes={item.attributes}
-                  // handleCardClick={() => handleQuickViewOpen(item)}
-                  // handleQuickView={() => handleQuickViewOpen(item)}
-                  // type={item.type}
-                  // variation={item.variations}
-                  // handleWishListclick={() => handleWishList(item)}
                   />
                 </div>
               ))
@@ -588,13 +417,10 @@ useEffect(() => {
                 <ProductCardShimmer width={'100%'} />
               ))
             )}
-
           </Slider>
         </div>
       </div>
-
       <div className='space-between-checkout-and-related-products'></div>
-
       <div className='mobile-total-save-and-checkout-button'>
         <div className='mobile-total-and-save'>
           <p className='mobile-total-text'>Total</p>
@@ -608,13 +434,11 @@ useEffect(() => {
           Proceed to checkout
         </button>
       </div>
-
       <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
       <FinancingModal
         applyFinancing={applyFinancing}
         handleCloseModal={handleCloseFinancingModal}
       />
-
       <AppointmentModal
         showAppointMentModal={appointmentModal}
         setAppointmentModal={setAppointmentModal}
@@ -629,5 +453,4 @@ useEffect(() => {
     </div>
   )
 }
-
 export default Cart

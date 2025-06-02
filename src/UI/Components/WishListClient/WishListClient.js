@@ -29,6 +29,7 @@ const router = useRouter()
   const [selectedGrid, setSelectedGrid] = useState('');
   const maxLength = 50;
 
+  console.log("wish list products", wishList)
 
   // Simulate data loading
   React.useEffect(() => {

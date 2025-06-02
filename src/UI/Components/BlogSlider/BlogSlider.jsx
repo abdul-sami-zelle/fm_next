@@ -37,14 +37,14 @@ const BlogSlider = () => {
   const router = useRouter()
   const { 
     blogs,
-    fetchBlogs,
+    // fetchBlogs,
    } = useBlog()
 
   //  console.log("blog data", blogs)
 
-   useEffect(() => {
-    fetchBlogs(null)
-   }, [])
+  //  useEffect(() => {
+  //   fetchBlogs(null)
+  //  }, [])
 
 
 

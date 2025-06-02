@@ -26,6 +26,8 @@ import { VscHeartFilled , VscHeart} from "react-icons/vsc";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import useSWR, { mutate } from 'swr';
+import { fetcher } from '@/utils/Fetcher';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -59,39 +61,82 @@ const BestSellerSlider = (
     const [currentSlug, setCurrentSlug] = useState();
     const [loading, setLoading] = useState(false);
 
-    const getBestSellerProducts = async (slug) => {
-        const api = `/api/v1/products/get-best-selling-products?category=${slug}`
-        try {
-            setLoading(true);
-            const response = await axios.get(`${url}${api}`)
-            setAllProducts(response.data.products);
-            setLoading(false);
+    const bestSellerProductApi = currentSlug ? `${url}/api/v1/products/get-best-selling-products?category=${currentSlug}` : null;
+    const [bestSellerProductCount, setBestSellerProductCount] = useState(0)
+    const {data: bestSellerProductData, error: betSellerProductError, isLaoding: bestSellerProductLoading} = useSWR(bestSellerProductApi, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        dedupingInterval: 1000 * 60 * 60 * 24 * 365
+    })
 
-        } catch (error) {
-            console.error("error geting best seller products", error);
-            setLoading(false);
-        }
+    if(betSellerProductError && bestSellerProductCount < 3 ) {
+        setTimeout(() => {
+            setBestSellerProductCount(bestSellerCount + 1);
+        }, 1000)
     }
-
-    const getBestSellerData = async () => {
-        const api = `/api/v1/best-seller-home/get`
-        try {
-            const response = await axios.get(`${url}${api}`)
-            setBestSellerNav1(response.data)
-            setCurrentSlug(response.data[0].slug)
-            getBestSellerProducts(response.data[0].slug);
-
-        } catch (error) {
-            console.error("error geting best seller products", error);
-        }
-    }
-
 
     useEffect(() => {
-        if (!allProducts.length) {
-            getBestSellerData()
+        if(bestSellerProductData) {
+            setAllProducts(bestSellerProductData.products);
         }
-    }, [])
+    })
+
+    // const getBestSellerProducts = async (slug) => {
+    //     const api = `/api/v1/products/get-best-selling-products?category=${slug}`
+    //     try {
+    //         setLoading(true);
+    //         const response = await axios.get(`${url}${api}`)
+    //         setAllProducts(response.data.products);
+    //         setLoading(false);
+
+    //     } catch (error) {
+    //         console.error("error geting best seller products", error);
+    //         setLoading(false);
+    //     }
+    // }
+
+    const bestSellerApi = `${url}/api/v1/best-seller-home/get`
+    const [bestSellerCount, setBestSellerCount] = useState(0);
+    const {data: bestSellerMainData, error: bestSellerError, isLaoding: bestSellerLoading} = useSWR(bestSellerApi, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        dedupingInterval: 1000 * 60 * 60 * 24 * 365
+    })
+
+    if(bestSellerError && bestSellerCount < 3) {
+        setTimeout(() => {
+            setBestSellerCount(bestSellerCount + 1);
+        }, 1000);
+    }
+
+    useEffect(() => {
+        if(bestSellerMainData) {
+            console.log("best Seller Data", bestSellerMainData)
+            setBestSellerNav1(bestSellerMainData)
+            setCurrentSlug(bestSellerMainData[0].slug)
+            // getBestSellerProducts(bestSellerMainData[0].slug);
+        }
+    }, [bestSellerMainData])
+
+    // const getBestSellerData = async () => {
+    //     const api = `/api/v1/best-seller-home/get`
+    //     try {
+    //         const response = await axios.get(`${url}${api}`)
+    //         setBestSellerNav1(response.data)
+    //         setCurrentSlug(response.data[0].slug)
+    //         getBestSellerProducts(response.data[0].slug);
+
+    //     } catch (error) {
+    //         console.error("error geting best seller products", error);
+    //     }
+    // }
+
+
+    // useEffect(() => {
+    //     if (!allProducts.length) {
+    //         getBestSellerData()
+    //     }
+    // }, [])
 
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -297,7 +342,7 @@ const BestSellerSlider = (
                         {bannerLoading === true? (
                             <div className='best-seller-main-cover-shimmer'></div>
                     ) : (
-                        <img src={url + bestSellerNav1[activeItem].image.image_url} onLoad={() => {setBannerLoading(true)}} alt='main banner' />
+                        <img src={url + bestSellerNav1[activeItem]?.image?.image_url} onLoad={() => {setBannerLoading(true)}} alt='main banner' />
                     )}
                         
                     </div>
@@ -310,7 +355,9 @@ const BestSellerSlider = (
                                         key={index}
                                         className={activeItem === index ? 'active' : ''}
                                         onClick={() => {
-                                            getBestSellerProducts(item.slug)
+                                            // getBestSellerProducts(item.slug)
+                                            setCurrentSlug(item.slug);
+                                            mutate();
                                             handleActiveItem(index)
                                         }}
                                     >

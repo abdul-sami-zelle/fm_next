@@ -36,7 +36,7 @@ const [navigationType, setNavigationType] = useState(null);
   return (
     <div>
         <Products 
-          productArchiveHading={productArchiveHading}
+          // productArchiveHading={productArchiveHading}
           navigationType={navigationType}
         />
         <RelatedCategories
