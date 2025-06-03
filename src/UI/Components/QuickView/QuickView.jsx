@@ -113,7 +113,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
     const [quantity, setQuantity] = useState(1)
 
-    
+
 
     const increaseLocalQuantity = () => {
         setQuantity(quantity + 1);
@@ -183,7 +183,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
 
                     <div className="quick-view-slider">
-                        
+
                         {/* <button className={`quick-view-arrow quick-view-left ${currentIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev}>
 
                             <MdKeyboardArrowLeft
@@ -216,7 +216,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                         </button> */}
 
                         <div className="quick-view-dots">
-                            {(() => {
+                            {/* {(() => {
                                 let start = 0;
                                 let end = 3;
 
@@ -241,7 +241,17 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                         ></span>
                                     );
                                 });
-                            })()}
+                            })()} */}
+                            {
+                                // 🔧 Replaced custom logic with full map over all images
+                                images.map((_, index) => (
+                                    <span
+                                        key={index}
+                                        className={`dot ${index === currentIndex ? 'active' : ''}`}
+                                        onClick={() => setCurrentIndex(index)}
+                                    ></span>
+                                ))
+                            }
                         </div>
                     </div>
 

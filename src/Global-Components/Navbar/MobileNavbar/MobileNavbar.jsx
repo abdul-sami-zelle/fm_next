@@ -7,45 +7,45 @@ import MobileSubNav from './MobileSubNav/MobileSubNav';
 import  Link from 'next/link';
 import { url } from '../../../utils/api';
 
-const MobileNavbar = ({ showMobileNav, setMobileNavVisible }) => {
+const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
   // States and Vaeiables
-  const [headerData, setHeaderData] = useState([]);
+  // const [headerData, setHeaderData] = useState([]);
   const [headerSale, setHeaderSale] = useState([]);
   const [subNavData, setSubNavData] = useState([])
   const [openSubNav, setOpenSubNav] = useState(false)
 
 
   // Functions
-  async function fetchHeaderPayloads() {
-    try {
-      const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json", // Adjust headers as needed
-        },
-      });
+  // async function fetchHeaderPayloads() {
+  //   try {
+  //     const response = await fetch(`${url}/api/v1/header-payloads/get`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json", // Adjust headers as needed
+  //       },
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //     }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      throw error;
-    }
-  }
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error.message);
+  //     throw error;
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchHeaderPayloads().then(data => {
-      setHeaderData(data.data[0].categories)
-      setHeaderSale(data.data[0].sale)
-    }).catch(error => {
-      console.error(error);
-    });
-  }, [])
+  // useEffect(() => {
+  //   fetchHeaderPayloads().then(data => {
+  //     setHeaderData(data.data[0].categories)
+  //     setHeaderSale(data.data[0].sale)
+  //   }).catch(error => {
+  //     console.error(error);
+  //   });
+  // }, [])
 
   const handleNavbarClose = () => {
     setMobileNavVisible(false)

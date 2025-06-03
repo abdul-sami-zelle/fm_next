@@ -9,11 +9,9 @@ import Paypal from '../Paypal/Paypal';
 
 const PaymentMethod = ({ handleSubmitOrder }) => {
 
-  // const {handleTabOpen, handleClickTop} = useMyOrders()
-  const [selectedLabel, setSelectedLabel] = useState('')
   const {orderPayload, setOrderPayload } = useMyOrders()
   const handleSelectedLabel = (method) => {
-    setSelectedLabel(method);
+    // setSelectedLabel(method);
     setOrderPayload((prev) => ({
       ...prev,
       payment_method: method
@@ -27,14 +25,21 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
 
   // new design scripts
   const [selectedPaymentType, setSelectedPaymentType] = useState('credit-card');
-  // const [selectedPaymentType, setSelectedPaymentType] = useState('financing-account');
+
+  useEffect(() => {
+    setOrderPayload((prev) => ({
+      ...prev,
+      payment_method: selectedPaymentType
+    }))
+  }, [selectedPaymentType])
+
+  useEffect(() => {console.log("order payload in parent", orderPayload)}, [orderPayload])
 
 
   return (
     <div className='payment-method-main-container'>
 
       <div className='payment-types-outer-container'>
-        {/* <PaymentOptions onSelectedLabel={handleSelectedLabel} /> */}
         <PaymentTypes
           onSelectLabel={handleSelectedLabel}
           selectedPaymentType={selectedPaymentType}

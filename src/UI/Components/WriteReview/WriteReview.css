@@ -458,7 +458,7 @@
     font-size: 13px;
     line-height: 16px;
     font-weight: 400;
-    color: #4478C5;
+    color: var(--tertiary-color);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -583,7 +583,7 @@
 
 .review-write-section>p {
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: start;
     width: 100%;
     gap: 5px;
@@ -609,8 +609,8 @@
     flex-direction: row !important;
     flex-shrink: 0;
     width: max-content;
-    border: 1px solid #4478C5;
-    color: #4478C5;
+    border: 1px solid var(--tertiary-color);
+    color: var(--tertiary-color);
     border-radius: 5px;
     cursor: pointer;
     gap: 10px;
@@ -640,7 +640,7 @@
 }
 
 .gift-card-checkbox-container>p {
-    color: #4478C5;
+    color: var(--tertiary-color);
     text-decoration: underline;
 }
 
@@ -661,8 +661,8 @@
     font-size: 14px;
     line-height: 18px;
     font-weight: 500;
-    background-color: #4478C5;
-    border: 1px solid #4478C5;
+    background-color: var(--tertiary-color);
+    border: 1px solid var(--tertiary-color);
     border-radius: 5px;
     cursor: pointer;
 }

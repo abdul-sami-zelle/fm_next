@@ -19,15 +19,6 @@ const CreditCard = () => {
         activePaymentMethods
     } = useMyOrders();
 
-    // const checkPaymentMethodById = (id) => {
-    //     const paymentMethod = activePaymentMethods?.find(pm => pm.id === id);
-    //     if (paymentMethod) {
-    //         return paymentMethod;
-    //     } else {
-    //         return paymentMethod;
-    //     }
-    // };
-
 
     const detectCardType = (cardNumber) => {
         const cardTypes = {
@@ -35,7 +26,6 @@ const CreditCard = () => {
             mastercard: /^5/,
             amex: /^3[47]/, // American Express starts with 34 or 37
             discover: /^6/, // Discover cards typically start with 6
-            // You can add more card types as needed
         };
 
         // Check the card number's first digit and match with card type
@@ -53,12 +43,6 @@ const CreditCard = () => {
 
     }, [activePaymentMethods])
 
-    // const [cardData, setCardData] = useState({
-    //     card_holder_name: '',
-    //     card_number: '',
-    //     expiry_date: '',
-    //     sec_code: '',
-    // })
 
     const [error, setError] = useState({
         card_holder_name: '',
@@ -87,7 +71,6 @@ const CreditCard = () => {
                             className="input-field-email"
                             onFocus={() => setFocusedField("card_holder_name")}
                             onBlur={() => setFocusedField("")}
-                            // onChange={handleDeliveryInfo}
                             name='card_holder_name'
                             value={creditCardData.card_holder_name}
                             onChange={(e) => {

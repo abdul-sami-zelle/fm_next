@@ -18,10 +18,6 @@ export const MyOrdersProvider = ({ children }) => {
     const { totalTax, calculateTotalTax, getShippingInfo, selectedOption } = useGlobalContext();
     const [showThankyou, setThankyouState] = useState(false);
 
-    // let generatedLink;
-    // if(window !== 'undefined') {
-    //     generatedLink = `${window.location.origin}`
-    // }
 
     const [orderPlacedInfo, setOrderPlacedInfo] = useState({
         orderNumber: 0,
@@ -88,11 +84,8 @@ export const MyOrdersProvider = ({ children }) => {
         shipping_lines: {
             id: "",
             method_id: "",
-            // method_id: selectedOption?.id,
             tax: "",
             cost: "",
-            // tax: selectedOption?.tax,
-            // cost: selectedOption?.cost,
         },
         items: [],
         discount: 0,
@@ -103,6 +96,23 @@ export const MyOrdersProvider = ({ children }) => {
         shipping_cost: 10,
         professional_assembled: cartProducts?.is_professional_assembly
     })
+
+
+    
+
+    useEffect(() => {
+        if (selectedOption) {
+            setOrderPayload((prev) => ({
+                ...prev,
+                shipping_lines: {
+                    id: "",
+                    method_id: selectedOption?.id,
+                    tax: selectedOption?.tax,
+                    cost: selectedOption?.cost,
+                }
+            }))
+        }
+    }, [selectedOption])
 
 
     const [emptyField, setEmptyField] = useState({});
@@ -265,7 +275,7 @@ export const MyOrdersProvider = ({ children }) => {
     };
 
     const handleClickTop = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -392,7 +402,6 @@ export const MyOrdersProvider = ({ children }) => {
             handleZipCode,
             handleZipCodeChange,
             getActivePaymentMethods,
-            setOrderPayload
         }}>
             {children}
         </MyOrderContext.Provider>

@@ -58,10 +58,6 @@ const BestSeller = () => {
     const router = useRouter()
     const params = usePathname();
 
-
-
-
-
     const { bestSelling } = useLPContentContext()
 
     useEffect(() => {
@@ -69,7 +65,7 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
-    useEffect(() => {}, [currentSlug])
+    useEffect(() => { }, [currentSlug])
 
     // Functions
     useEffect(() => {

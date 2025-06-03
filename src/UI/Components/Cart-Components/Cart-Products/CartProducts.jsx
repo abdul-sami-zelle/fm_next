@@ -41,6 +41,7 @@ const CartProducts = () => {
         selectedShippingMethods,
     } = useGlobalContext();
 
+
     const [productProtectCount, setProductProtectCount] = useState(0);
     useEffect(() => {
         if (cartProducts?.is_all_protected === 0) {
@@ -103,6 +104,7 @@ const CartProducts = () => {
     const handleCloseSnakeBar = () => {
         setShowSnakeBar(false)
     }
+
 
 
     return (
@@ -211,9 +213,7 @@ const CartProducts = () => {
                                                     checked={selectedOption?.id === option.id}
                                                     readOnly
                                                     onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-                                                    // style={{
-                                                    //     marginTop: "5px",
-                                                    // }}
+                                                    
                                                 />
                                                 <span className="radio-mark" />
                                             </label>

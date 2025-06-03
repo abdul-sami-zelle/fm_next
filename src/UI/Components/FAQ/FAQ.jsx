@@ -1,13 +1,11 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react'
 import './FAQ.css'
-// import AddBtn from '../../../Assets/icons/add-icon.png';
 import { IoCheckmark } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
 const FAQ = () => {
 
-    // const [isQuestionClicked, setIsQuestionClicked] = useState(false);
     const [activeIndex, setActiveIndex] = useState(null)
     const answerRef = useRef([]);
     useEffect(() => {
@@ -102,6 +100,7 @@ const FAQ = () => {
                 </div>
                 <button>Learn more</button>
             </div>
+
             <div className='f-a-q-main-container'>
                 <div className='faq-details'>
                     <p>Stress-free Furnishing with Living Room Furniture Sets</p>
@@ -111,6 +110,7 @@ const FAQ = () => {
                         create your coziest living space or party place!
                     </p>
                 </div>
+
                 <div className='questions-answeres'>
                     <p className='faq-heading'>Living Room Set FAQ's</p>
                     {Qna.map((item, index) => {
@@ -119,20 +119,18 @@ const FAQ = () => {
                                 <p>{item.question}</p>
                                 <i className='add-button-round'>
                                     {activeIndex === index ? <FaMinus size={15} color='var(--secondary-color)'  /> : <FaPlus size={15} color='var(--secondary-color)'  />}
-                                    {/* <FaPlus size={15} color='var(--secondary-color)' className={activeIndex === index ? 'rotate' : 'rotate-back'} /> */}
                                 </i>
-                                {/* <img src={item.icon} alt='add btn' className={`${activeIndex === index ? 'rotate' : ''}`} /> */}
                             </div>
                             <div className={`answere-section ${activeIndex === index ? 'show-answere' : ''}`}
                                 ref={el => answerRef.current[index] = el}
                                 style={{ height: activeIndex === index ? `${answerRef.current.scrollHeight}px` : '0px' }}
                             >
                                 <p>{item.answereOne}</p>
-                                {/* <p>{item.answereTwo}</p> */}
                             </div>
                         </div>
                     })}
                 </div>
+
             </div>
         </>
     )

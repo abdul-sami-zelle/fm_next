@@ -953,22 +953,14 @@ const Products = ({ navigationType }) => {
 
 
                                 </div>
-
                             </div>
                         )}
-
-
                     </div>
                 )
             }
-
-
-
             {/* Mobile view product section */}
             <div className='mobile-view-product-and-filter-section'>
-
                 <div className='mobile-view-filters-section'>
-
                     <div className='mobile-view-filter-head'>
                         <div className='mobile-view-product-count'>
                             <p>214 items</p>
@@ -982,7 +974,6 @@ const Products = ({ navigationType }) => {
                             </div>
                         </div>
                     </div>
-
                     <div className='mobile-view-filter-body'>
                         <button className='mobile-view-show-filters' onClick={handleMobileFilters}>
                             <Image src={'/Assets/icons/humberger-icon.png'} fill alt='filter' />
@@ -993,11 +984,8 @@ const Products = ({ navigationType }) => {
                             Sort
                         </button>
                     </div>
-
                 </div>
-
                 <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
-
                     {products.length === 0 ? (
                         selectedGrid === 'single-col' ?
                             Array.from({ length: 1 }).map((_, index) => (
@@ -1039,12 +1027,10 @@ const Products = ({ navigationType }) => {
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
                                 handleInfoModal={handleOpennfoModal}
-
                             />
                         })
                     )}
                 </div>
-
                 <div className='view-more-products-pagination-main'>
                     <div className='pagination-buttons-container'>
                         <span
@@ -1064,9 +1050,7 @@ const Products = ({ navigationType }) => {
                             />
                             <p className='hide-on-mob'> Previous </p>
                         </span>
-
                         {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
-
                             const pageNumber = index + 1;
                             const shouldShow =
                                 pageNumber === activePageIndex ||
@@ -1074,7 +1058,6 @@ const Products = ({ navigationType }) => {
                                 pageNumber === activePageIndex + 1 ||
                                 (activePageIndex === 1 && pageNumber === 3) ||
                                 (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2);
-
                             return shouldShow ? (
                                 <span
                                     key={pageNumber}
@@ -1085,7 +1068,6 @@ const Products = ({ navigationType }) => {
                                 </span>
                             ) : null;
                         })}
-
                         <span
                             className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
                             onClick={handleNextPage}
@@ -1106,7 +1088,6 @@ const Products = ({ navigationType }) => {
                     </div>
                 </div>
             </div>
-
             <CartSidePannel
                 cartData={cartProducts}
                 addToCartClicked={addToCartClicked}

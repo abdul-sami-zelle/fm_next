@@ -54,7 +54,7 @@
 }
 
 .nav-item:nth-child(9) .nav-link {
-    color: #005cc5;
+    color: var(--tertiary-color);
 }
 
 .nav-item.active .nav-link {

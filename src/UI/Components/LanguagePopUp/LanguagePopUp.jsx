@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './LanguagePopUp.css';
 import closeBtn from '../../../Assets/icons/close-btn-black.png';
 import usaFlag from '../../../Assets/icons/usa-flage.png'
+import { IoIosClose } from "react-icons/io";
 
 const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageModal, currentSelectedCountry, setCurrentSelectedCountry, currentSelectedCountryFlag, setCurrentSelectedCountryFlag }) => {
   const [currentLenIndex, setCurrentLenIndex] = useState(0)
@@ -32,9 +33,10 @@ const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageM
         className={`language-modal-containt-div ${changeLanguage ? 'show-language-modal-inner-container' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} onClick={handleCLoseLanguageModal}>
-          <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' />
-        </button>
+        {/* <button className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} onClick={handleCLoseLanguageModal}> */}
+          {/* <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' /> */}
+          <IoIosClose className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} color='var(--text-gray)' onClick={handleCLoseLanguageModal} />
+        {/* </button> */}
         <div className='select-language-container'>
           <div className='modal-headin-div'>
             <h3>Language</h3>

@@ -125,7 +125,7 @@
 }
 
 .single-product-share-icon:hover {
-    color: #4478C5;
+    color: var(--tertiary-color);
 }
 
 .single-product-share-text {
@@ -450,7 +450,7 @@
     line-height: 1.5;
     font-weight: 500;
     text-decoration: underline;
-    color: #4478C5;
+    color: var(--tertiary-color);
 }
 
 
@@ -468,7 +468,7 @@
     line-height: 1.5;
     font-weight: 500;
     text-decoration: underline;
-    color: #4478C5;
+    color: var(--tertiary-color);
 }
 
 .product-details-protection-plan-container {
@@ -538,7 +538,7 @@
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-one-weight);
-    color: #4478C5;
+    color: var(--tertiary-color);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -549,10 +549,10 @@
     justify-content: center;
     width: max-content;
     padding: 5px 10px;
-    border: 1px solid #4478C5;
+    border: 1px solid var(--tertiary-color);
     border-radius: 5px;
     background-color: transparent;
-    color: #4478C5;
+    color: var(--tertiary-color);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -560,7 +560,7 @@
 }
 
 .product-detail-add-protection-plan-button:hover {
-    background-color: #4478C5;
+    background-color: var(--tertiary-color);
     color: #FFF;
 }
 
@@ -584,10 +584,10 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border: 1px solid #4478C5;
+    border: 1px solid var(--tertiary-color);
     border-radius: 15px;
     cursor: pointer;
-    color: #4478C5;
+    color: var(--tertiary-color);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -596,7 +596,7 @@
 }
 
 .product-detail-chat-option-container>button:hover {
-    background-color: #4478C5;
+    background-color: var(--tertiary-color);
     color: #FFFFFF;
 }
 
@@ -718,7 +718,7 @@
 }
 
 .miles-dropdown-body > p:hover {
-    background-color: #4478C5;
+    background-color: var(--tertiary-color);
     color: #fff;
 }
 

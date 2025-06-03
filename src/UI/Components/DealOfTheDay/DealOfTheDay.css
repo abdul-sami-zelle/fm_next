@@ -46,7 +46,8 @@
     font-size: 25px;
     font-weight: 600;
     line-height: var(--heading-line-height);
-    color: var(--secondary-color);
+    color: var(--text-gray);
+    /* color: var(--secondary-color); */
     /* margin-top: 5px; */
 }
 
@@ -149,17 +150,19 @@ position: absolute;
 
 .mobile-view-timer{
     display: none;
-    background-color: var(--primary-color);
+    /* background-color: var(--primary-color); */
+    background-color: var(--orange-fill);
     width: max-content;
     padding: 10px 42px;
     border-radius: 20px;
+    border: 1px solid var(--orange-outline);
 }
 
 .mobile-view-timer p{
     font-size: 14px;
     line-height: 17px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-gray);
 }
 
 @media only screen and (max-width: 480px){
@@ -180,7 +183,8 @@ position: absolute;
 
     .deal-of-the-day-border-heading p{
         margin-top: 0px;
-        color: var(--primary-color);
+        /* color: var(--primary-color); */
+        color: var(--text-gray);
         font-size: 20px;
         line-height: 24px;
         font-weight: 600;

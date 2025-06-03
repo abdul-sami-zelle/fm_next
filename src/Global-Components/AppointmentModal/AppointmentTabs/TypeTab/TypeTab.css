@@ -23,6 +23,7 @@
 
 .type-option {
     width: 50%;
+    height: 100px;
     display: flex;
     flex-direction: column;
     gap: 10px;

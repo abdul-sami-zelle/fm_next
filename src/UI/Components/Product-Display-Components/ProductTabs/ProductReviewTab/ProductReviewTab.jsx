@@ -16,7 +16,7 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
   // const location = useLocation();
   const [product, setProduct] = useState(productData || null);
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [errorMessage, setErrorMessage] = useState('')
   const [snakebarOpen, setSnakebarOpen] = useState(false);

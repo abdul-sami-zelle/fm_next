@@ -36,7 +36,10 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
             }
         };
 
-    useEffect(() => {setSelectedPaymentType(paymentTypeCheckData[0].type)}, [])
+    useEffect(() => {
+        console.log("selected Payment type", paymentTypeCheckData[0].type)
+        setSelectedPaymentType(paymentTypeCheckData[0].type)
+    }, [])
     useEffect(() => {setOrderPayload((prevData) => ({...prevData, setOrderPayload: paymentTypeCheckData[0].type}))}, [])
     // const [selectedPaymentType, setSelectedPaymentType] = useState(paymentTypeCheckData[0].type);
     // useEffect(() => {getActivePaymentMethods()}, [])
@@ -57,6 +60,7 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
     //     // getActivePaymentMethods();
     // }, []);
     const handleSelectPaymentType = (type) => {
+        console.log("payment type selected", type)
         setSelectedPaymentType(type.type);
         onSelectLabel(type.type)
         checkPaymentMethodById(type.paymentMethodId)

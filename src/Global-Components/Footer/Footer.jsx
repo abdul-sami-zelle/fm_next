@@ -22,29 +22,29 @@ import { useRouter } from 'next/navigation';
 import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const Footer = ({ notLandingPage, checkoutPage }) => {
-    const [headerData, setHeaderData] = useState([]);
+    // const [headerData, setHeaderData] = useState([]);
 
 
-    async function fetchHeaderPayloads() {
-        try {
-            const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json", // Adjust headers as needed
-                },
-            });
+    // async function fetchHeaderPayloads() {
+    //     try {
+    //         const response = await fetch(`${url}/api/v1/header-payloads/get`, {
+    //             method: "GET",
+    //             headers: {
+    //                 "Content-Type": "application/json", // Adjust headers as needed
+    //             },
+    //         });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
-            }
+    //         if (!response.ok) {
+    //             throw new Error(`Error: ${response.status} ${response.statusText}`);
+    //         }
 
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error("Error fetching data:", error.message);
-            throw error;
-        }
-    }
+    //         const data = await response.json();
+    //         return data;
+    //     } catch (error) {
+    //         console.error("Error fetching data:", error.message);
+    //         throw error;
+    //     }
+    // }
 
     const router = useRouter();
 
@@ -134,13 +134,13 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         fetchGoogleRating();
     }, [])
 
-    useEffect(() => {
-        fetchHeaderPayloads().then(data => {
-            setHeaderData(data.data[0].categories);
-        }).catch(error => {
-            console.error(error);
-        });
-    }, [])
+    // useEffect(() => {
+    //     fetchHeaderPayloads().then(data => {
+    //         setHeaderData(data.data[0].categories);
+    //     }).catch(error => {
+    //         console.error(error);
+    //     });
+    // }, [])
 
     const socialIcons = [
         { name: 'facebook', icon: '/Assets/icons/facebook-white.png', link: 'https://www.facebook.com/myfurnituremecca' },

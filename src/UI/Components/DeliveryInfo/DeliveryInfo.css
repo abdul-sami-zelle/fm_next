@@ -131,7 +131,7 @@
 .input-container .input-field:focus+.floating-label {
     top: 10px;
     font-size: var(--content-one-size);
-    color: #007bff;
+    color: var(--text-gray);
 }
 
 .delivery-input-container.focused .floating-label,
@@ -139,32 +139,32 @@
     /* top: 14px; */
     top: 10px;
     font-size: var(--content-one-size);
-    color: #007bff;
+    color: var(--text-gray);
 }
 
 .delivery-input-container-postal-code.focused .floating-label,
 .delivery-input-container-postal-code .input-field:focus+.floating-label {
     top: 10px;
     font-size: var(--content-one-size);
-    color: #007bff;
+    color: var(--text-gray);
 }
 
 .delivery-input-container-email.focused .floating-label,
 .delivery-input-container-email .input-field:focus+.floating-label {
     top: 10px;
     font-size: var(--content-one-size);
-    color: #007bff;
+    color: var(--text-gray);
 }
 
 .delivery-input-container-phone.focused .floating-label,
 .delivery-input-container-phone .input-field:focus+.floating-label {
     top: 10px;
     font-size: 12px;
-    color: #007bff;
+    color: var(--text-gray);
 }
 
 .input-field:focus {
-    border-color: #007bff;
+    border-color: var(--text-gray);
 }
 
 .delivery-form-signup-container>span {

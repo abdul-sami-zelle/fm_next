@@ -396,7 +396,7 @@ const ProductGallery = (
                             <div className="pagination-dots">
                                 {productData?.images
                                     ?.map((_, i) => i)
-                                    .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
+                                    // .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
                                     .map((index) => (
                                         <span
                                             key={index}

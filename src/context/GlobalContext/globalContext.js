@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { url } from "../../utils/api";
 import { useCart } from "../cartContext/cartContext";
-import { useMyOrders } from "../orderContext/ordersContext";
 
 const GlobalContext = createContext();
 
@@ -17,6 +16,9 @@ export const GlobalContextProvider = ({ children }) => {
   const [taxLoader, setTaxLoader] = useState(false);
   const { subTotal, cartProducts } = useCart();
   const [mainLoader, setMainLoader] = useState(false);
+
+
+  
 
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
@@ -185,8 +187,6 @@ export const GlobalContextProvider = ({ children }) => {
 
 
   function calculateTotalTax(subtotal, taxRate) {
-    console.log("sub total val", subtotal);
-    console.log("tax rate val", taxRate);
     if (isNaN(subtotal) || isNaN(taxRate) || subtotal < 0 || taxRate < 0) {
       throw new Error("Invalid input: subtotal and taxRate must be non-negative numbers.");
     }
@@ -196,9 +196,8 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [selectedOption, setSelectedOption] = useState(null);
 
+
   const handleChange = (e, option) => {
-    console.log("delivery option e", e);
-    console.log("selected delivery opetion", option)
     setSelectedOption(option);
   };
 
@@ -243,7 +242,6 @@ export const GlobalContextProvider = ({ children }) => {
     } else if (selectedMethods?.length > 0) {
       setSelectedOption(selectedMethods[0]); // Default to the first available method
     }
-
     setSelectedShippingMethods(selectedMethods);
   }
 
@@ -300,7 +298,6 @@ export const GlobalContextProvider = ({ children }) => {
     return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
   }
 
-  // useEffect(() => {console.log("selected shiping", selectedShippingMethods)})
 
 
   return (

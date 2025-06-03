@@ -51,6 +51,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { usePathname, useRouter } from 'next/navigation';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 import Image from 'next/image';
+import useSWR from 'swr';
+import { fetcher } from '@/utils/Fetcher';
 
 const Header = ({ checkoutPage }) => {
 
@@ -111,35 +113,59 @@ const Header = ({ checkoutPage }) => {
     setIsTabMenuOpen(!isTabMenuOpen)
   }
 
-  async function fetchHeaderPayloads() {
-    try {
-      const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json", // Adjust headers as needed
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-      throw error;
-    }
+  const headerApi = `${url}/api/v1/header-payloads/get`;
+  const header = {
+    "Content-Type": "application/json", // Adjust headers as needed
+  }
+  const [headerCount, setHeaderCount] = useState(0);
+  const { data: headerContent, error: headerError, isLoading: headerLoading } = useSWR(headerApi, fetcher, header, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60
+  })
+  if (headerError && headerCount < 3) {
+    setTimeout(() => {
+      setHeaderCount(headerCount + 1);
+    }, 1000)
   }
 
   useEffect(() => {
-    fetchHeaderPayloads().then(data => {
-      setHeaderData(data.data[0].categories)
-      setHeaderSale(data.data[0].sale)
-    }).catch(error => {
-      console.error(error);
-    });
-  }, [])
+    if (headerContent) {
+      console.log("header data", headerContent)
+      setHeaderData(headerContent.data[0].categories)
+      setHeaderSale(headerContent.data[0].sale)
+    }
+  }, [headerContent])
+
+  // async function fetchHeaderPayloads() {
+  //   try {
+  //     const response = await fetch(`${url}/api/v1/header-payloads/get`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json", // Adjust headers as needed
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //     }
+
+  //     const data = await response.json();
+  //     return data;
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error.message);
+  //     throw error;
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchHeaderPayloads().then(data => {
+  //     setHeaderData(data.data[0].categories)
+  //     setHeaderSale(data.data[0].sale)
+  //   }).catch(error => {
+  //     console.error(error);
+  //   });
+  // }, [])
 
   const handleNearStorePopUp = () => {
     setNearStorePopUp(true)
@@ -198,7 +224,7 @@ const Header = ({ checkoutPage }) => {
 
   const handleSearchInputFocus = () => setIsSearchInputFocused(true);
   const path = usePathname();
-  useEffect(() => {setIsSearchInputFocused(false)}, [path])
+  useEffect(() => { setIsSearchInputFocused(false) }, [path])
 
   // const handleBlur = () => {
 
@@ -368,14 +394,14 @@ const Header = ({ checkoutPage }) => {
           setUserToken(token);
           setIsTokenValid(true);
           setMainLoader(false);
-          router.push({ pathname: `/user-dashboard/${uid}` })
+          router.push(`/user-dashboard/${uid}`)
         } else {
           localStorage.removeItem('userToken');
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
           // navigate("/my-account", { state: { message: "decided" } })
-          router.push({ pathname: `/my-account`, query: { message: "decided" } })
+          router.push(`/my-account`)
         }
       } catch (error) {
         localStorage.removeItem('userToken');
@@ -388,11 +414,11 @@ const Header = ({ checkoutPage }) => {
     }
     else if (token === undefined) {
       // navigate.push("/my-account", { state: { message: "decided" } });
-      router.push({ pathname: `/my-account`, query: { message: "decided" } })
+      router.push(`/my-account`)
     }
     else {
       setMainLoader(false);
-      router.push({ pathname: "/my-account" })
+      router.push("/my-account")
     }
   }
 
@@ -462,7 +488,7 @@ const Header = ({ checkoutPage }) => {
                     href={{ pathname: `/product/${items.slug}`, state: items }}
                   >
                     {items?.image?.image_url && (<Image src={`${url}${items?.image?.image_url}`} width={80} height={40} alt='main' />)}
-                    
+
                     <div className='searched-product-name-and-sku'>
                       <h3>{highLightText(items.name, searchQuery)}</h3>
                       <p>SKU: ({items.sku})</p>
@@ -754,6 +780,7 @@ const Header = ({ checkoutPage }) => {
 
       <MobileNavbar
         showMobileNav={mobileNavVisible}
+        headerData={headerData}
         setMobileNavVisible={setMobileNavVisible}
       />
 
