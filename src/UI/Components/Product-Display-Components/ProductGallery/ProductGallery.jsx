@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './ProductGallery.css';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 // Assets
 import {
@@ -345,24 +347,24 @@ const ProductGallery = (
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                // onClick={handleZoomImage}
+                                onClick={() => handleGalleryModal('image-clicked')}
                                 >
-
+                                    {/* <Zoom> */}
                                     <img
                                         src={`${url}${slideItem.image_url}`}
                                         alt='Main slide'
                                         className={`product-gallery-main-slider-image ${zoomIn ? 'scale-slider-image' : ''}`}
                                         style={{
                                             cursor: zoomIn ? (dragging ? "grabbing" : "grab") : "pointer",
-                                            transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
-                                            transition: dragging ? "none" : "transform 0.3s ease",
+                                            width: '100%',
+                                            // transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
+                                            // transition: dragging ? "none" : "transform 0.3s ease",
                                         }}
-                                        onMouseDown={handleMouseDown}
+                                        // onMouseDown={handleMouseDown}
                                         onDragStart={(e) => e.preventDefault()}
-                                        onClick={handleGalleryModal}
                                     />
 
-
+                                    {/* </Zoom> */}
                                 </div>
                             ))
                             : (productData?.images || []).map((slideItem, slideIndex) => (
@@ -372,20 +374,23 @@ const ProductGallery = (
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                // onClick={handleZoomImage}
+                                onClick={() => handleGalleryModal('image-clicked')}
                                 >
+                                    {/* <Zoom> */}
                                     <img
                                         src={`${url}${slideItem.image_url}`}
                                         alt="Main slide"
                                         className="product-gallery-main-slider-image"
                                         style={{
                                             cursor: zoomIn ? (dragging ? "grabbing" : "grab") : "pointer",
-                                            transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
-                                            transition: dragging ? "none" : "transform 0.3s ease",
+                                            width: '100%',
+                                            // transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
+                                            // transition: dragging ? "none" : "transform 0.3s ease",
                                         }}
-                                        onMouseDown={handleMouseDown}
+                                        // onMouseDown={handleMouseDown}
                                         onDragStart={(e) => e.preventDefault()}
                                     />
+                                    {/* </Zoom> */}
                                 </div>
                             ))
                         }

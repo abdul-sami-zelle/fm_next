@@ -27,6 +27,7 @@ const CategoriesClient = ({ category }) => {
   const [checkError, setCheckError] = useState(null);
 
 
+
   const {
     financingBanners,
     getFinanceBannerImagesFromApi,
@@ -46,7 +47,6 @@ const CategoriesClient = ({ category }) => {
 
   const [retryCount, setRetryCount] = useState(0);
   const subcategoryAPI = `${url}/api/v1/sub-category/get/${category}`
-  // const key = [subcategoryAPI, 'GET', { 'Content-Type': 'application/json' }];
   const { data: subCategories, error: subCategoryError, checkLoading: subCategoryLoding } = useSWR(subcategoryAPI, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -61,7 +61,6 @@ const CategoriesClient = ({ category }) => {
     }, 1000)
   }
 
-  // console.log("fether data.....", subCategories)
 
   useEffect(() => {
     if (subCategories) {
@@ -113,7 +112,6 @@ const CategoriesClient = ({ category }) => {
     }, 1000)
   }
 
-  // console.log("product categories data.....", productCategory)
 
   useEffect(() => {
     if(productCategory) {

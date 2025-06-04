@@ -701,7 +701,7 @@ const Header = ({ checkoutPage }) => {
           />
 
           <button className='mobile-view-search-products-modal-close-btn'>
-            <img src={crossIcon} alt='close' onClick={handleCloseMobileSearchProductModal} />
+            <Image src={'/Assets/icons/close-btn.png'} width={20} height={20} alt='close' onClick={handleCloseMobileSearchProductModal} />
           </button>
 
         </div>

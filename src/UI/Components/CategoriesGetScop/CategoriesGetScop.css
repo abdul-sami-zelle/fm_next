@@ -191,8 +191,9 @@
 
 .img-one {
     width: 100%;
-    height: 250px !important;
-    min-width: 220px;
+    /* height: 250px !important; */
+    height: auto;
+    /* min-width: 220px; */
     object-fit: cover;
     cursor: pointer;
     border-radius: 15px;
@@ -200,7 +201,8 @@
 
 .img-one:nth-child(2) {
     width: 100%;
-    height: 310px !important;
+    /* height: 310px !important; */
+    height: auto;
     object-fit: cover;
     cursor: pointer;
     border-radius: 15px;
@@ -208,7 +210,8 @@
 
 .img-one:nth-child(4) {
     width: 100%;
-    height: 310px !important;
+    /* height: 310px !important; */
+    height: auto;
     object-fit: cover;
     cursor: pointer;
     border-radius: 15px;
@@ -222,8 +225,9 @@
 
 .img-two {
     width: 100%;
-    height: 310px !important;
-    min-width: 220px;
+    /* height: 310px !important; */
+    height: auto;
+    /* min-width: 220px; */
     object-fit: cover !important;
     border-radius: 15px;
     cursor: pointer;
@@ -231,14 +235,16 @@
 
 .img-two:nth-child(2) {
     width: 100%;
-    height: 220px !important;
+    /* height: 220px !important; */
+    height: auto;
     cursor: pointer;
     border-radius: 10px;
 }
 
 .img-two:nth-child(4) {
     width: 100%;
-    height: 220px !important;
+    /* height: 220px !important; */
+    height: auto;
     cursor: pointer;
     border-radius: 10px;
 }

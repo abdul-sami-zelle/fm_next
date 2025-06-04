@@ -5,28 +5,25 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 import './BestSeller.css';
-// import { useNavigate } from 'react-router-dom';
-import { url } from '../../../utils/api';
-import axios from 'axios';
+import { formatedPrice, url } from '../../../utils/api';
 
 // Assets
 import arrowLeft from '../../../Assets/icons/arrow-left.png'
 import arrowRight from '../../../Assets/icons/arrow-right.png'
-import star from '../../../Assets/icons/Star 19.png'
-import bestSellerMobileBanner from '../../../Assets/Furniture Mecca/Landing Page/best seller products/mobile-view-main-image.png';
+import { VscHeartFilled, VscHeart } from "react-icons/vsc";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 
-// Components
+// Components 
 import BestSellerProductCard from '../BestSellerProductCard/BestSellerProductCard';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
-import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
-import { useCart } from '../../../context/cartContext/cartContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
-import BestSellerShimmer from '../BestSellerSlider/BestSellerShimmer/BestSellerShimmer';
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
-import useSWR from 'swr';
-import { fetcher, simpleFetcher } from '@/utils/Fetcher';
+import useSWR, { mutate } from 'swr';
+import { fetcher} from '@/utils/Fetcher';
+import Link from 'next/link';
+import RatingReview from '../starRating/starRating';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -51,21 +48,20 @@ const BestSeller = () => {
     // States and variables
     const [loading, setLoading] = useState(false);
     const [mainBanner, setMainBanner] = useState();
-    const [products, setAllProducts] = useState();
+    const [allProducts, setAllProducts,] = useState([]);
     const [currentSlug, setCurrentSlug] = useState();
-    const bestSellerNav = ['Living Room', 'Bedroom', 'Dining Room']
+    const sliderRef = useRef(null);
     const [activeItem, setActiveItem] = useState(0);
     const router = useRouter()
     const params = usePathname();
 
-    const { bestSelling } = useLPContentContext()
+    const { bestSelling, bestSellerNav1,  } = useLPContentContext()
 
     useEffect(() => {
         setMainBanner(bestSelling.categories[0].image)
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
-    useEffect(() => { }, [currentSlug])
 
     // Functions
     useEffect(() => {
@@ -87,12 +83,10 @@ const BestSeller = () => {
 
     if (categorySellerError && categorySellerCount < 3) {
         setTimeout(() => {
-            setCategorySellerCount(retryCount + 1)
+            setCategorySellerCount(categorySellerCount + 1)
             mutate();
         }, 1000)
     }
-
-    // console.log("best seller.....", categorySellerData)
 
     useEffect(() => {
         if (categorySellerData) {
@@ -124,13 +118,11 @@ const BestSeller = () => {
     //     getBestSellerProducts(currentSlug)
     // }, [params, currentSlug]);
 
-
-
     useEffect(() => {
-        if (products?.length === 0) {
+        if (allProducts?.length === 0) {
             setLoading(false);
         }
-    }, [products])
+    }, [allProducts])
 
     const handleActiveItem = (index, item) => {
         setActiveItem(index);
@@ -143,7 +135,7 @@ const BestSeller = () => {
     }
 
     const itemPerPage = 6
-    const maxIndex = Math.ceil(products && products.length / itemPerPage) - 1;
+    const maxIndex = Math.ceil(allProducts && allProducts.length / itemPerPage) - 1;
     const [currentIndex, setCurrentIndex] = useState(0)
     const handlePageChange = (index) => {
         setCurrentIndex(index)
@@ -155,67 +147,91 @@ const BestSeller = () => {
         setMobIndex(index);
     }
 
-    var settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        arrows: false,
-        nextArrow: <BestSellerNextArrow to="next" />,
-        prevArrow: <BestSellerPrevArrow to="prev" />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: false,
-                    dots: false
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    initialSlide: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    initialSlide: 1
-                }
-            }
-        ]
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [currentDotPosition, setCurrentDotPosition] = useState(1);
+    // const [bannerLoading, , setBannerLoading] = useState(false);
+
+    const [dotStartIndex, setDotStartIndex] = useState(0);
+
+    const beforeChange = (oldIndex, newIndex) => {
+        setCurrentSlide(newIndex);
+
+        const groupSize = 5;
+
+        if (newIndex >= dotStartIndex + groupSize) {
+            const newStart = Math.floor(newIndex / groupSize) * groupSize;
+            setDotStartIndex(newStart);
+            setCurrentDotPosition((newIndex % groupSize) + 1);
+        } else if (newIndex < dotStartIndex) {
+            const newStart = Math.floor(newIndex / groupSize) * groupSize;
+            setDotStartIndex(newStart);
+            setCurrentDotPosition((newIndex % groupSize) + 1);
+        } else {
+            setCurrentDotPosition((newIndex % groupSize) + 1);
+        }
     };
 
-    const ratingStars = [
-        { icon: star },
-        { icon: star },
-        { icon: star },
-        { icon: star },
-        { icon: star }
-    ]
+    const mobileSettings = {
+        dots: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        beforeChange,
+        customPaging: () => <button className="custom-dot" />,
+        appendDots: (dots) => {
+            const totalDots = dots.length;
+            const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
+
+            return (
+                <div className="dots-slider-wrapper">
+                    <div className="dots-slider">
+                        {visibleDots.map((dot, i) => {
+                            const actualIndex = dotStartIndex + i;
+                            const isActive = actualIndex === currentSlide;
+
+                            return (
+                                <div
+                                    key={actualIndex}
+                                    className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
+                                    onClick={() => {
+                                        sliderRef.current?.slickGoTo(actualIndex);
+                                        setCurrentSlide(actualIndex);
+
+                                        const groupSize = 5;
+                                        const newStart = Math.floor(actualIndex / groupSize) * groupSize;
+
+                                        setDotStartIndex(newStart);
+                                        setCurrentDotPosition((actualIndex % groupSize) + 1);
+                                    }}
+                                >
+                                    <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        },
+    };
 
     const { addToList, isInWishList, removeFromList } = useList()
     const notify = (str) => toast.success(str);
     const notifyRemove = (str) => toast.error(str)
-    const [listed, setListed] = useState(false);
-    const { addSingleProduct } = useSingleProductContext();
-    const { addToCart } = useCart()
+    // const [listed, setListed] = useState(false);
+    // const { addSingleProduct } = useSingleProductContext();
+    // const { addToCart } = useCart()
 
-    const handleCardClicked = (item) => {
+    // const handleCardClicked = (item) => {
 
-        addSingleProduct(item)
-        addToCart(item)
-        router.push(`/product/${item.slug}`)
+    //     addSingleProduct(item)
+    //     addToCart(item)
+    //     router.push(`/product/${item.slug}`)
 
-    }
+    // }
 
     const handleWishlisted = (item) => {
         if (isInWishList(item.uid)) {
@@ -235,8 +251,9 @@ const BestSeller = () => {
 
     return (
         <>
+
             <div className={`category-besst-seller-main-container `}>
-                {/* {loading && <Loader />} */}
+                
                 <div className='category-best-seller-and-banner-container'>
 
                     <div className='category-best-seller-cards-section'>
@@ -254,7 +271,7 @@ const BestSeller = () => {
 
                         <div className='products-slider-container'>
                             {!loading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
-                                {products && products.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
+                                {allProducts && allProducts.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
                                     <BestSellerProductCard
                                         key={index}
                                         productData={item}
@@ -283,6 +300,7 @@ const BestSeller = () => {
                                 </div>
                             }
                         </div>
+
                     </div>
 
                     <div className='category-best-seller-banners-section'>
@@ -292,67 +310,83 @@ const BestSeller = () => {
 
                 </div>
 
-                <div className='mobile-view-category-best-seller'>
-                    <div className='mobile-view-category-best-seller-heading-section'>
-                        <h3>Best Seller</h3>
-                    </div>
-                    <div className='mobile-view-category-best-seller-nav-and-banner'>
-                        <img src={bestSellerMobileBanner} alt='mobile-main-banner' />
-                        <div className='mobile-view-category-best-seller-nav-items'>
-                            {bestSellerNav.map((items, index) => (
-                                <p
-                                    key={index}
-                                    onClick={() => { handleMobileNavClick(index); handleActiveItem(index) }}
-                                    className={`mobile-view-nav-link ${mobiIndex === index ? 'mobile-view-nav-active' : ''}`}
+                <div className='best-saller-mobile-container'>
+                    <h3>Best Seller</h3>
+                    <div className='mobile-card-nav-container'>
+                        {bestSellerNav1.map((item, index) => (
+                            <p
+                                key={index}
+                                className={`mobile-best-seller-nav-item ${mobiIndex === index ? 'mobile-seller-nav-active' : ''}`}
+                                onClick={() => {
+                                    setCurrentSlug(item.slug)
+                                    handleMobileNavClick(index)
+                                    handleActiveItem(index, item)
 
-                                >
-                                    {items}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className='mobile-view-category-best-seller-card-section'>
-
-                        <div className='mobile-view-best-seller-slider'>
-                            {!loading ? (
-                                <Slider {...settings}>
-                                    {products && products.map((item, index) => (
-                                        <BestSellerProductCard
-                                            productData={item}
-                                            isDiscountable={item.discount.is_discountable === 1 ? true : false}
-                                            key={index}
-                                            productMainImage={item.images?.[0]?.image_url}
-                                            starIcon={ratingStars}
-                                            reviews={'200'}
-                                            productName={item.name}
-                                            oldPrice={item.regular_price}
-                                            newPrice={item.sale_price}
-                                            listed={listed}
-                                            handleCardClicked={() => handleCardClicked(item)}
-                                            handleWishListClicked={() => handleWishlisted(item)}
-                                        />
-                                    ))
-                                    }
-                                </Slider>
-                            ) : (
-                                <BestSellerProductCardShimmer width={'85%'} />
-                            )}
-                        </div>
-
+                                    // getBestSellerProducts(item.slug)
+                                }}
+                            >
+                                {item.heading}
+                            </p>
+                        ))}
                     </div>
 
+                    <div className='mobile-view-cards-main-container'>
+                        {loading ? (
+                            <BestSellerProductCardShimmer width={'85%'} />
+                        ) : (
+                            <Slider ref={sliderRef} {...mobileSettings}>
+                                {allProducts.map((item, index) => (
+
+
+                                    <Link key={index} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+                                        
+                                        <div className='mobile-best-seller-cart-wishlist-container'>
+                                            {
+                                                isInWishList(item?.uid) ? (
+                                                    <VscHeartFilled
+                                                        size={25}
+                                                        style={{ color: 'var(--primary-color)' }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <VscHeart
+                                                        size={25}
+                                                        style={{ color: 'var(--primary-color)' }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                )
+                                            }
+                                        </div>
+                                        <img src={url + item?.images?.[1]?.image_url} />
+                                        <div className='mobile-card-details-container'>
+                                            <div className='mobile-best-seller-rating-and-review'>
+                                                <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                                            </div>
+                                            <h3>{item?.name}</h3>
+                                            <div className='mobile-best-seller-category-product-price'>
+                                                <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
+                                                {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                                            </div>
+                                        </div>
+                                        <div className='mobile-best-seller-cart-container'>
+                                            <div className='mobile-best-sseller-card-bag-container'>
+                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                            </div>
+                                        </div>
+
+                                    </Link>
+                                ))}
+                            </Slider>
+                        )}
+                    </div>
                 </div>
 
-                <div className='category-pagination-dots'>
-                    {Array.from({ length: maxIndex }, (_, index) => (
-                        <span
-                            key={index}
-                            className={`category-dot ${currentIndex === index ? 'category-dot-active-active' : ''}`}
-                            onClick={() => handlePageChange(index)}
-                        ></span>
-                    ))}
-                </div>
             </div>
 
         </>

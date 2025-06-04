@@ -11,6 +11,7 @@
     width: 100%;
     height: auto;
     align-items: stretch;
+    overflow: hidden;
     gap: 20px;
 }
 
@@ -18,7 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 30%;
+    /* flex: 0 0 30%; */
     height: auto;
 }
 

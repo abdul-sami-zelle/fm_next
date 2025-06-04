@@ -253,9 +253,9 @@
 .trending-items-cards {
     display: grid;
     grid-template-columns: auto auto;
-    row-gap: 10px;
-    column-gap: 10px;
-    padding: 5px;
+    row-gap: 5px;
+    column-gap: 5px;
+    padding: 0 5px;
 }
 
 .trending-item-category {
@@ -378,7 +378,7 @@
     }
 
     .tranding-slider-and-categories {
-        gap: 10px;
+        gap: 5px;
     }
 
     .trending-item-category img {

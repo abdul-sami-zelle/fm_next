@@ -65,6 +65,7 @@ const ProductDetailSticky = (
     isCartLoading,
     params,
     setProductDetails,
+    galleryModalWidth,
     // parentCategories,
   }) => {
 
@@ -123,44 +124,44 @@ const ProductDetailSticky = (
 
 
   // Effect to fetch data if user came directly via link
-  // useEffect(() => {
-  //   if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
-  //     getProductDataWithSlug(slug);
-  //   }
-  //   setSingleProductData(productData)
-  //   setSelectedVariationUid(productData?.default_variation)
-  //   setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
-
-  // }, [slug]);
-
   useEffect(() => {
-    if(getBySlugData && Object.keys(getBySlugData).length > 0 && 'images' in getBySlugData) {
-      setSingleProductData(getBySlugData)
-    setSelectedVariationUid(getBySlugData?.default_variation)
-    setSelectedVariationData(findObjectByUID(getBySlugData?.default_variation, productData?.variations));
-    }
-  }, [getBySlug])
+    // if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
+    //   getProductDataWithSlug(slug);
+    // }
+    setSingleProductData(productData)
+    setSelectedVariationUid(productData?.default_variation)
+    setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
+
+  }, [slug]);
+
+  // useEffect(() => {
+  //   if(getBySlugData && Object.keys(getBySlugData).length > 0 && 'images' in getBySlugData) {
+  //     setSingleProductData(getBySlugData)
+  //   setSelectedVariationUid(getBySlugData?.default_variation)
+  //   setSelectedVariationData(findObjectByUID(getBySlugData?.default_variation, productData?.variations));
+  //   }
+  // }, [getBySlug])
   // productData in this effect dependancy
 
-  // const [product, setProduct] = useState(
-  //   Object.keys(productData || {}).length > 0 && productData.images !== undefined
-  //     ? productData
-  //     : getBySlug
-  // );
+  const [product, setProduct] = useState(
+    Object.keys(productData || {}).length > 0 && productData.images !== undefined
+      ? productData
+      : getBySlug
+  );
 
-  const [product, setProduct] = useState(getBySlug)
+  // const [product, setProduct] = useState(getBySlug)
 
   useEffect(() => {
-    setProduct(getBySlug)
-    // if (
-    //   Object.keys(productData || {}).length > 0 &&
-    //   productData.images !== undefined &&
-    //   productData !== product
-    // ) {
-    //   setProduct(productData);
-    // } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
-    //   setProduct(getBySlug);
-    // }
+    // setProduct(getBySlug)
+    if (
+      Object.keys(productData || {}).length > 0 &&
+      productData.images !== undefined &&
+      productData !== product
+    ) {
+      setProduct(productData);
+    } else if (!productData || Object.keys(productData).length === 0 || !productData.images) {
+      setProduct(getBySlug);
+    }
   }, [productData, slug, getBySlug])
   // product from this dependancy
 
@@ -465,6 +466,7 @@ const ProductDetailSticky = (
               position={position}
               setPosition={setPosition}
               handleGalleryModal={handleGalleryModal}
+              // galleryModalWidth={galleryModalWidth}
 
             />
             <ProductDimension productData={product} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />

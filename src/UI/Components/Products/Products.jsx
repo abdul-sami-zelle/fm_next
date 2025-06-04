@@ -976,11 +976,11 @@ const Products = ({ navigationType }) => {
                     </div>
                     <div className='mobile-view-filter-body'>
                         <button className='mobile-view-show-filters' onClick={handleMobileFilters}>
-                            <Image src={'/Assets/icons/humberger-icon.png'} fill alt='filter' />
+                            <Image src={'/Assets/icons/humberger-icon.png'} width={20} height={20} alt='filter' />
                             Show Filter
                         </button>
                         <button className={`mobile-view-sort-btn`} onClick={handleOpenSortModal}>
-                            <Image src={'/Assets/icons/arrow-up-donw.png'} fill alt='arrow up down' />
+                            <Image src={'/Assets/icons/arrow-up-donw.png'} width={20} height={20} alt='arrow up down' />
                             Sort
                         </button>
                     </div>

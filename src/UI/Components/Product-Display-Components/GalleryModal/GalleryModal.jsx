@@ -6,6 +6,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
 import { url } from '../../../../utils/api'
+import MagnifyImage from '../MagnifyImage/MagnifyImage';
 
 const GalleryModal = (
   {
@@ -21,7 +22,8 @@ const GalleryModal = (
     name,
     currentIndex,
     handleDotClick,
-    setCurrentIndex
+    setCurrentIndex,
+    galleryModalWidth
   }) => {
 
   const hasDimensionImage = productData?.dimension_image?.image_url?.trim();
@@ -100,13 +102,13 @@ const GalleryModal = (
 
 
   return (
-    <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
-      <div className='dimension-modal-inner-container'>
-
+    <div 
+      className={`dimension-modal-main-container ${dimensionModal ?  'show-dimension-modal' : ''}`}
+    >
+      <div className={`dimension-modal-inner-container ${galleryModalWidth ? 'show-modal-full-width' : ''}`}>
         <button className='dimension-modal-close-button' onClick={handleCloseDimensionModal}>
           <RxCross2 size={25} color='var(--secondary-color)' />
         </button>
-
         <div className='dimension-left-thumbnail-section'>
           <div className='dimension-modal-products-thumb-heading'>
             <p>Product Photos {(updatedSimpleImages?.length)}</p>
@@ -126,12 +128,7 @@ const GalleryModal = (
                 </div>
               ))}
           </div>
-
-
-
-
         </div>
-
         <div className='dimension-modal-slider'>
           <div
             className='dimension-modal-main-slider-section'
@@ -148,15 +145,6 @@ const GalleryModal = (
               userSelect: 'none'
             }}
           >
-
-            {/* <button
-              className={`dimension-main-slider-arrow dimension-slider-arrow-back ${activeIndex === 0 ? 'dimension-modal-disabled-button' : ''}`}
-              onClick={handlePrevImage}
-              disabled={activeIndex === 0}
-            >
-              <IoIosArrowBack size={20} color='var(--secondary-color)' className='product-gallery-arrow' />
-            </button> */}
-
             <div
               className='dimension-modal-main-slider-images'
               style={{
@@ -166,38 +154,47 @@ const GalleryModal = (
               {productData?.type === 'variable' ?
                 (updatedVariationImages || []).map((slideItem, slideIndex) => (
                   <div key={slideIndex} className='dimension-modal-slider-single-image-container'>
-                    <img
+                  {galleryModalWidth ? (
+                      <MagnifyImage 
+                        src={`${url}${slideItem.image_url}`}
+                        width={'100%'}
+                        height={'100%'}
+                        zoom={4}
+                      />
+                    ) : (
+                      <img
                       src={`${url}${slideItem.image_url}`}
                       alt='slide'
                       className='dimension-modal-slider-image'
                     />
+
+                  )}
                   </div>
                 )) :
                 (updatedSimpleImages || []).map((simpleSlideItem, simpleSlideIndex) => (
                   <div key={simpleSlideIndex} className='dimension-modal-slider-single-image-container'>
-                    <img
+                    {galleryModalWidth ? (
+                      <MagnifyImage 
+                        src={`${url}${simpleSlideItem.image_url}`}
+                        width={'100%'}
+                        height={'100%'}
+                        zoom={4}
+                      />
+                    ) : (
+                      <img
                       src={`${url}${simpleSlideItem.image_url}`}
                       alt='slide'
                       className='dimension-modal-slider-image'
                     />
+                    )}
+                    
                   </div>
                 ))}
-
             </div>
-
-            {/* <button
-              className={`dimension-main-slider-arrow dimension-slider-arrow-right ${activeIndex === updatedSimpleImages?.length - 1 ? 'disabled-button' : ''}`}
-              onClick={handleNextImage}
-            >
-              <IoIosArrowForward size={20} color='var(--secondary-color)' className='product-gallery-arrow' />
-            </button> */}
-
             <div className='slider-dots-and-view-all-button'>
               {productData?.type === 'variable' ? <div style={{
                 paddingLeft: "0"
               }} className="pagination-dots">
-
-
                 {updatedVariationImages
                   ?.map((_, i) => i)
                   .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
@@ -208,13 +205,10 @@ const GalleryModal = (
                       onClick={() => handleDotClick(index)}
                     />
                   ))}
-
-
               </div> :
                 <div style={{
                   paddingLeft: "0"
                 }} className="pagination-dots">
-
                   {updatedSimpleImages
                     ?.map((_, i) => i)
                     .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
@@ -228,49 +222,8 @@ const GalleryModal = (
                 </div>
               }
             </div>
-
           </div>
-
-          {/* <div className='slider-dots-and-view-all-button'>
-            {productData?.type === 'variable' ? <div style={{
-              paddingLeft: "0"
-            }} className="pagination-dots">
-              
-
-              {updatedVariationImages
-                        ?.map((_, i) => i)
-                        .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
-                        .map((index) => (
-                            <span
-                                key={index}
-                                className={`dot ${currentIndex === index ? "active" : ""}`}
-                                onClick={() => handleDotClick(index)}
-                            />
-                        ))}
-
-
-            </div> :
-              <div style={{
-                paddingLeft: "0"
-              }} className="pagination-dots">
-
-                {updatedSimpleImages
-                        ?.map((_, i) => i)
-                        .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
-                        .map((index) => (
-                            <span
-                                key={index}
-                                className={`dot ${currentIndex === index ? "active" : ""}`}
-                                onClick={() => handleDotClick(index)}
-                            />
-                        ))}
-              </div>
-            }
-          </div> */}
         </div>
-        {/* Pagination Dots */}
-
-
       </div>
     </div>
   )

@@ -164,7 +164,15 @@ const ProductDisplay = ({ params }) => {
   const [dimensionModal, setDimensionModal] = useState(false)
 
 
-  const handleOpenModal = () => {
+  const [galleryModalWidth, setGalleryModalWidth] = useState(false);
+  const handleOpenModal = (place) => {
+    console.log("clicked place", place);
+    if(place === 'image-clicked') {
+      setGalleryModalWidth(true)
+    } else {
+      setGalleryModalWidth(false)
+    }
+
     setDimensionModal(true)
   }
 
@@ -350,6 +358,7 @@ const ProductDisplay = ({ params }) => {
           increamentQuantity={increamentQuantity}
           isSticky={isSticky}
           handleGalleryModal={handleOpenModal}
+          // galleryModalWidth={galleryModalWidth}
           isCartLoading={isCartLoading}
           params={params}
           setProductDetails={setProductDetails}
@@ -418,6 +427,7 @@ const ProductDisplay = ({ params }) => {
         thumbActiveIndex={thumbActiveIndex}
         currentIndex={currentIndex}
         handleDotClick={handleDotClick}
+        galleryModalWidth={galleryModalWidth}
       />
 
 

@@ -134,4 +134,16 @@
     font-weight: var(--content-one-weight);
     color: var(--text-primary);
   }
+  .type-selected-button>button {
+    padding: 0;
+    width: 50%;
+    height: 35px;
+    font-size: 12px;
+  }
+  .eview-tab-form>label {
+    height: 35px;
+  }
+  .review-tab-form>label>input {
+    font-size: 12px;
+  }
 }

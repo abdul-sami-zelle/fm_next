@@ -1627,6 +1627,12 @@ label {
     }
 }
 
+@media only screen and (max-width: 1200px) {
+    .toggler-main-container {
+        display: none;
+    }
+}
+
 @media (max-width: 1980px) {
     .product-main {
         grid-template-columns: repeat(3, 1fr);

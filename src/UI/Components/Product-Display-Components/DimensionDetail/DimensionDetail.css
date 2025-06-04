@@ -49,8 +49,8 @@ div > div > p > strong {
 }
 
 .dimension-detail-image-section > img {
-    width: auto;
-    height: 260px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 

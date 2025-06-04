@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -14,7 +14,7 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
-    <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} style={{top: '45% !important'}} >
+    <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-left ${className}`} style={{ top: '45% !important' }} >
       {/* <img src={leftArrow} alt='arrow' /> */}
       <MdKeyboardArrowLeft color='var(--text-gray)' />
     </div>
@@ -25,7 +25,7 @@ function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`blog-slider-arrow blog-slider-arrow-right ${className}`} >
-      
+
       <MdKeyboardArrowRight color='var(--text-gray)' />
     </div>
   )
@@ -35,46 +35,102 @@ function SampleNextArrow(props) {
 const BlogSlider = () => {
 
   const router = useRouter()
-  const { 
+  const {
     blogs,
-    // fetchBlogs,
-   } = useBlog()
-
-  //  console.log("blog data", blogs)
-
-  //  useEffect(() => {
-  //   fetchBlogs(null)
-  //  }, [])
+  } = useBlog()
 
 
+  const sliderRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [dotStartIndex, setDotStartIndex] = useState(0);
+  const [currentDotPosition, setCurrentDotPosition] = useState(1);
 
-  const maxLength = 50;
+  const beforeChange = (oldIndex, newIndex) => {
+  const groupSize = 5;
+  const newStart = Math.floor(newIndex / groupSize) * groupSize;
 
-  const handleNavigateToSingleBlog = (item) => {
-    router.push(`/single-blog/${item.slug}`, { state: item })
-  }
+  setCurrentSlide(newIndex);
+  setDotStartIndex(newStart);
+  setCurrentDotPosition((newIndex % groupSize) + 1);
+};
 
 
 
-  
+  const mobileSettings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    beforeChange,
+
+    customPaging: () => <button className="custom-dot" />,
+
+    appendDots: (dots) => {
+      const totalDots = dots.length;
+      const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
+
+      return (
+        <div className="dots-slider-wrapper">
+          <div className="dots-slider">
+            {visibleDots.map((dot, i) => {
+              const actualIndex = dotStartIndex + i;
+              const isActive = actualIndex === currentSlide;
+
+              return (
+                <div
+                  key={actualIndex}
+                  className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
+                  onClick={() => {
+                    sliderRef.current?.slickGoTo(actualIndex);
+                    // setCurrentSlide(actualIndex);
+
+                    const groupSize = 5;
+                    const newStart = Math.floor(actualIndex / groupSize) * groupSize;
+
+                    setDotStartIndex(newStart);
+                    setCurrentDotPosition((actualIndex % groupSize) + 1);
+                  }}
+                >
+                  <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    },
+  };
+
 
   var settings = {
-    dots: false,
+    dots: true,
     infinite: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
-    initialSlide: 0,
-    arrows: true,
-    nextArrow: <SampleNextArrow to="next" />,
-    prevArrow: <SamplePrevArrow to="prev" />,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 850,
+        settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
+          slidesToScroll: 2,
+          infinite: false,
           dots: false
         }
       },
@@ -82,7 +138,7 @@ const BlogSlider = () => {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 2,
           initialSlide: 2
         }
       },
@@ -90,11 +146,57 @@ const BlogSlider = () => {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          ...mobileSettings
         }
       }
-    ]
+    ],
+    beforeChange,
+
+    customPaging: () => <button className="custom-dot" />,
+
+    appendDots: (dots) => {
+      const totalDots = dots.length;
+      const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
+
+      return (
+        <div className="dots-slider-wrapper">
+          <div className="dots-slider">
+            {visibleDots.map((dot, i) => {
+              const actualIndex = dotStartIndex + i;
+              const isActive = actualIndex === currentSlide;
+
+              return (
+                <div
+                  key={actualIndex}
+                  className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
+                  onClick={() => {
+                    sliderRef.current?.slickGoTo(actualIndex);
+                    setCurrentSlide(actualIndex);
+
+                    const groupSize = 5;
+                    const newStart = Math.floor(actualIndex / groupSize) * groupSize;
+
+                    setDotStartIndex(newStart);
+                    setCurrentDotPosition((actualIndex % groupSize) + 1);
+                  }}
+                >
+                  <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    },
   };
+
+  const maxLength = 50;
+
+  const handleNavigateToSingleBlog = (item) => {
+    router.push(`/single-blog/${item.slug}`, { state: item })
+  }
+
 
 
   return (
@@ -107,7 +209,7 @@ const BlogSlider = () => {
       </p>
       <div className='blogs-slider-main-container'>
         {blogs && blogs?.length > 0 ? (
-          <Slider {...settings}>
+          <Slider ref={sliderRef} {...settings}>
             {blogs && blogs.map((item, index) => (
               <div key={index} className='blog-cards-container'>
                 <BlogCard
@@ -135,7 +237,7 @@ const BlogSlider = () => {
 
       </div>
 
-      
+
     </div>
   );
 }

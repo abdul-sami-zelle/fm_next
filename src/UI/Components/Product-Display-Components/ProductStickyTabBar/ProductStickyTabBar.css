@@ -265,12 +265,12 @@
     }
 
     .product-sticky-tab-bar-item-container{
-        padding: 5px 15px;
+        padding: 5px 10px;
         /* flex-shrink: 0; */
     }
 
     .product-sticky-tab-bar-item-container>p {
-        font-size: 15px;
+        font-size: 10px;
         line-height: 1.5;
         font-weight: 500;
         color: var(--text-primary);
@@ -285,7 +285,7 @@
 
     .product-sticky-fixed-tabs-container{
         height: 40px;
-        padding: 0 10px;
+        padding: 0 5px;
         overflow-y: hidden;
         overflow-x: auto;
     }
@@ -310,7 +310,7 @@
     }
 
     .mobile-sticky-product-sale-and-price > h3 {
-        font-size: 15px;
+        font-size: 12px;
         line-height: 12px;
         font-weight: 500;
         color: var(--text-primary);
@@ -343,11 +343,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: var(--text-primary);
-        color: #FFF;
-        border: 1px solid var(--text-primary);
+        background-color: var(--orange-fill);
+        color: var(--text-gray);
+        border: 1px solid var(--orange-outline);
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 16px;
         font-weight: 500;
     }

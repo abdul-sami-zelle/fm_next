@@ -6,6 +6,7 @@ import mainLogo from '../../../Assets/Logo/m_logo_360 2.png';
 import MobileSubNav from './MobileSubNav/MobileSubNav';
 import  Link from 'next/link';
 import { url } from '../../../utils/api';
+import Image from 'next/image';
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
@@ -59,11 +60,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
   return (
     <div className={`mobile-nav-main-container ${showMobileNav ? 'show-mobile-nav' : ''}`}>
       <button className='mobile-nav-close' onClick={handleNavbarClose}>
-        <img src={crossBtn} alt='close-nav' />
+        <Image src={`/Assets/icons/close-btn.png`} width={20} height={20} alt='close-nav' />
       </button>
       <div className='mobile-nav-logo-section'>
         <Link href={'/'}>
-          <img src={mainLogo} alt='website-logo' />
+          <Image src={`/Assets/Logo/m_logo_360 2.png`} width={180} height={35} alt='website-logo' />
         </Link>
       </div>
       <div className='mobile-nav-containt-section'>
@@ -86,12 +87,14 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
                   {/* <img src={ordersIcon} alt='nav-icon' /> */}
                   <p>{items.category}</p>
                 </Link>
-                <img
-                  src={navArrow}
+                {/* <Image
+                  src={`/Assets/icons/nav-arrow.png`}
+                  width={20}
+                  height={20}
                   alt='nav-icon'
                   className='mobile-nav-single-item-nav-arrow'
                   onClick={() => handleOpenSubNav(items)}
-                />
+                /> */}
               </div>
             ))}
           </div>
