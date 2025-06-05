@@ -396,7 +396,7 @@ const ProductDisplay = ({ params }) => {
 
 
 
-        <DesignYourRoom data={recomandedProducts} />
+        <DesignYourRoom data={recomandedProducts} firstChild={product} />
 
       </div>
 

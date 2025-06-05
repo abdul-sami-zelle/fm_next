@@ -405,7 +405,7 @@ const ProductCardTwo = ({
                                                 <p className='regular-price-starting-at'>Starting at</p>
                                                 {formatedPrice(priceTag)}
                                             </h3> :
-                                            <div className='price-and-rating-container'>
+                                            <div className={colTwo ? 'price-and-rating-column-direction' : 'price-and-rating-container'}>
                                                 <h3 className={`product-price-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
                                                     ${sale_price}

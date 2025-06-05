@@ -115,11 +115,11 @@ const CategoriesClient = ({ category }) => {
 
   useEffect(() => {
     if(productCategory) {
-      setCategoryData(productCategory.categories[0])
+      setCategoryData(productCategory?.categories[0])
 
-      setTitle(productCategory.categories[0].meta.title);
-      setDescription(productCategory.categories[0].meta.description);
-      setImage(url + productCategory.categories[0].meta.og_image);
+      setTitle(productCategory?.categories[0]?.meta.title);
+      setDescription(productCategory?.categories[0]?.meta.description);
+      setImage(url + productCategory?.categories[0]?.meta.og_image);
     }
   }, [productCategory])
 

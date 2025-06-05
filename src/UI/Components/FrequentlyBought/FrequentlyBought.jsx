@@ -101,7 +101,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
                             tags={item.tags}
                             allow_back_order={item?.allow_back_order}
                             ProductTitle={item.name}
-                            
+                            colTwo={true}
                             reviewCount={item.reviewCount}
                             lowPriceAddvertisement={item.lowPriceAddvertisement}
                             priceTag={item.regular_price}

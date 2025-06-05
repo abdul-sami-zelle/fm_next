@@ -695,7 +695,7 @@ const Header = ({ checkoutPage }) => {
 
           <input
             type='text'
-            placeholder='search product'
+            placeholder='Search Furniture Mecca'
             value={mobileProductSearch}
             onChange={handleMobileSearchValue}
           />

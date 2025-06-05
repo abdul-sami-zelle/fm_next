@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: start;
     border-top: 1px solid var(--border-color);
-    padding: 15px 0;
+    padding: 15px 0 10px 0;
     gap: 15px;
 }
 
@@ -56,6 +56,10 @@
 
     .credit-card-expiry-and-code-inputs {
         gap: 15px;
+    }
+
+    .credit-card-type-head {
+        justify-content: space-between;
     }
 }
 

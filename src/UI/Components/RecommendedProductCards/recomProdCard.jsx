@@ -6,13 +6,14 @@ import { url } from "@/utils/api";
 
 import "./style.css";
 
-export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage,handleRemoveProduct ,handleSingleShuffle}) {
+export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage,handleRemoveProduct ,handleSingleShuffle, parentProduct}) {
     const [mainLoaded, setMainLoaded] = useState(false);
     const [hoverLoaded, setHoverLoaded] = useState(false);
 
     return (
         <div className="recommendedProductCard">
-            <div className="rpc_header_container">
+            {parentProduct && (<div className="rpc_header_top_space"><p>Current Product</p></div>)}
+            <div className={`rpc_header_container ${parentProduct ? 'hide-shuffle-buttons' : ''}`}>
                 <button onClick={handleRemoveProduct} className="remove-icon-header"><IoClose size={20} /></button>
                 <div className="header-label"></div>
                 <button onClick={handleSingleShuffle}  className="remove-icon-header"><GrPowerCycle size={20} /></button>
@@ -53,7 +54,7 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                         <h2 className={singleProductData?.sale_price === "" ? "rpc_price" : "rpc_price sale"}>
                             ${singleProductData?.sale_price === "" ? singleProductData?.regular_price : singleProductData?.sale_price}
                         </h2>
-                        <button onClick={handleQuickView}>Quick View</button>
+                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={handleQuickView}>Quick View</button>
                     </div>
                 </div>
             </div>

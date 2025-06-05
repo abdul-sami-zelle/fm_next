@@ -58,11 +58,8 @@
     background-color: var(--orange-fill);
     border-radius: 30px;
     border: 1px solid var(--orange-outline);
-    
     transition: all 0.3s ease-in-out;
 }
-
-
 
 .right-arrow {
     right: -60px !important;
@@ -89,7 +86,7 @@
     background-color: orange;
 }
 
-slider .slick-dots ul {
+.slider .slick-dots ul {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -396,9 +396,9 @@
 }
 
 .best-saller-mobile-container>h3 {
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 600;
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    font-weight: 600 !important;
     color: var(--text-primary);
 }
 

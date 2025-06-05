@@ -283,8 +283,8 @@
 }
 
 .product-title.apply-col-two-styling {
-    line-height: 1.5 !important;
-    font-size: 13px !important;
+    line-height: 1.2 !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
 }
 
@@ -359,6 +359,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+}
+
+.price-and-rating-column-direction {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -1029,7 +1037,7 @@
         font-size: var(--section-size) !important;
         line-height: var(--section-height) !important;
         font-weight: var(--section-weight) !important;
-        color: var(--text-primary) !important;
+        color: var(--text-red) !important;
 
     }
 

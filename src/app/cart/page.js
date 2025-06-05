@@ -288,7 +288,7 @@ const Cart = () => {
               </div>
               <div className='cart-order-summary-price-detail-save-discount'>
                 <p>Savings</p>
-                <p style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
+                <p style={{ color: "var(--tertiary-color)" }} >-{formatedPrice(savings)}</p>
               </div>
               {isCartProtected ? (
                 <div className='cart-order-summary-price-detail-single-item'>

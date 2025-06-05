@@ -8,7 +8,7 @@
     padding: 35px 24px;
 }
 
-.design-your-room-main-container > h3 {
+.design-your-room-main-container>h3 {
     font-size: 20px;
     line-height: 30px;
     font-weight: 500;
@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.design-your-room-shuffle-button-container > button {
+.design-your-room-shuffle-button-container>button {
     width: 100%;
     max-width: 280px;
     height: 40px;
@@ -46,12 +46,23 @@
     background-color: transparent;
 }
 
-.design-your-room-shuffle-button-container > button:hover {
+.design-your-room-shuffle-button-container>button:hover {
     background-color: var(--orange-fill);
 }
 
 @media only screen and (max-width: 480px) {
-    .design-your-room-cards-container  {
+    .design-your-room-cards-container {
         grid-template-columns: auto;
+    }
+
+    .design-your-room-main-container {
+        padding: 15px 0;
+        gap: 15px;
+    }
+
+    .design-your-room-main-container>h3 {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 600;
     }
 }

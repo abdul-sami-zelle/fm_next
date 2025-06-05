@@ -39,7 +39,7 @@
 
 .dimension-modal-inner-container.show-modal-full-width {
     width: 90%;
-    height: 90%;
+    height: max-content;
 }
 
 .dimension-modal-close-button {

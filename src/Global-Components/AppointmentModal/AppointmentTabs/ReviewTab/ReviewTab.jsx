@@ -10,7 +10,7 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
   const [focused, setFocused] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
-  const { appointmentPayload, setAppointmentPayload } = useAppointment();
+  const { appointmentPayload, setAppointmentPayload, error } = useAppointment();
   const handleUserDataChange = (e) => {
     const {name, value} = e.target;
     setAppointmentPayload((prev) => ({
@@ -27,19 +27,19 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
       
       <div className='review-tab-form'>
 
-        <label>
+        <label style={{border: error.firstName ? '1px solid var(--orange-outline)' : ''}}>
           <input type='text' name='firstName' value={appointmentPayload.details.firstName} placeholder='First Name' onChange={handleUserDataChange} />
         </label>
 
-        <label>
+        <label style={{border: error.lastName ? '1px solid var(--orange-outline)' : ''}}>
           <input type='text' name='lastName' value={appointmentPayload.details.lastName} placeholder='Last Name' onChange={handleUserDataChange} />
         </label>
 
-        <label>
+        <label style={{border: error.email ? '1px solid var(--orange-outline)' : ''}}>
           <input type='text' name='email' value={appointmentPayload.details.email} placeholder='Email Address' onChange={handleUserDataChange} />
         </label>
 
-        <label>
+        <label style={{border: error.contact ? '1px solid var(--orange-outline)' : ''}}>
           <input type='text' name='contact' value={appointmentPayload.details.contact} placeholder='Contact Phone' onChange={handleUserDataChange} />
         </label>
 

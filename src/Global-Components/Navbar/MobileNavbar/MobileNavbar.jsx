@@ -5,8 +5,10 @@ import crossBtn from '../../../Assets/icons/close-btn.png';
 import mainLogo from '../../../Assets/Logo/m_logo_360 2.png';
 import MobileSubNav from './MobileSubNav/MobileSubNav';
 import  Link from 'next/link';
-import { url } from '../../../utils/api';
+import { url, useDisableBodyScroll } from '../../../utils/api';
 import Image from 'next/image';
+import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
+import { useRouter } from 'next/navigation';
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
@@ -15,6 +17,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
   const [headerSale, setHeaderSale] = useState([]);
   const [subNavData, setSubNavData] = useState([])
   const [openSubNav, setOpenSubNav] = useState(false)
+  const router = useRouter()
 
 
   // Functions
@@ -57,6 +60,52 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
     setSubNavData(item)
   }
 
+
+  const { setUserToken } = useUserDashboardContext();
+    const [isTokenValid, setIsTokenValid] = useState(false);
+  
+    const handleClickOnOrders = async () => {
+      if(typeof window !== "undefined") {
+        const token = localStorage.getItem('userToken');
+        const id = localStorage.getItem('uuid');
+    
+        try {
+          if (token) {
+            const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+              method: "GET",
+              headers: {
+                authorization: `${token}`,
+              },
+            });
+            if (response.ok) {
+              router.push(`/user-dashboard/${id}`);
+              setMobileNavVisible(false)
+            }
+          } else {
+            localStorage.removeItem('userToken');
+            setUserToken(null);
+            setIsTokenValid(true);
+          }
+        } catch (error) {
+          console.error("Unexpected Error", error)
+        }
+      }
+    }
+  
+    const handleCloseLoginMessageModal = () => {
+      setIsTokenValid(false)
+      console.log("navigate close clicked")
+    }
+  
+    const handleNavigateToLogin = () => {
+      router.push('/my-account')
+      setIsTokenValid(false)
+      setMobileNavVisible(false)
+      console.log("navigate clickd")
+    }
+  
+    useDisableBodyScroll(isTokenValid)
+
   return (
     <div className={`mobile-nav-main-container ${showMobileNav ? 'show-mobile-nav' : ''}`}>
       <button className='mobile-nav-close' onClick={handleNavbarClose}>
@@ -64,17 +113,15 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
       </button>
       <div className='mobile-nav-logo-section'>
         <Link href={'/'}>
-          <Image src={`/Assets/Logo/m_logo_360 2.png`} width={180} height={35} alt='website-logo' />
+          <Image src={'/Assets/Logo/main-logo.png'} width={180} height={35} alt='website-logo' />
         </Link>
       </div>
       <div className='mobile-nav-containt-section'>
         <div className='mobile-nav-containt-header'>
-          <div className='mobile-nav-head-items'>
-            {/* <img src={favoriteIcon} alt='hear' /> */}
+          <Link href={'/wishlist'} className='mobile-nav-head-items' onClick={() => setMobileNavVisible(false)}>
             <p>Favorite</p>
-          </div>
-          <div className='mobile-nav-head-items'>
-            {/* <img src={ordersIcon} alt='hear' /> */}
+          </Link>
+          <div onClick={handleClickOnOrders} className='mobile-nav-head-items'>
             <p>My Orders</p>
           </div>
         </div>
@@ -106,6 +153,28 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
         subNavData={subNavData}
         setMobileNavVisible={setMobileNavVisible}
       />
+
+      <div className={`login-warning-modal-main-container ${isTokenValid ? 'show-login-warning-modal' : ''}`} onClick={handleCloseLoginMessageModal}>
+        <div className={`login-warning-modal-inner-container ${isTokenValid ? 'zoom-login-inner-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <button 
+            onClick={handleCloseLoginMessageModal}
+            className='login-warning-modal-close-btn'
+          >
+              <img src={'/Assets/icons/close-btn.png'} alt='cross' />
+          </button>
+          <div className='login-warning-modal-inner-content'>
+            <p>Login Required</p>
+            <p>To access your orders dashboard, please log in.</p>
+            <div className='navigate-to-login-btn-container'>
+              <button className='navigate-to-login-btn' onClick={handleNavigateToLogin}>
+                Login
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
     </div>
   )
 }

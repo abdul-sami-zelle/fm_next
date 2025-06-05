@@ -121,7 +121,7 @@ export default function RootLayout({ children }) {
                                             {!hideHeaderFooter && <Header />}
                                             {!hideHeaderFooter && <Shopvia />}
                                             <main>{children}</main>
-                                            {!hideHeaderFooter && <Footer />}
+                                            {!hideHeaderFooter  && <Footer />}
                                             {/* <button
                                               onClick={handleClickTop}
                                               className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}

@@ -47,6 +47,7 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
         return () => clearInterval(interval);
     }, [images, autoSlideSpeed]);
 
+
     // Custom arrows
     const CustomPrevArrow = ({ onClick }) => (
         <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
@@ -69,8 +70,8 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
         autoplay: true,
         autoplaySpeed: autoSlideSpeed,  // Using the passed prop for auto-slide speed
         pauseOnHover: false,
-        prevArrow: imagePreloader ? <CustomPrevArrow /> : null,
-        nextArrow: imagePreloader ? <CustomNextArrow /> : null,
+        prevArrow: imagePreloader ? <CustomPrevArrow /> : <></>,
+        nextArrow: imagePreloader ? <CustomNextArrow /> : <></>,
         beforeChange: () => setIsDragging(true),
         afterChange: () => setIsDragging(false),
     };

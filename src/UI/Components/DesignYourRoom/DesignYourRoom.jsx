@@ -3,7 +3,7 @@ import './DesignYourRoom.css'
 import RecomProductCard from '../RecommendedProductCards/recomProdCard'
 import QuickView from '../QuickView/QuickView'
 
-const DesignYourRoom = ({ data }) => {
+const DesignYourRoom = ({ data, firstChild }) => {
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [remainingProducts, setRemainingProducts] = useState([]);
 
@@ -12,9 +12,9 @@ const DesignYourRoom = ({ data }) => {
 
     useEffect(() => {
         if (data && data.length > 0) {
-            const initial = data.slice(0, 8);
-            const remaining = data.slice(8);
-            setDisplayedProducts(initial);
+            const initial = data.slice(0, 7);
+            const remaining = data.slice(7);
+            setDisplayedProducts([firstChild, ...initial]);
             setRemainingProducts(remaining);
         }
     }, [data]);
@@ -27,9 +27,9 @@ const DesignYourRoom = ({ data }) => {
     const handleQuickViewClose = () => setQuickView(false);
 
     const handleShuffle = () => {
-        const shuffled = [...data].sort(() => 0.5 - Math.random()).slice(0, 8);
+        const shuffled = [...data].sort(() => 0.5 - Math.random()).slice(0, 7);
         const newRemaining = data.filter(item => !shuffled.includes(item));
-        setDisplayedProducts(shuffled);
+        setDisplayedProducts([firstChild, ...shuffled]);
         setRemainingProducts(newRemaining);
     };
 
@@ -68,6 +68,7 @@ const DesignYourRoom = ({ data }) => {
                 {displayedProducts.map((item, index) => (
                     <RecomProductCard
                         key={item.uid || index}
+                        parentProduct={index === 0}
                         handleQuickView={() => handleQuickViewOpen(item)}
                         handleRemoveProduct={() => handleRemoveProduct(item.uid)}
                         handleSingleShuffle={() => handleSingleShuffle(item.uid)}

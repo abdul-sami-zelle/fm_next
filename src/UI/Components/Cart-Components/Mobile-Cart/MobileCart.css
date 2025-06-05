@@ -38,8 +38,10 @@
 }
 
 .mobile-cart-product-main-image{
-    width: 135px;
-    height: 90px;
+    /* width: 118px; */
+    width: 90px;
+    /* height: 90px; */
+    height: 65px;
     object-fit: contain;
     border: 1px solid var(--border-color);
 }
@@ -55,6 +57,7 @@
     font-size: 12px;
     line-height: 18px;
     font-weight: 500;
+    color: var(--text-red);
 }
 
 .mobile-cart-product-count-and-total-price{
@@ -68,8 +71,9 @@
     display: flex;
     align-items: center;
     height: 30px;
-    border: 1px solid var(--border-color);
-    border-radius: 25px;
+    border: 1px solid var(--orange-outline);
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .mobile-cart-product-count button{
@@ -98,9 +102,10 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
+    border-left: 1px solid var(--orange-outline);
+    border-right: 1px solid var(--orange-outline);
     padding: 0 10px;
+    color: var(--text-gray);
 }
 
 @media only screen and (max-width: 480px){

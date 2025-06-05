@@ -265,4 +265,7 @@
     .on-tab-deliver-to{
         display: flex;
     }
+    .login-warning-modal-inner-container {
+        width: 280px;
+    }
 }

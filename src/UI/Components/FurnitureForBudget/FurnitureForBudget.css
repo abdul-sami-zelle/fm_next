@@ -154,13 +154,13 @@
         gap: 15px;
     }
     .furniture-for-budget-heading-section h3{
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 1.2;
         font-weight: 600;
     }
     .furniture-for-budget-heading-section p{
         font-size: 12px;
-        line-height: 14px;
+        line-height: 1.2;
         font-weight: 400;
         text-align: center;
     }

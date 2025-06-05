@@ -63,8 +63,8 @@
     gap: 15px;
     width: 80%;
     background-color: transparent;
-    border: 1px solid var(--tertiary-color);
-    color:  var(--tertiary-color);
+    border: 1px solid var(--orange-outline);
+    color:  var(--text-gray);
     height: 50px;
     border-radius: 4px;
     text-decoration: none;
@@ -95,5 +95,11 @@
     }
     .financing-modal-inner-container {
         width: 100%;
+    }
+    .financing-option-button {
+        font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+    padding: 0 10px;
     }
 }

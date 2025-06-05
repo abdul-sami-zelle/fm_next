@@ -260,4 +260,8 @@
     .mobile-view-main-banner-shimmer{
         display: flex;
     }
+
+    .category-main-banner-shimmer {
+        display: none !important;
+    }
 }

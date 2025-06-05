@@ -24,6 +24,8 @@ export const AppointmentProvider = ({ children }) => {
     }
   })
 
+  const [error, setError] = useState({})
+
   const [parentCategories, setParentCategories] = useState([])
   const fetchCategories = async () => {
     const api = `/api/v1/productCategory/get?parent=0`;
@@ -44,7 +46,9 @@ export const AppointmentProvider = ({ children }) => {
       appointmentPayload,
       setAppointmentPayload,
       parentCategories,
-      setParentCategories
+      setParentCategories,
+      error,
+      setError
     }}>
       {children}
     </AppointmentContext.Provider>

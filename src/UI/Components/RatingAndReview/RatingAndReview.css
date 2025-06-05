@@ -182,8 +182,8 @@
         gap: 10px;
     }
     .rating-and-review-main-container > h3{
-        font-size: 15px;
-        line-height: 18px;
+        font-size: 18px;
+        line-height: 1.2;
         font-weight: 600;
         color: var(--text-primary);
     }

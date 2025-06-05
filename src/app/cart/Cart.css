@@ -190,7 +190,7 @@
     font-weight: var(--section-weight);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
-    color: var(--text-red);
+    color: var(--tertiary-color);
     cursor: pointer;
 }
 
@@ -647,7 +647,7 @@ mobile-cart-order-summary-total {
     display: none;
     position: fixed;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     border-top: 1px solid 1px solid var(--secondary-color);
     width: 100%;
     z-index: 99999;
@@ -666,20 +666,20 @@ mobile-cart-order-summary-total {
 }
 
 .mobile-total-text {
-    font-size: 20px;
-    line-height: 22px;
+    font-size: 15px;
+    line-height: 1.2;
     font-weight: 500;
 }
 
 .mobile-total-text-ammount {
     font-weight: 700;
-    font-size: 20px;
-    line-height: 22px;
+    font-size: 15px;
+    line-height: 1.2;
 }
 
 .mobile-you-save-text {
-    font-size: 15px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 1.2;
     font-weight: 500;
 }
 
@@ -687,15 +687,16 @@ mobile-cart-order-summary-total {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-outline);
     width: 100%;
     height: 48px;
     border-radius: 1px;
-    background-color: var(--primary-color);
-    color: #FFFFFF;
+    background-color: var(--orange-fill);
+    color: var(--text-gray);
     font-size: 15px;
-    line-height: 18px;
+    line-height: 1.2;
     font-weight: 700;
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 480px) {
@@ -704,14 +705,14 @@ mobile-cart-order-summary-total {
     }
 
     .cart-body {
-        padding: 10px;
+        padding: 10px !important;
         height: auto;
         flex-direction: column;
     }
 
     .cart-products-section {
         width: 100%;
-        padding: 0;
+        padding: 0 !important;
     }
 
     .cart-order-summery-section {
@@ -754,6 +755,19 @@ mobile-cart-order-summary-total {
 
     .cart-latest-products-slider-arrow {
         top: 45% !important;
+    }
+
+    .cart-order-summary-heading {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 600;
+    }
+
+    .cart-related-products-display-section>h3 {
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.2;
+        color: var(--text-primary);
     }
 }
 

@@ -118,8 +118,9 @@ const PromotionalBanner = (
           </button>
         </div>
       </div>
+
       <div className='on-tab-deliver-to' onClick={handleDeliverModal}>
-        <img src={'/Assets/icons/delivery.png'} alt="delivery" />
+        <img src={'/Assets/icon/location-outlined.svg'} alt="delivery" />
         <div className='mobile-view-delever-to'>
           <p>Deliver to : </p>
           <Link href={'#'}> PA 19134</Link>

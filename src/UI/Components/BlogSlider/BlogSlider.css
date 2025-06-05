@@ -134,11 +134,17 @@
         gap: 0px;
     }
     .blogs-main-container h3{
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 1.2;
         font-weight: 600;
         width: 100%;
         text-align: center;
+    }
+
+    .blogs-main-para {
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 400;
     }
     /* .blogs-main-para{
         display: none;

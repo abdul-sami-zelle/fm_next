@@ -283,8 +283,10 @@
     } */
 
     .product-features-main-container>h3 {
-        font-size: var(--sub-section-size);
-        line-height: var(--sub-section-height);
+        /* font-size: var(--sub-section-size);
+        line-height: var(--sub-section-height); */
+        font-size: 18px;
+        line-height: 1.2;
         font-weight: 600;
         color: var(--text-primary);
     }

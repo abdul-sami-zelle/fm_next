@@ -140,7 +140,7 @@
     line-height: 18px;
     font-weight: 600;
     cursor: pointer;
-    border: 0px solid var(--orange-outline);
+    border: 1px solid var(--orange-outline);
 }
 
 /* .update-zip-btn:hover {
@@ -224,10 +224,10 @@
     }
 
     .update-zip-btn {
-        background-color: var(--primary-color);
+        /* background-color: var(--primary-color); */
         width: 135px;
-        color: var(--text-white);
-        border-radius: 8px;
+        /* color: var(--text-white); */
+        /* border-radius: 8px; */
         font-size: 10px;
         line-height: 15px;
         font-weight: 700;

@@ -257,7 +257,7 @@ const CheckoutClient = () => {
 
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Savings</p>
-                <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--text-red)" }} >-{formatedPrice(savings)}</p>
+                <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--tertiary-color)" }} >-{formatedPrice(savings)}</p>
               </div>
 
               {isCartProtected ? (

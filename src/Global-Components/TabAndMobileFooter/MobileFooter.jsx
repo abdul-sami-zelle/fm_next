@@ -9,6 +9,7 @@ import mailIcon from '../../Assets/icons/mail.png'
 import arrowRightWhite from '../../Assets/icons/arrow-right-white.png'
 import clock from '../../Assets/icons/white-clock.png'
 import { FaPlus } from "react-icons/fa6";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 import facebookIcon from '../../Assets/icons/facebook.png';
 import tiktokIcon from '../../Assets/icons/tiktok.png';
@@ -18,17 +19,16 @@ import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
 import axios from 'axios';
 import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const MobileFooter = ({ checkoutPage }) => {
-    
-        const categorySlug = useParams()
-        const footerHide = categorySlug?.category
 
     const [googleRating, setGoogleRating] = useState(null);
 
-    
+    const pathname = usePathname()
+
+
 
     const socialIcons = [
         { socialIcon: facebookIcon, socialLink: 'https://www.facebook.com/myfurnituremecca' },
@@ -109,7 +109,7 @@ const MobileFooter = ({ checkoutPage }) => {
 
 
     return (
-        <div className={`mobile-view-footer-main-container ${footerHide === '/cart' ? 'hide-mobile-footer' : ''} ${checkoutPage ? 'hide-mobile-footer' : ''} `}>
+        <div className={`mobile-view-footer-main-container ${pathname === '/cart' ? 'hide-mobile-footer' : ''} ${checkoutPage ? 'hide-mobile-footer' : ''} `}>
 
             <div className='mobile-location-section'>
                 <div className='mobile-footer-accordion-heading-div' onClick={handleNearStoreAccordion}>
@@ -123,7 +123,7 @@ const MobileFooter = ({ checkoutPage }) => {
                         {defaultStore?.images?.[0]?.image_url && (<Image src={`${url}${defaultStore?.images?.[0]?.image_url}`} width={220} height={32} alt='near store' />)}
                     </div>
                     <div className='near-store-details-section'>
-                        { nearStoreDetails.map((item, index) => (
+                        {nearStoreDetails.map((item, index) => (
                             <span key={index}>
                                 <Image src={item.icon} width={17} height={17} alt='icon' />
                                 <p>{item.details}</p>
@@ -156,7 +156,8 @@ const MobileFooter = ({ checkoutPage }) => {
                         <div className={`mobile-footer-nav-items ${footerAccordionIndex === index ? 'show-footer-accordion' : ''}`}>
                             {item.navLinks.map((innerItems, innerIndex) => (
                                 <Link className='footer-nav-span' key={innerIndex} href={innerItems.link}>
-                                    <Image src={arrowRightWhite} width={10} height={10} alt='arrow right' />
+                                    {/* <Image src={arrowRightWhite} width={10} height={10} alt='arrow right' /> */}
+                                    <MdKeyboardArrowRight color='#FFF' size={20} />
                                     {innerItems.name}
                                 </Link>
                             ))}

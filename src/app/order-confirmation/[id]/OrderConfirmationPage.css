@@ -685,7 +685,7 @@
     width: 100%;
 }
 
-@media (max-width: 480px) {
+@media only screen and (max-width: 480px) {
     .order_description {
         flex: none;
         display: flex;
@@ -700,8 +700,6 @@
         display: flex;
     }
     
-
-
     .checkout-need-help-or-continue-shopping {
         display: flex;
         width: 100%;
@@ -741,15 +739,18 @@
     .order_details{
         flex: none;
         width: 100%;
-        padding: 30px 20px;
+        padding: 10px;
     }
 
     .cart_product_items {
         width: 100%;
+        padding: 0 !important;
     }
 
     .cart_product_calculations {
-        width: 100%;
+        width: 100% !important;
+        padding: 10px !important;
+        position: unset !important;
     }
 
     .confirmed-order-product-image{
@@ -781,6 +782,9 @@
     .confirmed-order-product-details > p {
         font-size: 12px;
         line-height: 16px;
+    }
+    .order-remaining-products-container {
+        max-height: 230px;
     }
 
 }

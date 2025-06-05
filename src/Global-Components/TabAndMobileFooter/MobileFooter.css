@@ -62,7 +62,7 @@
     padding: 0;
     overflow: hidden;
     transition: all 1s ease;
-    /* gap: 10px; */
+    gap: 10px;
 }
 
 .mobile-view-near-store-containt-section.show-mobile-footer-location{
@@ -346,9 +346,9 @@
 }
 
 .mobile-view-right span a{
-    font-size: 10px;
-    line-height: 15px;
-    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
     color: #fff;
     text-decoration: none;
 }

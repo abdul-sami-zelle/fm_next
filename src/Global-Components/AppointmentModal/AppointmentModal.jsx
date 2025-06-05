@@ -14,13 +14,13 @@ import Loader from '../../UI/Components/Loader/Loader';
 import SnakBar from '../SnakeBar/SnakBar';
 
 const AppointmentModal = (
-    { 
-        showAppointMentModal, 
-        handleCloseModal, 
-        setAppointmentModal, 
-        handleOpenSnakeBar, 
+    {
+        showAppointMentModal,
+        handleCloseModal,
+        setAppointmentModal,
+        handleOpenSnakeBar,
         setErrorMessage,
-        selectedTab, 
+        selectedTab,
         setSelectedTab,
         serviceIndex,
         setServiceTypeIndex
@@ -39,9 +39,9 @@ const AppointmentModal = (
         if (tab < selectedTab) {
             setSelectedTab(tab);
         }
-    } 
+    }
 
-    const { appointmentPayload, setAppointmentPayload } = useAppointment()
+    const { appointmentPayload, setAppointmentPayload, setError } = useAppointment()
 
     const handleServiceType = (service, index) => {
         setAppointmentPayload((prevData) => ({
@@ -92,11 +92,29 @@ const AppointmentModal = (
     const [confirmAppointment, setConfirmAppointment] = useState(false)
 
     const handleSubmitAppointment = async () => {
+        let newErrors = {};
+
+
         const api = `/api/v1/appointments/book-appointment`;
         try {
             setLoading(true)
+
+            Object.keys(appointmentPayload.details).forEach((field) => {
+                if (field === 'associate') return;
+
+                if (!appointmentPayload.details?.[field]?.trim()) {
+                    newErrors[field] = `Required`;
+                }
+            });
+
+            if (Object.keys(newErrors).length > 0) {
+                setError((prev) => ({ ...prev, ...newErrors }));
+                console.log("Errors found: ", newErrors);
+                return false
+            }
+
             const response = await axios.post(url + api, appointmentPayload);
-            if(response.status !== 201) {
+            if (response.status !== 201) {
                 handleOpenSnakeBar()
             }
             if (response.status === 201) {

@@ -197,7 +197,7 @@ const GalleryModal = (
               }} className="pagination-dots">
                 {updatedVariationImages
                   ?.map((_, i) => i)
-                  .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
+                  // .slice(getStartIndex(currentIndex, updatedVariationImages.length), getEndIndex(currentIndex, updatedVariationImages.length))
                   .map((index) => (
                     <span
                       key={index}
@@ -211,7 +211,7 @@ const GalleryModal = (
                 }} className="pagination-dots">
                   {updatedSimpleImages
                     ?.map((_, i) => i)
-                    .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
+                    // .slice(getStartIndex(currentIndex, updatedSimpleImages.length), getEndIndex(currentIndex, updatedSimpleImages.length))
                     .map((index) => (
                       <span
                         key={index}

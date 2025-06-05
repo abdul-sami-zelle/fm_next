@@ -182,11 +182,11 @@ position: absolute;
     }
 
     .deal-of-the-day-border-heading p{
-        margin-top: 0px;
+        margin-top: 3px;
         /* color: var(--primary-color); */
         color: var(--text-gray);
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 18px;
+        line-height: 1.2;
         font-weight: 600;
     }
     .deal-of-the-day-outer-container{

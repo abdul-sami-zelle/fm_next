@@ -31,36 +31,8 @@ const DeliveryInfo = forwardRef((props, ref) => {
         handleZipCodeChange
     } = useMyOrders();
 
-    // const [billing, setBilling] = useState({
-    //     first_name: "",
-    //     last_name: "",
-    //     address_1: "",
-    //     city: "",
-    //     state: "",
-    //     postal_code: "",
-    //     country: "USA",
-    //     email: "",
-    //     phone: ""
-    // })
-
-    // const handleBillingDataChange = (e) => {
-    //     const {name, value} = e.target;
-    //     setBilling((prev) => ({
-    //         ...prev,
-    //         [name]: value
-    //     }))
-    // }
-
-    // useEffect(() => {console.log("billing values", billing)}, [billing])
-
-
-
-
     const [error, setError] = useState({})
 
-    // const validateEmail = (email) => {
-    //     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    // };
 
     const handleNavigateToSignup = () => {
 
