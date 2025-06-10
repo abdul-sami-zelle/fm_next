@@ -139,6 +139,7 @@ const Home = () => {
 
       <InstaGallery />
       <InstaTwoImageGallery />
+      
     </div>
   )
 }

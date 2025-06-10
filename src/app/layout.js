@@ -66,7 +66,7 @@ export default function RootLayout({ children }) {
   //         setIsVisible(false);
   //       }
   //     };
-  
+
   //     window.addEventListener('scroll', handleScroll);
   //     return () => window.removeEventListener('scroll', handleScroll);
   //   }
@@ -83,12 +83,12 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-     <head>
-     <link 
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" 
-        rel="stylesheet"
-      />
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
       </head>
       <body>
 
@@ -121,7 +121,7 @@ export default function RootLayout({ children }) {
                                             {!hideHeaderFooter && <Header />}
                                             {!hideHeaderFooter && <Shopvia />}
                                             <main>{children}</main>
-                                            {!hideHeaderFooter  && <Footer />}
+                                            {!hideHeaderFooter && <Footer />}
                                             {/* <button
                                               onClick={handleClickTop}
                                               className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}
@@ -131,7 +131,26 @@ export default function RootLayout({ children }) {
                                             {/* <DynamicMetaTags title={title} description={description} image={image} /> */}
                                             {/* {mainLoader && <Loader />} */}
                                             {/* {isWarrantyModalOpen && <WarrantyModal />} */}
-
+                                            <div style={{
+                                              position: 'fixed',
+                                              bottom: '20px',
+                                              right: '20px',
+                                              width: '350px',
+                                              height: '500px',
+                                              zIndex: 1000,
+                                            }}>
+                                              <iframe
+                                                src="https://fm-chatbot-e6q9.vercel.app"
+                                                style={{
+                                                  width: '100%',
+                                                  height: '100%',
+                                                  border: 'none',
+                                                  borderRadius: '12px',
+                                                }}
+                                                title="Chatbot"
+                                                allow="microphone"
+                                              ></iframe>
+                                            </div>
                                           </ProductArchiveProvider>
                                         </VariationProvider>
                                       </ProductPageProvider>
