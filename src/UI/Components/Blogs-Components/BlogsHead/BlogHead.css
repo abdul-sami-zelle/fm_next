@@ -73,3 +73,40 @@
         display: flex;
     }
 }
+
+
+/* Shimmer animation */
+@keyframes shimmerAnimation {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerAnimation 1.2s infinite;
+  border-radius: 4px;
+}
+
+/* Desktop shimmer placeholder */
+.blog-head-category-shimmer {
+  width: 80px;
+  height: 28px;
+  margin: 0 10px;
+}
+
+/* Mobile shimmer placeholder */
+.mobile-blog-category-shimmer {
+  width: 70px;
+  height: 24px;
+  margin: 6px;
+}

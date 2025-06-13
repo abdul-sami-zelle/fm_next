@@ -17,6 +17,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.divider_line_gts{
+    width: 40%;
+    height: 1.5px;
+    background-color: var(--text-secondary);
 }
 
 .get-the-scop-form{
@@ -227,6 +235,28 @@
     margin-top: -10px;
 }
 
+.see_all_promotions_btn{
+    width: 300px;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--button-color);
+    flex-shrink: 0;
+    border: 1px solid var(--button-color);
+    outline: none;
+    cursor: pointer;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-white);
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 600;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+}
+
 .banner-container{
     display: flex;
     width: 100%;
@@ -370,7 +400,7 @@
     font-size: 12px;
     line-height: 18px;
     font-weight: 400;
-
+    width: 100%;
 }
 
 .mobile-view-get-scoop-input-and-button button{
@@ -488,6 +518,7 @@
         display: flex;
         padding: 20px;
     }
+   
 }
 
 @media only screen and (max-width: 480px){
@@ -523,6 +554,11 @@
     }
     .subscription_done{
         background-color: rgba(255, 255, 255, 0.6);
+    }
+    .see_all_promotions_btn{
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: 600;
     }
 }
 

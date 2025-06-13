@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0 60px;
+    position: relative;
 }
 
 .furniture-for-every-budget-main-heading {
@@ -80,6 +81,12 @@
     /* Each card takes full width of its grid cell */
 }
 
+.foeb_cover_desk{
+    display: block;
+}
+.foeb_cover_mob{
+    display: none;
+}
 @media (max-width: 1200px) {
     .product-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -90,6 +97,15 @@
     .furniture_at_every_budget {
         padding: 0 40px;
     }
+}
+
+@media (max-width: 1000px) {
+  .foeb_cover_desk{
+    display: none;
+}
+.foeb_cover_mob{
+    display: block;
+}
 }
 
 @media only screen and (max-width: 480px) {

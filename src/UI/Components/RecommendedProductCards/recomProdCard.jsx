@@ -3,12 +3,33 @@ import { IoClose } from "react-icons/io5";
 import { GrPowerCycle } from "react-icons/gr";
 import Image from "next/image";
 import { url } from "@/utils/api";
+import { useCart } from "@/context/cartContext/cartContext";
+import { useProductPage } from "@/context/ProductPageContext/productPageContext";
 
 import "./style.css";
 
-export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage,handleRemoveProduct ,handleSingleShuffle, parentProduct}) {
+export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage,handleRemoveProduct ,handleSingleShuffle, parentProduct,mainProduct}) {
     const [mainLoaded, setMainLoaded] = useState(false);
     const [hoverLoaded, setHoverLoaded] = useState(false);
+
+      const {
+        addToCart,
+        decreamentQuantity,
+        increamentQuantity,
+        removeFromCart,
+        addToCart0,
+        cartProducts,
+        cartSection,
+        setCartSection,
+        isCartLoading
+      } = useCart();
+        const {
+          setSingleProductData,
+          setSelectedVariationUid,
+          findObjectByUID,
+          setSelectedVariationData,
+          selectedVariationData
+        } = useProductPage();
 
     return (
         <div className="recommendedProductCard">
@@ -54,7 +75,21 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                         <h2 className={singleProductData?.sale_price === "" ? "rpc_price" : "rpc_price sale"}>
                             ${singleProductData?.sale_price === "" ? singleProductData?.regular_price : singleProductData?.sale_price}
                         </h2>
-                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={handleQuickView}>Quick View</button>
+                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={()=>{
+                           
+                           const isSimple = mainProduct.type === "simple";
+                            const productUid = isSimple ? mainProduct.uid : mainProduct?.uid; 
+                              const existingProduct = cartProducts?.products?.find((item) =>
+                                    isSimple ? item.product_uid === productUid : item.variation_uid === productUid
+                                );
+                            console.log(existingProduct,"exus")
+                            if (existingProduct) {
+                             addToCart0(singleProductData,null,0,1)
+                            } else {
+                             addToCart0(mainProduct,selectedVariationData,0,1);
+                             addToCart0(singleProductData,null,0,1)
+                            }}
+                             }>Add To Cart</button>
                     </div>
                 </div>
             </div>

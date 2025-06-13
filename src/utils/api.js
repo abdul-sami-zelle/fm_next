@@ -232,3 +232,34 @@ export function getOptionNames(attributes) {
       : []
   );
 }
+
+
+
+
+
+export  function formatDate(dateString, includeTime = false) {
+  if (!dateString) return '';
+
+  const date = new Date(dateString);
+
+  const pad = (n) => (n < 10 ? '0' + n : n);
+
+  const month = pad(date.getMonth() + 1); // Months are 0-indexed
+  const day = pad(date.getDate());
+  const year = date.getFullYear();
+
+  let formattedDate = `${month}-${day}-${year}`;
+
+  if (includeTime) {
+    let hours = date.getHours();
+    const minutes = pad(date.getMinutes());
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 becomes 12
+
+    formattedDate += ` ${pad(hours)}:${minutes} ${ampm}`;
+  }
+
+  return formattedDate;
+}

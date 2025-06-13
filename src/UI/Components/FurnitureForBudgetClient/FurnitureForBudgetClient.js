@@ -15,7 +15,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import ProductInfoModal from "../../../Global-Components/ProductInfoModal/ProductInfoModal";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import Image from "next/image";
+import Pagination from "../Pagination/PaginationRashid";
+import SectionLoader from "../Loader/SectionLoader";
 
 export default function FurnitureAtEveryBudgetClient() {
 
@@ -31,12 +33,13 @@ export default function FurnitureAtEveryBudgetClient() {
 
     const searchParams = useSearchParams();
     const category = searchParams.get('categoryUid');
+    const categorySlug = searchParams.get('category');
     const max_price = searchParams.get('max_price');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
+                const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&per_page=12`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch data");
                 }
@@ -53,35 +56,134 @@ export default function FurnitureAtEveryBudgetClient() {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-    //     const category = searchParams.get('categoryUid');
-    //     const max_price = searchParams.get('max_price');
-
-    //       useEffect(() => {
-    //           const fetchData = async () => {
-    //               try {
-    //                   const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}`);
-    //                   if (!response.ok) {
-    //                       throw new Error("Failed to fetch data");
-    //                   }
-    //                   const result = await response.json();
-    //                   setData(result);
-    //               } catch (error) {
-    //                   setError(error.message);
-    //               } finally {
-    //                   setLoading(false);
-    //               }
-    //           };
-
-    //           fetchData();
-    //       }, []);
-    // }, [searchParams])
 
 
-    const maxLength = 50;
-    // const truncateTitle = (title, maxLength) => {
-    //     return title.length > maxLength ? title.slice(0, maxLength) + '...' : title;
-    // };
+    const [productCache, setProductCache] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+    const [products, setProducts] = useState(null);
+    const [pagination, setPagination] = useState(null);
+    const [bannerImages, setBannerImages] = useState(null);
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+
+
+
+
+// useEffect(() => {
+//   const fetchInitialData = async () => {
+//     try {
+//       setIsInitialLoad(true); // Start shimmer for first load
+//       const response = await fetch(`http://localhost:3002/api/v1/content1/get-foeb?uid=1&slug=living-room&page=1`);
+//       if (!response.ok) throw new Error("Failed to fetch initial data");
+
+//       const result = await response.json();
+
+//       setBannerImages(result.furnitureBudget);
+//       setProducts(result.products);
+//       setPagination(result.pagination);
+
+//       setProductCache(prev => ({ ...prev, [1]: result.products }));
+//     } catch (err) {
+//       setError(err.message);
+//     } finally {
+//       setIsInitialLoad(false); // Stop shimmer
+//     }
+//   };
+
+//   const fetchPaginatedProducts = async () => {
+//       if (typeof window !== 'undefined') {
+//     window.scrollTo({ top: 0, behavior: 'smooth' });
+//   }
+//     if (productCache[currentPage]) {
+//       setProducts(productCache[currentPage]);
+//       return;
+//     }
+
+//     try {
+//       setLoading(true); // Use loading for pagination
+//       const category = searchParams.get('categoryUid');
+//       const max_price = searchParams.get('max_price');
+
+//       const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
+//       if (!response.ok) throw new Error("Failed to fetch paginated products");
+
+//       const result = await response.json();
+
+//       setProducts(result.products);
+//       setPagination(result.pagination);
+//       setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
+//     } catch (err) {
+//       setError(err.message);
+//     } finally {
+//       setLoading(false); // Stop pagination loader
+//     }
+//   };
+
+//   if (currentPage === 1 && isInitialLoad) {
+//     fetchInitialData();
+//   } else {
+//     fetchPaginatedProducts();
+//   }
+// }, [currentPage]);
+
+
+
+useEffect(() => {
+  const fetchInitialData = async () => {
+    try {
+      setIsInitialLoad(true);
+      setProductCache({}); // clear cache on filter change
+      const response = await fetch(`http://localhost:3002/api/v1/content1/get-foeb?uid=${category}&slug=${categorySlug}&page=1`);
+      if (!response.ok) throw new Error("Failed to fetch initial data");
+
+      const result = await response.json();
+
+      setBannerImages(result.furnitureBudget);
+      setProducts(result.products);
+      setPagination(result.pagination);
+
+      setProductCache({ 1: result.products }); // reset with new cache
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsInitialLoad(false);
+    }
+  };
+
+  const fetchPaginatedProducts = async () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (productCache[currentPage]) {
+      setProducts(productCache[currentPage]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
+      if (!response.ok) throw new Error("Failed to fetch paginated products");
+
+      const result = await response.json();
+
+      setProducts(result.products);
+      setPagination(result.pagination);
+      setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (currentPage === 1 && isInitialLoad) {
+    fetchInitialData();
+  } else {
+    fetchPaginatedProducts();
+  }
+}, [currentPage, category, max_price]); // added dependencies
+
 
     const [quickViewProduct, setQuickViewProduct] = useState({})
     const [quickViewClicked, setQuickView] = useState(false);
@@ -204,22 +306,60 @@ export default function FurnitureAtEveryBudgetClient() {
     //     setSelectedGrid('single-col');
     // }
 
+    const [imagePreloader, setImagePreloader] = useState(false);
+      const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+      const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pagination?.totalPages) setCurrentPage(currentPage + 1);
+  };
 
 
     return (
         <>
 
             <div className="cover_photo">
-                <img src={`${url}/uploads/media/Pages/home/slider/1731385502484_209_Main-Desktop-Banner-2-2048x545.webp`} alt="Furniture Cover" />
+                {bannerImages?.deskImg && (
+                    <Image
+                        className="foeb_cover_desk"
+                        src={`${url}${bannerImages.deskImg}`}
+                        alt="slide cover"
+                        width={1599}
+                        height={360}
+                        onLoad={() => setImagePreloader(true)}
+                        priority={true}
+                        placeholder="blur"
+                        blurDataURL="/blur.jpg"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                )}
+                 {bannerImages?.deskImg && (
+                    <Image
+                        src={`${url}${bannerImages.mobImg}`}
+                        className="foeb_cover_mob"
+                        alt="slide mob cover"
+                        width={320}
+                        height={320}
+                        onLoad={() => setImagePreloader(true)}
+                        priority={true}
+                        placeholder="blur"
+                        blurDataURL="/blur.jpg"
+                    />
+                )}
             </div>
             <div className="furniture_at_every_budget">
 
 
-                <h3 className="furniture-for-every-budget-main-heading">Furniture At Every Budget</h3>
+                <h3 className="furniture-for-every-budget-main-heading">Furniture Under ${max_price}</h3>
 
                 <div className="product-grid">
-                    {data ? (
-                        data.products.map((item, index) => (
+                    {!isInitialLoad ? (
+                        products.map((item, index) => (
                             <ProductCardTwo
                                 key={index}
                                 slug={item.slug}
@@ -263,8 +403,8 @@ export default function FurnitureAtEveryBudgetClient() {
                 </div>
 
                 <div className={`mobile-view-furniture-for-every-budget ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'} `}>
-                    {data ? (
-                        data.products.map((item, index) => (
+                    {!isInitialLoad ? (
+                        products.map((item, index) => (
                             <ProductCardTwo
                                 key={index}
                                 slug={item.slug}
@@ -307,6 +447,8 @@ export default function FurnitureAtEveryBudgetClient() {
                     )}
                 </div>
 
+                <Pagination activePageIndex={currentPage} totalPages={pagination?.totalPages} onNextPage={handleNextPage} onPrevPage={handlePrevPage} onPageChange={handlePageChange} />
+
                 <QuickView
                     setQuickViewProduct={quickViewProduct}
                     quickViewShow={quickViewClicked}
@@ -316,9 +458,10 @@ export default function FurnitureAtEveryBudgetClient() {
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
                 />
-
+              
+                {loading && <SectionLoader/>}
             </div>
-
+  
         </>
     );
 }

@@ -17,6 +17,7 @@ const BlogPage = () => {
     blogCategories,
     fetchBlogs,
     activeCategory,
+    isBlogLoading
   } = useBlog()
 
   // useEffect(() => {console.log("blog category", blogCategories)}, [blogCategories])

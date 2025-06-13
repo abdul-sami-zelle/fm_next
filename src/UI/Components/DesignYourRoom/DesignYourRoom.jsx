@@ -75,6 +75,7 @@ const DesignYourRoom = ({ data, firstChild }) => {
                         slug={item.slug}
                         singleProductData={item}
                         mainImage={`${item.image.image_url}`}
+                        mainProduct = {displayedProducts[0]}
                     />
                 ))}
             </div>

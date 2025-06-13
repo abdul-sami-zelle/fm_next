@@ -44,14 +44,25 @@ const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
         {categoryData && categoryData.length > 0 ? (
           categoryData.map((item, index) => (
            <React.Fragment key={index}>
-            <img
+            <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : `/${item.slug}` } state={item}>
+            {/* <img
               key={item.image}
               onClick={() => handleNavigate(item.slug, item)}
               src={url + item.image2}
               alt='img'
               effect='blur'
               onLoad={()=>{setIsLoaded(true)}}
+            /> */}
+            <Image
+              key={item.image}
+              src={url + item.image2}
+              width={120}
+              height={90}
+              alt='img'
+              effect='blur'
+              onLoad={()=>{setIsLoaded(true)}}
             />
+          </Link>
            </React.Fragment>
           ))
         ) : (

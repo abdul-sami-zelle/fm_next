@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
-import './BlogHead.css'
+import React, { useEffect, useRef, useState } from 'react';
+import './BlogHead.css';
 import { useBlog } from '../../../../context/BlogsContext/blogsContext';
 
-const BlogHead = ({blogCategories }) => {
-
-    
-  // const [activeCategory, setActiveCategory] = useState(0);
+const BlogHead = ({ blogCategories }) => {
   const {
     activeCategory,
-      setActiveCategory
-  } = useBlog()
+    setActiveCategory,
+    isBlogCatLoading,
+  } = useBlog();
 
-  const [sliderStyle, setSliderStyle] = useState({ width: "0px", left: "0px" });
-
+  const [sliderStyle, setSliderStyle] = useState({ width: '0px', left: '0px' });
   const categoryRefs = useRef([]);
 
   useEffect(() => {
@@ -27,30 +24,43 @@ const BlogHead = ({blogCategories }) => {
 
   const handleSelectedCategory = (index) => {
     setActiveCategory(index);
-  }
+  };
+
   return (
     <>
-    <div className='blog-head-main-container'>
-      {blogCategories.map((item, index) => (
-        <p 
-          key={index} 
-          ref={(el) => (categoryRefs.current[index] = el)}
-          className={`blog-head-category-type ${activeCategory === index ? 'active-category' : ''}`}
-          onClick={() => handleSelectedCategory(index)}
-        >
-          {item.name}
-        </p>
-      ))}
-        {/* Background slider div with dynamic width and position */}
-        <div className="bg-slider" style={sliderStyle} />
-    </div>
-    <div className='mobile-view-blog-head-main-container'>
-      {blogCategories.slice(0, 6).map((item, index) => (
-        <p key={index} className='mobile-view-blog-head-category-type'>{item.name}</p>
-      ))}
-    </div>
-    </>
-  )
-}
+      <div className='blog-head-main-container'>
+        {isBlogCatLoading
+          ? [...Array(5)].map((_, index) => (
+              <div key={index} className='blog-head-category-shimmer shimmer'></div>
+            ))
+          : blogCategories.map((item, index) => (
+              <p
+                key={index}
+                ref={(el) => (categoryRefs.current[index] = el)}
+                className={`blog-head-category-type ${
+                  activeCategory === index ? 'active-category' : ''
+                }`}
+                onClick={() => handleSelectedCategory(index)}
+              >
+                {item.name}
+              </p>
+            ))}
+        {!isBlogCatLoading && <div className='bg-slider' style={sliderStyle} />}
+      </div>
 
-export default BlogHead
+      <div className='mobile-view-blog-head-main-container'>
+        {isBlogCatLoading
+          ? [...Array(5)].map((_, index) => (
+              <div key={index} className='mobile-blog-category-shimmer shimmer'></div>
+            ))
+          : blogCategories.slice(0, 6).map((item, index) => (
+              <p key={index} className='mobile-view-blog-head-category-type'>
+                {item.name}
+              </p>
+            ))}
+      </div>
+    </>
+  );
+};
+
+export default BlogHead;

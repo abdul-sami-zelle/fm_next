@@ -8,7 +8,7 @@ import TrandingBlogs from '@/UI/Components/Blogs-Components/TrandingBlogs/Trandi
 import FirstToKnow from '@/UI/Components/Blogs-Components/FirstToKnow/FirstToKnow';
 import SearchTag from '@/UI/Components/Blogs-Components/SearchTags/SearchTag';
 import NextUp from '@/UI/Components/Blogs-Components/NextUp/NextUp';
-import { url } from '@/utils/api'
+import { url, formatDate } from '@/utils/api'
 import { useBlog } from '@/context/BlogsContext/blogsContext'
 import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -17,12 +17,12 @@ const SingleBlog = () => {
     const router = useRouter();
     const path = usePathname();
     const splitedPath = path.split('/');
-    const slug = splitedPath[splitedPath.length -1]
+    const slug = splitedPath[splitedPath.length - 1]
 
 
     const {
         blogs,
-        fetchBlogCategories,
+        // fetchBlogCategories,
         blogCategories,
         fetchBlogs,
     } = useBlog();
@@ -37,11 +37,12 @@ const SingleBlog = () => {
         singleBlog = blogs.find((blog) => blog.slug === slug) || {};
     }
 
-    useEffect(() => {
-        fetchBlogCategories()
-    }, [])
+    // useEffect(() => {
+    //     fetchBlogCategories()
+    // }, [])
 
     useEffect(() => {
+        console.log(blogCategories, "here are blog cat")
         fetchBlogs(singleBlog?.category?._id)
     }, [])
 
@@ -86,15 +87,6 @@ const SingleBlog = () => {
     }
 
 
-    let formattedDate = "Unknown Date";
-
-    if (singleBlog?.publishedDate) {
-        const publishedDate = new Date(singleBlog.publishedDate);
-
-        if (!isNaN(publishedDate)) {
-            formattedDate = publishedDate.toISOString().split("T")[0];
-        }
-    }
 
 
 
@@ -112,7 +104,7 @@ const SingleBlog = () => {
                 <div className='single-blog-left-content'>
                     <div className='single-blog-title-and-publish-date'>
                         <h3 className='single-blog-name'>{singleBlog.title}</h3>
-                        <p className='single-blog-post-date'>{formattedDate}</p>
+                        <p className='single-blog-post-date'>{formatDate(singleBlog.publishedDate)}</p>
                     </div>
                     <div className='single-blog-main-image-div'>
                         <img src={`${url}${singleBlog?.image?.image_url}`} alt='single-blog-image' className='single-blog-main-image' />
@@ -124,7 +116,13 @@ const SingleBlog = () => {
                         <div className='single-blog-social-icons'>
                             {socialLinks.map((items, index) => (
                                 <Link href={'#'} key={index} className='social-single-icon'>
-                                    <Image src={items.icon} width={20} height={20} alt='cosial-icon' className='social-icon-img' />
+                                    <Image src={items.icon}
+                                        width={0}
+                                        height={0}
+                                        alt='social-icon'
+                                        className='social-icon-img'
+                                        style={{ width: 'auto', height: '20px' }}
+                                    />
                                 </Link>
                             ))}
                         </div>
@@ -157,7 +155,7 @@ const SingleBlog = () => {
                     <TrandingBlogs blogs={filteredBlogs} />
                     <FirstToKnow />
                     <SearchTag />
-                    <NextUp />
+                    {/* <NextUp /> */}
                 </div>
             </div>
         </div>

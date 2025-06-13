@@ -6,6 +6,7 @@
     align-items: center;
     justify-self: center;
     cursor: pointer;
+    position: relative;
 }
 
 .blog-card-main-image-div{
@@ -14,6 +15,8 @@
     justify-self: center;
     width: 100%;
     height: auto;
+    position: relative;
+    overflow: hidden;
 }
 
 .blog-card-main-image-class{
@@ -40,14 +43,22 @@
     cursor: pointer;
 }
 
-.blog-card-main-title{
-    font-size: 20px;
-    line-height: 21px;
-    font-weight: 500;
-    text-align: center;
-    color: #000;
-    margin-bottom: 15px;
+.blog-card-main-title {
+  font-size: 20px;
+  line-height: 21px;
+  font-weight: 500;
+  text-align: center;
+  color: #000;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;            /* Show only 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  height: 42px;                     /* 21px line-height × 2 lines */
 }
+
 
 .blog-card-footer-buttons{
     display: flex;
@@ -88,4 +99,25 @@
     font-size: 12px;
     line-height: 18px;
     font-weight: 400;
+}
+
+.blog-image-shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e2e2e2 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }

@@ -53,7 +53,8 @@ const BestSeller = () => {
     const sliderRef = useRef(null);
     const [activeItem, setActiveItem] = useState(0);
     const router = useRouter()
-    const params = usePathname();
+    // const params = usePathname();
+    const pathname = usePathname();
 
     const { bestSelling, bestSellerNav1,  } = useLPContentContext()
 
@@ -62,14 +63,22 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
+    useEffect(() => {
+  // Whenever the route changes, revalidate the SWR call
+  if (currentSlug) {
+    const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
+    mutate(cacheKey); // Re-fetch the SWR data
+  }
+}, [pathname]);
+
 
     // Functions
-    useEffect(() => {
-        const splitedParam = params.split('/')
-        const newSlug = splitedParam[1]
+    // useEffect(() => {
+    //     const splitedParam = params.split('/')
+    //     const newSlug = splitedParam[1]
 
-        if (newSlug) setCurrentSlug(newSlug)
-    }, [])
+    //     if (newSlug) setCurrentSlug(newSlug)
+    // }, [])
 
     const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
     const [categorySellerCount, setCategorySellerCount] = useState(0)

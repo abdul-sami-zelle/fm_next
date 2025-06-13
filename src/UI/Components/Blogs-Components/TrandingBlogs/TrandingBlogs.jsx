@@ -1,7 +1,7 @@
 import React from 'react'
 import './TrandingBlogs.css'
 // import { url } from '../../../../utils/api'
-import { url } from '@/utils/api'
+import { url,formatDate } from '@/utils/api'
 import { useRouter } from 'next/navigation'
 // import {useNavigate } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ const TrandingBlogs = ({blogs}) => {
                         <img src={`${url}${item.image.image_url}`} alt='imm' className='tranding-blog-man-image' />
                         <div className='tranding-blog-content'>
                             <h3 className='tranding-blog-name'>{item.title}</h3>
-                            <p className='tranding-blog-post-date'>{item.publishedDate}</p>
+                            <p className='tranding-blog-post-date'>{formatDate(item.publishedDate)}</p>
                         </div>
                     </div>
                 ))}

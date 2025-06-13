@@ -579,6 +579,7 @@ const ProductDetailSticky = (
                   className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
                   onClick={() => {
                     handleClick();
+                    console.log(product, selectedVariationData, !isProtected ? 1 : 0, quantity,"here is the")
                     addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
                     // handleAddToCartProduct(product);
                   }

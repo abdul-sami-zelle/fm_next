@@ -28,52 +28,44 @@ export const BlogsProvider = ({ children }) => {
         __v: 0
     };
 
-    const [blogCategories, setBlogCategories] = useState([])
+const [blogCategories, setBlogCategories] = useState([]);
+const [blogCategoryCount, setBlogCategoryCount] = useState(0);
+const [isBlogCatLoading,setIsBlogCatLoading] = useState(false);
+const [isBlogLoading,setIsBlogLoading] = useState(false);
 
-    const blogCategoryApi = `${url}/api/v1/blog-categories/get`;
-    const [blogCategoryCount, setBlogCategoryCount] = useState(0);
+const blogCategoryApi = `${url}/api/v1/blog-categories/get`;
 
-    const {data: blogCategoryData, error: blogCategoryError, isLoading: blogCategoryLoading} = useSWR(blogCategoryApi, fetcher, {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-        dedupingInterval: 1000 * 60 * 60 * 24 * 365
-    })
+const fetcher = (url) => fetch(url).then(res => {
+    if (!res.ok) throw new Error("Failed to fetch");
+    return res.json();
+});
 
-    if(blogCategoryError && blogCategoryCount < 3) {
-        setTimeout(() => {
-            setBlogCategoryCount(blogCategoryCount + 1);
-        }, 1000)
+const { data: blogCategoryData, error: blogCategoryError, isLoading: blogCategoryLoading } = useSWR(blogCategoryApi, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+});
+
+useEffect(() => {
+    if (blogCategoryError && blogCategoryCount < 3) {
+        const timer = setTimeout(() => {
+            setBlogCategoryCount(prev => prev + 1);
+        }, 1000);
+        return () => clearTimeout(timer);
     }
+}, [blogCategoryError, blogCategoryCount]);
 
-    useEffect(() => {
-        if(blogCategoryData) {
-            setBlogCategories([customCategory, ...blogCategoryData.categories]);
-        }
-    }, [blogCategoryData])
+useEffect(() => {
+    if (blogCategoryData) {
+        setBlogCategories([customCategory, ...blogCategoryData.categories]);
+    }
+}, [blogCategoryData]);
 
 
-
-
-    // const fetchBlogCategories = async () => {
-    //     const api = `/api/v1/blog-categories/get`;
-    //     try {
-    //         if (!Array.isArray(blogCategories) || !blogCategories.length) {
-    //             const response = await axios.get(`${url}${api}`);
-    //             if (response.status === 200) {
-    //                 setBlogCategories([customCategory, ...response.data.categories]);
-    //             } else {
-    //                 console.error("UnExpected Error", response.status)
-    //             }
-    //         }
-    //     } catch (error) {
-    //         console.error("Unexpected Server Error:", error.response || error.message || error);
-    //         throw new Error("UnExpected Server Error");
-    //     }
-    // }
 
     const [categoryId, setCategoryId] = useState(null);
 
-    const blogsApi = categoryId === null ? `${url}/api/v1/blogs/get` : `${url}/api/v1/blogs/get?caegory=${categoryId}`;
+    const blogsApi = categoryId === null ? `${url}/api/v1/blogs/get` : `${url}/api/v1/blogs/get?category=${categoryId}`;
     const [blogsCount, setBlogsCount] = useState(0);
     const {data: blogsData, error: blogsError, isLoading: blogsLoading} = useSWR(blogsApi, fetcher, {
         revalidateOnFocus: false,
@@ -93,30 +85,40 @@ export const BlogsProvider = ({ children }) => {
         }
     }, [blogsData])
 
-    // const fetchBlogs = async (categoryId) => {
-    //     const api = `/api/v1/blogs/get`;
-    //     try {
-    //         let response
-    //         if (categoryId === null) {
-    //             response = await axios.get(`${url}${api}`);
-    //             if (response.status === 200 && response.data.blogs) {
-    //                 setBlogs(response.data.blogs);
-    //             } else {
-    //                 console.error("UnExpected Error", response.status);
-    //             }
-    //         } else {
-    //             response = await axios.get(`${url}${api}?category=${categoryId}`);
-    //             setBlogs(response.data.blogs);
-    //         }
-    //     } catch (error) {
-    //         console.error("UnExpected Server Error", error);
-    //     }
-    // }
+    useEffect(() => {
+            setIsBlogLoading(blogsLoading);
+        
+    }, [blogsLoading])
 
-    // useEffect(() => {
-    //     fetchBlogCategories()
-    //     fetchBlogs(null)
-    // }, [])
+        useEffect(() => {
+            setIsBlogCatLoading(blogCategoryLoading);
+        
+    }, [blogCategoryLoading])
+
+    const fetchBlogs = async (categoryId) => {
+        const api = `/api/v1/blogs/get`;
+        try {
+            let response
+            if (categoryId === null) {
+                response = await axios.get(`${url}${api}`);
+                if (response.status === 200 && response.data.blogs) {
+                    setBlogs(response.data.blogs);
+                } else {
+                    console.error("UnExpected Error", response.status);
+                }
+            } else {
+                response = await axios.get(`${url}${api}?category=${categoryId}`);
+                setBlogs(response.data.blogs);
+            }
+        } catch (error) {
+            console.error("UnExpected Server Error", error);
+        }
+    }
+
+    useEffect(() => {
+       
+        fetchBlogs(null)
+    }, [])
 
     return (
         <BlogsContext.Provider value={{
@@ -125,9 +127,11 @@ export const BlogsProvider = ({ children }) => {
             // fetchBlogCategories,
             blogCategories,
             setBlogCategories,
-            // fetchBlogs,
+            fetchBlogs,
             activeCategory,
             setActiveCategory,
+            isBlogLoading,
+            isBlogCatLoading
         }}>
             {children}
         </BlogsContext.Provider>

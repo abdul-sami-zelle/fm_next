@@ -20,6 +20,7 @@ import { useProductPage } from '@/context/ProductPageContext/productPageContext'
 import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
+import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
 
 const ProductDisplay = ({ params }) => {
 
@@ -42,6 +43,10 @@ const ProductDisplay = ({ params }) => {
     protection: 'Available'
     })
   }, [product])
+
+  useEffect(()=>{
+    console.log(product,"here us pro")
+  },[product])
 
   const [isSticky, setIsSticky] = useState(false)
 
@@ -397,6 +402,8 @@ const ProductDisplay = ({ params }) => {
 
 
         <DesignYourRoom data={recomandedProducts} firstChild={product} />
+
+       {product && <DesignYourRoomIndv image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
 
       </div>
 

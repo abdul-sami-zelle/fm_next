@@ -4,6 +4,7 @@ import BlogCard from '../BlogCard/BlogCard';
 import BlogCardShimmer from '../../Loaders/blogCardShimmer/BlogCardShimmer';
 import { url } from '../../../../utils/api';
 import { useRouter } from 'next/navigation';
+import { useBlog } from '@/context/BlogsContext/blogsContext';
 
 const AllBlogs = ({blogData}) => {
 
@@ -16,10 +17,15 @@ const AllBlogs = ({blogData}) => {
   }
 
 
+      const {
+          isBlogLoading
+      } = useBlog();
+
+
   return (
     <div className='blog-page-blog-cards-main-container'>
-      {blogData && blogData.length >= 0 ? (
-        blogData.map((item, index) => (
+      {!isBlogLoading && blogData?.length > 0  ? (
+        blogData?.map((item, index) => (
         <div key={index} className='blog-cards-col'>
           <BlogCard
             singleBlog={item} 
@@ -29,6 +35,7 @@ const AllBlogs = ({blogData}) => {
             blogTitle={item.title}
             blogPostDate={item.publishedDate}
             navigateToSinglePage={() => handleNavigate(item)}
+            keyind={item?._id}
           />
         </div>  
       ))
