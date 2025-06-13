@@ -133,7 +133,7 @@ useEffect(() => {
     try {
       setIsInitialLoad(true);
       setProductCache({}); // clear cache on filter change
-      const response = await fetch(`http://localhost:3002/api/v1/content1/get-foeb?uid=${category}&slug=${categorySlug}&page=1`);
+      const response = await fetch(`${url}/api/v1/content1/get-foeb?uid=${category}&slug=${categorySlug}&page=1`);
       if (!response.ok) throw new Error("Failed to fetch initial data");
 
       const result = await response.json();
