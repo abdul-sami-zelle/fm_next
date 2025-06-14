@@ -21,7 +21,7 @@ import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerPro
 import BestSellerShimmer from './BestSellerShimmer/BestSellerShimmer';
 import RatingReview from '../starRating/starRating';
 import heartIcon from '../../../Assets/icons/like.png'
-import { VscHeartFilled , VscHeart} from "react-icons/vsc";
+import { VscHeartFilled, VscHeart } from "react-icons/vsc";
 
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
@@ -61,22 +61,22 @@ const BestSellerSlider = (
     const [currentSlug, setCurrentSlug] = useState();
     const [loading, setLoading] = useState(false);
 
-    const bestSellerProductApi = currentSlug ? `${url}/api/v1/products/get-best-selling-products?category=${currentSlug}` : null;
+    const bestSellerProductApi = currentSlug ? `${url}/api/v1/products/get-best-selling-products?category=${currentSlug}&parent=0` : null;
     const [bestSellerProductCount, setBestSellerProductCount] = useState(0)
-    const {data: bestSellerProductData, error: betSellerProductError, isLaoding: bestSellerProductLoading} = useSWR(bestSellerProductApi, fetcher, {
+    const { data: bestSellerProductData, error: betSellerProductError, isLoading: bestSellerProductLoading } = useSWR(bestSellerProductApi, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         dedupingInterval: 1000 * 60 * 60 * 24 * 365
     })
 
-    if(betSellerProductError && bestSellerProductCount < 3 ) {
+    if (betSellerProductError && bestSellerProductCount < 3) {
         setTimeout(() => {
             setBestSellerProductCount(bestSellerCount + 1);
         }, 1000)
     }
 
     useEffect(() => {
-        if(bestSellerProductData) {
+        if (bestSellerProductData) {
             setAllProducts(bestSellerProductData.products);
         }
     })
@@ -97,20 +97,23 @@ const BestSellerSlider = (
 
     const bestSellerApi = `${url}/api/v1/best-seller-home/get`
     const [bestSellerCount, setBestSellerCount] = useState(0);
-    const {data: bestSellerMainData, error: bestSellerError, isLaoding: bestSellerLoading} = useSWR(bestSellerApi, fetcher, {
+    const { data: bestSellerMainData, error: bestSellerError, isLaoding: bestSellerLoading } = useSWR(bestSellerApi, fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
-        dedupingInterval: 1000 * 60 * 60 * 24 * 365
+        dedupingInterval: 1000 * 60 * 60 * 24 * 365,
+        onSuccess:()=>{
+            // setBannerLoading(false)
+        }
     })
 
-    if(bestSellerError && bestSellerCount < 3) {
+    if (bestSellerError && bestSellerCount < 3) {
         setTimeout(() => {
             setBestSellerCount(bestSellerCount + 1);
         }, 1000);
     }
 
     useEffect(() => {
-        if(bestSellerMainData) {
+        if (bestSellerMainData) {
             console.log("best Seller Data", bestSellerMainData)
             setBestSellerNav1(bestSellerMainData)
             setCurrentSlug(bestSellerMainData[0].slug)
@@ -255,7 +258,12 @@ const BestSellerSlider = (
     const sliderRef = useRef(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentDotPosition, setCurrentDotPosition] = useState(1);
-    const [bannerLoading,, setBannerLoading] = useState(false);
+    const [bannerLoading, setBannerLoading] = useState(false);
+
+    // useEffect(() => {
+    //     setBannerLoading(true);
+    // }, [activeItem]);
+
 
     const [dotStartIndex, setDotStartIndex] = useState(0);
 
@@ -337,15 +345,22 @@ const BestSellerSlider = (
             <div className="best-seller-slider-container">
 
                 <div className='best-seller-imaage-and-cards'>
-                    
-                    <div className='best-seller-slider-main-banner'>
-                        {bannerLoading === true? (
-                            <div className='best-seller-main-cover-shimmer'></div>
-                    ) : (
-                        <img src={url + bestSellerNav1[activeItem]?.image?.image_url} onLoad={() => {setBannerLoading(true)}} alt='main banner' />
-                    )}
-                        
-                    </div>
+
+                   <div className='best-seller-slider-main-banner'>
+    {bestSellerLoading ? (
+        <div className='best-seller-main-cover-shimmer'></div>
+    ) : (
+        <img
+            key={bestSellerNav1[activeItem]?.image?.image_url} // forces re-render
+            src={url + bestSellerNav1[activeItem]?.image?.image_url}
+            onLoad={() => setBannerLoading(false)}
+            onError={() => setBannerLoading(false)}
+            alt='main banner'
+        />
+    )}
+</div>
+
+
                     <div className='best-seller-slider-div'>
                         <div className='best-seller-slider-menu-bar'>
                             <h3>Best Seller</h3>
@@ -354,11 +369,15 @@ const BestSellerSlider = (
                                     <p
                                         key={index}
                                         className={activeItem === index ? 'active' : ''}
-                                        onClick={() => {
+                                        onClick={async () => {
                                             // getBestSellerProducts(item.slug)
+                                            console.log("start")
+                                            // setLoading(true)
                                             setCurrentSlug(item.slug);
-                                            mutate();
                                             handleActiveItem(index)
+                                            await mutate();
+                                            // setLoading(true);
+                                            console.log("end")
                                         }}
                                     >
                                         {item.Heading}
@@ -388,12 +407,12 @@ const BestSellerSlider = (
                                         transform: `translateX(-${(currentIndex / totalPages) * 100}%)`
                                     }}>
                                     {/* {products.slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => ( */}
-                                    {!loading ?
+                                    {!bestSellerProductLoading ?
                                         getDisplayedCards().slice(currentIndex, currentIndex + cardsPerPage).map((item, index) => (
                                             <BestSellerProductCard
                                                 productData={item}
                                                 isDiscountable={item.discount.is_discountable === 1 ? true : false}
-                                                key={index}
+                                                key={item._id}
                                                 productMainImage={item.images?.[0]?.image_url}
                                                 starIcon={ratingStars}
                                                 reviews={'200'}
@@ -421,7 +440,7 @@ const BestSellerSlider = (
                 </div>
 
                 {/* Mobile View  */}
-                <div className='best-saller-mobile-container'> 
+                <div className='best-saller-mobile-container'>
                     <h3>Best Seller</h3>
                     <div className='mobile-card-nav-container'>
                         {bestSellerNav1.map((item, index) => (
@@ -432,7 +451,7 @@ const BestSellerSlider = (
                                     setCurrentSlug(item.slug)
                                     handleMobileNavClick(index)
                                     handleMobileActiveindex(index)
-                                    
+
                                     // getBestSellerProducts(item.slug)
                                 }}
                             >

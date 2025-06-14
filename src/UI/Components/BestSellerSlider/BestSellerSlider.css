@@ -19,8 +19,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* flex: 0 0 30%; */
+    flex: 0 0 30%;
     height: auto;
+    min-width: 466px;
+    position: relative;
 }
 
 .best-seller-slider-main-banner img {
@@ -795,4 +797,25 @@ width: 100%;
     .mobile-view-best-seller-main-container{
         display: flex;
     } */
+}
+
+
+/* RESP OF HOME PAGE BEST SELLER */
+
+@media only screen and (min-width: 1180px) and (max-width: 1250px) {
+.best-seller-slider-main-banner{
+    min-width: 395px;
+}
+}
+
+@media only screen and (max-width: 1179px) {
+.best-seller-slider-main-banner{
+    min-width: 365px;
+}
+}
+
+@media only screen and (max-width: 1129px) {
+.best-seller-slider-main-banner{
+    min-width: 345px;
+}
 }

@@ -9,6 +9,8 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BiSolidShoppingBag } from "react-icons/bi";
+
 
 const TrendingNow = ({ data }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,7 +54,7 @@ const TrendingNow = ({ data }) => {
                             <div className="tranding-slides">
                                 <Slider {...settings}>
                                     {data?.sliders.map((image, index) => (
-                                        <Link href={`/product${image.link_url}`} className="trending-slide" key={index}>
+                                        <Link href={`/product/${image.link_url}`} className="trending-slide" key={index}>
                                             <Image
                                                 src={`${url}${image.image_url}`}
                                                 width={1160}
@@ -66,15 +68,15 @@ const TrendingNow = ({ data }) => {
                                 </Slider>
                                 <div className='tranding-cart-overlay-main-container'>
                                     <div className='tranding-card-bag-container'>
-                                        <HiOutlineShoppingBag size={30} className='tranding-now-cart-bag' />
-                                        <HiOutlineShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
+                                        <BiSolidShoppingBag size={30} className='tranding-now-cart-bag' />
+                                        <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className='trending-items-cards'>
                             {productArray.map((item, index) => (
-                                <Link href={`/product${item.link_url}`} key={item.uid || `product-${index}`} className='trending-item-category'>
+                                <Link href={`/product/${item.link_url}`} key={item.uid || `product-${index}`} className='trending-item-category'>
                                     <Image
                                         src={`${url}${item.image_url}`}
                                         width={300}
@@ -84,8 +86,8 @@ const TrendingNow = ({ data }) => {
                                     />
                                     <div className='small-tranding-cart-overlay-main-container'>
                                         <div className='small-tranding-card-bag-container'>
-                                            <HiOutlineShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
-                                            <HiOutlineShoppingBag size={20} className='tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={20} className='tranding-now-cart-bag' />
                                         </div>
                                     </div>
                                 </Link>

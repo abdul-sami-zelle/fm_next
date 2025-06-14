@@ -197,6 +197,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         {
             heading: 'About Furniture Mecca', navLinks: [
                 { name: 'About Us', link: '/about-us' },
+                { name: 'Design your Room', link: '/free-design-consultation' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },
                 { name: 'My Account', link: '/user-dashboard/:id' },

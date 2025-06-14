@@ -31,6 +31,7 @@ import { BlogsProvider } from '@/context/BlogsContext/blogsContext';
 import { UserDashboardCtxProvider } from '@/context/userDashboardContext/userDashboard';
 import { ProductArchiveProvider } from '@/context/ActiveSalePageContext/productArchiveContext';
 import { AppointmentProvider } from '@/context/AppointmentContext/AppointmentContext';
+import Home from '@/chatbot-components/Home/Home';
 
 
 import { ToastContainer, Zoom } from 'react-toastify';
@@ -135,21 +136,9 @@ export default function RootLayout({ children }) {
                                               position: 'fixed',
                                               bottom: '20px',
                                               right: '20px',
-                                              width: '350px',
-                                              height: '500px',
                                               zIndex: 1000,
                                             }}>
-                                              <iframe
-                                                src="https://fm-chatbot-e6q9.vercel.app"
-                                                style={{
-                                                  width: '100%',
-                                                  height: '100%',
-                                                  border: 'none',
-                                                  borderRadius: '12px',
-                                                }}
-                                                title="Chatbot"
-                                                allow="microphone"
-                                              ></iframe>
+                                              <Home/>
                                             </div>
                                           </ProductArchiveProvider>
                                         </VariationProvider>

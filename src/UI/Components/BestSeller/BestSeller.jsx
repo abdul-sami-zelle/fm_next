@@ -63,13 +63,20 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
-    useEffect(() => {
-  // Whenever the route changes, revalidate the SWR call
-  if (currentSlug) {
-    const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
-    mutate(cacheKey); // Re-fetch the SWR data
-  }
-}, [pathname]);
+//     useEffect(() => {
+//   // Whenever the route changes, revalidate the SWR call
+//   if (currentSlug) {
+//     const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
+//     mutate(cacheKey); // Re-fetch the SWR data
+//     console.log(pathname,"here ios path name")
+//   }
+// }, [pathname]);
+
+ useEffect(() => {
+    setMainBanner(bestSelling.categories[0].image)
+    setCurrentSlug(bestSelling.categories[0].slug)
+    console.log(bestSelling.categories[0].slug)
+  }, [bestSelling]);
 
 
     // Functions
@@ -123,9 +130,9 @@ const BestSeller = () => {
 
 
 
-    // useEffect(() => {
-    //     getBestSellerProducts(currentSlug)
-    // }, [params, currentSlug]);
+    useEffect(() => {
+        mutate();
+    }, [currentSlug]);
 
     useEffect(() => {
         if (allProducts?.length === 0) {
@@ -272,14 +279,14 @@ const BestSeller = () => {
                             {bestSelling ? (
                                 <div className='category-best-seller-menu-items'>
                                     {bestSelling.categories.map((item, index) => (
-                                        <p key={index} className={activeItem === index ? 'active' : ''} onClick={() => handleActiveItem(index, item)}>{item.Heading}</p>
+                                        <p key={item._id} className={activeItem === index ? 'active' : ''} onClick={() => handleActiveItem(index, item)}>{item.Heading}</p>
                                     ))}
                                 </div>
                             ) : <></>}
                         </div>
 
                         <div className='products-slider-container'>
-                            {!loading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
+                            {!categorySellerLoading ? <div className='best-seller-slider' style={{ transform: `translateX(-${(currentIndex / maxIndex) * 0}%)` }}>
                                 {allProducts && allProducts.slice(currentIndex * itemPerPage, (currentIndex + 1) * itemPerPage).map((item, index) => (
                                     <BestSellerProductCard
                                         key={index}
@@ -313,8 +320,8 @@ const BestSeller = () => {
                     </div>
 
                     <div className='category-best-seller-banners-section'>
-                        <img src={url + bestSelling.cover_img.image_url} className='banner_one' alt='banner one' />
-                        <img src={mainBanner && (url + mainBanner.image_url)} alt='banner two' className='banner_two' />
+                        <img src={url + bestSelling.cover_img.image_url} key={bestSelling?.cover_img?.image_url} className='banner_one' alt='banner one' />
+                        <img src={mainBanner && (url + mainBanner.image_url)} key={mainBanner?.image_url} alt='banner two' className='banner_two' />
                     </div>
 
                 </div>

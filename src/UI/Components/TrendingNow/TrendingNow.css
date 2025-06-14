@@ -116,9 +116,10 @@
     justify-content: center;
     width: 80%;
     height: 80%;
-    background-color: var(--orange-fill);
-    border-radius: 0.625rem;
+    background-color: white;
+    border-radius: .625rem;
     cursor: pointer;
+    border: 1px solid var(--orange-outline);
 }
 
 
@@ -129,18 +130,19 @@
     justify-content: center;
     width: 80%;
     height: 80%;
-    background-color: var(--orange-fill);
+    background-color: white;
     border-radius: 0.625rem;
     cursor: pointer;
+    border: 1px solid var(--orange-outline);
 }
 
 .tranding-now-cart-bag {
-    color: var(--text-gray);
+    color: var(--orange-outline);
 }
 
 .mobile-tranding-now-cart-bag {
     display: none;
-    color: var(--text-gray);
+    color: var(--orange-outline);
 
 }
 

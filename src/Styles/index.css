@@ -80,6 +80,34 @@
   --product-weight: 600;
   --product-height: 1.3
 
+
+
+    font-family: "Poppins";
+  --custom-color-start: #ff762c;
+  --custom-color-start-rgb: 255, 118, 44;
+  --custom-color-start-rgb-inverted: 30, 39, 73;
+  --custom-bgColor: #f3691e;
+  --custom-color-text: #24123a;
+  --custom-color-foreground: #fff;
+  --custom-color-start: #6658f1;
+  --custom-color-stop: #ff762c;
+  --custom-color-stop-rgb: 255, 118, 44;
+  --custom-color-gradient: #ff762c;
+  --custom-bgColor: #ff762c;
+  --custom-bgColor-rgb: 255, 118, 44;
+  --custom-bgColor-rgb-inverted: 0, 0, 0;
+  --custom-color-foreground: #ff762c;
+  --custom-color-background: #f3691e;
+  --custom-color-foreground-rgb: 255, 118, 44;
+  --custom-color-background-rgb: 243, 105, 30;
+  --custom-color-background-gradient: linear-gradient(
+    180deg,
+    #ff975f 0%,
+    #ff975f 85%,
+    #ff762c 100%
+  );
+  --custom-color-text: #ffffff;
+  --custom-menu-bar-color: #333333;
   
 }
 

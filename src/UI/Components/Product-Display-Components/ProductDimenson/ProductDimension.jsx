@@ -4,6 +4,8 @@ import { RxDimensions } from "react-icons/rx";
 import { FaRegImage } from "react-icons/fa6";
 import { url } from '../../../../utils/api';
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
+import { SiMaterialdesignicons } from "react-icons/si";
+
 import axios from 'axios';
 // import { AiOutlineZoomOut } from "react-icons/ai";
 
@@ -25,6 +27,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
 
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },
+    { icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' },
     ...(customerPhotos?.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
     { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} /> , title: 'Zoom' },
   ]
@@ -38,6 +41,8 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
       handleGalleryModal()
     }else if(item.title === 'Zoom'){
       handleZoom()
+    }else if(item.title === 'Design Your Room'){
+      
     }
   }
 
@@ -60,10 +65,17 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
           <p className='dimensions-detail-button-title'>Dimensions</p>
         </div>
 
+         <div className='mobile-view-dimension-main' onClick={()=>{}}>
+          <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
+          <p className='dimensions-detail-button-title'>Design Your Room</p>
+        </div>
+
         <div className='mobile-view-dimension-main' onClick={handleZoom}>
           {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
           <p className='dimensions-detail-button-title'>Zoom</p>
         </div>
+
+        
 
       </div>
     </>
