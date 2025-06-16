@@ -112,47 +112,51 @@ const Products = ({ navigationType }) => {
     const  categorySlug = useParams();
     const parentCategory = categorySlug.category
 
-    const subCategoryApi = parentCategory ? `/api/v1/sub-category/get/${parentCategory}` : null;
-    const [subCAtegoryCount, setSubCategoryCount] = useState(0);
-    const {data: subCategoryData, error: subCategoryError, isLoading: subCategoryLoading} = useSWR(subCategoryApi, fetcher, {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-        dedupingInterval: 1000 * 60 * 60
-    })
-    if(subCategoryError && subCAtegoryCount < 3) {
-        setTimeout(() => {
-            setSubCategoryCount(subCAtegoryCount + 1);
-        }, 1000)
-    }
-    useEffect(() => {
-        if(subCategoryData) {
-            console.log("sub category data", subCategoryData)
-            const result = subCategoryData.sub_categories
-            setSubCategories(result)
-        }
-    }, [subCategoryData])
-
-    // const getSubCategories = async () => {
-
-    //     const api = `/api/v1/sub-category/get/${parentCategory}`
-
-    //     try {
-    //         const response = await axios.get(`${url}${api}`);
-    //         if (response.status === 200) {
-    //             const result = response.data.sub_categories
-    //             setSubCategories(result)
-    //         } else {
-    //             console.log("UnExpected Error", response.status)
-    //         }
-    //     } catch (error) {
-    //         console.log("UnExpected Server Error", error);
-    //     }
+    // const subCategoryApi = parentCategory ? `/api/v1/sub-category/get/${parentCategory}` : null;
+    // console.log("sub category api", subCategoryApi)
+    // console.log("parent category", parentCategory)
+    // const [subCAtegoryCount, setSubCategoryCount] = useState(0);
+    // const {data: subCategoryData, error: subCategoryError, isLoading: subCategoryLoading} = useSWR(subCategoryApi, fetcher, {
+    //     revalidateOnFocus: false,
+    //     revalidateOnReconnect: false,
+    //     dedupingInterval: 1000 * 60 * 60
+    // })
+    // if(subCategoryError && subCAtegoryCount < 3) {
+    //     setTimeout(() => {
+    //         setSubCategoryCount(subCAtegoryCount + 1);
+    //     }, 1000)
     // }
 
-    // useEffect(() => {getSubCategories()}, [])
+    // console.log("sub categories data outer", subCategoryData)
     // useEffect(() => {
-    //         getSubCategories()
-    // }, [subCategorySlug])
+    //     if(subCategoryData) {
+    //         console.log("sub category data", subCategoryData)
+    //         const result = subCategoryData.sub_categories
+    //         setSubCategories(result)
+    //     }
+    // }, [subCategoryData])
+
+    const getSubCategories = async () => {
+
+        const api = `/api/v1/sub-category/get/${parentCategory}`
+
+        try {
+            const response = await axios.get(`${url}${api}`);
+            if (response.status === 200) {
+                const result = response.data.sub_categories
+                setSubCategories(result)
+            } else {
+                console.log("UnExpected Error", response.status)
+            }
+        } catch (error) {
+            console.log("UnExpected Server Error", error);
+        }
+    }
+
+    useEffect(() => {getSubCategories()}, [])
+    useEffect(() => {
+            getSubCategories()
+    }, [subCategorySlug])
 
     // Hide and Show Filter section
     const handleFilterSection = () => {
@@ -631,6 +635,7 @@ const Products = ({ navigationType }) => {
         quickViewClicked,
         showSortModal
     )
+
 
     return (
         <div className='products-main-container'>

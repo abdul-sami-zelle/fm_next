@@ -208,7 +208,7 @@ const ProductCardTwo = ({
                                     isInWishList(singleProductData.uid) ?
                                         <VscHeartFilled
                                             // size={25}
-                                            className='wishlist-heart'
+                                            className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
                                             style={{ color: 'var(--orange-fill)' }}
                                             stroke='var(--orange-outline)'
                                             onClick={(e) => {
@@ -218,8 +218,8 @@ const ProductCardTwo = ({
                                         />
                                         :
                                         <VscHeart
-                                            size={25}
-                                            className='wishlist-heart'
+                                            // size={25}
+                                            className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
                                             style={{ float: 'right', color: 'var(--orange-outline)' }}
                                             onClick={(e) => {
                                                 e.stopPropagation();

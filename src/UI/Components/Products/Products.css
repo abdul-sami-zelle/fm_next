@@ -70,6 +70,11 @@
         max-width: 220px;
     }
 }
+@media only screen and (max-width: 1200px) {
+    .product-archive-single-sub-category {
+        max-width: 80px;
+    }
+}
 
 .product-archive-single-sub-category>img {
     width: 100%;

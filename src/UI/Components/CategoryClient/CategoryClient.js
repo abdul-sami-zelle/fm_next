@@ -2,6 +2,8 @@
 
 // export default Categories
 import React, { use, useEffect, useState } from 'react'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css';
 import './CategoryClient.css';
 import Category from '@/UI/Components/Category/Category';
 import LatestModulerBanner from '@/UI/Components/LatestModuler/LatestModulerBanner';

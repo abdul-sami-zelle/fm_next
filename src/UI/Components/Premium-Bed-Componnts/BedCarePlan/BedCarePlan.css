@@ -1,0 +1,50 @@
+.bed-care-main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.bed-care-image-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.bed-care-image-contianer > img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.bed-care-content-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    width: 50%;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bed-care-content-container > h3 {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.bed-care-content-container > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #595959;
+    opacity: 0.8;
+}
+
+.bed-care-content-container > p:last-of-type {
+    font-weight: 500;
+    color: #000;
+}

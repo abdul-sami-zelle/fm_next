@@ -281,8 +281,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: false,
-          dots: false
+          infinite: true,
+          dots: true
         }
       },
       {
@@ -290,8 +290,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          infinite: false,
-          dots: false
+          infinite: true,
+          dots: true
         }
       },
       {
@@ -299,7 +299,9 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2
+          initialSlide: 2,
+          infinite: true,
+          dots: true
         }
       },
       {
@@ -311,44 +313,44 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         }
       }
     ],
-    beforeChange,
+    // beforeChange,
 
-    customPaging: () => <button className="custom-dot" />,
+    // customPaging: () => <button className="custom-dot" />,
 
-    appendDots: (dots) => {
-      const totalDots = dots.length;
-      const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
+    // appendDots: (dots) => {
+    //   const totalDots = dots.length;
+    //   const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
 
-      return (
-        <div className="dots-slider-wrapper">
-          <div className="dots-slider">
-            {visibleDots.map((dot, i) => {
-              const actualIndex = dotStartIndex + i;
-              const isActive = actualIndex === currentSlide;
+    //   return (
+    //     <div className="dots-slider-wrapper">
+    //       <div className="dots-slider">
+    //         {visibleDots.map((dot, i) => {
+    //           const actualIndex = dotStartIndex + i;
+    //           const isActive = actualIndex === currentSlide;
 
-              return (
-                <div
-                  key={actualIndex}
-                  className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
-                  onClick={() => {
-                    sliderRef.current?.slickGoTo(actualIndex);
-                    setCurrentSlide(actualIndex);
+    //           return (
+    //             <div
+    //               key={actualIndex}
+    //               className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
+    //               onClick={() => {
+    //                 sliderRef.current?.slickGoTo(actualIndex);
+    //                 setCurrentSlide(actualIndex);
 
-                    const groupSize = 5;
-                    const newStart = Math.floor(actualIndex / groupSize) * groupSize;
+    //                 const groupSize = 5;
+    //                 const newStart = Math.floor(actualIndex / groupSize) * groupSize;
 
-                    setDotStartIndex(newStart);
-                    setCurrentDotPosition((actualIndex % groupSize) + 1);
-                  }}
-                >
-                  <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
-    },
+    //                 setDotStartIndex(newStart);
+    //                 setCurrentDotPosition((actualIndex % groupSize) + 1);
+    //               }}
+    //             >
+    //               <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
+    //             </div>
+    //           );
+    //         })}
+    //       </div>
+    //     </div>
+    //   );
+    // },
   };
 
   

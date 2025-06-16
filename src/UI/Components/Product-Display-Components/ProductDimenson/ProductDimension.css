@@ -1,15 +1,18 @@
 .dimension-main-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    /* display: flex; */
+    /* align-items: center;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+    /* gap: 15px; */
     width: 100%;
 }
 
 .dimension-card{
     display: flex;
     /* flex-direction: column; */
-    gap: 5px;
+    gap:10px;
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -30,9 +33,28 @@
 
 .dimension-card > p {
     font-size: var(--sub-section-size);
-    line-height: var(--sub-section-height);
+    /* line-height: var(--sub-section-height); */
+    line-height: 1.2;
     font-weight: var(--sub-section-weight);
     color: var(--text-primary);
+}
+
+.mobile-viw-dimension-main-contianer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.mobile-view-dimension-row-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+
 }
 
 .mobile-view-dimension-main{
@@ -51,6 +73,7 @@
 @media only screen and (max-width: 480px){
     .dimension-main-container{
         gap: 10px;
+        display: flex;
     }
     .dimension-card{
         /* padding: 5px; */

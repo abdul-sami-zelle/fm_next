@@ -9,6 +9,9 @@ import axios from 'axios';
 import { url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
 import DoubleRangeSlider from '../../../Global-Components/MultiRangeBar/MultiRange';
+import { IoIosClose } from "react-icons/io";
+import Image from 'next/image';
+import { FaPlus, FaMinus } from "react-icons/fa6";
 
 const MobileViewProductFilters = (
     {
@@ -50,17 +53,17 @@ const MobileViewProductFilters = (
     const [tempRatingValue, setTempRatingValue] = useState([]);
     const [tempCategoryValue, setTempCategoryValue] = useState([])
 
-    
+
 
 
     const handleMobileColorCheck = (value, name) => {
-        
+
 
         const updatedColorValue = colorValue.includes(value) ?
-                    colorValue.filter((item) => item !== value) :
-                    [...colorValue, value]
+            colorValue.filter((item) => item !== value) :
+            [...colorValue, value]
 
-            setTempColorValue(updatedColorValue)
+        setTempColorValue(updatedColorValue)
     }
 
     const handleMobileRatingFilter = (value) => {
@@ -82,14 +85,14 @@ const MobileViewProductFilters = (
 
 
     const handlePriceRangeClick = () => {
-            handlePriceRange(priceRange)
-        
-            handleColor(tempColorValue)
+        handlePriceRange(priceRange)
 
-            handleRating(tempRatingValue);
-            handleCategory(tempCategoryValue)
+        handleColor(tempColorValue)
 
-        
+        handleRating(tempRatingValue);
+        handleCategory(tempCategoryValue)
+
+
 
         setMobileFilters(false)
 
@@ -98,11 +101,12 @@ const MobileViewProductFilters = (
     return (
         <div className={`mobile-view-flters-popup ${showMobileFilters ? 'show-mobile-filter-popup' : ''}`}>
             <button className='close-mobile-filters' onClick={handleFiltersClose}>
-                <img src={crossBtn} alt='close btn' />
+                {/* <img src={crossBtn} alt='close btn' /> */}
+                <IoIosClose size={25} color='#595959' />
             </button>
             <div className='mobile-view-filters-head'>
                 <a href='/'>
-                    <img src={mainLogo} alt='logo' />
+                    <Image src={'/Assets/Logo/main-logo.png'} width={200} height={35} alt='logo' />
                 </a>
             </div>
 
@@ -128,9 +132,8 @@ const MobileViewProductFilters = (
                             onClick={() => handleFilterType('open-color')}
                         >
                             <p>{filtersData?.colors?.[0]?.name}</p>
-                            <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${colorFilter === 'open-color' ? 'mobile-filter-section-button-rotate' : ''}`
-                            } />
+                            
+                            {colorFilter === 'open-color' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
                         </div>
                         <div className={`mobile-single-type-filters 
                                 ${colorFilter === 'open-color' ? 'show-filter-type' : ''}`
@@ -160,9 +163,7 @@ const MobileViewProductFilters = (
                             onClick={() => handleFilterType('open-rating')}
                         >
                             <p>Ratings</p>
-                            <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${colorFilter === 'open-rating' ? 'mobile-filter-section-button-rotate' : ''}`
-                            } />
+                            {colorFilter === 'open-rating' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
                         </div>
                         <div className={`mobile-single-type-filters 
                                 ${colorFilter === 'open-rating' ? 'show-filter-type' : ''}`
@@ -190,9 +191,7 @@ const MobileViewProductFilters = (
                             onClick={() => handleFilterType('open-category')}
                         >
                             <p>Categories</p>
-                            <img src={AddBtn} alt='add btn' className={`show-filter-add-button 
-                                     ${categoryFilter === 'open-category' ? 'mobile-filter-section-button-rotate' : ''}`
-                            } />
+                            {categoryFilter === 'open-category' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
                         </div>
                         <div className={`mobile-single-type-filters 
                                 ${categoryFilter === 'open-category' ? 'show-filter-type' : ''}`

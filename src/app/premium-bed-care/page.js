@@ -1,23 +1,32 @@
 import React from "react";
 import './PremiumBedCare.css';
-import Image from "next/image";
-import PremiumBedDetails from "@/UI/Components/Premium-Bed-Componnts/PremiumBedDetails/PremiumBedDetails";
+import FurnitureProtectionPlan from "@/UI/Components/Premium-Bed-Componnts/FurnitureProtectionPlan/FurnitureProtectionPlan";
+import CoverUnderProtection from "@/UI/Components/Premium-Bed-Componnts/CoverUnderProtection/CoverUnderProtection";
+import ProtectYourInvestment from "@/UI/Components/Premium-Bed-Componnts/ProtectYourInvestment/ProtectYourInvestment";
+import BedCarePlan from "@/UI/Components/Premium-Bed-Componnts/BedCarePlan/BedCarePlan";
 
 const PremiumBedCare = () => {
     return (
+        
         <div className="pbc_main_container">
-            {/* <Image className="pbc_main_banner_image" src={'/Assets/Protection-Plan.jpg'} width={1590} height={360} alt="protection main image" /> */}
-            <div className="pbc_overlay_container">
-                <span>
-                    <h3>PREMIUM BED</h3>
-                    <h3>CARE PROTECTION</h3>
-                    <h3>PLAN</h3>
-                    <p>10-Year Protection For Mattress & Power Base</p>
-                </span>
+            {/* Hero Section */}
+            <div className="pbc_bg_container">
+                <div className="pbc_overlay_container">
+                    <span>
+                        <h3>PREMIUM</h3>
+                        <h3>PROTECTION PLAN</h3>
+                        {/* <h3>PLAN</h3>
+                        <p>10-Year Protection For Mattress & Power Base</p> */}
+                    </span>
+                </div>
             </div>
 
+            {/* Content Section */}
             <div className="pbc_content_contianer">
-                <PremiumBedDetails />
+                <FurnitureProtectionPlan />
+                <CoverUnderProtection />
+                <ProtectYourInvestment />
+                <BedCarePlan />
             </div>
         </div>
     )

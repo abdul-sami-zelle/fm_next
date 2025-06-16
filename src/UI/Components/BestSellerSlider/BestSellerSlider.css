@@ -413,8 +413,8 @@ width: 100%;
 }
 
 .mobile-best-seller-nav-item {
-    font-size: 10px;
-    line-height: 1.5;
+    font-size: 12px;
+    line-height: 1.2;
     font-weight: 400;
     color: var(--text-primary);
     padding: 3px 5px;

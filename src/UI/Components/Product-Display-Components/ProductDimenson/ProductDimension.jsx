@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ProductDimension.css'
 import { RxDimensions } from "react-icons/rx";
 import { FaRegImage } from "react-icons/fa6";
@@ -16,20 +16,20 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
     try {
       const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
       setCustomerPhotos(response?.data?.reviews[0]?.images)
-      
+
     } catch (error) {
       console.error("UnExpected Server Error", error);
     }
   };
 
-  useEffect(() => {fetchReviews(productData?.uid)}, [])
+  useEffect(() => { fetchReviews(productData?.uid) }, [])
 
 
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },
     { icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' },
     ...(customerPhotos?.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
-    { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} /> , title: 'Zoom' },
+    { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} />, title: 'Zoom' },
   ]
 
   const [dimensionIndex, setDimensionIndex] = useState(null)
@@ -37,12 +37,12 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
   const handleDimensionSelect = (item, index) => {
     setDimensionIndex((prevIndex) => prevIndex === index ? null : index)
 
-    if(item.title === 'Dimensions'){
+    if (item.title === 'Dimensions') {
       handleGalleryModal()
-    }else if(item.title === 'Zoom'){
+    } else if (item.title === 'Zoom') {
       handleZoom()
-    }else if(item.title === 'Design Your Room'){
-      
+    } else if (item.title === 'Design Your Room') {
+
     }
   }
 
@@ -60,12 +60,35 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
           </div>
         ))}
 
-        <div className='mobile-view-dimension-main' onClick={handleGalleryModal}>
+        <div className='mobile-viw-dimension-main-contianer'>
+          <div className='mobile-view-dimension-row-contianer'>
+
+            <div className='mobile-view-dimension-main' onClick={handleGalleryModal}>
+              <RxDimensions size={20} color='var(--secondary-color)' />
+              <p className='dimensions-detail-button-title'>Dimensions</p>
+            </div>
+
+            
+
+            <div className='mobile-view-dimension-main' onClick={handleZoom}>
+              {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
+              <p className='dimensions-detail-button-title'>Zoom</p>
+            </div>
+
+          </div>
+
+          <div className='mobile-view-dimension-main' onClick={() => { }}>
+              <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
+              <p className='dimensions-detail-button-title'>Design Your Room</p>
+            </div>
+
+        </div>
+        {/* <div className='mobile-view-dimension-main' onClick={handleGalleryModal}>
           <RxDimensions size={20} color='var(--secondary-color)' />
           <p className='dimensions-detail-button-title'>Dimensions</p>
         </div>
 
-         <div className='mobile-view-dimension-main' onClick={()=>{}}>
+        <div className='mobile-view-dimension-main' onClick={() => { }}>
           <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
           <p className='dimensions-detail-button-title'>Design Your Room</p>
         </div>
@@ -73,9 +96,9 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
         <div className='mobile-view-dimension-main' onClick={handleZoom}>
           {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
           <p className='dimensions-detail-button-title'>Zoom</p>
-        </div>
+        </div> */}
 
-        
+
 
       </div>
     </>

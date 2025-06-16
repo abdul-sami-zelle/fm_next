@@ -1,18 +1,11 @@
 'use client';
 
-// import { useState, useEffect } from 'react';
 import '../Styles/index.css';
 import '../Styles/App.css'
 
-import { IoIosArrowUp } from 'react-icons/io';
 import Header from '@/Global-Components/Header/Header';
 import Footer from '@/Global-Components/Footer/Footer';
 import Shopvia from '@/UI/Components/ShopViaBanner/Shopvia';
-import Loader from '@/UI/Components/Loader/Loader'; // Adjust path if needed
-// import WarrantyModal from '../components/WarrantyModal'; // Adjust path if needed
-// import DynamicMetaTags from '../components/Helmet'; // Adjust path if needed
-// import { useSEOContext } from '@/context/SEOcontext/SEOcontext'; // Adjust path if needed
-// import { useGlobalContext } from '@/context/GlobalContext/globalContext'; // Adjust path if needed
 import { ProductProvider } from '@/context/productsContext/productContext';
 import { CartProvider } from '@/context/cartContext/cartContext';
 import { NavigationProvider } from '@/context/BreadCrumbContext/NavigationContext';
@@ -81,6 +74,7 @@ export default function RootLayout({ children }) {
 
   const pathname = usePathname();
   const hideHeaderFooter = pathname.startsWith('/order-confirmation');
+  const hideChatOption = pathname.startsWith('/cart');
 
   return (
     <html lang="en">
@@ -132,14 +126,18 @@ export default function RootLayout({ children }) {
                                             {/* <DynamicMetaTags title={title} description={description} image={image} /> */}
                                             {/* {mainLoader && <Loader />} */}
                                             {/* {isWarrantyModalOpen && <WarrantyModal />} */}
-                                            <div style={{
-                                              position: 'fixed',
-                                              bottom: '20px',
-                                              right: '20px',
-                                              zIndex: 1000,
-                                            }}>
+
+
+                                            {!hideChatOption && <div 
+                                              style={{
+                                                position: 'fixed',
+                                                bottom: '20px',
+                                                right: '20px',
+                                                zIndex: 99999999,
+                                              }}
+                                            >
                                               <Home/>
-                                            </div>
+                                            </div>}
                                           </ProductArchiveProvider>
                                         </VariationProvider>
                                       </ProductPageProvider>

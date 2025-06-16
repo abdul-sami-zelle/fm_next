@@ -139,9 +139,11 @@
     }
 
     .product-detail-right-section-items > span {
-        flex-direction: column;
+        /* flex-direction: column; */
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
         gap: 0;
-        align-items: start;
     }
 
     .product-detail-right-section-items > span > h3 {

@@ -1,0 +1,132 @@
+.covered-or-not-protection-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 35px;
+}
+
+.covered-or-not-protection-headings-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.covered-or-not-protection-headings-container > h3 {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.covered-or-not-protection-headings-container > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.covered-or-not-protection-headings-container > p > span {
+    font-weight: 500;
+    color: #000000;
+}
+
+.covered-or-not-protection-content-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: start;
+    width: 100%;
+    gap: 20px;
+}
+
+.covered-or-not-protection-content-left {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 20px;
+    flex-direction: column;
+    width: 50%;
+}
+
+.left-section-option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    gap: 10px;
+}
+
+.left-section-option-container > h3 {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.options-single-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    gap: 10px;
+}
+
+.options-single-item > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    opacity: 0.8;
+    color: #595959;
+}
+
+.covered-or-not-protection-content-right {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 20px;
+    width: 50%;
+}
+
+.protection-covered-image {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.not-covered-option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+}
+
+.not-covered-option-container > h3 {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.not-covered-option-container > h3:last-of-type {
+    font-size: 16px;
+    color: #000;
+}
+
+.not-covered-cross {
+    background-color: red;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

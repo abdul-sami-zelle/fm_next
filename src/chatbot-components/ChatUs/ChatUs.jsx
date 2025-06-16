@@ -70,7 +70,7 @@ const ChatUs = ({ onBack, onClose }) => {
       setMessages([
         {
           id: 1,
-          text: "Great to see you back again at Furniture Mecca. How's everything going at XCLUSIVE NETWORK?",
+          text: "Great to see you back at Furniture Mecca! How's everything going at Exclusive Network?",
           sender: "bot",
           timestamp: new Date(),
         },
@@ -107,7 +107,7 @@ const formatMessageTime = (timestamp) => {
                 <span className="ailabeltxt">AI</span>
               </div>
               <div className="messageinfo">
-                <p className="personname">Bella</p>
+                <p className="personname">Zoe</p>
                 <p className="messagepreview">AI Assistant</p>
               </div>
             </div>

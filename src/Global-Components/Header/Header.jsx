@@ -18,6 +18,7 @@ import profileIcon from '../../Assets/icon/profile-icon.svg'
 import locationIcon from '../../Assets/icons/location-red.png';
 import navToggler from '../../Assets/icons/Union.png'
 import searchRed from '../../Assets/icons/search-red.png'
+import { IoIosSearch } from "react-icons/io";
 // import mobileUserIcon from '../../Assets/icons/user-charcol.png';
 // import usaFlag from '../../Assets/icons/usa-flage.png';
 
@@ -423,7 +424,8 @@ const Header = ({ checkoutPage }) => {
   }
 
   const moveToLoginDash = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
+    console.log("login clicked")
     await checkToken();
   }
 
@@ -463,9 +465,10 @@ const Header = ({ checkoutPage }) => {
 
         {isSearchInputFocused ? <div className='on-input-focus-overlay' onClick={closeSearchModal}></div> : <></>}
         <div className={`search-bar-container ${searchedProducts.length > 0 || isSearchInputFocused ? 'focused-search-container' : ''}`} >
-
+          <div className='search-bar-input-and-button-container'>
           <div className='search-bar-div'>
-            <img src={'/Assets/icons/search-icon-charcol.png'} alt="search icon" />
+            {/* <img src={'/Assets/icons/search-icon-charcol.png'} alt="search icon" /> */}
+            <IoIosSearch size={20} color='#595959' />
             <input
               type='search'
               value={searchQuery}
@@ -475,6 +478,9 @@ const Header = ({ checkoutPage }) => {
             />
             {isLoading ? <div className='input-loader'></div> : <></>}
           </div>
+          <button className='search-bar-search-product-button'>Search</button>
+          </div>
+          
           <div className={`search-product-display-div ${isSearchInputFocused === true && searchedProducts.length > 0 ? 'search-product-display-div-focused' : ''}`} onClick={(e) => e.stopPropagation()}>
             <div className='search-products-display-left'>
               <div className='searched-products'>

@@ -1,11 +1,12 @@
 .mobile-view-flters-popup{
-    display: none;
+    /* display: none; */
+    display: flex;
     flex-direction: column;
     width: 100%;
     padding: 30px 20px;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -480px;
     visibility: hidden;
     background-color: #fff;
     opacity: 0;
@@ -18,9 +19,10 @@
 }
 
 .mobile-view-flters-popup.show-mobile-filter-popup{
-    display: flex;
+    /* display: flex; */
     visibility: visible;
     opacity: 1;
+    left: 0;
     z-index: 9999999999;
 }
 

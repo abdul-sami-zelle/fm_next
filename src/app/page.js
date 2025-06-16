@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css';
 import { IoIosClose } from "react-icons/io";
@@ -40,13 +40,8 @@ const Home = () => {
     content2,
     featuredProducts,
     slides,
-    // getHomeSliderImages,
-    // getLandingPageContent2,
-    // getFeaturedProducts,
     trendingNow,
-    // getTrendingProductsData,
     financingBanners,
-    // getFinanceBannerImagesFromApi,
     allProducts,
     setAllProducts,
     dealEndTime,
@@ -59,26 +54,26 @@ const Home = () => {
 
   const { blogs } = useBlog()
 
-  useEffect(() => {
-    // if (!slides.length) {
-    //   getHomeSliderImages();
-    // }
-    // if (!data) {
-    //   postData();
-    // }
-    // if (Object.keys(content2).length === 0) {
-    //   getLandingPageContent2();
-    // }
-    // if (!featuredProducts.length) {
-    //   getFeaturedProducts();
-    // }
-    // if (!trendingNow) {
-    //   getTrendingProductsData();
-    // }
-    // if (!financingBanners?.length) {
-    //   getFinanceBannerImagesFromApi();
-    // }
-  }, []);
+  // useEffect(() => {
+  //   if (!slides.length) {
+  //     getHomeSliderImages();
+  //   }
+  //   if (!data) {
+  //     postData();
+  //   }
+  //   if (Object.keys(content2).length === 0) {
+  //     getLandingPageContent2();
+  //   }
+  //   if (!featuredProducts.length) {
+  //     getFeaturedProducts();
+  //   }
+  //   if (!trendingNow) {
+  //     getTrendingProductsData();
+  //   }
+  //   if (!financingBanners?.length) {
+  //     getFinanceBannerImagesFromApi();
+  //   }
+  // }, []);
 
   const router = useRouter();
   const handleNavigate = (slug, item) => {
