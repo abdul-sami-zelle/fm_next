@@ -1,0 +1,64 @@
+.plan-duration-main-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.plan-duration-content-section {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+}
+
+.plan-duration-content-section > h3 {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.plan-duration-content-section > h3:last-of-type {
+    font-size: 28px;
+}
+
+.plan-duration-content-section > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.plan-duration-span {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    gap: 10px;
+}
+
+.plan-duration-span > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #595959;
+    opacity: 0.8;
+}
+
+.plan-duration-image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.plan-duration-image-section > img {
+    width: 100%;
+    object-fit: cover;
+}

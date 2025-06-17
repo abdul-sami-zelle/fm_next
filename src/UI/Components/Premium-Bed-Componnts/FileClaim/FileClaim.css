@@ -1,0 +1,72 @@
+.file-claim-main-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.file-claim-image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.file-claim-image-section > img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.file-claim-content-section {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    gap: 15px;
+}
+
+.file-claim-content-section > h3 {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.file-claim-span {
+    display: flex;
+    align-content: center;
+    justify-content: start;
+    width: 100%;
+    gap: 10px;
+}
+
+.file-claim-span > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #595959;
+    opacity: 0.8;
+}
+
+.file-claim-content-section > p {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}
+
+.file-claim-content-section > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 1px solid var(--orange-outline);
+    background-color: var(--orange-fill);
+    color: #595959;
+    cursor: pointer;
+    gap: 10px;
+}

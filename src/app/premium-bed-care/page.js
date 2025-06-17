@@ -1,9 +1,15 @@
+'us client'
+
 import React from "react";
 import './PremiumBedCare.css';
 import FurnitureProtectionPlan from "@/UI/Components/Premium-Bed-Componnts/FurnitureProtectionPlan/FurnitureProtectionPlan";
 import CoverUnderProtection from "@/UI/Components/Premium-Bed-Componnts/CoverUnderProtection/CoverUnderProtection";
 import ProtectYourInvestment from "@/UI/Components/Premium-Bed-Componnts/ProtectYourInvestment/ProtectYourInvestment";
 import BedCarePlan from "@/UI/Components/Premium-Bed-Componnts/BedCarePlan/BedCarePlan";
+import PlanDuration from "@/UI/Components/Premium-Bed-Componnts/PlanDuration/PlanDuration";
+import FileClaim from "@/UI/Components/Premium-Bed-Componnts/FileClaim/FileClaim";
+import WhyFMProtection from "@/UI/Components/Premium-Bed-Componnts/WhyFMProtection/WhyFMProtection";
+import BedCareFAQ from "@/UI/Components/Premium-Bed-Componnts/BedCareFAQ/BedCareFAQ";
 
 const PremiumBedCare = () => {
     return (
@@ -27,6 +33,10 @@ const PremiumBedCare = () => {
                 <CoverUnderProtection />
                 <ProtectYourInvestment />
                 <BedCarePlan />
+                <PlanDuration />
+                <FileClaim />
+                <WhyFMProtection />
+                <BedCareFAQ />
             </div>
         </div>
     )

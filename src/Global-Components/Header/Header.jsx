@@ -480,7 +480,7 @@ const Header = ({ checkoutPage }) => {
             </div>
             <button 
               className='search-bar-search-product-button'
-              onClick={searchedProducts?.length > 0 && handleNavigateToSearchedProducts}
+              onClick={searchedProducts?.length > 0 ? handleNavigateToSearchedProducts : null}
             >
               Search
             </button>

@@ -370,6 +370,8 @@ const ProductDisplay = ({ params }) => {
         // parentCategories={parentCategories}
         />
 
+        {product && <DesignYourRoomIndv image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
+
         <ProductStickyTabBar
           sectionRefs={sectionRefs}
           productData={product}
@@ -403,7 +405,7 @@ const ProductDisplay = ({ params }) => {
 
         <DesignYourRoom data={recomandedProducts} firstChild={product} />
 
-       {product && <DesignYourRoomIndv image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
+       
 
       </div>
 

@@ -24,6 +24,18 @@
   overflow: hidden;
 }
 
+.iframe-container {
+  width: 100%;
+  aspect-ratio: 1440 / 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--orange-outline);
+}
+
 /* Overlay */
 .overlay {
   position: absolute;
