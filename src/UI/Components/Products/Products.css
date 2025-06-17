@@ -1107,6 +1107,13 @@ label {
     color: var(--text-white);
 }
 
+.searched-products-counter {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+}
+
 /* main products card */
 .product-main {
     display: grid;

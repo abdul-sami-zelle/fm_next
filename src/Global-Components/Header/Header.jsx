@@ -132,7 +132,6 @@ const Header = ({ checkoutPage }) => {
 
   useEffect(() => {
     if (headerContent) {
-      console.log("header data", headerContent)
       setHeaderData(headerContent.data[0].categories)
       setHeaderSale(headerContent.data[0].sale)
     }
@@ -286,6 +285,7 @@ const Header = ({ checkoutPage }) => {
 
   // Navigate To product archive page with search query
   const handleNavigateToSearchedProducts = (e) => {
+    console.log("clicked")
     e.stopPropagation();
     // navigate.push(`/searched-products?query=${searchQuery}`)
     router.push(`/searched-products?query=${searchQuery}`);
@@ -466,21 +466,26 @@ const Header = ({ checkoutPage }) => {
         {isSearchInputFocused ? <div className='on-input-focus-overlay' onClick={closeSearchModal}></div> : <></>}
         <div className={`search-bar-container ${searchedProducts.length > 0 || isSearchInputFocused ? 'focused-search-container' : ''}`} >
           <div className='search-bar-input-and-button-container'>
-          <div className='search-bar-div'>
-            {/* <img src={'/Assets/icons/search-icon-charcol.png'} alt="search icon" /> */}
-            <IoIosSearch size={20} color='#595959' />
-            <input
-              type='search'
-              value={searchQuery}
-              placeholder='Search Furniture Mecca'
-              onFocus={handleSearchInputFocus}
-              onChange={handleSearchInput}
-            />
-            {isLoading ? <div className='input-loader'></div> : <></>}
+            <div className='search-bar-div'>
+              {/* <img src={'/Assets/icons/search-icon-charcol.png'} alt="search icon" /> */}
+              <IoIosSearch size={20} color='#595959' />
+              <input
+                type='search'
+                value={searchQuery}
+                placeholder='Search Furniture Mecca'
+                onFocus={handleSearchInputFocus}
+                onChange={handleSearchInput}
+              />
+              {isLoading ? <div className='input-loader'></div> : <></>}
+            </div>
+            <button 
+              className='search-bar-search-product-button'
+              onClick={searchedProducts?.length > 0 && handleNavigateToSearchedProducts}
+            >
+              Search
+            </button>
           </div>
-          <button className='search-bar-search-product-button'>Search</button>
-          </div>
-          
+
           <div className={`search-product-display-div ${isSearchInputFocused === true && searchedProducts.length > 0 ? 'search-product-display-div-focused' : ''}`} onClick={(e) => e.stopPropagation()}>
             <div className='search-products-display-left'>
               <div className='searched-products'>
@@ -715,7 +720,7 @@ const Header = ({ checkoutPage }) => {
         <div className={`mobile-view-search-products-modal-body `}>
           {
             searchedProducts && searchedProducts.map((item, index) => (
-              <div className='mobile-view-searched-product-result' onClick={() => handleNavigateToSingleProduct(item)}>
+              <div key={index} className='mobile-view-searched-product-result' onClick={() => handleNavigateToSingleProduct(item)}>
                 <img
                   src={`${url}${item?.image?.image_url}`}
                   alt='product'

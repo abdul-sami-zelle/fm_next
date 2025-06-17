@@ -128,7 +128,7 @@ export default function RootLayout({ children }) {
                                             {/* {isWarrantyModalOpen && <WarrantyModal />} */}
 
 
-                                            {!hideChatOption && <div 
+                                            {/* {!hideChatOption && <div 
                                               style={{
                                                 position: 'fixed',
                                                 bottom: '20px',
@@ -137,7 +137,8 @@ export default function RootLayout({ children }) {
                                               }}
                                             >
                                               <Home/>
-                                            </div>}
+                                            </div>} */}
+                                            {!hideChatOption && <Home />}
                                           </ProductArchiveProvider>
                                         </VariationProvider>
                                       </ProductPageProvider>

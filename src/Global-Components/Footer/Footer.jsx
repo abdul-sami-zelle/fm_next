@@ -197,7 +197,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         {
             heading: 'About Furniture Mecca', navLinks: [
                 { name: 'About Us', link: '/about-us' },
-                { name: 'Design your Room', link: '/free-design-consultation' },
+                { name: 'Design your Room', link: 'https://room.myfurnituremecca.com/' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },
                 { name: 'My Account', link: '/user-dashboard/:id' },
@@ -386,7 +386,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                                 {navItem.name}
                                             </p> // Or null if you don't want anything rendered
                                         ) : (
-                                            <Link href={navItem.link} key={inn} className="about-and-care-link">
+                                            <Link href={navItem.link} target={navItem.name === 'Design your Room' ? '_blank' : '_self'} key={inn} className="about-and-care-link">
                                                 {navItem.name}
                                             </Link>
                                         )

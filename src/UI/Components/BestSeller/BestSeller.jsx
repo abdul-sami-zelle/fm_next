@@ -305,12 +305,12 @@ const BestSeller = () => {
                                 <div className='best-seller-slider'>
 
 
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
-                                    <BestSellerProductCardShimmer width={'340px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
+                                    <BestSellerProductCardShimmer width={'330px !important'} />
 
 
                                 </div>

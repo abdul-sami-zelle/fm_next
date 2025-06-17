@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
+import Draggable from "react-draggable";
 import StartScreen from "../StartScreen/StartScreen";
 import HomeScreen from "../HomeScreen/HomeScreen";
 import ChatUs from "../ChatUs/ChatUs";
@@ -8,11 +9,36 @@ import { IoChevronDown } from "react-icons/io5";
 import OnlineChatUs from "../OnlineChatUs/OnlineChatUs";
 
 const Home = () => {
+  // Chat Options Logic
   const [isOpen, setIsOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showChatUsOnly, setShowChatUsOnly] = useState(false);
   const [showOfflineScreen, setShowOfflineScreen] = useState(false);
   const [showOnlineChatUs, setShowOnlineChatUs] = useState(false);
+
+  const [defaultPosition, setDefaultPosition] = useState({ x: 0, y: 0 });
+  const nodeRef = useRef(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("chatPosition");
+    if (saved) {
+      setDefaultPosition(JSON.parse(saved));
+    } else {
+      setDefaultPosition({
+        x: window.innerWidth - 320,
+        y: window.innerHeight - 440,
+      });
+    }
+  }, []);
+
+  const handleDragStop = (_, data) => {
+    localStorage.setItem("chatPosition", JSON.stringify({ x: data.x, y: data.y }));
+  };
+
+
+  // End
+
+
 
   const handleOpenOnlineChat = () => {
     setIsTransitioning(true);
@@ -33,16 +59,16 @@ const Home = () => {
       setIsTransitioning(false);
     }, 300);
   };
-const handleBack = () => {
-  setIsTransitioning(true);
-  setTimeout(() => {
-    setShowOnlineChatUs(false); // ADD THIS
-    setIsOpen(true);
-    setShowChatUsOnly(false);
-    setShowOfflineScreen(false);
-    setIsTransitioning(false);
-  }, 300);
-};
+  const handleBack = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setShowOnlineChatUs(false); // ADD THIS
+      setIsOpen(true);
+      setShowChatUsOnly(false);
+      setShowOfflineScreen(false);
+      setIsTransitioning(false);
+    }, 300);
+  };
 
 
   const handleOpenChatUsOnly = () => {
@@ -54,16 +80,16 @@ const handleBack = () => {
     }, 300);
   };
 
-const handleClose = () => {
-  setIsTransitioning(true);
-  setTimeout(() => {
-    setShowOnlineChatUs(false);
-    setIsOpen(false);
-    setShowChatUsOnly(false);
-    setShowOfflineScreen(false);
-    setIsTransitioning(false);
-  }, 300);
-};
+  const handleClose = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setShowOnlineChatUs(false);
+      setIsOpen(false);
+      setShowChatUsOnly(false);
+      setShowOfflineScreen(false);
+      setIsTransitioning(false);
+    }, 300);
+  };
 
   const handleOpenOffline = () => {
     setIsTransitioning(true);
@@ -75,21 +101,33 @@ const handleClose = () => {
     }, 300);
   };
 
+
   return (
-    <div className="home-container">
+
+    <Draggable
+      handle=".drag-handle"
+      nodeRef={nodeRef}
+      defaultPosition={defaultPosition}
+      onStop={handleDragStop}
+    >
+
+
+    <div
+      className="home-container"
+      ref={nodeRef}
+    >
       <div
-        className={`fade-wrapper ${
-          isTransitioning
-            ? "fade-out slide-down"
-            : isOpen || showChatUsOnly || showOfflineScreen
+        className={`fade-wrapper ${isTransitioning
+          ? "fade-out slide-down"
+          : isOpen || showChatUsOnly || showOfflineScreen
             ? "fade-in slide-up"
             : "fade-in"
-        }`}
+          }`}
       >
         {!isOpen &&
-        !showChatUsOnly &&
-        !showOfflineScreen &&
-        !showOnlineChatUs ? (
+          !showChatUsOnly &&
+          !showOfflineScreen &&
+          !showOnlineChatUs ? (
           <StartScreen
             onOpen={handleOpen}
             onChatUsClick={handleOpenChatUsOnly}
@@ -131,6 +169,7 @@ const handleClose = () => {
         )}
       </div>
     </div>
+    </Draggable>
   );
 };
 

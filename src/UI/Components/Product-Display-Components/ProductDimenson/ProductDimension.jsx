@@ -7,10 +7,12 @@ import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { SiMaterialdesignicons } from "react-icons/si";
 
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 // import { AiOutlineZoomOut } from "react-icons/ai";
 
 const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, handleGalleryModal }) => {
 
+  const router = useRouter()
   const [customerPhotos, setCustomerPhotos] = useState([]);
   const fetchReviews = async (productUid) => {
     try {
@@ -42,7 +44,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
     } else if (item.title === 'Zoom') {
       handleZoom()
     } else if (item.title === 'Design Your Room') {
-
+      window.open('https://room.myfurnituremecca.com/design/living-room', '_blank');
     }
   }
 

@@ -112,30 +112,6 @@ const Products = ({ navigationType }) => {
     const  categorySlug = useParams();
     const parentCategory = categorySlug.category
 
-    // const subCategoryApi = parentCategory ? `/api/v1/sub-category/get/${parentCategory}` : null;
-    // console.log("sub category api", subCategoryApi)
-    // console.log("parent category", parentCategory)
-    // const [subCAtegoryCount, setSubCategoryCount] = useState(0);
-    // const {data: subCategoryData, error: subCategoryError, isLoading: subCategoryLoading} = useSWR(subCategoryApi, fetcher, {
-    //     revalidateOnFocus: false,
-    //     revalidateOnReconnect: false,
-    //     dedupingInterval: 1000 * 60 * 60
-    // })
-    // if(subCategoryError && subCAtegoryCount < 3) {
-    //     setTimeout(() => {
-    //         setSubCategoryCount(subCAtegoryCount + 1);
-    //     }, 1000)
-    // }
-
-    // console.log("sub categories data outer", subCategoryData)
-    // useEffect(() => {
-    //     if(subCategoryData) {
-    //         console.log("sub category data", subCategoryData)
-    //         const result = subCategoryData.sub_categories
-    //         setSubCategories(result)
-    //     }
-    // }, [subCategoryData])
-
     const getSubCategories = async () => {
 
         const api = `/api/v1/sub-category/get/${parentCategory}`
@@ -564,9 +540,6 @@ const Products = ({ navigationType }) => {
         }
     };
 
-
-
-
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -587,10 +560,6 @@ const Products = ({ navigationType }) => {
         }, 100);
 
     }, [location.search]);
-
-
-
-    const maxLength = 50;
 
     // Mobile view Script
 
@@ -843,7 +812,7 @@ const Products = ({ navigationType }) => {
 
                                 </div>
 
-
+                                { currentRoute === 'searched-products' ? <h3 className='searched-products-counter'>Searched Products {products.length}</h3> : <></> }
                                 <div className={`product-main ${hideFilters ? 'increase-columns' : ''}`}>
 
                                     {products && products?.length > 0 ? (

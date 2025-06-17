@@ -105,7 +105,7 @@ const PromotionalBanner = (
           <span>
             <Link href={'/my-account'}>Log In</Link> | <Link href={'/my-account'}>Sign up</Link>
           </span>
-          <Link href={'/free-design-consultation'}>Free Design Consultation</Link>
+          <Link href={'https://room.myfurnituremecca.com/'} target='_blank'>Free Design Consultation</Link>
           <Link href={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link href={'/financing'}>Financing</Link>

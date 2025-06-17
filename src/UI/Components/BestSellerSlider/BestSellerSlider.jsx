@@ -114,7 +114,6 @@ const BestSellerSlider = (
 
     useEffect(() => {
         if (bestSellerMainData) {
-            console.log("best Seller Data", bestSellerMainData)
             setBestSellerNav1(bestSellerMainData)
             setCurrentSlug(bestSellerMainData[0].slug)
             // getBestSellerProducts(bestSellerMainData[0].slug);
