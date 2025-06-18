@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 2%;
   right: 1%;
-  z-index: 999;
+  z-index: 999999999;
 }
 
 .fade-wrapper {

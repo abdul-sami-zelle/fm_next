@@ -101,7 +101,7 @@ const BestSellerSlider = (
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
         dedupingInterval: 1000 * 60 * 60 * 24 * 365,
-        onSuccess:()=>{
+        onSuccess: () => {
             // setBannerLoading(false)
         }
     })
@@ -345,19 +345,19 @@ const BestSellerSlider = (
 
                 <div className='best-seller-imaage-and-cards'>
 
-                   <div className='best-seller-slider-main-banner'>
-    {bestSellerLoading ? (
-        <div className='best-seller-main-cover-shimmer'></div>
-    ) : (
-        <img
-            key={bestSellerNav1[activeItem]?.image?.image_url} // forces re-render
-            src={url + bestSellerNav1[activeItem]?.image?.image_url}
-            onLoad={() => setBannerLoading(false)}
-            onError={() => setBannerLoading(false)}
-            alt='main banner'
-        />
-    )}
-</div>
+                    <div className='best-seller-slider-main-banner'>
+                        {bestSellerLoading ? (
+                            <div className='best-seller-main-cover-shimmer'></div>
+                        ) : (
+                            <img
+                                key={bestSellerNav1[activeItem]?.image?.image_url} // forces re-render
+                                src={url + bestSellerNav1[activeItem]?.image?.image_url}
+                                onLoad={() => setBannerLoading(false)}
+                                onError={() => setBannerLoading(false)}
+                                alt='main banner'
+                            />
+                        )}
+                    </div>
 
 
                     <div className='best-seller-slider-div'>

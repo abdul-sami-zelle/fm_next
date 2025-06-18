@@ -263,3 +263,19 @@ export  function formatDate(dateString, includeTime = false) {
 
   return formattedDate;
 }
+
+
+export function getAdjustedPrice(value) {
+  // Convert value to number first
+  const numericValue = Number(value);
+
+  if (isNaN(numericValue)) {
+    return 0; // Fallback for invalid input
+  }
+
+  if (numericValue < 1000) {
+    return Math.round(numericValue / 25);
+  } else {
+    return Math.round(numericValue / 26);
+  }
+}

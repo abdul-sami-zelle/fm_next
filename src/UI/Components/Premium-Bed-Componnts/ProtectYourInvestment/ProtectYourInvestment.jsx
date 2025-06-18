@@ -1,5 +1,6 @@
 import React from "react";
 import './ProtectYourInvestment.css';
+import Image from "next/image";
 
 const ProtectYourInvestment = () => {
     const investmentProtect = [
@@ -29,46 +30,53 @@ const ProtectYourInvestment = () => {
         },
     ]
     return (
-        <div className="protect-investment-main-contianer">
+        <>
+            <div className="protect-investment-main-contianer">
 
-            <div className="protect-investment-heading-contianer">
-                <div className="protect-investment-head">
-                    <h3>Protect Your Investment</h3>
+                <div className="protect-investment-heading-contianer">
+                    <div className="protect-investment-head">
+                        <h3>Protect Your Investment</h3>
+                    </div>
+                    <div className="protect-investment-head-options">
+                        <p>Fabric</p>
+                        <p>Leather & Vinyl</p>
+                        <p>Wood & Other Solid Surfaces</p>
+                    </div>
                 </div>
-                <div className="protect-investment-head-options">
-                    <p>Fabric</p>
-                    <p>Leather & Vinyl</p>
-                    <p>Wood & Other Solid Surfaces</p>
-                </div>
+
+
+
+                {investmentProtect.map((item, index) => (
+                    <div key={index} className="protect-investment-options-container">
+                        <div className="protect-investment-full-container">
+                            <p>Mechanical And Structural Breakdowns To Fabric, Leather, Vinyl Upholstery Or Solid Surface Furniture As A Result Of</p>
+                        </div>
+                        {item.options.map((innerItem, innerIndex) => (
+                            <div className="protect-invest-single-option">
+                                <div className="protect-invest-single-option-name">
+                                    <h3>{innerItem.name}</h3>
+                                </div>
+                                <div key={innerIndex} className="protect-investment-single-option-check">
+                                    <p>{innerItem.fabric === true ? <span></span> : <></>}</p>
+                                    <p>{innerItem.leather === true ? <span></span> : <></>}</p>
+                                    <p>{innerItem.woodAndOther === true ? <span></span> : <></>}</p>
+
+
+                                </div>
+
+                            </div>
+                        ))}
+
+                    </div>
+                ))}
+
             </div>
 
+            <div className="mobile-protect-investment-main-contianer">
+                <Image src={'/Assets/protection/protection-table.png'} width={320} height={240} alt="img" />
+            </div>
+        </>
 
-
-            {investmentProtect.map((item, index) => (
-                <div key={index} className="protect-investment-options-container">
-                    <div className="protect-investment-full-container">
-                        <p>Mechanical And Structural Breakdowns To Fabric, Leather, Vinyl Upholstery Or Solid Surface Furniture As A Result Of</p>
-                    </div>
-                    {item.options.map((innerItem, innerIndex) => (
-                        <div className="protect-invest-single-option">
-                            <div className="protect-invest-single-option-name">
-                                <h3>{innerItem.name}</h3>
-                            </div>
-                            <div key={innerIndex} className="protect-investment-single-option-check">
-                                <p>{innerItem.fabric === true ? <span></span> : <></>}</p>
-                                <p>{innerItem.leather === true ? <span></span> : <></>}</p>
-                                <p>{innerItem.woodAndOther === true ? <span></span> : <></>}</p>
-                                
-                                
-                            </div>
-
-                        </div>
-                    ))}
-
-                </div>
-            ))}
-
-        </div>
     )
 }
 

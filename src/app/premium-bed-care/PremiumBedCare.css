@@ -1,65 +1,3 @@
-/* .pbc_main_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: auto;
-    background-image: url('/Assets/Protection-Plan.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    flex-direction: column;
-}
-
-.pbc_main_container {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-}
-
-.pbc_overlay_container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    max-height: 360px;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(339deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 45%, rgba(89, 89, 89, 0.8) 100%);
-
-}
-
-.pbc_overlay_container > span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    flex-direction: column;
-}
-
-.pbc_overlay_container > span > h3 {
-    font-size: 60px;
-    line-height: 1.2;
-    font-weight: 600;
-    color: #FFFFFF;
-}
-
-.pbc_overlay_container > span > p {
-    font-size: 22;
-    line-height: 1.2;
-    font-weight: 500;
-    color: #FFFFFF;
-}
-
-.pbc_content_contianer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 35px;
-} */
-
-
 .pbc_main_container {
     display: flex;
     align-items: center;
@@ -67,7 +5,6 @@
     width: 100%;
     height: auto;
     flex-direction: column;
-    
 }
 
 .pbc_bg_container {
@@ -92,7 +29,7 @@
     background: linear-gradient(339deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 45%, rgba(89, 89, 89, 0.8) 100%);
 }
 
-.pbc_overlay_container > span {
+.pbc_overlay_container>span {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,7 +38,8 @@
     gap: 15px;
 }
 
-.pbc_overlay_container > span > h3 {
+.desktop-view-premium-heading {
+    display: flex;
     font-size: 52px;
     line-height: 1.2;
     font-weight: 600;
@@ -118,3 +56,41 @@
     padding: 35px 60px;
     gap: 35px;
 }
+
+.mobile-view-premium-heading {
+    display: none;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #FFF;
+
+}
+
+@media only screen and (max-width: 480px) {
+    .pbc_bg_container {
+        height: 227px;
+    }
+
+    .pbc_overlay_container>span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .desktop-view-premium-heading {
+        display: none;
+    }
+
+    .mobile-view-premium-heading {
+        display: flex;
+    }
+
+    .pbc_content_contianer {
+        padding: 10px;
+        gap: 20px;
+    }
+}
+

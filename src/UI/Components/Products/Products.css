@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: start;
     width: 100%;
-    gap: 10px;
+    /* gap: 10px; */
     overflow-y: hidden;
     overflow-x: auto;
     padding: 10px;
@@ -72,7 +72,7 @@
 }
 @media only screen and (max-width: 1200px) {
     .product-archive-single-sub-category {
-        max-width: 80px;
+        max-width: 95px;
     }
 }
 
@@ -1411,21 +1411,54 @@ label {
 
 .mobile-view-product-card-grid-select {
     display: flex;
-    width: max-content;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 40px;
+    border: 1px solid #d7d7d7;
+    background-color: #f9f9f9;
+    box-shadow: inset rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, inset rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
+    border-radius: 2px;
 }
+/* Single Col Box */
+.mobile-view-toggler-single-box {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-view-toggler-single-box.active-toggler-single-box {
+    background-color: var(--orange-fill);
+}
+
+/* Dual col box */
+.mobile-view-toggler-double-box {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.mobile-view-toggler-double-box.active-toggler-dual-col {
+    background-color: var(--orange-fill);
+}
+
 
 .mobile-view-card-grid-single-col {
     width: 20px;
     height: 20px;
-    background-color: #fff;
+    background-color: var(--text-gray);
     border-radius: 3px;
     cursor: pointer;
     border: 1px solid var(--border-color);
 }
 
 .mobile-view-card-grid-single-col.grid-active {
-    background-color: var(--text-primary);
+    background-color: var(--text-gray);
 }
 
 .mobile-view-card-grid-dual-col {
@@ -1439,12 +1472,12 @@ label {
     width: 10px;
     height: 20px;
     border-radius: 3px;
-    background-color: #fff;
+    background-color: var(--text-gray);
     border: 1px solid var(--border-color);
 }
 
 .mobile-view-card-grid-dual-col-inner.active-dual-col {
-    background-color: var(--text-primary);
+    background-color: var(--text-gray);
 }
 
 
@@ -1470,10 +1503,10 @@ label {
     background-color: #fff;
     border-radius: 5px;
     cursor: pointer;
-    color: var(--text-primary);
+    color: var(--text-gray);
     font-size: 12px;
     line-height: 18px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .mobile-view-products-main-container {

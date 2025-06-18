@@ -18,7 +18,7 @@ const WhyFMProtection = () => {
     return (
         <div className="why-fm-protection-main-container">
             <span className="why-fm-protection-heading">
-                <AiFillTrophy size={40} color="var(--tertiary-color)" />
+                <AiFillTrophy size={40} className="why-protection-heading-icon" color="var(--tertiary-color)" />
                 <h3>Why Furniture Mecca’s Protection Plan?</h3>
             </span>
 

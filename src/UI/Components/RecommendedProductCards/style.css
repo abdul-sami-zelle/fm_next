@@ -96,7 +96,8 @@
     max-width: 100%;
     min-height: 150px;
     max-height: 300px;
-    height: 210px;
+    /* height: 210px; */
+    height: 100%;
     -o-object-fit: contain;
     object-fit: contain;
     transform: scale(1);
@@ -107,7 +108,7 @@
 .rpc_image_hover_container {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .rpc_image {

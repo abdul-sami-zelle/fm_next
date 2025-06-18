@@ -18,6 +18,7 @@ import {
     IoIosArrowDown,
 } from "react-icons/io";
 import SizeVariant from '../SizeVariant/SizeVariant';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
@@ -134,23 +135,33 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     // wish list 
     const { addToList, removeFromList, isInWishList } = useList()
+    const [snakeBarMessage, setSnakBarMessage] = useState();
+    const [showSnakeBar, setShowSnakeBar] = useState(false)
     const notify = (str) => toast.success(str);
     const notifyRemove = (str) => toast.error(str)
 
     const handleWishList = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                className: "toast-message",
-            })
+            setShowSnakeBar(true);
+            setSnakBarMessage("Product Removed From Wish List");
+            // notifyRemove('Removed from wish list', {
+            //     autoClose: 10000,
+            //     className: "toast-message",
+            // })
 
         } else {
             addToList(item)
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            setShowSnakeBar(true);
+            setSnakBarMessage("Product Added To Wish List");
+            // notify("added to wish list", {
+            //     autoClose: 10000,
+            // })
         }
+    }
+
+    const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
     }
 
     // dots
@@ -378,6 +389,13 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 removeFromCart={removeFromCart}
                 decreamentQuantity={decreamentQuantity}
                 increamentQuantity={increamentQuantity}
+            />
+
+            <SnakBar
+                message={snakeBarMessage}
+                openSnakeBarProp={showSnakeBar}
+                setOpenSnakeBar={setShowSnakeBar}
+                onClick={handleCloseSnakeBar}
             />
         </div>
 

@@ -143,16 +143,16 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     // }, [])
 
     const socialIcons = [
-        { name: 'facebook', icon: '/Assets/icons/facebook-white.png', link: 'https://www.facebook.com/myfurnituremecca' },
-        { name: 'tiktok', icon: '/Assets/icons/tiktok-white.png', link: 'https://www.tiktok.com/@myfurnituremecca?_t=8gcQvVGSaGI&_r=1' },
-        { name: 'youtube', icon: '/Assets/icons/youtube-white.png', link: 'https://www.youtube.com/@FurnitureMecca1' },
-        { name: 'insta', icon: '/Assets/icons/insta-white.png', link: 'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D' }
+        { name: 'facebook', icon: '/icons/facebook.svg', link: 'https://www.facebook.com/myfurnituremecca' },
+        { name: 'tiktok', icon: '/icons/tiktok.svg', link: 'https://www.tiktok.com/@myfurnituremecca?_t=8gcQvVGSaGI&_r=1' },
+        { name: 'youtube', icon: '/icons/youtube.svg', link: 'https://www.youtube.com/@FurnitureMecca1' },
+        { name: 'insta', icon: '/icons/insta.svg', link: 'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D' }
     ]
 
     const locationPhoneMail = [
-        { name: stores?.[0]?.city || 'Philadelphia', icon: '/Assets/icons/location.png', link: '#' },
-        { name: '215 352 1600', icon: '/Assets/icons/call.png', link: '#' },
-        { name: 'meccacustomercare@gmail.com', icon: '/Assets/icons/mail.png', link: '#' }
+        { name: stores?.[0]?.city || 'Philadelphia', icon: '/icons/location.svg', link: '#' },
+        { name: '215 352 1600', icon: '/icons/phone.svg', link: '#' },
+        { name: 'meccacustomercare@gmail.com', icon: '/icons/mail.svg', link: '#' }
     ]
 
     const { setUserToken } = useUserDashboardContext();
@@ -223,16 +223,16 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const nearStoreDetails = [
         {
-            icon: '/Assets/icons/location.png',
+            icon: '/icons/location.svg',
             details: stores?.[0]?.name ?? defaultStore?.name
         },
         {
-            icon: '/Assets/icons/call.png',
+            icon: '/icons/phone.svg',
             details: stores?.[0]?.phone ?? defaultStore?.phone
 
         },
         {
-            icon: '/Assets/icons/white-calander.png',
+            icon: '/icons/calander.svg',
             details: todayTiming?.time ?? defaultStoreTimings?.time
         },
     ]

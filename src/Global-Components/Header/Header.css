@@ -99,7 +99,7 @@
     background-color: var(--orange-fill);
     border: 1px solid var(--orange-outline);
     border-radius: 30px;
-    color: #FFF;
+    color: var(--text-gray);
     font-size: 12px;
     line-height: 1.2;
     font-weight: 500;

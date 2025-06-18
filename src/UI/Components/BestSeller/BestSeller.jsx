@@ -21,9 +21,10 @@ import { toast } from 'react-toastify';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
 import useSWR, { mutate } from 'swr';
-import { fetcher} from '@/utils/Fetcher';
+import { fetcher } from '@/utils/Fetcher';
 import Link from 'next/link';
 import RatingReview from '../starRating/starRating';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -56,27 +57,27 @@ const BestSeller = () => {
     // const params = usePathname();
     const pathname = usePathname();
 
-    const { bestSelling, bestSellerNav1,  } = useLPContentContext()
+    const { bestSelling, bestSellerNav1, } = useLPContentContext()
 
     useEffect(() => {
         setMainBanner(bestSelling.categories[0].image)
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
-//     useEffect(() => {
-//   // Whenever the route changes, revalidate the SWR call
-//   if (currentSlug) {
-//     const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
-//     mutate(cacheKey); // Re-fetch the SWR data
-//     console.log(pathname,"here ios path name")
-//   }
-// }, [pathname]);
+    //     useEffect(() => {
+    //   // Whenever the route changes, revalidate the SWR call
+    //   if (currentSlug) {
+    //     const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
+    //     mutate(cacheKey); // Re-fetch the SWR data
+    //     console.log(pathname,"here ios path name")
+    //   }
+    // }, [pathname]);
 
- useEffect(() => {
-    setMainBanner(bestSelling.categories[0].image)
-    setCurrentSlug(bestSelling.categories[0].slug)
-    console.log(bestSelling.categories[0].slug)
-  }, [bestSelling]);
+    useEffect(() => {
+        setMainBanner(bestSelling.categories[0].image)
+        setCurrentSlug(bestSelling.categories[0].slug)
+        console.log(bestSelling.categories[0].slug)
+    }, [bestSelling]);
 
 
     // Functions
@@ -249,27 +250,37 @@ const BestSeller = () => {
 
     // }
 
+    const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
     const handleWishlisted = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                // position: toast.POSITION.BOTTOM_CENTER,
-                className: "toast-message",
-            })
+            setShowSnakeBar(true);
+            setSnakeBarMessage("Product Removed From Wish List");
+            // notifyRemove('Removed from wish list', {
+            //     autoClose: 10000,
+            //     // position: toast.POSITION.BOTTOM_CENTER,
+            //     className: "toast-message",
+            // })
         } else {
             addToList(item); // Add if not in wishlist
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            setShowSnakeBar(true);
+            setSnakeBarMessage("Product Added To Wish List")
+            // notify("added to wish list", {
+            //     autoClose: 10000,
+            // })
         }
+    }
+
+    const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
     }
 
     return (
         <>
 
             <div className={`category-besst-seller-main-container `}>
-                
+
                 <div className='category-best-seller-and-banner-container'>
 
                     <div className='category-best-seller-cards-section'>
@@ -355,13 +366,16 @@ const BestSeller = () => {
 
 
                                     <Link key={index} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-                                        
+
                                         <div className='mobile-best-seller-cart-wishlist-container'>
                                             {
                                                 isInWishList(item?.uid) ? (
                                                     <VscHeartFilled
                                                         size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
+                                                        style={{ 
+                                                            color: 'var(--primary-color)',
+                                                            
+                                                        }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             handleWishlisted(item);
@@ -370,7 +384,10 @@ const BestSeller = () => {
                                                 ) : (
                                                     <VscHeart
                                                         size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
+                                                        style={{ 
+                                                            color: 'var(--primary-color)' ,
+                                                            
+                                                        }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             handleWishlisted(item);
@@ -404,6 +421,13 @@ const BestSeller = () => {
                 </div>
 
             </div>
+
+            <SnakBar
+                message={snakeBarMessage}
+                openSnakeBarProp={showSnakeBar}
+                setOpenSnakeBar={setShowSnakeBar}
+                onClick={handleCloseSnakeBar}
+            />
 
         </>
     )

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import './ProductCardTwo.css';
-import { formatedPrice, url } from '../../../utils/api';
+import { formatedPrice, getAdjustedPrice, url } from '../../../utils/api';
 import RatingReview from '../starRating/starRating';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { VscHeartFilled } from "react-icons/vsc";
@@ -192,7 +192,7 @@ const ProductCardTwo = ({
                             {
                                 tags?.length > 0 && <div className="product-tagging">
                                     {
-                                        tags[0] && tags[0].type.toLowerCase() === "text" ?
+                                        tags[0] && tags[0]?.type?.toLowerCase() === "text" ?
                                             <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
                                                 {tags[0].text}
                                             </div> :
@@ -419,7 +419,7 @@ const ProductCardTwo = ({
                                     }
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
-                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? Math.round(priceTag * 0.26) : Math.round(sale_price * 0.26)}/week</p>
+                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week</p>
                                         <GoInfo onClick={(e) => { e.stopPropagation(); handleInfoModal() }}
                                         />
                                     </span>

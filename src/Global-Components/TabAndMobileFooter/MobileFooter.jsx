@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './MobileFooter.css';
 import Link from 'next/link';
 import redFurnitureMecca from '../../Assets/global-images/furniture-mecca-red.jpeg'
@@ -6,20 +6,14 @@ import locationIcon from '../../Assets/icons/location.png'
 import callIcon from '../../Assets/icons/call.png'
 import calander from '../../Assets/icons/white-calander.png'
 import mailIcon from '../../Assets/icons/mail.png'
-import arrowRightWhite from '../../Assets/icons/arrow-right-white.png'
 import clock from '../../Assets/icons/white-clock.png'
 import { FaPlus } from "react-icons/fa6";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
-import facebookIcon from '../../Assets/icons/facebook.png';
-import tiktokIcon from '../../Assets/icons/tiktok.png';
-import youtubeIcon from '../../Assets/icons/youtube.png';
-import instaIcon from '../../Assets/icons/instagram.png';
 import { getCurrentDay, getCurrentTimeForNewYork, url } from '../../utils/api';
-import axios from 'axios';
 import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const MobileFooter = ({ checkoutPage }) => {
@@ -31,10 +25,10 @@ const MobileFooter = ({ checkoutPage }) => {
 
 
     const socialIcons = [
-        { socialIcon: facebookIcon, socialLink: 'https://www.facebook.com/myfurnituremecca' },
-        { socialIcon: tiktokIcon, socialLink: 'https://www.tiktok.com/@myfurnituremecca?_t=8gcQvVGSaGI&_r=1' },
-        { socialIcon: youtubeIcon, socialLink: 'https://www.youtube.com/@FurnitureMecca1' },
-        { socialIcon: instaIcon, socialLink: 'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D' },
+        { socialIcon: '/icon/facebook.svg', socialLink: 'https://www.facebook.com/myfurnituremecca' },
+        { socialIcon: '/icons/tiktok.svg', socialLink: 'https://www.tiktok.com/@myfurnituremecca?_t=8gcQvVGSaGI&_r=1' },
+        { socialIcon: '/icons/youtube.svg', socialLink: 'https://www.youtube.com/@FurnitureMecca1' },
+        { socialIcon: '/icons/insta.svg', socialLink: 'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D' },
     ]
 
     const contactData = [

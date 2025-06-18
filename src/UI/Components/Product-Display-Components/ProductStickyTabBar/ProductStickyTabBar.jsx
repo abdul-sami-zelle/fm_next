@@ -19,7 +19,7 @@ const ProductStickyTabBar = (
         quantity
     }) => {
 
-    const tabBarItems = ['Description', 'Details', 'Recommendations', 'Reviews'];
+    const tabBarItems = ['Description', 'Details', 'Recommendations'];
     const [activeTab, setIsActiveTab] = useState('Description');
     const [searchLocation, setSearchLocation] = useState(false);
     // const [isSticky, setIsSticky] = useState(false);

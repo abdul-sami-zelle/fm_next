@@ -19,7 +19,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.info-modal-main-container.show-info-modal{
+.info-modal-main-container.show-info-modal {
     visibility: visible;
     opacity: 1;
 }
@@ -58,7 +58,7 @@
     gap: 20px;
 }
 
-.info-modal-head > h3 {
+.info-modal-head>h3 {
     font-size: 31px;
     line-height: 45px;
     font-weight: 500;
@@ -73,7 +73,7 @@
     width: 100%;
 }
 
-.info-modal-center-body-container > h3 {
+.info-modal-center-body-container>h3 {
     font-size: 20px;
     line-height: 30px;
     font-weight: 400;
@@ -90,7 +90,7 @@
     gap: 15px;
 }
 
-.info-modal-eligibility-check-container > button {
+.info-modal-eligibility-check-container>button {
     width: max-content;
     height: max-content;
     padding: 16px 22px;
@@ -104,14 +104,14 @@
     font-weight: 500;
 }
 
-.info-modal-eligibility-check-container > a {
+.info-modal-eligibility-check-container>a {
     color: var(--tertiary-color);
     font-size: 13px;
     line-height: 16px;
     font-weight: 400;
 }
 
-.info-modal-eligibility-check-container > p {
+.info-modal-eligibility-check-container>p {
     color: var(--text-primary);
     font-size: 13px;
     line-height: 15px;
@@ -119,7 +119,41 @@
     gap: 3px;
 }
 
-.info-modal-eligibility-check-container > p > strong {
+.info-modal-eligibility-check-container>p>strong {
     color: var(--text-primary);
     font-weight: 500;
+}
+
+@media only screen and (max-width: 480px) {
+    .info-modal-inner-container {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .info-modal-inner-sub-container {
+        gap: 15px;
+    }
+
+    .info-modal-head>h3 {
+        font-size: 22px;
+    }
+
+    .info-modal-center-body-container>h3 {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    .info-modal-eligibility-check-container>p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .info-modal-eligibility-check-container>button {
+        font-size: 14px;
+        line-height: 1.2;
+        padding: 10px 20px;
+    }
 }

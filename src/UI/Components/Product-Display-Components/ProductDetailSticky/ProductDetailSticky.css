@@ -534,7 +534,7 @@
     color: var(--text-primary);
 }
 
-.product-details-info>span>strong {
+.product-details-info>span> a {
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-one-weight);
@@ -862,7 +862,7 @@
         line-height: 15px;
     }
 
-    .product-details-info>span>strong {
+    .product-details-info>span> a {
         font-size: 14px;
         line-height: 15px;
     }

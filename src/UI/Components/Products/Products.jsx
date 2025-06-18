@@ -941,20 +941,25 @@ const Products = ({ navigationType }) => {
                             <p>Starting at $ 299</p>
                         </div>
                         <div className='mobile-view-product-card-grid-select'>
-                            <div className={`mobile-view-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => handleActiveGrid('single-col')}></div>
-                            <div className='mobile-view-card-grid-dual-col' onClick={() => handleActiveGrid('dual-col')}>
-                                <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
-                                <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+                            <div className={`mobile-view-toggler-single-box ${activeGrid === 'single-col' ? 'active-toggler-single-box' : ''}`}>
+                                <div className={`mobile-view-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => handleActiveGrid('single-col')}></div>
+                            </div>
+
+                            <div className={`mobile-view-toggler-double-box ${activeGrid === 'dual-col' ? 'active-toggler-dual-col' : ''}`}>
+                                <div className='mobile-view-card-grid-dual-col' onClick={() => handleActiveGrid('dual-col')}>
+                                    <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+                                    <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className='mobile-view-filter-body'>
                         <button className='mobile-view-show-filters' onClick={handleMobileFilters}>
-                            <Image src={'/Assets/icons/humberger-icon.png'} width={20} height={20} alt='filter' />
+                            <Image src={'/icons/filter.svg'} width={20} height={20} alt='filter' />
                             Show Filter
                         </button>
                         <button className={`mobile-view-sort-btn`} onClick={handleOpenSortModal}>
-                            <Image src={'/Assets/icons/arrow-up-donw.png'} width={20} height={20} alt='arrow up down' />
+                            <Image src={'/icons/sort.svg'} width={20} height={20} alt='arrow up down' />
                             Sort
                         </button>
                     </div>

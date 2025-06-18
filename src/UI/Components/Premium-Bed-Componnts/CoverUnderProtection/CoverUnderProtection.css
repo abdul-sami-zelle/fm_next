@@ -16,14 +16,14 @@
     gap: 15px;
 }
 
-.covered-or-not-protection-headings-container > h3 {
+.covered-or-not-protection-headings-container>h3 {
     font-size: 40px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
 }
 
-.covered-or-not-protection-headings-container > p {
+.covered-or-not-protection-headings-container>p {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
@@ -31,7 +31,7 @@
     text-align: center;
 }
 
-.covered-or-not-protection-headings-container > p > span {
+.covered-or-not-protection-headings-container>p>span {
     font-weight: 500;
     color: #000000;
 }
@@ -62,7 +62,7 @@
     gap: 10px;
 }
 
-.left-section-option-container > h3 {
+.left-section-option-container>h3 {
     font-size: 28px;
     line-height: 1.2;
     font-weight: 500;
@@ -77,7 +77,7 @@
     gap: 10px;
 }
 
-.options-single-item > p {
+.options-single-item>p {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
@@ -109,14 +109,14 @@
     width: 100%;
 }
 
-.not-covered-option-container > h3 {
+.not-covered-option-container>h3 {
     font-size: 28px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
 }
 
-.not-covered-option-container > h3:last-of-type {
+.not-covered-option-container>h3:last-of-type {
     font-size: 16px;
     color: #000;
 }
@@ -129,4 +129,65 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media only screen and (max-width: 480px) {
+    .covered-or-not-protection-main-container {
+        gap: 20px;
+    }
+
+    .covered-or-not-protection-headings-container {
+        gap: 10px;
+    }
+
+    .covered-or-not-protection-headings-container>h3 {
+        font-size: 18px;
+    }
+
+    .covered-or-not-protection-headings-container>p {
+        font-size: 12px;
+        text-align: start;
+    }
+
+    .covered-or-not-protection-content-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .covered-or-not-protection-content-left {
+        width: 100%;
+        gap: 10px;
+    }
+
+
+
+    .left-section-option-container>h3 {
+        font-size: 18px;
+    }
+
+    .options-single-item>p {
+        font-size: 12px;
+    }
+
+    .covered-or-not-protection-content-right {
+        gap: 10px;
+        width: 100%;
+    }
+
+    .protection-covered-image {
+        height: 240px;
+        border-radius: 10px;
+    }
+
+    .not-covered-option-container>h3 {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 500;
+        color: #595959;
+    }
+
+    .not-covered-option-container>h3:last-of-type {
+        font-size: 14px;
+        color: #000;
+    }
 }

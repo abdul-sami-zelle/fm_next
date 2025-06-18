@@ -14,14 +14,14 @@ import { useRouter } from 'next/navigation';
 
 
 const WishListClient = () => {
-//   const navigate = useNavigate()
-const router = useRouter()
-  const { 
-      wishList, 
-      addToList, 
-      removeFromList, 
-      isInWishList 
-    } = useList();
+  //   const navigate = useNavigate()
+  const router = useRouter()
+  const {
+    wishList,
+    addToList,
+    removeFromList,
+    isInWishList
+  } = useList();
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -37,13 +37,13 @@ const router = useRouter()
     return () => clearTimeout(timeout);
   }, []);
 
-  
+
   const truncateTitle = (title, maxLength) => {
     if (!title) return '';
     return title?.length > maxLength ? title.slice(0, maxLength) + '...' : title
   };
 
-  
+
   const handleQuickViewOpen = (item) => {
     setQuickView(true);
     setQuickViewProduct(item)
@@ -52,6 +52,7 @@ const router = useRouter()
   const handleQuickViewClose = () => { setQuickView(false) }
   const handleProductClick = (item) => {
     // navigate(`/product/${item.slug}`, { state: item });
+    console.log("item wish list ", item)
     router.push(`/product/${item.slug}`)
   };
 
@@ -74,13 +75,13 @@ const router = useRouter()
     }
   }
 
-  
+
   const handleActiveGrid = (grid) => {
     setActiveGrid(grid)
     setSelectedGrid(grid)
   }
 
-  
+
 
 
   return (
@@ -122,7 +123,7 @@ const router = useRouter()
                 ProductSku={item.sku}
                 tags={item.tags}
                 ProductTitle={truncateTitle(item.name, maxLength)}
-                
+
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}
@@ -141,7 +142,7 @@ const router = useRouter()
           })
         )}
 
-          
+
       </div>
 
       <div className={`wishlist-mobile-cards ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'}`}>
@@ -160,7 +161,7 @@ const router = useRouter()
               ProductSku={item.sku}
               tags={item.tags}
               ProductTitle={truncateTitle(item.name, maxLength)}
-              
+
               reviewCount={item.reviewCount}
               lowPriceAddvertisement={item.lowPriceAddvertisement}
               priceTag={item.regular_price}
@@ -182,11 +183,11 @@ const router = useRouter()
           ))
         )}
       </div>
-       <QuickView
-                      setQuickViewProduct={quickViewProduct}
-                      quickViewShow={quickViewClicked}
-                      quickViewClose={handleQuickViewClose}
-                  />
+      <QuickView
+        setQuickViewProduct={quickViewProduct}
+        quickViewShow={quickViewClicked}
+        quickViewClose={handleQuickViewClose}
+      />
     </div>
   )
 }

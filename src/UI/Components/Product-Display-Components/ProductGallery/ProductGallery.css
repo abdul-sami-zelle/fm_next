@@ -393,7 +393,7 @@
         display: flex;
     } */
     .slider-dots-and-view-all-button>h3 {
-        display: flex;
+        display: none !important;
     }
 
     .product-gallery-main-slider-arrow {

@@ -617,9 +617,9 @@ const Header = ({ checkoutPage }) => {
         </div>
 
         <div className='header-icons-container'>
-          <Link href="/user-dashboard" style={{ paddingTop: '4px' }} onClick={(event) => moveToLoginDash(event)}>
+          <div style={{ paddingTop: '4px' }} onClick={(event) => moveToLoginDash(event)}>
             <Image src={'/Assets/icon/user-outlined.svg'} width={23} height={23} alt="profile" />
-          </Link>
+          </div>
 
           <Link href={'/wishlist'}>
             <Image src={'/Assets/icon/heart-outlined.svg'} width={31} height={27} alt="heart" />

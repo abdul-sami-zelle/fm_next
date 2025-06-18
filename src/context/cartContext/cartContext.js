@@ -311,7 +311,7 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
-        
+        console.log("product of cart", product)
         setIsCartLoading(true);
 
         const isSimple = product.type === "simple";
@@ -346,6 +346,7 @@ export const CartProvider = ({ children }) => {
                                 regular_price: isSimple ? product.regular_price : variationData?.regular_price,
                                 quantity: parseInt(quantity),
                                 sku: isSimple ? product.sku : variationData?.sku,
+                                slug: product?.slug,
                                 is_protected: isProtected,
                             },
                         ],

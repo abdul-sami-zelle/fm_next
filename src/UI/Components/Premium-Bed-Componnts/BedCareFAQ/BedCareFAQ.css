@@ -15,7 +15,14 @@
     gap: 15px;
 }
 
-.bad-care-faq-heading > h3 {
+.bed-care-faq-msg-icon {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.bad-care-faq-heading>h3 {
     font-size: 40px;
     line-height: 1.2;
     font-weight: 500;
@@ -56,7 +63,7 @@
     cursor: pointer;
 }
 
-.bef-care-faq-que > h3 {
+.bef-care-faq-que>h3 {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 500;
@@ -64,6 +71,10 @@
 }
 
 .bed-care-faq-arrow {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
     transition: all 0.3s ease-in-out;
 }
 
@@ -80,5 +91,68 @@
 }
 
 .bed-care-faq-ans.show-ans {
-    height: 60px;
+    height: 80px;
+}
+
+.bed-care-faq-ans>p {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #595959;
+    opacity: 0.8;
+}
+
+@media only screen and (max-width: 480px) {
+
+    .bad-care-faq-main-conitainer {
+        gap: 10px;
+    }
+
+    .bad-care-faq-heading {
+        justify-content: start;
+        gap: 5px;
+    }
+
+    .bed-care-faqs {
+        gap: 10px;
+    }
+
+    .bed-care-faq-single-item {
+        padding: 5px;
+    }
+
+    .bed-care-faq-msg-icon {
+        display: flex;
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .bad-care-faq-heading>h3 {
+        font-size: 18px;
+    }
+
+    .bed-care-faq-arrow {
+        display: flex;
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .bef-care-faq-que>h3 {
+        font-size: 10px;
+    }
+
+    .bed-care-faq-ans>p {
+        font-size: 10px;
+    }
+
+    .bed-care-faq-ans.show-ans {
+        height: 50px;
+    }
+
+    .bed-care-faq-single-item.remove-ans-bg {
+        gap: 5px;
+    }
 }

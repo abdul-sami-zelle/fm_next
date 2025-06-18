@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -34,7 +35,7 @@ function SampleNextArrow(props) {
 
 const SimillerProducts = ({ collection, isPadding }) => {
   const simillerProducts = collection.map((item) => item);
-  
+
   const [data, setData] = useState()
   const fetchData = async () => {
     const api = `/api/v1/products/get/`;
@@ -101,19 +102,30 @@ const SimillerProducts = ({ collection, isPadding }) => {
   const { addToList, removeFromList, isInWishList } = useList()
   const notify = (str) => toast.success(str);
   const notifyRemove = (str) => toast.error(str)
+
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+  const [snakeBarMessage, setSnakeBarMessage] = useState()
   const handleWishList = (item) => {
     if (isInWishList(item.uid)) {
       removeFromList(item.uid);
-      notifyRemove('Removed from wish list', {
-        autoClose: 10000,
-        className: "toast-message",
-      })
+      setShowSnakeBar(true);
+      setSnakeBarMessage("Product Removed From Wish List");
+      // notifyRemove('Removed from wish list', {
+      //   autoClose: 10000,
+      //   className: "toast-message",
+      // })
     } else {
       addToList(item)
-      notify("added to wish list", {
-        autoClose: 10000,
-      })
+      setShowSnakeBar(true);
+      setSnakeBarMessage("Product Added To Wish List");
+      // notify("added to wish list", {
+      //   autoClose: 10000,
+      // })
     }
+  }
+
+  const handleCloseSnakeBar = () => {
+    setShowSnakeBar(false)
   }
 
   // Slick
@@ -222,6 +234,13 @@ const SimillerProducts = ({ collection, isPadding }) => {
         setQuickViewProduct={quickViewProduct}
         quickViewShow={quickViewClicked}
         quickViewClose={handleQuickViewClose}
+      />
+
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
       />
     </div>
   )

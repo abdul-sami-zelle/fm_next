@@ -16,15 +16,15 @@ const PlanDuration = () => {
                 <h3>How to Purchase a Protection Plan</h3>
                 <p>Buying your protection plan is easy:</p>
                 <span className="plan-duration-span">
-                    <FaCartArrowDown size={20} color="var(--tertiary-color)" />
+                    <FaCartArrowDown  className="planDurationIcon" color="var(--tertiary-color)" />
                     <p>Add your favorite furniture items to your cart.</p>
                 </span>
                 <span className="plan-duration-span">
-                    <FaShieldAlt size={20} color="var(--tertiary-color)" />
+                    <FaShieldAlt className="planDurationIcon" color="var(--tertiary-color)" />
                     <p>Select “Add Protection Plan” before checkout.</p>
                 </span>
                 <span className="plan-duration-span">
-                    <TbLocationUp size={20} color="var(--tertiary-color)" />
+                    <TbLocationUp className="planDurationIcon" color="var(--tertiary-color)" />
                     <p>Complete your purchase and receive a confirmation with your protection details.</p>
                 </span>
             </div>

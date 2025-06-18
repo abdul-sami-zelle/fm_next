@@ -397,7 +397,7 @@ p.footer-nav-items > a{
 }
 
 .left-section-social-icons-div img{
-    width: auto;
+    width: 25px;
     height: auto;
     object-fit: contain;
 }

@@ -36,6 +36,7 @@ import ProductDisplayShimmer from '../ProductDisplayShimmers/ProductDisplayShimm
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
+import Link from 'next/link'
 
 
 
@@ -220,9 +221,9 @@ const ProductDetailSticky = (
   const { setWarrantyModalState } = useGlobalContext();
   const [isSingleProtectionChecked, setIsSingleProtectionChecked] = useState(false);
   const [isProtected, setIsProtected] = useState(true)
-  const handleWarrantyModal = () => {
-    setWarrantyModalState(true)
-  }
+  // const handleWarrantyModal = () => {
+  //   setWarrantyModalState(true)
+  // }
 
 
 
@@ -247,8 +248,11 @@ const ProductDetailSticky = (
 
     if (isInWishList(item?.uid)) {
       removeFromList(item?.uid)
+      handleShowSnakeToust("Product Removed From Wish List")
+      
     } else {
       addToList(item)
+      handleShowSnakeToust("Product Added Wish List")
     }
   }
 
@@ -370,14 +374,24 @@ const ProductDetailSticky = (
 
   }, [cartDivRef]);
   const [errorMessage, setErrorMessage] = useState('Something went wrong! Please try again later.');
-  const [snakebarOpen, setSnakebarOpen] = useState(false);
+  // const [snakebarOpen, setSnakebarOpen] = useState(false);
+  // const [snakeBarMessage, setSnakeBarMessage] = useState()
 
-  const handleOpenSnakeBar = () => {
-    // setAppointmentModal(false);
-    setSnakebarOpen(true);
+  // const handleOpenSnakeBar = () => {
+  //   // setAppointmentModal(false);
+  //   setSnakebarOpen(true);
+  // }
+
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+  const [snakeBarMessage, setSnakeBarMessage] = useState()
+  const handleShowSnakeToust = (message) => {
+    setShowSnakeBar(true)
+    setSnakeBarMessage(message)
   }
+
+
   const handleCloseSnakeBar = () => {
-    setSnakebarOpen(false);
+    setShowSnakeBar(false);
   }
 
   // useEffect(() => { }, [addCartSticky])
@@ -619,9 +633,9 @@ const ProductDetailSticky = (
 
                       <span>
                         <p>+${eachProtectionValue}</p>
-                        <strong onClick={handleWarrantyModal}>
+                        <Link href={'/premium-bed-care'}>
                           What's Covered
-                        </strong>
+                        </Link>
                       </span>
 
                     </div>
@@ -761,9 +775,9 @@ const ProductDetailSticky = (
         setAppointmentModal={setAppointmentModal}
         handleCloseModal={handleCloseAppointmentModal}
         setErrorMessage={setErrorMessage}
-        snakebarOpen={snakebarOpen}
-        setSnakebarOpen={setSnakebarOpen}
-        handleOpenSnakeBar={handleOpenSnakeBar}
+        snakebarOpen={showSnakeBar}
+        setSnakebarOpen={setShowSnakeBar}
+        handleOpenSnakeBar={handleShowSnakeToust}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
         serviceIndex={serviceIndex}
@@ -804,9 +818,9 @@ const ProductDetailSticky = (
       </div>
 
       <SnakBar
-        message={errorMessage}
-        openSnakeBarProp={snakebarOpen}
-        setOpenSnakeBar={setSnakebarOpen}
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setSnakeBarMessage}
         onClick={handleCloseSnakeBar}
       />
 

@@ -12,7 +12,7 @@ import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/produ
 import { useList } from '@/context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
-import { formatedPrice, url } from '../../utils/api';
+import { formatedPrice, getAdjustedPrice, url } from '../../utils/api';
 import QuickView from '@/UI/Components/QuickView/QuickView';
 import FinancingModal from '@/UI/Modals/FinancingModal/FinancingModal';
 import AppointmentModal from '@/Global-Components/AppointmentModal/AppointmentModal';
@@ -83,26 +83,26 @@ const Cart = () => {
 
   const [latestProducts, setLatestProducts] = useState([]);
 
-  const recomandationApi = 
+  const recomandationApi =
 
-  useEffect(() => {
-    const getLatestProducts = async () => {
-      const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
-      const payload = {
-        cart: cartProducts?.products?.map(item => item._id) || []
+    useEffect(() => {
+      const getLatestProducts = async () => {
+        const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+        const payload = {
+          cart: cartProducts?.products?.map(item => item._id) || []
+        };
+        try {
+          const response = await axios.post(api, payload);
+          setLatestProducts(response.data.recommendations);
+        } catch (error) {
+          console.error("error", error);
+        }
       };
-      try {
-        const response = await axios.post(api, payload);
-        setLatestProducts(response.data.recommendations);
-      } catch (error) {
-        console.error("error", error);
+      if (cartProducts?.products?.length > 0) {
+        getLatestProducts();
       }
-    };
-    if (cartProducts?.products?.length > 0) {
-      getLatestProducts();
-    }
-  }, [cartProducts]);
-  
+    }, [cartProducts]);
+
   useEffect(() => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
@@ -362,7 +362,7 @@ const Cart = () => {
               </div>
             </div>
             <div className='financing-months-range-container'>
-              <h3 className='financing-month-range-heading'>$125/month for 48 months</h3>
+              <h3 className='financing-month-range-heading'>${getAdjustedPrice(subTotal0)}/week</h3>
               <button className='financing-month-range-apply-button' onClick={handleOpenFinancingModal}>
                 Apply for Financing
               </button>
@@ -374,53 +374,56 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      <div className='cart-related-products-display-section'>
-        <h3>You May Also Like</h3>
-        <div className='cart-related-products-slider-main-div'>
-          <Slider {...settings}>
-            {latestProducts && latestProducts?.length > 0 ? (
-              latestProducts.map((item, index) => (
-                <div key={index} className='cart-latest-product-cards-container'>
-                  <ProductCardTwo
-                    key={index}
-                    slug={item.slug}
-                    singleProductData={item}
-                    maxWidthAccordingToComp={"100%"}
-                    justWidth={'100%'}
-                    percent={'12%'}
-                    showOnPage={true}
-                    tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
-                    tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                    mainImage={`${item.image.image_url}`}
-                    productCardContainerClass="product-card"
-                    ProductSku={item.sku}
-                    tags={item.tags}
-                    allow_back_order={item?.allow_back_order}
-                    ProductTitle={item.name}
-                    reviewCount={item.reviewCount}
-                    lowPriceAddvertisement={item.lowPriceAddvertisement}
-                    priceTag={item.regular_price}
-                    sale_price={item.sale_price}
-                    financingAdd={item.financingAdd}
-                    learnMore={item.learnMore}
-                    mainIndex={index}
-                    deliveryTime={item.deliveryTime}
-                    stock={item.manage_stock}
-                    attributes={item.attributes}
-                    handleCardClick={() => handleProductClick(item)}
-                    handleQuickView={() => handleQuickViewOpen(item)}
-                    handleWishListclick={() => handleWishList(item)}
-                  />
-                </div>
-              ))
-            ) : (
-              Array.from({ length: 4 }).map((_, index) => (
-                <ProductCardShimmer width={'100%'} />
-              ))
-            )}
-          </Slider>
+      {cartProducts.products.length > 0 && (
+        <div className='cart-related-products-display-section'>
+          <h3>You May Also Like</h3>
+          <div className='cart-related-products-slider-main-div'>
+            <Slider {...settings}>
+              {latestProducts && latestProducts?.length > 0 ? (
+                latestProducts.map((item, index) => (
+                  <div key={index} className='cart-latest-product-cards-container'>
+                    <ProductCardTwo
+                      key={index}
+                      slug={item.slug}
+                      singleProductData={item}
+                      maxWidthAccordingToComp={"100%"}
+                      justWidth={'100%'}
+                      percent={'12%'}
+                      showOnPage={true}
+                      tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
+                      tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                      mainImage={`${item.image.image_url}`}
+                      productCardContainerClass="product-card"
+                      ProductSku={item.sku}
+                      tags={item.tags}
+                      allow_back_order={item?.allow_back_order}
+                      ProductTitle={item.name}
+                      reviewCount={item.reviewCount}
+                      lowPriceAddvertisement={item.lowPriceAddvertisement}
+                      priceTag={item.regular_price}
+                      sale_price={item.sale_price}
+                      financingAdd={item.financingAdd}
+                      learnMore={item.learnMore}
+                      mainIndex={index}
+                      deliveryTime={item.deliveryTime}
+                      stock={item.manage_stock}
+                      attributes={item.attributes}
+                      handleCardClick={() => handleProductClick(item)}
+                      handleQuickView={() => handleQuickViewOpen(item)}
+                      handleWishListclick={() => handleWishList(item)}
+                    />
+                  </div>
+                ))
+              ) : (
+                Array.from({ length: 4 }).map((_, index) => (
+                  <ProductCardShimmer width={'100%'} />
+                ))
+              )}
+            </Slider>
+          </div>
         </div>
-      </div>
+      )}
+
       <div className='space-between-checkout-and-related-products'></div>
       <div className='mobile-total-save-and-checkout-button'>
         <div className='mobile-total-and-save'>
