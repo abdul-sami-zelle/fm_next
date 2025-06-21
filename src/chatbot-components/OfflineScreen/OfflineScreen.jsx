@@ -56,7 +56,7 @@ const OfflineScreen = ({ onBack, onClose }) => {
         text: "Our Human team is offline this second... but to best assist you, someone will follow up shortly via email.",
         sender: "bots",
         timestamp: new Date(),
-        avatar: "/Assets/chat/Images/advisor2.png",
+        avatar: "/assets/chat/Images/advisor2.png",
       };
       setMessages((prev) => [...prev, botResponse]);
       setShowBotOptions(true);
@@ -97,7 +97,7 @@ const OfflineScreen = ({ onBack, onClose }) => {
           <RxCross1 className="close-icon" onClick={onClose} />
         </div>
         <div className="company-logo123">
-          <img src="/Assets/chat/Images/advisor2.png" alt="" />
+          <img src="/assets/chat/Images/advisor2.png" alt="" />
         </div>
         <div className="meeting-us-btn123">
           <p>
@@ -271,7 +271,7 @@ const OfflineScreen = ({ onBack, onClose }) => {
               rel="noopener noreferrer"
             >
               <img
-                src="/Assets/chat/Images/zelle.png"
+                src="/assets/chat/Images/zelle.png"
                 style={{ height: "25px", width: "25px" }}
                 alt="Chatbot Avatar"
               />

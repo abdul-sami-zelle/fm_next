@@ -8,7 +8,6 @@ import EmojiPicker from "emoji-picker-react";
 import "./style.css";
 import { FaRegCalendar } from "react-icons/fa";
 import { IoCheckmark } from "react-icons/io5";
-import { useRouter } from "next/router";
 
 const OnlineChatUs = ({ onBack, onClose }) => {
   const [message, setMessage] = useState("");
@@ -68,13 +67,6 @@ const formatMessageTime = (timestamp) => {
     setMessage((prev) => prev + emojiObject.emoji);
   };
 
-    const router = useRouter();
-    const handleNavigate = (slug, item) => {
-      const queryString = new URLSearchParams(item).toString();
-      router.push(`/${slug}${queryString}`);
-    };
-  
-
   return (
     <div className="chatus-container">
       <div className="chatus-header">
@@ -84,11 +76,9 @@ const formatMessageTime = (timestamp) => {
           <RxCross1 className="close-icon" onClick={onClose} />
         </div>
         <div className="company-logo123">
-          <img src="/Assets/chat/Images/advisor2.png" alt="" />
+          <img src="/assets/chat/Images/advisor2.png" alt="" />
         </div>
-        <div className="meeting-us-btn123" onClick={()=>{
-            router.push(`/${slug}${queryString}`)
-        }}>
+        <div className="meeting-us-btn123">
           <p>
             <FaRegCalendar className="meeting-us-icon123" /> Book a Meeting
           </p>
@@ -188,7 +178,7 @@ const formatMessageTime = (timestamp) => {
               rel="noopener noreferrer"
             >
               <img
-                src="/Assets/chat/Images/zelle.png"
+                src="/assets/chat/Images/zelle.png"
                 style={{ height: "25px", width: "25px" }}
                 alt="Chatbot Avatar"
               />

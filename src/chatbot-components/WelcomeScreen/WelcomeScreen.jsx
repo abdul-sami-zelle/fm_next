@@ -43,13 +43,13 @@ export default function WelcomeScreen({
           text: "Hi! 👋 Welcome to Furniture Mecca. How can we help you today?",
           sender: "bot",
           time,
-          avatar: "/assets/Images/chatbot.png",
+          avatar: "/assets/chat/Images/chatbot.png",
         },
         {
           text: "Ask us anything about our furniture, delivery options, or customization!",
           sender: "bot",
           time,
-          avatar: "/assets/Images/chatbot.png",
+          avatar: "/assets/chat/Images/chatbot.png",
         },
       ];
       onChatClick(dummyMessages);
@@ -83,9 +83,9 @@ export default function WelcomeScreen({
         </div>
         <div className="peoples">
           <div className="people-images">
-            <img src="/assets/Images/sami.png" alt="" />
-            <img src="/assets/Images/faraz.png" alt="" />
-            <img src="/assets/Images/rashid.png" alt="" />
+            <img src="/assets/chat/Images/sami.png" alt="" />
+            <img src="/assets/chat/Images/faraz.png" alt="" />
+            <img src="/assets/chat/Images/rashid.png" alt="" />
           </div>
           <h1>Furniture Mecca</h1>
           <p>We are here to help</p>
@@ -151,7 +151,7 @@ export default function WelcomeScreen({
             rel="noopener noreferrer"
           >
 {/*             <strong>Zelle Solutions</strong> */}
-            <img src="/assets/Images/zelle.png" style={{height:"25px",width:"25px"}} alt="Chatbot Avatar" />
+            <img src="/assets/chat/Images/zelle.png" style={{height:"25px",width:"25px"}} alt="Chatbot Avatar" />
           </a>
         </div>
       </div>

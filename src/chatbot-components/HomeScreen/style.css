@@ -1,7 +1,7 @@
-.home-screen-container {
+.home-screen-container-main {
   position: fixed;
-  bottom: 70px;
-  right: 20px;
+  bottom: 2%;
+  right: 1%;
   z-index: 9999;
   overflow: hidden;
   border-radius: 20px;
@@ -33,7 +33,7 @@
 
 .home-screen-box {
   position: relative;
-  padding: 15px;
+  padding: 0px 15px;
   background-color: var(--custom-color-background);
   overflow: hidden;
 }
@@ -98,16 +98,18 @@
   align-items: center;
 }
 
-.bot-icon {
+.cross-iconxxxxx {
   color: white;
-  font-size: 30px;
+  font-size: 24px;              
+  cursor: pointer;
+  margin-top: -12px;           
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.cross-icon {
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
+.cross-iconxxxxx:hover {
+  transform: scale(1.1);
 }
+
 
 .greeting h2 {
   font-size: 24px;
@@ -380,7 +382,7 @@
 .meeting-us-btn {
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin: 12px 0;
   background: rgb(255, 118, 44);
   border-radius: 50px;
   padding: 8px 12px;
@@ -407,7 +409,7 @@
 }
 .peopless {
   text-align: center;
-  padding:15px;
+  padding: 15px;
 }
 
 .peopleimages {
@@ -567,7 +569,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 500;
   color: #8190b1;
 }
@@ -593,4 +595,9 @@
   font-size: 11px;
   justify-content: center;
   text-align: center;
+}
+.faq-category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

@@ -21,13 +21,13 @@ const handleOpenChat = (faqQuestionOrMessages) => {
         text: faqQuestionOrMessages,
         sender: "user",
         time,
-        avatar:"/Assets/chat/Images/profile-img.png",
+        avatar: "/assets/chat/Images/profile-img.png",
       },
       {
         text: getBotResponse(faqQuestionOrMessages),
         sender: "bot",
         time,
-        avatar: "/Assets/chat/Images/chatbot.png",
+        avatar: "/assets/chat/Images/chatbot.png",
       },
     ]);
   } else {

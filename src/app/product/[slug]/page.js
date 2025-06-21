@@ -21,6 +21,8 @@ import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
+import DesignRoom from '@/UI/Modals/DesignYourRoomModal/Pages/DesignRoom/DesignRoom';
+import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 
 const ProductDisplay = ({ params }) => {
 
@@ -28,7 +30,15 @@ const ProductDisplay = ({ params }) => {
   const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
+  const [showDesignRoomModal,setShowDwsignRoomModal] = useState(false);
 
+const showDRM = () =>{
+  setShowDwsignRoomModal(true)
+}
+
+const closeDRM = () =>{
+  setShowDwsignRoomModal(false)
+}
 
   const [productDetails , setProductDetails] = useState({})
   useEffect(() => {
@@ -370,7 +380,7 @@ const ProductDisplay = ({ params }) => {
         // parentCategories={parentCategories}
         />
 
-        {product && <DesignYourRoomIndv image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
+        {product && <DesignYourRoomIndv openFN={showDRM} image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
 
         <ProductStickyTabBar
           sectionRefs={sectionRefs}
@@ -418,6 +428,11 @@ const ProductDisplay = ({ params }) => {
         params={params}
       />
 
+
+
+    { showDesignRoomModal && <div className='design_room_main_modal'>
+      <DesignRoomMain closeFn={closeDRM} product={product} />
+    </div>}
 
 
 

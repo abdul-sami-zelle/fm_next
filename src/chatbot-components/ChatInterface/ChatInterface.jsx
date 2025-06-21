@@ -46,7 +46,7 @@ export default function ChatInterface({
           hour: "2-digit",
           minute: "2-digit",
         }),
-        avatar: "/assets/Images/profile-img.png",
+        avatar: "/assets/chat/Images/profile-img.png",
       };
       setMessages([...messages, newMsg]);
       setNewMessage("");

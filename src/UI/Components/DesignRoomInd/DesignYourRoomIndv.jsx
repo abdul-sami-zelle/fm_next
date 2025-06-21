@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./DesignYourRoomIndv.css";
 import { url } from "@/utils/api";
 
-export default function DesignYourRoomIndv({ image }) {
+export default function DesignYourRoomIndv({ image,openFN }) {
 
   const [showIframe, setShowIframe] = useState(false);
 
@@ -26,7 +26,7 @@ export default function DesignYourRoomIndv({ image }) {
           <div className="overlay-content-dri">
             <h2>Design Your Dream Home And Step Inside.</h2>
             <p>Use our free Room Design Tool To Find Your Style,Set Your Budget And Design Your Space.</p>
-            <button onClick={handleNavigateToDesignRoom}>Get Started</button>
+            <button onClick={()=>{openFN()}}>Get Started</button>
           </div>
 
         </div>

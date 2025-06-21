@@ -126,7 +126,13 @@
   width: 17px;
   z-index: -1;
 }
-
+.RxCross2 {
+  color: white;
+  right: 8px;
+  position: absolute;
+  top: 8px;
+  z-index: 5;
+}
 .chatbot-content {
   align-items: center;
   bottom: 0;

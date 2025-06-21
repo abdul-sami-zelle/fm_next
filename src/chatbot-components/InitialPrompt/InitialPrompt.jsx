@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./style.css";
-import bgif from "../assets/Images/chatani.gif"
 
 export default function InitialPrompt({ onClick }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -24,7 +23,7 @@ export default function InitialPrompt({ onClick }) {
     >
       <div className="chat-bubble">Hi, I am FM Digital Assistant,<br/> How Can I Help?</div>
       <div className="chat-avatar">
-        <img src={"/Assets/chat/"} alt="Chatbot Avatar" />
+        <img src="/assets/chat/Images/chatani.gif" alt="Chatbot Avatar" />
       </div>
     </div>
   );

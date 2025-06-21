@@ -6,12 +6,43 @@ import { MdOutlineCalendarToday, MdPhone } from "react-icons/md";
 import { PiChatCircleBold } from "react-icons/pi";
 import { RiChat3Fill } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
+import { FaRegWindowMinimize, FaWindowMinimize } from "react-icons/fa";
+import { faqData } from "../../Data/Data";
 
-const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) => {
+const HomeScreen = ({
+  onClose,
+  onOpenChatUs,
+  onOpenOffline,
+  onOpenOnlineChat,
+   onFaqClick,
+}) => {
   const [showAllConversations, setShowAllConversations] = useState(false);
   const [isTeamOnline, setIsTeamOnline] = useState(false);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
   const [greeting, setGreeting] = useState("Good Morning!");
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [allFaqs, setAllFaqs] = useState([]);
+
+  useEffect(() => {
+    const flatFaqs = faqData.flatMap(({ category, FAQs }) =>
+      FAQs.map((faq) => ({ ...faq, category }))
+    );
+
+    setAllFaqs(flatFaqs);
+  }, []);
+
+  const visibleFaqs = allFaqs.slice(0, visibleCount);
+
+  // Group visible FAQs by category
+  const groupedFaqs = visibleFaqs.reduce((acc, faq) => {
+    if (!acc[faq.category]) acc[faq.category] = [];
+    acc[faq.category].push(faq);
+    return acc;
+  }, {});
+
+  const handleSeeMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 5, allFaqs.length));
+  };
 
   const conversations = [
     {
@@ -35,21 +66,10 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
       img: "https://cdn.servicebell.com/assets/bella-idle-default.c62aea33..jpeg",
     },
   ];
-  const faqs = [
-    { id: 1, question: "How long does furniture delivery take?" },
-    { id: 2, question: "Do you offer assembly services for furniture?" },
-    { id: 3, question: "What is your return policy for furniture items?" },
-    { id: 4, question: "How do I care for and maintain leather furniture?" },
-    { id: 5, question: "Can I customize furniture dimensions or fabrics?" },
-    { id: 6, question: "Do you offer in-home consultation services?" },
-    { id: 7, question: "What warranties come with your furniture?" },
-  ];
 
   const visibleConversations = showAllConversations
     ? conversations
     : conversations.slice(0, 2);
-
-  const visibleFaqs = showAllFaqs ? faqs : faqs.slice(0, 4);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -62,17 +82,20 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
   }, []);
 
   return (
-    <div className="home-screen-container">
+    <div className="home-screen-container-main">
       <div className="home-screen-subcontainer">
         <div className="video-section-wrapper">
           <img
             className="background-video"
-            src="/Assets/chat/Images/ai-chatbot.gif"
+            src="/assets/chat/Images/ai-chatbot.gif"
             alt="AI Chatbot animation"
           />
           <div className="video-overlay-content">
             <div className="header">
-              <RxCross1 className="cross-icon" onClick={onClose} />
+              <FaRegWindowMinimize
+                className="cross-iconxxxxx"
+                onClick={onClose}
+              />
             </div>
 
             <div>
@@ -105,7 +128,7 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
         </div>
 
         <div className="home-screen-box">
-          <div className="team">
+          {/* <div className="team">
             <p>
               Our team is{" "}
               <span className={isTeamOnline ? "online" : "offline"}>
@@ -116,9 +139,9 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
             {isTeamOnline ? (
               <div className="peopless">
                 <div className="peopleimages">
-                  <img src="/Assets/chat/Images/advisor1.png" alt="Advisor" />
-                  <img src="/Assets/chat/Images/advisor2.png" alt="Advisor" />
-                  <img src="/Assets/chat/Images/advisor3.png" alt="Advisor" />
+                  <img src="/assets/Images/advisor1.png" alt="Advisor" />
+                  <img src="/assets/Images/advisor2.png" alt="Advisor" />
+                  <img src="/assets/Images/advisor3.png" alt="Advisor" />
                 </div>
               </div>
             ) : (
@@ -132,7 +155,7 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
             <p>
               <PiChatCircleBold className="chat-us-icon" /> Chat Us
             </p>
-          </div>
+          </div> */}
           <div className="meeting-us-btn">
             <p>
               <MdOutlineCalendarToday className="meeting-us-icon" /> Book
@@ -173,19 +196,25 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
           <div className="support-people-list">
             <h2>Frequently Asked Questions</h2>
             <div className="faq">
-              {visibleFaqs.map((faq) => (
-                <div key={faq.id} className="faqitem">
-                  {faq.question}
+              {Object.keys(groupedFaqs).map((category) => (
+                <div key={category} className="faq-category-group">
+                  {groupedFaqs[category].map((faq) => (
+                    <div key={faq.id} className="faqitem"  onClick={() => onFaqClick && onFaqClick(faq)} >
+                      {faq.question}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
 
-            {!showAllFaqs && faqs.length > 4 && (
+            {visibleCount < allFaqs.length && (
               <div
                 className="view-all-faqs"
-                onClick={() => setShowAllFaqs(true)}
+                onClick={() =>
+                  setVisibleCount((prev) => Math.min(prev + 5, allFaqs.length))
+                }
               >
-                View All
+                See More
               </div>
             )}
           </div>
@@ -212,7 +241,7 @@ const HomeScreen = ({ onClose, onOpenChatUs, onOpenOffline ,onOpenOnlineChat}) =
             rel="noopener noreferrer"
           >
             <img
-              src="/Assets/chat/Images/zelle.png"
+              src="/assets/chat/Images/zelle.png"
               style={{ height: "25px", width: "25px" }}
               alt="Chatbot Avatar"
             />

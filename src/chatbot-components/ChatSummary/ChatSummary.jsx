@@ -40,9 +40,9 @@ export default function ChatSummary({
         </div>
         <div className="peoples">
             <div className="people-images">
-            <img src="/assets/Images/sami.png" alt="" />
-            <img src="/assets/Images/faraz.png" alt="" />
-            <img src="/assets/Images/rashid.png" alt="" />
+            <img src="/assets/chat/Images/sami.png" alt="" />
+            <img src="/assets/chat/Images/faraz.png" alt="" />
+            <img src="/assets/chat/Images/rashid.png" alt="" />
           </div>
           <h1>Furniture Mecca</h1>
           <p>We are here to help</p>
@@ -79,7 +79,7 @@ export default function ChatSummary({
           <div className="summary-message"  onClick={handleMessageClick}>
             <div className="chatbot">
               <img
-                src="/assets/Images/chatbot.png"
+                src="/assets/chat/Images/chatbot.png"
                 alt="chatbot"
                 className=""
               />
