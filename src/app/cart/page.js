@@ -374,7 +374,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      {cartProducts.products.length > 0 && (
+      {cartProducts?.products?.length > 0 && (
         <div className='cart-related-products-display-section'>
           <h3>You May Also Like</h3>
           <div className='cart-related-products-slider-main-div'>
