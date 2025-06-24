@@ -92,7 +92,7 @@
   );
 }
 
-.header {
+.headerssss {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -100,16 +100,15 @@
 
 .cross-iconxxxxx {
   color: white;
-  font-size: 24px;              
+  font-size: 24px;
   cursor: pointer;
-  margin-top: -12px;           
+  margin-top: -12px;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .cross-iconxxxxx:hover {
   transform: scale(1.1);
 }
-
 
 .greeting h2 {
   font-size: 24px;
@@ -383,24 +382,23 @@
   display: flex;
   align-items: center;
   margin: 12px 0;
-  background: rgb(255, 118, 44);
+  background: white;
   border-radius: 50px;
   padding: 8px 12px;
   justify-content: center;
-  border: 1px solid white;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   box-sizing: border-box;
 }
 .meeting-us-icon {
-  color: white;
+  color: rgb(255, 118, 44);
   width: 16px;
   height: 16px;
   font-weight: 700;
 }
 .meeting-us-btn p {
-  color: white;
+  color: rgb(255, 118, 44);
   margin: 5px 0;
   display: flex;
   justify-content: center;
@@ -553,6 +551,55 @@
   background-color: #e9e9e9;
 }
 
+.faq-category-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1e2749;
+  background-color: #f0f0f0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq-toggle-icon {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.faq-category-title:hover {
+  background-color: #e0e0e0;
+}
+
+.faq-questions {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.faq-questions-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-questions-wrapper.open {
+  max-height: 500px;
+}
+
+.faq-questions-wrapper.open .faq-questions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .footer {
   align-items: center;
   background: #f6f7f9;
@@ -576,6 +623,7 @@
 .home-icon {
   height: 20px;
   width: 20px;
+  cursor: pointer;
 }
 .footer-bottom {
   align-items: center;

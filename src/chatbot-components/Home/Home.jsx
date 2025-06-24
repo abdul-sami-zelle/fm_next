@@ -6,6 +6,7 @@ import ChatUs from "../ChatUs/ChatUs";
 import OfflineScreen from "../OfflineScreen/OfflineScreen";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import OnlineChatUs from "../OnlineChatUs/OnlineChatUs";
+import ConversationList from "../ConversationList/ConversationList";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,19 +15,37 @@ const Home = () => {
   const [showOfflineScreen, setShowOfflineScreen] = useState(false);
   const [showOnlineChatUs, setShowOnlineChatUs] = useState(false);
   const [startScreenClosed, setStartScreenClosed] = useState(true);
-const [isMobile, setIsMobile] = useState(false); // Safe initial value
+  const [isMobile, setIsMobile] = useState(false);
+  const [showConversationList, setShowConversationList] = useState(false);
+  const [activeTab, setActiveTab] = useState("home");
 
-const initialTimerRef = useRef(null);
-const autoCloseTimerRef = useRef(null);
+  const onTab = (tab) => {
+    setStartScreenClosed(true);
+
+    setActiveTab(tab);
+
+    if (tab === "home") {
+      setShowConversationList(false);
+        setStartScreenClosed(true);
+      setIsOpen(true);
+    } else if (tab === "chat") {
+      setShowConversationList(true);
+      setIsOpen(false);
+    }
+  };
+
+  const initialTimerRef = useRef(null);
+  const autoCloseTimerRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 600);
     };
 
-    handleResize(); // Initial check on client
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const clearTimers = () => {
@@ -69,6 +88,19 @@ const autoCloseTimerRef = useRef(null);
     autoCloseTimerRef.current = setTimeout(() => {
       handleStartScreenClose();
     }, 5000);
+  };
+
+  const handleTabClickFromFooter = (tab) => {
+    if (tab === "home") {
+      setShowConversationList(false);
+      setTimeout(() => {
+        setActiveTab("home");
+        setIsOpen(true);
+      }, 0);
+    } else {
+      setActiveTab(tab);
+      setShowConversationList(true);
+    }
   };
 
   const handleStartScreenClose = () => {
@@ -164,7 +196,7 @@ const autoCloseTimerRef = useRef(null);
         className={`fade-wrapper ${
           isTransitioning
             ? "fade-out slide-down"
-            : isOpen || showChatUsOnly || showOfflineScreen || showOnlineChatUs
+            : showChatUsOnly || showOfflineScreen || showOnlineChatUs
             ? "fade-in slide-up"
             : "fade-in"
         }`}
@@ -191,7 +223,17 @@ const autoCloseTimerRef = useRef(null);
               Chat Us
             </button>
           )}
-        {showChatUsOnly ? (
+        {showConversationList ? (
+          <ConversationList
+            activeTab={activeTab}
+            onCloseConversationList={() => {
+              setShowConversationList(false);
+              setStartScreenClosed(false);
+              setIsOpen(false);
+            }}
+            onTabClick={handleTabClickFromFooter}
+          />
+        ) : showChatUsOnly ? (
           <ChatUs onBack={handleOpen} onClose={handleClose} />
         ) : showOnlineChatUs ? (
           <OnlineChatUs onBack={handleBack} onClose={handleClose} />
@@ -204,6 +246,10 @@ const autoCloseTimerRef = useRef(null);
             onOpenOffline={handleOpenOffline}
             onOpenOnlineChat={handleOpenOnlineChat}
             onFaqClick={handleFaqClickFromHome}
+            onOpenConversationList={() => setShowConversationList(true)}
+            activeTab={activeTab}
+            onTabClick={onTab}
+            isOpen={true}
           />
         ) : null}
       </div>

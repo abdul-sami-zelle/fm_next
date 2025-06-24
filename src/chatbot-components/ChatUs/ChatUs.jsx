@@ -315,8 +315,6 @@ const ChatUs = ({ onBack, onClose }) => {
               setIsBotTyping(false);
               return;
             }
-
-            // Check textarea value directly before showing follow-up
             if (message.trim() !== "") {
               setIsBotTyping(false);
               return;
