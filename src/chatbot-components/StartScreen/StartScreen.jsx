@@ -19,7 +19,7 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose }) => {
             /> */}
             <img
               className="chatbot-video"
-              src="/assets/chat/Images/ai-chatbot.gif"
+              src="/Assets/chat/Images/ai-chatbot.gif"
               alt="AI Chatbot animation"
               onClick={onOpen}
             />

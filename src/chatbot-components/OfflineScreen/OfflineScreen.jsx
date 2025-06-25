@@ -271,7 +271,7 @@ const OfflineScreen = ({ onBack, onClose }) => {
               rel="noopener noreferrer"
             >
               <img
-                src="/assets/chat/Images/zelle.png"
+                src="/Assets/chat/Images/zelle.png"
                 style={{ height: "25px", width: "25px" }}
                 alt="Chatbot Avatar"
               />

@@ -99,7 +99,7 @@ const HomeScreen = ({
         <div className="video-section-wrapper">
           <img
             className="background-video"
-            src="/assets/chat/Images/ai-chatbot.gif"
+            src="/Assets/chat/Images/ai-chatbot.gif"
             alt="AI Chatbot animation"
           />
           <div className="video-overlay-content">
