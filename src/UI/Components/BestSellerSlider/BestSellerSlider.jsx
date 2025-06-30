@@ -29,6 +29,18 @@ import Image from 'next/image';
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -463,9 +475,18 @@ const BestSellerSlider = (
                         {loading ? (
                             <BestSellerProductCardShimmer width={'85%'} />
                         ) : (
-                            <Slider ref={sliderRef} {...mobileSettings}>
-                                {allProducts.map((item, index) => (
 
+                            <Swiper
+                                pagination={{
+                                    dynamicBullets: true,
+                                    clickable: true,
+                                }}
+                                // slidesPerGroup={Math.ceil(allProducts.length / 3)}
+                                modules={[Pagination]}
+                                className="mySwiper"
+                            >
+                                {allProducts.map((item, index) => (
+                                    <SwiperSlide key={index}>
 
                                     <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
                                         <div className='mobile-best-seller-cart-wishlist-container'>
@@ -508,8 +529,59 @@ const BestSellerSlider = (
                                             </div>
                                         </div>
                                     </Link>
+                                    </SwiperSlide>
+
                                 ))}
-                            </Slider>
+                            </Swiper>
+
+
+                            // <Slider ref={sliderRef} {...mobileSettings}>
+                            //     {allProducts.map((item, index) => (
+
+
+                            //         <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+                            //             <div className='mobile-best-seller-cart-wishlist-container'>
+                            //                 {
+                            //                     isInWishList(item?.uid) ? (
+                            //                         <VscHeartFilled
+                            //                             size={25}
+                            //                             style={{ color: 'var(--primary-color)' }}
+                            //                             onClick={(e) => {
+                            //                                 e.stopPropagation();
+                            //                                 handleWishlisted(item);
+                            //                             }}
+                            //                         />
+                            //                     ) : (
+                            //                         <VscHeart
+                            //                             size={25}
+                            //                             style={{ color: 'var(--primary-color)' }}
+                            //                             onClick={(e) => {
+                            //                                 e.stopPropagation();
+                            //                                 handleWishlisted(item);
+                            //                             }}
+                            //                         />
+                            //                     )
+                            //                 }
+                            //             </div>
+                            //             <img src={url + item?.images?.[1]?.image_url} />
+                            //             <div className='mobile-card-details-container'>
+                            //                 <div className='mobile-best-seller-rating-and-review'>
+                            //                     <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                            //                 </div>
+                            //                 <h3>{item?.name}</h3>
+                            //                 <div className='mobile-best-seller-category-product-price'>
+                            //                     <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
+                            //                     {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                            //                 </div>
+                            //             </div>
+                            //             <div className='mobile-best-seller-cart-container'>
+                            //                 <div className='mobile-best-sseller-card-bag-container'>
+                            //                     <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                            //                 </div>
+                            //             </div>
+                            //         </Link>
+                            //     ))}
+                            //  </Slider>
                         )}
                     </div>
                 </div>

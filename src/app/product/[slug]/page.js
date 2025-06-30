@@ -199,6 +199,7 @@ const closeDRM = () =>{
   }
 
   const handleThumbnailClick = (index) => {
+    console.log("clicked thumb", index);
     setActiveIndex(index);
     setThumbActiveIndex(index);
     setCurrentIndex(index)
@@ -376,6 +377,7 @@ const closeDRM = () =>{
           // galleryModalWidth={galleryModalWidth}
           isCartLoading={isCartLoading}
           params={params}
+          showDRM={showDRM}
           setProductDetails={setProductDetails}
         // parentCategories={parentCategories}
         />
@@ -447,6 +449,7 @@ const closeDRM = () =>{
         handleNextImage={handleNextImage}
         handlePrevImage={handlePrevImage}
         activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
         handleThumbnailClick={handleThumbnailClick}
         thumbActiveIndex={thumbActiveIndex}
         currentIndex={currentIndex}

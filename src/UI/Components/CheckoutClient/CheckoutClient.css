@@ -597,7 +597,7 @@
     padding: 11px 15px;
     border: none;
     background-color: var(--orange-fill);
-    color: var(--text-gray);
+    color: var(--text-oposite);
     cursor: pointer;
 
 }
@@ -723,6 +723,7 @@
 
 .right-section-place-order-button:hover {
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .cart_products_overlay {

@@ -211,6 +211,7 @@
 
 .product-sticky-fixed-add-to-cart>button:hover {
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .product-sticky-fixed-tabs-container {

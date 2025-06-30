@@ -119,10 +119,11 @@
 
 .select-type-attribute.select-select-variation{
     background-color: var(--orange-fill);
+    
 }
 
 .select-type-attribute.select-select-variation p{
-    color: var(--text-gray);
+    color: var(--text-oposite);
 }
 
 .select-type-attribute p{

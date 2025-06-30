@@ -216,6 +216,7 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+    /* margin-bottom: 15px; */
     max-width: 100%;
     aspect-ratio: 1162 / 731;
 
@@ -229,7 +230,11 @@
 }
 
 .scale-slider-image {
-    cursor: grab;
+    /* cursor: grab;
+    transform: scale(2);
+  transition: transform 0.3s ease; */
+  will-change: transform;
+  transform-origin: center center;
 }
 
 /* Navigation Arrows */
@@ -334,6 +339,10 @@
         height: 10px;
         background-color: var(--text-charcol) !important;
         border-radius: 20px;
+    }
+
+    .product-gallery-main-slider-single-image-container {
+        margin-bottom: 30px;
     }
 }
 

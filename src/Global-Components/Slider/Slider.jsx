@@ -51,13 +51,13 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
     // Custom arrows
     const CustomPrevArrow = ({ onClick }) => (
         <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <MdKeyboardArrowLeft color='var(--text-gray)' />
+            <MdKeyboardArrowLeft color='var(--text-oposite)' />
         </div>
     );
 
     const CustomNextArrow = ({ onClick }) => (
         <div className="arrow right-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <MdKeyboardArrowRight color='var(--text-gray)' />
+            <MdKeyboardArrowRight color='var(--text-oposite)' />
         </div>
     );
 

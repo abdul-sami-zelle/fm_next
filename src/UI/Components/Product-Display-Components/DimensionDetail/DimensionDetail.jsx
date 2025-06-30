@@ -2,7 +2,7 @@ import React from 'react';
 import './DimensionDetail.css';
 import { url } from '../../../../utils/api';
 
-const DimensionDetail = ({productData}) => {
+const DimensionDetail = ({productData, handleGalleryModal}) => {
 
   return (
     <div className='dimension-detail-main-container'>
@@ -12,7 +12,7 @@ const DimensionDetail = ({productData}) => {
       </div>
       {productData?.dimension_image && (
         <div className='dimension-detail-image-section'>
-          <img src={`${url}${productData?.dimension_image?.image_url}`} alt='dimension' />
+          <img src={`${url}${productData?.dimension_image?.image_url}`} alt='dimension' onClick={() => handleGalleryModal('image-clicked')} />
         </div>
       )}
       

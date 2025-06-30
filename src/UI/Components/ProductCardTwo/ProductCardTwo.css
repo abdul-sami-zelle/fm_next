@@ -445,6 +445,7 @@
 
 .card-two-quick-view-button:hover {
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .quick-view-eye-icon {

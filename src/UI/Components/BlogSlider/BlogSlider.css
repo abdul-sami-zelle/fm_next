@@ -55,7 +55,8 @@
 
 .blog-cards-container{
     display: flex;
-    width: 25%;
+    /* width: 25%; */
+    width: 100%;
     padding: 0;
     height: auto;
     margin-top: 15px;

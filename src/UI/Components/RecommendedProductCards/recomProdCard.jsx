@@ -43,14 +43,16 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                 <div className="image_wrapper_rpc">
                     <div className="rpc_image_hover_container">
                         {!mainLoaded && <div className="shimmer" />}
-                        <Image
-                            src={url + mainImage}
-                            alt={singleProductData?.name || "Product Image"}
-                            width={300}
-                            height={200}
-                            className="rpc_image first"
-                            onLoad={() => setMainLoaded(true)}
-                        />
+                        <div className="rpc_image_container">
+                            <Image
+                                src={url + mainImage}
+                                alt={singleProductData?.name || "Product Image"}
+                                width={300}
+                                height={200}
+                                className="rpc_image first"
+                                onLoad={() => setMainLoaded(true)}
+                            />
+                        </div>
                         {singleProductData.images[1]?.image_url && (
                             <>
                                 {!hoverLoaded && <div className="shimmer" />}

@@ -25,7 +25,7 @@ const MobileFooter = ({ checkoutPage }) => {
 
 
     const socialIcons = [
-        { socialIcon: '/icon/facebook.svg', socialLink: 'https://www.facebook.com/myfurnituremecca' },
+        { socialIcon: '/icons/facebook.svg', socialLink: 'https://www.facebook.com/myfurnituremecca' },
         { socialIcon: '/icons/tiktok.svg', socialLink: 'https://www.tiktok.com/@myfurnituremecca?_t=8gcQvVGSaGI&_r=1' },
         { socialIcon: '/icons/youtube.svg', socialLink: 'https://www.youtube.com/@FurnitureMecca1' },
         { socialIcon: '/icons/insta.svg', socialLink: 'https://www.instagram.com/myfurnituremecca/?igshid=MzRlODBiNWFlZA%3D%3D' },
@@ -45,6 +45,7 @@ const MobileFooter = ({ checkoutPage }) => {
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Protection Plan', link: '#' },
+                { name: 'Track Order', link: '#' },
 
             ]
         },
@@ -198,11 +199,25 @@ const MobileFooter = ({ checkoutPage }) => {
                     </Link>
                 })}
             </div>
+            
+            <div className='copy-rights-contianer-main'>
+                <div className='copy-rights-dual-links'>
+                    <span>
+                        <Link href={'#'}>Shipping & Delivery</Link>
+                    </span>
+                    <span>
+                        <Link href={'#'}>Term & Conditions</Link>
+                    </span>
+                </div>
+                <div className='copy-rights-single-link'>
+                    <Link href={'#'}>Return Policy</Link>
+                </div>
+            </div>
 
             <div className='mobile-view-right'>
                 {/* <p>2020 - 2024 Furniture Mecca. All Rights Reserved</p> */}
                 <span>
-                    <p>Designed & maintained by </p>
+                    <p>Designed & managed by </p>
                     <Link target='_blank' href={'https://zellesolutions.com/'}>Zelle Solutions</Link>
                 </span>
             </div>

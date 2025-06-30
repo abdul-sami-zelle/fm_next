@@ -20,6 +20,12 @@ import {
 import SizeVariant from '../SizeVariant/SizeVariant';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
+// Swiper imports
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     const {
@@ -195,66 +201,54 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
                     <div className="quick-view-slider">
 
-                        {/* <button className={`quick-view-arrow quick-view-left ${currentIndex === 0 ? 'disabled' : ''}`} onClick={handlePrev}>
-
-                            <MdKeyboardArrowLeft
-                                size={15}
-                                color='var(--text-gray)'
-                                className='quick-view-product-gallery-arrow-left'
-                            />
-                        </button> */}
 
                         <div className="quick-view-slider-container">
-                            {setQuickViewProduct?.type === "simple" ? <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                                {setQuickViewProduct.images && setQuickViewProduct.images.map((image, index) => (
-                                    <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
-                                ))}
-                            </div> :
+                            {setQuickViewProduct?.type === "simple" ?
+                                <div
+                                    className="quick-view-slider-wrapper"
+                                // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                                >
+                                    <Swiper
+                                        pagination={{
+                                            dynamicBullets: true,
+                                            clickable: true,
+                                        }}
+                                        // slidesPerGroup={Math.ceil(allProducts.length / 3)}
+                                        modules={[Pagination]}
+                                        className="mySwiper"
+                                    >
+
+                                        {setQuickViewProduct.images && setQuickViewProduct.images.map((image, index) => (
+                                            <SwiperSlide key={index}>
+                                                <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                </div>
+                                :
                                 <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                                    {variableProductData?.images && variableProductData?.images?.map((image, index) => (
-                                        <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
-                                    ))}
+                                    <Swiper
+                                        pagination={{
+                                            dynamicBullets: true,
+                                            clickable: true,
+                                        }}
+                                        // slidesPerGroup={Math.ceil(allProducts.length / 3)}
+                                        modules={[Pagination]}
+                                        className="mySwiper"
+                                    >
+
+                                        {variableProductData?.images && variableProductData?.images?.map((image, index) => (
+                                            <SwiperSlide key={index}>
+                                                <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
                                 </div>
                             }
                         </div>
-                        {/* <button className={`quick-view-arrow quick-view-right ${currentIndex === imagesLenght - 1 ? 'disabled' : ''}`} onClick={handleNext}>
 
-                            <MdKeyboardArrowRight
-                                size={15}
-                                color='var(--text-gray)'
-                                className='quick-view-product-gallery-arrow-right'
-                            />
-                        </button> */}
-
-                        <div className="quick-view-dots">
-                            {/* {(() => {
-                                let start = 0;
-                                let end = 3;
-
-                                if (currentIndex === 0) {
-                                    start = 0;
-                                    end = 3;
-                                } else if (currentIndex === images.length - 1) {
-                                    start = Math.max(images.length - 3, 0);
-                                    end = images.length;
-                                } else {
-                                    start = currentIndex - 1;
-                                    end = currentIndex + 2;
-                                }
-
-                                return images.slice(start, end).map((_, idx) => {
-                                    const actualIndex = start + idx;
-                                    return (
-                                        <span
-                                            key={actualIndex}
-                                            className={`dot ${actualIndex === currentIndex ? 'active' : ''}`}
-                                            onClick={() => setCurrentIndex(actualIndex)}
-                                        ></span>
-                                    );
-                                });
-                            })()} */}
+                        {/* <div className="quick-view-dots">
                             {
-                                // 🔧 Replaced custom logic with full map over all images
                                 images.map((_, index) => (
                                     <span
                                         key={index}
@@ -263,7 +257,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     ></span>
                                 ))
                             }
-                        </div>
+                        </div> */}
                     </div>
 
 

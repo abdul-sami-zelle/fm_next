@@ -11,6 +11,17 @@ import { IoChevronBack } from "react-icons/io5";
 import { useRouter } from 'next/navigation';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -46,13 +57,13 @@ const BlogSlider = () => {
   const [currentDotPosition, setCurrentDotPosition] = useState(1);
 
   const beforeChange = (oldIndex, newIndex) => {
-  const groupSize = 5;
-  const newStart = Math.floor(newIndex / groupSize) * groupSize;
+    const groupSize = 5;
+    const newStart = Math.floor(newIndex / groupSize) * groupSize;
 
-  setCurrentSlide(newIndex);
-  setDotStartIndex(newStart);
-  setCurrentDotPosition((newIndex % groupSize) + 1);
-};
+    setCurrentSlide(newIndex);
+    setDotStartIndex(newStart);
+    setCurrentDotPosition((newIndex % groupSize) + 1);
+  };
 
 
 
@@ -209,24 +220,59 @@ const BlogSlider = () => {
       </p>
       <div className='blogs-slider-main-container'>
         {blogs && blogs?.length > 0 ? (
-          <Slider ref={sliderRef} {...settings}>
+
+          <Swiper
+            spaceBetween={20}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 4,
+              },
+            }}
+            modules={[Pagination]}
+            className="best-seller-swiper"
+          >
             {blogs && blogs.map((item, index) => (
-              <div key={index} className='blog-cards-container'>
-                <BlogCard
-                  key={index}
-                  navigateToSingleBlog={() => handleNavigateToSingleBlog(item)}
-                  img={item?.image?.image_url}
-                  category={item?.category?.name}
-                  title={item?.title}
-                  createdBy={item?.author}
-                  comments={'4 comments'}
-                  date={26}
-                  month={'FEB'}
-                  start={'this is short description section of blogs'}
-                />
-              </div>
+              <SwiperSlide key={index}>
+                <div key={index} className='blog-cards-container'>
+                  <BlogCard
+                    key={index}
+                    navigateToSingleBlog={() => handleNavigateToSingleBlog(item)}
+                    img={item?.image?.image_url}
+                    category={item?.category?.name}
+                    title={item?.title}
+                    createdBy={item?.author}
+                    comments={'4 comments'}
+                    date={26}
+                    month={'FEB'}
+                    start={'this is short description section of blogs'}
+                  />
+                </div>
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
+
+          // <Slider ref={sliderRef} {...settings}>
+          //   {blogs && blogs.map((item, index) => (
+          //     <div key={index} className='blog-cards-container'>
+          //       <BlogCard
+          //         key={index}
+          //         navigateToSingleBlog={() => handleNavigateToSingleBlog(item)}
+          //         img={item?.image?.image_url}
+          //         category={item?.category?.name}
+          //         title={item?.title}
+          //         createdBy={item?.author}
+          //         comments={'4 comments'}
+          //         date={26}
+          //         month={'FEB'}
+          //         start={'this is short description section of blogs'}
+          //       />
+          //     </div>
+          //   ))}
+          // </Slider>
         ) : (
           <div className='blog-card-shimmer-container'>
             {Array.from({ length: 3 }).map((_, index) => (

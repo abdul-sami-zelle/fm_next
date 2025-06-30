@@ -9,19 +9,19 @@
 }
 
 .rotating-message{
-    color: var(--text-charcol);
+    color: var(--text-oposite);
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
 }
 
 .rotating-message span a{
-    color: var(--text-charcol);
+    color: var(--text-oposite);
 }
 
 .toll-free-ancor{
     font-weight: 500;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
 }
 
 .header-links-and-select-language{
@@ -46,6 +46,7 @@
     width: max-content;
     height: 100%;
     gap: 15px;
+    color: var(--text-oposite);
 }
 
 .banner-link-container > span > a {
@@ -53,7 +54,7 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -63,7 +64,7 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
     cursor: pointer;
 }
 
@@ -72,7 +73,7 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
     cursor: pointer;
 }
 
@@ -95,6 +96,7 @@
     font-weight: 500;
     line-height: 18px;
     cursor: pointer;
+    color: var(--text-oposite);
 }
 
 .header-main-banner-language-div img{
@@ -128,6 +130,7 @@
     font-size: 10px;
     line-height: 12px;
     font-weight: 400;
+    color: var(--text-oposite);
 }
 
 .mobile-view-delever-to a{
@@ -135,7 +138,7 @@
     line-height: 12px;
     font-weight: 600;
     text-decoration: none;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
 }
 
 /* Login warning modal */
@@ -215,7 +218,7 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
 }
 
 .navigate-to-login-btn-container{
@@ -230,7 +233,7 @@
     align-items: center;
     justify-content: center;
     background-color: #FFFFFF;
-    color: var(--text-charcol);
+    color: var(--text-oposite);
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -241,9 +244,9 @@
 }
 
 .navigate-to-login-btn:hover{
-    background-color: var(--text-charcol);
+    background-color: var(--text-oposite);
     color: #FFFFFF;
-    border: 1px solid var(--text-charcol);
+    border: 1px solid var(--text-oposite);
 }
 
 @media only screen and (max-width: 480px){

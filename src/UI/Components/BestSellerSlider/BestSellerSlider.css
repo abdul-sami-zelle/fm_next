@@ -393,7 +393,7 @@ width: 100%;
     width: 100%;
     align-items: start;
     justify-content: start;
-    padding: 25px 10px;
+    padding: 15px 10px;
     gap: 15px;
 }
 
@@ -449,6 +449,8 @@ width: 100%;
     border-radius: 0.645rem;
     overflow: hidden;
     flex-shrink: 0;
+    max-height: 250px;
+    margin-bottom: 30px;
     flex-grow: 1;
     border: none;
 }
@@ -477,6 +479,7 @@ width: 100%;
     font-size: 18px;
     line-height: 20px;
     font-weight: 600;
+    text-align: start;
     color: #FFFFFF;
     white-space: nowrap;        /* Prevents line wrapping */
     overflow: hidden;           /* Hides overflow text */
@@ -622,6 +625,39 @@ width: 100%;
     display: flex;
     gap: 5px;
 }
+
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+}
+
+.best-seller-swiper {
+  padding-bottom: 30px; /* 15px space below dot + 15px from card */
+}
+
+/* Customize dots */
+.swiper-pagination-bullet {
+  background-color: #595959;
+  opacity: 0.5 !important;
+  width: 13px !important;
+  height: 13px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--orange-outline) !important;
+  opacity: 1 !important;
+}
+
 
 
 @media only screen and (max-width: 780px) {
@@ -781,7 +817,7 @@ width: 100%;
 
 @media only screen and (max-width: 480px) {
     .best-seller-slider-container {
-        padding: 15px 0px;
+        padding: 0px;
     }
 
     .best-seller-imaage-and-cards {

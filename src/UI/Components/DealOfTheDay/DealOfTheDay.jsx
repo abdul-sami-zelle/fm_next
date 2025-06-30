@@ -17,6 +17,17 @@ import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -87,27 +98,27 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   const { days, hours, minutes, seconds } = timeLeft;
 
   // Fetcher
-    const [dealCounter, setDealCounter] = useState(0)
-    const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(api, fetcher, {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-        shouldRetryOnError: false,
-        dedupingInterval: 1000 * 60 * 60 * 24 * 365
-    })
+  const [dealCounter, setDealCounter] = useState(0)
+  const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(api, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
+    dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  })
 
-    if (dealError && dealCounter < 3) {
-        setTimeout(() => {
-            setDealCounter(retryCount + 1)
-            mutate();
-        }, 1000)
+  if (dealError && dealCounter < 3) {
+    setTimeout(() => {
+      setDealCounter(retryCount + 1)
+      mutate();
+    }, 1000)
+  }
+
+  useEffect(() => {
+    if (dealData) {
+      setAllProducts(dealData.products)
+      setDealEndTime(dealData.dealOfMonthTiming.datetime);
     }
-
-    useEffect(() => {
-        if (dealData) {
-            setAllProducts(dealData.products)
-            setDealEndTime(dealData.dealOfMonthTiming.datetime);
-        }
-    }, [dealData])
+  }, [dealData])
 
   // const getDealOfTheMonthProducts = async () => {
   //   // const api = `/api/v1/products/get-deal-of-month-products?limit=10`
@@ -353,7 +364,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     // },
   };
 
-  
+
 
   if (!allProducts.length > 0) {
     return
@@ -388,27 +399,64 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               </div>
             </div>
           ) : (
-            <Slider ref={sliderRef} {...settings}>
+            <Swiper
+              spaceBetween={20}
+              pagination={ {clickable: true, dynamicBullets: true }}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                },
+                768: {
+                  slidesPerView: 4,
+                },
+              }}
+              modules={[Pagination]}
+              className="best-seller-swiper"
+            >
               {allProducts?.length > 0 && getPublishedProducts().map((items, index) => (
-                <DealOfTheDayCard
-                  key={index}
-                  isDiscountable={items.discount.is_discountable === 1 ? true : false}
-                  productImage={items?.images?.[0]?.image_url}
-                  dealDayData={items}
-                  name={items.name}
-                  rating={items.rating}
-                  review={'200'}
-                  price={items.regular_price}
-                  newPrice={items.newPrice}
-                  descount={items.disc}
-                  dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
-                  handleDealCardClick={() => handleDealCardClick(items)}
-                  handleWishListClick={() => handleWishList(items)}
-                  handleCartSection={() => handleCartPanel(items)}
-                  handleShareProduct={() => handleShareProduct(items)}
-                />
+                <SwiperSlide key={index}> 
+
+                  <DealOfTheDayCard
+                    key={index}
+                    isDiscountable={items.discount.is_discountable === 1 ? true : false}
+                    productImage={items?.images?.[0]?.image_url}
+                    dealDayData={items}
+                    name={items.name}
+                    rating={items.rating}
+                    review={'200'}
+                    price={items.regular_price}
+                    newPrice={items.newPrice}
+                    descount={items.disc}
+                    dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
+                    handleDealCardClick={() => handleDealCardClick(items)}
+                    handleWishListClick={() => handleWishList(items)}
+                    handleCartSection={() => handleCartPanel(items)}
+                    handleShareProduct={() => handleShareProduct(items)}
+                  />
+                </SwiperSlide>
               ))}
-            </Slider>
+            </Swiper>
+            // <Slider ref={sliderRef} {...settings}>
+            //   {allProducts?.length > 0 && getPublishedProducts().map((items, index) => (
+            //     <DealOfTheDayCard
+            //       key={index}
+            //       isDiscountable={items.discount.is_discountable === 1 ? true : false}
+            //       productImage={items?.images?.[0]?.image_url}
+            //       dealDayData={items}
+            //       name={items.name}
+            //       rating={items.rating}
+            //       review={'200'}
+            //       price={items.regular_price}
+            //       newPrice={items.newPrice}
+            //       descount={items.disc}
+            //       dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
+            //       handleDealCardClick={() => handleDealCardClick(items)}
+            //       handleWishListClick={() => handleWishList(items)}
+            //       handleCartSection={() => handleCartPanel(items)}
+            //       handleShareProduct={() => handleShareProduct(items)}
+            //     />
+            //   ))}
+            // </Slider>
           )}
         </div>
       </div>

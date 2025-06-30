@@ -441,7 +441,7 @@ const Header = ({ checkoutPage }) => {
 
 
 
-  useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart)
+  useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible)
 
 
   return (

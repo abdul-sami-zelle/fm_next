@@ -1,215 +1,75 @@
 import React, { useState, useRef } from 'react';
 import './ProductGallery.css';
-import Zoom from 'react-medium-image-zoom';
-import 'react-medium-image-zoom/dist/styles.css';
-
-// Assets
-import {
-    IoIosArrowUp,
-    IoIosArrowDown,
-    IoMdArrowDropleft
-} from "react-icons/io";
-
-import 'react-medium-image-zoom/dist/styles.css';
+import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft } from "react-icons/io";
 import { url } from '../../../../utils/api';
 
-const ProductGallery = (
-    {
-        productImages,
-        productData,
-        selectedVariationData,
-        handleMouseMove,
-        handleMouseDown,
-        handleMouseUp,
-        zoomIn,
-        setZoomIn,
-        position,
-        dragging,
-        handleGalleryModal,
-    }) => {
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination, Controller } from 'swiper/modules';
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const getStartIndex = (current, total) => {
-        if (total <= 3) return 0;
-        if (current === 0) return 0;
-        if (current === total - 1) return total - 3;
-        return current - 1;
-    };
+const ProductGallery = ({
+    productData,
+    selectedVariationData,
+    handleMouseDown,
+    position,
+    handleMouseMove,
+    handleMouseUp,
+    zoomIn,
+    setZoomIn,
+    dragging,
+    handleGalleryModal,
+}) => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [thumbActiveIndex, setThumbActiveIndex] = useState(0);
+    const thumbnailContainerRef = useRef(null);
+    const swiperRef = useRef(null);
 
-    const getEndIndex = (current, total) => {
-        if (total <= 3) return total;
-        if (current === 0) return 3;
-        if (current === total - 1) return total;
-        return current + 2;
-    };
-
-    // Function to handle clicking pagination dots
-    const handleDotClick = (index) => {
-        setCurrentIndex(index);
-        setActiveIndex(index); // Ensure the main slider image updates
-        setThumbActiveIndex(index); // Ensure the thumbnail updates
-        setZoomIn(false);
-    };
-
-    const [activeIndex, setActiveIndex] = useState(0); // For main slider image
-    const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
-    const thumbnailContainerRef = useRef(null); // To control the vertical scroll
+    const images = productData.type === 'variable'
+        ? selectedVariationData?.images || []
+        : productData?.images || [];
 
     const handleThumbnailClick = (index) => {
-        setActiveIndex(index);
-        setThumbActiveIndex(index);
-        setZoomIn(false);
+        swiperRef.current?.slideTo(index);
+    };
 
-        // Prevent page scroll
-        if (thumbnailContainerRef.current) {
-            const thumbnailElement = thumbnailContainerRef.current.children[index];
+    const scrollThumbnailIntoView = (index) => {
+        if (!thumbnailContainerRef.current) return;
+        const thumbnail = thumbnailContainerRef.current.children[index];
+        if (!thumbnail) return;
 
-            if (window.innerWidth < 480) {
-                // Scroll horizontally for mobile view
-                thumbnailContainerRef.current.scrollTo({
-                    left: thumbnailElement.offsetLeft - (thumbnailContainerRef.current.clientWidth / 2) + (thumbnailElement.clientWidth / 2),
-                    behavior: 'smooth',
-                });
-            } else {
-                // Scroll vertically for larger screens
-                thumbnailContainerRef.current.scrollTo({
-                    top: thumbnailElement.offsetTop - (thumbnailContainerRef.current.clientHeight / 2) + (thumbnailElement.clientHeight / 2),
-                    behavior: 'smooth',
-                });
-            }
+        const scrollOptions = {
+            behavior: 'smooth',
+        };
+
+        if (window.innerWidth < 480) {
+            scrollOptions.left =
+                thumbnail.offsetLeft -
+                thumbnailContainerRef.current.clientWidth / 2 +
+                thumbnail.clientWidth / 2;
+        } else {
+            scrollOptions.top =
+                thumbnail.offsetTop -
+                thumbnailContainerRef.current.clientHeight / 2 +
+                thumbnail.clientHeight / 2;
         }
+
+        thumbnailContainerRef.current.scrollTo(scrollOptions);
     };
 
-    const handleScrollUp = () => {
-        setThumbActiveIndex((prevIndex) => {
-            const length =
-                productData.type === 'variable'
-                    ? selectedVariationData?.images?.length
-                    : productData?.images?.length;
+    const handleScroll = (direction) => {
+        const length = images.length;
+        const newIndex =
+            direction === 'up'
+                ? (thumbActiveIndex === 0 ? length - 1 : thumbActiveIndex - 1)
+                : (thumbActiveIndex === length - 1 ? 0 : thumbActiveIndex + 1);
 
-            const newIndex = prevIndex === 0 ? length - 1 : prevIndex - 1;
-            setActiveIndex(newIndex); // Update the active main image index
-            setZoomIn(false);
-
-            if (thumbnailContainerRef.current) {
-                if (window.innerWidth < 480) {
-                    // Scroll horizontally for mobile view
-                    thumbnailContainerRef.current.scrollBy({
-                        left: -80,
-                        behavior: 'smooth',
-                    });
-                } else {
-                    // Scroll vertically for larger screens
-                    thumbnailContainerRef.current.scrollBy({
-                        top: -80,
-                        behavior: 'smooth',
-                    });
-                }
-            }
-            return newIndex;
-        });
-    };
-
-    const handleScrollDown = () => {
-        setThumbActiveIndex((prevIndex) => {
-            const length =
-                productData.type === 'variable'
-                    ? selectedVariationData?.images?.length
-                    : productData?.images?.length;
-
-            const newIndex = prevIndex === length - 1 ? 0 : prevIndex + 1;
-            setActiveIndex(newIndex); // Update the active main image index
-            setZoomIn(false);
-
-            if (thumbnailContainerRef.current) {
-                if (window.innerWidth < 480) {
-                    // Scroll horizontally for mobile view
-                    thumbnailContainerRef.current.scrollBy({
-                        left: 80,
-                        behavior: 'smooth',
-                    });
-                } else {
-                    // Scroll vertically for larger screens
-                    thumbnailContainerRef.current.scrollBy({
-                        top: 80,
-                        behavior: 'smooth',
-                    });
-                }
-            }
-            return newIndex;
-        });
-    };
-
-    const handlePrevImage = () => {
-        setActiveIndex((prevIndex) => {
-            if (prevIndex === 0) return prevIndex; // Prevent moving before first item
-
-            const newIndex = prevIndex - 1;
-            setThumbActiveIndex(newIndex); // Update active thumbnail index
-            setZoomIn(false);
-
-            handleDotClick(currentIndex - 1);
-            // Scroll thumbnail container
-            if (thumbnailContainerRef.current) {
-                if (window.innerWidth < 480) {
-                    // Scroll left for mobile screens
-                    thumbnailContainerRef.current.scrollBy({
-                        left: -80, // Adjust scroll step based on your layout
-                        behavior: 'smooth',
-                    });
-                } else {
-                    // Scroll up for larger screens
-                    thumbnailContainerRef.current.scrollBy({
-                        top: -80,
-                        behavior: 'smooth',
-                    });
-                }
-            }
-
-            return newIndex;
-        });
-    };
-
-    const handleNextImage = () => {
-        setActiveIndex((prevIndex) => {
-            const length =
-                productData.type === 'variable'
-                    ? selectedVariationData?.images?.length + 1
-                    : productData?.images?.length;
-
-            if (prevIndex === length) return prevIndex; // Prevent moving after last item
-
-            const newIndex = prevIndex + 1;
-            setThumbActiveIndex(newIndex); // Update active thumbnail index
-            setZoomIn(false);
-
-            handleDotClick(currentIndex + 1)
-            // Scroll thumbnail container
-            if (thumbnailContainerRef.current) {
-                if (window.innerWidth < 480) {
-                    // Scroll right for mobile screens
-                    thumbnailContainerRef.current.scrollBy({
-                        left: 80, // Adjust scroll step based on your layout
-                        behavior: 'smooth',
-                    });
-                } else {
-                    // Scroll down for larger screens
-                    thumbnailContainerRef.current.scrollBy({
-                        top: 80,
-                        behavior: 'smooth',
-                    });
-                }
-            }
-
-            return newIndex;
-        });
+        swiperRef.current?.slideTo(newIndex);
     };
 
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [dragDistance, setDragDistance] = useState(0);
-    const sliderRef = useRef(null);
-
 
     const handleDragStart = (e) => {
         setIsDragging(true);
@@ -219,24 +79,12 @@ const ProductGallery = (
     const handleDragMove = (e) => {
         if (!isDragging) return;
 
-        const imageLength = productData.type === 'variable'
-            ? selectedVariationData?.images.length
-            : productData?.images.length;
-
         const index = activeIndex;
-
         const currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
         const distance = currentX - startX;
 
-        // Prevent dragging forward at the last image
-        if (index >= imageLength - 1 && distance < 0) {
-            setDragDistance(0); // Reset distance to prevent movement
-            return;
-        }
-
-        // Prevent dragging backward at the first image
-        if (index <= 0 && distance > 0) {
-            setDragDistance(0); // Reset distance to prevent movement
+        if ((index === 0 && distance > 0) || (index === images.length - 1 && distance < 0)) {
+            setDragDistance(0);
             return;
         }
 
@@ -247,10 +95,10 @@ const ProductGallery = (
         setIsDragging(false);
 
         if (Math.abs(dragDistance) > 50) {
-            if (dragDistance > 0) {
-                handlePrevImage(); // Move to the previous image on right swipe
-            } else {
-                handleNextImage(); // Move to the next image on left swipe
+            if (dragDistance > 0 && activeIndex > 0) {
+                swiperRef.current?.slideTo(activeIndex - 1);
+            } else if (dragDistance < 0 && activeIndex < images.length - 1) {
+                swiperRef.current?.slideTo(activeIndex + 1);
             }
         }
 
@@ -258,166 +106,272 @@ const ProductGallery = (
     };
 
 
+
+    // function ImageZoomOnHover({ src, zoom = 3 }) {
+    //     const [position, setPosition] = useState({ x: 50, y: 50 });
+    //     const [isHovering, setIsHovering] = useState(false);
+
+    //     const handleMouseMove = (e) => {
+    //       const rect = e.currentTarget.getBoundingClientRect();
+    //       const x = ((e.clientX - rect.left) / rect.width) * 100;
+    //       const y = ((e.clientY - rect.top) / rect.height) * 100;
+    //       setPosition({ x, y });
+    //     };
+
+    //     return (
+    //       <div
+    //         className="dimension-modal-slider-single-image-container"
+    //         onMouseMove={handleMouseMove}
+    //         onMouseEnter={() => setIsHovering(true)}
+    //         onMouseLeave={() => setIsHovering(false)}
+    //         style={{ overflow: "hidden", position: "relative" }}
+    //       >
+    //         <img
+    //           src={src}
+    //           alt="zoom"
+    //           className="dimension-modal-slider-image"
+    //           style={{
+    //             transformOrigin: `${position.x}% ${position.y}%`,
+    //             transform: isHovering ? `scale(${zoom})` : "scale(1)",
+    //             transition: isHovering ? "transform 0.1s ease" : "transform 0.3s ease",
+    //             pointerEvents: "none",
+    //             width: "100%",
+    //             height: "100%",
+    //             objectFit: "contain",
+    //           }}
+    //         />
+    //       </div>
+    //     );
+    //   }
+
+
+
+    // function ImageZoomOnHover({ src, zoom = 3, zoomActive = false }) {
+    //     const [position, setPosition] = useState({ x: 50, y: 50 });
+    //     const [isHovering, setIsHovering] = useState(false);
+    //     const [hasMoved, setHasMoved] = useState(false);
+
+    //     const handleMouseMove = (e) => {
+    //         const rect = e.currentTarget.getBoundingClientRect();
+    //         const x = ((e.clientX - rect.left) / rect.width) * 100;
+    //         const y = ((e.clientY - rect.top) / rect.height) * 100;
+    //         setPosition({ x, y });
+    //         setHasMoved(true);
+    //     };
+
+    //     const handleMouseEnter = () => {
+    //         setIsHovering(true);
+    //         if (!hasMoved) {
+    //             setPosition({ x: 50, y: 50 }); // reset to center if not moved
+    //         }
+    //     };
+
+    //     const handleMouseLeave = () => {
+    //         setIsHovering(false);
+    //         setHasMoved(false);
+    //     };
+
+    //     const isZoomed = zoomActive;
+
+    //     return (
+    //         <div
+    //             className="dimension-modal-slider-single-image-container"
+    //             onMouseEnter={handleMouseEnter}
+    //             onMouseMove={isZoomed ? handleMouseMove : undefined}
+    //             onMouseLeave={handleMouseLeave}
+    //             style={{ overflow: "hidden", position: "relative" }}
+    //         >
+    //             <img
+    //                 src={src}
+    //                 alt="zoom"
+    //                 className="dimension-modal-slider-image"
+    //                 style={{
+    //                     transformOrigin: `${position.x}% ${position.y}%`,
+    //                     transform: isZoomed ? `scale(${zoom})` : "scale(1)",
+    //                     transition: "transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)",
+    //                     pointerEvents: "none",
+    //                     width: "100%",
+    //                     height: "100%",
+    //                     objectFit: "contain",
+    //                 }}
+    //             />
+    //         </div>
+    //     );
+    // }
+
+
+
+    function ImageZoomOnHover({ src, zoom = 2.5, zoomActive = false }) {
+        const [offset, setOffset] = useState({ x: 0, y: 0 });
+        const [isHovering, setIsHovering] = useState(false);
+
+        const handleMouseMove = (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 100; // -50 to +50
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
+
+            setOffset({ x, y });
+        };
+
+        const handleMouseEnter = () => {
+            setIsHovering(true);
+        };
+
+        const handleMouseLeave = () => {
+            setIsHovering(false);
+            setOffset({ x: 0, y: 0 }); // Reset to center when leaving
+        };
+
+        const isZoomed = zoomActive;
+
+        return (
+            <div
+                className="dimension-modal-slider-single-image-container"
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={isZoomed ? handleMouseMove : undefined}
+                onMouseLeave={handleMouseLeave}
+                style={{ overflow: "hidden", position: "relative" }}
+            >
+                <img
+                    src={src}
+                    alt="zoom"
+                    className="dimension-modal-slider-image"
+                    style={{
+                        transform: isZoomed
+                            ? `scale(${zoom}) translate(${offset.x / zoom}%, ${offset.y / zoom}%)`
+                            : "scale(1)",
+                        transition: "transform 0.4s ease",
+                        transformOrigin: "center center", // fixed center origin
+                        pointerEvents: "none",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                    }}
+                />
+            </div>
+        );
+    }
+
+
+
+
+
+
+
     return (
-        <>
-            <div className='product-gallery-main-container'>
-                {/* Thumbnail Section */}
-                <div className='product-gallery-thumbnail-section'>
-                    <IoIosArrowUp
-                        size={25}
-                        color='#000000'
-                        className={`product-thumbnail-arrow product-thumbnail-arrow-up ${thumbActiveIndex === 0 ? 'disabled' : ''}`}
-                        onClick={thumbActiveIndex === 0 ? null : handleScrollUp}
-                    />
+        <div className='product-gallery-main-container'>
+            {/* Thumbnail Section */}
+            <div className='product-gallery-thumbnail-section'>
+                <IoIosArrowUp
+                    size={25}
+                    color='#000'
+                    className={`product-thumbnail-arrow product-thumbnail-arrow-up ${thumbActiveIndex === 0 ? 'disabled' : ''}`}
+                    onClick={thumbActiveIndex === 0 ? null : () => handleScroll('up')}
+                />
 
-                    <div
-                        className='product-thumbnail-images'
-                        ref={thumbnailContainerRef}
-                    >
-                        {productData.type === 'variable' ?
-                            (selectedVariationData?.images || []).map((thumbItem, thumbIndex) => (
-                                <div
-                                    key={thumbIndex}
-                                    className={`product-thumbnail-single-image-div ${thumbIndex === thumbActiveIndex ? 'active-thumb' : ''}`}
-                                    onClick={() => handleThumbnailClick(thumbIndex)}
-                                >
-                                    <IoMdArrowDropleft size={30} color='var(--tertiary-color)' className={`arrow-pointer ${thumbIndex === thumbActiveIndex ? 'show-pointer-arrow' : ''}`} />
-                                    <img src={`${url}${thumbItem.image_url}`} alt="thumb" className="product-thumbnail-single-image" />
-                                </div>
-                            ))
-                            : (productData?.images || []).map((thumbItem, thumbIndex) => (
-                                <div
-                                    key={thumbIndex}
-                                    className={`product-thumbnail-single-image-div ${thumbIndex === thumbActiveIndex ? 'active-thumb' : ''}`}
-                                    onClick={() => handleThumbnailClick(thumbIndex)}
-                                >
-                                    <IoMdArrowDropleft size={30} color='var(--tertiary-color)' className={`arrow-pointer ${thumbIndex === thumbActiveIndex ? 'show-pointer-arrow' : ''}`} />
-                                    <img src={`${url}${thumbItem.image_url}`} alt="thumb" className="product-thumbnail-single-image" />
-                                </div>
-                            ))
-                        }
-                    </div>
-
-                    <IoIosArrowDown
-                        size={25}
-                        color='#000000'
-                        className={`product-thumbnail-arrow product-thumbnail-arrow-down ${thumbActiveIndex ===
-                            (productData.type === 'variable'
-                                ? selectedVariationData?.images?.length - 1
-                                : productData?.images?.length - 1)
-                            ? 'disabled'
-                            : ''
-                            }`}
-                        onClick={
-                            thumbActiveIndex ===
-                                (productData.type === 'variable'
-                                    ? selectedVariationData?.images?.length - 1
-                                    : productData?.images?.length - 1)
-                                ? null
-                                : handleScrollDown
-                        }
-                    />
-                    <button onClick={handleGalleryModal} className='product-gallery-view-all-button'>
-                        View All
-                    </button>
+                <div className='product-thumbnail-images' ref={thumbnailContainerRef}>
+                    {images.map((thumbItem, index) => (
+                        <div
+                            key={index}
+                            className={`product-thumbnail-single-image-div ${index === thumbActiveIndex ? 'active-thumb' : ''}`}
+                            onClick={() => handleThumbnailClick(index)}
+                        >
+                            <IoMdArrowDropleft
+                                size={30}
+                                color='var(--tertiary-color)'
+                                className={`arrow-pointer ${index === thumbActiveIndex ? 'show-pointer-arrow' : ''}`}
+                            />
+                            <img src={`${url}${thumbItem.image_url}`} alt="thumb" className="product-thumbnail-single-image" />
+                        </div>
+                    ))}
                 </div>
 
-                {/* Main Slider Section */}
-                <div
-                    className='product-gallery-main-slider-section'
-                    ref={sliderRef}
-                    onMouseDown={handleDragStart}
-                    onMouseMove={handleDragMove}
-                    onMouseUp={handleDragEnd}
-                    onMouseLeave={handleDragEnd}
-                    onTouchStart={handleDragStart}
-                    onTouchMove={handleDragMove}
-                    onTouchEnd={handleDragEnd}
-                >
+                <IoIosArrowDown
+                    size={25}
+                    color='#000'
+                    className={`product-thumbnail-arrow product-thumbnail-arrow-down ${thumbActiveIndex === images.length - 1 ? 'disabled' : ''}`}
+                    onClick={thumbActiveIndex === images.length - 1 ? null : () => handleScroll('down')}
+                />
 
-                    <div
-                        className='product-gallery-main-slider-images'
-                        style={{ transform: `translateX(-${activeIndex * 100}%)` }} // Move the slider based on the active index
+                <button onClick={handleGalleryModal} className='product-gallery-view-all-button'>
+                    View All
+                </button>
+            </div>
+
+            {/* Main Slider Section */}
+            <div
+                className='product-gallery-main-slider-section'
+            // onMouseDown={handleDragStart}
+            // onMouseMove={handleDragMove}
+            // onMouseUp={handleDragEnd}
+            // onMouseLeave={handleDragEnd}
+            // onTouchStart={handleDragStart}
+            // onTouchMove={handleDragMove}
+            // onTouchEnd={handleDragEnd}
+            >
+                <div className='product-gallery-main-slider-images'>
+                    <Swiper
+                        onSwiper={(swiper) => (swiperRef.current = swiper)}
+                        onSlideChange={(swiper) => {
+                            const index = swiper.activeIndex;
+                            setActiveIndex(index);
+                            setThumbActiveIndex(index);
+                            scrollThumbnailIntoView(index);
+                            setZoomIn(false);
+                        }}
+                        pagination={{
+                            dynamicBullets: true,
+                            clickable: true,
+                        }}
+                        modules={[Pagination, Controller]}
+                        className="mySwiper"
                     >
-                        {productData.type === 'variable' ?
-                            (selectedVariationData?.images || []).map((slideItem, slideIndex) => (
+                        {images.map((imgItem, index) => (
+                            <SwiperSlide key={index}>
                                 <div
-                                    key={slideIndex}
                                     className='product-gallery-main-slider-single-image-container'
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                onClick={() => handleGalleryModal('image-clicked')}
+                                    onClick={() => handleGalleryModal('image-clicked')}
                                 >
-                                    {/* <Zoom> */}
-                                    <img
-                                        src={`${url}${slideItem.image_url}`}
+
+                                    {zoomIn ? (
+                                        <ImageZoomOnHover src={`${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
+                                    ) : (
+                                        <img
+                                            src={`${url}${imgItem.image_url}`}
+                                            alt="Main"
+                                            className="product-gallery-main-slider-image"
+                                            style={{ width: '100%' }}
+                                        />
+                                    )}
+
+                                    {/* <img
+                                        src={`${url}${imgItem.image_url}`}
                                         alt='Main slide'
                                         className={`product-gallery-main-slider-image ${zoomIn ? 'scale-slider-image' : ''}`}
                                         style={{
                                             cursor: zoomIn ? (dragging ? "grabbing" : "grab") : "pointer",
                                             width: '100%',
-                                            // transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
-                                            // transition: dragging ? "none" : "transform 0.3s ease",
                                         }}
-                                        // onMouseDown={handleMouseDown}
+                                        // onDragStart={(e) => e.preventDefault()}
+                                        onMouseDown={zoomIn ? handleDragStart : null}
+                                        onMouseMove={zoomIn ? handleMouseMove : null}
+                                        onMouseUp={zoomIn ? handleMouseUp : null}
+                                        onMouseLeave={zoomIn ? handleMouseUp : null}
+                                        onTouchStart={zoomIn ? handleDragStart : null}
+                                        onTouchMove={zoomIn ? handleMouseMove : null}
+                                        onTouchEnd={zoomIn ? handleMouseUp : null}
                                         onDragStart={(e) => e.preventDefault()}
-                                    />
-
-                                    {/* </Zoom> */}
+                                    /> */}
                                 </div>
-                            ))
-                            : (productData?.images || []).map((slideItem, slideIndex) => (
-                                <div
-                                    key={slideIndex}
-                                    className='product-gallery-main-slider-single-image-container'
-                                    onMouseMove={handleMouseMove}
-                                    onMouseUp={handleMouseUp}
-                                    onMouseLeave={handleMouseUp}
-                                onClick={() => handleGalleryModal('image-clicked')}
-                                >
-                                    {/* <Zoom> */}
-                                    <img
-                                        src={`${url}${slideItem.image_url}`}
-                                        alt="Main slide"
-                                        className="product-gallery-main-slider-image"
-                                        style={{
-                                            cursor: zoomIn ? (dragging ? "grabbing" : "grab") : "pointer",
-                                            width: '100%',
-                                            // transform: zoomIn ? `scale(2) translate(${position.x}px, ${position.y}px)` : "scale(1)",
-                                            // transition: dragging ? "none" : "transform 0.3s ease",
-                                        }}
-                                        // onMouseDown={handleMouseDown}
-                                        onDragStart={(e) => e.preventDefault()}
-                                    />
-                                    {/* </Zoom> */}
-                                </div>
-                            ))
-                        }
-
-                    </div>
-
-                    <div className='slider-dots-and-view-all-button'>
-                            <div className="pagination-dots">
-                                {productData?.images
-                                    ?.map((_, i) => i)
-                                    // .slice(getStartIndex(currentIndex, productData.images.length), getEndIndex(currentIndex, productData.images.length))
-                                    .map((index) => (
-                                        <span
-                                            key={index}
-                                            className={`dot ${currentIndex === index ? "active" : ""}`}
-                                            onClick={() => handleDotClick(index)}
-                                        />
-                                    ))}
-                            </div>
-                            <h3 onClick={handleGalleryModal}>View All</h3>
-                        </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
-
-
             </div>
-
-        </>
+        </div>
     );
 };
 

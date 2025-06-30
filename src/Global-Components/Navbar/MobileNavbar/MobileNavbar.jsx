@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { url, useDisableBodyScroll } from '../../../utils/api';
 import Image from 'next/image';
 import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
+// import ordersIcon from '../../../Assets/icons/order.png';
 import { useRouter } from 'next/navigation';
+import { IoIosClose } from "react-icons/io";
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
@@ -104,9 +106,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
   useDisableBodyScroll(isTokenValid)
 
   return (
-      <div className={`mobile-nav-main-container ${showMobileNav ? 'show-mobile-nav' : ''}`}>
+    <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`}>
+      <div className={`mobile-nav-main-container`}>
         <button className='mobile-nav-close' onClick={handleNavbarClose}>
-          <Image src={`/Assets/icons/close-btn.png`} width={20} height={20} alt='close-nav' />
+          {/* <Image src={`/Assets/icons/close-btn.png`} width={20} height={20} alt='close-nav' /> */}
+          <IoIosClose className='mobile-nav-close-icon' />
         </button>
         <div className='mobile-nav-logo-section'>
           <Link href={'/'}>
@@ -116,9 +120,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
         <div className='mobile-nav-containt-section'>
           <div className='mobile-nav-containt-header'>
             <Link href={'/wishlist'} className='mobile-nav-head-items' onClick={() => setMobileNavVisible(false)}>
+            <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
               <p>Favorite</p>
             </Link>
             <div onClick={handleClickOnOrders} className='mobile-nav-head-items'>
+              <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
               <p>My Orders</p>
             </div>
           </div>
@@ -128,7 +134,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
               {headerData.map((items, index) => (
                 <div className='mobile-nav-single-item' key={index} >
                   <Link href={`/${items.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
-                    {/* <img src={ordersIcon} alt='nav-icon' /> */}
+                    <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
                     <p>{items.category}</p>
                   </Link>
                   {/* <Image
@@ -173,6 +179,8 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
 
       </div>
+
+    </div>
 
   )
 }

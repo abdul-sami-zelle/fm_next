@@ -67,6 +67,7 @@ const ProductDetailSticky = (
     params,
     setProductDetails,
     galleryModalWidth,
+    showDRM
     // parentCategories,
   }) => {
 
@@ -92,20 +93,20 @@ const ProductDetailSticky = (
   const getBySlugApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null;
   const [getBySlugCount, setGetBySlugCount] = useState(0)
 
-  const {data: getBySlugData, error: getByErrorSlug, isLoading: getBySlugLoading} = useSWR(getBySlugApi, fetcher, {
+  const { data: getBySlugData, error: getByErrorSlug, isLoading: getBySlugLoading } = useSWR(getBySlugApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 1000 * 60 * 60 * 24 * 365
   });
 
-  if(getByErrorSlug && getBySlugCount < 3) {
+  if (getByErrorSlug && getBySlugCount < 3) {
     setTimeout(() => {
       setGetBySlugCount(getBySlugCount + 1);
     }, 1000)
   }
 
   useEffect(() => {
-    if(getBySlugData) {
+    if (getBySlugData) {
       const temporaryProduct = getBySlugData.products[0] || {};
       setGetBySlug(temporaryProduct)
     }
@@ -189,11 +190,11 @@ const ProductDetailSticky = (
   }
   const [selectedUid, setSelectedUid] = useState(null);
 
-  
+
 
   const handleSelectedVariationData = (value) => {
     if (selectedUid === value) {
-        return;
+      return;
     }
     setSelectedUid(value);
 
@@ -241,15 +242,15 @@ const ProductDetailSticky = (
   // }, [isSingleProtectionChecked,])
 
   // Add To WishList and Remove
-  
-  
+
+
   const { addToList, removeFromList, isInWishList } = useList()
   const handleWishList = (item) => {
 
     if (isInWishList(item?.uid)) {
       removeFromList(item?.uid)
       handleShowSnakeToust("Product Removed From Wish List")
-      
+
     } else {
       addToList(item)
       handleShowSnakeToust("Product Added Wish List")
@@ -262,11 +263,16 @@ const ProductDetailSticky = (
 
   // Zoom gallery
 
+  // const [zoomIn, setZoomIn] = useState(false);
+  // const [position, setPosition] = useState({ x: 0, y: 0 });
+  // const [dragging, setDragging] = useState(false);
+  // const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  // const [isClick, setIsClick] = useState(false);
+
   const [zoomIn, setZoomIn] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const [isClick, setIsClick] = useState(false);
 
   const handleZoomImage = () => {
     setZoomIn(!zoomIn);
@@ -275,23 +281,47 @@ const ProductDetailSticky = (
     }
   };
 
+  // const handleMouseDown = (e) => {
+  //   if (!zoomIn) return;
+  //   setDragging(true);
+  //   setIsClick(true);
+  //   setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+  // };
+
+  // const handleMouseMove = (e) => {
+  //   if (!dragging || !zoomIn) return;
+  //   e.preventDefault();
+
+  //   const newX = e.clientX - startPos.x;
+  //   const newY = e.clientY - startPos.y;
+
+  //   setPosition({ x: newX, y: newY });
+  //   setIsClick(false);
+  // };
+
   const handleMouseDown = (e) => {
     if (!zoomIn) return;
     setDragging(true);
-    setIsClick(true);
-    setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
+    const x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+    const y = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
+    setStartPos({ x, y });
   };
 
   const handleMouseMove = (e) => {
-    if (!dragging || !zoomIn) return;
-    e.preventDefault();
+    if (!zoomIn || !dragging) return;
+    const x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+    const y = e.type.includes('mouse') ? e.pageY : e.touches[0].pageY;
 
-    const newX = e.clientX - startPos.x;
-    const newY = e.clientY - startPos.y;
+    const deltaX = x - startPos.x;
+    const deltaY = y - startPos.y;
 
-    setPosition({ x: newX, y: newY });
-    setIsClick(false);
+    setStartPos({ x, y });
+    setPosition((prev) => ({
+      x: prev.x + deltaX,
+      y: prev.y + deltaY,
+    }));
   };
+
 
   const handleMouseUp = () => {
     setDragging(false);
@@ -472,19 +502,27 @@ const ProductDetailSticky = (
               productImages={product?.images}
               zoomIn={zoomIn}
               setZoomIn={setZoomIn}
-              handleMouseMove={handleMouseMove}
-              handleMouseDown={handleMouseDown}
-              handleMouseUp={handleMouseUp}
               dragging={dragging}
-              setDragging={setDragging}
               position={position}
-              setPosition={setPosition}
+              handleMouseDown={handleMouseDown}
+              handleMouseMove={handleMouseMove}
+              handleMouseUp={handleMouseUp}
               handleGalleryModal={handleGalleryModal}
-              // galleryModalWidth={galleryModalWidth}
+            // zoomIn={zoomIn}
+            // setZoomIn={setZoomIn}
+            // handleMouseMove={handleMouseMove}
+            // handleMouseDown={handleMouseDown}
+            // handleMouseUp={handleMouseUp}
+            // dragging={dragging}
+            // setDragging={setDragging}
+            // position={position}
+            // setPosition={setPosition}
+            // handleGalleryModal={handleGalleryModal}
+            // galleryModalWidth={galleryModalWidth}
 
             />
-            <ProductDimension productData={product} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
-            {product?.weight_dimension && <DimensionDetail productData={product} />}
+            <ProductDimension productData={product} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
+            {product?.weight_dimension && <DimensionDetail productData={product} handleGalleryModal={handleGalleryModal} />}
 
           </div>
 
@@ -507,7 +545,7 @@ const ProductDetailSticky = (
                 }
                 <h3>{product?.name}</h3>
                 {/* <p>SKU : {product.sku}</p> */}
-                {product?.type === "simple"  ? (
+                {product?.type === "simple" ? (
                   <p>SKU : {product.sku}</p>
                 ) : (
                   <p>SKU: {selectedVariationData?.sku}</p>
@@ -593,7 +631,7 @@ const ProductDetailSticky = (
                   className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
                   onClick={() => {
                     handleClick();
-                    console.log(product, selectedVariationData, !isProtected ? 1 : 0, quantity,"here is the")
+                    console.log(product, selectedVariationData, !isProtected ? 1 : 0, quantity, "here is the")
                     addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
                     // handleAddToCartProduct(product);
                   }
@@ -671,15 +709,15 @@ const ProductDetailSticky = (
                 <div className='see-it-in-person-head'>
                   {/* <PiStorefrontLight size={20} color='var(--secondary-color)' /> */}
                   <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 64 49"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className='near-store-svg'
-                        >
-                            <path d="M59.5177 0C59.733 0.000356785 59.9448 0.0544467 60.1336 0.157315C60.3224 0.260183 60.4823 0.408542 60.5985 0.5888L60.7015 0.7808L63.8976 8.2688C63.9738 8.4474 64.0083 8.6409 63.9983 8.83469C63.9883 9.02848 63.9342 9.21747 63.84 9.38738C63.7458 9.55729 63.614 9.70368 63.4546 9.81546C63.2951 9.92725 63.1122 10.0015 62.9197 10.0326L62.7138 10.048H56.458V47.36C56.4581 47.6596 56.3526 47.9497 56.1598 48.1799C55.967 48.41 55.6991 48.5656 55.4029 48.6195L55.1713 48.64H8.83273C8.53158 48.6401 8.23994 48.5351 8.00859 48.3433C7.77724 48.1515 7.62084 47.8851 7.56664 47.5904L7.54605 47.36L7.53833 10.048H1.28763C1.09252 10.0481 0.899938 10.0041 0.724444 9.91933C0.54895 9.83452 0.395143 9.71111 0.274657 9.55845C0.154171 9.40579 0.0701612 9.22787 0.0289833 9.03815C-0.0121947 8.84843 -0.00946265 8.65188 0.0369727 8.46336L0.101307 8.2688L3.3 0.7808C3.38406 0.583138 3.51673 0.409676 3.68581 0.276368C3.85488 0.14306 4.05494 0.0541859 4.26758 0.01792L4.48375 0H59.5177ZM53.8846 10.048H10.1194V46.0774H17.1215V20.2035C17.1214 19.9039 17.227 19.6138 17.4198 19.3837C17.6126 19.1535 17.8804 18.9979 18.1766 18.944L18.4082 18.9235H45.5958C45.8965 18.924 46.1876 19.0293 46.4184 19.221C46.6492 19.4128 46.8052 19.6789 46.8593 19.9731L46.8825 20.2035L46.8799 46.0774H53.8898V10.048H53.8846ZM30.7115 29.7114H19.6949L19.6923 46.0774H30.7141L30.7115 29.7114ZM44.3014 29.7114H33.2874V46.0774H44.304L44.3014 29.7114ZM30.7141 21.481H19.6923V27.1514H30.7089V21.481H30.7141ZM44.3014 21.481H33.2874V27.1514H44.3014V21.481ZM58.6634 2.56H5.33296L3.23052 7.488H60.7658L58.6634 2.56Z" fill="var(--tertiary-color)" />
-                        </svg>
+                    width="20"
+                    height="20"
+                    viewBox="0 0 64 49"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className='near-store-svg'
+                  >
+                    <path d="M59.5177 0C59.733 0.000356785 59.9448 0.0544467 60.1336 0.157315C60.3224 0.260183 60.4823 0.408542 60.5985 0.5888L60.7015 0.7808L63.8976 8.2688C63.9738 8.4474 64.0083 8.6409 63.9983 8.83469C63.9883 9.02848 63.9342 9.21747 63.84 9.38738C63.7458 9.55729 63.614 9.70368 63.4546 9.81546C63.2951 9.92725 63.1122 10.0015 62.9197 10.0326L62.7138 10.048H56.458V47.36C56.4581 47.6596 56.3526 47.9497 56.1598 48.1799C55.967 48.41 55.6991 48.5656 55.4029 48.6195L55.1713 48.64H8.83273C8.53158 48.6401 8.23994 48.5351 8.00859 48.3433C7.77724 48.1515 7.62084 47.8851 7.56664 47.5904L7.54605 47.36L7.53833 10.048H1.28763C1.09252 10.0481 0.899938 10.0041 0.724444 9.91933C0.54895 9.83452 0.395143 9.71111 0.274657 9.55845C0.154171 9.40579 0.0701612 9.22787 0.0289833 9.03815C-0.0121947 8.84843 -0.00946265 8.65188 0.0369727 8.46336L0.101307 8.2688L3.3 0.7808C3.38406 0.583138 3.51673 0.409676 3.68581 0.276368C3.85488 0.14306 4.05494 0.0541859 4.26758 0.01792L4.48375 0H59.5177ZM53.8846 10.048H10.1194V46.0774H17.1215V20.2035C17.1214 19.9039 17.227 19.6138 17.4198 19.3837C17.6126 19.1535 17.8804 18.9979 18.1766 18.944L18.4082 18.9235H45.5958C45.8965 18.924 46.1876 19.0293 46.4184 19.221C46.6492 19.4128 46.8052 19.6789 46.8593 19.9731L46.8825 20.2035L46.8799 46.0774H53.8898V10.048H53.8846ZM30.7115 29.7114H19.6949L19.6923 46.0774H30.7141L30.7115 29.7114ZM44.3014 29.7114H33.2874V46.0774H44.304L44.3014 29.7114ZM30.7141 21.481H19.6923V27.1514H30.7089V21.481H30.7141ZM44.3014 21.481H33.2874V27.1514H44.3014V21.481ZM58.6634 2.56H5.33296L3.23052 7.488H60.7658L58.6634 2.56Z" fill="var(--tertiary-color)" />
+                  </svg>
                   <h3>See it in Person</h3>
                 </div>
 

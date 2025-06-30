@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 // import { AiOutlineZoomOut } from "react-icons/ai";
 
-const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, handleGalleryModal }) => {
+const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, handleGalleryModal, showDrm }) => {
 
   const router = useRouter()
   const [customerPhotos, setCustomerPhotos] = useState([]);
@@ -40,11 +40,11 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
     setDimensionIndex((prevIndex) => prevIndex === index ? null : index)
 
     if (item.title === 'Dimensions') {
-      handleGalleryModal()
+      handleGalleryModal('image-clicked')
     } else if (item.title === 'Zoom') {
       handleZoom()
     } else if (item.title === 'Design Your Room') {
-      window.open('https://room.myfurnituremecca.com/design/living-room', '_blank');
+      showDrm()
     }
   }
 
@@ -65,7 +65,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
         <div className='mobile-viw-dimension-main-contianer'>
           <div className='mobile-view-dimension-row-contianer'>
 
-            <div className='mobile-view-dimension-main' onClick={handleGalleryModal}>
+            <div className='mobile-view-dimension-main' onClick={() => handleGalleryModal('image-clicked')}>
               <RxDimensions size={20} color='var(--secondary-color)' />
               <p className='dimensions-detail-button-title'>Dimensions</p>
             </div>
@@ -79,7 +79,7 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
 
           </div>
 
-          <div className='mobile-view-dimension-main' onClick={() => { }}>
+          <div className='mobile-view-dimension-main' onClick={showDrm}>
               <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
               <p className='dimensions-detail-button-title'>Design Your Room</p>
             </div>

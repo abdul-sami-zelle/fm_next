@@ -126,7 +126,8 @@
 .quick-view-slider {
     position: relative;
     width: 100%;
-    height: 220px;
+    /* height: 220px; */
+    height: max-content;
     margin: auto;
     overflow: hidden;
     border: 1px solid var(--border-color);
@@ -278,6 +279,7 @@
 
 .quick-view-add-or-minus-item button:hover {
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .quick-view-add-item-or-cart-btn input{
@@ -335,6 +337,7 @@
 
 .quick-view-add-to-cart:hover{
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .quick-view-details-section{
