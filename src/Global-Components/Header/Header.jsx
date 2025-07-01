@@ -103,6 +103,8 @@ const Header = ({ checkoutPage }) => {
 
   ]
 
+  
+
   // Functions and logincs
   const handleCartSectionOpen = () => {
     setShowCart(true)

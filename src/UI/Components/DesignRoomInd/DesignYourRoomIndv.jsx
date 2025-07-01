@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./DesignYourRoomIndv.css";
 import { url } from "@/utils/api";
 
-export default function DesignYourRoomIndv({ image,openFN }) {
+export default function DesignYourRoomIndv({ image,openFN, designRef }) {
 
   const [showIframe, setShowIframe] = useState(false);
 
@@ -15,8 +15,8 @@ export default function DesignYourRoomIndv({ image,openFN }) {
   //   window.open('https://room.myfurnituremecca.com/design/living-room', '_blank')
   // }
   return (
-    <div className="design_room_indv">
-      <h3>Design Your Room</h3>
+    <div className="design_room_indv" id={'DesignYourRoom'} ref={designRef}>
+      
       {!showIframe && (
         <div
           className="design_room_main_indv"

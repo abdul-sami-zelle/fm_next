@@ -19,8 +19,8 @@ const ProductStickyTabBar = (
         quantity
     }) => {
 
-    const tabBarItems = ['Description', 'Details', 'Recommendations'];
-    const [activeTab, setIsActiveTab] = useState('Description');
+    const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
+    const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
     // const [isSticky, setIsSticky] = useState(false);
 
@@ -39,7 +39,7 @@ const ProductStickyTabBar = (
             }
 
             // Detect Active Tab Based on Scroll
-            let currentTab = 'Description';
+            let currentTab = 'DesignYourRoom';
             tabBarItems.forEach((tab) => {
                 const section = sectionRefs[tab]?.current;
                 if (section) {
@@ -57,7 +57,7 @@ const ProductStickyTabBar = (
             if (tabContainer) {
                 if (currentTab === 'Reviews') {
                     tabContainer.scrollLeft = tabContainer.scrollWidth; // ✅ Scroll to last tab when reaching "Reviews"
-                } else if (currentTab === 'Description') {
+                } else if (currentTab === 'DesignYourRoom') {
                     tabContainer.scrollLeft = 0; // ✅ Scroll back to the first tab when reaching "Description"
                 }
             }
@@ -89,7 +89,7 @@ const ProductStickyTabBar = (
         if (tabContainer) {
             if (tab === 'Reviews') {
                 tabContainer.scrollLeft = tabContainer.scrollWidth; // ✅ Moves to the last tab when "Reviews" is clicked
-            } else if (tab === 'Description') {
+            } else if (tab === 'DesignYourRoom') {
                 tabContainer.scrollLeft = 0; // ✅ Moves to the first tab when "Description" is clicked
             }
         }
@@ -172,7 +172,8 @@ const ProductStickyTabBar = (
                                 className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
                                 onClick={() => handleTabClick(item)}
                             >
-                                <p>{item}</p>
+                                <p>{item === 'DesignYourRoom' ? 'Design Your Room' : item}</p>
+                                {/* <p>{item}</p> */}
                             </div>
                         ))}
                     </div>

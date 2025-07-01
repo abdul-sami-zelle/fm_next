@@ -559,13 +559,13 @@
 }
 
 .swiper-pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  overflow: hidden;
-  max-width: 60px; 
-  margin: 0 auto;
-  position: relative;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  overflow: hidden !important;
+  max-width: 60px !important; 
+  margin: 0 auto !important;
+  position: relative !important;
 }
 
 .swiper-pagination-bullet {

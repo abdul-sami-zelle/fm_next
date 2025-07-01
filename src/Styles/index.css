@@ -302,16 +302,14 @@ input:-webkit-autofill {
   text-align: center;
   font-size: 18px;
 
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
 }
 
 .best-seller-swiper {
-  padding-bottom: 30px; /* 15px space below dot + 15px from card */
+  padding-bottom: 30px; 
 }
 
-/* Customize dots */
 .swiper-pagination-bullet {
   background-color: #595959;
   opacity: 0.5 !important;
@@ -324,6 +322,6 @@ input:-webkit-autofill {
   opacity: 1 !important;
 }
 
-/* .swiper-pagination-bullet:nth-child(n+4) {
-  display: none !important;
-} */
+.swiper-pagination-bullet:only-child {
+  display: flex !important;
+}

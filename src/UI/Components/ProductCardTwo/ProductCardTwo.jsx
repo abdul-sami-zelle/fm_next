@@ -175,7 +175,7 @@ const ProductCardTwo = ({
 
     return (
         <>
-            {!isImageLoaded && <ProductCardShimmer width={'100%'} /> }
+            {/* {!isImageLoaded && <ProductCardShimmer width={'100%'} /> } */}
             <div
                 className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `}
                 style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
@@ -281,11 +281,11 @@ const ProductCardTwo = ({
                                 onLoad={() => { setImageLoaded(true) }}
                             />
 
-                            {/* {
+                            {
                                 !isImageLoaded && <div className="image_shimmer_loader">
                                     <ProductCardImageShimmer />
                                 </div>
-                            } */}
+                            }
 
 
                         </div>

@@ -386,8 +386,12 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                             >
                                                 {navItem.name}
                                             </p> // Or null if you don't want anything rendered
+                                        ) : navItem.name === 'Track Your Order' ? (
+                                                <Link href={navItem.link} target={'_blank'} key={inn} className="about-and-care-link">
+                                                {navItem.name}
+                                            </Link>
                                         ) : (
-                                            <Link href={navItem.link} target={navItem.name === 'Design your Room' || 'Track Order' ? '_blank' : '_self'} key={inn} className="about-and-care-link">
+                                            <Link href={navItem.link} target={navItem.name === 'Design your Room' ? '_blank' : '_self'} key={inn} className="about-and-care-link">
                                                 {navItem.name}
                                             </Link>
                                         )

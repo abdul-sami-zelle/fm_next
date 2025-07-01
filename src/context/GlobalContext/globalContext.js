@@ -57,6 +57,7 @@ export const GlobalContextProvider = ({ children }) => {
       const savedInfo = localStorage.getItem('other_info');
       if (savedInfo) {
         setInfo(JSON.parse(savedInfo));
+        setAllShippingMethods()
       }
     }
   }, []);
@@ -276,6 +277,8 @@ export const GlobalContextProvider = ({ children }) => {
     setSelectedOption(null)
   }, [info])
 
+  useEffect(() => {setAllShippingMethods()}, [])
+
   const handleButtonClick = async () => {
     console.log("called times")
     const data = await getStateByPostalCode(zipCode);
@@ -291,6 +294,8 @@ export const GlobalContextProvider = ({ children }) => {
         latitude: data['latitude'],
       })
     }
+
+    
   };
 
   function getShippingInfo(option) {

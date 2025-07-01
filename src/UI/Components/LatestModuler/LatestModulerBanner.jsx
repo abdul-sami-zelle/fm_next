@@ -14,7 +14,6 @@ const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, 
   const [imagePreloader, setImagePreloader] = useState(false);
   // console.log("main mobile baneer image", mobileMainImage)
 
-
   return (
     <>
       <div className={`moduler-container ${customWidth ? 'show' : ''}`}>

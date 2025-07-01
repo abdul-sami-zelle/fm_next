@@ -106,6 +106,7 @@ const closeDRM = () =>{
 
 
   const sectionRefs = {
+    DesignYourRoom: useRef(null),
     Description: useRef(null),
     Details: useRef(null),
     Recommendations: useRef(null),
@@ -382,7 +383,7 @@ const closeDRM = () =>{
         // parentCategories={parentCategories}
         />
 
-        {product && <DesignYourRoomIndv openFN={showDRM} image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
+        
 
         <ProductStickyTabBar
           sectionRefs={sectionRefs}
@@ -395,6 +396,8 @@ const closeDRM = () =>{
           isProtectionCheck={isProtectionCheck}
           quantity={quantity}
         />
+
+        {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
 
         <ProductDescriptionTab
           descriptionRef={sectionRefs.Description}

@@ -664,6 +664,7 @@
     color: var(--text-primary);
     font-weight: var(--content-one--weight);
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .right-section-place-order-terms-and-rights {
