@@ -85,20 +85,6 @@ const ProductDimension = ({ productData, variationData, zoomIn, handleZoom, hand
             </div>
 
         </div>
-        {/* <div className='mobile-view-dimension-main' onClick={handleGalleryModal}>
-          <RxDimensions size={20} color='var(--secondary-color)' />
-          <p className='dimensions-detail-button-title'>Dimensions</p>
-        </div>
-
-        <div className='mobile-view-dimension-main' onClick={() => { }}>
-          <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
-          <p className='dimensions-detail-button-title'>Design Your Room</p>
-        </div>
-
-        <div className='mobile-view-dimension-main' onClick={handleZoom}>
-          {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
-          <p className='dimensions-detail-button-title'>Zoom</p>
-        </div> */}
 
 
 

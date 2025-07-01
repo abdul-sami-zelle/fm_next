@@ -222,7 +222,7 @@ const BlogSlider = () => {
         {blogs && blogs?.length > 0 ? (
 
           <Swiper
-            spaceBetween={20}
+            spaceBetween={10}
             pagination={{ clickable: true, dynamicBullets: true }}
             breakpoints={{
               0: {

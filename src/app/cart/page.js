@@ -20,12 +20,14 @@ import ProductCardTwo from '@/UI/Components/ProductCardTwo/ProductCardTwo';
 import { useAppointment } from '@/context/AppointmentContext/AppointmentContext';
 import { useRouter } from 'next/navigation';
 
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+
 function SamplePrevArrow(props) {
   const { className, style, onClick, isVisible } = props;
   if (!isVisible) return null;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left `} >
-      <img src={'/Assets/icons/arrow-left-charcol.png'} alt='arrow' />
+      <MdKeyboardArrowLeft size={20} className='cart-also-like-slider-arrow-left' />
     </div>
   )
 }
@@ -35,7 +37,7 @@ function SampleNextArrow(props) {
   if (!isVisible) return null;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right `} >
-      <img src={'/Assets/icons/arrow-right-charcol.png'} alt='arrow' />
+      <MdKeyboardArrowRight size={20} className='cart-also-like-slider-arrow-right' />
     </div>
   )
 }

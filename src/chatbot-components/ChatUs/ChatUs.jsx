@@ -214,7 +214,7 @@ const ChatUs = ({ onBack, onClose }) => {
       setMessages([
         {
           id: 1,
-          text: "Great to see you back at Furniture Mecca! How's everything going at Exclusive Network?",
+          text: `👋 Welcome back to Furniture Mecca — it’s great to see you again! 💡 Looking for something new or need help with a past order? I’m here to help!`,
           sender: "bot",
           timestamp: new Date(),
         },
@@ -493,7 +493,7 @@ const ChatUs = ({ onBack, onClose }) => {
       }, 2000);
     }, 2000);
   };
-  useEffect(() => {}, [messages]);
+  useEffect(() => { }, [messages]);
   return (
     <div className="chatus-container-main-chatbot">
       <div className="chatus-header">
@@ -520,16 +520,15 @@ const ChatUs = ({ onBack, onClose }) => {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`message-row ${
-                msg.sender === "user" ||
+              className={`message-row ${msg.sender === "user" ||
                 [
                   "category-buttons",
                   "faq-questions",
                   "yes-no-buttons",
                 ].includes(msg.type)
-                  ? "user-row right-align"
-                  : "bot-row"
-              }`}
+                ? "user-row right-align"
+                : "bot-row"
+                }`}
             >
               {msg.sender === "bot" &&
                 ![
@@ -551,10 +550,10 @@ const ChatUs = ({ onBack, onClose }) => {
                     "yes-no-buttons",
                   ].includes(msg.type)
                     ? {
-                        background: "transparent",
-                        boxShadow: "none",
-                        padding: "0",
-                      }
+                      background: "transparent",
+                      boxShadow: "none",
+                      padding: "0",
+                    }
                     : {}
                 }
               >

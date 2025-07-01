@@ -132,15 +132,14 @@ const SimillerProducts = ({ collection, isPadding }) => {
   let settings = {
     dots: false,
     infinite: false,
-    arrows: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    nextArrow:
+    nextArrow: 
       data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
-    prevArrow:
+    prevArrow: 
       data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
     responsive: [
       {
@@ -150,7 +149,7 @@ const SimillerProducts = ({ collection, isPadding }) => {
           slidesToScroll: 1,
           infinite: false,
           dots: false,
-          arrows: data && data.length > 4 ? true : false,
+          arrows: data && data.length > 2 ? true : false,
         }
       },
       {

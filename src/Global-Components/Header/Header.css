@@ -161,7 +161,7 @@
     height: 0px;
     z-index: 9;
     border: 1px solid var(--border-color);
-    width: 85%;
+    width: 100%;
     overflow: hidden;
     background-color: #fff;
     border-bottom-left-radius: 5px;
@@ -183,7 +183,7 @@
     display: flex;
     flex-direction: column;
     width: 50%;
-    padding: 20px 0;
+    padding: 0px 0;
     height: 100%;
     border-right: 1px solid var(--border-color);
     gap: 0px;
@@ -197,7 +197,7 @@
     /* border-right: 1px solid var(--border-color); */
     /* height: 190px; */
     width: 100%;
-    height: max-content;
+    height: 100%;
     /* background-color: orange; */
     overflow-x: hidden;
     overflow-y: auto;
@@ -407,8 +407,8 @@
 }
 
 .searched-product-sale-price-on-single-view del{
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 8px;
+    line-height: 1.2;
     font-weight: 400; 
     color: var(--text-primary);
     opacity: 0.5;
@@ -436,6 +436,22 @@
     margin-bottom: 10px;
     
   }
+
+/* Example styles */
+.custom-description {
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #333;
+}
+
+.custom-description p,
+.custom-description span,
+.custom-description div {
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 400;
+}
 
 .searched-selected-product-description {
     font-size: 11px;

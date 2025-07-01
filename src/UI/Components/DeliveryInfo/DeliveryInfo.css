@@ -99,13 +99,10 @@
 
 .input-field-email {
     width: 100%;
-    /* padding: 10px 10px; */
-    /* font-size: var(--sub-section-size); */
     font-size: 16px;
     line-height: var(--sub-section-height);
     font-weight: var(--content-two-weight);
     padding: 0 0 0 2px !important;
-    /* border: 2px solid #ccc; */
     background-color: transparent;
     border: none;
     border-radius: 5px;

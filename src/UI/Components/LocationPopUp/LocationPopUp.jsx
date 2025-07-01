@@ -6,6 +6,7 @@ import './LocationPopUp.css';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { CiLocationOn } from "react-icons/ci";
 import Image from 'next/image';
+import { IoIosClose } from "react-icons/io";
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
@@ -16,7 +17,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
     handleInputChange, 
     handleButtonClick,
     info
-  } = useGlobalContext();
+  } = useGlobalContext(); 
 
 
   const [userLocation, setUserLocation] = useState(null);
@@ -91,7 +92,8 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         onClick={(e) => e.stopPropagation()}
       >
         <button className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch}>
-          <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' />
+          {/* <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' /> */}
+          <IoIosClose size={25} color='#595959' />
         </button>
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>

@@ -10,17 +10,15 @@ import { VscHeart } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
+import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 
 const ProductCardTwo = ({
-    mainImage,
     productCardContainerClass,
     ProductTitle,
     reviewCount,
-    mainIndex,
     priceTag,
     sale_price,
     tags,
-    productUid,
     singleProductData,
     handleQuickView,
     maxWidthAccordingToComp,
@@ -158,7 +156,7 @@ const ProductCardTwo = ({
             }
         }
 
-    }, [singleProductData]); 
+    }, [singleProductData]);
 
 
 
@@ -177,13 +175,14 @@ const ProductCardTwo = ({
 
     return (
         <>
+            {!isImageLoaded && <ProductCardShimmer width={'100%'} /> }
             <div
                 className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `}
                 style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
 
             >
                 <div className='product-card-data'
-                    
+
                     onClick={() => handleCardClick(singleProductData)}
                 >
                     <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`}>
@@ -233,10 +232,10 @@ const ProductCardTwo = ({
 
                     <div className='product-main-image-container'>
 
-                        <div 
+                        <div
                             className='product-card-product-image-inner-container'
                             onMouseEnter={() => { setIsHovered(true) }}
-                    onMouseLeave={() => { setIsHovered(false) }}
+                            onMouseLeave={() => { setIsHovered(false) }}
                         >
 
                             <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
@@ -264,29 +263,29 @@ const ProductCardTwo = ({
                                 }
                             </div>
 
-                                <img
-                                    src={`${url}${selectedColorImage
-                                        }`}
-                                    alt='product img'
-                                    className={`product-main-img`}
-                                    effect='blur'
-                                    onLoad={() => { setImageLoaded(true) }}
-                                />
+                            <img
+                                src={`${url}${selectedColorImage
+                                    }`}
+                                alt='product img'
+                                className={`product-main-img`}
+                                effect='blur'
+                                onLoad={() => { setImageLoaded(true) }}
+                            />
 
-                                <img
-                                    src={`${url}${hoveredImage
-                                        }`}
-                                    alt='product img'
-                                    className={`hovered-product-main-img ${isHovered ? 'visible-hovered' : ''}`}
-                                    effect='blur'
-                                    onLoad={() => { setImageLoaded(true) }}
-                                />
+                            <img
+                                src={`${url}${hoveredImage
+                                    }`}
+                                alt='product img'
+                                className={`hovered-product-main-img ${isHovered ? 'visible-hovered' : ''}`}
+                                effect='blur'
+                                onLoad={() => { setImageLoaded(true) }}
+                            />
 
-                                {
-                                    !isImageLoaded && <div className="image_shimmer_loader">
-                                        <ProductCardImageShimmer />
-                                    </div>
-                                }
+                            {/* {
+                                !isImageLoaded && <div className="image_shimmer_loader">
+                                    <ProductCardImageShimmer />
+                                </div>
+                            } */}
 
 
                         </div>
@@ -410,7 +409,7 @@ const ProductCardTwo = ({
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
                                                     ${sale_price}
                                                     <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</del>
-                                                    
+
                                                 </h3>
                                                 <div className={`mobile-view-rating-stars ${colTwo ? 'apply-two-col-styling' : ''}`}>
                                                     <RatingReview rating={3} size={"12px"} disabled={true} />

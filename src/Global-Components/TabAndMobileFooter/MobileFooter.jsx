@@ -45,7 +45,7 @@ const MobileFooter = ({ checkoutPage }) => {
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Protection Plan', link: '#' },
-                { name: 'Track Order', link: '#' },
+                { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
 
             ]
         },
@@ -151,7 +151,7 @@ const MobileFooter = ({ checkoutPage }) => {
                         </div>
                         <div className={`mobile-footer-nav-items ${footerAccordionIndex === index ? 'show-footer-accordion' : ''}`}>
                             {item.navLinks.map((innerItems, innerIndex) => (
-                                <Link className='footer-nav-span' key={innerIndex} href={innerItems.link}>
+                                <Link className='footer-nav-span' key={innerIndex} href={innerItems.link} target={innerItems.name === 'Design your Room' || 'Track Order' ? '_blank' : '_self'} >
                                     {/* <Image src={arrowRightWhite} width={10} height={10} alt='arrow right' /> */}
                                     <MdKeyboardArrowRight color='#FFF' size={20} />
                                     {innerItems.name}

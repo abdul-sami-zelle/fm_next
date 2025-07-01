@@ -19,11 +19,11 @@ const BlogCard = (
     }) => {
     
     const stars = [
-        {star: <FaStar size={14} />},
-        {star: <FaStar size={14} />},
-        {star: <FaStar size={14} />},
-        {star: <FaStar size={14} />},
-        {star: <CiStar size={14} />},
+        {star: <FaStar size={10} />},
+        {star: <FaStar size={10} />},
+        {star: <FaStar size={10} />},
+        {star: <FaStar size={10} />},
+        {star: <CiStar size={10} />},
     ]
 
   return (
@@ -43,7 +43,7 @@ const BlogCard = (
                         {/* {stars.map((item, index) => (
                             <p key={index}>{item.star}</p>
                         ))} */}
-                        <RatingReview rating={5} disabled={true} size={"20px"} />
+                        <RatingReview rating={5} disabled={true} size={"10px"} />
                         (200)
                     </div>
                     <span className='mobile-view-blog-card-author'>By: <p>Furniture Mecca</p></span>

@@ -37,30 +37,11 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
         };
 
     useEffect(() => {
-        console.log("selected Payment type", paymentTypeCheckData[0].type)
         setSelectedPaymentType(paymentTypeCheckData[0].type)
     }, [])
     useEffect(() => {setOrderPayload((prevData) => ({...prevData, setOrderPayload: paymentTypeCheckData[0].type}))}, [])
-    // const [selectedPaymentType, setSelectedPaymentType] = useState(paymentTypeCheckData[0].type);
-    // useEffect(() => {getActivePaymentMethods()}, [])
-
-    // useEffect(() => {
-    //     if(window !== 'undefined') {
-    //         const storeOrders = localStorage.getItem('myOrders');
-    //         if (storeOrders) {
-    //             try {
-    //                 setOrderPayload(JSON.parse(storeOrders));
-    //             } catch (error) {
-    //                 console.error("Failed to parse myOrders from localStorage:", error);
-    //             }
-    //         }
-
-    //     }
-    //     // setLoading(false); // Set loading to false after processing
-    //     // getActivePaymentMethods();
-    // }, []);
+    
     const handleSelectPaymentType = (type) => {
-        console.log("payment type selected", type)
         setSelectedPaymentType(type.type);
         onSelectLabel(type.type)
         checkPaymentMethodById(type.paymentMethodId)
@@ -72,10 +53,10 @@ const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabe
 
   return (
     <div className='payment-types-main-container'>
-        <span className='payment-type-heading-container'>
+        {/* <span className='payment-type-heading-container'>
             Payment 
             <RiSecurePaymentLine size={25} />
-        </span>
+        </span> */}
         <div className='payment-types-select-boxes-container'>
             {paymentTypeCheckData.map((item, index) => (
                 <label 

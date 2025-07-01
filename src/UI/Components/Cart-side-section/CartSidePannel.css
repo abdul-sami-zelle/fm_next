@@ -250,7 +250,7 @@
     left: 5px;
     width: 3px;
     height: 7px;
-    border: solid var(--text-gray);
+    border: solid var(--text-oposite);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     display: block;
@@ -311,7 +311,8 @@
 }
 
 .cart-side-section-checkout:hover {
-    background-color: var(--text-frill);
+    background-color: var(--text-oposite);
+    color: var(--text-gray) !important;
 }
 
 .cart-side-paner-total-and-sub-total-container {

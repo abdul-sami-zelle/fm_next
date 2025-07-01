@@ -6,7 +6,7 @@ import { useProductPage } from '../../../../context/ProductPageContext/productPa
 import RatingReview from '../../starRating/starRating'
 import { FaShareSquare } from 'react-icons/fa'
 import axios from 'axios'
-import { formatedPrice, truncateTitle, url, getDeliveryDate } from '../../../../utils/api'
+import { formatedPrice, truncateTitle, url, getDeliveryDate, useDisableBodyScroll } from '../../../../utils/api'
 // import { useNavigate, useParams } from 'react-router-dom'
 import AlsoNeed from '../../AlsoNeed/AlsoNeed'
 import SizeVariant from '../../SizeVariant/SizeVariant'
@@ -37,6 +37,7 @@ import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
 import Link from 'next/link'
+import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
 
 
 
@@ -431,6 +432,17 @@ const ProductDetailSticky = (
 
   const { eachProtectionValue } = useCart();
 
+  const [whatIsCoveredModa, setWhatIsCoveredModal] = useState(false);
+  const handleWhatIsCoveredModal = () => {
+    setWhatIsCoveredModal(true);
+  }
+
+  const handleCloseWhatIsCoveredModal = () => {
+    setWhatIsCoveredModal(false);
+  }
+
+  useDisableBodyScroll(whatIsCoveredModa)
+
   return (
     <div className='product-detail-sticky-section-main-container'>
 
@@ -508,17 +520,6 @@ const ProductDetailSticky = (
               handleMouseMove={handleMouseMove}
               handleMouseUp={handleMouseUp}
               handleGalleryModal={handleGalleryModal}
-            // zoomIn={zoomIn}
-            // setZoomIn={setZoomIn}
-            // handleMouseMove={handleMouseMove}
-            // handleMouseDown={handleMouseDown}
-            // handleMouseUp={handleMouseUp}
-            // dragging={dragging}
-            // setDragging={setDragging}
-            // position={position}
-            // setPosition={setPosition}
-            // handleGalleryModal={handleGalleryModal}
-            // galleryModalWidth={galleryModalWidth}
 
             />
             <ProductDimension productData={product} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
@@ -619,8 +620,8 @@ const ProductDetailSticky = (
                   onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
                   style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--orange-outline)' }}
                 >
-                  {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'red' : 'var(--text-gray)'} />
-                    : <IoMdHeartEmpty size={20} color='var(--text-gray)' />}
+                  {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'var(--orange-fill)' : 'var(--orange-outline)'} />
+                    : <IoMdHeartEmpty size={20} color='var(--orange-outline)' />}
                 </div>
 
 
@@ -671,9 +672,9 @@ const ProductDetailSticky = (
 
                       <span>
                         <p>+${eachProtectionValue}</p>
-                        <Link href={'/premium-bed-care'}>
+                        <i onClick={handleWhatIsCoveredModal}>
                           What's Covered
-                        </Link>
+                        </i>
                       </span>
 
                     </div>
@@ -770,7 +771,7 @@ const ProductDetailSticky = (
                     Call
                   </a>
 
-                  <button className='disable-chat' disabled={true}>
+                  <button  >
                     <IoChatbubbleOutline size={18} color='var(--secondary-color)' />
                     Chat
                   </button>
@@ -854,6 +855,11 @@ const ProductDetailSticky = (
           </button>
         </div>
       </div>
+
+      <WhatIsCovered 
+        showCoveredModal={whatIsCoveredModa}
+        handleCloseCoveredModal={handleCloseWhatIsCoveredModal}
+      />
 
       <SnakBar
         message={snakeBarMessage}

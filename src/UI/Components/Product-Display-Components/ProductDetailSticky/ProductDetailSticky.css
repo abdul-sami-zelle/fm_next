@@ -244,7 +244,7 @@
 }
 
 .minus-btn:hover .minus-icon {
-    color: var(--text-gray) !important;
+    color: var(--text-oposite) !important;
 }
 
 .item-count input {
@@ -300,7 +300,7 @@
 }
 
 .plus-btn:hover .plus-icon {
-    color: var(--text-gray) !important;
+    color: var(--text-oposite) !important;
 }
 
 /* Add To Wish list */
@@ -534,7 +534,7 @@
     color: var(--text-primary);
 }
 
-.product-details-info>span> a {
+.product-details-info>span> i {
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-one-weight);

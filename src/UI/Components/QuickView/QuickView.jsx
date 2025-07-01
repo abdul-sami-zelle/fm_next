@@ -210,12 +210,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 >
                                     <Swiper
                                         pagination={{
-                                            dynamicBullets: true,
                                             clickable: true,
+                                            dynamicBullets: true,
                                         }}
-                                        // slidesPerGroup={Math.ceil(allProducts.length / 3)}
                                         modules={[Pagination]}
-                                        className="mySwiper"
+                                        className="best-seller-swiper"
                                     >
 
                                         {setQuickViewProduct.images && setQuickViewProduct.images.map((image, index) => (
@@ -229,12 +228,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                                     <Swiper
                                         pagination={{
-                                            dynamicBullets: true,
                                             clickable: true,
+                                            dynamicBullets: true,
                                         }}
-                                        // slidesPerGroup={Math.ceil(allProducts.length / 3)}
                                         modules={[Pagination]}
-                                        className="mySwiper"
+                                        className="best-seller-swiper"
                                     >
 
                                         {variableProductData?.images && variableProductData?.images?.map((image, index) => (
@@ -282,13 +280,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 <div className='quick-view-add-item-or-cart-btn'>
                     <div className='quick-view-add-or-minus-item'>
                         <button onClick={decreaseLocalQuantity}>
-                            {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
-                            <FaMinus color='var(--text-gray)' size={15} />
+                            <FaMinus className='quick0view-minus' size={15} />
                         </button>
                         <input type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                         <button onClick={increaseLocalQuantity}>
-                            {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
-                            <FaPlus color='var(--text-gray)' size={15} />
+                            <FaPlus className='quick-view-plus' size={15} />
                         </button>
                     </div>
                     <div className='quick-view-wish-list-container'>

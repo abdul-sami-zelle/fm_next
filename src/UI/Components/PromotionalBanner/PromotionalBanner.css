@@ -218,7 +218,7 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    color: var(--text-oposite);
+    color: var(--text-gray);
 }
 
 .navigate-to-login-btn-container{
@@ -233,7 +233,7 @@
     align-items: center;
     justify-content: center;
     background-color: #FFFFFF;
-    color: var(--text-oposite);
+    color: var(--text-gray);
     font-size: 14px;
     font-weight: 500;
     line-height: 21px;
@@ -244,9 +244,9 @@
 }
 
 .navigate-to-login-btn:hover{
-    background-color: var(--text-oposite);
+    background-color: var(--text-gray);
     color: #FFFFFF;
-    border: 1px solid var(--text-oposite);
+    border: 1px solid var(--text-gray);
 }
 
 @media only screen and (max-width: 480px){

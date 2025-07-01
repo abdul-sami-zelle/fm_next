@@ -7,7 +7,7 @@ const DimensionDetail = ({productData, handleGalleryModal}) => {
   return (
     <div className='dimension-detail-main-container'>
       <div className='dimension-detail-section'>
-        <h3>Dimensions (in)</h3>
+        <h3>Dimensions</h3>
         <div dangerouslySetInnerHTML={{ __html: productData?.weight_dimension }} ></div>
       </div>
       {productData?.dimension_image && (

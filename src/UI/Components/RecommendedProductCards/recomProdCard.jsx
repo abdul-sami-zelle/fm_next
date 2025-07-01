@@ -36,7 +36,7 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
             {parentProduct && (<div className="rpc_header_top_space"><p>Current Product</p></div>)}
             <div className={`rpc_header_container ${parentProduct ? 'hide-shuffle-buttons' : ''}`}>
                 <button onClick={handleRemoveProduct} className="remove-icon-header"><IoClose size={20} /></button>
-                <div className="header-label"></div>
+                
                 <button onClick={handleSingleShuffle}  className="remove-icon-header"><GrPowerCycle size={20} /></button>
             </div>
             <div className="rpc_body">

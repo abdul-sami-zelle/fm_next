@@ -11,13 +11,10 @@ import { Pagination, Controller } from 'swiper/modules';
 const ProductGallery = ({
     productData,
     selectedVariationData,
-    handleMouseDown,
-    position,
     handleMouseMove,
     handleMouseUp,
     zoomIn,
     setZoomIn,
-    dragging,
     handleGalleryModal,
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -66,141 +63,7 @@ const ProductGallery = ({
 
         swiperRef.current?.slideTo(newIndex);
     };
-
-    const [isDragging, setIsDragging] = useState(false);
-    const [startX, setStartX] = useState(0);
-    const [dragDistance, setDragDistance] = useState(0);
-
-    const handleDragStart = (e) => {
-        setIsDragging(true);
-        setStartX(e.type.includes("mouse") ? e.pageX : e.touches[0].pageX);
-    };
-
-    const handleDragMove = (e) => {
-        if (!isDragging) return;
-
-        const index = activeIndex;
-        const currentX = e.type.includes("mouse") ? e.pageX : e.touches[0].pageX;
-        const distance = currentX - startX;
-
-        if ((index === 0 && distance > 0) || (index === images.length - 1 && distance < 0)) {
-            setDragDistance(0);
-            return;
-        }
-
-        setDragDistance(distance);
-    };
-
-    const handleDragEnd = () => {
-        setIsDragging(false);
-
-        if (Math.abs(dragDistance) > 50) {
-            if (dragDistance > 0 && activeIndex > 0) {
-                swiperRef.current?.slideTo(activeIndex - 1);
-            } else if (dragDistance < 0 && activeIndex < images.length - 1) {
-                swiperRef.current?.slideTo(activeIndex + 1);
-            }
-        }
-
-        setDragDistance(0);
-    };
-
-
-
-    // function ImageZoomOnHover({ src, zoom = 3 }) {
-    //     const [position, setPosition] = useState({ x: 50, y: 50 });
-    //     const [isHovering, setIsHovering] = useState(false);
-
-    //     const handleMouseMove = (e) => {
-    //       const rect = e.currentTarget.getBoundingClientRect();
-    //       const x = ((e.clientX - rect.left) / rect.width) * 100;
-    //       const y = ((e.clientY - rect.top) / rect.height) * 100;
-    //       setPosition({ x, y });
-    //     };
-
-    //     return (
-    //       <div
-    //         className="dimension-modal-slider-single-image-container"
-    //         onMouseMove={handleMouseMove}
-    //         onMouseEnter={() => setIsHovering(true)}
-    //         onMouseLeave={() => setIsHovering(false)}
-    //         style={{ overflow: "hidden", position: "relative" }}
-    //       >
-    //         <img
-    //           src={src}
-    //           alt="zoom"
-    //           className="dimension-modal-slider-image"
-    //           style={{
-    //             transformOrigin: `${position.x}% ${position.y}%`,
-    //             transform: isHovering ? `scale(${zoom})` : "scale(1)",
-    //             transition: isHovering ? "transform 0.1s ease" : "transform 0.3s ease",
-    //             pointerEvents: "none",
-    //             width: "100%",
-    //             height: "100%",
-    //             objectFit: "contain",
-    //           }}
-    //         />
-    //       </div>
-    //     );
-    //   }
-
-
-
-    // function ImageZoomOnHover({ src, zoom = 3, zoomActive = false }) {
-    //     const [position, setPosition] = useState({ x: 50, y: 50 });
-    //     const [isHovering, setIsHovering] = useState(false);
-    //     const [hasMoved, setHasMoved] = useState(false);
-
-    //     const handleMouseMove = (e) => {
-    //         const rect = e.currentTarget.getBoundingClientRect();
-    //         const x = ((e.clientX - rect.left) / rect.width) * 100;
-    //         const y = ((e.clientY - rect.top) / rect.height) * 100;
-    //         setPosition({ x, y });
-    //         setHasMoved(true);
-    //     };
-
-    //     const handleMouseEnter = () => {
-    //         setIsHovering(true);
-    //         if (!hasMoved) {
-    //             setPosition({ x: 50, y: 50 }); // reset to center if not moved
-    //         }
-    //     };
-
-    //     const handleMouseLeave = () => {
-    //         setIsHovering(false);
-    //         setHasMoved(false);
-    //     };
-
-    //     const isZoomed = zoomActive;
-
-    //     return (
-    //         <div
-    //             className="dimension-modal-slider-single-image-container"
-    //             onMouseEnter={handleMouseEnter}
-    //             onMouseMove={isZoomed ? handleMouseMove : undefined}
-    //             onMouseLeave={handleMouseLeave}
-    //             style={{ overflow: "hidden", position: "relative" }}
-    //         >
-    //             <img
-    //                 src={src}
-    //                 alt="zoom"
-    //                 className="dimension-modal-slider-image"
-    //                 style={{
-    //                     transformOrigin: `${position.x}% ${position.y}%`,
-    //                     transform: isZoomed ? `scale(${zoom})` : "scale(1)",
-    //                     transition: "transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)",
-    //                     pointerEvents: "none",
-    //                     width: "100%",
-    //                     height: "100%",
-    //                     objectFit: "contain",
-    //                 }}
-    //             />
-    //         </div>
-    //     );
-    // }
-
-
-
+ 
     function ImageZoomOnHover({ src, zoom = 2.5, zoomActive = false }) {
         const [offset, setOffset] = useState({ x: 0, y: 0 });
         const [isHovering, setIsHovering] = useState(false);
@@ -252,12 +115,6 @@ const ProductGallery = ({
         );
     }
 
-
-
-
-
-
-
     return (
         <div className='product-gallery-main-container'>
             {/* Thumbnail Section */}
@@ -293,7 +150,7 @@ const ProductGallery = ({
                     onClick={thumbActiveIndex === images.length - 1 ? null : () => handleScroll('down')}
                 />
 
-                <button onClick={handleGalleryModal} className='product-gallery-view-all-button'>
+                <button onClick={() => handleGalleryModal('image-clicked')} className='product-gallery-view-all-button'>
                     View All
                 </button>
             </div>

@@ -156,6 +156,8 @@ const CheckoutClient = () => {
     setShowAll(!showAll)
   }
 
+
+
   return (
     <div className='summary-main-container'>
       {isLoader && <Loader />}
@@ -311,8 +313,8 @@ const CheckoutClient = () => {
                 <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
 
-              <div className='right-section-order-place-container'>
-                <p>By placing this order I agree to the Furniture Mecca <Link href={'#'}>Terms & Conditions</Link></p>
+              <div className='right-section-order-place-container'> 
+                <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>

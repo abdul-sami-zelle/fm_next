@@ -17,42 +17,65 @@ export const GlobalContextProvider = ({ children }) => {
   const { subTotal, cartProducts } = useCart();
   const [mainLoader, setMainLoader] = useState(false);
 
-
-  
-
-
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
 
-  const [info, setInfo] = useState(() => {
-    if(typeof window !== "undefined") {
+  // const [info, setInfo] = useState(() => {
+  //   if(typeof window !== "undefined") {
+  //     const savedInfo = localStorage.getItem('other_info');
+  //     return savedInfo ? JSON.parse(savedInfo) : {
+  //       locationData: {
+  //         zipCode: '19134',
+  //         stateCode: 'PA',
+  //         city: 'E Venango St',
+  //         state: 'Philadelphia',
+  //         country: 'us',
+  //         longitude: '-75.1276754',
+  //         latitude: '40.0045027',
+  //       }
+  //     };
+  //   } 
+  //   return []
+  // });
+
+  const defaultInfo = {
+    locationData: {
+      zipCode: '19134',
+      stateCode: 'PA',
+      city: 'E Venango St',
+      state: 'Philadelphia',
+      country: 'us',
+      longitude: '-75.1276754',
+      latitude: '40.0045027',
+    }
+  };
+
+  const [info, setInfo] = useState(defaultInfo);
+
+  // Only override from localStorage in browser
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       const savedInfo = localStorage.getItem('other_info');
-      return savedInfo ? JSON.parse(savedInfo) : {
-        locationData: {
-          zipCode: '19134',
-          stateCode: 'PA',
-          city: 'E Venango St',
-          state: 'Philadelphia',
-          country: 'us',
-          longitude: '-75.1276754',
-          latitude: '40.0045027',
-        }
-      };
-    } 
-    return []
-  });
+      if (savedInfo) {
+        setInfo(JSON.parse(savedInfo));
+      }
+    }
+  }, []);
 
   const updateLocationData = (newLocationData) => {
-    setInfo((prevState) => ({
-      ...prevState,
-      locationData: {
-        ...prevState.locationData,
-        ...newLocationData
-      }
-    }));
+    console.log("updated location data", newLocationData)
+    if (newLocationData) {
+      setInfo((prevState) => ({
+        ...prevState,
+        locationData: {
+          ...prevState.locationData,
+          ...newLocationData
+        }
+      }));
+    }
   };
 
   useEffect(() => {
-    if(typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('other_info', JSON.stringify(info));
       fetchAllstores();
     }
@@ -65,11 +88,13 @@ export const GlobalContextProvider = ({ children }) => {
     }
     return ""; // Default empty if info not available
   });
+
   const handleInputChange = (e) => {
     setZipCode(e.target.value);
   };
 
   async function getStateByPostalCode(postalCode) {
+    console.log("postal code", postalCode)
     const apiUrl = `https://api.zippopotam.us/us/${postalCode}`;
 
     try {
@@ -201,7 +226,7 @@ export const GlobalContextProvider = ({ children }) => {
     setSelectedOption(option);
   };
 
-  
+
 
   const [selectedShippingMethods, setSelectedShippingMethods] = useState(null);
   function getShippingMethods(subtotal, shippingMethods) {
@@ -232,7 +257,7 @@ export const GlobalContextProvider = ({ children }) => {
     // Case 3: METHOD-3 (Local Pickup)
     const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
     if (method3 && method3.cost === 0) {
-      selectedMethods.push({...method3,cost:0});
+      selectedMethods.push({ ...method3, cost: 0 });
     }
 
     // Handle default selection logic
@@ -252,7 +277,9 @@ export const GlobalContextProvider = ({ children }) => {
   }, [info])
 
   const handleButtonClick = async () => {
+    console.log("called times")
     const data = await getStateByPostalCode(zipCode);
+    console.log("states data", data)
     if (data) {
       updateLocationData({
         zipCode: zipCode,

@@ -192,7 +192,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Return Policy', link: '/return-policy' },
-                { name: 'Track Order', link: '#' },
+                { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
             ]
         },
         {
@@ -387,7 +387,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                                 {navItem.name}
                                             </p> // Or null if you don't want anything rendered
                                         ) : (
-                                            <Link href={navItem.link} target={navItem.name === 'Design your Room' ? '_blank' : '_self'} key={inn} className="about-and-care-link">
+                                            <Link href={navItem.link} target={navItem.name === 'Design your Room' || 'Track Order' ? '_blank' : '_self'} key={inn} className="about-and-care-link">
                                                 {navItem.name}
                                             </Link>
                                         )

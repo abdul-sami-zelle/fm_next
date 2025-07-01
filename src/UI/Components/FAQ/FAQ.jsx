@@ -3,6 +3,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import './FAQ.css'
 import { IoCheckmark } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
 
 const FAQ = () => {
 
@@ -17,6 +20,31 @@ const FAQ = () => {
             answerRef.current[activeIndex].style.height = answerRef.current[activeIndex].scrollHeight + 'px';
         }
     }, [activeIndex])
+
+    const params = useParams();
+    console.log("main slug", params)
+    const slug = params['product-archive'];
+    const [faqs, setFaqs] = useState([])
+    const getFAQs = async () => {
+        console.log("slug", slug)
+        const api = `https://fmapi.myfurnituremecca.com/api/v1/category-faqs/get-by-slug/${slug}`;
+
+        try {
+            const response = await axios.get(api);
+            console.log("response", response.data.data)
+            if (response.status === 200) {
+                setFaqs(response.data.data.faqs);
+            }
+        } catch (error) {
+            console.error("UnExpected Server Error", error);
+        }
+
+    }
+
+    useEffect(() => { 
+        getFAQs()
+        console.log("called") 
+    }, [])
 
     const Qna = [
         {
@@ -66,6 +94,9 @@ const FAQ = () => {
 
     ]
 
+    useEffect(() => {console.log("faqs", faqs);}, [faqs])
+    
+
     const handleToggle = (index) => {
         if (activeIndex === index) {
             setActiveIndex(null)
@@ -110,26 +141,28 @@ const FAQ = () => {
                         create your coziest living space or party place!
                     </p>
                 </div>
+                {faqs?.length > 0 && (
+                    <div className='questions-answeres'>
+                        <p className='faq-heading'>FAQs</p>
+                        {faqs?.map((item, index) => {
+                            return <div key={index} className='question-toggler'>
+                                <div className='question-section' onClick={() => handleToggle(index)}>
+                                    <p>{item.question}</p>
+                                    <i className='add-button-round'>
+                                        {activeIndex === index ? <FaMinus size={15} color='var(--secondary-color)' /> : <FaPlus size={15} color='var(--secondary-color)' />}
+                                    </i>
+                                </div>
+                                <div className={`answere-section ${activeIndex === index ? 'show-answere' : ''}`}
+                                    ref={el => answerRef.current[index] = el}
+                                    style={{ height: activeIndex === index ? `${answerRef.current.scrollHeight}px` : '0px' }}
+                                >
+                                    <p>{item.answer}</p>
+                                </div>
+                            </div>
+                        })}
+                    </div>
+                )}
 
-                <div className='questions-answeres'>
-                    <p className='faq-heading'>Living Room Set FAQ's</p>
-                    {Qna.map((item, index) => {
-                        return <div key={index} className='question-toggler'>
-                            <div className='question-section' onClick={() => handleToggle(index)}>
-                                <p>{item.question}</p>
-                                <i className='add-button-round'>
-                                    {activeIndex === index ? <FaMinus size={15} color='var(--secondary-color)'  /> : <FaPlus size={15} color='var(--secondary-color)'  />}
-                                </i>
-                            </div>
-                            <div className={`answere-section ${activeIndex === index ? 'show-answere' : ''}`}
-                                ref={el => answerRef.current[index] = el}
-                                style={{ height: activeIndex === index ? `${answerRef.current.scrollHeight}px` : '0px' }}
-                            >
-                                <p>{item.answereOne}</p>
-                            </div>
-                        </div>
-                    })}
-                </div>
 
             </div>
         </>

@@ -97,11 +97,10 @@
     border-color: var(--orange-outline);
 }
 
-.checkbox1:hover span {
+/* .checkbox1:hover span {
     background-color: #fff;
     transform: scale(1.05);
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
-}
+} */
 
 /* .checkbox1 input:checked + span:after {
   content: "";
@@ -661,9 +660,10 @@
     font-weight: var(--content-two-weight);
 }
 
-.right-section-order-place-container>p>a {
+.right-section-order-place-container>p>span {
     color: var(--text-primary);
     font-weight: var(--content-one--weight);
+    text-decoration: underline;
 }
 
 .right-section-place-order-terms-and-rights {

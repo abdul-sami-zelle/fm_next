@@ -12,37 +12,21 @@ import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
     const { savedInfo, fetchAllstores, stores, } = useGlobalContext();
-    const { 
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const {
         zipCode,
-        handleInputChange, 
+        setZipCode,
+        handleInputChange,
         handleButtonClick,
         info
-      } = useGlobalContext();
+    } = useGlobalContext();
 
     const [storeOpenIndex, setOpenStoreIndex] = useState(-1);
     const handleStoreHoursDetails = (index) => {
         setOpenStoreIndex(storeOpenIndex === index ? -1 : index)
     };
 
-    // const [searchQuery, setSearchQuery] = useState('');
 
-
-
-    // async function fetchAllStoresUsingZip() {
-    //     if (searchQuery !== "") {
-    //         try {
-    //             // Await the fetchAllstores function to complete
-    //             const stores = await fetchAllstores("code", searchQuery);
-
-    //             // Handle the fetched stores data here if needed
-    //         } catch (error) {
-    //             // Handle errors if fetchAllstores fails
-    //             console.error('Error fetching stores:', error);
-    //         }
-    //     } else {
-    //         console.log('Search query is empty');
-    //     }
-    // }
 
     async function fetchAllStoresUsingDelZip() {
         if (info?.locationData?.zipCode !== undefined || info?.locationData?.zipCode !== "") {
@@ -101,23 +85,39 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
         setCurrentDay(getDayInPhiladelphia())
     }, [])
 
-    
+    const handleCurrentStore = (item, index) => {
+        console.log("clicked location item", item)
+        setCurrentIndex(index)
+        setZipCode(item.postal_code)
+    }
+
+    useEffect(() => {
+        
+        
+        const fetchData = async () => {
+            await handleButtonClick();
+        };
+        fetchData();
+        console.log("inner call time")
+    }, [zipCode]);
+
+
 
     return (
         <div
             className={`near-store-pop-up ${isOpen ? 'show' : ''}`}
             onClick={handleCloseNearBy}
         >
-            
-            
+
+
             <div
                 className={`near-store-container ${isOpen ? 'show-near-store-inner-container' : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                
+
                 <div className='pop-up-header'>
                     <span onClick={handleCloseNearBy}>
-                        <IoCloseOutline size={20} /> 
+                        <IoCloseOutline size={20} />
                     </span>
                     <i>
                         <svg
@@ -145,7 +145,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                     </div>
                     <div className='pop-up-header-location'>
                         <button className='current-location-button' onClick={() => { getCurrentLocation() }}>
-                            
+
                             Use Current Location
                         </button>
                         <button className='delivery-zip-button' onClick={() => { fetchAllStoresUsingDelZip() }}>
@@ -154,7 +154,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                     </div>
                 </div>
                 <div className='pop-up-single-city-card'>
-                
+
                     <div className='pop-up-single-city-cart'>
 
                         <svg
@@ -171,10 +171,10 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                         <h3>Your Store {stores && stores?.length}</h3>
                     </div>
                     {stores && stores?.map((items, index) => {
-                        return <div key={index} className={`${index === 0 ? 'near-stores-current-store' : ''} `}>
+                        return <div key={index} className={`${currentIndex === index ? 'near-stores-current-store' : 'other-nearby-stores'} `} onClick={() => { handleCurrentStore(items, index); handleButtonClick() }}>
                             <div className={`pop-up-city-and-distance ${storeOpenIndex === index ? 'rotate-btn' : ''}`}>
                                 <span>
-                                    <button className={`near-store-popup-accordion-icon ${storeOpenIndex === index ? 'rotate-btn' : ''}`} onClick={() => handleStoreHoursDetails(index)}> <IoIosAdd size={20} color='#fff"' /> </button>
+                                    <button className={`near-store-popup-accordion-icon ${storeOpenIndex === index ? 'rotate-btn' : ''}`} onClick={() => { handleStoreHoursDetails(index) }}> <IoIosAdd size={20} color='#fff"' /> </button>
                                     <h3>{items?.name}</h3>
                                 </span>
                                 <p> {items?.distance} </p>
