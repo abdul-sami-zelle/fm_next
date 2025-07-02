@@ -92,11 +92,12 @@ export default function OrderConfirmationPage() {
 
     return (
         <div className="order_confirmation_page">
+
             <div className="order_description">
 
-                <div className="header_order_description">
+                <Link href={'/'} className="header_order_description">
                     <Image src={'/Assets/Logo/main-logo.png'} width={200} height={45} alt="" />
-                </div>
+                </Link>
 
                 <div className="order_description_1">
                     {/* <img src={checked} alt="" /> */}
@@ -198,7 +199,7 @@ export default function OrderConfirmationPage() {
                     </div>
                 </div>
 
-                {/* <div className="checkout-need-help-or-continue-shopping">
+                <div className="checkout-need-help-or-continue-shopping">
                     <span className="checkout-page-contact-us-link-item">
                         <p className="checkout-need-help-heading">Need help?</p>
                         <Link className="checkout-contact-item" href={'/contact-us'}>Contact us</Link>
@@ -206,7 +207,7 @@ export default function OrderConfirmationPage() {
                     <button className="checkout-continue-shopping-button" onClick={handleNavigate}>
                         Go To Home
                     </button>
-                </div> */}
+                </div>
 
             </div>
 
@@ -310,7 +311,7 @@ export default function OrderConfirmationPage() {
                     </div>
 
 
-                    <div className="checkout-need-help-or-continue-shopping">
+                    {/* <div className="checkout-need-help-or-continue-shopping">
                         <span className="checkout-page-contact-us-link-item">
                             <p className="checkout-need-help-heading">Need help?</p>
                             <Link className="checkout-contact-item" href={'/contact-us'}>Contact us</Link>
@@ -318,7 +319,7 @@ export default function OrderConfirmationPage() {
                         <button className="checkout-continue-shopping-button" onClick={handleNavigate}>
                             Go To Home
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

@@ -53,7 +53,7 @@
 .order_description_1 {
     display: flex;
     width: 100%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     gap: 10px;
 }
@@ -95,7 +95,7 @@
     border-radius: 5px;
     width: 89%;
     /* width: 100%; */
-    margin: 0 0 10px 0px;
+    /* margin: 0 0 10px 0px; */
     /* padding: 0 30px; */
 }
 
@@ -185,7 +185,7 @@
 .checkout-need-help-or-continue-shopping {
     display: flex;
     width: 100%;
-    margin: 30px 0 0 0px;
+    /* margin: 30px 0 0 0px; */
     align-items: center;
     justify-content: space-between;
 }
@@ -607,7 +607,7 @@
     padding: 30px 60px;
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 50px;
 }
 
 .cart_product_calculations>.row {
