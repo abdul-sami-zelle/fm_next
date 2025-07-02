@@ -241,7 +241,6 @@ const Products = ({ navigationType }) => {
     }
 
     const handleCategorySelect = (value) => {
-        console.log("Mobile Filter Clicked", value);
     };
 
     const handleClearFilters = () => {

@@ -42,7 +42,6 @@ const SingleBlog = () => {
     // }, [])
 
     useEffect(() => {
-        console.log(blogCategories, "here are blog cat")
         fetchBlogs(singleBlog?.category?._id)
     }, [])
 

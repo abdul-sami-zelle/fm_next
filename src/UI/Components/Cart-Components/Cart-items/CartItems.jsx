@@ -71,12 +71,7 @@ const CartItems = ({
     }).format(productTotalPrice)
 
 
-    const handleSaveForLeter = () => {
-        setSaveForLeter(true)
-        const timeOut = setTimeout(() => {
-            setSaveForLeter(false);
-        }, 2000);
-    }
+    
 
     const [isProtectionClicked, setIsProtectionClicked] = useState(isProtected === 0 ? "no-thanks" : "yes-protect");
     const handleProtectOrNotButtonClicked = (value) => {
@@ -84,10 +79,6 @@ const CartItems = ({
     }
 
     const [isOpen, setIsOpen] = React.useState(false);
-
-    const toggleDetails = () => {
-        setIsOpen(prev => !prev);
-    };
 
     const { addToList, removeFromList, isInWishList } = useList()
     const handleWishList = (item) => {
@@ -104,17 +95,22 @@ const CartItems = ({
         <>
 
             <div className='cart-product'>
+
                 <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
                     {/* <img src={'/Assets/icons/close-btn.png'} alt='close btn' /> */}
                     <IoIosClose color='var(--text-rgay)' size={20} />
                 </button>
+
                 <div className='cart-item-name'>
                     <h3>{cartProductName}</h3>
                 </div>
+
                 <div className='cart-product-containt'>
+
                     <div className='cart-item-image'>
                         <img src={`${url}${cartPRoductImage}`} alt='product image' />
                     </div>
+
                     <div className='cart-product-details'>
                         <p>SKU: {productData?.sku}</p>
                         <p>{cartProductColor}</p>
@@ -143,6 +139,7 @@ const CartItems = ({
                 <div className='desktop-cart-product-image'>
                     <img src={`${url}${cartPRoductImage}`} alt='product image' />
                 </div>
+
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
@@ -185,14 +182,12 @@ const CartItems = ({
                         <div className={`desktop-total-price-and-remove-item ${isCartOpen ? 'hide-total-and-remove-item' : ''}`}>
 
                             <div className='desktop-quantity'>
-                                <button onClick={handleDecreament}>
-                                    {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
-                                    <FaMinus color='var(--text-gray)' size={15} />
+                                <button className='cart-minus-button' onClick={handleDecreament}>
+                                    <FaMinus className='cart-minus-icon' size={15} />
                                 </button>
                                 <p className='cart-product-quantity'>{quantity}</p>
-                                <button onClick={handleIncreament}>
-                                    {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
-                                    <FaPlus color='var(--text-gray)' size={15} />
+                                <button className='cart-plus-button' onClick={handleIncreament}>
+                                    <FaPlus className='cart-plus-icon' size={15} />
                                 </button>
                             </div>
 
@@ -202,14 +197,12 @@ const CartItems = ({
 
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
                             <div className='desktop-quantity'>
-                                <button onClick={handleDecreament}>
-                                    {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
-                                    <FaMinus color='var(--text-gray)' size={15} />
+                                <button className='cart-minus-button' onClick={handleDecreament}>
+                                    <FaMinus className='cart-minus-icon' size={15} />
                                 </button>
                                 <p>{quantity}</p>
-                                <button onClick={handleIncreament}>
-                                    {/* <img src={'/Assets/icons/plus.png'} alt='plus' /> */}
-                                    <FaPlus color='var(--text-gray)' size={15} />
+                                <button className='cart-plus-button' onClick={handleIncreament}>
+                                    <FaPlus className='cart-plus-icon' size={15} />
                                 </button>
                             </div>
                             <p className='cart-open-total-price'>{formatedTotalPrice}</p>

@@ -22,16 +22,13 @@ const FAQ = () => {
     }, [activeIndex])
 
     const params = useParams();
-    console.log("main slug", params)
     const slug = params['product-archive'];
     const [faqs, setFaqs] = useState([])
     const getFAQs = async () => {
-        console.log("slug", slug)
         const api = `https://fmapi.myfurnituremecca.com/api/v1/category-faqs/get-by-slug/${slug}`;
 
         try {
             const response = await axios.get(api);
-            console.log("response", response.data.data)
             if (response.status === 200) {
                 setFaqs(response.data.data.faqs);
             }
@@ -43,58 +40,7 @@ const FAQ = () => {
 
     useEffect(() => { 
         getFAQs()
-        console.log("called") 
     }, [])
-
-    const Qna = [
-        {
-            question: 'Why should I Buy a Living Room Sets?', icon: <FaPlus size={15} />, answereOne:
-                `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-            and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-            your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-            lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-            furniture. Buy a sofa set instead!`, answereTwo:
-                `If you need more than one piece of furniture, a complete living room set is typically more affordable 
-            than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
-            living room of your dreams a reality. What could be better than that!?`
-        },
-        {
-            question: 'Why Should I Buy a Living Room Sets?', icon: <FaPlus size={15} />, answereOne:
-                `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-            and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-            your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-            lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-            furniture. Buy a sofa set instead!`, answereTwo:
-                `If you need more than one piece of furniture, a complete living room set is typically more affordable 
-            than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
-            living room of your dreams a reality. What could be better than that!?`
-        },
-        {
-            question: 'Why Should I Buy a Living Room Sets?', icon: <FaPlus size={15} />, answereOne:
-                `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-            and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-            your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-            lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-            furniture. Buy a sofa set instead!`, answereTwo:
-                `If you need more than one piece of furniture, a complete living room set is typically more affordable 
-            than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
-            living room of your dreams a reality. What could be better than that!?`
-        },
-        {
-            question: 'Why Should I Buy a Living Room Sets?', icon: <FaPlus size={15} />, answereOne:
-                `Well, let's face it. Coordinating living room furniture – including fabrics, pillows, colors, 
-            and sizes – can be exhausting! A living room set is an effective and convenient way to complete 
-            your living space, while eliminating the stress of matching sofas, chairs and ottomans. Don’t 
-            lose sleep over whether that loveseat you have your eye on is an ideal fit with your existing 
-            furniture. Buy a sofa set instead!`, answereTwo:
-                `If you need more than one piece of furniture, a complete living room set is typically more affordable 
-            than buying individual pieces, too! You can save time and money, and gain peace of mind as you make the 
-            living room of your dreams a reality. What could be better than that!?`
-        }
-
-    ]
-
-    useEffect(() => {console.log("faqs", faqs);}, [faqs])
     
 
     const handleToggle = (index) => {

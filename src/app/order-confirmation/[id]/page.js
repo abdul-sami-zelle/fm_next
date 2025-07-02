@@ -28,7 +28,6 @@ export default function OrderConfirmationPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log("params id", params.id)
 
     const router = useRouter();
 
@@ -50,8 +49,11 @@ export default function OrderConfirmationPage() {
         const fetchOrderDetails = async () => {
             try {
                 const response = await axios.get(`${url}/api/v1/orders/get_by_id?_id=${params.id}`);
-                setOrder(response.data.order); // Store order data in state
-                setMainOrderProduct(response.data.order.items[0])
+                console.log("order response", response)
+                setOrder(response?.data?.order); // Store order data in state
+                console.log("confirmed order", response?.data?.order);
+                setMainOrderProduct(response?.data?.order?.items[0]);
+                console.log("main order product". response?.data?.order?.items);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -171,7 +173,7 @@ export default function OrderConfirmationPage() {
                             </p>
 
                             <p style={{ marginTop: "20px" }} className="sub_heading">
-                                Shipping Method
+                                Shipping Method : 
                             </p>
                             <p className="sub_content">
                                 {order.is_shipping === 1 ? "Shipping" : "Local Pickup"} {/* Use order data */}
@@ -183,6 +185,7 @@ export default function OrderConfirmationPage() {
                             </p>
                             <p className="sub_content">
                                 {/* <img src={card} alt="" /> */}
+                                <p>{order?.payment_method}</p>
                                 <svg width="25" height="25" viewBox="0 0 91 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0.183594 9H90.0453V15.5L86.5 17L84.5 18L82.6836 19H0.183594V9Z" fill="var(--secondary-color)" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H86C88.2091 0 90 1.79086 90 4V9H0V4ZM82.6853 19H0V56C0 58.2091 1.79086 60 4 60H86C88.2091 60 90 58.2091 90 56V50.554C81.984 48.7351 76 41.5663 76 33C76 27.3455 78.6073 22.2999 82.6853 19Z" fill="#FDFDFD" />

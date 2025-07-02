@@ -322,6 +322,3 @@ input:-webkit-autofill {
   opacity: 1 !important;
 }
 
-.swiper-pagination-bullet:only-child {
-  display: flex !important;
-}

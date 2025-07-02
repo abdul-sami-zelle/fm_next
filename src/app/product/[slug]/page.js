@@ -54,9 +54,6 @@ const closeDRM = () =>{
     })
   }, [product])
 
-  useEffect(()=>{
-    console.log(product,"here us pro")
-  },[product])
 
   const [isSticky, setIsSticky] = useState(false)
 
@@ -131,7 +128,6 @@ const closeDRM = () =>{
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
   const [quantity, setQuantity] = useState(1)
 
-  // useEffect(() => {console.log("variation data on main page", variationData)}, [variationData])
 
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
@@ -182,7 +178,6 @@ const closeDRM = () =>{
 
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
   const handleOpenModal = (place) => {
-    console.log("clicked place", place);
     if(place === 'image-clicked') {
       setGalleryModalWidth(true)
     } else {
@@ -200,7 +195,6 @@ const closeDRM = () =>{
   }
 
   const handleThumbnailClick = (index) => {
-    console.log("clicked thumb", index);
     setActiveIndex(index);
     setThumbActiveIndex(index);
     setCurrentIndex(index)
@@ -328,25 +322,7 @@ const closeDRM = () =>{
     }
   }, [recomandationData])
 
-  // const fetchRecomandedProducts = async () => {
-  //   const api = `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}`;
-  //   try {
-  //     const response = await fetch(api);
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-  //     const data = await response.json();
-  //     setRecomandedProducts(data.recommendations)
-  //   } catch (error) {
-  //     console.log("UnExpected Server Error", error);
-  //   }
-  // }
 
-  // useEffect(() => {
-  //   fetchRecomandedProducts();
-  // }, [product])
-
-  // useEffect(() => {console.log("product data", product)}, [product])
 
 
   return (

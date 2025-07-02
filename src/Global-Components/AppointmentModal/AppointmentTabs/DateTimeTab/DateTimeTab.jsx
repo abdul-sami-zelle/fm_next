@@ -21,16 +21,6 @@ const DateTimeTab = ({ selectedTab, setSelectedTab }) => {
     { time: '04:00 AM - 05: 00 PM' },
   ]
 
-
-
-  // useEffect(() => { 
-  //   console.log("current or selected date", dateState) ;
-  //   console.log("current date", today)
-  // }, [dateState])
-
-
-
-
   // Set today's time to midnight for accurate comparisons.
   today.setHours(0, 0, 0, 0);
   // Calculate the date 30 days from today.

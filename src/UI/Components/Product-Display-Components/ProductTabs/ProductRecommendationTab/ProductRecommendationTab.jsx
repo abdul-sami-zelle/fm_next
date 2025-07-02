@@ -10,8 +10,8 @@ const ProductRecommendationTab = ({id, recommendationRef, product}) => {
       ref={recommendationRef}
       className='product-recommendation-main-container'
     >
-      {product?.collection?.length > 0 && <SimillerProducts isPadding={false} collection={product?.collection} />}
-      {product?.related_products?.length > 0 && <FrequentlyBought isPadding={false} relatedProducts={product?.related_products} />}
+      <SimillerProducts isPadding={false} productId={product.uid} collection={product?.collection} />
+      <FrequentlyBought isPadding={false} product={product} relatedProducts={product?.related_products} />
     </div>
   )
 }

@@ -35,7 +35,6 @@ export const CartProvider = ({ children }) => {
         return []
     });
 
-    // useEffect(() => {console.log("cart added Products", cartProducts)}, [cartProducts])
 
 
     const [isCartProtected, setIsCartProtected] = useState(() => {
@@ -311,7 +310,6 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
-        console.log("product of cart", product)
         setIsCartLoading(true);
 
         const isSimple = product.type === "simple";

@@ -29,7 +29,6 @@ const WishListClient = () => {
   const [selectedGrid, setSelectedGrid] = useState('');
   const maxLength = 50;
 
-  console.log("wish list products", wishList)
 
   // Simulate data loading
   React.useEffect(() => {
@@ -51,8 +50,6 @@ const WishListClient = () => {
   }
   const handleQuickViewClose = () => { setQuickView(false) }
   const handleProductClick = (item) => {
-    // navigate(`/product/${item.slug}`, { state: item });
-    console.log("item wish list ", item)
     router.push(`/product/${item.slug}`)
   };
 

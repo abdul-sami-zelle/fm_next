@@ -2,10 +2,17 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     gap: 15px;
     padding: 15px 24px;
+}
+
+.product-description-main-container > h3 {
+    font-size: var(--section-size);
+    line-height: var(--section-height);
+    font-weight: var(--section-weight);
+    color: #000;
 }
 
 .product-description-section {

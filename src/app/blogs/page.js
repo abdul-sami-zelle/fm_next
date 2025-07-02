@@ -20,8 +20,6 @@ const BlogPage = () => {
     isBlogLoading
   } = useBlog()
 
-  // useEffect(() => {console.log("blog category", blogCategories)}, [blogCategories])
-  // useEffect(() => {console.log("blog category id", blogCategories?.[activeCategory]?._id)}, [blogCategories])
 
   useEffect(() => {
     fetchBlogs(blogCategories?.[activeCategory]?._id)
@@ -77,7 +75,6 @@ const BlogPage = () => {
   };
 
   const handleNextPage = () => {
-    console.log("next page func called")
     if (currentPage < totalPages) {
       setCurrentPage(prev => prev + 1);
       window.scrollTo({

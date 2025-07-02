@@ -8,12 +8,16 @@ import FAQ from '@/UI/Components/FAQ/FAQ';
 import Products from '@/UI/Components/Products/Products';
 import RelatedCategories from '@/UI/Components/Related-categories-Tags/RelatedCategories';
 import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiveContext';
+import { usePathname } from 'next/navigation';
 
 const ProductArchive = ({productArchiveHading}) => {
 
 const [navigationType, setNavigationType] = useState(null);
 
   const {activePage , setActivePage, setActivePageIndex, setColorValue} = useProductArchive()
+
+  const pathname = usePathname();
+    const hideSection = pathname.startsWith('/searched-products');
 
     
     useEffect(() => {
@@ -38,10 +42,14 @@ const [navigationType, setNavigationType] = useState(null);
         <Products 
           navigationType={navigationType}
         />
-        <RelatedCategories
-          navigationType={navigationType}
-        />
-        <FAQ />
+        {!hideSection && (
+          <RelatedCategories
+            navigationType={navigationType}
+          />
+        )}
+        {!hideSection && (
+          <FAQ />
+        )}
     </div>    
   )
 }

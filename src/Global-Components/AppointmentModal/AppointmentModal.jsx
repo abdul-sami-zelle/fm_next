@@ -121,7 +121,7 @@ const AppointmentModal = (
                 handleAppointmentModal()
             }
         } catch (error) {
-            console.log("UnExpected Server Error", error);
+            console.error("UnExpected Server Error", error);
             handleOpenSnakeBar()
             setLoading(false);
         } finally {

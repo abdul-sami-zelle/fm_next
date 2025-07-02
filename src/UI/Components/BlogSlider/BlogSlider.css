@@ -129,10 +129,6 @@
     
 }
 
-.swiper-pagination {
-    width: 65px !important;
-}
-
 @media only screen and (max-width: 480px){
     .blogs-main-container{
         padding: 15px 10px;

@@ -85,7 +85,6 @@ const Cart = () => {
 
   const [latestProducts, setLatestProducts] = useState([]);
 
-  const recomandationApi =
 
     useEffect(() => {
       const getLatestProducts = async () => {
@@ -376,6 +375,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      
       {cartProducts?.products?.length > 0 && (
         <div className='cart-related-products-display-section'>
           <h3>You May Also Like</h3>

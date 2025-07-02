@@ -14,9 +14,7 @@ export const simpleFetcher = async (api, method, header) => {
         headers: header
     })
 
-    console.log("res in fether", response)
     const data = await response.json()
-    console.log("data in fether", data)
     if(!response.ok) throw new Error("Faild to Fetch Data");
     return response;
 

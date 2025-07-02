@@ -42,21 +42,6 @@ export const LPContentProvider = ({ children }) => {
     }
   }, [sliderData])
 
-  // const getHomeSliderImages = async () => {
-  //   try {
-  //     // if (slides === null) {
-  //     const response = await axios.get(`${url}/api/v1/pages/home/upd-slider/get`, { timeOut })
-  //     if (response.status === 200) {
-  //       setSlides(response.data.slider || [])
-  //     } else {
-  //       console.log(`UnExpected Error ${response.status} `);
-  //     }
-  //     // }
-  //   } catch (error) {
-  //     console.error("UnExpected Server Error", error);
-  //   }
-  // }
-
   // Standard Function
 
 
@@ -77,28 +62,6 @@ export const LPContentProvider = ({ children }) => {
       setContent2(contentTwoData.data);
     }
   }, [contentTwoData])
-
-
-  // const getLandingPageContent2 = async () => {
-  //   const api = `/api/v1/content2/get`
-  //   try {
-  //     setLoading(true);
-  //     if (content2 === null) {
-  //       const response = await axios.get(`${url}${api}`, { timeOut })
-  //       if (response.status === 200) {
-  //         setContent2(response.data);
-  //         setLoading(false);
-  //       } else {
-  //         console.log("UnExpected Error", response.status)
-  //         setLoading(false);
-  //       }
-  //     }
-
-  //   } catch (error) {
-  //     console.error("UnExpected Server Error", error);
-  //     setLoading(false);
-  //   }
-  // }
 
   // Standard Function
   const featuredApi = `${url}/api/v1/products/featured-products?totalProduct=5`;
@@ -136,7 +99,7 @@ export const LPContentProvider = ({ children }) => {
         setFeaturedProducts(filteredProducts);
         setLoading(false);
       } else {
-        console.log("UnExpected Error", response.status);
+        console.error("UnExpected Error", response.status);
         setLoading(false);
       }
     } catch (error) {
@@ -167,21 +130,7 @@ export const LPContentProvider = ({ children }) => {
     }
   }, [trandingData])
 
-  // const getTrendingProductsData = async () => {
-  //   try {
-  //     if (trendingNow === null) {
-  //       const response = await axios.get(`${url}/api/v1/pages/home/trending-now/get`, { timeOut });
-  //       if (response.status === 200) {
-  //         setTrendingNow(response.data?.data)
-  //       } else {
-  //         console.log("UnExpected Error", response.status)
-  //       }
-  //     }
-
-  //   } catch (error) {
-  //     console.error("UnExpected Server Error", error);
-  //   }
-  // };
+  
 
   const [financingBanners, setFinancingBanners] = useState(null)
   // Standard Function
@@ -206,18 +155,6 @@ export const LPContentProvider = ({ children }) => {
     }
   }, [financingData]);
 
-  // const getFinanceBannerImagesFromApi = async () => {
-  //   try {
-  //     const response = await axios.get(`${url}/api/v1/pages/home/upd-finance-slider/get`);
-  //     if (response.status === 200) {
-  //       setFinancingBanners(response?.data?.slider)
-  //     } else {
-  //       console.log("UnExpected Error", response.status)
-  //     }
-  //   } catch (error) {
-  //     console.error("UnExpected Server Error", error);
-  //   }
-  // }
 
   // set handling
 
@@ -243,35 +180,6 @@ export const LPContentProvider = ({ children }) => {
       setLandingPageFOEB(categoriesData?.landingPageContent?.sectional_schema?.furniture_for_every_budget);
     }
   }, [categoriesData]);
-
-  // const postData = async () => {
-  //   if (data === null) {
-  //     try {
-  //       const response = await axios.get(`${url}/api/v1/content1/get`, {
-  //         timeout: timeOut,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (response.status === 200) {
-  //         const result = response.data
-  //         setData(result);
-  //         setLandingPageCategories(result?.landingPageContent?.sectional_schema?.shop_by_category);
-  //         setLandingPageFOEB(result?.landingPageContent?.sectional_schema?.furniture_for_every_budget);
-  //         setLoading(false)
-  //       } else {
-  //         console.log("UnExpected Error", response.status)
-  //         setLoading(false)
-  //       }
-  //     } catch (error) {
-  //       console.log("UnExpected Server Error", error);
-  //       setError(error.message);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
 
   const [allProducts, setAllProducts] = useState([])
   const [dealEndTime, setDealEndTime] = useState(null);

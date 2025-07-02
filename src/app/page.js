@@ -113,7 +113,7 @@ const Home = () => {
           image={content2.section_1.image}
           mobileImage={content2.section_1.mobile_image}
         />
-      )}
+      )} 
 
       {featuredProducts &&
         (<ProductSlider cardData={featuredProducts} />)

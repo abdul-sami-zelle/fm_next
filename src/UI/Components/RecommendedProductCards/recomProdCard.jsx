@@ -84,7 +84,6 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                               const existingProduct = cartProducts?.products?.find((item) =>
                                     isSimple ? item.product_uid === productUid : item.variation_uid === productUid
                                 );
-                            console.log(existingProduct,"exus")
                             if (existingProduct) {
                              addToCart0(singleProductData,null,0,1)
                             } else {

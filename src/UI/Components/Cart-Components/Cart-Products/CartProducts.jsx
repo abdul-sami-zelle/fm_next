@@ -123,6 +123,7 @@ const CartProducts = () => {
                         <p className='update-zip-on-cart-details'>Product Availability And Delivery Options For 19134</p>
                         <p className='update-zip-on-cart-update-location' onClick={handleLocationModal}>Change Location</p>
                     </span>
+
                     <div className='mobile-view-update-zip-on-cart-page'>
                         <span>
                             <IoLocationOutline size={20} color='var(--secondary-color)' />
@@ -130,6 +131,7 @@ const CartProducts = () => {
                         </span>
                         <p onClick={handleLocationModal}> Change Location </p>
                     </div>
+                    
                     <div className='cart-protection-plan-container'>
                         <h3
                             className='protection-plan-on-cart-container'

@@ -63,7 +63,6 @@ export const GlobalContextProvider = ({ children }) => {
   }, []);
 
   const updateLocationData = (newLocationData) => {
-    console.log("updated location data", newLocationData)
     if (newLocationData) {
       setInfo((prevState) => ({
         ...prevState,
@@ -95,7 +94,7 @@ export const GlobalContextProvider = ({ children }) => {
   };
 
   async function getStateByPostalCode(postalCode) {
-    console.log("postal code", postalCode)
+
     const apiUrl = `https://api.zippopotam.us/us/${postalCode}`;
 
     try {
@@ -277,12 +276,20 @@ export const GlobalContextProvider = ({ children }) => {
     setSelectedOption(null)
   }, [info])
 
-  useEffect(() => {setAllShippingMethods()}, [])
+  // useEffect(() => {
+  //   setAllShippingMethods();
+  //   setTaxValues();
+  //   setSelectedOption(null)
+  // }, [])
+
+  useEffect(() => { setAllShippingMethods() }, [])
+
+  function extractZipCode(input) {
+    return input.replace(/\D/g, '');
+  }
 
   const handleButtonClick = async () => {
-    console.log("called times")
-    const data = await getStateByPostalCode(zipCode);
-    console.log("states data", data)
+    const data = await getStateByPostalCode(extractZipCode(zipCode));
     if (data) {
       updateLocationData({
         zipCode: zipCode,
@@ -295,7 +302,7 @@ export const GlobalContextProvider = ({ children }) => {
       })
     }
 
-    
+
   };
 
   function getShippingInfo(option) {
@@ -363,7 +370,7 @@ export const GlobalContextProvider = ({ children }) => {
       CalculateGrandTotal,
       mainLoader, setMainLoader,
       isWarrantyModalOpen,
-      setWarrantyModalState
+      setWarrantyModalState,
     }}>
       {children}
     </GlobalContext.Provider>

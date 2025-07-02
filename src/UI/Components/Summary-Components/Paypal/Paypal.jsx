@@ -40,7 +40,6 @@ const Paypal = () => {
           });
           const captureData = await captureRes.json();
           alert("Payment Successful!");
-          console.log("Payment successful", captureData);
         },
         onCancel: () => alert("Payment cancelled"),
         onError: (err) => console.error("Error during payment process", err),

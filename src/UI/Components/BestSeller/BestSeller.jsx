@@ -64,14 +64,12 @@ const BestSeller = () => {
     //   if (currentSlug) {
     //     const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
     //     mutate(cacheKey); // Re-fetch the SWR data
-    //     console.log(pathname,"here ios path name")
     //   }
     // }, [pathname]);
 
     useEffect(() => {
         setMainBanner(bestSelling.categories[0].image)
         setCurrentSlug(bestSelling.categories[0].slug)
-        console.log(bestSelling.categories[0].slug)
     }, [bestSelling]);
 
 
@@ -105,28 +103,6 @@ const BestSeller = () => {
             setAllProducts(categorySellerData.products);
         }
     }, [categorySellerData])
-
-
-    
-    useEffect(() => {console.log("best seller products", allProducts);}, [currentSlug])
-
-    // const getBestSellerProducts = async (slug) => {
-    //     const splitedParam = params.split('/')
-    //     const newSlug = splitedParam[1]
-    //     const api = `/api/v1/products/by-category?categorySlug=${newSlug}&best_selling_product=1&per_page=6`
-    //     try {
-    //         setLoading(true);
-    //         const response = await axios.get(`${url}${api}`)
-    //         setAllProducts(response.data.products);
-    //         setLoading(false)
-
-    //     } catch (error) {
-    //         console.error("error geting best seller products", error);
-    //         setLoading(false);
-    //     }
-    // }
-
-
 
     useEffect(() => {
         mutate();

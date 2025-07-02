@@ -143,9 +143,7 @@ const ApplyFor = ({setLoading}) => {
 
         if (formattedContact.length !== 10) {
             console.error("Invalid contact number length"); // Ensure it's exactly 10 digits
-        } else {
-            console.log("Formatted contact:", formattedContact);
-        }
+        } 
 
         const formData = new FormData();
         formData.append('firstName', applyForData.firstName);

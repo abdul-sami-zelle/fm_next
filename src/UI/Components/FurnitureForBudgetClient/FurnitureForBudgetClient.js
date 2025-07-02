@@ -44,7 +44,6 @@ export default function FurnitureAtEveryBudgetClient() {
                     throw new Error("Failed to fetch data");
                 }
                 const result = await response.json();
-                console.log("furniture for every budget response", result)
                 setData(result);
             } catch (error) {
                 setError(error.message);

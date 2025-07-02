@@ -63,48 +63,66 @@ const ProductGallery = ({
 
         swiperRef.current?.slideTo(newIndex);
     };
- 
+
+
     function ImageZoomOnHover({ src, zoom = 2.5, zoomActive = false }) {
-        const [offset, setOffset] = useState({ x: 0, y: 0 });
-        const [isHovering, setIsHovering] = useState(false);
+        const imageRef = useRef(null); // ✅ Replaced useState with useRef for performance (no re-renders)
 
+        // ✅ Replaced offset tracking + translate with direct cursor-based transform-origin
         const handleMouseMove = (e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 100; // -50 to +50
-            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 100;
+            if (!zoomActive || !imageRef.current) return;
 
-            setOffset({ x, y });
+            const rect = e.currentTarget.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const offsetY = e.clientY - rect.top;
+
+            // ✅ Calculate percentage position inside the image
+            const percentX = (offsetX / rect.width) * 100;
+            const percentY = (offsetY / rect.height) * 100;
+
+            // ✅ Dynamically set zoom origin to follow cursor
+            imageRef.current.style.transformOrigin = `${percentX}% ${percentY}%`;
         };
 
         const handleMouseEnter = () => {
-            setIsHovering(true);
+            if (imageRef.current) {
+                // ✅ Apply zoom on enter
+                imageRef.current.style.transform = `scale(${zoom})`;
+                imageRef.current.style.transition = "transform 0.2s ease";
+            }
         };
 
         const handleMouseLeave = () => {
-            setIsHovering(false);
-            setOffset({ x: 0, y: 0 }); // Reset to center when leaving
+            if (imageRef.current) {
+                // ✅ Reset zoom + origin when leaving
+                imageRef.current.style.transform = "scale(1)";
+                imageRef.current.style.transition = "transform 0.4s ease";
+                imageRef.current.style.transformOrigin = "center center"; // reset origin
+            }
         };
-
-        const isZoomed = zoomActive;
 
         return (
             <div
                 className="dimension-modal-slider-single-image-container"
+                onMouseMove={handleMouseMove}
                 onMouseEnter={handleMouseEnter}
-                onMouseMove={isZoomed ? handleMouseMove : undefined}
                 onMouseLeave={handleMouseLeave}
-                style={{ overflow: "hidden", position: "relative" }}
+                style={{
+                    overflow: "hidden",
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                }}
             >
                 <img
+                    ref={imageRef}
                     src={src}
                     alt="zoom"
-                    className="dimension-modal-slider-image"
                     style={{
-                        transform: isZoomed
-                            ? `scale(${zoom}) translate(${offset.x / zoom}%, ${offset.y / zoom}%)`
-                            : "scale(1)",
+                        // ✅ Removed translate/offset logic
+                        transform: "scale(1)",
                         transition: "transform 0.4s ease",
-                        transformOrigin: "center center", // fixed center origin
+                        transformOrigin: "center center", // initial origin
                         pointerEvents: "none",
                         width: "100%",
                         height: "100%",
@@ -114,6 +132,10 @@ const ProductGallery = ({
             </div>
         );
     }
+
+
+
+
 
     return (
         <div className='product-gallery-main-container'>
@@ -181,7 +203,7 @@ const ProductGallery = ({
                             clickable: true,
                         }}
                         modules={[Pagination, Controller]}
-                        className="mySwiper"
+                        className="best-seller-swiper"
                     >
                         {images.map((imgItem, index) => (
                             <SwiperSlide key={index}>

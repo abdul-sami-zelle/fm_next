@@ -19,6 +19,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
       ref={descriptionRef}
       className={`product-description-main-container ${addMarginTop ? 'add-top-margin' : ''}`}
     >
+      <h3>Description</h3>
       <div className='product-description-section'>
         <div className='product-description-image-container'>
           <img src={`${url}${productData?.image?.image_url}`} alt='product' />

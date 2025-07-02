@@ -93,14 +93,12 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
   const handleCloseLoginMessageModal = () => {
     setIsTokenValid(false)
-    console.log("navigate close clicked")
   }
 
   const handleNavigateToLogin = () => {
     router.push('/my-account')
     setIsTokenValid(false)
     setMobileNavVisible(false)
-    console.log("navigate clickd")
   }
 
   useDisableBodyScroll(isTokenValid)

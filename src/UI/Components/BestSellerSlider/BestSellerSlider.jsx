@@ -381,14 +381,9 @@ const BestSellerSlider = (
                                         key={index}
                                         className={activeItem === index ? 'active' : ''}
                                         onClick={async () => {
-                                            // getBestSellerProducts(item.slug)
-                                            console.log("start")
-                                            // setLoading(true)
                                             setCurrentSlug(item.slug);
                                             handleActiveItem(index)
                                             await mutate();
-                                            // setLoading(true);
-                                            console.log("end")
                                         }}
                                     >
                                         {item.Heading}
@@ -477,58 +472,57 @@ const BestSellerSlider = (
                         ) : (
 
                             <Swiper
-                                pagination={{
-                                    dynamicBullets: true,
-                                    clickable: true,
-                                }}
-                                // slidesPerGroup={Math.ceil(allProducts.length / 3)}
-                                modules={[Pagination]}
-                                className="mySwiper"
+                            pagination={{
+                                dynamicBullets: true,
+                                clickable: true,
+                            }}
+                            modules={[Pagination]}
+                            className="best-seller-swiper"
                             >
                                 {allProducts.map((item, index) => (
                                     <SwiperSlide key={index}>
 
-                                    <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-                                        <div className='mobile-best-seller-cart-wishlist-container'>
-                                            {
-                                                isInWishList(item?.uid) ? (
-                                                    <VscHeartFilled
-                                                        size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleWishlisted(item);
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <VscHeart
-                                                        size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            handleWishlisted(item);
-                                                        }}
-                                                    />
-                                                )
-                                            }
-                                        </div>
-                                        <img src={url + item?.images?.[1]?.image_url} />
-                                        <div className='mobile-card-details-container'>
-                                            <div className='mobile-best-seller-rating-and-review'>
-                                                <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                                        <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+                                            <div className='mobile-best-seller-cart-wishlist-container'>
+                                                {
+                                                    isInWishList(item?.uid) ? (
+                                                        <VscHeartFilled
+                                                            size={25}
+                                                            style={{ color: 'var(--primary-color)' }}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleWishlisted(item);
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <VscHeart
+                                                            size={25}
+                                                            style={{ color: 'var(--primary-color)' }}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleWishlisted(item);
+                                                            }}
+                                                        />
+                                                    )
+                                                }
                                             </div>
-                                            <h3>{item?.name}</h3>
-                                            <div className='mobile-best-seller-category-product-price'>
-                                                <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
-                                                {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                                            <img src={url + item?.images?.[1]?.image_url} />
+                                            <div className='mobile-card-details-container'>
+                                                <div className='mobile-best-seller-rating-and-review'>
+                                                    <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                                                </div>
+                                                <h3>{item?.name}</h3>
+                                                <div className='mobile-best-seller-category-product-price'>
+                                                    <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
+                                                    {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className='mobile-best-seller-cart-container'>
-                                            <div className='mobile-best-sseller-card-bag-container'>
-                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                            <div className='mobile-best-seller-cart-container'>
+                                                <div className='mobile-best-sseller-card-bag-container'>
+                                                    <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
                                     </SwiperSlide>
 
                                 ))}

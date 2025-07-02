@@ -12,7 +12,6 @@ import Image from 'next/image';
 
 const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, mainImgShow, showBanners, paddingTop }) => {
   const [imagePreloader, setImagePreloader] = useState(false);
-  // console.log("main mobile baneer image", mobileMainImage)
 
   return (
     <>

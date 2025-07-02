@@ -12,36 +12,61 @@ import ProductCardTwo from '../ProductCardTwo/ProductCardTwo';
 import QuickView from '../QuickView/QuickView';
 import { useRouter } from 'next/navigation';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import { Categories } from 'emoji-picker-react';
 
-const FrequentlyBought = ({ relatedProducts, isPadding }) => {
+const FrequentlyBought = ({ relatedProducts, isPadding, product }) => {
 
     // const productData = useSelector((state) => state.products.data)
     const products = relatedProducts;
-    const relatedCollection = products.map((item) => item)
+    // const relatedCollection = products.map((item) => item)
 
     const [data, setData] = useState()
-    const fetchData = async () => {
-        const api = `/api/v1/products/get/`;
+    // const fetchData = async () => {
+    //     const api = `/api/v1/products/get/`;
+    //     try {
+    //         const request = relatedCollection.map(async (item) => {
+    //             const response = await axios.get(`${url}${api}${item}`);
+    //             return response.data.products;
+    //         });
+    //         const relatedMyCollection = await Promise.all(request);
+    //         const filteredMyRelatedProducts = relatedMyCollection.flat();
+    //         return filteredMyRelatedProducts;
+    //     } catch (error) {
+    //         console.error("error geting data", error)
+    //     }
+    // }
+
+    // const getchMyCollectionProducts = async () => {
+    //     const products = await fetchData();
+    //     setData(products);
+    // }
+
+    // console.log("may also like", product);
+
+    const handleFrequentlyBought = async () => {
+        const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-related-products`;
+        const payload = {
+            categories: product.categories,
+            productName: product.name,
+            currentProductId: product._id 
+        }
+
+        console.log("current payload", payload);
         try {
-            const request = relatedCollection.map(async (item) => {
-                const response = await axios.get(`${url}${api}${item}`);
-                return response.data.products;
-            });
-            const relatedMyCollection = await Promise.all(request);
-            const filteredMyRelatedProducts = relatedMyCollection.flat();
-            return filteredMyRelatedProducts;
+            const response = await axios.post(api, payload);
+            console.log("frequently buy response", response);
+            if(response.status === 200) {
+                setData(response.data.products)
+            }
         } catch (error) {
-            console.error("error geting data", error)
+            console.log("UnExpected Server Error", error)
         }
     }
 
-    const getchMyCollectionProducts = async () => {
-        const products = await fetchData();
-        setData(products);
-    }
     useEffect(() => {
-        getchMyCollectionProducts()
-    }, [])
+        // getchMyCollectionProducts()
+        handleFrequentlyBought()
+    }, [product])
 
     // const {products} = useProducts()
     const router = useRouter();
@@ -94,7 +119,7 @@ const FrequentlyBought = ({ relatedProducts, isPadding }) => {
             <h3>You May Also Like</h3>
             <div className='frequently-bought-card'>
                 {data ? (
-                    data && data.slice(0, 5).map((item, index) => (
+                    data && data?.slice(0, 5).map((item, index) => (
                         <ProductCardTwo
                             key={index}
                             slug={item.slug}

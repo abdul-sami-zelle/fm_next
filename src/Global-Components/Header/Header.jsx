@@ -293,7 +293,6 @@ const Header = ({ checkoutPage }) => {
 
   // Navigate To product archive page with search query
   const handleNavigateToSearchedProducts = (e) => {
-    console.log("clicked")
     e.stopPropagation();
     // navigate.push(`/searched-products?query=${searchQuery}`)
     router.push(`/searched-products?query=${searchQuery}`);
@@ -362,8 +361,7 @@ const Header = ({ checkoutPage }) => {
 
   const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
 
-  useState(() => {
-  }, [stores])
+
 
   const findDefaultStore = () => {
     const defaultStore = stores.find(store => store.postal_code === '19134')
@@ -433,7 +431,6 @@ const Header = ({ checkoutPage }) => {
 
   const moveToLoginDash = async (event) => {
     // event.preventDefault();
-    console.log("login clicked")
     await checkToken();
   }
 
@@ -448,7 +445,6 @@ const Header = ({ checkoutPage }) => {
   }, [info?.locationData?.zipCode])
 
 
-  // console.log("info", info)
 
 
 

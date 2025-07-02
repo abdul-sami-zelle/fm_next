@@ -52,7 +52,7 @@ const ProtectYourInvestment = () => {
                             <p>Mechanical And Structural Breakdowns To Fabric, Leather, Vinyl Upholstery Or Solid Surface Furniture As A Result Of</p>
                         </div>
                         {item.options.map((innerItem, innerIndex) => (
-                            <div className="protect-invest-single-option">
+                            <div className="protect-invest-single-option" key={innerIndex}>
                                 <div className="protect-invest-single-option-name">
                                     <h3>{innerItem.name}</h3>
                                 </div>

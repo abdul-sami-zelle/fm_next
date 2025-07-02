@@ -187,7 +187,7 @@ const ProductStickyTabBar = (
                             className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
                             onClick={() => handleTabClick(item)}
                         >
-                            <p>{item}</p>
+                            <p>{item === 'DesignYourRoom' ? 'Design Your Room' : item}</p>
                         </div>
                     ))}
                 </div>

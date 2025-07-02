@@ -16,6 +16,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
     const lastNameRef = useRef(null)
     const emailRef = useRef(null)
     const phoneRef = useRef(null)
+    const altPhoneRef = useRef(null);
     const addressOneRef = useRef(null)
     const addressTwoRef = useRef(null)
     const cityRef = useRef(null)
@@ -45,6 +46,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
         Object.keys(orderPayload?.billing).forEach((field) => {
             if (field === 'address2') return;
+            if (field === 'alt_phone') return;
 
             if (!orderPayload?.billing?.[field]?.trim()) {
                 newErrors[field] = `Required`;
@@ -77,9 +79,9 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 <h3>Your Information</h3>
 
                 <div
-                    className={`input-container ${focusedField === 'signupEmail' || signupEmail ? "focused" : ""}`}
-                    style={{ border: error?.signupEmail ? '1px solid var(--primary-color)' : '' }}
-                    onClick={() => signupEmailRef.current?.focus()}
+                    onClick={() => emailRef.current?.focus()}
+                    style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
+                    className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
                 >
                     <label
                         className="floating-label"
@@ -88,17 +90,20 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     </label>
                     <input
                         type="text"
+                        ref={emailRef}
                         className="input-field-email"
-                        ref={signupEmailRef}
-                        onFocus={() => setFocusedField("signupEmail")}
+                        onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField("")}
-                        onChange={(e) => setSignupEmail(e.target.value)}
-                        name='signupEmail'
+                        name='email'
+                        value={orderPayload.billing?.email}
+                        onChange={handleNestedValueChange}
 
                     />
                 </div>
+
                 <span>Already have an account <p onClick={handleNavigateToSignup}>SIGN IN</p></span>
                 <p>You Can Create an Account After Checkout.</p>
+
             </div>
 
             <div className='delivery-info-input-main-container'>
@@ -154,7 +159,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div className='delivery-info-email-and-phone'>
 
-                    <div
+                    {/* <div
                         onClick={() => emailRef.current?.focus()}
                         style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
@@ -174,7 +179,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             value={orderPayload.billing?.email}
                             onChange={handleNestedValueChange}
                         />
-                    </div>
+                    </div> */}
 
                     <div
                         onClick={() => phoneRef.current?.focus()}
@@ -183,7 +188,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     >
                         <label
                             className="floating-label"
-                        // style={{ color: error.last_name ? 'var(--primary-color)' : '' }}
                         >
                             Phone
                         </label>
@@ -195,6 +199,30 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onBlur={() => setFocusedField("")}
                             name='phone'
                             value={orderPayload.billing?.phone}
+                            onChange={handleNestedValueChange}
+                        />
+                    </div>
+
+
+
+                    <div
+                        onClick={() => altPhoneRef.current?.focus()}
+                        style={{ border: error.alt_phone ? '1px solid var(--orange-outline)' : '' }}
+                        className={`delivery-input-container-phone ${focusedField === 'alt_phone' || orderPayload.billing?.alt_phone ? "focused" : ""}`}
+                    >
+                        <label
+                            className="floating-label"
+                        >
+                            Alternate Phone
+                        </label>
+                        <input
+                            type="text"
+                            ref={altPhoneRef}
+                            className="input-field-email"
+                            onFocus={() => setFocusedField("alt_phone")}
+                            onBlur={() => setFocusedField("")}
+                            name='alt_phone'
+                            value={orderPayload.billing?.alt_phone}
                             onChange={handleNestedValueChange}
                         />
                     </div>
@@ -284,6 +312,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField('city')}
                             onBlur={() => setFocusedField("")}
                             name='city'
+                            readOnly
                             value={orderPayload.billing?.city}
                             onChange={handleNestedValueChange}
                         />
@@ -306,6 +335,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField("state")}
                             onBlur={() => setFocusedField("")}
                             name='state'
+                            readOnly
                             value={orderPayload.billing?.state}
                             onChange={handleNestedValueChange}
                         />

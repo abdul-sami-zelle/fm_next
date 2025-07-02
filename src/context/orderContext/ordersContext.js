@@ -30,7 +30,7 @@ export const MyOrdersProvider = ({ children }) => {
             postal_code: "",
             country: "USA",
             email: "",
-            phone: ""
+            phone: "",
         },
     })
 
@@ -55,7 +55,8 @@ export const MyOrdersProvider = ({ children }) => {
             postal_code: "",
             country: "USA",
             email: "",
-            phone: ""
+            phone: "",
+            alt_phone: ""
         },
         shipToDiffAdd: false,
         shipping: {
@@ -67,7 +68,8 @@ export const MyOrdersProvider = ({ children }) => {
             postal_code: "",
             country: "USA",
             email: "",
-            phone: ""
+            phone: "",
+            alt_phone: ""
         },
         card_info: {
             card_holder_name: '',
@@ -96,6 +98,8 @@ export const MyOrdersProvider = ({ children }) => {
         shipping_cost: 10,
         professional_assembled: cartProducts?.is_professional_assembly
     })
+
+    // useEffect(() => {console.log("billing payload", orderPayload)})
 
 
     
@@ -175,7 +179,7 @@ export const MyOrdersProvider = ({ children }) => {
             ...prevOrders,
             billing: {
                 ...prevOrders.billing,
-                [name]: name === 'phone' ? formatPhoneNumber(value) : value, // Update the specific field in billing
+                [name]: name === 'phone' ? formatPhoneNumber(value) : name === 'alt_phone' ? formatPhoneNumber(value) : value, // Update the specific field in billing
             },
         }));
         setEmptyField((prev) => ({ ...prev, [name]: "" }));

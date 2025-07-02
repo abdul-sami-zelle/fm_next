@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './SimillerProducts.css'
-// import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { url } from '../../../utils/api'
 import heart from '../../../Assets/icons/heart-vector.png'
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer'
 import { useList } from '../../../context/wishListContext/wishListContext'
 import Slider from 'react-slick'
-import star from '../../../Assets/icons/black-star.png'
 import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
 import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
-import { toast } from 'react-toastify'
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
@@ -33,45 +29,28 @@ function SampleNextArrow(props) {
   )
 }
 
-const SimillerProducts = ({ collection, isPadding }) => {
-  const simillerProducts = collection.map((item) => item);
+const SimillerProducts = ({ collection, isPadding, productId }) => {
 
   const [data, setData] = useState()
-  const fetchData = async () => {
-    const api = `/api/v1/products/get/`;
+  
+
+  const fetchCollections = async () => {
+    const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-collection-products/${productId}`
+
     try {
-      const request = simillerProducts.map(async (item) => {
-        const response = await axios.get(`${url}${api}${item}`);
-        return response.data.products;
-      });
-      const myCollections = await Promise.all(request);
-      const filteredMyCollection = myCollections.flat();
-      return filteredMyCollection;
+      const response = await axios.get(api)
+      if(response.status === 200) {
+        setData(response.data.products)
+      }
     } catch (error) {
-      console.error("error geting data", error)
+      console.error("UnExpected Server Error", error);
     }
   }
 
-
-  const getchMyCollectionProducts = async () => {
-    const products = await fetchData();
-    setData(products);
-  }
   useEffect(() => {
-    getchMyCollectionProducts()
-  }, [])
+    fetchCollections()
+  }, [productId])
 
-
-  // Card title words limit
-  // const maxLength = 30;
-  // const truncateTitle = (title, maxLength) => {
-  //     if(!title) return '';
-  //     return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
-  // };
-
-  // product color variation index from redux
-
-  // const navigate = useNavigate()
   const [quickViewProduct, setQuickViewProduct] = useState({})
   const [quickViewClicked, setQuickView] = useState(false);
   const handleQuickViewOpen = (item) => {
@@ -80,28 +59,12 @@ const SimillerProducts = ({ collection, isPadding }) => {
 
   }
 
-  // useEffect(() => {
-  //   if(quickViewProduct) {
-  //     document.body.style.overflow = 'hidden';
-  //   } else {
-  //     document.body.style.overflow = 'auto'
-  //   }
-  // }, [quickViewProduct])
 
   const handleQuickViewClose = () => { setQuickView(false) }
 
-  // const handleQuickViewClose = () => { setQuickView(false) }
-
   const router = useRouter();
-  // const handleCardClick = (item) => {
-  //     navigate(`/product/${item.slug}`, {state: {products: item}})
-  // }
-
-  // wish list
 
   const { addToList, removeFromList, isInWishList } = useList()
-  const notify = (str) => toast.success(str);
-  const notifyRemove = (str) => toast.error(str)
 
   const [showSnakeBar, setShowSnakeBar] = useState(false);
   const [snakeBarMessage, setSnakeBarMessage] = useState()
@@ -110,17 +73,12 @@ const SimillerProducts = ({ collection, isPadding }) => {
       removeFromList(item.uid);
       setShowSnakeBar(true);
       setSnakeBarMessage("Product Removed From Wish List");
-      // notifyRemove('Removed from wish list', {
-      //   autoClose: 10000,
-      //   className: "toast-message",
-      // })
+      
     } else {
       addToList(item)
       setShowSnakeBar(true);
       setSnakeBarMessage("Product Added To Wish List");
-      // notify("added to wish list", {
-      //   autoClose: 10000,
-      // })
+      
     }
   }
 
@@ -184,7 +142,7 @@ const SimillerProducts = ({ collection, isPadding }) => {
       <div className='cart-related-products-slider-main-div'>
         <Slider {...settings}>
           {data ? (
-            data.map((item, index) => (
+            data?.map((item, index) => (
               <div key={index} className='cart-latest-product-cards-container'>
                 <ProductCardTwo
                   key={index}

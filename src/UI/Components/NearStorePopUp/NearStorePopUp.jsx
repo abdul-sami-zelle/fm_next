@@ -18,7 +18,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
         setZipCode,
         handleInputChange,
         handleButtonClick,
-        info
+        info,
     } = useGlobalContext();
 
     const [storeOpenIndex, setOpenStoreIndex] = useState(-1);
@@ -85,20 +85,22 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
         setCurrentDay(getDayInPhiladelphia())
     }, [])
 
+    const [currentStoreId, setCurrentStoreId] = useState(stores[0]?._id);
+    const fetchData = async () => {
+            await handleButtonClick();
+        };
+        
     const handleCurrentStore = (item, index) => {
-        console.log("clicked location item", item)
+        setCurrentStoreId(item._id)
         setCurrentIndex(index)
+
         setZipCode(item.postal_code)
     }
 
+
     useEffect(() => {
-        
-        
-        const fetchData = async () => {
-            await handleButtonClick();
-        };
+    
         fetchData();
-        console.log("inner call time")
     }, [zipCode]);
 
 
@@ -171,7 +173,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                         <h3>Your Store {stores && stores?.length}</h3>
                     </div>
                     {stores && stores?.map((items, index) => {
-                        return <div key={index} className={`${currentIndex === index ? 'near-stores-current-store' : 'other-nearby-stores'} `} onClick={() => { handleCurrentStore(items, index); handleButtonClick() }}>
+                        return <div key={index} className={`${currentStoreId === items._id ? 'near-stores-current-store' : 'other-nearby-stores'} `} onClick={() => handleCurrentStore(items, index)}>
                             <div className={`pop-up-city-and-distance ${storeOpenIndex === index ? 'rotate-btn' : ''}`}>
                                 <span>
                                     <button className={`near-store-popup-accordion-icon ${storeOpenIndex === index ? 'rotate-btn' : ''}`} onClick={() => { handleStoreHoursDetails(index) }}> <IoIosAdd size={20} color='#fff"' /> </button>

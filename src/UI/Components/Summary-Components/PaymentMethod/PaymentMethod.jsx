@@ -33,7 +33,6 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
     }))
   }, [selectedPaymentType])
 
-  useEffect(() => {console.log("order payload in parent", orderPayload)}, [orderPayload])
 
 
   return (
