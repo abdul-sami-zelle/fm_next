@@ -322,8 +322,11 @@
     background-color: var(--text-charcol) !important;
 }
 
-
 .best-seller-swiper {
+  padding-bottom: 30px; 
+}
+
+/* .best-seller-swiper {
   padding-bottom: 30px; 
 }
 
@@ -337,23 +340,33 @@
   font-size: 18px;
   display: flex;
   justify-content: center;
-}
+} */
 
 
 
 /* Customize dots */
 
-.swiper-pagination-bullet {
+
+
+
+
+
+
+
+
+/* .swiper-pagination-bullet {
   background-color: #595959;
   opacity: 0.5 !important;
-  width: 13px !important;
-  height: 13px !important;
+  width: 20px !important;
+  height: 20px !important;
+  transform: scale(1) !important;
 }
 
 .swiper-pagination-bullet-active {
   background-color: var(--orange-outline) !important;
   opacity: 1 !important;
-}
+  transform: scale(1) !important;
+} */
 
 @media only screen and (min-width: 481px) {
     .dot {

@@ -19,8 +19,23 @@
     padding: 20px 60px 30px 60px;
     margin: 0 auto;
     box-sizing: border-box;
-
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
+
+/* .order_description::-webkit-scrollbar {
+  width: 4px;
+  height: 60px;
+}
+
+.order_description::-webkit-scrollbar-track {
+  background: rgba(89, 89, 89, 0.1);
+}
+
+.order_description::-webkit-scrollbar-thumb {
+  background: rgba(89, 89, 89, 0.2);
+  border-radius: 2px;
+} */
 
 .order_details {
     flex: 1;
@@ -683,6 +698,20 @@
 .google-map-desktop{
     display: flex;
     width: 100%;
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1250px) {
+    .order_details {
+        padding: 70px 40px 30px 40px;
+    }
+
+    .cart_product_items {
+        padding: 0;
+    }
+
+    .cart_product_calculations {
+        padding: 30px 40px;
+    }
 }
 
 @media only screen and (max-width: 480px) {

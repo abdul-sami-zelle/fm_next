@@ -288,7 +288,7 @@
     width: 100%;
     align-items: start;
     justify-content: start;
-    padding: 25px 10px;
+    padding: 0px 10px;
     gap: 15px;
 }
 
@@ -489,38 +489,10 @@
     width: 100% !important;
 }
 
-
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-}
-
 .best-seller-swiper {
-  padding-bottom: 30px; /* 15px space below dot + 15px from card */
+  padding-bottom: 30px; 
 }
 
-/* Customize dots */
-.swiper-pagination-bullet {
-  background-color: #595959;
-  opacity: 0.5 !important;
-  width: 13px !important;
-  height: 13px !important;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #595959 !important;
-  opacity: 1 !important;
-}
 
 
 

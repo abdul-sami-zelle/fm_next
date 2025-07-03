@@ -24,7 +24,7 @@ const Shopvia = () => {
             <div className='social-icons-container'>
               {socialData.map((item, index) => (
                 <Link href={item.link} key={index}>
-                  <item.icon size={25} color='var(--text-oposite)' style={{cursor: 'pointer'}} />
+                  <item.icon size={20} color='var(--text-oposite)' style={{cursor: 'pointer'}} />
                 </Link>
               ))}
             </div>

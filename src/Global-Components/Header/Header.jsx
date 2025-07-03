@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import './Header.css';
-// import { Link, useNavigate } from 'react-router-dom';
 import Link from 'next/link';
 
 import axios from 'axios';
@@ -11,21 +10,13 @@ import { useUserDashboardContext } from '@/context/userDashboardContext/userDash
 // Assets
 import logo from '../../Assets/Logo/m_logo_360 2.png'
 import searchIcon from '../../Assets/icons/search-icon-charcol.png';
-// import HeartIcon from '../../Assets/icon/favourites-icon.svg';
-// import cartIcon from '../../Assets/icons/shopping-bag.png';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import profileIcon from '../../Assets/icon/profile-icon.svg'
 import locationIcon from '../../Assets/icons/location-red.png';
 import navToggler from '../../Assets/icons/Union.png'
 import searchRed from '../../Assets/icons/search-red.png'
 import { IoIosSearch } from "react-icons/io";
-// import mobileUserIcon from '../../Assets/icons/user-charcol.png';
-// import usaFlag from '../../Assets/icons/usa-flage.png';
-
-import crossIcon from '../../Assets/icons/close-btn.png';
 import { FaArrowLeftLong } from "react-icons/fa6";
-
-// import { PiShoppingCartThin } from "react-icons/pi";
 
 // Components
 import Nav from '../Navbar/Nav';
@@ -42,7 +33,6 @@ import { useCart } from '../../context/cartContext/cartContext';
 import { getCurrentDay, getCurrentTimeForNewYork, url, useDisableBodyScroll } from '../../utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
-import { FaRegUser } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -88,7 +78,6 @@ const Header = ({ checkoutPage }) => {
   const [isMobileSearched, setIsMobileSearched] = useState(false);
   const { singleProductData, setSingleProductData } = useProductPage();
 
-  // useEffect(() => {setNearStorePopUp(false)}, info)
 
   const navLinks = [
     { name: "Living Room", link: 'living-room-category', hasDropdown: true },
@@ -103,8 +92,6 @@ const Header = ({ checkoutPage }) => {
 
   ]
 
-  
-
   // Functions and logincs
   const handleCartSectionOpen = () => {
     setShowCart(true)
@@ -113,10 +100,6 @@ const Header = ({ checkoutPage }) => {
   const handleCartSectionClose = () => {
     setShowCart(false)
   }
-
-  // useEffect(() => {
-  //   setNearStorePopUp(false);
-  // }, [info])
 
   const handleTabMenu = () => {
     setIsTabMenuOpen(!isTabMenuOpen)
@@ -144,36 +127,6 @@ const Header = ({ checkoutPage }) => {
       setHeaderSale(headerContent.data[0].sale)
     }
   }, [headerContent])
-
-  // async function fetchHeaderPayloads() {
-  //   try {
-  //     const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json", // Adjust headers as needed
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
-  //     }
-
-  //     const data = await response.json();
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error.message);
-  //     throw error;
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchHeaderPayloads().then(data => {
-  //     setHeaderData(data.data[0].categories)
-  //     setHeaderSale(data.data[0].sale)
-  //   }).catch(error => {
-  //     console.error(error);
-  //   });
-  // }, [])
 
   const handleNearStorePopUp = () => {
     setNearStorePopUp(true)

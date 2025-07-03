@@ -269,7 +269,7 @@ width: 100%;
     width: 100%;
     align-items: start;
     justify-content: start;
-    padding: 15px 10px;
+    padding: 0px 10px;
     gap: 15px;
 }
 
@@ -502,8 +502,11 @@ width: 100%;
     gap: 5px;
 }
 
-
 .best-seller-swiper {
+  padding-bottom: 30px; 
+}
+
+/* .best-seller-swiper {
   padding-bottom: 30px; 
 }
 
@@ -517,13 +520,13 @@ width: 100%;
   font-size: 18px;
   display: flex;
   justify-content: center;
-}
+} */
 
 
 
 /* Customize dots */
 
-.swiper-pagination-bullet {
+/* .swiper-pagination-bullet {
   background-color: #595959;
   opacity: 0.5 !important;
   width: 13px !important;
@@ -533,7 +536,7 @@ width: 100%;
 .swiper-pagination-bullet-active {
   background-color: var(--orange-outline) !important;
   opacity: 1 !important;
-}
+} */
 
 
 

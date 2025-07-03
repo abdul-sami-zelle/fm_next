@@ -180,13 +180,6 @@ const ProductGallery = ({
             {/* Main Slider Section */}
             <div
                 className='product-gallery-main-slider-section'
-            // onMouseDown={handleDragStart}
-            // onMouseMove={handleDragMove}
-            // onMouseUp={handleDragEnd}
-            // onMouseLeave={handleDragEnd}
-            // onTouchStart={handleDragStart}
-            // onTouchMove={handleDragMove}
-            // onTouchEnd={handleDragEnd}
             >
                 <div className='product-gallery-main-slider-images'>
                     <Swiper
@@ -225,25 +218,6 @@ const ProductGallery = ({
                                             style={{ width: '100%' }}
                                         />
                                     )}
-
-                                    {/* <img
-                                        src={`${url}${imgItem.image_url}`}
-                                        alt='Main slide'
-                                        className={`product-gallery-main-slider-image ${zoomIn ? 'scale-slider-image' : ''}`}
-                                        style={{
-                                            cursor: zoomIn ? (dragging ? "grabbing" : "grab") : "pointer",
-                                            width: '100%',
-                                        }}
-                                        // onDragStart={(e) => e.preventDefault()}
-                                        onMouseDown={zoomIn ? handleDragStart : null}
-                                        onMouseMove={zoomIn ? handleMouseMove : null}
-                                        onMouseUp={zoomIn ? handleMouseUp : null}
-                                        onMouseLeave={zoomIn ? handleMouseUp : null}
-                                        onTouchStart={zoomIn ? handleDragStart : null}
-                                        onTouchMove={zoomIn ? handleMouseMove : null}
-                                        onTouchEnd={zoomIn ? handleMouseUp : null}
-                                        onDragStart={(e) => e.preventDefault()}
-                                    /> */}
                                 </div>
                             </SwiperSlide>
                         ))}

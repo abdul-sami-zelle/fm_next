@@ -49,19 +49,4 @@
     /* Adjust positioning */
   }
 
-  .swiper-pagination {
-    bottom: 10px;
-    /* Adjust positioning */
-  }
-
-  .swiper-pagination-bullet {
-    background: #000;
-    /* Bullet color */
-    opacity: 0.5;
-    /* Bullet opacity */
-  }
-
-  .swiper-pagination-bullet-active {
-    opacity: 1;
-    /* Active bullet opacity */
-  }
+  

@@ -262,13 +262,6 @@ const ProductDetailSticky = (
     router.push('/contact-us')
   }
 
-  // Zoom gallery
-
-  // const [zoomIn, setZoomIn] = useState(false);
-  // const [position, setPosition] = useState({ x: 0, y: 0 });
-  // const [dragging, setDragging] = useState(false);
-  // const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  // const [isClick, setIsClick] = useState(false);
 
   const [zoomIn, setZoomIn] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -281,24 +274,6 @@ const ProductDetailSticky = (
       setPosition({ x: 0, y: 0 }); // Reset position when zooming out
     }
   };
-
-  // const handleMouseDown = (e) => {
-  //   if (!zoomIn) return;
-  //   setDragging(true);
-  //   setIsClick(true);
-  //   setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
-  // };
-
-  // const handleMouseMove = (e) => {
-  //   if (!dragging || !zoomIn) return;
-  //   e.preventDefault();
-
-  //   const newX = e.clientX - startPos.x;
-  //   const newY = e.clientY - startPos.y;
-
-  //   setPosition({ x: newX, y: newY });
-  //   setIsClick(false);
-  // };
 
   const handleMouseDown = (e) => {
     if (!zoomIn) return;
@@ -389,7 +364,6 @@ const ProductDetailSticky = (
   }
 
   const [addCartSticky, setAddCartSticky] = useState(false)
-  // const [isCartTop, setIsCartTop] = useState
   const cartDivRef = useRef(null);
   useEffect(() => {
     const handleScrollAddToCart = () => {
@@ -405,13 +379,7 @@ const ProductDetailSticky = (
 
   }, [cartDivRef]);
   const [errorMessage, setErrorMessage] = useState('Something went wrong! Please try again later.');
-  // const [snakebarOpen, setSnakebarOpen] = useState(false);
-  // const [snakeBarMessage, setSnakeBarMessage] = useState()
-
-  // const handleOpenSnakeBar = () => {
-  //   // setAppointmentModal(false);
-  //   setSnakebarOpen(true);
-  // }
+  
 
   const [showSnakeBar, setShowSnakeBar] = useState(false);
   const [snakeBarMessage, setSnakeBarMessage] = useState()
@@ -424,8 +392,6 @@ const ProductDetailSticky = (
   const handleCloseSnakeBar = () => {
     setShowSnakeBar(false);
   }
-
-  // useEffect(() => { }, [addCartSticky])
 
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
 
@@ -522,7 +488,7 @@ const ProductDetailSticky = (
               handleGalleryModal={handleGalleryModal}
 
             />
-            <ProductDimension productData={product} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} variationData={selectedVariationData} />
+            <ProductDimension productData={product} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
             {product?.weight_dimension && <DimensionDetail productData={product} handleGalleryModal={handleGalleryModal} />}
 
           </div>

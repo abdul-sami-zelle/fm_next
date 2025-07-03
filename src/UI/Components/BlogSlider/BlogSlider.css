@@ -117,16 +117,14 @@
     margin: 0;
     list-style: none;
     text-align: center;
-} 
+}
 
 .blog-card-shimmer-container{
     display: flex;
     width: 100%;
     gap: 15px;
     overflow-y: hidden;
-    overflow-x: auto;
-    
-    
+    overflow-x: auto;   
 }
 
 @media only screen and (max-width: 480px){

@@ -6,6 +6,9 @@ import './DeliveryInfo.css';
 
 import { useMyOrders } from '@/context/orderContext/ordersContext';
 import { useRouter } from 'next/navigation';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import { LiaShippingFastSolid } from "react-icons/lia"
+import { BsShop } from "react-icons/bs";
 
 const DeliveryInfo = forwardRef((props, ref) => {
 
@@ -70,9 +73,68 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
     useEffect(() => { }, [orderPayload])
 
+    const {
+            selectedOption,
+            handleChange,
+            selectedShippingMethods,
+        } = useGlobalContext();
+
+        console.log("shipping method", selectedShippingMethods)
+
 
     return (
         <div className='delivery-form-main-container'>
+
+
+            <div className='shipping-methods-checkout-main-contianer'>
+
+                <h3 className='choose-delivery-checkout-heading'>Choose Delivery Options</h3>
+                <div className='checkout-page-shipping-method-inner-container'>
+                    {selectedShippingMethods &&
+                        selectedShippingMethods?.map((option, index) => (
+                            <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
+                                {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+
+                                <div className='cart-protection-plan-details-container'>
+                                    <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                </div>
+                                <div className='cart-protection-radio-container'>
+                                    <label
+                                        key={option.id}
+                                        className="custom-radio"
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            flexDirection: "row",
+                                            justifyContent: "flex-start",
+                                            // margin: "5px 0",
+                                            gap: "10px",
+                                        }}
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="options"
+                                            value={option.id}
+                                            checked={selectedOption?.id === option.id}
+                                            readOnly
+                                            onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+
+                                        />
+                                        <span className="radio-mark" />
+                                    </label>
+
+                                </div>
+                            </div>
+                        ))}
+                </div>
+
+            </div>
+
+
+
+
+
             <p>All Fields Required Unless indicated Optional </p>
 
             <div className='delivery-form-signup-container'>

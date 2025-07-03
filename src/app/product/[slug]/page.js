@@ -328,7 +328,6 @@ const closeDRM = () =>{
   return (
     <div>
       <div className='product-display-page-main-container'>
-        {/* <Breadcrumb category={product?.categories} /> */}
         <ProductDetailSticky
           productData={product}
           decreaseLocalQuantity={decreaseLocalQuantity}
@@ -351,12 +350,10 @@ const closeDRM = () =>{
           increamentQuantity={increamentQuantity}
           isSticky={isSticky}
           handleGalleryModal={handleOpenModal}
-          // galleryModalWidth={galleryModalWidth}
           isCartLoading={isCartLoading}
           params={params}
           showDRM={showDRM}
           setProductDetails={setProductDetails}
-        // parentCategories={parentCategories}
         />
 
         
