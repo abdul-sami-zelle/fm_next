@@ -29,17 +29,17 @@ function SampleNextArrow(props) {
   )
 }
 
-const SimillerProducts = ({ collection, isPadding, productId }) => {
+const SimillerProducts = ({ isPadding, productId }) => {
 
   const [data, setData] = useState()
-  
+
 
   const fetchCollections = async () => {
     const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-collection-products/${productId}`
 
     try {
       const response = await axios.get(api)
-      if(response.status === 200) {
+      if (response.status === 200) {
         setData(response.data.products)
       }
     } catch (error) {
@@ -73,12 +73,12 @@ const SimillerProducts = ({ collection, isPadding, productId }) => {
       removeFromList(item.uid);
       setShowSnakeBar(true);
       setSnakeBarMessage("Product Removed From Wish List");
-      
+
     } else {
       addToList(item)
       setShowSnakeBar(true);
       setSnakeBarMessage("Product Added To Wish List");
-      
+
     }
   }
 
@@ -95,9 +95,9 @@ const SimillerProducts = ({ collection, isPadding, productId }) => {
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    nextArrow: 
+    nextArrow:
       data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
-    prevArrow: 
+    prevArrow:
       data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
     responsive: [
       {
@@ -136,70 +136,73 @@ const SimillerProducts = ({ collection, isPadding, productId }) => {
   };
 
   return (
-    <div className={`similler-products-main-container ${isPadding ? 'add-padding' : ''}`}>
-      <h3>Shop From This Collection</h3>
+    data?.length > 0 && (
+      <div className={`similler-products-main-container ${isPadding ? 'add-padding' : ''}`}>
+        <h3>Shop From This Collection</h3>
 
-      <div className='cart-related-products-slider-main-div'>
-        <Slider {...settings}>
-          {data ? (
-            data?.map((item, index) => (
-              <div key={index} className='cart-latest-product-cards-container'>
-                <ProductCardTwo
-                  key={index}
-                  slug={item.slug}
-                  singleProductData={item}
-                  maxWidthAccordingToComp={"98%"}
-                  justWidth={'100%'}
-                  showOnPage={true}
-                  percent={'12%'}
-                  showExtraLines={false}
-                  titleHeight={true}
-                  tagIcon={item.productTag ? item.productTag : heart}
-                  tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                  mainImage={`${item.image.image_url}`}
-                  productCardContainerClass="product-card"
-                  ProductSku={item.sku}
-                  tags={item.tags}
-                  allow_back_order={item?.allow_back_order}
-                  ProductTitle={item.name}
+        <div className='cart-related-products-slider-main-div'>
+          <Slider {...settings}>
+            {data ? (
+              data?.map((item, index) => (
+                <div key={index} className='cart-latest-product-cards-container'>
+                  <ProductCardTwo
+                    key={index}
+                    slug={item.slug}
+                    singleProductData={item}
+                    maxWidthAccordingToComp={"98%"}
+                    justWidth={'100%'}
+                    showOnPage={true}
+                    percent={'12%'}
+                    showExtraLines={false}
+                    titleHeight={true}
+                    tagIcon={item.productTag ? item.productTag : heart}
+                    tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                    mainImage={`${item.image.image_url}`}
+                    productCardContainerClass="product-card"
+                    ProductSku={item.sku}
+                    tags={item.tags}
+                    allow_back_order={item?.allow_back_order}
+                    ProductTitle={item.name}
 
-                  reviewCount={item.reviewCount}
-                  lowPriceAddvertisement={item.lowPriceAddvertisement}
-                  priceTag={item.regular_price}
-                  sale_price={item.sale_price}
-                  financingAdd={item.financingAdd}
-                  learnMore={item.learnMore}
-                  mainIndex={index}
-                  deliveryTime={item.deliveryTime}
-                  stock={item.manage_stock}
-                  attributes={item.attributes}
-                  handleCardClick={() => handleProductClick(item)}
-                  handleQuickView={() => handleQuickViewOpen(item)}
-                  handleWishListclick={() => handleWishList(item)}
-                />
-              </div>
-            ))
-          ) : (
-            Array.from({ length: 4 }).map((_, index) => (
-              <ProductCardShimmer />
-            ))
-          )}
-        </Slider>
+                    reviewCount={item.reviewCount}
+                    lowPriceAddvertisement={item.lowPriceAddvertisement}
+                    priceTag={item.regular_price}
+                    sale_price={item.sale_price}
+                    financingAdd={item.financingAdd}
+                    learnMore={item.learnMore}
+                    mainIndex={index}
+                    deliveryTime={item.deliveryTime}
+                    stock={item.manage_stock}
+                    attributes={item.attributes}
+                    handleCardClick={() => handleProductClick(item)}
+                    handleQuickView={() => handleQuickViewOpen(item)}
+                    handleWishListclick={() => handleWishList(item)}
+                  />
+                </div>
+              ))
+            ) : (
+              Array.from({ length: 4 }).map((_, index) => (
+                <ProductCardShimmer />
+              ))
+            )}
+          </Slider>
+        </div>
+
+        <QuickView
+          setQuickViewProduct={quickViewProduct}
+          quickViewShow={quickViewClicked}
+          quickViewClose={handleQuickViewClose}
+        />
+
+        <SnakBar
+          message={snakeBarMessage}
+          openSnakeBarProp={showSnakeBar}
+          setOpenSnakeBar={setShowSnakeBar}
+          onClick={handleCloseSnakeBar}
+        />
       </div>
 
-      <QuickView
-        setQuickViewProduct={quickViewProduct}
-        quickViewShow={quickViewClicked}
-        quickViewClose={handleQuickViewClose}
-      />
-
-      <SnakBar
-        message={snakeBarMessage}
-        openSnakeBarProp={showSnakeBar}
-        setOpenSnakeBar={setShowSnakeBar}
-        onClick={handleCloseSnakeBar}
-      />
-    </div>
+    )
   )
 }
 export default SimillerProducts

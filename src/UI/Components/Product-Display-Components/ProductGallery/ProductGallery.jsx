@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './ProductGallery.css';
 import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft } from "react-icons/io";
 import { url } from '../../../../utils/api';
@@ -16,6 +16,7 @@ const ProductGallery = ({
     zoomIn,
     setZoomIn,
     handleGalleryModal,
+    setSlideIndex,
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [thumbActiveIndex, setThumbActiveIndex] = useState(0);
@@ -134,6 +135,16 @@ const ProductGallery = ({
     }
 
 
+    // useEffect(() => {
+    //     console.log("thumb active index", thumbActiveIndex)
+    //     setZoomIn(false)
+    // }, [thumbActiveIndex])
+
+    // useEffect(() => {
+    //     console.log("zoom value", zoomIn)
+    // }, [zoomIn])
+
+
 
 
 
@@ -189,6 +200,7 @@ const ProductGallery = ({
                             setActiveIndex(index);
                             setThumbActiveIndex(index);
                             scrollThumbnailIntoView(index);
+                            setSlideIndex(index)
                             setZoomIn(false);
                         }}
                         pagination={{

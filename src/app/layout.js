@@ -33,6 +33,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../Styles/App.css'; // Global styles for the entire app
 import '../Styles/index.css' // Global styles for the entire app
 import { usePathname } from 'next/navigation';
+import { ChatOpenProvider } from '@/context/ChatbotContext/ChatbotContext';
 
 
 // export const metadata = {
@@ -105,6 +106,7 @@ export default function RootLayout({ children }) {
                                       <ProductPageProvider>
                                         <VariationProvider>
                                           <ProductArchiveProvider>
+                                            <ChatOpenProvider>
 
 
                                             <ToastContainer
@@ -139,6 +141,7 @@ export default function RootLayout({ children }) {
                                               <Home/>
                                             </div>} */}
                                             {!hideChatOption && <Home />}
+                                            </ChatOpenProvider>
                                           </ProductArchiveProvider>
                                         </VariationProvider>
                                       </ProductPageProvider>

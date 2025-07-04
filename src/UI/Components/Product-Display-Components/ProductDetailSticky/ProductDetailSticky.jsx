@@ -38,6 +38,7 @@ import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
 import Link from 'next/link'
 import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
+import { useChatOpenContext } from '@/context/ChatbotContext/ChatbotContext'
 
 
 
@@ -76,8 +77,10 @@ const ProductDetailSticky = (
   const router = useRouter()
   const { setAppointmentPayload } = useAppointment()
   const [selectedTab, setSelectedTab] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(null)
 
   const { info, fetchAllstores } = useGlobalContext();
+  const { handleOpenChatUsOnly } = useChatOpenContext()
 
   // Get Product Data from previous route or api
   const {
@@ -486,9 +489,10 @@ const ProductDetailSticky = (
               handleMouseMove={handleMouseMove}
               handleMouseUp={handleMouseUp}
               handleGalleryModal={handleGalleryModal}
+              setSlideIndex={setSlideIndex}
 
             />
-            <ProductDimension productData={product} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
+            <ProductDimension productData={product} slideIndex={slideIndex} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
             {product?.weight_dimension && <DimensionDetail productData={product} handleGalleryModal={handleGalleryModal} />}
 
           </div>
@@ -736,7 +740,7 @@ const ProductDetailSticky = (
                     Call
                   </a>
 
-                  <button  >
+                  <button  onClick={handleOpenChatUsOnly} >
                     <IoChatbubbleOutline size={18} color='var(--secondary-color)' />
                     Chat
                   </button>

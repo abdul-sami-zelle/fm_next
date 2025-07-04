@@ -1,61 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import './FrequentlyBought.css';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import star from '../../../Assets/icons/black-star.png'
-import { url } from '../../../utils/api';
 import heart from '../../../Assets/icons/heart-vector.png'
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo';
 import QuickView from '../QuickView/QuickView';
 import { useRouter } from 'next/navigation';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
-import { Categories } from 'emoji-picker-react';
 
-const FrequentlyBought = ({ relatedProducts, isPadding, product }) => {
+const FrequentlyBought = ({ isPadding, product }) => {
 
-    // const productData = useSelector((state) => state.products.data)
-    const products = relatedProducts;
-    // const relatedCollection = products.map((item) => item)
+    // const products = relatedProducts;
 
     const [data, setData] = useState()
-    // const fetchData = async () => {
-    //     const api = `/api/v1/products/get/`;
-    //     try {
-    //         const request = relatedCollection.map(async (item) => {
-    //             const response = await axios.get(`${url}${api}${item}`);
-    //             return response.data.products;
-    //         });
-    //         const relatedMyCollection = await Promise.all(request);
-    //         const filteredMyRelatedProducts = relatedMyCollection.flat();
-    //         return filteredMyRelatedProducts;
-    //     } catch (error) {
-    //         console.error("error geting data", error)
-    //     }
-    // }
 
-    // const getchMyCollectionProducts = async () => {
-    //     const products = await fetchData();
-    //     setData(products);
-    // }
-
-    // console.log("may also like", product);
 
     const handleFrequentlyBought = async () => {
         const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-related-products`;
         const payload = {
             categories: product.categories,
             productName: product.name,
-            currentProductId: product._id 
+            currentProductId: product._id
         }
 
         console.log("current payload", payload);
         try {
             const response = await axios.post(api, payload);
             console.log("frequently buy response", response);
-            if(response.status === 200) {
+            if (response.status === 200) {
                 setData(response.data.products)
             }
         } catch (error) {
@@ -64,11 +37,9 @@ const FrequentlyBought = ({ relatedProducts, isPadding, product }) => {
     }
 
     useEffect(() => {
-        // getchMyCollectionProducts()
         handleFrequentlyBought()
     }, [product])
 
-    // const {products} = useProducts()
     const router = useRouter();
 
 
@@ -77,24 +48,17 @@ const FrequentlyBought = ({ relatedProducts, isPadding, product }) => {
     const [showSnakeBar, setShowSnakeBar] = useState(false);
 
     const { addToList, removeFromList, isInWishList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
     const handleWishList = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
             setShowSnakeBar(true)
             setSnakBarMessage("Product Removed Successfully")
-            // notifyRemove('Removed from wish list', {
-            //     autoClose: 10000,
-            //     className: "toast-message",
-            // })
+
         } else {
             addToList(item)
             setSnakBarMessage("Product Added To Wish List");
             setShowSnakeBar(true)
-            // notify("added to wish list", {
-            //     autoClose: 10000,
-            // })
+
         }
     }
     const handleCloseSnakeBar = () => {
@@ -115,63 +79,66 @@ const FrequentlyBought = ({ relatedProducts, isPadding, product }) => {
 
 
     return (
-        <div className={`frequently-bought-main ${isPadding ? 'add-padding' : ''}`}>
-            <h3>You May Also Like</h3>
-            <div className='frequently-bought-card'>
-                {data ? (
-                    data && data?.slice(0, 5).map((item, index) => (
-                        <ProductCardTwo
-                            key={index}
-                            slug={item.slug}
-                            singleProductData={item}
-                            maxWidthAccordingToComp={"98%"}
-                            justWidth={'100%'}
-                            showOnPage={true}
-                            percent={'12%'}
-                            titleHeight={true}
-                            tagIcon={item.productTag ? item.productTag : heart}
-                            tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                            mainImage={`${item.image.image_url}`}
-                            productCardContainerClass="product-card"
-                            ProductSku={item.sku}
-                            tags={item.tags}
-                            allow_back_order={item?.allow_back_order}
-                            ProductTitle={item.name}
-                            colTwo={true}
-                            reviewCount={item.reviewCount}
-                            lowPriceAddvertisement={item.lowPriceAddvertisement}
-                            priceTag={item.regular_price}
-                            sale_price={item.sale_price}
-                            financingAdd={item.financingAdd}
-                            learnMore={item.learnMore}
-                            mainIndex={index}
-                            deliveryTime={item.deliveryTime}
-                            stock={item.manage_stock}
-                            attributes={item.attributes}
-                            handleCardClick={() => handleProductClick(item)}
-                            handleQuickView={() => handleQuickViewOpen(item)}
-                            handleWishListclick={() => handleWishList(item)}
-                        />
-                    ))
-                ) : (
-                    Array.from({ length: 4 }).map((_, index) => (
-                        <ProductCardShimmer key={index} />
-                    ))
-                )}
-            </div>
-            <QuickView
-                setQuickViewProduct={quickViewProduct}
-                quickViewShow={quickViewClicked}
-                quickViewClose={handleQuickViewClose}
-            />
+        data?.length > 0 && (
+            <div className={`frequently-bought-main ${isPadding ? 'add-padding' : ''}`}>
+                <h3>You May Also Like</h3>
+                <div className='frequently-bought-card'>
+                    {data ? (
+                        data && data?.slice(0, 5).map((item, index) => (
+                            <ProductCardTwo
+                                key={index}
+                                slug={item.slug}
+                                singleProductData={item}
+                                maxWidthAccordingToComp={"98%"}
+                                justWidth={'100%'}
+                                showOnPage={true}
+                                percent={'12%'}
+                                titleHeight={true}
+                                tagIcon={item.productTag ? item.productTag : heart}
+                                tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                                mainImage={`${item.image.image_url}`}
+                                productCardContainerClass="product-card"
+                                ProductSku={item.sku}
+                                tags={item.tags}
+                                allow_back_order={item?.allow_back_order}
+                                ProductTitle={item.name}
+                                colTwo={true}
+                                reviewCount={item.reviewCount}
+                                lowPriceAddvertisement={item.lowPriceAddvertisement}
+                                priceTag={item.regular_price}
+                                sale_price={item.sale_price}
+                                financingAdd={item.financingAdd}
+                                learnMore={item.learnMore}
+                                mainIndex={index}
+                                deliveryTime={item.deliveryTime}
+                                stock={item.manage_stock}
+                                attributes={item.attributes}
+                                handleCardClick={() => handleProductClick(item)}
+                                handleQuickView={() => handleQuickViewOpen(item)}
+                                handleWishListclick={() => handleWishList(item)}
+                            />
+                        ))
+                    ) : (
+                        Array.from({ length: 4 }).map((_, index) => (
+                            <ProductCardShimmer key={index} />
+                        ))
+                    )}
+                </div>
+                <QuickView
+                    setQuickViewProduct={quickViewProduct}
+                    quickViewShow={quickViewClicked}
+                    quickViewClose={handleQuickViewClose}
+                />
 
-            <SnakBar
-                message={snakeBarMessage}
-                openSnakeBarProp={showSnakeBar}
-                setOpenSnakeBar={setShowSnakeBar}
-                onClick={handleCloseSnakeBar}
-            />
-        </div>
+                <SnakBar
+                    message={snakeBarMessage}
+                    openSnakeBarProp={showSnakeBar}
+                    setOpenSnakeBar={setShowSnakeBar}
+                    onClick={handleCloseSnakeBar}
+                />
+            </div>
+
+        )
     )
 }
 

@@ -187,12 +187,6 @@ const Header = ({ checkoutPage }) => {
   const path = usePathname();
   useEffect(() => { setIsSearchInputFocused(false) }, [path])
 
-  // const handleBlur = () => {
-
-  //   setSearchedProducts([])
-  //   setSearchQuery('')
-  //   setIsSearchInputFocused(false)
-  // }
 
   // Card title words limit
 
@@ -234,7 +228,6 @@ const Header = ({ checkoutPage }) => {
   }
 
   const handleNavigateToSingleProduct = (items) => {
-    // navigate.push(`/product/${items.slug}`, { state: items })
     router.push(`/product/${items.slug}`);
     setSingleProductData(items)
     setSearchQuery('')
@@ -455,7 +448,7 @@ const Header = ({ checkoutPage }) => {
                     className='searched-product'
                     onMouseEnter={() => handleProductHOver(index)}
                     onMouseLeave={handleMouseLeave}
-                    // onClick={() => handleNavigateToSingleProduct(items)}
+                    onClick={() => {setSearchQuery(''); setIsSearchInputFocused(false); setSearchedProducts([])}}
                     href={{ pathname: `/product/${items.slug}`, state: items }}
                   >
                     {items?.image?.image_url && (<Image src={`${url}${items?.image?.image_url}`} width={80} height={40} alt='main' />)}

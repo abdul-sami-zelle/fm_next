@@ -71,10 +71,6 @@ const Cart = () => {
     isProfessionalAssembly,
   } = useCart();
 
-  // const subTotalOfAllProducts = cart?.map(item => item.product.sub_total);
-  // const subtotal = subTotalOfAllProducts?.reduce((acc, value) => acc + value, 0)
-  // const protectionPrice = isCheck[0] ? 210 : 0;
-  // const assemblyPrice = isCheck[1] ? 250 : 0;
 
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
