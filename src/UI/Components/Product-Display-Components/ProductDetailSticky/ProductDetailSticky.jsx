@@ -5,10 +5,7 @@ import ProductDimension from '../ProductDimenson/ProductDimension'
 import { useProductPage } from '../../../../context/ProductPageContext/productPageContext'
 import RatingReview from '../../starRating/starRating'
 import { FaShareSquare } from 'react-icons/fa'
-import axios from 'axios'
 import { formatedPrice, truncateTitle, url, getDeliveryDate, useDisableBodyScroll } from '../../../../utils/api'
-// import { useNavigate, useParams } from 'react-router-dom'
-import AlsoNeed from '../../AlsoNeed/AlsoNeed'
 import SizeVariant from '../../SizeVariant/SizeVariant'
 import { FaLocationDot, FaPlus, FaWindowMinimize } from 'react-icons/fa6'
 import { useList } from '../../../../context/wishListContext/wishListContext'
@@ -69,7 +66,9 @@ const ProductDetailSticky = (
     params,
     setProductDetails,
     galleryModalWidth,
-    showDRM
+    showDRM,
+    dimensionModal,
+    showDesignRoomModal,
     // parentCategories,
   }) => {
 
@@ -410,6 +409,8 @@ const ProductDetailSticky = (
     setWhatIsCoveredModal(false);
   }
 
+  
+
   useDisableBodyScroll(whatIsCoveredModa)
 
   return (
@@ -492,7 +493,7 @@ const ProductDetailSticky = (
               setSlideIndex={setSlideIndex}
 
             />
-            <ProductDimension productData={product} slideIndex={slideIndex} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
+            <ProductDimension productData={product} slideIndex={slideIndex} dimensionModal={dimensionModal} showDesignRoomModal={showDesignRoomModal} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
             {product?.weight_dimension && <DimensionDetail productData={product} handleGalleryModal={handleGalleryModal} />}
 
           </div>

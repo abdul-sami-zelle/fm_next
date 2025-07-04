@@ -2,12 +2,11 @@ import React, { useState, useRef } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { FiSend } from "react-icons/fi";
 import { RiArrowLeftSLine } from "react-icons/ri";
-import { MdOutlineCalendarToday, MdOutlineEmojiEmotions } from "react-icons/md";
+import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 import EmojiPicker from "emoji-picker-react";
 import "./style.css";
 import { FaRegCalendar } from "react-icons/fa";
-import { IoCheckmark } from "react-icons/io5";
 
 const OnlineChatUs = ({ onBack, onClose }) => {
   const [message, setMessage] = useState("");

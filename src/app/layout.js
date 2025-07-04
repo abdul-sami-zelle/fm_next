@@ -36,42 +36,9 @@ import { usePathname } from 'next/navigation';
 import { ChatOpenProvider } from '@/context/ChatbotContext/ChatbotContext';
 
 
-// export const metadata = {
-//   title: 'My Furniture Mecca',
-//   description: 'Default Layout Description',
-//   icons: {
-//     icon: '/favicon.png', // or .ico, .svg
-//     shortcut: '/favicon.ico',
-//     apple: '/favicon.png',
-//   },
-// };
 
 
 export default function RootLayout({ children }) {
-  // const { title, description, image } = useSEOContext();
-  // const { mainLoader, isWarrantyModalOpen } = useGlobalContext();
-  // const [isVisible, setIsVisible] = useState(false);
-
-  // useEffect(() => {
-  //   if(typeof window !== 'undefined') {
-  //     const handleScroll = () => {
-  //       if (window.scrollY > 300) {
-  //         setIsVisible(true);
-  //       } else {
-  //         setIsVisible(false);
-  //       }
-  //     };
-
-  //     window.addEventListener('scroll', handleScroll);
-  //     return () => window.removeEventListener('scroll', handleScroll);
-  //   }
-  // }, []);
-
-  // const handleClickTop = () => {
-  //   if(typeof window !== 'undefined') {
-  //     window.scrollTo({ top: 0, behavior: 'smooth' });
-  //   }
-  // };
 
   const pathname = usePathname();
   const hideHeaderFooter = pathname.startsWith('/order-confirmation');
@@ -85,6 +52,14 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+        {/* Add this line below for favicon */}
+        <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
       <body>
 
@@ -109,38 +84,18 @@ export default function RootLayout({ children }) {
                                             <ChatOpenProvider>
 
 
-                                            <ToastContainer
-                                              style={{ zIndex: 99999 }}
-                                              position="top-center"
-                                              transition={Zoom}
-                                              autoClose={1000}
-                                            />
-                                            {!hideHeaderFooter && <Header />}
-                                            {!hideHeaderFooter && <Shopvia />}
-                                            <main>{children}</main>
-                                            {!hideHeaderFooter && <Footer />}
-                                            {/* <button
-                                              onClick={handleClickTop}
-                                              className={`scroll-to-top-button ${isVisible ? 'show-scrollTop' : ''}`}
-                                            >
-                                              <IoIosArrowUp size={30} className="lead-to-top-btn" />
-                                            </button> */}
-                                            {/* <DynamicMetaTags title={title} description={description} image={image} /> */}
-                                            {/* {mainLoader && <Loader />} */}
-                                            {/* {isWarrantyModalOpen && <WarrantyModal />} */}
+                                              <ToastContainer
+                                                style={{ zIndex: 99999 }}
+                                                position="top-center"
+                                                transition={Zoom}
+                                                autoClose={1000}
+                                              />
+                                              {!hideHeaderFooter && <Header />}
+                                              {!hideHeaderFooter && <Shopvia />}
+                                              <main>{children}</main>
+                                              {!hideHeaderFooter && <Footer />}
 
-
-                                            {/* {!hideChatOption && <div 
-                                              style={{
-                                                position: 'fixed',
-                                                bottom: '20px',
-                                                right: '20px',
-                                                zIndex: 99999999,
-                                              }}
-                                            >
-                                              <Home/>
-                                            </div>} */}
-                                            {!hideChatOption && <Home />}
+                                              {!hideChatOption && <Home />}
                                             </ChatOpenProvider>
                                           </ProductArchiveProvider>
                                         </VariationProvider>

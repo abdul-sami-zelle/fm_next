@@ -9,14 +9,7 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose }) => {
       <div className="chatbot-frame">
         <div className="animated-border">
           <div className="chatbot-inner">
-            {/* <video
-              className="chatbot-video"
-              src="/assets/Images/ai-chatbot.gif"
-              autoPlay
-              loop
-              muted
-              playsInline
-            /> */}
+            
             <img
               className="chatbot-video"
               src="/Assets/chat/Images/ai-chatbot.gif"

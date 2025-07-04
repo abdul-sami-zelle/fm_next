@@ -7,9 +7,6 @@ export async function generateMetadata() {
     };
   }
   
-  
-  
-  
   export default function ShippingAndDelivery() {
     return <ShippingAndDeliveryClient  />
   }

@@ -7,9 +7,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
-
-
 export default function Category({ params }) {
   
   return <CategoriesClient category={params.category} />

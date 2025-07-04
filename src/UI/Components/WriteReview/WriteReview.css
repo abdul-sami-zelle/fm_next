@@ -180,6 +180,7 @@
 
 .write_review_btn:hover {
     background-color: var(--orange-fill);
+    color: var(--text-oposite);
 }
 
 .image-preview-container {

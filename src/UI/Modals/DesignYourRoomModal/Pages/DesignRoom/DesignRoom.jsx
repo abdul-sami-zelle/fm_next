@@ -155,7 +155,7 @@ const DesignRoom = ({wasPrice,nowPrice,name,image,setAddToCart}) => {
       <div className="category-with-product-card">
         <div style={{ height: "100%" }}>
           <div className="selected-image-container">
-            <h2 className="product-title">{staticRoomTitle}</h2>
+            <h2 className="recomended-product-title">{staticRoomTitle}</h2>
             <div className="image-wrapper-container">
               {isLoadingBg && <div className="image-shimmer-loader" />}
               <div

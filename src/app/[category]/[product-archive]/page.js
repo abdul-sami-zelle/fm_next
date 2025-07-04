@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProductArchive.css';
 
 // Components
@@ -10,47 +10,44 @@ import RelatedCategories from '@/UI/Components/Related-categories-Tags/RelatedCa
 import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiveContext';
 import { usePathname } from 'next/navigation';
 
-const ProductArchive = ({productArchiveHading}) => {
+const ProductArchive = () => {
 
-const [navigationType, setNavigationType] = useState(null);
-
-  const {activePage , setActivePage, setActivePageIndex, setColorValue} = useProductArchive()
-
+  const [navigationType, setNavigationType] = useState(null);
+  const { activePage, setActivePage, setActivePageIndex, setColorValue } = useProductArchive()
   const pathname = usePathname();
-    const hideSection = pathname.startsWith('/searched-products');
+  const hideSection = pathname.startsWith('/searched-products');
 
-    
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.performance) {
-          const [navigation] = window.performance.getEntriesByType('navigation');
-          if (navigation) {
-            setNavigationType(navigation.type);
-          }
-        }
-      }, []);
-    
-      useEffect(() => {
-        if (navigationType && navigationType !== 'back_forward') {
-          setActivePage(1);
-          setActivePageIndex(activePage);
-          setColorValue([]);
-        }
-      }, [navigationType]);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.performance) {
+      const [navigation] = window.performance.getEntriesByType('navigation');
+      if (navigation) {
+        setNavigationType(navigation.type);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (navigationType && navigationType !== 'back_forward') {
+      setActivePage(1);
+      setActivePageIndex(activePage);
+      setColorValue([]);
+    }
+  }, [navigationType]);
 
   return (
     <div>
-        <Products 
+      <Products
+        navigationType={navigationType}
+      />
+      {!hideSection && (
+        <RelatedCategories
           navigationType={navigationType}
         />
-        {!hideSection && (
-          <RelatedCategories
-            navigationType={navigationType}
-          />
-        )}
-        {!hideSection && (
-          <FAQ />
-        )}
-    </div>    
+      )}
+      {!hideSection && (
+        <FAQ />
+      )}
+    </div>
   )
 }
 

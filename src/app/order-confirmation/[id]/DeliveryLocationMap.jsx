@@ -23,7 +23,6 @@ const mapOptions = {
 
 function DeliveryLocationMap({ address_info }) {
   const { isLoaded } = useLoadScript({
-    // googleMapsApiKey: "AIzaSyBCllVZsJjrhrGSJLJTE5NzPNt94ChqHc8",
     googleMapsApiKey:"AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU",
   });
 

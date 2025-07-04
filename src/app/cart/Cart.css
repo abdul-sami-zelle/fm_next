@@ -11,20 +11,16 @@
     display: flex;
     width: 100%;
     max-width: 2000px;
-    /* padding: 10px 0 10px 60px; */
     padding: 0px 120px;
     gap: 10px;
     min-height: 60vh;
     position: relative;
-    /* background-color: orange; */
 }
 
 .cart-products-section {
     display: flex;
     width: 70%;
     padding: 25px 20px 25px 0;
-
-    /* border-right: 1px solid #d9d9d9; */
 }
 
 .cart-products-section.cart-products-section-full-width {
@@ -32,7 +28,6 @@
 }
 
 /* Cart oorder summery */
-
 .cart-order-summery-section {
     display: flex;
     flex-direction: column;
@@ -40,7 +35,6 @@
     height: auto;
     padding-top: 30px;
     margin-top: 105px;
-    /* border: 1px solid black; */
     position: relative;
 }
 
@@ -49,8 +43,6 @@
 }
 
 .cart-order-summery-inner-section {
-    /* position: absolute; */
-    /* bottom: 0; */
     position: sticky;
     top: 20px;
     height: auto;
@@ -66,28 +58,21 @@
     overflow-y: auto;
 }
 
-
-
 /* Scrollbar styles */
 .cart-order-summery-inner-section::-webkit-scrollbar {
     width: 3px;
-    /* Thin scrollbar */
     height: 5px !important;
     background-color: #F0F0F0;
-    /* Background color */
 }
 
 .cart-order-summery-inner-section::-webkit-scrollbar-thumb {
     background-color: var(--secondary-color);
-    /* Scrollbar color */
     border-radius: 3px;
-    /* Rounded corners for the scrollbar */
 }
 
 /* Hide the scrollbar arrows */
 .cart-order-summery-inner-section::-webkit-scrollbar-button {
     display: none;
-    /* Hide top and bottom arrows */
 }
 
 .cart-order-summary-heading {
@@ -102,25 +87,12 @@
     font-weight: 500;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 .cart-order-summary-price-details {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 10px;
 }
-
-
 
 .cart-order-summary-price-detail-single-item {
     display: flex;
@@ -129,7 +101,6 @@
     align-items: center;
     justify-content: space-between;
 }
-
 
 .cart-order-summary-price-detail-single-item-title {
     font-size: var(--content-one-size);
@@ -166,8 +137,6 @@
     font-weight: var(--sub-section-weight);
 }
 
-
-
 .cart-order-summary-zip-code-heading {
     display: flex;
     width: 100%;
@@ -197,11 +166,9 @@
 .cart-order-summary-zip-code-input-div {
     display: flex;
     visibility: hidden;
-
     height: 0;
     padding: 0px 0;
     overflow: hidden;
-    /* border: 1px solid black; */
     transition: all 0.3s ease-in-out;
 }
 
@@ -210,7 +177,6 @@
     padding: 10px 0;
     visibility: visible;
 }
-
 
 .cart-order-summary-zip-code-input-and-button {
     display: flex;
@@ -264,8 +230,6 @@
     font-weight: var(--sub-section-weight);
 }
 
-
-
 .cart-order-summary-zip-arrow {
     transition: all 0.3s ease-in-out;
 }
@@ -273,10 +237,6 @@
 .cart-order-summary-zip-arrow.cart-order-summary-zip-arrow-rotate {
     transform: rotate(180deg);
 }
-
-
-
-
 
 .cart-order-summary-coupon-arrow {
     transition: all 0.3s ease-in-out;
@@ -310,7 +270,7 @@
     gap: 10px;
 }
 
-mobile-cart-order-summary-total {
+.mobile-cart-order-summary-total {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -323,7 +283,6 @@ mobile-cart-order-summary-total {
     height: 0;
     padding: 0px 0;
     overflow: hidden;
-    /* border: 1px solid black; */
     transition: all 0.3s ease-in-out;
 }
 
@@ -429,7 +388,6 @@ mobile-cart-order-summary-total {
     flex-direction: column;
     gap: 25px;
     width: 100%;
-    /* max-width: 2000px; */
     padding: var(--global-padding);
     margin-bottom: 35px;
 }
@@ -443,7 +401,6 @@ mobile-cart-order-summary-total {
 
 .cart-related-products-slider-main-div {
     position: relative;
-    /* display: flex; */
     width: 100%;
     height: auto;
     align-items: center;
@@ -482,8 +439,6 @@ mobile-cart-order-summary-total {
     color: var(--text-oposite);
 }
 
-
-
 .cart-latest-products-slider-arrow-left {
     left: 5px !important;
 }
@@ -491,7 +446,6 @@ mobile-cart-order-summary-total {
 .cart-latest-products-slider-arrow-right {
     right: 5px !important;
 }
-
 
 .cart-latest-products-slider-arrow-left {
     left: 0px;
@@ -515,7 +469,6 @@ mobile-cart-order-summary-total {
     margin: 0 !important;
     padding: 0 !important;
 }
-
 
 .delivery-option-container {
     background-color: #FAFAFA;
@@ -640,8 +593,6 @@ mobile-cart-order-summary-total {
 }
 
 .financing-month-range-apply-button:hover {
-    /* background-color: rgba(89, 89, 89, 0.2); */
-    /* color: var(--secondary-color); */
     background-color: var(--orange-fill);
     color: var(--text-oposite);
 }
@@ -725,7 +676,6 @@ mobile-cart-order-summary-total {
         height: auto;
         padding-top: 0px;
         margin-top: 0px;
-        /* border: 1px solid black; */
         position: relative;
     }
 

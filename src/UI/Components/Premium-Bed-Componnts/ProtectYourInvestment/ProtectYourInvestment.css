@@ -10,7 +10,7 @@
     align-items: stretch;
     justify-content: start;
     width: 100%;
-    height: 60px;
+    height: 40px;
 }
 
 .protect-investment-head {
@@ -23,7 +23,7 @@
 }
 
 .protect-investment-head>h3 {
-    font-size: 30px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -38,7 +38,7 @@
 }
 
 .protect-investment-head-options>p {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -57,13 +57,13 @@
     justify-content: start;
     width: 100%;
     /* height: 45px; */
-    padding: 15px 30px;
+    padding: 10px 30px;
     background-color: var(--tertiary-color);
 }
 
 .protect-investment-full-container>p {
     color: #FFF;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
     text-align: start;
@@ -96,7 +96,7 @@
 }
 
 .protect-invest-single-option-name>h3 {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.2;
     font-weight: 400;
     color: #595959;

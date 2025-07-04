@@ -53,16 +53,6 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
   }, [slugProducts])
 
 
-  // const fetchProductBySlug = async (slug) => {
-  //   try {
-  //     const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
-  //     const fetchedProduct = response.data.products[0] || {};
-  //     setProduct(fetchedProduct);
-  //   } catch (error) {
-  //     console.error('Error fetching product by slug:', error);
-  //   }
-  // };
-
   const reviewsApi = product?.uid ? `${url}/api/v1/reviews/get-by-product/${product?.uid}` : null
   const [reviewFuncCount, setReviewCount] = useState(0);
   const {data: reviewData, error: reviewError, isLoading: reviewLoading} = useSWR(reviewsApi, fetcher, {
@@ -83,27 +73,6 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
     }
   }, [reviewData])
 
-  // const fetchReviews = async (productUid) => {
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.get(`${url}/api/v1/reviews/get-by-product/${productUid}`);
-  //     setReviews(response.data.reviews);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setError('Failed to fetch reviews');
-  //     setLoading(false);
-  //   }
-  // };
-
-  
-
-  // useEffect(() => {
-  //   if (!product) {
-  //     fetchProductBySlug(slug);
-  //   } else if (product?.uid) {
-  //     fetchReviews(product?.uid);
-  //   }
-  // }, [product, slug]);
 
   return (
     <div

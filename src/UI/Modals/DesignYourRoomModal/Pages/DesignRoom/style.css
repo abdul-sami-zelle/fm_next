@@ -16,7 +16,7 @@
   width: 47%;
 }
 
-.product-title {
+.recomended-product-title {
   padding: 30px 30px 25px 30px;
   font-size: 20px;
   font-weight: 600;
@@ -74,7 +74,7 @@
     max-height: 440px;
   }
 
-  .product-title,
+  .recomended-product-title,
   .select-to-add-title {
     font-size: 16px;
     padding: 0px;
@@ -102,10 +102,10 @@
     max-height: 520px;
   }
 
-  .product-title,
+  .recomended-product-title,
   .select-to-add-title {
-    font-size: 16px;
-    padding: 20px 20px 15px;
+    /* padding: 20px 20px 15px; */
+    padding: 10px 0 0 0;
   }
 
   .selected-product-preview {
@@ -130,7 +130,7 @@
     max-height: 600px;
   }
 
-  .product-title,
+  .recomended-product-title,
   .select-to-add-title {
     font-size: 20px;
   }
@@ -156,7 +156,7 @@
     padding: 30px 40px;
   }
 
-  .product-title,
+  .recomended-product-title,
   .select-to-add-title {
     font-size: 22px;
     padding: 35px;

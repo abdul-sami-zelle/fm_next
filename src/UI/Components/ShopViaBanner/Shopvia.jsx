@@ -5,6 +5,7 @@ import './Shopvia.css'
 import { IoClose } from "react-icons/io5";
 import { FaFacebook, FaTiktok, FaYoutube, FaInstagram } from "react-icons/fa";
 import Link from 'next/link';
+import { FaPhone } from "react-icons/fa6";
 
 const Shopvia = () => {
   const [closeBanner, setCloseBanner] = useState(false);
@@ -28,7 +29,7 @@ const Shopvia = () => {
                 </Link>
               ))}
             </div>
-            <span> Shop via <a  href='tel:2153521600'>215 352 1600</a> or <a href="mailto:meccacustomercare@gmail.com">Email</a> </span>
+            <span> <FaPhone size={20} color='var(--text-oposite)' style={{marginRight: '5px'}} /> Get Help Call <a  href='tel:2153521600'>215 352 1600</a> or <a href="mailto:meccacustomercare@gmail.com">Email</a> </span>
         </div>
         <IoClose size={15} color='#FFFFFF' onClick={handleCloseBanner} />
     </div>

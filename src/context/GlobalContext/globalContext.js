@@ -19,24 +19,6 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
 
-  // const [info, setInfo] = useState(() => {
-  //   if(typeof window !== "undefined") {
-  //     const savedInfo = localStorage.getItem('other_info');
-  //     return savedInfo ? JSON.parse(savedInfo) : {
-  //       locationData: {
-  //         zipCode: '19134',
-  //         stateCode: 'PA',
-  //         city: 'E Venango St',
-  //         state: 'Philadelphia',
-  //         country: 'us',
-  //         longitude: '-75.1276754',
-  //         latitude: '40.0045027',
-  //       }
-  //     };
-  //   } 
-  //   return []
-  // });
-
   const defaultInfo = {
     locationData: {
       zipCode: '19134',
@@ -63,6 +45,7 @@ export const GlobalContextProvider = ({ children }) => {
   }, []);
 
   const updateLocationData = (newLocationData) => {
+    console.log("updated location", newLocationData)
     if (newLocationData) {
       setInfo((prevState) => ({
         ...prevState,
@@ -75,6 +58,7 @@ export const GlobalContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("save info into local storage", info)
     if (typeof window !== 'undefined') {
       localStorage.setItem('other_info', JSON.stringify(info));
       fetchAllstores();
@@ -276,11 +260,6 @@ export const GlobalContextProvider = ({ children }) => {
     setSelectedOption(null)
   }, [info])
 
-  // useEffect(() => {
-  //   setAllShippingMethods();
-  //   setTaxValues();
-  //   setSelectedOption(null)
-  // }, [])
 
   useEffect(() => { setAllShippingMethods() }, [])
 
@@ -289,10 +268,11 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   const handleButtonClick = async () => {
+    console.log("filter zip", extractZipCode(zipCode))
     const data = await getStateByPostalCode(extractZipCode(zipCode));
     if (data) {
       updateLocationData({
-        zipCode: zipCode,
+        zipCode: extractZipCode(zipCode),
         stateCode: data['state abbreviation'],
         city: data['place name'],
         state: data['state'],

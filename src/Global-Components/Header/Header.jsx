@@ -390,12 +390,9 @@ const Header = ({ checkoutPage }) => {
     fetchAllstores("code", info?.locationData?.zipCode);
   }, [info?.locationData?.zipCode])
 
-
-
-
-
   useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible)
 
+  useEffect(() => {console.log("info state", info)}, [info])
 
   return (
     <div className={`haider-main-container ${checkoutPage ? 'hide-header' : ''}`}>

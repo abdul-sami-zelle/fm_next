@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 40%;
     overflow: hidden;
     border-radius: 20px;
 }
@@ -25,12 +25,12 @@
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
     gap: 15px;
 }
 
 .file-claim-content-section>h3 {
-    font-size: 40px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -53,7 +53,7 @@
 }
 
 .file-claim-content-section>p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;

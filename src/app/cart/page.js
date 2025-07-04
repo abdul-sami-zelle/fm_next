@@ -23,7 +23,7 @@ import { useRouter } from 'next/navigation';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 function SamplePrevArrow(props) {
-  const { className, style, onClick, isVisible } = props;
+  const { onClick, isVisible } = props;
   if (!isVisible) return null;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left `} >
@@ -33,7 +33,7 @@ function SamplePrevArrow(props) {
 }
 
 function SampleNextArrow(props) {
-  const { className, style, onClick, isVisible } = props;
+  const { onClick, isVisible } = props;
   if (!isVisible) return null;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right `} >
@@ -71,7 +71,6 @@ const Cart = () => {
     isProfessionalAssembly,
   } = useCart();
 
-
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
   }
@@ -81,24 +80,23 @@ const Cart = () => {
 
   const [latestProducts, setLatestProducts] = useState([]);
 
-
-    useEffect(() => {
-      const getLatestProducts = async () => {
-        const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
-        const payload = {
-          cart: cartProducts?.products?.map(item => item._id) || []
-        };
-        try {
-          const response = await axios.post(api, payload);
-          setLatestProducts(response.data.recommendations);
-        } catch (error) {
-          console.error("error", error);
-        }
+  useEffect(() => {
+    const getLatestProducts = async () => {
+      const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+      const payload = {
+        cart: cartProducts?.products?.map(item => item._id) || []
       };
-      if (cartProducts?.products?.length > 0) {
-        getLatestProducts();
+      try {
+        const response = await axios.post(api, payload);
+        setLatestProducts(response.data.recommendations);
+      } catch (error) {
+        console.error("error", error);
       }
-    }, [cartProducts]);
+    };
+    if (cartProducts?.products?.length > 0) {
+      getLatestProducts();
+    }
+  }, [cartProducts]);
 
   useEffect(() => {
     if (shippingMethods) {
@@ -371,7 +369,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      
+
       {cartProducts?.products?.length > 0 && (
         <div className='cart-related-products-display-section'>
           <h3>You May Also Like</h3>

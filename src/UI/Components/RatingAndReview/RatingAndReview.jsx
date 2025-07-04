@@ -5,6 +5,7 @@ import RatingReview from '../starRating/starRating';
 import { FaStar } from "react-icons/fa";
 import { transformReviewData, extractImagesFromReviews } from '../../../utils/api';
 import no_image from "../../../Assets/no_image.png"
+import Image from 'next/image';
 
 const RatingAndReview = ({ rating, data }) => {
 
@@ -73,7 +74,7 @@ const RatingAndReview = ({ rating, data }) => {
 
                     <div className='customer-images-section-not'>
 
-                        <img src={'/Assets/no_image.png'} alt=' no image icon' />
+                        <Image src={'/Assets/global-images/no-img.svg'} width={200} height={40} alt=' no image icon' />
                     </div>
 
 

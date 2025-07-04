@@ -22,7 +22,6 @@ const SingleBlog = () => {
 
     const {
         blogs,
-        // fetchBlogCategories,
         blogCategories,
         fetchBlogs,
     } = useBlog();
@@ -32,14 +31,9 @@ const SingleBlog = () => {
 
     let singleBlog = {}
     if (!singleBlog.slug) {
-        // If `singleBlog` is not available in `location.state`, find it in the `blogs` array
-
         singleBlog = blogs.find((blog) => blog.slug === slug) || {};
     }
 
-    // useEffect(() => {
-    //     fetchBlogCategories()
-    // }, [])
 
     useEffect(() => {
         fetchBlogs(singleBlog?.category?._id)
@@ -53,15 +47,10 @@ const SingleBlog = () => {
         { icon: '/Assets/icons/main-icon.png', link: '#' },
     ]
 
-
-
     const filteredBlogs = blogs.filter((item) => item.slug !== singleBlog?.[0]?.slug);
-
-
 
     const getSurroundingBlogs = (slug) => {
         const currentIndex = blogs.findIndex((item) => item.slug === slug); // Find the index of the current blog
-
 
         if (currentIndex === -1) {
             return { beforeId: null, afterId: null }; // If the blog is not found
@@ -76,19 +65,12 @@ const SingleBlog = () => {
 
     };
 
-
-    // const { beforeId, afterId } = getSurroundingBlogs(singleBlog.id);
     const { beforeIndex, afterIndex } = getSurroundingBlogs(singleBlog.slug);
 
 
     const navigateToSingleBlog = (item) => {
         router.push(`/single-blog/${item.slug}`, { state: item });
     }
-
-
-
-
-
 
     return (
         <div className='single-blog-main-container'>
@@ -134,9 +116,6 @@ const SingleBlog = () => {
                             ) : (
                                 <h3>No Prev Blog</h3>
                             )}
-                            {/* <h3>
-                        Bob’s Supports Operation Homefront Transitional Housing (Apartments)
-                    </h3> */}
                         </div>
                         <div className='next-single-blog' onClick={() => navigateToSingleBlog(blogs?.[afterIndex])}>
                             <p>Next Blog</p>
@@ -145,7 +124,6 @@ const SingleBlog = () => {
                             ) : (
                                 <h3>No Next Blog</h3>
                             )}
-                            {/* <h3>Bob’s Supports Operation Homefront Transitional Housing (Apartments)</h3> */}
                         </div>
                     </div>
                 </div>
@@ -154,7 +132,6 @@ const SingleBlog = () => {
                     <TrandingBlogs blogs={filteredBlogs} />
                     <FirstToKnow />
                     <SearchTag />
-                    {/* <NextUp /> */}
                 </div>
             </div>
         </div>

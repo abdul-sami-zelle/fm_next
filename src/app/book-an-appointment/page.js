@@ -6,10 +6,7 @@ export async function generateMetadata({ params }) {
       description: `Browse our ${params} collection`,
     };
   }
-  
-  
-  
-  
+
   export default function BookAppointment({ params }) {
     return <BookAppointmentClient params={params} />
   }

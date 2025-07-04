@@ -99,11 +99,6 @@ export const MyOrdersProvider = ({ children }) => {
         professional_assembled: cartProducts?.is_professional_assembly
     })
 
-    // useEffect(() => {console.log("billing payload", orderPayload)})
-
-
-    
-
     useEffect(() => {
         if (selectedOption) {
             setOrderPayload((prev) => ({

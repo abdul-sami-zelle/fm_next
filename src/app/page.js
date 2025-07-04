@@ -8,7 +8,6 @@ import { IoIosClose } from "react-icons/io";
 
 // components
 import Category from '@/UI/Components/Category/Category';
-// import ShipBanner from '../../Components/ShipBanner/ShipBanner';
 import ProductSlider from '@/UI/Components/ProductSlider/ProductSlider';
 import GetTheScop from '@/UI/Components/GetTheScop/GetTheScop';
 import Sliderr from '@/Global-Components/Slider/Slider';
@@ -27,14 +26,13 @@ import InstaTwoImageGallery from '@/UI/Components/InstaTwoImageGallery/InstaTwoI
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
 import LandingPageFinancing from '@/UI/Components/LandingPageFinancingBanners/LandingPageFinancing';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { url } from '@/utils/api';
 
 const Home = () => {
 
 
-  const { postData,
-    // data,
+  const { 
     landingPageCategories,
     landingPageFOEB,
     content2,
@@ -53,27 +51,6 @@ const Home = () => {
   } = useLPContentContext();
 
   const { blogs } = useBlog()
-
-  // useEffect(() => {
-  //   if (!slides.length) {
-  //     getHomeSliderImages();
-  //   }
-  //   if (!data) {
-  //     postData();
-  //   }
-  //   if (Object.keys(content2).length === 0) {
-  //     getLandingPageContent2();
-  //   }
-  //   if (!featuredProducts.length) {
-  //     getFeaturedProducts();
-  //   }
-  //   if (!trendingNow) {
-  //     getTrendingProductsData();
-  //   }
-  //   if (!financingBanners?.length) {
-  //     getFinanceBannerImagesFromApi();
-  //   }
-  // }, []);
 
   const router = useRouter();
   const handleNavigate = (slug, item) => {

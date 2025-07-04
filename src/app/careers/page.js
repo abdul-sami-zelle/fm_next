@@ -7,9 +7,6 @@ export async function generateMetadata({ params }) {
     };
   }
   
-  
-  
-  
   export default function Careers({ params }) {
     return <CareersClient params={params} />
   }

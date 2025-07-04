@@ -30,27 +30,27 @@ const ProductDisplay = ({ params }) => {
   const { singleProductData } = useProductPage();
 
   const [product, setProduct] = useState(singleProductData || null);
-  const [showDesignRoomModal,setShowDwsignRoomModal] = useState(false);
+  const [showDesignRoomModal, setShowDwsignRoomModal] = useState(false);
 
-const showDRM = () =>{
-  setShowDwsignRoomModal(true)
-}
+  const showDRM = () => {
+    setShowDwsignRoomModal(true)
+  }
 
-const closeDRM = () =>{
-  setShowDwsignRoomModal(false)
-}
+  const closeDRM = () => {
+    setShowDwsignRoomModal(false)
+  }
 
-  const [productDetails , setProductDetails] = useState({})
+  const [productDetails, setProductDetails] = useState({})
   useEffect(() => {
     setProductDetails({
       collection: product?.collectionName ? product?.collectionName : '-',
-    color: product?.default_attributes?.find(item => item.type === 'color')?.options[0]?.name,
-    brand: product?.brand !== '' ? product?.brand : 'Furniture Mecca',
-    category: product?.categories?.find(item => item.is_main === 1)?.name,
-    stock: product?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : product?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
-    mpn: product?.mpn,
-    gtin: product?.gtin,
-    protection: 'Available'
+      color: product?.default_attributes?.find(item => item.type === 'color')?.options[0]?.name,
+      brand: product?.brand !== '' ? product?.brand : 'Furniture Mecca',
+      category: product?.categories?.find(item => item.is_main === 1)?.name,
+      stock: product?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : product?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
+      mpn: product?.mpn,
+      gtin: product?.gtin,
+      protection: 'Available'
     })
   }, [product])
 
@@ -60,20 +60,20 @@ const closeDRM = () =>{
   const singleProductApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null;
   const [singleProductCount, setSingleProductCount] = useState(0);
 
-  const {data: singleProductContent, error: singleProductError, isLoading: singleProductLoading} = useSWR(singleProductApi, fetcher, {
+  const { data: singleProductContent, error: singleProductError, isLoading: singleProductLoading } = useSWR(singleProductApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 1000 * 60 * 60 * 24 * 365
   })
 
-  if(singleProductError && singleProductCount < 3) {
+  if (singleProductError && singleProductCount < 3) {
     setTimeout(() => {
       setSingleProductCount(singleProductCount + 1);
     }, 1000)
   }
 
   useEffect(() => {
-    if(singleProductContent ) {
+    if (singleProductContent) {
       setProduct(singleProductContent.products[0])
     }
   }, [singleProductContent])
@@ -161,7 +161,6 @@ const closeDRM = () =>{
 
   }
 
-
   // Gallery Modal
 
   const {
@@ -172,13 +171,11 @@ const closeDRM = () =>{
   const [activeIndex, setActiveIndex] = useState(0); // For main slider image
   const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
   const thumbnailContainerRef = useRef(null); // To control the vertical scroll
-
   const [dimensionModal, setDimensionModal] = useState(false)
-
-
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
+
   const handleOpenModal = (place) => {
-    if(place === 'image-clicked') {
+    if (place === 'image-clicked') {
       setGalleryModalWidth(true)
     } else {
       setGalleryModalWidth(false)
@@ -304,26 +301,37 @@ const closeDRM = () =>{
   const recomandationApi = product ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
   const [recomandationCount, setRecomandationCount] = useState(0)
 
-  const {data: recomandationData, error: recomandationError, isLoading: recomandationLoading} = useSWR(recomandationApi, fetcher, {
+  const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 1000 * 60 * 60 * 24 * 365
   })
 
-  if(recomandationError && recomandationCount < 3 ) {
+  if (recomandationError && recomandationCount < 3) {
     setTimeout(() => {
       setRecomandationCount(recomandationCount + 1);
     }, 1000)
   }
 
   useEffect(() => {
-    if(recomandationData) {
+    if (recomandationData) {
       setRecomandedProducts(recomandationData.recommendations)
     }
   }, [recomandationData])
 
+  useEffect(() => {
+    if (showDesignRoomModal) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [showDesignRoomModal])
 
-
+  useEffect(() => {
+    if (dimensionModal) {
+      handleThumbnailClick(activeIndex); // sync thumbnail to current slide index
+    }
+  }, [dimensionModal]);
 
   return (
     <div>
@@ -352,11 +360,11 @@ const closeDRM = () =>{
           handleGalleryModal={handleOpenModal}
           isCartLoading={isCartLoading}
           params={params}
+          showDesignRoomModal={showDesignRoomModal}
           showDRM={showDRM}
+          dimensionModal={dimensionModal}
           setProductDetails={setProductDetails}
         />
-
-        
 
         <ProductStickyTabBar
           sectionRefs={sectionRefs}
@@ -370,7 +378,7 @@ const closeDRM = () =>{
           quantity={quantity}
         />
 
-        {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length> 1 ? product?.images[1]?.image_url :product?.image?.image_url } />}
+        {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />}
 
         <ProductDescriptionTab
           descriptionRef={sectionRefs.Description}
@@ -388,17 +396,8 @@ const closeDRM = () =>{
           product={product}
         />
 
-
-
-
         <DesignYourRoom data={recomandedProducts} firstChild={product} />
-
-       
-
       </div>
-
-
-
 
       <ProductReviewTab
         reviewRef={sectionRefs.Reviews}
@@ -406,16 +405,9 @@ const closeDRM = () =>{
         params={params}
       />
 
-
-
-    { showDesignRoomModal && <div className='design_room_main_modal'>
-      <DesignRoomMain closeFn={closeDRM} product={product} />
-    </div>}
-
-
-
-
-
+      {showDesignRoomModal && <div className='design_room_main_modal'>
+        <DesignRoomMain closeFn={closeDRM} product={product} />
+      </div>}
 
       <GalleryModal
         dimensionModal={dimensionModal}
@@ -432,7 +424,6 @@ const closeDRM = () =>{
         handleDotClick={handleDotClick}
         galleryModalWidth={galleryModalWidth}
       />
-
 
     </div>
   )

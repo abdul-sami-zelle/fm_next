@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
-import { RxCross1 } from "react-icons/rx";
-import { BsFillChatFill } from "react-icons/bs";
-import { MdOutlineCalendarToday, MdPhone } from "react-icons/md";
-import { PiChatCircleBold } from "react-icons/pi";
-import { RiChat3Fill } from "react-icons/ri";
-import { IoMdHome } from "react-icons/io";
-import { FaRegWindowMinimize, FaWindowMinimize } from "react-icons/fa";
+import { MdOutlineCalendarToday } from "react-icons/md";
+import { FaRegWindowMinimize} from "react-icons/fa";
 import { faqData } from "../../Data/Data";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import Footer from "../Footer/Footer";
@@ -14,8 +9,6 @@ import Footer from "../Footer/Footer";
 const HomeScreen = ({
   onClose,
   onOpenChatUs,
-  onOpenOffline,
-  onOpenOnlineChat,
   onFaqClick,
   onOpenConversationList,
   activeTab,
@@ -25,7 +18,7 @@ const HomeScreen = ({
   const [isTeamOnline, setIsTeamOnline] = useState(false);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
   const [greeting, setGreeting] = useState("Good Morning!");
-  const [visibleCount, setVisibleCount] = useState(5);
+  // const [visibleCount, setVisibleCount] = useState(5);
   const [allFaqs, setAllFaqs] = useState([]);
   const [expandedCategory, setExpandedCategory] = useState(null);
 
@@ -52,9 +45,9 @@ const HomeScreen = ({
     ? allCategoryNames
     : allCategoryNames.slice(0, 5);
 
-  const handleSeeMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 5, allFaqs.length));
-  };
+  // const handleSeeMore = () => {
+  //   setVisibleCount((prev) => Math.min(prev + 5, allFaqs.length));
+  // };
 
   const conversations = [
     {
@@ -140,34 +133,7 @@ const HomeScreen = ({
         </div>
 
         <div className="home-screen-box">
-          {/* <div className="team">
-            <p>
-              Our team is{" "}
-              <span className={isTeamOnline ? "online" : "offline"}>
-                {isTeamOnline ? "Online" : "Offline"}
-              </span>
-            </p>
-
-            {isTeamOnline ? (
-              <div className="peopless">
-                <div className="peopleimages">
-                  <img src="/assets/Images/advisor1.png" alt="Advisor" />
-                  <img src="/assets/Images/advisor2.png" alt="Advisor" />
-                  <img src="/assets/Images/advisor3.png" alt="Advisor" />
-                </div>
-              </div>
-            ) : (
-              <p className="leave-us-a-message" onClick={onOpenOffline}>
-                Leave us a Message
-              </p>
-            )}
-          </div>
-
-          <div className="chat-us-btn" onClick={onOpenOnlineChat}>
-            <p>
-              <PiChatCircleBold className="chat-us-icon" /> Chat Us
-            </p>
-          </div> */}
+          
           <div className="meeting-us-btn">
             <p>
               <MdOutlineCalendarToday className="meeting-us-icon" /> Book

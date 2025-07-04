@@ -13,10 +13,6 @@ export const CartProvider = ({ children }) => {
     const [totalProtectionValue, setTotalProtectionValue] = useState(200);
     const [professionalAssemblyValue, setProfessionalAssemblyValue] = useState(210); // 199 was old all protection price
 
-    // const [cartUid, setCartUid] = useState(() => {
-    //     const cart_uid = localStorage.getItem('cartUid');
-    //     return cart_uid ? cart_uid : null;
-    // });
     const [cartUid, setCartUid] = useState(() => {
         if (typeof window !== "undefined") {
             const cart_uid = localStorage.getItem('cartUid');
@@ -25,8 +21,6 @@ export const CartProvider = ({ children }) => {
         return null; // If on server, just return null
     });
 
-
-
     const [cartProducts, setCartProducts] = useState(() => {
         if (typeof window !== "undefined") {
             const savedCart = localStorage.getItem('cart2');
@@ -34,8 +28,6 @@ export const CartProvider = ({ children }) => {
         } 
         return []
     });
-
-
 
     const [isCartProtected, setIsCartProtected] = useState(() => {
         if (typeof window !== "undefined") {
@@ -107,10 +99,10 @@ export const CartProvider = ({ children }) => {
         localStorage.removeItem("cart2"); // Remove cart from localStorage
     };
 
-    const resetCart0 = () => {
-        setCartProducts([]); // Clear the cart state
-        localStorage.removeItem("cart2"); // Remove cart from localStorage
-    };
+    // const resetCart0 = () => {
+    //     setCartProducts([]); // Clear the cart state
+    //     localStorage.removeItem("cart2"); // Remove cart from localStorage
+    // };
 
     const [singleProduct, setSingleProduct] = useState(() => {
         if(typeof window !== "undefined") {
@@ -291,7 +283,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-
     const updateCartAPI2 = async (url0, newCart, method, custToken, userId) => {
         try {
             const response = method === "post" ?
@@ -377,53 +368,6 @@ export const CartProvider = ({ children }) => {
         // return updateCartAPI(apiUrl, newCart, method);
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
-
-    
-    // const addToCart0 = (product, variationData, isProtected, quantity) => {
-    //     setCartProducts((prev) => {
-    //         const updatedProducts = prev.products || []; // Ensure products array exists
-
-    //         const existingProduct =
-    //             product.type === "simple"
-    //                 ? updatedProducts.find((item) => item.product_uid === product?.uid)
-    //                 : updatedProducts.find((item) => item.variation_uid === variationData?.uid);
-
-    //         if (existingProduct) {
-    //             return {
-    //                 ...prev,
-    //                 products: updatedProducts.map((item) =>
-    //                     product.type === "simple"
-    //                         ? item.product_uid === product.uid
-    //                             ? { ...item, quantity: item.quantity + parseInt(quantity) }
-    //                             : item
-    //                         : item.variation_uid === product.default_variation
-    //                             ? { ...item, quantity: item.quantity + parseInt(quantity) }
-    //                             : item
-    //                 ),
-    //             };
-    //         } else {
-    //             return {
-    //                 ...prev,
-    //                 products: [
-    //                     ...updatedProducts,
-    //                     {
-    //                         product_uid: product?.uid,
-    //                         name: product?.name,
-    //                         isVariable: product?.type === "simple" ? 0 : 1,
-    //                         variation_uid: product?.type === "simple" ? 0 : variationData?.uid,
-    //                         image: product?.type === "simple" ? product?.image : variationData?.images?.[0],
-    //                         attributes: product.type === "simple" ? product.attributes : variationData?.attributes,
-    //                         sale_price: product.type === "simple" ? product.sale_price : variationData?.sale_price,
-    //                         regular_price: product.type === "simple" ? product.regular_price : variationData?.regular_price,
-    //                         quantity: parseInt(quantity),
-    //                         sku: product.type === "simple" ? product.sku : variationData?.sku,
-    //                         is_protected: isProtected,
-    //                     },
-    //                 ],
-    //             };
-    //         }
-    //     });
-    // };
     
     const addSingleProtection = async (uid, isVariable = false) => {
         setIsCartLoading(true);

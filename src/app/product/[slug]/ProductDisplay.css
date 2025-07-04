@@ -3,11 +3,7 @@
     width: 80%;
     padding-top: 20px;
     flex-direction: column;
-    /* padding: var(--global-padding); */
-    /* padding: 24px; */
-    /* padding: 35px 200px; */
     gap: 25px;
-    /* max-width: 1440px; */
     margin: auto;
 }
  

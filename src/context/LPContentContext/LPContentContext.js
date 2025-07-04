@@ -87,26 +87,6 @@ export const LPContentProvider = ({ children }) => {
     }
   }, [featureData])
 
-  const getFeaturedProducts = async () => {
-    const api = "/api/v1/products/featured-products?totalProduct=5";
-    try {
-      setLoading(true);
-      const response = await axios.get(`${url}${api}`, { timeOut });
-      if (response.status === 200) {
-        const filteredProducts = response.data.products.filter(
-          (product) => product.parent === 0
-        );
-        setFeaturedProducts(filteredProducts);
-        setLoading(false);
-      } else {
-        console.error("UnExpected Error", response.status);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
-      setLoading(false);
-    }
-  };
 
   const [trendingNow, setTrendingNow] = useState(null);
 
@@ -212,7 +192,6 @@ export const LPContentProvider = ({ children }) => {
 
   return (
     <LPContentContext.Provider value={{
-      // postData,
       data,
       loading,
       landingPageCategories,
@@ -224,13 +203,8 @@ export const LPContentProvider = ({ children }) => {
       setFeaturedProducts,
       slides,
       setSlides,
-      // getHomeSliderImages,
-      // getLandingPageContent2,
-      // getFeaturedProducts,
       trendingNow,
-      // getTrendingProductsData,
       financingBanners,
-      // getFinanceBannerImagesFromApi,
       allProducts,
       setAllProducts,
       dealEndTime,

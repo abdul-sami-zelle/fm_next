@@ -12,11 +12,11 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
-    width: 50%;
+    width: 60%;
 }
 
 .furniture-protection-gallery-content>h3 {
-    font-size: 40px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -36,7 +36,7 @@
 }
 
 .furniture-protection-gallery-content>h3:last-of-type {
-    font-size: 28px !important;
+    font-size: 16px !important;
 }
 
 .furniture-protection-gallery-content>p:first-of-type {
@@ -50,9 +50,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 40%;
     height: auto;
     overflow: hidden;
+    aspect-ratio: 2 /1;
     border-radius: 20px;
 }
 

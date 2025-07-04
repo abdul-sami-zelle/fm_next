@@ -4,18 +4,13 @@ import React, { useEffect, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./OrderConfirmationPage.css";
-// import checked from "../../../Assets/checked-2.png";
 import DeliveryLocationMap from "./DeliveryLocationMap";
-// import card from "../../../Assets/card.svg"
-import CartItemOC from "./cartItem";
 import axios from "axios";
 import { formatedPrice } from "../../../utils/api";
 import { url } from "../../../utils/api";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import Slider from "react-slick";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { getOptionNames } from "../../../utils/api";
 
 
@@ -82,13 +77,6 @@ export default function OrderConfirmationPage() {
     if (!order) {
         return <div>No order found</div>; // Show message if no order found
     }
-
-
-    // const startingProduct = order.items[0];
-
-
-
-
 
     return (
         <div className="order_confirmation_page">

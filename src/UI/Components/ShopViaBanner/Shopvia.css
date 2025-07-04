@@ -13,17 +13,18 @@
 .text-div{
     display: flex;
     width: 100%;  
-    align-items: center;
-    justify-content: center; 
+    align-items: start;
+    justify-content: start; 
 }
 
 .social-icons-container {
     display: flex;
     width: 40%;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     flex-shrink: 0;
     gap: 25px;
+    padding-left: 60px;
 }
 
 .social-icons-container > a {

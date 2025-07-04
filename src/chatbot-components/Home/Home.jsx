@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import "./style.css";
 import StartScreen from "../StartScreen/StartScreen";
 import HomeScreen from "../HomeScreen/HomeScreen";
@@ -13,19 +13,16 @@ const Home = () => {
 
   const {
     isOpen, setIsOpen,
-    isTransitioning, setIsTransitioning,
-    showChatUsOnly, setShowChatUsOnly,
-    showOfflineScreen, setShowOfflineScreen,
-    showOnlineChatUs, setShowOnlineChatUs,
-    startScreenClosed, setStartScreenClosed,
-    isMobile, setIsMobile,
-    showConversationList, setShowConversationList,
-    activeTab, setActiveTab,
-    initialTimerRef,
-    autoCloseTimerRef,
+    isTransitioning,
+    showChatUsOnly,
+    showOfflineScreen,
+    showOnlineChatUs,
+    startScreenClosed,
+    setStartScreenClosed,
+    showConversationList,
+    setShowConversationList,
+    activeTab,
     onTab,
-    clearTimers,
-    resetAutoCloseTimer,
     handleTabClickFromFooter,
     handleFaqClickFromHome,
     handleOpenOnlineChat,
@@ -37,15 +34,27 @@ const Home = () => {
     handleStartScreenClose
   } = useChatOpenContext()
 
+  const [isBottom, setIsBottom] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const bottomReached = window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
+      setIsBottom(bottomReached);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   return (
-    <div className="home-container">
+    <div className={`home-container ${isBottom ? 'take-chat-home-to-up' : ''}`}>
       <div
         className={`fade-wrapper ${isTransitioning
-            ? "fade-out slide-down"
-            : showChatUsOnly || showOfflineScreen || showOnlineChatUs
-              ? "fade-in slide-up"
-              : "fade-in"
+          ? "fade-out slide-down"
+          : showChatUsOnly || showOfflineScreen || showOnlineChatUs
+            ? "fade-in slide-up"
+            : "fade-in"
           }`}
       >
         {!startScreenClosed &&

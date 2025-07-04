@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
 import { AiOutlineMinus } from "react-icons/ai";
-import { RiChat3Fill } from "react-icons/ri";
-import { IoMdHome } from "react-icons/io";
 import Footer from "../Footer/Footer";
 
 const dummyConversations = [
@@ -76,6 +74,7 @@ const ConversationList = ({
   activeTab,
   onTabClick,
 }) => {
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const filteredConversations = dummyConversations.filter((conv) =>

@@ -9,15 +9,15 @@
 
 .covered-or-not-protection-headings-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     width: 100%;
     flex-direction: column;
     gap: 15px;
 }
 
 .covered-or-not-protection-headings-container>h3 {
-    font-size: 40px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -28,7 +28,7 @@
     line-height: 1.2;
     font-weight: 400;
     opacity: 0.8;
-    text-align: center;
+    text-align: start;
 }
 
 .covered-or-not-protection-headings-container>p>span {
@@ -50,7 +50,7 @@
     justify-content: start;
     gap: 20px;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
 }
 
 .left-section-option-container {
@@ -63,7 +63,7 @@
 }
 
 .left-section-option-container>h3 {
-    font-size: 28px;
+    font-size: 16px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
@@ -91,7 +91,7 @@
     align-items: start;
     justify-content: start;
     gap: 20px;
-    width: 50%;
+    width: 40%;
 }
 
 .protection-covered-image {
@@ -110,14 +110,14 @@
 }
 
 .not-covered-option-container>h3 {
-    font-size: 28px;
+    font-size: 16px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
 }
 
 .not-covered-option-container>h3:last-of-type {
-    font-size: 16px;
+    font-size: 14px;
     color: #000;
 }
 

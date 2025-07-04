@@ -4,59 +4,31 @@ import React, { useEffect, useState } from 'react'
 import './BlogPage.css';
 import BlogHead from '@/UI/Components/Blogs-Components/BlogsHead/BlogHead';
 import AllBlogs from '@/UI/Components/Blogs-Components/AllBlogs/AllBlogs';
-import BlogPagination from '@/UI/Components/Blogs-Components/BlogsPaginations/BlogPagination';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
 import Pagination from '@/Global-Components/Pagination/Pagination';
 
 const BlogPage = () => {
 
-
   const {
     blogs,
-    fetchBlogCategories,
     blogCategories,
     fetchBlogs,
     activeCategory,
-    isBlogLoading
   } = useBlog()
-
 
   useEffect(() => {
     fetchBlogs(blogCategories?.[activeCategory]?._id)
   }, [activeCategory])
 
   useEffect(() => {  }, [blogCategories])
-
   const blogsPerPage = 9; // Number of blogs to show per page
   const [currentPage, setCurrentPage] = useState(1);
-
   const totalBlogs = blogs?.length || 0;
   const totalPages = Math.ceil(totalBlogs / blogsPerPage);
   // Calculate the blogs to show for the current page
   const startIndex = (currentPage - 1) * blogsPerPage;
   const endIndex = startIndex + blogsPerPage;
   const blogsToShow = blogs.slice(startIndex, endIndex);
-
-
-
-  // Handle next and previous buttons
-  // const handleNext = () => {
-  //   if (currentPage < totalPages) {
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
-
-  // const handlePrev = () => {
-  //   if (currentPage > 1) {
-  //     setCurrentPage(currentPage - 1);
-  //   }
-  // };
-
-
-  // pagination
-  // const totalPage = 4;
-  // const [activePage, setActivePage] = useState()
-  // const [activePageIndex, setActivePageIndex] = useState(1)
 
   const handleActivePage = (page) => {
     setCurrentPage(page);
@@ -100,7 +72,6 @@ const BlogPage = () => {
         handlePrevPage={handlePrevPage} 
         handleNextPage={handleNextPage}
       />
-      {/* <BlogPagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} handlePrev={handlePrev} handleNext={handleNext} /> */}
     </div>
   )
 }

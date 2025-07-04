@@ -21,12 +21,9 @@ const ChatUs = ({ onBack, onClose }) => {
   const [questionClicked, setQuestionClicked] = useState(false);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const [showFollowUp, setShowFollowUp] = useState(false);
-  const [showCategories, setShowCategories] = useState(false);
   const [visibleQuestions, setVisibleQuestions] = useState([]);
   const [showAnswer, setShowAnswer] = useState(false);
   const [showFollowUpFromHome, setShowFollowUpFromHome] = useState(false);
-  const [waitingForFollowUpResponse, setWaitingForFollowUpResponse] =
-    useState(false);
 
   const messageEndRef = useRef(null);
   const followUpTimeoutRef = useRef(null);
@@ -97,9 +94,6 @@ const ChatUs = ({ onBack, onClose }) => {
     }
   }, []);
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];

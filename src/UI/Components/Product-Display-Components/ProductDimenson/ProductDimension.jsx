@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 // import { AiOutlineZoomOut } from "react-icons/ai";
 
-const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, handleZoom, handleGalleryModal, showDrm, setZoomIn }) => {
+const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, showDesignRoomModal, handleZoom, handleGalleryModal, showDrm, setZoomIn, dimensionModal }) => {
 
   const router = useRouter()
   const [customerPhotos, setCustomerPhotos] = useState([]);
@@ -52,7 +52,16 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, hand
     }
   }
 
-  useEffect(() => {setDimensionIndex((prevIndex) => prevIndex === dimensionIndex ? null : dimensionIndex)}, [slideIndex])
+  useEffect(() => {
+    // setDimensionIndex((prevIndex) => prevIndex === dimensionIndex ? null : dimensionIndex)
+    if(slideIndex === null) {
+      setDimensionIndex(null)
+    } else if(dimensionModal === false) {
+      setDimensionIndex(null)
+    } else if(showDesignRoomModal === false) {
+      setDimensionIndex(null)
+    }
+  }, [slideIndex, dimensionModal, showDesignRoomModal])
 
   
 

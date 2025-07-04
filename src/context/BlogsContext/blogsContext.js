@@ -4,7 +4,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { url } from '../../utils/api';
 import axios from 'axios';
 import useSWR from 'swr';
-import { fetcher } from '@/utils/Fetcher';
 
 // Create a Context for the blogs
 const BlogsContext = createContext();
@@ -124,7 +123,6 @@ useEffect(() => {
         <BlogsContext.Provider value={{
             blogs,
             setBlogs,
-            // fetchBlogCategories,
             blogCategories,
             setBlogCategories,
             fetchBlogs,

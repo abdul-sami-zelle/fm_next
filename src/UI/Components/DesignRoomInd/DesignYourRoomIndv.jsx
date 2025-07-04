@@ -6,14 +6,7 @@ export default function DesignYourRoomIndv({ image,openFN, designRef }) {
 
   const [showIframe, setShowIframe] = useState(false);
 
-  const handleNavigateToDesignRoom = () => {
-    setShowIframe(true);
-  };
-
-
-  // const handleNavigateToDesignRoom = () => {
-  //   window.open('https://room.myfurnituremecca.com/design/living-room', '_blank')
-  // }
+  
   return (
     <div className="design_room_indv" id={'DesignYourRoom'} ref={designRef}>
       
@@ -35,16 +28,13 @@ export default function DesignYourRoomIndv({ image,openFN, designRef }) {
       {showIframe && (
         <div className="iframe-container">
           <iframe
-            // src="https://design-room-three.vercel.app/design/living-room/product"
             src="https://room.myfurnituremecca.com/design/living-room"
             title="Design Your Room"
             allowfullscreen={true}
-            // width="100%"
-            // height="600px"
             style={{
               transform: "scale(0.8)",
               transformOrigin: "50% 50%",
-              width: "125%", // Adjust based on scale
+              width: "125%", 
               height: "600px",
               border: "none",
               display: 'flex',

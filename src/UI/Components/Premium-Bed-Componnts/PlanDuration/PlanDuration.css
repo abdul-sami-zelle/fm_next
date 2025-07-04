@@ -9,21 +9,21 @@
 .plan-duration-content-section {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
     align-items: start;
     justify-content: center;
     gap: 15px;
 }
 
 .plan-duration-content-section>h3 {
-    font-size: 40px;
+    font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
 }
 
 .plan-duration-content-section>h3:last-of-type {
-    font-size: 28px;
+    font-size: 16px;
 }
 
 .plan-duration-content-section>p {
@@ -43,8 +43,8 @@
 
 .planDurationIcon {
     display: flex;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
 }
 
@@ -60,7 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 40%;
     overflow: hidden;
     border-radius: 20px;
 }
