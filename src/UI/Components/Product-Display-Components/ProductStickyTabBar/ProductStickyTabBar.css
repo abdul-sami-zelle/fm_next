@@ -345,8 +345,8 @@
         align-items: center;
         justify-content: center;
         background-color: var(--orange-fill);
-        color: var(--text-gray);
-        border: 1px solid var(--orange-outline);
+        color: var(--text-oposite);
+        border: 1px solid var(--orange-fill);
         border-radius: 5px;
         font-size: 12px;
         line-height: 16px;

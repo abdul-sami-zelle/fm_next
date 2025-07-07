@@ -401,6 +401,21 @@
     text-decoration: none;
 }
 
+.mobile-footer-copy-rights {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 5px;
+}
+
+.mobile-footer-copy-rights > p {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #FFF;
+}
+
 
 /* from here */
 /* 

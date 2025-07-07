@@ -134,20 +134,6 @@ const ProductGallery = ({
         );
     }
 
-
-    // useEffect(() => {
-    //     console.log("thumb active index", thumbActiveIndex)
-    //     setZoomIn(false)
-    // }, [thumbActiveIndex])
-
-    // useEffect(() => {
-    //     console.log("zoom value", zoomIn)
-    // }, [zoomIn])
-
-
-
-
-
     return (
         <div className='product-gallery-main-container'>
             {/* Thumbnail Section */}
@@ -183,7 +169,7 @@ const ProductGallery = ({
                     onClick={thumbActiveIndex === images.length - 1 ? null : () => handleScroll('down')}
                 />
 
-                <button onClick={() => handleGalleryModal('image-clicked')} className='product-gallery-view-all-button'>
+                <button onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')} className='product-gallery-view-all-button'>
                     View All
                 </button>
             </div>
@@ -205,6 +191,7 @@ const ProductGallery = ({
                         }}
                         pagination={{
                             dynamicBullets: true,
+                            dynamicMainBullets: 1,
                             clickable: true,
                         }}
                         modules={[Pagination, Controller]}
@@ -217,7 +204,7 @@ const ProductGallery = ({
                                     onMouseMove={handleMouseMove}
                                     onMouseUp={handleMouseUp}
                                     onMouseLeave={handleMouseUp}
-                                    onClick={() => handleGalleryModal('image-clicked')}
+                                    onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')}
                                 >
 
                                     {zoomIn ? (

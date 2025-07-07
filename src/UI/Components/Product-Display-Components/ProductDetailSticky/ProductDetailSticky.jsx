@@ -24,7 +24,6 @@ import { PiStorefrontLight } from "react-icons/pi";
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
 import AppointmentModal from '../../../../Global-Components/AppointmentModal/AppointmentModal'
 import LocationPopUp from '../../LocationPopUp/LocationPopUp'
-// import ConfirmationModal from '../../../../Global-Components/AppointmentModal/ConfirmationModal/ConfirmationModal'
 import SnakBar from '../../../../Global-Components/SnakeBar/SnakBar'
 import { useAppointment } from '../../../../context/AppointmentContext/AppointmentContext';
 import { useCart } from '../../../../context/cartContext/cartContext'
@@ -33,7 +32,6 @@ import ProductDisplayShimmer from '../ProductDisplayShimmers/ProductDisplayShimm
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
-import Link from 'next/link'
 import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
 import { useChatOpenContext } from '@/context/ChatbotContext/ChatbotContext'
 
@@ -49,7 +47,6 @@ const ProductDetailSticky = (
     isLoading,
     handleClick,
     addToCart0,
-    // isProtectionCheck,
     handleAddToCartProduct,
     cartProducts,
     cartSection,
@@ -65,11 +62,11 @@ const ProductDetailSticky = (
     isCartLoading,
     params,
     setProductDetails,
-    galleryModalWidth,
     showDRM,
     dimensionModal,
     showDesignRoomModal,
-    // parentCategories,
+    zoomIn,
+    setZoomIn,
   }) => {
 
 
@@ -115,38 +112,12 @@ const ProductDetailSticky = (
     }
   }, [getBySlugData])
 
-  // const getProductDataWithSlug = async (slug) => {
-  //   const api = `/api/v1/products/get-by-slug/`
-  //   try {
-  //     const response = await axios.get(`${url}${api}${slug}`)
-  //     const temporaryProduct = response.data.products[0] || {};
-  //     setGetBySlug(temporaryProduct)
-  //   } catch (error) {
-  //     console.error("Error Fetching fetching data with slug", error);
-  //   }
-  // }
-
-
-
   // Effect to fetch data if user came directly via link
   useEffect(() => {
-    // if (!productData || Object.keys(productData).length === 0 || !('images' in productData)) {
-    //   getProductDataWithSlug(slug);
-    // }
     setSingleProductData(productData)
     setSelectedVariationUid(productData?.default_variation)
     setSelectedVariationData(findObjectByUID(productData?.default_variation, productData?.variations));
-
   }, [slug]);
-
-  // useEffect(() => {
-  //   if(getBySlugData && Object.keys(getBySlugData).length > 0 && 'images' in getBySlugData) {
-  //     setSingleProductData(getBySlugData)
-  //   setSelectedVariationUid(getBySlugData?.default_variation)
-  //   setSelectedVariationData(findObjectByUID(getBySlugData?.default_variation, productData?.variations));
-  //   }
-  // }, [getBySlug])
-  // productData in this effect dependancy
 
   const [product, setProduct] = useState(
     Object.keys(productData || {}).length > 0 && productData.images !== undefined
@@ -154,10 +125,7 @@ const ProductDetailSticky = (
       : getBySlug
   );
 
-  // const [product, setProduct] = useState(getBySlug)
-
   useEffect(() => {
-    // setProduct(getBySlug)
     if (
       Object.keys(productData || {}).length > 0 &&
       productData.images !== undefined &&
@@ -168,7 +136,6 @@ const ProductDetailSticky = (
       setProduct(getBySlug);
     }
   }, [productData, slug, getBySlug])
-  // product from this dependancy
 
 
   // Share Product Modal
@@ -185,16 +152,12 @@ const ProductDetailSticky = (
     setSelectedColor(value);
   }
 
-  // const [variationData, setVariationData] = useState([])
-
   const [selectVariation, setSelectVariation] = useState(0);
   const handleSelectVariation = (value) => {
     setSelectVariation(value);
   }
+
   const [selectedUid, setSelectedUid] = useState(null);
-
-
-
   const handleSelectedVariationData = (value) => {
     if (selectedUid === value) {
       return;
@@ -205,7 +168,6 @@ const ProductDetailSticky = (
 
     setVariationData(productData?.variations?.[selectedIndex]);
   };
-
 
   useEffect(() => {
     setProductDetails((prev) => ({
@@ -222,15 +184,8 @@ const ProductDetailSticky = (
 
 
   // Protection Plan
-  const { setWarrantyModalState } = useGlobalContext();
   const [isSingleProtectionChecked, setIsSingleProtectionChecked] = useState(false);
   const [isProtected, setIsProtected] = useState(true)
-  // const handleWarrantyModal = () => {
-  //   setWarrantyModalState(true)
-  // }
-
-
-
   const [protectionCheck, setProtectionCheck] = useState(false)
 
   const handleProtection = (key, isChecked) => {
@@ -241,15 +196,8 @@ const ProductDetailSticky = (
     }
   };
 
-  // useEffect(() => {
-  // }, [isSingleProtectionChecked,])
-
-  // Add To WishList and Remove
-
-
   const { addToList, removeFromList, isInWishList } = useList()
   const handleWishList = (item) => {
-
     if (isInWishList(item?.uid)) {
       removeFromList(item?.uid)
       handleShowSnakeToust("Product Removed From Wish List")
@@ -264,8 +212,7 @@ const ProductDetailSticky = (
     router.push('/contact-us')
   }
 
-
-  const [zoomIn, setZoomIn] = useState(false);
+  // const [zoomIn, setZoomIn] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
@@ -317,10 +264,8 @@ const ProductDetailSticky = (
   }
 
   const handleCloseMiles = (e) => {
-    // e.stopPropagation()
     setShowMiles(false);
   }
-
 
   const [appointmentModal, setAppointmentModal] = useState(false);
   const [serviceIndex, setServiceTypeIndex] = useState(null)
@@ -375,10 +320,7 @@ const ProductDetailSticky = (
       }
     }
     window.addEventListener('scroll', handleScrollAddToCart);
-
-
     return () => window.removeEventListener('scroll', handleScrollAddToCart);
-
   }, [cartDivRef]);
   const [errorMessage, setErrorMessage] = useState('Something went wrong! Please try again later.');
   
@@ -390,17 +332,14 @@ const ProductDetailSticky = (
     setSnakeBarMessage(message)
   }
 
-
   const handleCloseSnakeBar = () => {
     setShowSnakeBar(false);
   }
 
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
-
-
   const { eachProtectionValue } = useCart();
-
   const [whatIsCoveredModa, setWhatIsCoveredModal] = useState(false);
+  
   const handleWhatIsCoveredModal = () => {
     setWhatIsCoveredModal(true);
   }
@@ -408,8 +347,6 @@ const ProductDetailSticky = (
   const handleCloseWhatIsCoveredModal = () => {
     setWhatIsCoveredModal(false);
   }
-
-  
 
   useDisableBodyScroll(whatIsCoveredModa)
 
@@ -834,7 +771,7 @@ const ProductDetailSticky = (
       <SnakBar
         message={snakeBarMessage}
         openSnakeBarProp={showSnakeBar}
-        setOpenSnakeBar={setSnakeBarMessage}
+        setOpenSnakeBar={setShowSnakeBar}
         onClick={handleCloseSnakeBar}
       />
 

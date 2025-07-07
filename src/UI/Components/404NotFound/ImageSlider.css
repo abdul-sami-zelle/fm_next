@@ -8,7 +8,7 @@
     height: auto;
   }
 
-  .swiper {
+  /* .swiper {
     &-button-next::after,
     &-button-prev::after {
       display: flex;
@@ -24,29 +24,25 @@
       color: var(--white-100);
       background: var(--black-300);
     }
-  }
+  } */
 
   /* ImageSlider.css */
+
+/*   
   .swiper-button-prev,
   .swiper-button-next {
     color: #000;
-    /* Change to desired color */
     font-size: 2rem;
-    /* Size of the arrows */
     width: 50px;
-    /* Width of the arrows */
     height: 50px;
-    /* Height of the arrows */
   }
 
   .swiper-button-prev {
     left: 10px;
-    /* Adjust positioning */
   }
 
   .swiper-button-next {
     right: 10px;
-    /* Adjust positioning */
-  }
+  } */
 
   

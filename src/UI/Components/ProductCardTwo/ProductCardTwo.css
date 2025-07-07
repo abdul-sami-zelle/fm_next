@@ -934,6 +934,10 @@
         height: auto;
     }
 
+    .product-main-img.set-static-height {
+        height: 114px !important;
+    }
+
     .product-rating-stars-div img {
         width: auto;
         height: 10px;

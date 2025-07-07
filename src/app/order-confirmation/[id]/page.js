@@ -44,11 +44,9 @@ export default function OrderConfirmationPage() {
         const fetchOrderDetails = async () => {
             try {
                 const response = await axios.get(`${url}/api/v1/orders/get_by_id?_id=${params.id}`);
-                console.log("order response", response)
+                
                 setOrder(response?.data?.order); // Store order data in state
-                console.log("confirmed order", response?.data?.order);
                 setMainOrderProduct(response?.data?.order?.items[0]);
-                console.log("main order product". response?.data?.order?.items);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -65,6 +63,8 @@ export default function OrderConfirmationPage() {
         setMainOrderProduct(item)
     }
 
+    console.log("shipping method", order)
+
 
     if (loading) {
         return <div>Loading...</div>; // Show loading state while fetching data
@@ -78,6 +78,8 @@ export default function OrderConfirmationPage() {
         return <div>No order found</div>; // Show message if no order found
     }
 
+
+
     return (
         <div className="order_confirmation_page">
 
@@ -89,7 +91,7 @@ export default function OrderConfirmationPage() {
 
                 <div className="order_description_1">
                     {/* <img src={checked} alt="" /> */}
-                    <svg className="desktop-screen-svg-icon" width="64" height="64" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+                    <svg className="desktop-screen-svg-icon" width="45" height="45" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
                         <rect width="128" height="128" fill="url(#pattern0_9588_61290)" />
                         <defs>
                             <pattern id="pattern0_9588_61290" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -130,13 +132,13 @@ export default function OrderConfirmationPage() {
                         ${order.shipping.state === "" ? order.billing.state : order.shipping.state},
                         US`}
                         width={'580px'}
-                        height={'290px'}
+                        height={'220px'}
                     />
-                    <p style={{ marginTop: "10px" }} className="heading2">Your Order is Confirmed</p>
-                    <p style={{ marginBottom: "15px" }} className="para2">We’ve accepted your order, we are getting it ready. Come back to this page for updates on your shipment.</p>
+                    <p style={{ marginTop: "5px" }} className="heading2">Your Order is Confirmed</p>
+                    <p style={{ marginBottom: "15px" }} className="para1">We’ve accepted your order, we are getting it ready. Come back to this page for updates on your shipment.</p>
                     <span style={{ marginBottom: "10px" }} className="separator"></span>
                     <p className="para2">TRACKING NUMBER</p>
-                    <p style={{ fontWeight: "600" }} className="para2">{order._id}</p> {/* Use order data */}
+                    <p style={{ fontWeight: "600" }} className="para1">{order._id}</p> {/* Use order data */}
                 </div>
 
                 <div className="order_description_1_2">
@@ -161,7 +163,7 @@ export default function OrderConfirmationPage() {
                                 {order.billing.city}, {order.billing.state} {/* Use order data */}
                             </p>
 
-                            <p style={{ marginTop: "20px" }} className="sub_heading">
+                            <p style={{ marginTop: "10px" }} className="sub_heading">
                                 Shipping Method : 
                             </p>
                             <p className="sub_content">

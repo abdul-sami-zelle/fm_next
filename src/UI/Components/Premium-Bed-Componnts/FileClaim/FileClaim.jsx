@@ -19,11 +19,11 @@ const FileClaim = () => {
                 <h3>How to File a Claim:</h3>
                 {claimWays.map((item, index) => (
                     <span key={index} className="file-claim-span">
-                        <MdKeyboardArrowRight size={20} color="var(--tertiary-color)" />
+                        <MdKeyboardArrowRight size={20} color="var(--text-gray)" />
                         <p>{item}</p>
                     </span>
                 ))}
-                <button>Claim Now <MdArrowRightAlt size={20} color="#595959" /> </button>
+                <button>Claim Now <MdArrowRightAlt size={20} color="var(--text-oposite)" /> </button>
                 <p>Note: Protection administered by Montage, LLC and provided by National Product Care Company.</p>
             </div>
         </div>

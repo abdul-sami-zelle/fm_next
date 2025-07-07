@@ -18,9 +18,12 @@ const GalleryModal = ({
   handleThumbnailClick,
   thumbActiveIndex,
   activeIndex,
+  clickedType,
   setActiveIndex,
   galleryModalWidth
 }) => {
+
+  console.log("clocked type info", clickedType)
   const swiperRef = useRef();
 
   const hasDimensionImage = productData?.dimension_image?.image_url?.trim();
@@ -38,11 +41,18 @@ const GalleryModal = ({
     ]
     : variationData?.images || [];
 
+    const variationImagesWithoutDimenssion = [...(variationData?.images || [])]
+    const simpleImagesWithoutDimenssion = [...(productData?.images || [])]
+
+  console.log("updated variation array", updatedVariationImages)
+
   const updatedSimpleImages = hasDimensionImage
     ? [{ image_url: productData?.dimension_image?.image_url }, ...productData?.images]
     : productData?.images;
 
-  const images = productData?.type === 'variable' ? updatedVariationImages : updatedSimpleImages;
+    console.log("updated simple images array", updatedSimpleImages)
+
+  const images = clickedType === 'dimenssion-show' ? productData?.type === 'variable' ? updatedVariationImages : updatedSimpleImages : productData?.type === 'variable' ? variationImagesWithoutDimenssion : simpleImagesWithoutDimenssion;
 
   const onThumbnailClick = (index) => {
     swiperRef.current?.slideTo(index);

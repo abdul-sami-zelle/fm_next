@@ -45,7 +45,6 @@ export const GlobalContextProvider = ({ children }) => {
   }, []);
 
   const updateLocationData = (newLocationData) => {
-    console.log("updated location", newLocationData)
     if (newLocationData) {
       setInfo((prevState) => ({
         ...prevState,
@@ -58,7 +57,6 @@ export const GlobalContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("save info into local storage", info)
     if (typeof window !== 'undefined') {
       localStorage.setItem('other_info', JSON.stringify(info));
       fetchAllstores();
@@ -268,7 +266,6 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   const handleButtonClick = async () => {
-    console.log("filter zip", extractZipCode(zipCode))
     const data = await getStateByPostalCode(extractZipCode(zipCode));
     if (data) {
       updateLocationData({

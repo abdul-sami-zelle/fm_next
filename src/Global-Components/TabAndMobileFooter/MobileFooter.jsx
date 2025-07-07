@@ -15,6 +15,7 @@ import RatingReview from '../../UI/Components/starRating/starRating';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { FaRegCopyright } from "react-icons/fa";
 
 const MobileFooter = ({ checkoutPage }) => {
 
@@ -221,6 +222,11 @@ const MobileFooter = ({ checkoutPage }) => {
                     <Link target='_blank' href={'https://zellesolutions.com/'}>Zelle Solutions</Link>
                 </span>
             </div>
+
+            <span className='mobile-footer-copy-rights'>
+                <FaRegCopyright color='#FFF' size={20} />
+                <p>2020 - 2025 Furniture Mecca. All Rights Reserved.</p>
+            </span>
 
 
 

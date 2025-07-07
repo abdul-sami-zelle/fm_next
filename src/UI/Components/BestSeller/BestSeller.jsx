@@ -334,6 +334,7 @@ const BestSeller = () => {
                             <Swiper
                                 pagination={{
                                     dynamicBullets: true,
+                                    dynamicMainBullets: 1,
                                     clickable: true
                                 }}
                                 modules={[Pagination]}

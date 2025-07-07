@@ -44,7 +44,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
     setDimensionIndex((prevIndex) => prevIndex === index ? null : index)
 
     if (item.title === 'Dimensions') {
-      handleGalleryModal('image-clicked')
+      handleGalleryModal('image-clicked', 'dimenssion-show')
     } else if (item.title === 'Zoom') {
       handleZoom()
     } else if (item.title === 'Design Your Room') {

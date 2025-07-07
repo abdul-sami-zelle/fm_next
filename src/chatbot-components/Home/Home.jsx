@@ -8,6 +8,7 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import OnlineChatUs from "../OnlineChatUs/OnlineChatUs";
 import ConversationList from "../ConversationList/ConversationList";
 import { useChatOpenContext } from "@/context/ChatbotContext/ChatbotContext";
+import { usePathname } from "next/navigation";
 
 const Home = () => {
 
@@ -46,9 +47,12 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const pathname = usePathname();
+  const confirmationOrderPage = pathname.startsWith('/order-confirmation')
+
 
   return (
-    <div className={`home-container ${isBottom ? 'take-chat-home-to-up' : ''}`}>
+    <div className={`home-container ${isBottom && !confirmationOrderPage ? 'take-chat-home-to-up' : ''}`}>
       <div
         className={`fade-wrapper ${isTransitioning
           ? "fade-out slide-down"

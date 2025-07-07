@@ -127,6 +127,8 @@
     overflow-x: auto;   
 }
 
+
+
 @media only screen and (max-width: 480px){
     .blogs-main-container{
         padding: 15px 10px;

@@ -80,7 +80,6 @@ const ProductCardTwo = ({
 
     }
 
-    useEffect(() => { }, [selectedColor])
 
 
 
@@ -175,7 +174,7 @@ const ProductCardTwo = ({
 
     return (
         <>
-            {/* {!isImageLoaded && <ProductCardShimmer width={'100%'} /> } */}
+            {!isImageLoaded && <ProductCardShimmer width={'100%'} /> }
             <div
                 className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `}
                 style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
@@ -219,7 +218,7 @@ const ProductCardTwo = ({
                                         <VscHeart
                                             // size={25}
                                             className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
-                                            style={{ float: 'right', color: 'var(--orange-outline)' }}
+                                            style={{ float: 'right', color: 'var(--orange-fill)' }}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleWishListclick(singleProductData)
@@ -267,7 +266,7 @@ const ProductCardTwo = ({
                                 src={`${url}${selectedColorImage
                                     }`}
                                 alt='product img'
-                                className={`product-main-img`}
+                                className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
                                 effect='blur'
                                 onLoad={() => { setImageLoaded(true) }}
                             />
@@ -281,11 +280,11 @@ const ProductCardTwo = ({
                                 onLoad={() => { setImageLoaded(true) }}
                             />
 
-                            {
+                            {/* {
                                 !isImageLoaded && <div className="image_shimmer_loader">
                                     <ProductCardImageShimmer />
                                 </div>
-                            }
+                            } */}
 
 
                         </div>

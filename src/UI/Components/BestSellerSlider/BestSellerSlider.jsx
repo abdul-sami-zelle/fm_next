@@ -93,20 +93,6 @@ const BestSellerSlider = (
         }
     })
 
-    // const getBestSellerProducts = async (slug) => {
-    //     const api = `/api/v1/products/get-best-selling-products?category=${slug}`
-    //     try {
-    //         setLoading(true);
-    //         const response = await axios.get(`${url}${api}`)
-    //         setAllProducts(response.data.products);
-    //         setLoading(false);
-
-    //     } catch (error) {
-    //         console.error("error geting best seller products", error);
-    //         setLoading(false);
-    //     }
-    // }
-
     const bestSellerApi = `${url}/api/v1/best-seller-home/get`
     const [bestSellerCount, setBestSellerCount] = useState(0);
     const { data: bestSellerMainData, error: bestSellerError, isLaoding: bestSellerLoading } = useSWR(bestSellerApi, fetcher, {
@@ -131,26 +117,6 @@ const BestSellerSlider = (
             // getBestSellerProducts(bestSellerMainData[0].slug);
         }
     }, [bestSellerMainData])
-
-    // const getBestSellerData = async () => {
-    //     const api = `/api/v1/best-seller-home/get`
-    //     try {
-    //         const response = await axios.get(`${url}${api}`)
-    //         setBestSellerNav1(response.data)
-    //         setCurrentSlug(response.data[0].slug)
-    //         getBestSellerProducts(response.data[0].slug);
-
-    //     } catch (error) {
-    //         console.error("error geting best seller products", error);
-    //     }
-    // }
-
-
-    // useEffect(() => {
-    //     if (!allProducts.length) {
-    //         getBestSellerData()
-    //     }
-    // }, [])
 
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -271,9 +237,6 @@ const BestSellerSlider = (
     const [currentDotPosition, setCurrentDotPosition] = useState(1);
     const [bannerLoading, setBannerLoading] = useState(false);
 
-    // useEffect(() => {
-    //     setBannerLoading(true);
-    // }, [activeItem]);
 
 
     const [dotStartIndex, setDotStartIndex] = useState(0);
@@ -474,6 +437,7 @@ const BestSellerSlider = (
                             <Swiper
                             pagination={{
                                 dynamicBullets: true,
+                                dynamicMainBullets: 1,
                                 clickable: true,
                             }}
                             modules={[Pagination]}

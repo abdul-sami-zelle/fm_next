@@ -8,8 +8,9 @@ import { truncateTitle } from '../../utils/api';
 const SnakBar = ({ snakeBarClass, message, openSnakeBarProp, setOpenSnakeBar, onClick }) => {
 
     // const [openSnakeBar, setOpenSnakeBar] = useState(openSnakeBarProp);
-    useEffect(() => {
 
+    useEffect(() => {
+        console.log("show snake bar value", openSnakeBarProp)
         if (openSnakeBarProp === true) {
             const timeOut = setTimeout(() => {
                 setOpenSnakeBar(false);

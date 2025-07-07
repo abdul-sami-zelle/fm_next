@@ -5,13 +5,10 @@ import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 const containerStyle = {
   width: "100%",
-  height: "290px",
+  height: "220px",
 };
 
-const mobileContainerStyle = {
-  width: "100%",
-  height: "250px",
-};
+
 
 const mapOptions = {
   mapTypeControl: false,
@@ -68,11 +65,12 @@ function DeliveryLocationMap({ address_info }) {
       <div className="google-map-desktop">
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
+          center={location || { lat: 37.7749, lng: -122.4194 }}
           zoom={location ? 15 : 7}
           options={mapOptions}
         >
-          {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
+          {/* {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />} */}
+          {location && <Marker position={location} />}
         </GoogleMap>
       </div>
       <div className="google-map-mobile">
@@ -82,7 +80,8 @@ function DeliveryLocationMap({ address_info }) {
           zoom={location ? 15 : 7}
           options={mapOptions}
         >
-          {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
+          {/* {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />} */}
+          {location && <Marker position={location} />}
         </GoogleMap>
       </div>
     </>

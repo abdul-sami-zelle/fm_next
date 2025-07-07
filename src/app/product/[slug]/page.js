@@ -78,30 +78,6 @@ const ProductDisplay = ({ params }) => {
     }
   }, [singleProductContent])
 
-
-  // const fetchProductBySlug = async (slug) => {
-  //   try {
-  //     const response = await axios.get(`${url}/api/v1/products/get-by-slug/${slug}`);
-  //     const fetchedProduct = response.data.products[0] || {};
-  //     setProduct(fetchedProduct);
-  //   } catch (error) {
-  //     console.error('Error fetching product by slug:', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     setProduct(null); // Reset product state to trigger loading state
-  //     await fetchProductBySlug(slug);
-  //   };
-
-  //   if (slug) {
-  //     fetchProduct();
-  //   }
-  // }, [slug]);
-
-
-
   const sectionRefs = {
     DesignYourRoom: useRef(null),
     Description: useRef(null),
@@ -112,7 +88,6 @@ const ProductDisplay = ({ params }) => {
 
   // Add To Cart Functionality
   const {
-    addToCart,
     decreamentQuantity,
     increamentQuantity,
     removeFromCart,
@@ -127,6 +102,7 @@ const ProductDisplay = ({ params }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
   const [quantity, setQuantity] = useState(1)
+  const [zoomIn, setZoomIn] = useState(false);
 
 
   const decreaseLocalQuantity = () => {
@@ -172,15 +148,17 @@ const ProductDisplay = ({ params }) => {
   const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
   const thumbnailContainerRef = useRef(null); // To control the vertical scroll
   const [dimensionModal, setDimensionModal] = useState(false)
+  const [clickedType, setClickedType] = useState('')
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
 
-  const handleOpenModal = (place) => {
+  const handleOpenModal = (place, type) => {
+    setZoomIn(false);
+    setClickedType(type === 'dimenssion-show' ? type : 'dimenssion-hide')
     if (place === 'image-clicked') {
       setGalleryModalWidth(true)
     } else {
       setGalleryModalWidth(false)
     }
-
     setDimensionModal(true)
   }
 
@@ -285,7 +263,6 @@ const ProductDisplay = ({ params }) => {
     setCurrentIndex(index);
     setActiveIndex(index); // Ensure the main slider image updates
     setThumbActiveIndex(index); // Ensure the thumbnail updates
-    // setZoomIn(false);
   };
 
   useEffect(() => {
@@ -297,7 +274,6 @@ const ProductDisplay = ({ params }) => {
   }, [dimensionModal])
 
   const [recomandedProducts, setRecomandedProducts] = useState([])
-
   const recomandationApi = product ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
   const [recomandationCount, setRecomandationCount] = useState(0)
 
@@ -363,7 +339,10 @@ const ProductDisplay = ({ params }) => {
           showDesignRoomModal={showDesignRoomModal}
           showDRM={showDRM}
           dimensionModal={dimensionModal}
+          setClickedType={setClickedType}
           setProductDetails={setProductDetails}
+          zoomIn={zoomIn}
+          setZoomIn={setZoomIn}
         />
 
         <ProductStickyTabBar
@@ -413,6 +392,7 @@ const ProductDisplay = ({ params }) => {
         dimensionModal={dimensionModal}
         handleCloseDimensionModal={handleCloseDimensionModal}
         productData={product}
+        clickedType={clickedType}
         variationData={selectedVariationData}
         handleNextImage={handleNextImage}
         handlePrevImage={handlePrevImage}

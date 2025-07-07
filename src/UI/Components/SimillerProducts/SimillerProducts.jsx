@@ -11,12 +11,14 @@ import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left ${className}`} >
-      <img src={leftArrow} alt='arrow' />
+      {/* <img src={leftArrow} alt='arrow' /> */}
+      <MdKeyboardArrowLeft size={25} color='#FFF' />
     </div>
   )
 }
@@ -24,7 +26,8 @@ function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right ${className}`} >
-      <img src={rightArrow} alt='arrow' />
+      {/* <img src={rightArrow} alt='arrow' /> */}
+      <MdKeyboardArrowRight size={25} color='#FFF' />
     </div>
   )
 }

@@ -323,17 +323,22 @@ input:-webkit-autofill {
   padding-bottom: 30px;
 }
 
+.swiper-pagination {
+  width: 90px !important;
+}
+
 
 .swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
+  width: 8px !important;
+  height: 8px !important;
   background-color: #595959 !important;
+  transform: scale(1) !important;
   opacity: 0.5 !important;
 }
 
 .swiper-pagination-bullet-active {
   background-color: var(--orange-outline) !important;
-  width: 25px !important;
+  width: 15px !important;
   border-radius: 5px !important;
   opacity: 1 !important;
 }

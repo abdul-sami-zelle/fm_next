@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+
 }
 
-.similler-products-main-container.add-padding{
+.similler-products-main-container.add-padding {
     padding: var(--global-padding);
 }
 
@@ -35,15 +35,15 @@
     width: 100%; */
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-auto-flow: column; 
+    grid-auto-flow: column;
     overflow-x: hidden;
-    white-space: nowrap; 
+    white-space: nowrap;
     gap: 10px;
     padding: 10px 0;
 }
 
 
-.similler-products-cards::-webkit-scrollbar{
+.similler-products-cards::-webkit-scrollbar {
     display: none;
 }
 
@@ -63,7 +63,7 @@
     transition: background-color 0.3s ease;
 }
 
-.scroll-button.show-arrow-on-slider{
+.scroll-button.show-arrow-on-slider {
     display: flex;
 }
 
@@ -81,20 +81,49 @@
     right: 0;
 }
 
-.disable-similler-product-arrow{
+.disable-similler-product-arrow {
     opacity: 0.2;
 }
 
-@media only screen and (max-width: 480px){
+.slick-prev:before,
+.slick-next:before {
+    display: none !important;
+}
+
+.slick-prev,
+.slick-next {
+    background-color: var(--orange-fill);
+}
+
+.cart-latest-products-slider-arrow {
+    background-color: orange !important;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.cart-latest-products-slider-arrow-left {
+    left: -15px;
+}
+
+.cart-latest-products-slider-arrow-right {
+    right: -15px;
+}
+
+@media only screen and (max-width: 480px) {
     .similler-products-main-container {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        
+
         /* padding: var(--global-padding); */
     }
 
-    .similler-products-main-container.add-padding{
+    .similler-products-main-container.add-padding {
         padding: 20px 10px;
     }
 
@@ -114,9 +143,22 @@
         gap: 10px;
         padding: 10px 0;
     }
+
     .scroll-button img {
         width: auto;
         height: 30px;
         object-fit: contain;
+    }
+
+    .cart-latest-product-cards-container {
+        width: 98% !important;
+    }
+
+    .cart-latest-products-slider-arrow-left {
+        left: 0px;
+    }
+
+    .cart-latest-products-slider-arrow-right {
+        right: 0px;
     }
 }

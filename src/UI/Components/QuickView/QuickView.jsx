@@ -9,15 +9,12 @@ import QuickViewVariations from '../SizeVariant/QuickViewVariations';
 import { VscHeartFilled } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
 import RatingReview from '../starRating/starRating';
-import { FaPlus, FaMinus, FaArrowDown } from 'react-icons/fa';
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { FaPlus, FaMinus} from 'react-icons/fa';
 // Assets
 import {
     IoIosArrowDown,
 } from "react-icons/io";
-import SizeVariant from '../SizeVariant/SizeVariant';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 // Swiper imports
@@ -49,28 +46,10 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setQuantity(1)
     }
 
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? setQuickViewProduct.images.length - 1 : prevIndex - 1));
-    };
-
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === setQuickViewProduct.images.length - 1 ? 0 : prevIndex + 1));
-    };
-
     const handleViewDetails = (index) => {
         setViewDetails(prevIndex => (prevIndex === index ? null : index));
     }
 
-    const images =
-        setQuickViewProduct?.type === 'simple'
-            ? setQuickViewProduct?.images || []
-            : variableProductData?.images || [];
-
-    // const handleNext = () => {
-    //     if (currentIndex < images.length - 1) {
-    //         setCurrentIndex(prev => prev + 1);
-    //     }
-    // };
 
     const [productDetails, setProductDetails] = useState({})
     useEffect(() => {
@@ -110,14 +89,14 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         },
     ]
 
-    const startFrom = setQuickViewProduct?.dimension_image !== null ? 0 : 1
+    // const startFrom = setQuickViewProduct?.dimension_image !== null ? 0 : 1
 
 
     const handleAddToCartProduct = (product) => {
         addToCart0(product, variableProductData, 0, quantity)
     }
 
-    const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
+    // const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
     const [quantity, setQuantity] = useState(1)
 
 
@@ -143,37 +122,25 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const { addToList, removeFromList, isInWishList } = useList()
     const [snakeBarMessage, setSnakBarMessage] = useState();
     const [showSnakeBar, setShowSnakeBar] = useState(false)
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
 
     const handleWishList = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
             setShowSnakeBar(true);
             setSnakBarMessage("Product Removed From Wish List");
-            // notifyRemove('Removed from wish list', {
-            //     autoClose: 10000,
-            //     className: "toast-message",
-            // })
+            
 
         } else {
             addToList(item)
             setShowSnakeBar(true);
             setSnakBarMessage("Product Added To Wish List");
-            // notify("added to wish list", {
-            //     autoClose: 10000,
-            // })
+            
         }
     }
 
     const handleCloseSnakeBar = () => {
         setShowSnakeBar(false)
     }
-
-    // dots
-
-
-
 
     return (
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
@@ -206,11 +173,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                             {setQuickViewProduct?.type === "simple" ?
                                 <div
                                     className="quick-view-slider-wrapper"
-                                // style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                                 >
                                     <Swiper
                                         pagination={{
                                             clickable: true,
+                                            dynamicMainBullets: 1,
                                             dynamicBullets: true,
                                         }}
                                         modules={[Pagination]}
@@ -244,18 +211,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 </div>
                             }
                         </div>
-
-                        {/* <div className="quick-view-dots">
-                            {
-                                images.map((_, index) => (
-                                    <span
-                                        key={index}
-                                        className={`dot ${index === currentIndex ? 'active' : ''}`}
-                                        onClick={() => setCurrentIndex(index)}
-                                    ></span>
-                                ))
-                            }
-                        </div> */}
                     </div>
 
 

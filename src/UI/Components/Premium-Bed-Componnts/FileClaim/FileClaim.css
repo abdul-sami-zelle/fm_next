@@ -64,9 +64,9 @@
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
-    border: 1px solid var(--orange-outline);
+    border: 1px solid var(--orange-fill);
     background-color: var(--orange-fill);
-    color: #595959;
+    color: var(--text-oposite);
     cursor: pointer;
     gap: 10px;
 }
@@ -111,9 +111,9 @@
         align-items: center;
         justify-content: center;
         padding: 5px 15px;
-        border: 1px solid var(--orange-outline);
+        border: 1px solid var(--orange-fill);
         background-color: var(--orange-fill);
-        color: #595959;
+        color: var(--text-oposite);
         cursor: pointer;
         gap: 10px;
     }

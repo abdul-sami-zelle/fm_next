@@ -12,7 +12,7 @@ const DimensionDetail = ({productData, handleGalleryModal}) => {
       </div>
       {productData?.dimension_image && (
         <div className='dimension-detail-image-section'>
-          <img src={`${url}${productData?.dimension_image?.image_url}`} alt='dimension' onClick={() => handleGalleryModal('image-clicked')} />
+          <img src={`${url}${productData?.dimension_image?.image_url}`} alt='dimension' onClick={() => handleGalleryModal('image-clicked', 'dimenssion-show')} />
         </div>
       )}
       

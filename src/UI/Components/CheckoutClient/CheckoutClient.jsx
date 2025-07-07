@@ -256,11 +256,12 @@ const CheckoutClient = () => {
                 <p className='cart-order-summary-price-detail-single-item-title'>Subtotal</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(subTotal0)}</p>
               </div>
-
-              <div className='cart-order-summary-price-detail-single-item'>
-                <p className='cart-order-summary-price-detail-single-item-title'>Savings</p>
-                <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--tertiary-color)" }} >-{formatedPrice(savings)}</p>
-              </div>
+              {savings > 0 && (
+                <div className='cart-order-summary-price-detail-single-item'>
+                  <p className='cart-order-summary-price-detail-single-item-title'>Savings</p>
+                  <p className='cart-order-summary-price-detail-single-item-price' style={{ color: "var(--tertiary-color)" }} >-{formatedPrice(savings)}</p>
+                </div>
+              )}
 
               {isCartProtected ? (
                 <div className='cart-order-summary-price-detail-single-item'>

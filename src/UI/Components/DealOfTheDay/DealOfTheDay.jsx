@@ -401,7 +401,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
           ) : (
             <Swiper
               spaceBetween={20}
-              pagination={ {clickable: true, dynamicBullets: true }}
+              pagination={ {clickable: true, dynamicBullets: true, dynamicMainBullets: 1, }}
               breakpoints={{
                 0: {
                   slidesPerView: 1,
