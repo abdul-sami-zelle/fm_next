@@ -39,7 +39,7 @@
 }
 
 .appointment-inner-content{
-    position: relative;
+    /* position: relative; */
     display: flex;
     width: 100%;
     height: 100%;
@@ -47,8 +47,9 @@
     align-items: start;
     justify-content: start;
     gap: 30px;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
+    /* overflow-x: hidden;
+    overflow-y: auto; */
 }
 
 .appointment-inner-content::-webkit-scrollbar {
@@ -59,15 +60,23 @@
     display: none;
 }
 
+.appointment-modal-head-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
 .appointment-modal-close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     width: max-content;
     height: max-content;
-    position: absolute;
+    /* position: absolute;
     right: 0px;
-    top: 0px;
+    top: 0px; */
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -91,6 +100,30 @@
 }
 
 /* appointment modal Tabs Pagination */
+.appointment-modal-tabs-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 30px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+
+.appointment-modal-tabs-container::-webkit-scrollbar {
+    display: none;
+}
+
+.appointment-modal-tabs-container.hide-appointment-modal {
+    display: none;
+}
+
+
 .pagination-tab-section-container {
     display: flex;
     align-items: center;

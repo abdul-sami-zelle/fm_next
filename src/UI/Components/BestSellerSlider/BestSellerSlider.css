@@ -326,7 +326,7 @@ width: 100%;
     overflow: hidden;
     flex-shrink: 0;
     max-height: 250px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     flex-grow: 1;
     border: none;
 }
@@ -503,7 +503,7 @@ width: 100%;
 }
 
 .best-seller-swiper {
-  padding-bottom: 30px; 
+  padding-bottom: 20px; 
 }
 
 /* .best-seller-swiper {

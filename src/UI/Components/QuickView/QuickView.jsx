@@ -177,7 +177,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     <Swiper
                                         pagination={{
                                             clickable: true,
-                                            dynamicMainBullets: 1,
+                                            dynamicMainBullets: 5,
                                             dynamicBullets: true,
                                         }}
                                         modules={[Pagination]}

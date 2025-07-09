@@ -237,8 +237,6 @@
 }
 
 .order-summary-checkbox:checked {
-    /* background-color: #28828A;
-    border-color: #28828A; */
     background-color: var(--orange-fill);
     border-color: var(--orange-outline);
 }

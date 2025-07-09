@@ -40,6 +40,7 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Pagination } from 'swiper/modules';
+import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
 
 const BestSellerPrevArrow = (props) => {
     const { className, style, onClick } = props;
@@ -431,13 +432,13 @@ const BestSellerSlider = (
 
                     <div className='mobile-view-cards-main-container'>
                         {loading ? (
-                            <BestSellerProductCardShimmer width={'85%'} />
+                            <BestSellerMobileShimmer width={'85%'} />
                         ) : (
 
                             <Swiper
                             pagination={{
                                 dynamicBullets: true,
-                                dynamicMainBullets: 1,
+                                dynamicMainBullets: 5,
                                 clickable: true,
                             }}
                             modules={[Pagination]}

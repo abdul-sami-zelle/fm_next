@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './SimillerProducts.css'
 import axios from 'axios'
 import heart from '../../../Assets/icons/heart-vector.png'
@@ -12,6 +12,7 @@ import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+
 
 const SamplePrevArrow = (props) => {
   const { className, style, onClick } = props;
@@ -89,6 +90,33 @@ const SimillerProducts = ({ isPadding, productId }) => {
     setShowSnakeBar(false)
   }
 
+  // const [activeIndex, setActiveIndex] = useState(0);
+  // const totalSlides = data?.length;
+
+  // const scrollDotsToCenter = (index) => {
+  //   const container = dotsRef.current;
+  //   if (!container) return;
+
+  //   const dots = container.querySelectorAll('li');
+  //   const activeDot = dots[index];
+
+  //   if (activeDot && container) {
+  //     const containerWidth = container.offsetWidth;
+  //     const dotOffsetLeft = activeDot.offsetLeft;
+  //     const dotWidth = activeDot.offsetWidth;
+  //     const scrollPosition = dotOffsetLeft - (containerWidth / 2) + (dotWidth / 2);
+  //     container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const interval = setTimeout(() => {
+  //     scrollDotsToCenter(activeSlide);
+  //   }, 100); // wait for DOM update
+
+  //   return () => clearTimeout(interval);
+  // }, [activeSlide]);
+
   // Slick
   let settings = {
     dots: false,
@@ -102,6 +130,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
       data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
     prevArrow:
       data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
+    afterChange: (index) => setActiveIndex(index),
     responsive: [
       {
         breakpoint: 1024,
@@ -128,11 +157,34 @@ const SimillerProducts = ({ isPadding, productId }) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          arrows: data && data.length > 1 ? true : false,
+          arrows: false,
+          dots: false // still false, we're using custom
         }
       }
     ]
   };
+
+  // const renderCustomDots = () => {
+  //   if (window.innerWidth > 480) return null; // only mobile
+
+  //   const visibleDots = [];
+
+  //   // Determine start index to always show 3 dots
+  //   let start = Math.max(0, activeIndex - 1);
+  //   if (activeIndex === totalSlides - 1) start = totalSlides - 3;
+  //   if (activeIndex === 0) start = 0;
+
+  //   for (let i = start; i < start + 3 && i < totalSlides; i++) {
+  //     visibleDots.push(
+  //       <div
+  //         key={i}
+  //         className={`custom-dot ${i === activeIndex ? 'active' : ''}`}
+  //       />
+  //     );
+  //   }
+
+  //   return <div className="custom-dots-wrapper">{visibleDots}</div>;
+  // };
 
   const handleProductClick = (item) => {
     router.push(`/product/${item.slug}`, { state: item });
@@ -188,6 +240,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                 <ProductCardShimmer />
               ))
             )}
+            {/* {renderCustomDots()} */}
           </Slider>
         </div>
 

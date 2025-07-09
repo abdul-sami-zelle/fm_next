@@ -96,7 +96,7 @@
     justify-content: center;
     width: 120px;
     height: 40px;
-    background-color: var(--orange-fill);
+    background-color: #595959;
     border: 1px solid var(--orange-outline);
     border-radius: 30px;
     color: var(--text-oposite);
@@ -106,6 +106,9 @@
     cursor: pointer;
 }
 
+.search-bar-search-product-button:hover {
+    background-color: var(--orange-fill);
+}
 
 .search-bar-div {
     display: flex;
@@ -182,7 +185,7 @@
 .search-products-display-left {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     padding: 0px 0;
     height: 100%;
     border-right: 1px solid var(--border-color);
@@ -1067,10 +1070,10 @@
     width:160%
     }
     
-    .search-products-display-left{
-    /* width: 63%; */
+    /* .search-products-display-left{
+    width: 63%;
     width: 50%;
-    }
+    } */
     .search-product-display-right{
     /* width:37%; */
     width: 50%;

@@ -37,24 +37,6 @@ const DoubleRangeSlider = (
     }
   }
 
-  // useEffect(() => {
-  //   const handleGlobalPointerUp = () => {
-  //     if (isDragging.current) {
-  //       onRangeChange(initialRange);
-  //       isDragging.current = false;
-  //     }
-  //   };
-
-  //   // Attach on document
-  //   document.addEventListener("mouseup", handleGlobalPointerUp);
-  //   document.addEventListener("touchend", handleGlobalPointerUp);
-
-  //   return () => {
-  //     document.removeEventListener("mouseup", handleGlobalPointerUp);
-  //     document.removeEventListener("touchend", handleGlobalPointerUp);
-  //   };
-  // }, [initialRange, onRangeChange]);
-
 
   return (
     <div className="multi-range-slider-container">

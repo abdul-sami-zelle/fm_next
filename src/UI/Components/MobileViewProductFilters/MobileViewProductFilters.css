@@ -57,7 +57,7 @@
 
 .mobile-view-filters-head img{
     width: 160px;
-    height: 32px;
+    height: auto;
     cursor: pointer;
 }
 
@@ -86,7 +86,7 @@
     color: var(--text-primary);
 }
 
-.mobile-view-filters-body-head a{
+.mobile-view-filters-body-head p{
     color: var(--text-primary);
     font-size: 14px;
     line-height: 21px;

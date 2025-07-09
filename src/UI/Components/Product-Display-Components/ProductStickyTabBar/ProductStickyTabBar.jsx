@@ -19,7 +19,8 @@ const ProductStickyTabBar = (
         quantity
     }) => {
 
-    const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
+    // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
+    const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
     const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
     // const [isSticky, setIsSticky] = useState(false);

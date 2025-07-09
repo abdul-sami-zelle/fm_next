@@ -33,9 +33,11 @@ const TermsConditionsModal = ({ openModal, closeModal }) => {
       }}
     >
       <div className="html-modal-inner-container">
-      <button className="term-condition-modal-close-button" onClick={closeModal}>
-        <IoClose size={30} color="#595959" />
-      </button>
+        <div className="terms-modal-head-contianer">
+          <button className="term-condition-modal-close-button" onClick={closeModal}>
+            <IoClose size={25} color="#595959" />
+          </button>
+        </div>
         <div className="html-modal-inner-sub-container">
           {termsContent ? (
             <div dangerouslySetInnerHTML={{ __html: termsContent }} />

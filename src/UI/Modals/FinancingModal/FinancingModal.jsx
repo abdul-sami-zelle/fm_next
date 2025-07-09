@@ -42,7 +42,7 @@ const FinancingModal = ({applyFinancing, handleCloseModal}) => {
   return (
     <div className={`apply-for-financing-modal-main-container ${applyFinancing ? 'show-financing-modal' : ''}`} onClick={handleCloseModal}>
       <div className='financing-modal-inner-container' onClick={(e) => e.stopPropagation()}>
-        <button className='financing-modal-close-btn' onClick={handleCloseModal}><IoIosClose size={20} color='var(--text-gray)' /></button>
+        <button className='financing-modal-close-btn' onClick={handleCloseModal}><IoIosClose size={25} color='var(--text-gray)' /></button>
 
         <h3>Apply for Financing</h3>
 

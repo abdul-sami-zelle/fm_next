@@ -78,7 +78,7 @@ const Products = ({ navigationType }) => {
 
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
-    
+
     // const location = useLocation();
     const location = useSearchParams();
     const params = new URLSearchParams(location.search);
@@ -87,7 +87,7 @@ const Products = ({ navigationType }) => {
 
     const searchParams = useSearchParams()
     const query = searchParams.get('query');
-    
+
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
     // const router = useRouter();
@@ -109,7 +109,7 @@ const Products = ({ navigationType }) => {
     const [ratingOpen, setRatingOpen] = useState(false);
 
     // Sub Categories show
-    const  categorySlug = useParams();
+    const categorySlug = useParams();
     const parentCategory = categorySlug.category
 
     const getSubCategories = async () => {
@@ -129,9 +129,9 @@ const Products = ({ navigationType }) => {
         }
     }
 
-    useEffect(() => {getSubCategories()}, [])
+    useEffect(() => { getSubCategories() }, [])
     useEffect(() => {
-            getSubCategories()
+        getSubCategories()
     }, [subCategorySlug])
 
     // Hide and Show Filter section
@@ -165,9 +165,10 @@ const Products = ({ navigationType }) => {
     }
 
     const router = useRouter()
-    
+
 
     const handleRangeChange = (newRange) => {
+        console.log("new range", newRange)
         const params = new URLSearchParams(window.location.search);
         if (newRange[0] !== priceRange[0] || newRange[1] !== priceRange[1]) {
             setPriceRange(newRange);
@@ -187,6 +188,7 @@ const Products = ({ navigationType }) => {
 
 
     const handleColorCheck = (value) => {
+        console.log("color value", value)
         const params = new URLSearchParams(window.location.search);
         const updatedColorValue = colorValue?.includes(value) ? [] : [value];
 
@@ -218,6 +220,7 @@ const Products = ({ navigationType }) => {
 
     const [ratingValue, setRatingValue] = useState([]);
     const handleRatingFilter = (value) => {
+        console.log("new rating value", value);
         const params = new URLSearchParams(window.location.search);
         const updatedRating = ratingValue.includes(value) ? [] : [value]
 
@@ -232,7 +235,7 @@ const Products = ({ navigationType }) => {
         params.set('page', 1);
 
         const ratingString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-        
+
         const pathname = window.location.pathname;
 
         // ✅ Update the URL
@@ -253,8 +256,8 @@ const Products = ({ navigationType }) => {
         setActivePageIndex(1);
         const pathname = window.location.pathname;
         router.replace(pathname, { shallow: true });
-        
-        
+
+
     }
 
     const filterProducts = async (filter) => {
@@ -404,7 +407,7 @@ const Products = ({ navigationType }) => {
 
     useEffect(() => {
         // if (navigationType !== 'POP' || !products?.length > 0) {
-            fetchProductData()
+        fetchProductData()
         // }
     }, [location.pathname, query])
     // useEffect(() => {fetchProductData()}, [query])
@@ -456,30 +459,30 @@ const Products = ({ navigationType }) => {
         if (index !== activePageIndex) {
             const params = new URLSearchParams(window.location.search); // Use current URL
             params.set('page', index); // Update page param
-    
+
             const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
             const pathname = window.location.pathname;
-    
+
             // Update URL without page reload
             router.replace(`${pathname}?${queryString}`, { shallow: true });
-    
+
             // Update state
             setActivePage(index);
             setActivePageIndex(index);
-    
+
             // Call sorting and filtering with updated query
-            if(pageCache.current[index]) {
+            if (pageCache.current[index]) {
                 setProducts(pageCache.current[index]);
             } else {
                 sortProducts(selectedRelevanceValue);
                 filterProducts(queryString);
             }
-    
+
             // Smooth scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
-    
+
     const handlePrevPage = () => {
         if (activePage > 1) {
 
@@ -491,13 +494,13 @@ const Products = ({ navigationType }) => {
             const pathname = window.location.pathname;
 
             // setSearchParams(params.toString())
-            router.replace(`${pathname}?${queryString}`, {shallow: true});
+            router.replace(`${pathname}?${queryString}`, { shallow: true });
             setActivePage(activePage - 1);
             setActivePageIndex(activePageIndex - 1);
 
-            if(pageCache.current[index]) {
+            if (pageCache.current[index]) {
                 setProducts(pageCache.current[index]);
-            }else {
+            } else {
                 sortProducts(selectedRelevanceValue)
                 filterProducts(params.toString())
             }
@@ -521,12 +524,12 @@ const Products = ({ navigationType }) => {
             const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
             const pathname = window.location.pathname;
 
-            router.replace(`${pathname}?${queryString}`, {shallow: true});
+            router.replace(`${pathname}?${queryString}`, { shallow: true });
 
             // setSearchParams(params.toString());
             setActivePage(activePage + 1);
             setActivePageIndex(activePageIndex + 1);
-            if(pageCache.current[index]) {
+            if (pageCache.current[index]) {
                 setProducts(pageCache.current[index]);
             } else {
                 sortProducts(selectedRelevanceValue)
@@ -811,7 +814,7 @@ const Products = ({ navigationType }) => {
 
                                 </div>
 
-                                { currentRoute === 'searched-products' ? <h3 className='searched-products-counter'>Searched Products {products.length}</h3> : <></> }
+                                {currentRoute === 'searched-products' ? <h3 className='searched-products-counter'>Searched Products {products.length}</h3> : <></>}
                                 <div className={`product-main ${hideFilters ? 'increase-columns' : ''}`}>
 
                                     {products && products?.length > 0 ? (
@@ -861,6 +864,25 @@ const Products = ({ navigationType }) => {
 
                                 <div className='view-more-products-button-div'>
                                     {totalPages?.totalPages > 1 ? (
+                                        <div className='desktop-pagination-buttons-container'>
+                                            {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
+
+                                                    const pageNumber = index + 1;
+                                                    
+
+                                                    return <span
+                                                            key={pageNumber}
+                                                            onClick={() => handleActivePage(pageNumber)}
+                                                            className={activePageIndex === pageNumber ? 'active-page-span' : ''}
+                                                        >
+                                                            {pageNumber}
+                                                        </span>
+                                            
+                                                })}
+                                        </div>
+                                    ) : (<></>)}
+
+                                    {/* {totalPages?.totalPages > 1 ? (
                                         <div className='view-more-products-pagination-main'>
                                             <div className='pagination-buttons-container'>
                                                 <span
@@ -921,7 +943,7 @@ const Products = ({ navigationType }) => {
                                         </div>
                                     ) : (
                                         <></>
-                                    )}
+                                    )} */}
 
 
 
@@ -937,7 +959,7 @@ const Products = ({ navigationType }) => {
                     <div className='mobile-view-filter-head'>
                         <div className='mobile-view-product-count'>
                             <p>214 items</p>
-                            <p>Starting at $ 299</p>
+                            <p>Starting at {formatedPrice(allFilters?.priceRange?.minPrice)}</p>
                         </div>
                         <div className='mobile-view-product-card-grid-select'>
                             <div className={`mobile-view-toggler-single-box ${activeGrid === 'single-col' ? 'active-toggler-single-box' : ''}`}>
@@ -1010,6 +1032,10 @@ const Products = ({ navigationType }) => {
                     )}
                 </div>
                 <div className='view-more-products-pagination-main'>
+
+
+
+
                     <div className='pagination-buttons-container'>
                         <span
                             className={activePageIndex === 1 ? 'disabled' : ''}
@@ -1090,10 +1116,12 @@ const Products = ({ navigationType }) => {
                 setPriceRange={setPriceRange}
                 colorValue={colorValue}
                 setColorValue={setColorValue}
+                ratingValue={ratingValue}
                 handleColor={handleColorCheck}
                 handleRating={handleRatingFilter}
                 handleCategory={handleCategorySelect}
                 handlePriceRange={handleRangeChange}
+                clearFilters={handleClearFilters}
             />
             <SortModal
                 isOpenSort={showSortModal}

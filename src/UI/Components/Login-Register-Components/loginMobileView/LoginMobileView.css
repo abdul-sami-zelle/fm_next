@@ -85,9 +85,9 @@
     flex-direction: row;
     align-items: center;
 }
-.mobile-login-input-label.checkbox input{
+/* .mobile-login-input-label.checkbox input{
     width: auto;
-}
+} */
 
 .mobile-login-input-label a {
     color: var(--text-primary);

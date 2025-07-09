@@ -139,6 +139,10 @@
     cursor: pointer;
 }
 
+.add-button-round {
+    flex-shrink: 0;
+}
+
 .rotate{
     transform: rotate(45deg);
     transition: all 0.3s ease-in-out;

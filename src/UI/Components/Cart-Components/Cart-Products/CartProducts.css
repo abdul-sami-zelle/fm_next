@@ -114,6 +114,8 @@
 .cart-protection-card-icon{
     width: 25px;
     height: 25px;
+    display: flex;
+    flex-shrink: 0;
     object-fit: contain;
     color: var(--orange-outline);
 }

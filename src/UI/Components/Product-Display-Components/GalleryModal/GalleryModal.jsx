@@ -143,7 +143,7 @@ const GalleryModal = ({
               setActiveIndex(swiper.activeIndex);
               handleThumbnailClick(swiper.activeIndex); // keeps thumb in sync
             }}
-            pagination={{ dynamicBullets: true, clickable: true }}
+            pagination={{ dynamicBullets: true, clickable: true, dynamicMainBullets: 5, }}
             modules={[Pagination]}
             className='dimension-modal-main-slider-section'
           >

@@ -79,7 +79,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
             selectedShippingMethods,
         } = useGlobalContext();
 
-        console.log("shipping method", selectedShippingMethods)
 
 
     return (

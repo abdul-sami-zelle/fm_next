@@ -100,6 +100,10 @@ const CheckoutClient = () => {
 
       if (!isValid) {
         setIsLoading(false)
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
         return; // Stop here if validation fails
       }
       try {
@@ -314,7 +318,7 @@ const CheckoutClient = () => {
                 <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
 
-              <div className='right-section-order-place-container'> 
+              <div className='right-section-order-place-container'>
                 <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>

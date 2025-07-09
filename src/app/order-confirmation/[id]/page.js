@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { getOptionNames } from "../../../utils/api";
+import Loader from "@/UI/Components/Loader/Loader";
 
 
 
@@ -67,7 +68,7 @@ export default function OrderConfirmationPage() {
 
 
     if (loading) {
-        return <div>Loading...</div>; // Show loading state while fetching data
+        return <Loader />; // Show loading state while fetching data
     }
 
     if (error) {

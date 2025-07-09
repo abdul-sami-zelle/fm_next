@@ -34,7 +34,7 @@
 }
 
 .mobile-register-top-heading button{
-    padding: 10px 25px;
+    padding: 5px 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,4 +84,38 @@
     font-weight: 500;
     width: max-content;
     cursor: pointer;
+}
+
+
+.mobi-view-signup-check {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--orange-outline);
+    border-radius: 4px;
+    position: relative;
+    padding: 0px !important;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.mobi-view-signup-check:checked {
+    background-color: var(--orange-fill);
+    border-color: var(--orange-outline);
+}
+
+.mobi-view-signup-check:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg) !important;
+    width: 3px;
+    height: 7px;
+    border: solid var(--text-oposite);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: block;
 }

@@ -26,8 +26,8 @@ const CartSidePannel = (
 
   }) => {
 
-    
-      
+
+
 
   const {
     subTotal,
@@ -59,7 +59,7 @@ const CartSidePannel = (
     navigate.push("/check-out");
   }
 
-  
+
 
   return (
     <div
@@ -112,41 +112,41 @@ const CartSidePannel = (
 
           <div className='mobile-professional-assembly-and-protection'>
 
-              {cartProducts?.products?.length > 0 ? (
-            <div className='proffesional-assembly-check-sec'>
-              <label className='order-summary-proffesional-check-item-label-one'>
-                <input
-                  type="checkbox"
-                  className='order-summary-checkbox'
-                  checked={isProfessionalAssembly}
-                  onChange={() => handleCartAssembly()}
-                />
-                Professional Assembly (+ ${totalProtectionValue})
-              </label>
-              <p className='order-summary-proffesional-check-item-detail'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>
-            </div>
-          ) : (<></>)}
+            {cartProducts?.products?.length > 0 ? (
+              <div className='proffesional-assembly-check-sec'>
+                <label className='order-summary-proffesional-check-item-label-one'>
+                  <input
+                    type="checkbox"
+                    className='order-summary-checkbox'
+                    checked={isProfessionalAssembly}
+                    onChange={() => handleCartAssembly()}
+                  />
+                  Professional Assembly (+ ${totalProtectionValue})
+                </label>
+                <p className='order-summary-proffesional-check-item-detail'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>
+              </div>
+            ) : (<></>)}
 
-              {cartProducts?.products?.length > 1 ? (
-            <div className='proffesional-assembly-check-sec'>
-              <label className='order-summary-proffesional-check-item-label'>
-                <input
-                  type="checkbox"
-                  className='order-summary-checkbox'
-                  checked={isCartProtected}
-                  onChange={() => handleCartProtected()}
-                />
-                Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
-              </label>
-              <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
-            </div>
-          ) : (<></>)}
+            {cartProducts?.products?.length > 1 ? (
+              <div className='proffesional-assembly-check-sec'>
+                <label className='order-summary-proffesional-check-item-label'>
+                  <input
+                    type="checkbox"
+                    className='order-summary-checkbox'
+                    checked={isCartProtected}
+                    onChange={() => handleCartProtected()}
+                  />
+                  Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
+                </label>
+                <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
+              </div>
+            ) : (<></>)}
           </div>
 
-          
+
         </div>
 
-        <div className='cart-side-section-buttons'> 
+        <div className='cart-side-section-buttons'>
 
           <div className='desktop-protextion-and-assembily-contianer'>
             {cartProducts?.products?.length > 0 ? (

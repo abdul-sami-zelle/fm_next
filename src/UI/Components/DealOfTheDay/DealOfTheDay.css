@@ -250,6 +250,7 @@
 
     .mobile-view-timer {
         display: flex;
+        padding: 10px 15px;
     }
 
     .mobile-view-deal-of-the-day-product-count {

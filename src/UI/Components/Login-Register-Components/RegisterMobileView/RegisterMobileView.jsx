@@ -130,6 +130,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
                     <label className="mobile-login-input-label checkbox">
                         <input
                             type="checkbox"
+                            className='mobi-view-signup-check'
                             checked={acceptTerms}
                             onChange={(e) => setAcceptTerms(e.target.checked)}
                             required
@@ -140,6 +141,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
                         <input
                             type="checkbox"
                             checked={acceptPrivacy}
+                            className='mobi-view-signup-check'
                             onChange={(e) => setAcceptPrivacy(e.target.checked)}
                             required
                         />

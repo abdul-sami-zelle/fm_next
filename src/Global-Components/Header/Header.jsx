@@ -472,7 +472,7 @@ const Header = ({ checkoutPage }) => {
               </button>
             </div>
 
-            <div className='search-product-display-right'>
+            {/* <div className='search-product-display-right'>
               <div className='searched-selected-product-main-image-div'>
                 <img
                   src={`${url}${searchedProducts?.[currentInd]?.image?.image_url}`}
@@ -494,7 +494,7 @@ const Header = ({ checkoutPage }) => {
               <div className='searched-selected-product-description-div'>
                 <div className="custom-description" dangerouslySetInnerHTML={{ __html: searchedProducts?.[currentInd]?.description, descriptionLength }} ></div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

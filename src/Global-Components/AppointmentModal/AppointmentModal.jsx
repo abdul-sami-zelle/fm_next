@@ -161,50 +161,61 @@ const AppointmentModal = (
                 {loading && <Loader />}
 
                 <div className='appointment-inner-content'>
-                    <button className='appointment-modal-close-btn' onClick={handleCloseModal}>
-                        <IoIosClose size={30} color='var(--secondary-color)' />
-                    </button>
-                    <div className='appointment-modal-head'>
-                        <SlCalender size={25} color='var(--tertiary-color)' />
-                        <p>Schedule a Consultation</p>
+                    <div className='appointment-modal-head-section'>
+
+                        <div className='appointment-modal-head'>
+                            <SlCalender size={25} color='var(--tertiary-color)' />
+                            <p>Schedule a Consultation</p>
+                        </div>
+
+                        <button className='appointment-modal-close-btn' onClick={handleCloseModal}>
+                            <IoIosClose size={30} color='var(--secondary-color)' />
+                        </button>
                     </div>
 
-                    {/*Tab Pagination */}
-                    <div className='pagination-tab-section-container'>
-                        <div className={`pagination-tab-line`}></div>
-                        <div className='appointment-modal-tab-pagination'>
-                            {tabs.map((item, index) => (
-                                <div key={index} className='appointment-modal-tab-btn-container'>
-                                    <button key={index} onClick={() => handleSelectedTab(index + 1)} className={`appointment-modal-tab-btn ${(selectedTab >= index + 1) ? 'selected-tab' : ''}`}>{item.id}</button>
-                                    <p>{item.title}</p>
-                                </div>
-                            ))}
+
+
+                    <div className='appointment-modal-tabs-container'>
+                        
+                        <div className='pagination-tab-section-container'>
+                            <div className={`pagination-tab-line`}></div>
+                            <div className='appointment-modal-tab-pagination'>
+                                {tabs.map((item, index) => (
+                                    <div key={index} className='appointment-modal-tab-btn-container'>
+                                        <button key={index} onClick={() => handleSelectedTab(index + 1)} className={`appointment-modal-tab-btn ${(selectedTab >= index + 1) ? 'selected-tab' : ''}`}>{item.id}</button>
+                                        <p>{item.title}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className='appointment-modal-tab-content'>
+                            {
+                                selectedTab === 1 ? <TypeTab
+                                    handleServiceType={handleServiceType}
+                                    selectedTab={selectedTab}
+                                    setSelectedTab={setSelectedTab}
+                                    handleCategorySelect={handleCategorySelect}
+                                    serviceIndex={serviceIndex}
+                                />
+                                    : selectedTab === 2 ? <LocationTab
+                                        selectedTab={selectedTab}
+                                        setSelectedTab={setSelectedTab}
+                                        handleSelectStore={handleSelectStore}
+                                    />
+                                        : selectedTab === 3 ? <DateTimeTab
+                                            selectedTab={selectedTab}
+                                            setSelectedTab={setSelectedTab}
+                                        />
+                                            : <ReviewTab
+                                                handleSubmitAppointment={handleSubmitAppointment}
+                                            />
+                            }
                         </div>
                     </div>
 
-                    <div className='appointment-modal-tab-content'>
-                        {
-                            selectedTab === 1 ? <TypeTab
-                                handleServiceType={handleServiceType}
-                                selectedTab={selectedTab}
-                                setSelectedTab={setSelectedTab}
-                                handleCategorySelect={handleCategorySelect}
-                                serviceIndex={serviceIndex}
-                            />
-                                : selectedTab === 2 ? <LocationTab
-                                    selectedTab={selectedTab}
-                                    setSelectedTab={setSelectedTab}
-                                    handleSelectStore={handleSelectStore}
-                                />
-                                    : selectedTab === 3 ? <DateTimeTab
-                                        selectedTab={selectedTab}
-                                        setSelectedTab={setSelectedTab}
-                                    />
-                                        : <ReviewTab
-                                            handleSubmitAppointment={handleSubmitAppointment}
-                                        />
-                        }
-                    </div>
+                    {/*Tab Pagination */}
+
                 </div>
 
             </div>

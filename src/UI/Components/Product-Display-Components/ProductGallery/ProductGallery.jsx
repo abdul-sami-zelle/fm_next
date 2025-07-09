@@ -191,7 +191,7 @@ const ProductGallery = ({
                         }}
                         pagination={{
                             dynamicBullets: true,
-                            dynamicMainBullets: 1,
+                            dynamicMainBullets: 5,
                             clickable: true,
                         }}
                         modules={[Pagination, Controller]}

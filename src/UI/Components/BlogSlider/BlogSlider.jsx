@@ -223,7 +223,7 @@ const BlogSlider = () => {
 
           <Swiper
             spaceBetween={10}
-            pagination={{ clickable: true, dynamicBullets: true, dynamicMainBullets: 1, }}
+            pagination={{ clickable: true, dynamicBullets: true, dynamicMainBullets: 5, }}
             breakpoints={{
               0: {
                 slidesPerView: 1,

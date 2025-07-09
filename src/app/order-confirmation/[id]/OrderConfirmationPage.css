@@ -708,7 +708,7 @@
         display: none;
     }
     .mobile-screen-svg-icon{
-        display: flex;
+        display: flex !important;
     }
     
     .checkout-need-help-or-continue-shopping {

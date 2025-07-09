@@ -58,7 +58,7 @@ function DeliveryLocationMap({ address_info }) {
     fetchLocation();
   }, [address_info]);
 
-  if (!isLoaded) return <div>Loading...</div>;
+  // if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <>

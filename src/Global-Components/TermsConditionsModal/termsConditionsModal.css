@@ -34,14 +34,27 @@
     border-radius: 10px;
     padding: 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: start;
+    justify-content: start;
+}
+
+.terms-modal-head-contianer {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    width: 100%;
+    height: auto;
 }
 
 .term-condition-modal-close-button {
-    position: absolute;
-    top: 25px;
-    right: 35px;
-    width: max-content;
-    height: max-content;
+    /* position: absolute; */
+    /* top: 25px;
+    right: 35px; */
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,4 +180,10 @@
 
 .html-modal-inner-sub-container::-webkit-scrollbar-thumb:hover {
     background: #a0a0a0;
+}
+
+@media only screen and (max-width: 480px) {
+    .html-modal-inner-container  {
+        width: 100%;
+    }
 }

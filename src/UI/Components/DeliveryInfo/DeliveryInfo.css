@@ -401,4 +401,14 @@
     }
 
 
+    .checkout-page-shipping-method-inner-container {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .cart-delivary-card {
+        width: 100%;
+    }
+
+
 }
