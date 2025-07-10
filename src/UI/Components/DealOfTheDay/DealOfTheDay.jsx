@@ -1,11 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect } from 'react'
 import './DealOfTheDay.css';
-
 import DealOfTheDayCard from './DealOfTheDayCard/DealOfTheDayCard';
-
 import { calculateDiscountPercentage } from '../../../utils/api';
 import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
@@ -13,44 +8,13 @@ import { toast } from 'react-toastify';
 import ShareProduct from '../ShareProduct/ShareProduct';
 import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer';
 import { useRouter } from 'next/navigation';
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-
-// import required modules
-import { Pagination } from 'swiper/modules';
-
-const SamplePrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div onClick={onClick} className={`arrow ${className}`} >
-      <MdKeyboardArrowLeft stroke='var(--orange-outline)' style={{ backgroundColor: 'var(--orange-fill)', borderRadius: '50%' }} />
-    </div>
-  )
-}
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div onClick={onClick} className={`arrow ${className}`} >
-      <MdKeyboardArrowRight stroke='var(--orange-outline)' size={22} style={{ backgroundColor: 'var(--orange-fill)', borderRadius: '50%', }} />
-    </div>
-  )
-}
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api }) => {
 
   const router = useRouter();
-
-  // const [dealEndTime, setDealEndTime] = useState(null); 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   const calculateTimeLeft = () => {
@@ -120,17 +84,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     }
   }, [dealData])
 
-  // const getDealOfTheMonthProducts = async () => {
-  //   // const api = `/api/v1/products/get-deal-of-month-products?limit=10`
-  //   try {
-  //     const response = await axios.get(`${url}${api}`);
-  //     setAllProducts(response.data.products)
-  //     setDealEndTime(response.data.dealOfMonthTiming.datetime);
-  //   } catch (error) {
-  //     console.error("error geting deal of the month products", error);
-  //   }
-  // }
-
   const getPublishedProducts = () => {
     // Filter products where parent === 0
     const productWithDiscount = allProducts
@@ -188,9 +141,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
       })
     }
   }
-  const handleCartPanel = (items) => {
-
-  }
 
   const [isSharePopup, setIsSharePopup] = useState(null);
   const [selectedUid, setSelectedUid] = useState(null)
@@ -200,171 +150,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedProduct(items)
     setSelectedUid(items.uid);
   }
-
-  const sliderRef = useRef(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [currentDotPosition, setCurrentDotPosition] = useState(1);
-
-  const [dotStartIndex, setDotStartIndex] = useState(0);
-
-  const beforeChange = (oldIndex, newIndex) => {
-    setCurrentSlide(newIndex);
-
-    const groupSize = 5;
-
-    // When the active dot moves beyond the current group
-    if (newIndex >= dotStartIndex + groupSize) {
-      const newStart = Math.floor(newIndex / groupSize) * groupSize;
-      setDotStartIndex(newStart);
-      setCurrentDotPosition((newIndex % groupSize) + 1);
-    } else if (newIndex < dotStartIndex) {
-      // User went back to a previous group
-      const newStart = Math.floor(newIndex / groupSize) * groupSize;
-      setDotStartIndex(newStart);
-      setCurrentDotPosition((newIndex % groupSize) + 1);
-    } else {
-      // Within current group
-      setCurrentDotPosition((newIndex % groupSize) + 1);
-    }
-  };
-
-  const mobileSettings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    beforeChange,
-
-    customPaging: () => <button className="custom-dot" />,
-
-    appendDots: (dots) => {
-      const totalDots = dots.length;
-      const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
-
-      return (
-        <div className="dots-slider-wrapper">
-          <div className="dots-slider">
-            {visibleDots.map((dot, i) => {
-              const actualIndex = dotStartIndex + i;
-              const isActive = actualIndex === currentSlide;
-
-              return (
-                <div
-                  key={actualIndex}
-                  className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
-                  onClick={() => {
-                    sliderRef.current?.slickGoTo(actualIndex);
-                    setCurrentSlide(actualIndex);
-
-                    const groupSize = 5;
-                    const newStart = Math.floor(actualIndex / groupSize) * groupSize;
-
-                    setDotStartIndex(newStart);
-                    setCurrentDotPosition((actualIndex % groupSize) + 1);
-                  }}
-                >
-                  <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      );
-    },
-  };
-
-  let settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 850,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          ...mobileSettings
-        }
-      }
-    ],
-    // beforeChange,
-
-    // customPaging: () => <button className="custom-dot" />,
-
-    // appendDots: (dots) => {
-    //   const totalDots = dots.length;
-    //   const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
-
-    //   return (
-    //     <div className="dots-slider-wrapper">
-    //       <div className="dots-slider">
-    //         {visibleDots.map((dot, i) => {
-    //           const actualIndex = dotStartIndex + i;
-    //           const isActive = actualIndex === currentSlide;
-
-    //           return (
-    //             <div
-    //               key={actualIndex}
-    //               className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
-    //               onClick={() => {
-    //                 sliderRef.current?.slickGoTo(actualIndex);
-    //                 setCurrentSlide(actualIndex);
-
-    //                 const groupSize = 5;
-    //                 const newStart = Math.floor(actualIndex / groupSize) * groupSize;
-
-    //                 setDotStartIndex(newStart);
-    //                 setCurrentDotPosition((actualIndex % groupSize) + 1);
-    //               }}
-    //             >
-    //               <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
-    //             </div>
-    //           );
-    //         })}
-    //       </div>
-    //     </div>
-    //   );
-    // },
-  };
-
-
 
   if (!allProducts.length > 0) {
     return
@@ -382,13 +167,12 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
       <div className='deal-of-the-day-outer-container'>
         <div className='mobile-view-deal-of-the-day-timer-and-product-count'>
           <div className='mobile-view-timer'>
-            <p>{days}d: {hours}h: {minutes}m</p>
+            <p>{days}d: {hours}h: {minutes}m: {seconds} S</p>
           </div>
           <h3 className='mobile-view-deal-of-the-day-product-count'>{productCount} Products</h3>
         </div>
         <div className='slider-main-container'>
 
-          {/* <Slider {...settings}> */}
           {allProducts?.length === 0 ? (
             <div className='deal-of-the-day-cards-shimmer-container'>
               <div className='desktop-view-shimmer'>
@@ -399,25 +183,12 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               </div>
             </div>
           ) : (
-            <Swiper
-              spaceBetween={20}
-              pagination={ {clickable: true, dynamicBullets: true, dynamicMainBullets: 5, }}
-              breakpoints={{
-                0: {
-                  slidesPerView: 1,
-                },
-                768: {
-                  slidesPerView: 4,
-                },
-              }}
-              modules={[Pagination]}
-              className="best-seller-swiper"
-            >
-              {allProducts?.length > 0 && getPublishedProducts().map((items, index) => (
-                <SwiperSlide key={index}> 
-
+            <SwiperSlider
+              slidesData={allProducts?.length > 0 && getPublishedProducts()}
+              renderSlide={(items) => (
+                // <div key={items._id} className="blog-cards-container">
                   <DealOfTheDayCard
-                    key={index}
+                    key={items._id}
                     isDiscountable={items.discount.is_discountable === 1 ? true : false}
                     productImage={items?.images?.[0]?.image_url}
                     dealDayData={items}
@@ -430,33 +201,18 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
                     dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
                     handleDealCardClick={() => handleDealCardClick(items)}
                     handleWishListClick={() => handleWishList(items)}
-                    handleCartSection={() => handleCartPanel(items)}
                     handleShareProduct={() => handleShareProduct(items)}
                   />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            // <Slider ref={sliderRef} {...settings}>
-            //   {allProducts?.length > 0 && getPublishedProducts().map((items, index) => (
-            //     <DealOfTheDayCard
-            //       key={index}
-            //       isDiscountable={items.discount.is_discountable === 1 ? true : false}
-            //       productImage={items?.images?.[0]?.image_url}
-            //       dealDayData={items}
-            //       name={items.name}
-            //       rating={items.rating}
-            //       review={'200'}
-            //       price={items.regular_price}
-            //       newPrice={items.newPrice}
-            //       descount={items.disc}
-            //       dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
-            //       handleDealCardClick={() => handleDealCardClick(items)}
-            //       handleWishListClick={() => handleWishList(items)}
-            //       handleCartSection={() => handleCartPanel(items)}
-            //       handleShareProduct={() => handleShareProduct(items)}
-            //     />
-            //   ))}
-            // </Slider>
+                // </div>
+              )}
+              showDots={true}
+              showArrows={false}
+              spaceBetween={20}
+              breakpoints={{
+                0: { slidesPerView: 1 },
+                768: { slidesPerView: 4 },
+              }}
+            />
           )}
         </div>
       </div>

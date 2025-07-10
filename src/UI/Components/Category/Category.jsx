@@ -8,9 +8,7 @@ import Image from 'next/image';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
  const [isloaded,setIsLoaded] = useState(false);
-
   return (
-
     <div className='category-main-container'>
       <div className="category-bread-crumb-and-title">
         {/* <Breadcrumb /> */}

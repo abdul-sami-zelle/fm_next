@@ -26,13 +26,13 @@ const CategoriesClient = ({ category }) => {
   const [loading, setLoading] = useState(false);
   const { setTitle, setDescription, setImage } = useSEOContext();
   const [contentImages, setContentImages] = useState([]);
-  const [checkError, setCheckError] = useState(null);
+  // const [checkError, setCheckError] = useState(null);
 
 
 
   const {
-    financingBanners,
-    getFinanceBannerImagesFromApi,
+    // financingBanners,
+    // getFinanceBannerImagesFromApi,
     categoryPageData,
     setCategoryPageData,
     categoryData,
@@ -74,40 +74,40 @@ const CategoriesClient = ({ category }) => {
   }, [subCategories])
 
 
-  const getPageData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}/api/v1/sub-category/get/${category}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }// Data to send
-      });
-      const result = await response.json();
+  // const getPageData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(`${url}/api/v1/sub-category/get/${category}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       }// Data to send
+  //     });
+  //     const result = await response.json();
 
-      setCategoryPageData(result.sub_categories);
-      setBestSelling(result.bestSelling);
-      setParagraph(result.content);
-      setContentImages(result.content_images);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false)
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setCategoryPageData(result.sub_categories);
+  //     setBestSelling(result.bestSelling);
+  //     setParagraph(result.content);
+  //     setContentImages(result.content_images);
+  //   } catch (error) {
+  //     setError(error.message);
+  //     setLoading(false)
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
 
   const productCategoryApi = `${url}/api/v1/productCategory/get?slug=${category}`
   const [productCAtegoryCount, setProductCategoryCount] = useState(0)
-  const { data: productCategory, error: productCategoryError, checkLoading: productCategoryLoading} = useSWR(productCategoryApi, fetcher, {
+  const { data: productCategory, error: productCategoryError, checkLoading: productCategoryLoading } = useSWR(productCategoryApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     shouldRetryOnError: false,
     dedupingInterval: 1000 * 60 * 60 * 24 * 365
   })
 
-  if(productCategoryError && productCAtegoryCount < 3 ) {
+  if (productCategoryError && productCAtegoryCount < 3) {
     setTimeout(() => {
       setProductCategoryCount(productCAtegoryCount + 1);
       mutate()
@@ -116,7 +116,7 @@ const CategoriesClient = ({ category }) => {
 
 
   useEffect(() => {
-    if(productCategory) {
+    if (productCategory) {
       setCategoryData(productCategory?.categories[0])
 
       setTitle(productCategory?.categories[0]?.meta.title);
@@ -125,27 +125,27 @@ const CategoriesClient = ({ category }) => {
     }
   }, [productCategory])
 
-  const getCategoryData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}/api/v1/productCategory/get?slug=${category}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        }// Data to send
-      });
-      const result = await response.json();
-      setCategoryData(result.categories[0])
+  // const getCategoryData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(`${url}/api/v1/productCategory/get?slug=${category}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       }// Data to send
+  //     });
+  //     const result = await response.json();
+  //     setCategoryData(result.categories[0])
 
-      setTitle(result.categories[0].meta.title);
-      setDescription(result.categories[0].meta.description);
-      setImage(url + result.categories[0].meta.og_image);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setTitle(result.categories[0].meta.title);
+  //     setDescription(result.categories[0].meta.description);
+  //     setImage(url + result.categories[0].meta.og_image);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // useEffect(() => {
   //   getPageData();
@@ -165,9 +165,6 @@ const CategoriesClient = ({ category }) => {
 
   return (
     <React.Fragment>
-
-
-
       <LatestModulerBanner
         customWidth={false}
         showBanners={false}
@@ -190,7 +187,6 @@ const CategoriesClient = ({ category }) => {
       )}
 
       <CategoriesGetScop text={paragraph} contentImages={contentImages} isTrue={true} />
-
     </React.Fragment>
   )
 }

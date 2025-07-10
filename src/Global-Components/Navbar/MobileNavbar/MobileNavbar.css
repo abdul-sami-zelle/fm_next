@@ -105,7 +105,8 @@
     align-items: center;
     justify-content: start;
     padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
+    text-decoration: none !important;
+    /* border-bottom: 1px solid var(--border-color); */
 }
 
 .mobile-nav-head-items img{
@@ -119,6 +120,7 @@
     line-height: 18px;
     font-weight: 400;
     color: var(--text-primary);
+    text-decoration: none;
 }
 
 /* mobile-nav-body */

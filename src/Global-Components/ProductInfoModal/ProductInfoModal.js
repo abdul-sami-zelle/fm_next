@@ -1,12 +1,16 @@
 import React from 'react'
 import './ProductInfoModal.css'
 import Link from 'next/link';
+import { IoIosClose } from "react-icons/io";
 
 const ProductInfoModal = ({openModal, closeModal}) => {
   return (
     <div className={`info-modal-main-container ${openModal ? 'show-info-modal' : ''}`} onClick={(e) => {e.stopPropagation(); closeModal()}}>
-      <div className='info-modal-inner-container'>
+      <div className='info-modal-inner-container' onClick={(e) => e.stopPropagation()}>
         <div className='info-modal-inner-sub-container'>
+          <button className='info-modal-close-button' onClick={closeModal}>
+            <IoIosClose size={25} color='#595959' />
+          </button>
           <div className='info-modal-head'>
             <h3>Enjoy Time To Pay</h3>
           </div>

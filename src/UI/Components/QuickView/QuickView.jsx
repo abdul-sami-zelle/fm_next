@@ -10,18 +10,14 @@ import { VscHeartFilled } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import RatingReview from '../starRating/starRating';
-import { FaPlus, FaMinus} from 'react-icons/fa';
+import { FaPlus, FaMinus } from 'react-icons/fa';
 // Assets
 import {
     IoIosArrowDown,
 } from "react-icons/io";
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
-// Swiper imports
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
@@ -128,13 +124,13 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
             removeFromList(item.uid);
             setShowSnakeBar(true);
             setSnakBarMessage("Product Removed From Wish List");
-            
+
 
         } else {
             addToList(item)
             setShowSnakeBar(true);
             setSnakBarMessage("Product Added To Wish List");
-            
+
         }
     }
 
@@ -174,40 +170,34 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 <div
                                     className="quick-view-slider-wrapper"
                                 >
-                                    <Swiper
-                                        pagination={{
-                                            clickable: true,
-                                            dynamicMainBullets: 5,
-                                            dynamicBullets: true,
-                                        }}
-                                        modules={[Pagination]}
-                                        className="best-seller-swiper"
-                                    >
 
-                                        {setQuickViewProduct.images && setQuickViewProduct.images.map((image, index) => (
-                                            <SwiperSlide key={index}>
-                                                <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
+                                    <SwiperSlider
+                                        slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
+                                        renderSlide={(image, index) => (
+                                           <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                        )}
+                                        showDots={true}
+                                        showArrows={false}
+                                        spaceBetween={20}
+                                        slidesPerView={1}
+                                    />
                                 </div>
                                 :
-                                <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                                    <Swiper
-                                        pagination={{
-                                            clickable: true,
-                                            dynamicBullets: true,
-                                        }}
-                                        modules={[Pagination]}
-                                        className="best-seller-swiper"
-                                    >
 
-                                        {variableProductData?.images && variableProductData?.images?.map((image, index) => (
-                                            <SwiperSlide key={index}>
+
+                                <div className="quick-view-slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+
+                                    <SwiperSlider
+                                        slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
+                                        renderSlide={(image, index) => (
+                                            
                                                 <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
+                                            )}
+                                        showDots={true}
+                                        showArrows={false}
+                                        spaceBetween={20}
+                                        slidesPerView={1}
+                                    />
                                 </div>
                             }
                         </div>

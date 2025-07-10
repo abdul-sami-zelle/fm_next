@@ -10,7 +10,6 @@ const SnakBar = ({ snakeBarClass, message, openSnakeBarProp, setOpenSnakeBar, on
     // const [openSnakeBar, setOpenSnakeBar] = useState(openSnakeBarProp);
 
     useEffect(() => {
-        console.log("show snake bar value", openSnakeBarProp)
         if (openSnakeBarProp === true) {
             const timeOut = setTimeout(() => {
                 setOpenSnakeBar(false);

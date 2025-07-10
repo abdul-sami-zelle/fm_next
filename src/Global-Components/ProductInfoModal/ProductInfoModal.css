@@ -36,6 +36,7 @@
 .info-modal-inner-sub-container {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 40px;
     align-items: center;
     justify-content: center;
@@ -47,6 +48,21 @@
 
 .info-modal-inner-sub-container::-webkit-scrollbar {
     display: none;
+}
+
+.info-modal-close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .info-modal-head {

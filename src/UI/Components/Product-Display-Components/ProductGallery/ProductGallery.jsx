@@ -1,12 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './ProductGallery.css';
 import { IoIosArrowUp, IoIosArrowDown, IoMdArrowDropleft } from "react-icons/io";
 import { url } from '../../../../utils/api';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination, Controller } from 'swiper/modules';
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 const ProductGallery = ({
     productData,
@@ -14,9 +10,7 @@ const ProductGallery = ({
     handleMouseMove,
     handleMouseUp,
     zoomIn,
-    setZoomIn,
     handleGalleryModal,
-    setSlideIndex,
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [thumbActiveIndex, setThumbActiveIndex] = useState(0);
@@ -27,8 +21,14 @@ const ProductGallery = ({
         ? selectedVariationData?.images || []
         : productData?.images || [];
 
+    // const handleThumbnailClick = (index) => {
+    //     swiperRef.current?.slideTo(index);
+    // };
+
     const handleThumbnailClick = (index) => {
         swiperRef.current?.slideTo(index);
+        setActiveIndex(index); // ✅ sync state
+        setThumbActiveIndex(index); // ✅ highlight thumb
     };
 
     const scrollThumbnailIntoView = (index) => {
@@ -179,48 +179,80 @@ const ProductGallery = ({
                 className='product-gallery-main-slider-section'
             >
                 <div className='product-gallery-main-slider-images'>
-                    <Swiper
-                        onSwiper={(swiper) => (swiperRef.current = swiper)}
-                        onSlideChange={(swiper) => {
-                            const index = swiper.activeIndex;
+
+                    <SwiperSlider
+                        slidesData={images}
+                        renderSlide={(imgItem, index) => (
+                            <div
+                                key={index}
+                                className='product-gallery-main-slider-single-image-container'
+                                onMouseMove={handleMouseMove}
+                                onMouseUp={handleMouseUp}
+                                onMouseLeave={handleMouseUp}
+                                onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')}
+                            >
+                                {zoomIn ? (
+                                    <ImageZoomOnHover src={`${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
+                                ) : (
+                                    <img
+                                        src={`${url}${imgItem.image_url}`}
+                                        alt="Main"
+                                        className="product-gallery-main-slider-image"
+                                        style={{ width: '100%' }}
+                                    />
+                                )}
+                            </div>
+                        )}
+
+                        showDots={true}
+                        showArrows={false}
+                        slidesPerView={1}
+                        spaceBetween={0}
+
+                        externalActiveIndex={activeIndex}
+                        onSlideChangeIndex={(index) => {
                             setActiveIndex(index);
                             setThumbActiveIndex(index);
                             scrollThumbnailIntoView(index);
-                            setSlideIndex(index)
-                            setZoomIn(false);
                         }}
-                        pagination={{
-                            dynamicBullets: true,
-                            dynamicMainBullets: 5,
-                            clickable: true,
-                        }}
-                        modules={[Pagination, Controller]}
-                        className="best-seller-swiper"
-                    >
-                        {images.map((imgItem, index) => (
-                            <SwiperSlide key={index}>
-                                <div
-                                    className='product-gallery-main-slider-single-image-container'
-                                    onMouseMove={handleMouseMove}
-                                    onMouseUp={handleMouseUp}
-                                    onMouseLeave={handleMouseUp}
-                                    onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')}
-                                >
+                        onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    />
 
-                                    {zoomIn ? (
-                                        <ImageZoomOnHover src={`${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
-                                    ) : (
-                                        <img
-                                            src={`${url}${imgItem.image_url}`}
-                                            alt="Main"
-                                            className="product-gallery-main-slider-image"
-                                            style={{ width: '100%' }}
-                                        />
-                                    )}
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    {/* <SwiperSlider
+                        slidesData={images}
+                        renderSlide={(imgItem, index) => (
+                            <div
+                                key={index}
+                                className='product-gallery-main-slider-single-image-container'
+                                onMouseMove={handleMouseMove}
+                                onMouseUp={handleMouseUp}
+                                onMouseLeave={handleMouseUp}
+                                onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')}
+                            >
+                                {zoomIn ? (
+                                    <ImageZoomOnHover src={`${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
+                                ) : (
+                                    <img
+                                        src={`${url}${imgItem.image_url}`}
+                                        alt="Main"
+                                        className="product-gallery-main-slider-image"
+                                        style={{ width: '100%' }}
+                                    />
+                                )}
+                            </div>
+                        )}
+                        showDots={true}
+                        showArrows={false}
+                        slidesPerView={1}
+                        spaceBetween={0}
+                        activeIndex={activeIndex}
+                        setActiveIndex={(index) => {
+                            setActiveIndex(index); // ✅ Main index state
+                            setThumbActiveIndex(index); // ✅ Thumbnail active index
+                            scrollThumbnailIntoView(index); // ✅ Scroll thumb into view
+                        }}
+                        onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    /> */}
                 </div>
             </div>
         </div>

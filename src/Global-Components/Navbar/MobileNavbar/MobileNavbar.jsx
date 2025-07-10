@@ -104,8 +104,8 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
   useDisableBodyScroll(isTokenValid)
 
   return (
-    <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`}>
-      <div className={`mobile-nav-main-container`}>
+    <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`} onClick={handleNavbarClose}>
+      <div className={`mobile-nav-main-container`} onClick={(e) => e.stopPropagation()}>
         <button className='mobile-nav-close' onClick={handleNavbarClose}>
           {/* <Image src={`/Assets/icons/close-btn.png`} width={20} height={20} alt='close-nav' /> */}
           <IoIosClose className='mobile-nav-close-icon' />
@@ -118,21 +118,21 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
         <div className='mobile-nav-containt-section'>
           <div className='mobile-nav-containt-header'>
             <Link href={'/wishlist'} className='mobile-nav-head-items' onClick={() => setMobileNavVisible(false)}>
-            <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
-              <p>Favorite</p>
+            <Image src={'/icons/menu-heart.svg'} width={25} height={25} alt='nav-icon' />
+              <p>Wishlist</p>
             </Link>
             <div onClick={handleClickOnOrders} className='mobile-nav-head-items'>
-              <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
+              <Image src={'/icons/menu-order.svg'} width={25} height={25} alt='nav-icon' />
               <p>My Orders</p>
             </div>
           </div>
           <div className='mobile-nav-containt-body'>
-            <h3 className='mobile-nav-body-sec-heading'>Categories</h3>
+            <h3 className='mobile-nav-body-sec-heading'>Shop By Categories</h3>
             <div className='mobile-nav-main-items'>
               {headerData.map((items, index) => (
                 <div className='mobile-nav-single-item' key={index} >
                   <Link href={`/${items.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
-                    <Image src={'/Assets/icons/order.png'} width={25} height={25} alt='nav-icon' />
+                    <Image src={'/icons/menu-order.svg'} width={25} height={25} alt='nav-icon' />
                     <p>{items.category}</p>
                   </Link>
                   {/* <Image

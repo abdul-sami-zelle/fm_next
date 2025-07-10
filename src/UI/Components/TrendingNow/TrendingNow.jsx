@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BiSolidShoppingBag } from "react-icons/bi";
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 
 const TrendingNow = ({ data }) => {
@@ -18,10 +19,10 @@ const TrendingNow = ({ data }) => {
     useEffect(() => {
         if (data && data?.sliders) {
             const interval = setInterval(() => {
-                setCurrentIndex(prevIndex => (prevIndex + 1) % data?.sliders.length); 
+                setCurrentIndex(prevIndex => (prevIndex + 1) % data?.sliders.length);
             }, 3000);
 
-            return () => clearInterval(interval); 
+            return () => clearInterval(interval);
         }
     }, [data]);
 
@@ -42,7 +43,7 @@ const TrendingNow = ({ data }) => {
         pauseOnHover: false,
     };
 
-    
+
 
     return (
         <>
@@ -52,7 +53,31 @@ const TrendingNow = ({ data }) => {
                     <div className='tranding-slider-and-categories'>
                         <div className="tranding-slider">
                             <div className="tranding-slides">
-                                <Slider {...settings}>
+
+                                <SwiperSlider
+                                    slidesData={data?.sliders}
+                                    renderSlide={(image, index) => (
+                                        <Link href={`/product/${image.link_url}`} className="trending-slide" key={index}>
+                                            <Image
+                                                src={`${url}${image.image_url}`}
+                                                width={1160}
+                                                height={730}
+                                                alt={`Slide ${index + 1}`}
+                                            />
+
+
+                                        </Link>
+                                    )}
+                                    showDots={false}
+                                    showArrows={false}
+                                    spaceBetween={20}
+                                    loop={true}
+                                    delayTime={5000}
+                                    autoplay={true}
+                                    slidesPerView={1}
+                                />
+
+                                {/* <Slider {...settings}>
                                     {data?.sliders.map((image, index) => (
                                         <Link href={`/product/${image.link_url}`} className="trending-slide" key={index}>
                                             <Image
@@ -65,7 +90,7 @@ const TrendingNow = ({ data }) => {
 
                                         </Link>
                                     ))}
-                                </Slider>
+                                </Slider> */}
                                 <div className='tranding-cart-overlay-main-container'>
                                     <div className='tranding-card-bag-container'>
                                         <BiSolidShoppingBag size={30} className='tranding-now-cart-bag' />

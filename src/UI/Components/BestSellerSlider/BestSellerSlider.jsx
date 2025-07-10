@@ -1,26 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import '@splidejs/react-splide/css'
+import React, { useState, useEffect } from 'react';
 import './BestSellerSlider.css';
 import Link from 'next/link';
 import BestSellerProductCard from '../BestSellerProductCard/BestSellerProductCard';
 import star from '../../../Assets/icons/Star 19.png'
 
-import leftArrow from '../../../Assets/icons/arrow-left-white.png';
-import rightArrow from '../../../Assets/icons/right-arrow-white.png';
-import axios from 'axios';
+// import axios from 'axios';
 import { formatedPrice, url } from '../../../utils/api';
 import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
 import { useCart } from '../../../context/AddToCart/addToCart';
 import { useList } from '../../../context/wishListContext/wishListContext';
 import { toast } from 'react-toastify';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
-import BestSellerShimmer from './BestSellerShimmer/BestSellerShimmer';
 import RatingReview from '../starRating/starRating';
-import heartIcon from '../../../Assets/icons/like.png'
 import { VscHeartFilled, VscHeart } from "react-icons/vsc";
 
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -29,36 +20,9 @@ import Image from 'next/image';
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-
-// import required modules
-import { Pagination } from 'swiper/modules';
 import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
-const BestSellerPrevArrow = (props) => {
-    const { className, style, onClick } = props;
-    return (
-        <div onClick={onClick} className={`best-seller-arrow ${className}`} >
-            <img src={leftArrow} alt='arrow' />
-        </div>
-    )
-}
-
-function BestSellerNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div onClick={onClick} className={`best-seller-arrow ${className}`} >
-            <img src={rightArrow} alt='arrow' />
-        </div>
-    )
-}
 
 const BestSellerSlider = (
     {
@@ -70,10 +34,8 @@ const BestSellerSlider = (
 
     // States and Variables
     const router = useRouter()
-
     const [currentSlug, setCurrentSlug] = useState();
     const [loading, setLoading] = useState(false);
-
     const bestSellerProductApi = currentSlug ? `${url}/api/v1/products/get-best-selling-products?category=${currentSlug}&parent=0` : null;
     const [bestSellerProductCount, setBestSellerProductCount] = useState(0)
     const { data: bestSellerProductData, error: betSellerProductError, isLoading: bestSellerProductLoading } = useSWR(bestSellerProductApi, fetcher, {
@@ -231,89 +193,8 @@ const BestSellerSlider = (
         { icon: star },
         { icon: star }
     ]
-
-
-    const sliderRef = useRef(null);
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [currentDotPosition, setCurrentDotPosition] = useState(1);
-    const [bannerLoading, setBannerLoading] = useState(false);
-
-
-
-    const [dotStartIndex, setDotStartIndex] = useState(0);
-
-
-    const beforeChange = (oldIndex, newIndex) => {
-        setCurrentSlide(newIndex);
-
-        const groupSize = 5;
-
-        if (newIndex >= dotStartIndex + groupSize) {
-            const newStart = Math.floor(newIndex / groupSize) * groupSize;
-            setDotStartIndex(newStart);
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        } else if (newIndex < dotStartIndex) {
-            const newStart = Math.floor(newIndex / groupSize) * groupSize;
-            setDotStartIndex(newStart);
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        } else {
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        }
-    };
-
-    const mobileSettings = {
-        dots: true,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        beforeChange,
-
-        customPaging: () => <button className="custom-dot" />,
-
-        appendDots: (dots) => {
-            const totalDots = dots.length;
-            const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
-
-            return (
-                <div className="dots-slider-wrapper">
-                    <div className="dots-slider">
-                        {visibleDots.map((dot, i) => {
-                            const actualIndex = dotStartIndex + i;
-                            const isActive = actualIndex === currentSlide;
-
-                            return (
-                                <div
-                                    key={actualIndex}
-                                    className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
-                                    onClick={() => {
-                                        sliderRef.current?.slickGoTo(actualIndex);
-                                        setCurrentSlide(actualIndex);
-
-                                        const groupSize = 5;
-                                        const newStart = Math.floor(actualIndex / groupSize) * groupSize;
-
-                                        setDotStartIndex(newStart);
-                                        setCurrentDotPosition((actualIndex % groupSize) + 1);
-                                    }}
-                                >
-                                    <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            );
-        },
-    };
-
     useEffect(() => {
     }, [MobileActiveIndex])
-
-
 
     return (
         <>
@@ -328,8 +209,8 @@ const BestSellerSlider = (
                             <img
                                 key={bestSellerNav1[activeItem]?.image?.image_url} // forces re-render
                                 src={url + bestSellerNav1[activeItem]?.image?.image_url}
-                                onLoad={() => setBannerLoading(false)}
-                                onError={() => setBannerLoading(false)}
+                                // onLoad={() => setBannerLoading(false)}
+                                // onError={() => setBannerLoading(false)}
                                 alt='main banner'
                             />
                         )}
@@ -421,8 +302,6 @@ const BestSellerSlider = (
                                     setCurrentSlug(item.slug)
                                     handleMobileNavClick(index)
                                     handleMobileActiveindex(index)
-
-                                    // getBestSellerProducts(item.slug)
                                 }}
                             >
                                 {item.Heading}
@@ -435,19 +314,11 @@ const BestSellerSlider = (
                             <BestSellerMobileShimmer width={'85%'} />
                         ) : (
 
-                            <Swiper
-                            pagination={{
-                                dynamicBullets: true,
-                                dynamicMainBullets: 5,
-                                clickable: true,
-                            }}
-                            modules={[Pagination]}
-                            className="best-seller-swiper"
-                            >
-                                {allProducts.map((item, index) => (
-                                    <SwiperSlide key={index}>
-
-                                        <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+                            <SwiperSlider
+                                slidesData={allProducts}
+                                renderSlide={(item) => (
+                                    // <div key={item._id} className="blog-cards-container">
+                                        <Link key={item._id} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
                                             <div className='mobile-best-seller-cart-wishlist-container'>
                                                 {
                                                     isInWishList(item?.uid) ? (
@@ -488,67 +359,20 @@ const BestSellerSlider = (
                                                 </div>
                                             </div>
                                         </Link>
-                                    </SwiperSlide>
-
-                                ))}
-                            </Swiper>
-
-
-                            // <Slider ref={sliderRef} {...mobileSettings}>
-                            //     {allProducts.map((item, index) => (
-
-
-                            //         <Link href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-                            //             <div className='mobile-best-seller-cart-wishlist-container'>
-                            //                 {
-                            //                     isInWishList(item?.uid) ? (
-                            //                         <VscHeartFilled
-                            //                             size={25}
-                            //                             style={{ color: 'var(--primary-color)' }}
-                            //                             onClick={(e) => {
-                            //                                 e.stopPropagation();
-                            //                                 handleWishlisted(item);
-                            //                             }}
-                            //                         />
-                            //                     ) : (
-                            //                         <VscHeart
-                            //                             size={25}
-                            //                             style={{ color: 'var(--primary-color)' }}
-                            //                             onClick={(e) => {
-                            //                                 e.stopPropagation();
-                            //                                 handleWishlisted(item);
-                            //                             }}
-                            //                         />
-                            //                     )
-                            //                 }
-                            //             </div>
-                            //             <img src={url + item?.images?.[1]?.image_url} />
-                            //             <div className='mobile-card-details-container'>
-                            //                 <div className='mobile-best-seller-rating-and-review'>
-                            //                     <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
-                            //                 </div>
-                            //                 <h3>{item?.name}</h3>
-                            //                 <div className='mobile-best-seller-category-product-price'>
-                            //                     <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
-                            //                     {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
-                            //                 </div>
-                            //             </div>
-                            //             <div className='mobile-best-seller-cart-container'>
-                            //                 <div className='mobile-best-sseller-card-bag-container'>
-                            //                     <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
-                            //                 </div>
-                            //             </div>
-                            //         </Link>
-                            //     ))}
-                            //  </Slider>
+                                    // </div>
+                                )}
+                                showDots={true}
+                                showArrows={false}
+                                spaceBetween={20}
+                                breakpoints={{
+                                    0: { slidesPerView: 1 },
+                                    768: { slidesPerView: 4 },
+                                }}
+                            />
                         )}
                     </div>
                 </div>
-
-
-
             </div>
-
         </>
     );
 };

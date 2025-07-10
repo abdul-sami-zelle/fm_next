@@ -1,7 +1,5 @@
 import React from 'react'
 import './BlogCard.css';
-import { FaStar } from "react-icons/fa";
-import { CiStar } from "react-icons/ci";
 import { url } from '../../../utils/api';
 import Image from 'next/image';
 import RatingReview from '../starRating/starRating';
@@ -18,13 +16,6 @@ const BlogCard = (
         start
     }) => {
     
-    const stars = [
-        {star: <FaStar size={10} />},
-        {star: <FaStar size={10} />},
-        {star: <FaStar size={10} />},
-        {star: <FaStar size={10} />},
-        {star: <CiStar size={10} />},
-    ]
 
   return (
     <>
@@ -40,9 +31,6 @@ const BlogCard = (
                 <h3>{title}</h3>
                 <div className='blog-created-by-and-comments'>
                     <div className='blog-star-rating'>
-                        {/* {stars.map((item, index) => (
-                            <p key={index}>{item.star}</p>
-                        ))} */}
                         <RatingReview rating={5} disabled={true} size={"10px"} />
                         (200)
                     </div>
@@ -57,7 +45,6 @@ const BlogCard = (
                 <button>
                     Read more
                     <MdKeyboardArrowRight size={20} className='blog-card-button-arrow' />
-                    {/* <img src={'/Assets/icons/arrow-right-without-outline-black.png'} alt='right arrow' /> */}
                 </button>
             </div>
         </div> 

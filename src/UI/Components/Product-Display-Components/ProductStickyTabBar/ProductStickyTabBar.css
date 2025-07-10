@@ -47,11 +47,13 @@
 }
 
 .product-sticky-tab-bar-item-container.active-tab {
-    border-bottom: 1px solid var(--orange-outline);
+    /* border-bottom: 1px solid var(--orange-outline); */
+    background-color: #595959;
 }
 
 .product-sticky-tab-bar-item-container.active-tab>p {
-    color: var(--text-gray);
+    /* color: var(--text-gray); */
+    color: var(--text-oposite);
 }
 
 
@@ -266,7 +268,7 @@
     }
 
     .product-sticky-tab-bar-item-container{
-        padding: 5px 10px;
+        padding: 5px;
         /* flex-shrink: 0; */
     }
 

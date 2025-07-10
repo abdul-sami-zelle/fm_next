@@ -411,7 +411,7 @@ const ProductCardTwo = ({
 
                                                 </h3>
                                                 <div className={`mobile-view-rating-stars ${colTwo ? 'apply-two-col-styling' : ''}`}>
-                                                    <RatingReview rating={3} size={"12px"} disabled={true} />
+                                                    <RatingReview rating={reviewCount} size={"12px"} disabled={true} />
                                                 </div>
                                             </div>
                                     }

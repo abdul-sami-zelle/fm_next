@@ -1,15 +1,10 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
+import React, { useState, useEffect } from 'react';
 import './BestSeller.css';
 import { formatedPrice, url } from '../../../utils/api';
 
 // Assets
-import arrowLeft from '../../../Assets/icons/arrow-left.png'
-import arrowRight from '../../../Assets/icons/arrow-right.png'
 import { VscHeartFilled, VscHeart } from "react-icons/vsc";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
@@ -17,8 +12,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import BestSellerProductCard from '../BestSellerProductCard/BestSellerProductCard';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/Fetcher';
@@ -26,16 +20,7 @@ import Link from 'next/link';
 import RatingReview from '../starRating/starRating';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
-
-// import required modules
-import { Pagination } from 'swiper/modules';
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 
 
@@ -46,11 +31,8 @@ const BestSeller = () => {
     const [mainBanner, setMainBanner] = useState();
     const [allProducts, setAllProducts,] = useState([]);
     const [currentSlug, setCurrentSlug] = useState();
-    const sliderRef = useRef(null);
     const [activeItem, setActiveItem] = useState(0);
     const router = useRouter()
-    // const params = usePathname();
-    const pathname = usePathname();
 
     const { bestSelling, bestSellerNav1, } = useLPContentContext()
 
@@ -59,27 +41,12 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, []);
 
-    //     useEffect(() => {
-    //   // Whenever the route changes, revalidate the SWR call
-    //   if (currentSlug) {
-    //     const cacheKey = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`;
-    //     mutate(cacheKey); // Re-fetch the SWR data
-    //   }
-    // }, [pathname]);
-
     useEffect(() => {
         setMainBanner(bestSelling.categories[0].image)
         setCurrentSlug(bestSelling.categories[0].slug)
     }, [bestSelling]);
 
 
-    // Functions
-    // useEffect(() => {
-    //     const splitedParam = params.split('/')
-    //     const newSlug = splitedParam[1]
-
-    //     if (newSlug) setCurrentSlug(newSlug)
-    // }, [])
 
     const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
     const [categorySellerCount, setCategorySellerCount] = useState(0)
@@ -128,101 +95,13 @@ const BestSeller = () => {
     const itemPerPage = 6
     const maxIndex = Math.ceil(allProducts && allProducts.length / itemPerPage) - 1;
     const [currentIndex, setCurrentIndex] = useState(0)
-    const handlePageChange = (index) => {
-        setCurrentIndex(index)
-    }
-
-    // Mobile view script
     const [mobiIndex, setMobIndex] = useState(0)
     const handleMobileNavClick = (index) => {
         setMobIndex(index);
     }
 
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [currentDotPosition, setCurrentDotPosition] = useState(1);
-    // const [bannerLoading, , setBannerLoading] = useState(false);
-
-    const [dotStartIndex, setDotStartIndex] = useState(0);
-
-    const beforeChange = (oldIndex, newIndex) => {
-        setCurrentSlide(newIndex);
-
-        const groupSize = 5;
-
-        if (newIndex >= dotStartIndex + groupSize) {
-            const newStart = Math.floor(newIndex / groupSize) * groupSize;
-            setDotStartIndex(newStart);
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        } else if (newIndex < dotStartIndex) {
-            const newStart = Math.floor(newIndex / groupSize) * groupSize;
-            setDotStartIndex(newStart);
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        } else {
-            setCurrentDotPosition((newIndex % groupSize) + 1);
-        }
-    };
-
-    const mobileSettings = {
-        dots: true,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        beforeChange,
-        customPaging: () => <button className="custom-dot" />,
-        appendDots: (dots) => {
-            const totalDots = dots.length;
-            const visibleDots = dots.slice(dotStartIndex, dotStartIndex + 5);
-
-            return (
-                <div className="dots-slider-wrapper">
-                    <div className="dots-slider">
-                        {visibleDots.map((dot, i) => {
-                            const actualIndex = dotStartIndex + i;
-                            const isActive = actualIndex === currentSlide;
-
-                            return (
-                                <div
-                                    key={actualIndex}
-                                    className={`dot-wrapper ${isActive ? 'active-dot' : ''}`}
-                                    onClick={() => {
-                                        sliderRef.current?.slickGoTo(actualIndex);
-                                        setCurrentSlide(actualIndex);
-
-                                        const groupSize = 5;
-                                        const newStart = Math.floor(actualIndex / groupSize) * groupSize;
-
-                                        setDotStartIndex(newStart);
-                                        setCurrentDotPosition((actualIndex % groupSize) + 1);
-                                    }}
-                                >
-                                    <span className={`custom-dot ${isActive ? 'highlighted-dot' : ''}`} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            );
-        },
-    };
-
     const { addToList, isInWishList, removeFromList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
-    // const [listed, setListed] = useState(false);
-    // const { addSingleProduct } = useSingleProductContext();
-    // const { addToCart } = useCart()
-
-    // const handleCardClicked = (item) => {
-
-    //     addSingleProduct(item)
-    //     addToCart(item)
-    //     router.push(`/product/${item.slug}`)
-
-    // }
+    
 
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState();
@@ -249,6 +128,7 @@ const BestSeller = () => {
     const handleCloseSnakeBar = () => {
         setShowSnakeBar(false)
     }
+
 
     return (
         <>
@@ -316,7 +196,7 @@ const BestSeller = () => {
                     <div className='mobile-card-nav-container'>
                         {bestSelling.categories.map((item, index) => (
                             <p
-                                key={item.id}
+                                key={index}
                                 className={`mobile-best-seller-nav-item ${mobiIndex === index ? 'mobile-seller-nav-active' : ''}`}
                                 onClick={() => {
                                     handleActiveItem(index, item)
@@ -331,126 +211,67 @@ const BestSeller = () => {
                         {loading ? (
                             <BestSellerProductCardShimmer width={'85%'} />
                         ) : (
-                            <Swiper
-                                pagination={{
-                                    dynamicBullets: true,
-                                    dynamicMainBullets: 5,
-                                    clickable: true
+                            <SwiperSlider
+                                slidesData={allProducts}
+                                renderSlide={(item) => (
+                                    <Link key={item._id} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
+
+                                        <div className='mobile-best-seller-cart-wishlist-container'>
+                                            {
+                                                isInWishList(item?.uid) ? (
+                                                    <VscHeartFilled
+                                                        size={25}
+                                                        style={{
+                                                            color: 'var(--primary-color)',
+
+                                                        }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <VscHeart
+                                                        size={25}
+                                                        style={{
+                                                            color: 'var(--primary-color)',
+
+                                                        }}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleWishlisted(item);
+                                                        }}
+                                                    />
+                                                )
+                                            }
+                                        </div>
+                                        <img src={url + item?.images?.[1]?.image_url} />
+                                        <div className='mobile-card-details-container'>
+                                            <div className='mobile-best-seller-rating-and-review'>
+                                                <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
+                                            </div>
+                                            <h3>{item?.name}</h3>
+                                            <div className='mobile-best-seller-category-product-price'>
+                                                <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
+                                                {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
+                                            </div>
+                                        </div>
+                                        <div className='mobile-best-seller-cart-container'>
+                                            <div className='mobile-best-sseller-card-bag-container'>
+                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                            </div>
+                                        </div>
+
+                                    </Link>
+                                )}
+                                showDots={true}
+                                showArrows={false}
+                                spaceBetween={20}
+                                breakpoints={{
+                                    0: { slidesPerView: 1 },
+                                    768: { slidesPerView: 4 },
                                 }}
-                                modules={[Pagination]}
-                                className="mySwiper"
-                            >
-                                {allProducts.map((item, index) => (
-                                    <SwiperSlide key={index}>
-
-
-                                        <Link key={index} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-
-                                            <div className='mobile-best-seller-cart-wishlist-container'>
-                                                {
-                                                    isInWishList(item?.uid) ? (
-                                                        <VscHeartFilled
-                                                            size={25}
-                                                            style={{
-                                                                color: 'var(--primary-color)',
-
-                                                            }}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleWishlisted(item);
-                                                            }}
-                                                        />
-                                                    ) : (
-                                                        <VscHeart
-                                                            size={25}
-                                                            style={{
-                                                                color: 'var(--primary-color)',
-
-                                                            }}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                handleWishlisted(item);
-                                                            }}
-                                                        />
-                                                    )
-                                                }
-                                            </div>
-                                            <img src={url + item?.images?.[1]?.image_url} />
-                                            <div className='mobile-card-details-container'>
-                                                <div className='mobile-best-seller-rating-and-review'>
-                                                    <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
-                                                </div>
-                                                <h3>{item?.name}</h3>
-                                                <div className='mobile-best-seller-category-product-price'>
-                                                    <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
-                                                    {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
-                                                </div>
-                                            </div>
-                                            <div className='mobile-best-seller-cart-container'>
-                                                <div className='mobile-best-sseller-card-bag-container'>
-                                                    <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
-                                                </div>
-                                            </div>
-
-                                        </Link>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
-                            // <Slider ref={sliderRef} {...mobileSettings}>
-                            //     {allProducts.map((item, index) => (
-
-
-                            //         <Link key={index} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
-
-                            //             <div className='mobile-best-seller-cart-wishlist-container'>
-                            //                 {
-                            //                     isInWishList(item?.uid) ? (
-                            //                         <VscHeartFilled
-                            //                             size={25}
-                            //                             style={{ 
-                            //                                 color: 'var(--primary-color)',
-
-                            //                             }}
-                            //                             onClick={(e) => {
-                            //                                 e.stopPropagation();
-                            //                                 handleWishlisted(item);
-                            //                             }}
-                            //                         />
-                            //                     ) : (
-                            //                         <VscHeart
-                            //                             size={25}
-                            //                             style={{ 
-                            //                                 color: 'var(--primary-color)' ,
-
-                            //                             }}
-                            //                             onClick={(e) => {
-                            //                                 e.stopPropagation();
-                            //                                 handleWishlisted(item);
-                            //                             }}
-                            //                         />
-                            //                     )
-                            //                 }
-                            //             </div>
-                            //             <img src={url + item?.images?.[1]?.image_url} />
-                            //             <div className='mobile-card-details-container'>
-                            //                 <div className='mobile-best-seller-rating-and-review'>
-                            //                     <RatingReview rating={item?.rating} bgColor={'#FFFFFF'} bgColor2={'#FFFFFF'} disabled={true} size={"12px"} />
-                            //                 </div>
-                            //                 <h3>{item?.name}</h3>
-                            //                 <div className='mobile-best-seller-category-product-price'>
-                            //                     <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p>
-                            //                     {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
-                            //                 </div>
-                            //             </div>
-                            //             <div className='mobile-best-seller-cart-container'>
-                            //                 <div className='mobile-best-sseller-card-bag-container'>
-                            //                     <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
-                            //                 </div>
-                            //             </div>
-
-                            //         </Link>
-                            //     ))}
-                            // </Slider>
+                            />
                         )}
                     </div>
                 </div>

@@ -1,31 +1,24 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import './Slider.css';
 
 import { url } from '../../utils/api';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
+    // const [isHovered, setIsHovered] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [imagePreloader, setImagePreloader] = useState(false);
-
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
 
     const nextSlide = () => {
         setCurrentIndex(prevIndex => (images?.length ? (prevIndex + 1) % images?.length : 0));
     };
 
-    // These events will help determine if a drag is happening
     const handleMouseDown = (e) => {
         setIsDragging(false); // Reset drag state on mouse down
     };
@@ -47,40 +40,13 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
         return () => clearInterval(interval);
     }, [images, autoSlideSpeed]);
 
-
-    // Custom arrows
-    const CustomPrevArrow = ({ onClick }) => (
-        <div className="arrow left-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <MdKeyboardArrowLeft color='var(--text-oposite)' />
-        </div>
-    );
-
-    const CustomNextArrow = ({ onClick }) => (
-        <div className="arrow right-arrow" onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <MdKeyboardArrowRight color='var(--text-oposite)' />
-        </div>
-    );
-
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: autoSlideSpeed,  // Using the passed prop for auto-slide speed
-        pauseOnHover: false,
-        prevArrow: imagePreloader ? <CustomPrevArrow /> : <></>,
-        nextArrow: imagePreloader ? <CustomNextArrow /> : <></>,
-        beforeChange: () => setIsDragging(true),
-        afterChange: () => setIsDragging(false),
-    };
-
     return (
         <div data-role="slider">
             <div className="slider" style={{ cursor: 'grab', height: height || "calc(100vw * 0.26355)" }}>
-                <Slider {...settings}>
-                    {images && images?.desktop?.map((img, index) => (
+
+                <SwiperSlider
+                    slidesData={images && images?.desktop}
+                    renderSlide={(img, index) => (
                         <Link
                             href={`/product/${img.link_url}`}
                             className="slide"
@@ -102,15 +68,27 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                                 sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </Link>
-                    ))}
-                </Slider>
+                    )}
+                    showDots={false}
+                    showArrows={true}
+                    spaceBetween={20}
+                    loop={true}
+                    delayTime={5000}
+                    autoplay={true}
+                    slidesPerView={1}
+                />
+
             </div>
 
             {/* Mobile View */}
             <div className="mobile-view-slider">
+
+
+
                 {images?.mobile?.length > 0 ? (
-                    <Slider {...settings}>
-                        {images?.mobile?.map((img, index) => (
+                    <SwiperSlider
+                        slidesData={images && images?.mobile}
+                        renderSlide={(img, index) => (
                             <Link
                                 href={`/product/${img.link_url}`}
                                 className="mobile-slide"
@@ -127,8 +105,15 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                                     onDragStart={(e) => e.preventDefault()}  // Prevent drag
                                 />
                             </Link>
-                        ))}
-                    </Slider>
+                        )}
+                        showDots={false}
+                        showArrows={false}
+                        spaceBetween={20}
+                        autoplay={true}
+                        loop={true}
+                        delayTime={5000}
+                        slidesPerView={1}
+                    />
                 ) : (
                     <div className='mobile-view-slider-shimmer'></div>
                 )}
