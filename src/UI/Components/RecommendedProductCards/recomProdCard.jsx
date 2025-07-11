@@ -8,11 +8,11 @@ import { useProductPage } from "@/context/ProductPageContext/productPageContext"
 
 import "./style.css";
 
-export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage,handleRemoveProduct ,handleSingleShuffle, parentProduct,mainProduct}) {
+export default function RecomProductCard({ handleQuickView, slug, singleProductData, mainImage, handleRemoveProduct, handleSingleShuffle, parentProduct, mainProduct }) {
     const [mainLoaded, setMainLoaded] = useState(false);
     const [hoverLoaded, setHoverLoaded] = useState(false);
 
-      const {
+    const {
         addToCart,
         decreamentQuantity,
         increamentQuantity,
@@ -22,38 +22,57 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
         cartSection,
         setCartSection,
         isCartLoading
-      } = useCart();
-        const {
-          setSingleProductData,
-          setSelectedVariationUid,
-          findObjectByUID,
-          setSelectedVariationData,
-          selectedVariationData
-        } = useProductPage();
+    } = useCart();
+    const {
+        setSingleProductData,
+        setSelectedVariationUid,
+        findObjectByUID,
+        setSelectedVariationData,
+        selectedVariationData
+    } = useProductPage();
+
+    const [cardHovered, setCardHovered] = useState(false);
+    const onMouseHover = () => {
+        setCardHovered(true);
+    }
+    const onMouseLeave = () => {
+        setCardHovered(false);
+    }
 
     return (
         <div className="recommendedProductCard">
             {parentProduct && (<div className="rpc_header_top_space"><p>Current Product</p></div>)}
             <div className={`rpc_header_container ${parentProduct ? 'hide-shuffle-buttons' : ''}`}>
                 <button onClick={handleRemoveProduct} className="remove-icon-header"><IoClose size={20} /></button>
-                
-                <button onClick={handleSingleShuffle}  className="remove-icon-header"><GrPowerCycle size={20} /></button>
+
+                <button onClick={handleSingleShuffle} className="remove-icon-header"><GrPowerCycle size={20} /></button>
             </div>
             <div className="rpc_body">
                 <div className="image_wrapper_rpc">
                     <div className="rpc_image_hover_container">
                         {!mainLoaded && <div className="shimmer" />}
-                        <div className="rpc_image_container">
+                        <div className="rpc_image_container" onMouseEnter={() => setCardHovered(true)} onMouseLeave={() => setCardHovered(false)}>
                             <Image
-                                src={url + mainImage}
+                                src={
+                                    cardHovered && singleProductData?.images[1]?.image_url
+                                        ? url + singleProductData.images[1].image_url
+                                        : url + mainImage
+                                }
                                 alt={singleProductData?.name || "Product Image"}
                                 width={300}
                                 height={200}
-                                className="rpc_image first"
-                                onLoad={() => setMainLoaded(true)}
+                                onLoad={() => {
+                                    if (cardHovered && singleProductData?.images[1]?.image_url) {
+                                        setHoverLoaded(true);
+                                    } else {
+                                        setMainLoaded(true);
+                                    }
+                                }}
                             />
+
+                            
                         </div>
-                        {singleProductData.images[1]?.image_url && (
+                        {/* {singleProductData.images[1]?.image_url && (
                             <>
                                 {!hoverLoaded && <div className="shimmer" />}
                                 <Image
@@ -65,7 +84,7 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                                     onLoad={() => setHoverLoaded(true)}
                                 />
                             </>
-                        )}
+                        )} */}
                     </div>
                 </div>
 
@@ -77,20 +96,21 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                         <h2 className={singleProductData?.sale_price === "" ? "rpc_price" : "rpc_price sale"}>
                             ${singleProductData?.sale_price === "" ? singleProductData?.regular_price : singleProductData?.sale_price}
                         </h2>
-                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={()=>{
-                           
-                           const isSimple = mainProduct.type === "simple";
-                            const productUid = isSimple ? mainProduct.uid : mainProduct?.uid; 
-                              const existingProduct = cartProducts?.products?.find((item) =>
-                                    isSimple ? item.product_uid === productUid : item.variation_uid === productUid
-                                );
+                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={() => {
+
+                            const isSimple = mainProduct.type === "simple";
+                            const productUid = isSimple ? mainProduct.uid : mainProduct?.uid;
+                            const existingProduct = cartProducts?.products?.find((item) =>
+                                isSimple ? item.product_uid === productUid : item.variation_uid === productUid
+                            );
                             if (existingProduct) {
-                             addToCart0(singleProductData,null,0,1)
+                                addToCart0(singleProductData, null, 0, 1)
                             } else {
-                             addToCart0(mainProduct,selectedVariationData,0,1);
-                             addToCart0(singleProductData,null,0,1)
-                            }}
-                             }>Add To Cart</button>
+                                addToCart0(mainProduct, selectedVariationData, 0, 1);
+                                addToCart0(singleProductData, null, 0, 1)
+                            }
+                        }
+                        }>Add To Cart</button>
                     </div>
                 </div>
             </div>

@@ -76,6 +76,7 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                     delayTime={5000}
                     autoplay={true}
                     slidesPerView={1}
+                    arrowSlide={true}
                 />
 
             </div>

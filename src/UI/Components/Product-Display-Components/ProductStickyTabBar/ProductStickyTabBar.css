@@ -258,7 +258,7 @@
     }
 
     .product-sticky-tab-bar {
-        height: 50px;
+        height: 35px;
         overflow-y: hidden;
         overflow-x: auto;
     }
@@ -277,6 +277,7 @@
         line-height: 1.5;
         font-weight: 500;
         color: var(--text-primary);
+        flex-shrink: 0;
     }
 
     .product-sticky-fixed-container{

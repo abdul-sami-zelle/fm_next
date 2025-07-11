@@ -113,11 +113,11 @@
     flex-direction: row;
 }
 
-.term-and-condition {
+.term-and-condition { 
     appearance: none;
     width: 16px;
     height: 16px;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--orange-outline);
     border-radius: 4px;
     position: relative;
     padding: 0px !important;
@@ -128,8 +128,8 @@
 }
 
 .term-and-condition:checked {
-    background-color: #28828A;
-    border-color: #28828A;
+    background-color: var(--orange-fill);
+    border-color: var(--orange-outline);
 }
 
 .term-and-condition:checked::after {
@@ -139,7 +139,7 @@
     left: 5px;
     width: 3px;
     height: 7px;
-    border: solid white;
+    border: solid var(--text-oposite);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     display: block;
@@ -176,8 +176,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: none;
-    background-color: var(--text-primary);
+    border: 1px solid var(--orange-outline);
+    background-color: var(--orange-fill);
     color: #fff;
     border-radius: 5px;
     font-size: 18px;
@@ -187,8 +187,9 @@
 }
 
 .signup-sec-register-btn:hover {
-    background-color: rgba(89, 89, 89, 0.2);
-    color: var(--secondary-color);
+    /* background-color: rgba(89, 89, 89, 0.2); */
+    background-color: #FFF;
+    color: var(--text-gray);
 }
 
 /* Login container styling */
@@ -266,12 +267,17 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    background-color: var(--text-primary);
+    background-color: var(--orange-fill);
     font-size: 18px;
     font-weight: 500;
     line-height: 24px;
-    border: 1px solid var(--text-primary);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     cursor: pointer;
     z-index: 999999999999;
+}
+
+.login-sec-login-btn:hover {
+    background-color: #FFF;
+    color: var(--text-gray);
 }

@@ -25,6 +25,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
     const cityRef = useRef(null)
     const stateRef = useRef(null)
     const postalCodeRef = useRef(null)
+    const [editZip, setEditZip] = useState(true)
 
     const [focusedField, setFocusedField] = useState("");
     const [signupEmail, setSignupEmail] = useState("");
@@ -77,6 +78,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
             selectedOption,
             handleChange,
             selectedShippingMethods,
+            handleButtonClick
         } = useGlobalContext();
 
 
@@ -352,7 +354,10 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             value={orderPayload.billing?.postal_code}
                             onChange={handleZipCodeChange}
                             maxLength={5}
+                            readOnly={editZip}
                         />
+
+                        
                     </div>
 
 
@@ -377,6 +382,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             value={orderPayload.billing?.city}
                             onChange={handleNestedValueChange}
                         />
+                        
                     </div>
 
                     <div
@@ -402,7 +408,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         />
                     </div>
 
+                    
+
                 </div>
+
+                <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true: false)}>Edit Zipcode?</button>
 
 
             </div>

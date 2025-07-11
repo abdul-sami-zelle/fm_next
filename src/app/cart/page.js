@@ -21,6 +21,7 @@ import { useAppointment } from '@/context/AppointmentContext/AppointmentContext'
 import { useRouter } from 'next/navigation';
 
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 function SamplePrevArrow(props) {
   const { onClick, isVisible } = props;
@@ -376,7 +377,63 @@ const Cart = () => {
         <div className='cart-related-products-display-section'>
           <h3>You May Also Like</h3>
           <div className='cart-related-products-slider-main-div'>
-            <Slider {...settings}>
+
+
+            {latestProducts && latestProducts?.length > 0 ? (
+              <SwiperSlider
+              slidesData={latestProducts}
+              renderSlide={(item, index) => (
+                <div key={index} className='cart-latest-product-cards-container'>
+                    <ProductCardTwo
+                      key={index}
+                      slug={item.slug}
+                      singleProductData={item}
+                      maxWidthAccordingToComp={"100%"}
+                      justWidth={'100%'}
+                      percent={'12%'}
+                      showOnPage={true}
+                      tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
+                      tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                      mainImage={`${item.image.image_url}`}
+                      productCardContainerClass="product-card"
+                      ProductSku={item.sku}
+                      tags={item.tags}
+                      allow_back_order={item?.allow_back_order}
+                      ProductTitle={item.name}
+                      reviewCount={item.reviewCount}
+                      lowPriceAddvertisement={item.lowPriceAddvertisement}
+                      priceTag={item.regular_price}
+                      sale_price={item.sale_price}
+                      financingAdd={item.financingAdd}
+                      learnMore={item.learnMore}
+                      mainIndex={index}
+                      deliveryTime={item.deliveryTime}
+                      stock={item.manage_stock}
+                      attributes={item.attributes}
+                      handleCardClick={() => handleProductClick(item)}
+                      handleQuickView={() => handleQuickViewOpen(item)}
+                      handleWishListclick={() => handleWishList(item)}
+                    />
+                  </div>
+              )}
+              showDots={true}
+              showArrows={true}
+              spaceBetween={15}
+              breakpoints={{
+                0: { slidesPerView: 1 },
+                768: { slidesPerView: 4 },
+              }}
+            />
+            ) : (
+              <div style={{display: 'flex', width: '100%', gap: '15px'}}>
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <ProductCardShimmer width={'100%'} />
+                  ))}
+              </div>
+            )}
+
+
+            {/* <Slider {...settings}>
               {latestProducts && latestProducts?.length > 0 ? (
                 latestProducts.map((item, index) => (
                   <div key={index} className='cart-latest-product-cards-container'>
@@ -417,7 +474,7 @@ const Cart = () => {
                   <ProductCardShimmer width={'100%'} />
                 ))
               )}
-            </Slider>
+            </Slider> */}
           </div>
         </div>
       )}

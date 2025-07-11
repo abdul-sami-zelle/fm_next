@@ -82,7 +82,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
         <div className='mobile-viw-dimension-main-contianer'>
           <div className='mobile-view-dimension-row-contianer'>
 
-            <div className='mobile-view-dimension-main' onClick={() => handleGalleryModal('image-clicked')}>
+            <div className='mobile-view-dimension-main' onClick={() => handleGalleryModal('image-clicked', 'dimenssion-show')}>
               <RxDimensions size={20} color='var(--secondary-color)' />
               <p className='dimensions-detail-button-title'>Dimensions</p>
             </div>

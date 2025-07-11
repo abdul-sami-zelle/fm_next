@@ -14,6 +14,7 @@ import DeliveryInfo from '@/UI/Components/DeliveryInfo/DeliveryInfo';
 import axios from 'axios';
 import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/termsConditionModal';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 
 
 const CheckoutClient = () => {
@@ -49,7 +50,10 @@ const CheckoutClient = () => {
     handleTabOpen,
     isLoader,
     showThankyou,
-    setThankyouState
+    setThankyouState,
+    warningMessage,
+    showWarning,
+    setShowWarning,
   } = useMyOrders();
 
   const [isCheck, setIsCheck] = useState({});
@@ -112,6 +116,7 @@ const CheckoutClient = () => {
         handleTabOpen(1);
         setIsLoading(false)
         return response.data;
+
       } catch (error) {
         console.error("Error updating cart:", error);
         setIsLoading(false)
@@ -158,6 +163,10 @@ const CheckoutClient = () => {
   const [showAll, setShowAll] = useState(false);
   const handleShowMore = () => {
     setShowAll(!showAll)
+  }
+
+  const handleCloseWarningModal = () => {
+    setShowWarning(false)
   }
 
 
@@ -343,6 +352,12 @@ const CheckoutClient = () => {
         openSnakeBarProp={showSnakeBar}
         setOpenSnakeBar={setShowSnakeBar}
         onClick={handleCloseSnakeBar}
+      />
+      <MessageModal 
+        showMessage={showWarning}
+        message={warningMessage}
+        footerMessage={'This is Footer'}
+        closeModal={handleCloseWarningModal}
       />
     </div>
   )

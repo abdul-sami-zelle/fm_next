@@ -278,7 +278,20 @@
     color: red;
 }
 
-
+.edit-or-not-zip-code {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--text-gray);
+    text-decoration: underline;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 480px) {
     .delivery-form-main-container {

@@ -16,7 +16,9 @@ const ProductStickyTabBar = (
         handleAddToCartProduct,
         variationData,
         isProtectionCheck,
-        quantity
+        quantity,
+        steperIndex,
+        setSteperIndex,
     }) => {
 
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
@@ -121,6 +123,10 @@ const ProductStickyTabBar = (
     return today.toLocaleDateString("en-us", optionWithTimeZone)
   }
 
+  const handleStepperIndex = (index) => {
+    setSteperIndex(index);
+  }
+
     return (
         <>
             <div className={`product-sticky-tab-bar-main-container ${isSticky ? 'add-margin' : ''}`}>
@@ -166,18 +172,17 @@ const ProductStickyTabBar = (
                     
 
 
-                    <div className='product-sticky-fixed-tabs-container'>
+                    {/* <div className='product-sticky-fixed-tabs-container'>
                         {tabBarItems.map((item, index) => (
                             <div
                                 key={index}
-                                className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
-                                onClick={() => handleTabClick(item)}
+                                className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''}`}
+                                onClick={() => handleStepperIndex(index)}
                             >
                                 <p>{item === 'DesignYourRoom' ? 'Design Your Room' : item}</p>
-                                {/* <p>{item}</p> */}
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>}
 
 
@@ -185,8 +190,10 @@ const ProductStickyTabBar = (
                     {tabBarItems.map((item, index) => (
                         <div
                             key={index}
-                            className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
-                            onClick={() => handleTabClick(item)}
+                            // className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
+                            className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''}`}
+                            // onClick={() => handleTabClick(item)}
+                            onClick={() => handleStepperIndex(index)}
                         >
                             <p>{item === 'DesignYourRoom' ? 'Design Your Room' : item}</p>
                         </div>

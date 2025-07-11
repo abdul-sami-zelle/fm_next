@@ -150,6 +150,7 @@ const ProductDisplay = ({ params }) => {
   const [dimensionModal, setDimensionModal] = useState(false)
   const [clickedType, setClickedType] = useState('')
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
+  const [steperIndex, setSteperIndex] = useState(0);
 
   const handleOpenModal = (place, type) => {
     setZoomIn(false);
@@ -309,6 +310,8 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal]);
 
+
+
   return (
     <div>
       <div className='product-display-page-main-container'>
@@ -355,21 +358,47 @@ const ProductDisplay = ({ params }) => {
           handleAddToCartProduct={handleAddToCartProduct}
           isProtectionCheck={isProtectionCheck}
           quantity={quantity}
+          steperIndex={steperIndex}
+          setSteperIndex={setSteperIndex}
         />
 
-        {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />}
+        <div className='sticky-section-steper-main-container'>
+          {steperIndex === 0 ? (
+            <div className={`design-room-transition ${steperIndex === 0 ? 'show-design-room-view' : ''}`}>
+              {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />}
+            </div>
+          ) : steperIndex === 1 ? (
+            <div className={`steper-description-tranition ${steperIndex === 1 ? 'show-description-transition' : ''}`}>
+              <ProductDescriptionTab
+                descriptionRef={sectionRefs.Description}
+                productData={product}
+                addMarginTop={isSticky}
+              />
+            </div>
+          ) : (
+            <div className={`steper-details-tranition ${steperIndex === 2 ? 'show-details-transition' : ''}`}>
+              <ProductDetailTab
+                detailsRef={sectionRefs.Details}
+                productData={product}
+                productDetails={productDetails}
+              />
+            </div>
+          )}
+        </div>
 
-        <ProductDescriptionTab
+        {/* {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />} */}
+
+        {/* <ProductDescriptionTab
           descriptionRef={sectionRefs.Description}
           productData={product}
           addMarginTop={isSticky}
-        />
+        /> */}
 
-        <ProductDetailTab
+        {/* <ProductDetailTab
           detailsRef={sectionRefs.Details}
           productData={product}
           productDetails={productDetails}
-        />
+        /> */}
         <ProductRecommendationTab
           recommendationRef={sectionRefs.Recommendations}
           product={product}

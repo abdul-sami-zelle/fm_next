@@ -17,8 +17,8 @@
     gap: 5px;
 }
 .credit-card-type-head img{
-    height: 38px ;
-    width: 100%;
+    height: 50px ;
+    width: auto;
 }
 
 .credit-card-type-body{

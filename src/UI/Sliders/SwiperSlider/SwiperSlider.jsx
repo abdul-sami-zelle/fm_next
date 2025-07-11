@@ -18,7 +18,8 @@ const SwiperSlider = ({
     onSlideChangeIndex,
     autoplay = false,
     loop = false,
-    delayTime = 0
+    delayTime = 0,
+    arrowSlide = false,
 }) => {
     const swiperRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -62,8 +63,8 @@ const SwiperSlider = ({
 
     return (
         <div className="slider-container">
-            {showArrows && !isMobile && (
-                <button className="arrow left" onClick={handlePrev}>
+            {showArrows && !isMobile && slidesData?.length > 4 && (
+                <button className={`arrow left`} onClick={handlePrev}>
                     <IoIosArrowBack color='#FFF' size={20} />
                 </button>
             )}
@@ -102,13 +103,13 @@ const SwiperSlider = ({
                 ))}
             </Swiper>
 
-            {showArrows && (
-                <button className="arrow right" onClick={handleNext}>
+            {showArrows && !isMobile && slidesData?.length > 4 && (
+                <button className={`arrow right ${arrowSlide ? 'slide-arrow-right' : ''}`} onClick={handleNext}>
                     <IoIosArrowForward size={20} color='#FFF' />
                 </button>
             )}
 
-            {showDots && (
+            {showDots && isMobile && (
                 <div className="custom-pagination-dots">
                     {(() => {
                         const currentIndex = externalActiveIndex ?? activeIndex;

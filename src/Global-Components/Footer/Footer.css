@@ -528,6 +528,35 @@ p.footer-nav-items > a{
     padding: 0 !important;
 }
 
+.footer-near-store-imaeg-shimmer {
+    width: 220px;
+    height: 140px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #f0f0f0;
+}
+
+.footer-near-store-imaeg-shimmer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start off-screen */
+    height: 100%;
+    width: 150%; /* Width of the shimmer gradient */
+    background: linear-gradient(90deg, rgba(240, 240, 240, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(240, 240, 240, 0) 100%);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 .footer-near-store-tel{
     font-size: var(--content-one-size) !important;
     line-height: var(--content-one-height) !important;

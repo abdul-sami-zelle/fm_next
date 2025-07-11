@@ -266,6 +266,8 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     };
 
+    const [imageLoad, setImageLoad] = useState(false);
+
     return (
         <>
             <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : ''}`}>
@@ -304,7 +306,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                                 {locationPhoneMail.map((item, index) => (
                                     <span key={index}>
                                         <img src={item.icon} alt='icon' />
-                                        <p>{item.name === '215 352 1600' ? <a href='tel:2153521600'>{item.name}</a> : item.name}</p>
+                                        <p>{item.name === '215 352 1600' ? <a href='tel:2153521600'>{item.name}</a> : item.name === 'meccacustomercare@gmail.com' ? <a href='tel:meccacustomercare@gmail.com'>{item.name}</a> :  item.name}</p>
                                     </span>
                                 ))}
                             </div>
@@ -340,7 +342,10 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                             <h3 className='footer-location-section'>Nearest Store</h3>
                             <div className='near-store-containt-section'>
                                 <div className='near-store-image-div'>
-                                    <img src={`${url}${stores?.[0]?.images?.[0]?.image_url ?? defaultStore?.images?.[0]?.image_url}`} alt='near store' />
+                                    <img 
+                                        src={`${url}${stores?.[0]?.images?.[0]?.image_url ?? defaultStore?.images?.[0]?.image_url}`} 
+                                        alt='near store' 
+                                    />
                                 </div>
                                 <div className='near-store-details-section'>
                                     {nearStoreDetails.map((item, index) => (

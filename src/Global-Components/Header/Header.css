@@ -903,7 +903,7 @@
 }
 
 .mobile-searched-product-name-and-sku p{
-    font-size: 14px;
+    font-size: 12px;
     line-height: 15px;
     font-weight: 600;
 }
@@ -923,15 +923,15 @@
 }
 
 .searched-product-prices p{
-    font-size: 14px;
-    line-height: 15px;
+    font-size: 12px;
+    line-height: 1.2;
     font-weight: 400;
     color: var(--text-primary);
 }
 
 .searched-product-prices del{
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 10px;
+    line-height: 1.2;
     font-weight: 400;
     color: var(--text-primary);
     opacity: 0.5;

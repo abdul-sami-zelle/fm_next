@@ -390,6 +390,8 @@ const Header = ({ checkoutPage }) => {
     fetchAllstores("code", info?.locationData?.zipCode);
   }, [info?.locationData?.zipCode])
 
+
+  useEffect(() => {console.log("searched products", searchedProducts)}, [searchedProducts])
   useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible)
 
 
@@ -427,7 +429,7 @@ const Header = ({ checkoutPage }) => {
               />
               {isLoading ? <div className='input-loader'></div> : <></>}
             </div>
-            <button 
+            <button
               className='search-bar-search-product-button'
               onClick={searchedProducts?.length > 0 ? handleNavigateToSearchedProducts : null}
             >
@@ -444,7 +446,7 @@ const Header = ({ checkoutPage }) => {
                     className='searched-product'
                     onMouseEnter={() => handleProductHOver(index)}
                     onMouseLeave={handleMouseLeave}
-                    onClick={() => {setSearchQuery(''); setIsSearchInputFocused(false); setSearchedProducts([])}}
+                    onClick={() => { setSearchQuery(''); setIsSearchInputFocused(false); setSearchedProducts([]) }}
                     href={{ pathname: `/product/${items.slug}`, state: items }}
                   >
                     {items?.image?.image_url && (<Image src={`${url}${items?.image?.image_url}`} width={80} height={40} alt='main' />)}
@@ -668,8 +670,10 @@ const Header = ({ checkoutPage }) => {
 
         <div className={`mobile-view-search-products-modal-body `}>
           {
-            searchedProducts && searchedProducts.map((item, index) => (
-              <div key={index} className='mobile-view-searched-product-result' onClick={() => handleNavigateToSingleProduct(item)}>
+            searchedProducts && searchedProducts.map((item, index) => {
+              {console.log("searched regular price", item.regular_price)}
+              {console.log("searched sale price", item.sale_price)}
+              return <div key={index} className='mobile-view-searched-product-result' onClick={() => handleNavigateToSingleProduct(item)}>
                 <img
                   src={`${url}${item?.image?.image_url}`}
                   alt='product'
@@ -681,7 +685,7 @@ const Header = ({ checkoutPage }) => {
                     <p>SKU: {item.sku}</p>
                   </div>
                   <span className='searched-product-prices'>
-                    {item.sale_price ? (
+                    {item.sale_price !== "" ? (
                       <div>
                         <del>{formatePrice(item.regular_price)}</del>
                         <p>{formatePrice(item.sale_price)}</p>
@@ -692,7 +696,7 @@ const Header = ({ checkoutPage }) => {
                   </span>
                 </div>
               </div>
-            ))
+            })
           }
           <button
             className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
