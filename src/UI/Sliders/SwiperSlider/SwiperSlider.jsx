@@ -109,7 +109,7 @@ const SwiperSlider = ({
                 </button>
             )}
 
-            {showDots && isMobile && (
+            {showDots && (
                 <div className="custom-pagination-dots">
                     {(() => {
                         const currentIndex = externalActiveIndex ?? activeIndex;
