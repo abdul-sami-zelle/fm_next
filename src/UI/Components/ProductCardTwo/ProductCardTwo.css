@@ -65,7 +65,7 @@
     width: max-content;
     align-items: center;
     justify-content: end;
-    z-index: 99;
+    z-index: 9999;
 }
 
 .product-image-wishlist-icon-container.show-product-wishlist-icon {
@@ -174,7 +174,7 @@
 
 .hovered-product-main-img.visible-hovered {
     opacity: 1;
-    z-index: 9999;
+    z-index: 999;
     position: absolute;
 }
 

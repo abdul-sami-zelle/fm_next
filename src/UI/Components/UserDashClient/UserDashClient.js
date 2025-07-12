@@ -40,6 +40,7 @@ const router = useRouter();
           });
           if (response2.ok) {
             const data = await response2.json();
+            // console.log("response 2 ok", data);
             setUserData(data.data)
             setIsTokenValid(true);
             setMainLoader(false);
@@ -85,9 +86,6 @@ const router = useRouter();
       }
     }, []);
 
-    // Get location and state from the previous route
-    // const location = useLocation();
-    // const prevState = location.state;
   
     // Check if the state exists and set default values accordingly
     useEffect(() => {
@@ -95,6 +93,19 @@ const router = useRouter();
           moveToLoginDash();
       }
     }, [prevState]);
+
+    useEffect(() => {
+      if(userData.length === 0) {
+        const userUid = localStorage.getItem('uuid')
+        const userToken = localStorage.getItem('userToken')
+        if(userUid && userToken) {
+          console.log("func call");
+          moveToLoginDash()
+        }
+      }
+    }, [userData ])
+
+    useEffect(() => {console.log("user data", userData)}, [userData])
     
   return (
     <div className='user-dashboard-main-page'>

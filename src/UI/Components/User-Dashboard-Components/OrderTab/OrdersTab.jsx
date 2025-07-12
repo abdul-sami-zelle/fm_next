@@ -6,10 +6,10 @@ import Loader from '../../Loader/Loader';
 import OrderViewModal from '../OrderViewModal/OrderViewModal';
 import Pagination from '../../../../Global-Components/Pagination/Pagination';
 
-const OrdersTab = () => {
+const OrdersTab = ({data}) => {
 
 
-  const dataPerPage = 7;
+  const dataPerPage = 10;
   const [currentTableDataIndex, setCurrentTableDataIndex] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -18,105 +18,23 @@ const OrdersTab = () => {
       row: 'TableHeah', tableHeadData:
         [
           'Order Number',
+          'Invoice',
           'Date',
           'Status',
           'Total',
           'Action'
         ],
-      tableBody: [
-        {
-          orderNumber: '#0001',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0002',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0003',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0004',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0005',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0006',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0007',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0008',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0009',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0010',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0011',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0012',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0013',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0014',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-        {
-          orderNumber: '#0015',
-          date: 'september 12, 24',
-          status: 'Canceled',
-          total: '$14555 for 15 items',
-        },
-      ]
+      tableBody: data?.orders?.map((item, index) => ({
+      orderNumber: item.order_number,
+      invoice: item.inv_number,
+      date: item.date,
+      status: item.status,
+      total: `$${item.total} for ${item.items} items`,
+    }))
     }
   ]
+
+  console.log("order details", ordersData)
 
   const totalItems = ordersData[0]?.tableBody.length || 0;
   const totalPages = Math.ceil(totalItems / dataPerPage);
@@ -162,7 +80,7 @@ const OrdersTab = () => {
   }
 
   useEffect(() => {
-    if(viewProductModal) {
+    if (viewProductModal) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -182,12 +100,15 @@ const OrdersTab = () => {
             {currentItems.map((tbody, tindex) => (
               <tr key={tindex}>
                 <td>{tbody.orderNumber}</td>
+                <td>{tbody.invoice}</td>
                 <td>{tbody.date}</td>
                 <td>{tbody.status}</td>
                 <td>{tbody.total}</td>
                 <td>
                   <div className='table-action-buttons'>
                     <button onClick={() => handleViewProductData(tbody)}>View</button>
+                    <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
+                    <button onClick={() => handleViewProductData(tbody)}>Reschedule</button>
                   </div>
                 </td>
               </tr>
@@ -196,14 +117,15 @@ const OrdersTab = () => {
         ))}
       </table>
       <div className='paginations'>
-        <Pagination
+        {data?.orders?.length > 10 && <Pagination
           activePageIndex={currentTableDataIndex + 1}
           totalPages={{ totalPages }}
           handleActivePage={handleActivePage}
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
-        />
+        />}
         
+
 
       </div>
       <OrderViewModal

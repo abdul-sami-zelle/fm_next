@@ -4,35 +4,35 @@ import axios from 'axios'
 import heart from '../../../Assets/icons/heart-vector.png'
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer'
 import { useList } from '../../../context/wishListContext/wishListContext'
-import Slider from 'react-slick'
-import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
-import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
+// import Slider from 'react-slick'
+// import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
+// import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+// import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 
 
-const SamplePrevArrow = (props) => {
-  const { className, style, onClick } = props;
-  return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left ${className}`} >
-      {/* <img src={leftArrow} alt='arrow' /> */}
-      <MdKeyboardArrowLeft size={25} color='#FFF' />
-    </div>
-  )
-}
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right ${className}`} >
-      {/* <img src={rightArrow} alt='arrow' /> */}
-      <MdKeyboardArrowRight size={25} color='#FFF' />
-    </div>
-  )
-}
+// const SamplePrevArrow = (props) => {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left ${className}`} >
+//       {/* <img src={leftArrow} alt='arrow' /> */}
+//       <MdKeyboardArrowLeft size={25} color='#FFF' />
+//     </div>
+//   )
+// }
+// function SampleNextArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right ${className}`} >
+//       {/* <img src={rightArrow} alt='arrow' /> */}
+//       <MdKeyboardArrowRight size={25} color='#FFF' />
+//     </div>
+//   )
+// }
 
 const SimillerProducts = ({ isPadding, productId }) => {
 
@@ -119,51 +119,51 @@ const SimillerProducts = ({ isPadding, productId }) => {
   // }, [activeSlide]);
 
   // Slick
-  let settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    arrows: true,
-    nextArrow:
-      data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
-    prevArrow:
-      data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
-    afterChange: (index) => setActiveIndex(index),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: false,
-          arrows: data && data.length > 2 ? true : false,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-          arrows: data && data.length > 2 ? true : false,
+  // let settings = {
+  //   dots: false,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 1,
+  //   initialSlide: 0,
+  //   arrows: true,
+  //   nextArrow:
+  //     data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
+  //   prevArrow:
+  //     data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
+  //   afterChange: (index) => setActiveIndex(index),
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 1,
+  //         infinite: false,
+  //         dots: false,
+  //         arrows: data && data.length > 2 ? true : false,
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 600,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 1,
+  //         initialSlide: 2,
+  //         arrows: data && data.length > 2 ? true : false,
 
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-          dots: false // still false, we're using custom
-        }
-      }
-    ]
-  };
+  //       }
+  //     },
+  //     {
+  //       breakpoint: 480,
+  //       settings: {
+  //         slidesToShow: 1,
+  //         slidesToScroll: 1,
+  //         arrows: false,
+  //         dots: false // still false, we're using custom
+  //       }
+  //     }
+  //   ]
+  // };
 
   // const renderCustomDots = () => {
   //   if (window.innerWidth > 480) return null; // only mobile
@@ -238,9 +238,10 @@ const SimillerProducts = ({ isPadding, productId }) => {
                   />
                 </div>
               )}
-              showDots={true}
+              showDots={false}
               showArrows={true}
-              spaceBetween={15}
+              spaceBetween={10}
+              isPadding={true}
               breakpoints={{
                 0: { slidesPerView: 1 },
                 768: { slidesPerView: 4 },
@@ -251,17 +252,19 @@ const SimillerProducts = ({ isPadding, productId }) => {
               <ProductCardShimmer />
             ))
           )}
+        </div>
 
-
-          {/* <Slider {...settings}>
-            {data ? (
-              data?.map((item, index) => (
+        <div className='related-products-mobile-view-container'>
+          {data ? (
+            <SwiperSlider
+              slidesData={data}
+              renderSlide={(item, index) => (
                 <div key={index} className='cart-latest-product-cards-container'>
                   <ProductCardTwo
                     key={index}
                     slug={item.slug}
                     singleProductData={item}
-                    maxWidthAccordingToComp={"98%"}
+                    maxWidthAccordingToComp={"100%"}
                     justWidth={'100%'}
                     showOnPage={true}
                     percent={'12%'}
@@ -291,13 +294,21 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleWishListclick={() => handleWishList(item)}
                   />
                 </div>
-              ))
-            ) : (
-              Array.from({ length: 4 }).map((_, index) => (
-                <ProductCardShimmer />
-              ))
-            )}
-          </Slider> */}
+              )}
+              showDots={true}
+              showArrows={false}
+              spaceBetween={15}
+              isPadding={true}
+              breakpoints={{
+                0: { slidesPerView: 1 },
+                768: { slidesPerView: 4 },
+              }}
+            />
+          ) : (
+            Array.from({ length: 4 }).map((_, index) => (
+              <ProductCardShimmer />
+            ))
+          )}
         </div>
 
         <QuickView

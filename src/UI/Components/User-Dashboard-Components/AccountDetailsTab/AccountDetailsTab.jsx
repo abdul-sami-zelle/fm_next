@@ -6,7 +6,7 @@ import { FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
 import BillingAddressModal from '../../../../Global-Components/BillingAddressModal/BillingAddressModal';
 // import { CiCircleMinus } from "react-icons/ci";
 
-const AccountDetailsTab = () => {
+const AccountDetailsTab = ({ data }) => {
   const fileInputRef = useRef(null)
   const [userDetails, setUserDetails] = useState({
     first_name: '',
@@ -33,12 +33,12 @@ const AccountDetailsTab = () => {
   }
 
   const handleShowHidePassword = (type) => {
-    if(type === 'old_password') {
+    if (type === 'old_password') {
       setShowOldPass(!showOldPass);
     } else if (type === 'new_password') {
       setShowNewPass(!showNewPass)
     }
-  } 
+  }
 
   const handleButtonclick = () => {
     fileInputRef.current.click();
@@ -46,14 +46,31 @@ const AccountDetailsTab = () => {
 
   const handleProfileChange = (e) => {
     const file = e.target.files[0];
+    // if (file) {
+    //   const imageUrl = URL.createObjectURL(file);
+    //   setImgUrl(imageUrl)
+    // }
+    // setUserDetails((prevInfo) => ({
+    //   ...prevInfo,
+    //   profile_image: file
+    // }))
+
     if (file) {
+      const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+
+      if (file.size > maxSize) {
+        alert("File size should not exceed 2MB.");
+        return;
+      }
+
       const imageUrl = URL.createObjectURL(file);
-      setImgUrl(imageUrl)
+      setImgUrl(imageUrl);
+
+      setUserDetails((prevInfo) => ({
+        ...prevInfo,
+        profile_image: file
+      }));
     }
-    setUserDetails((prevInfo) => ({
-      ...prevInfo,
-      profile_image: file
-    }))
 
   }
 
@@ -83,7 +100,7 @@ const AccountDetailsTab = () => {
     setOpenBillingModal(false);
   }
 
-  
+
   useDisableBodyScroll(openBillingModal)
 
 
@@ -130,7 +147,19 @@ const AccountDetailsTab = () => {
               )
             ))}
           </div>
-          <div className='user-info-password-container'>
+
+          <div className='last-login-and-update-container'>
+            <span className='last-login-and-update'>
+              <p>Last Login:</p>
+              <h3>{data?.lastLogin}</h3>
+            </span>
+            <span className='last-login-and-update'>
+              <p>Last Update:</p>
+              <h3>{data?.updatedAt}</h3>
+            </span>
+          </div>
+
+          {/* <div className='user-info-password-container'>
             <div className='user-info-pass-head' onClick={handleShowPasswordContainer}>
               <h3>Update Password</h3>
               <button>
@@ -161,19 +190,20 @@ const AccountDetailsTab = () => {
                 <button>Save</button>
               </div>
             </div>
-          </div>
+          </div> */}
+
         </div>
 
       </div>
 
 
 
-      
 
-        <BillingAddressModal 
-          showBilling={openBillingModal}
-          handleCloseBillingModal={handleBillingModalclose}
-        />
+
+      <BillingAddressModal
+        showBilling={openBillingModal}
+        handleCloseBillingModal={handleBillingModalclose}
+      />
     </div>
   )
 }

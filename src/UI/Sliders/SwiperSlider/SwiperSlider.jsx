@@ -20,6 +20,7 @@ const SwiperSlider = ({
     loop = false,
     delayTime = 0,
     arrowSlide = false,
+    isPadding = false,
 }) => {
     const swiperRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -63,13 +64,14 @@ const SwiperSlider = ({
 
     return (
         <div className="slider-container">
-            {showArrows && !isMobile && slidesData?.length > 4 && (
+            {showArrows && slidesData?.length > 4 && (
                 <button className={`arrow left`} onClick={handlePrev}>
                     <IoIosArrowBack color='#FFF' size={20} />
                 </button>
             )}
 
             <Swiper
+            className={isPadding ? 'swiper-padding' : 'swiper'}
             loop={loop}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;

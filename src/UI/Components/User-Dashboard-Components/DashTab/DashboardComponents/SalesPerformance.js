@@ -2,11 +2,11 @@ import React from 'react'
 import './SalesPerformace.css';
 import ReactApexChart from 'react-apexcharts';
 
-const SalesPerformance = () => {
+const SalesPerformance = ({data}) => {
 
     const [state, setState] = React.useState({
 
-        series: [60],
+        series: [data?.summary?.totalReview],
         options: {
             chart: {
                 type: 'radialBar',
@@ -81,7 +81,7 @@ const SalesPerformance = () => {
 
     const [strockedCircleState, setStrockedCircleState] = React.useState({
 
-        series: [60],
+        series: [data?.summary?.totalReview],
         options: {
             chart: {
                 height: 250,

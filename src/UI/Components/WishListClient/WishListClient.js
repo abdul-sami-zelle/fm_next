@@ -83,6 +83,7 @@ const WishListClient = () => {
 
   return (
     <div className='wish-list-main-container'>
+
       <div className='wish-list-heading-container'>
         <h3 className='wish-list-main-heading'>Favorite Products</h3>
         {/* <div className='heading-line'></div> */}
@@ -138,8 +139,6 @@ const WishListClient = () => {
             );
           })
         )}
-
-
       </div>
 
       <div className={`wishlist-mobile-cards ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'}`}>

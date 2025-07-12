@@ -42,7 +42,7 @@
 .dashboard_tab>.circular_button {
   height: 50px;
   width: 50px;
-  background-color: var(--tertiary-color);
+  background-color: var(--orange-fill);
   border-radius: 50%;
   position: absolute;
   top: 2px;
@@ -79,7 +79,7 @@
 
 .dashboard_tab.white>.circular_button {
   background-color: #fff;
-  color: var(--tertiary-color);
+  color: var(--orange-fill);
 }
 
 .bar_chart_order_stats {

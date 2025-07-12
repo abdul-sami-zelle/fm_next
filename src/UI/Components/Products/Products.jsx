@@ -435,16 +435,54 @@ const Products = ({ navigationType }) => {
     const [wishlistMessage, setWishlistMessage] = useState('')
     const [openSnakeBar, setOpenSnakeBar] = useState(false);
 
-    const handleWishList = (item) => {
-        setOpenSnakeBar(true)
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            setWishlistMessage('Removed from wish list')
-
-        } else {
-            addToList(item)
-            setWishlistMessage('added to wish list')
+    const [userId, setUserId] = useState('');
+    const [userToken, setUserToken] = useState('');
+    useEffect(() => {
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+        if (getToken && userId) {
+            setUserToken(getToken)
+            setUserId(userId)
         }
+    }, [])
+
+    const handleWishList = async (item) => {
+
+        if (userId && userToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                setOpenSnakeBar(true)
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: userToken, // Replace with your actual token variable
+                        'Content-Type': 'application/json', // Optional but good practice
+                    }
+                });
+                console.log("response remove wishlist", response)
+                setWishlistMessage('added to wish list')
+            } catch (error) {
+                setOpenSnakeBar(false)
+                console.error("UnExpected Server Error", error);
+            } finally {
+                setOpenSnakeBar(false)
+            }
+        } else {
+            setOpenSnakeBar(true)
+            if (isInWishList(item.uid)) {
+                removeFromList(item.uid);
+                setWishlistMessage('Removed from wish list')
+
+            } else {
+                addToList(item)
+                setWishlistMessage('added to wish list')
+            }
+        }
+
+
+
+
+
     }
 
     const handleCloseSnakeBar = () => {
@@ -867,18 +905,18 @@ const Products = ({ navigationType }) => {
                                         <div className='desktop-pagination-buttons-container'>
                                             {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
 
-                                                    const pageNumber = index + 1;
-                                                    
+                                                const pageNumber = index + 1;
 
-                                                    return <span
-                                                            key={pageNumber}
-                                                            onClick={() => handleActivePage(pageNumber)}
-                                                            className={activePageIndex === pageNumber ? 'active-page-span' : ''}
-                                                        >
-                                                            {pageNumber}
-                                                        </span>
-                                            
-                                                })}
+
+                                                return <span
+                                                    key={pageNumber}
+                                                    onClick={() => handleActivePage(pageNumber)}
+                                                    className={activePageIndex === pageNumber ? 'active-page-span' : ''}
+                                                >
+                                                    {pageNumber}
+                                                </span>
+
+                                            })}
                                         </div>
                                     ) : (<></>)}
                                 </div>

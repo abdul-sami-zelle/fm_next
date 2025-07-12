@@ -44,18 +44,18 @@ const DashTab = ({ data }) => {
 
       </div>
       <div className='upper_tabs'>
-        <DashboardTab name={"Total Orders"} value={"0"} unit={"order"} slug={"total-orders"} />
-        <DashboardTab name={"Total Orders"} value={"0"} unit={"order"} slug={"total-orders"} style_name={"white"} />
-        <DashboardTab name={"Total Orders"} value={"0"} unit={"order"} slug={"total-orders"} />
+        <DashboardTab name={"Total Orders"} thunder={'white'} value={data?.summary?.totalOrders} unit={"Order"} slug={"total-orders"} />
+        <DashboardTab name={"Processing Orders"} thunder={'orange'} value={data?.summary?.totalProcessingOrders} unit={"Order"} slug={"total-orders"} style_name={"white"} />
+        <DashboardTab name={"Wishlist Items"} thunder={'orange'} value={data?.summary?.totalWishlists} unit={"Items"} slug={"total-orders"} style_name={"white"}/>
       </div>
 
       <div className="lower_charts">
         <div className="lower_charts_1">
-          <SalesPerformance />
+          <SalesPerformance data={data}/>
           {/* <DashboardTab2/> */}
         </div>
         <div className="lower_charts_2">
-          <BarChart />
+          <BarChart data={data} />
         </div>
 
       </div>

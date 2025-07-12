@@ -3,9 +3,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    gap: 30px;
-    /* margin: 0 60px; */
+    /* width: 100%; */
+    gap: 25px;
+    margin: 0 60px;
+    padding: 20px;
+    background-color: #f8f8f8;
     box-sizing: border-box;
 }
 
@@ -103,8 +105,9 @@
 
 .user-info-body > label {
     display: flex;
+    width: 100%;
     flex-direction: row;
-    
+    font-size: 14px;
     align-items: center;
     justify-content: space-between;
     
@@ -124,7 +127,7 @@ input, label {
 }
 
 .user-info-body > label > input {
-    width: 80%;
+    width: 75%;
     background-color: #fdfdfd;
     border: 1px solid var(--border-color);
     border-radius: 5px;
@@ -135,7 +138,37 @@ input, label {
     padding: 8px 10px;
 }
 
+.last-login-and-update-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    justify-content: start;
+    gap: 10px;
 
+}
+
+.last-login-and-update {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+}
+
+.last-login-and-update > p {
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.last-login-and-update > h3 {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+/* update password container styling */
 .user-info-password-container{
     display: flex;
     flex-direction: column;

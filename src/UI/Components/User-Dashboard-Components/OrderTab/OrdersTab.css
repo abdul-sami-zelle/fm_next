@@ -4,6 +4,8 @@
     align-items: center;
     justify-content: center;
     margin: 0 60px;
+    padding: 20px;
+    background-color: #f8f8f8;
     box-sizing: border-box;
 }
 
@@ -40,7 +42,7 @@
     display: flex;
     width: 100%;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
     font-size: 14px;
     line-height: 21px;
     font-weight: 500;
@@ -51,7 +53,7 @@
     display: flex;
     width: 100%;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
     font-size: 14px;
     line-height: 21px;
     font-weight: 400;
@@ -66,7 +68,7 @@
     width: 100%;
     gap: 10px;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 .table-action-buttons button{

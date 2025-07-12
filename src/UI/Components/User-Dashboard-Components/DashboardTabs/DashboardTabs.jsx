@@ -9,11 +9,22 @@ import AccountDetailsTab from '../AccountDetailsTab/AccountDetailsTab';
 import Loader from '../../Loader/Loader';
 import { url } from '../../../../utils/api';
 import axios from 'axios';
+import Favorites from '../DashTab/DashboardComponents/Favorites';
+import { useParams } from 'next/navigation';
 
 const DashboardTabs = ({ data }) => {
     const [loading, setLoading] = useState(false);
     const [trigerApi, setTrigerApi] = useState(false);
-    // const [userToken, setUserTocken] = useState('');
+    const params = useParams();
+      const id = params.id;
+    const [userToken, setUserToken] = useState('');
+    useEffect(() => {
+        const getToken = localStorage.getItem('userToken');
+    if(getToken) {
+      setUserToken(getToken)
+    }
+    }, [])
+
 
     const [userData, setUserData] = useState();
     const getBillingData = async (userId, authToken) => {
@@ -65,7 +76,7 @@ const DashboardTabs = ({ data }) => {
         'Dashboard',
         'Orders',
         'Addresses',
-        'Payment Methods',
+        'Favorites',
         'Profile'
     ]
 
@@ -76,6 +87,39 @@ const DashboardTabs = ({ data }) => {
         setTimeout(() => setLoading(false), 1000);
     }
 
+    const [favoritesData, setFavoritesData] = useState([]);
+    const handleFavoritesData = async () => {
+        const api = `${url}/api/v1/web-users/wishlist/${id}`
+        try {
+            const response = await axios.get(api, 
+                {
+            headers: {
+              Authorization: userToken, // Replace with your actual token variable
+              'Content-Type': 'application/json', // Optional but good practice
+            }
+          });
+          if(response.status === 200) {
+            setFavoritesData(response.data.wishlist)
+          }
+            console.log("wish list response", response);
+        } catch (error) {
+            console.log("unExpected Server Error", error);
+        }
+    }
+
+
+
+    
+    useEffect(() => {
+        if(currentTabIndex === 3) {
+            handleFavoritesData()
+        }
+    }, [currentTabIndex])
+    useEffect(() => {
+        if(currentTabIndex === 3) {
+            handleFavoritesData()
+        }
+    }, [favoritesData])
     
 
     return (
@@ -94,10 +138,10 @@ const DashboardTabs = ({ data }) => {
             </div>
             {
                 currentTabIndex === 0 ? <DashTab data={data} /> :
-                    currentTabIndex === 1 ? <OrdersTab /> :
-                        currentTabIndex === 2 ? <AddressesTab userAddresses={userData} setTrigerPoint={setTrigerApi} /> :
-                            currentTabIndex === 3 ? <PaymentMethodTab /> :
-                                currentTabIndex === 4 ? <AccountDetailsTab /> : <></>
+                    currentTabIndex === 1 ? <OrdersTab data={data} /> :
+                        currentTabIndex === 2 ? <AddressesTab data={data} userAddresses={userData} setTrigerPoint={setTrigerApi} /> :
+                            currentTabIndex === 3 ? <Favorites data={favoritesData} />:
+                                currentTabIndex === 4 ? <AccountDetailsTab data={data} /> : <></>
             }
         </div>
     )

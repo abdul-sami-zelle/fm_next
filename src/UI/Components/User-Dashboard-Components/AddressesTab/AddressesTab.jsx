@@ -6,12 +6,15 @@ import axios from 'axios';
 import { url } from '../../../../utils/api';
 import Loader from '../../Loader/Loader';
 import { use } from 'react';
+import { useParams } from 'next/navigation';
 
-const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
+const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
 
+  const params = useParams();
+  const id = params.id;
   const [loading, setLoading] = useState(false);
   const [billingPayload, setBillingPayload] = useState({
-    userId: '',
+    // userId: '',
     billingAddress: {
       first_name: userAddresses?.billing_address?.first_name,
       last_name: userAddresses?.billing_address?.last_name,
@@ -38,6 +41,14 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
       // phone: '090078601'
     }
   })
+
+  const [userToken, setUserToken] = useState();
+  useEffect(() => {
+    const getToken = localStorage.getItem('userToken');
+    if(getToken) {
+      setUserToken(getToken)
+    }
+  }, []);
 
 
 
@@ -96,13 +107,23 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
   }
 
   const handleUpdateAddress = async () => {
-    const billingApi = `/api/v1/web-users/update-billing-address`
+    const billingApi = `/api/v1/web-users/update-billing/${id}`
     const shippingApi = `/api/v1/web-users/update-shipping-address`;
     try {
 
       if (modalType === 'billing-address') {
         setLoading(true)
-        const response = await axios.put(`${url}${billingApi}`, billingPayload);
+        // const response = await axios.put(`${url}${billingApi}`, billingPayload);
+        const response = await axios.put(
+          `${url}${billingApi}`,
+          billingPayload,
+          {
+            headers: {
+              Authorization: userToken, // Replace with your actual token variable
+              'Content-Type': 'application/json', // Optional but good practice
+            }
+          }
+        );
         if (response.status === 200) {
           setTrigerPoint(true)
         } else {
@@ -182,7 +203,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
           </div>
         </div>
 
-        
+
       </div>
 
       <div className={`address-edit-modal ${isEditTrue ? 'show-address-edit-modal' : ''}`}>
@@ -227,7 +248,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint }) => {
               </label>
             </div>
 
-            
+
 
             <div className='country-indication'>
               <p className='country-region'>Country/Region</p>

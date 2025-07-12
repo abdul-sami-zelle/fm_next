@@ -1,0 +1,150 @@
+import React, { useEffect, useState } from 'react'
+import './Favorites.css'
+import ProductCardTwo from '@/UI/Components/ProductCardTwo/ProductCardTwo'
+import QuickView from '@/UI/Components/QuickView/QuickView'
+import heart from '../../../../../Assets/icons/heart-vector.png';
+import { useList } from '@/context/wishListContext/wishListContext';
+import { toast } from 'react-toastify';
+import { useParams } from 'next/navigation';
+import { url } from '@/utils/api';
+import axios from 'axios';
+
+const Favorites = ({ data }) => {
+  const [loading, setLoading] = useState(false)
+  const {
+      wishList,
+      addToList,
+      removeFromList,
+      isInWishList
+    } = useList();
+    const [quickViewClicked, setQuickView] = useState(false);
+    const [quickViewProduct, setQuickViewProduct] = useState({})
+    const [activeGrid, setActiveGrid] = useState('single-col')
+    const [selectedGrid, setSelectedGrid] = useState('');
+    const maxLength = 50;
+
+    const params = useParams()
+    const id = params.id;
+
+     const [userToken, setUserToken] = useState('');
+        useEffect(() => {
+            const getToken = localStorage.getItem('userToken');
+        if(getToken) {
+          setUserToken(getToken)
+        }
+        }, [])
+  
+  
+    // Simulate data loading
+    useEffect(() => {
+      const timeout = setTimeout(() => setLoading(false), 1500);
+      return () => clearTimeout(timeout);
+    }, []);
+  
+  
+    const truncateTitle = (title, maxLength) => {
+      if (!title) return '';
+      return title?.length > maxLength ? title.slice(0, maxLength) + '...' : title
+    };
+  
+  
+    const handleQuickViewOpen = (item) => {
+      setQuickView(true);
+      setQuickViewProduct(item)
+  
+    }
+    const handleQuickViewClose = () => { setQuickView(false) }
+    const handleProductClick = (item) => {
+      router.push(`/product/${item.slug}`)
+    };
+  
+    // wish list
+    // const { addToList, removeFromList, isInWishList } = useList()
+    const notify = (str) => toast.success(str);
+    const notifyRemove = (str) => toast.error(str)
+    const handleWishList = async (item) => {
+      console.log("favorite item", item)
+
+      const api = `${url}/api/v1/web-users/wishlist/${id}`;
+
+      try {
+        const response = await axios.put(api, {productId: item._id}, {
+          headers: {
+              Authorization: userToken, // Replace with your actual token variable
+              'Content-Type': 'application/json', // Optional but good practice
+            }
+        });
+        console.log("response remove wishlist", response)
+      } catch (error) {
+        console.error("UnExpected Server Error", error);
+      }
+
+
+      // if (isInWishList(item.uid)) {
+      //   removeFromList(item.uid);
+      //   notifyRemove('Removed from wish list', {
+      //     autoClose: 10000,
+      //     className: "toast-message",
+      //   })
+      // } else {
+      //   addToList(item)
+      //   notify("added to wish list", {
+      //     autoClose: 10000,
+      //   })
+      // }
+    }
+  
+  return (
+    <div className="favorites-main-container">
+      <div className='favorites-cards-container'>
+        {loading ? (
+          Array.from({ length: 4 }).map((_, index) => <ProductCardShimmer key={index} />)
+        ) : data?.length === 0 ? (
+          <div className='empty-wishlist'>
+            <h3>No items in your wishlist</h3>
+          </div>
+        ) : (
+          data.map((item, index) => {
+            return (
+              <ProductCardTwo
+                key={index}
+                slug={item.slug}
+                singleProductData={item}
+                maxWidthAccordingToComp={"100%"}
+                tagIcon={item.productTag ? item.productTag : heart}
+                tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                mainImage={`${item.image.image_url}`}
+                productCardContainerClass="product-card"
+                ProductSku={item.sku}
+                tags={item.tags}
+                ProductTitle={truncateTitle(item.name, maxLength)}
+
+                reviewCount={item.reviewCount}
+                lowPriceAddvertisement={item.lowPriceAddvertisement}
+                priceTag={item.regular_price}
+                sale_price={item.sale_price}
+                financingAdd={item.financingAdd}
+                learnMore={item.learnMore}
+                mainIndex={index}
+                deliveryTime={item.deliveryTime}
+                stock={item.manage_stock}
+                attributes={item.attributes}
+                handleCardClick={() => handleProductClick(item)}
+                handleQuickView={() => handleQuickViewOpen(item)}
+                handleWishListclick={() => handleWishList(item)}
+              />
+            );
+          })
+        )}
+      </div>
+
+      <QuickView
+        setQuickViewProduct={quickViewProduct}
+        quickViewShow={quickViewClicked}
+        quickViewClose={handleQuickViewClose}
+      />
+    </div>
+  )
+}
+
+export default Favorites
