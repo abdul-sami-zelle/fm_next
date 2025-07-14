@@ -7,6 +7,7 @@ import DashboardTab2 from './DashboardComponents/dashTab2';
 import { IoMdLogOut } from "react-icons/io";
 import { useUserDashboardContext } from '../../../../context/userDashboardContext/userDashboard';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -32,21 +33,23 @@ const DashTab = ({ data }) => {
         </div>
         <div className="most_upper_section_right">
           <div className="profileAvatar">
-            <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="" srcset="" />
+            
+              <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="" srcset="" />
+            
           </div>
           <div className="logoutButton">
             <button onClick={() => { logout() }} >
               <p>Logout</p>
-              <IoMdLogOut />
+              <IoMdLogOut className='logout-btn-icon' />
             </button>
           </div>
         </div>
 
       </div>
       <div className='upper_tabs'>
-        <DashboardTab name={"Total Orders"} thunder={'white'} value={data?.summary?.totalOrders} unit={"Order"} slug={"total-orders"} />
-        <DashboardTab name={"Processing Orders"} thunder={'orange'} value={data?.summary?.totalProcessingOrders} unit={"Order"} slug={"total-orders"} style_name={"white"} />
-        <DashboardTab name={"Wishlist Items"} thunder={'orange'} value={data?.summary?.totalWishlists} unit={"Items"} slug={"total-orders"} style_name={"white"}/>
+        <DashboardTab name={"Total Orders"} thunder={'var(--orange-fill)'} value={data?.summary?.totalOrders} unit={"Order"} slug={"total-orders"} />
+        <DashboardTab name={"Processing Orders"} thunder={'white'} value={data?.summary?.totalProcessingOrders} unit={"Order"} slug={"total-orders"} style_name={"white"} />
+        <DashboardTab name={"Wishlist Items"} thunder={'white'} value={data?.summary?.totalWishlists} unit={"Items"} slug={"total-orders"} style_name={"white"}/>
       </div>
 
       <div className="lower_charts">

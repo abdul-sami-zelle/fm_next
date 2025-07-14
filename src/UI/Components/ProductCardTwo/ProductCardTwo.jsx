@@ -203,7 +203,7 @@ const ProductCardTwo = ({
 
                             <div className='product-wishlist-icon-container'>
                                 {
-                                    isInWishList(singleProductData.uid) ?
+                                    isInWishList(singleProductData._id) ?
                                         <VscHeartFilled
                                             // size={25}
                                             className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
@@ -237,9 +237,9 @@ const ProductCardTwo = ({
                             onMouseLeave={() => { setIsHovered(false) }}
                         >
 
-                            <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
+                            {/* <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
                                 {
-                                    isInWishList(singleProductData.uid) ?
+                                    isInWishList(singleProductData._id) ?
                                         <VscHeartFilled
                                             size={25}
                                             className='wishlist-heart'
@@ -260,7 +260,7 @@ const ProductCardTwo = ({
                                             }}
                                         />
                                 }
-                            </div>
+                            </div> */}
 
                             <img
                                 src={`${url}${selectedColorImage

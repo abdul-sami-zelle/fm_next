@@ -7,7 +7,7 @@
 
 .dashboard-tabs-toggle-nav{
     display: flex;
-    width: 70%;
+    width: 93%;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -16,6 +16,7 @@
     background-color:#f0f0f0 ;
     flex-shrink: 0;
     box-sizing: border-box;
+    margin: 0 60px;
     margin: 0 auto;
 }
 
@@ -23,7 +24,7 @@
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
-    color: var(--secondary-color);
+    color: #595959;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all 0.3s ease-in-out;
@@ -33,10 +34,10 @@
 
 .dash-single-tab-title:hover{
     color: #fff;
-    background-color: #5285B4;
+    background-color: var(--orange-fill);
 }
 
 .dash-single-tab-title.active-dash-tab{
     color: #fff;
-    background-color: var(--tertiary-color);
+    background-color: #595959;
 }

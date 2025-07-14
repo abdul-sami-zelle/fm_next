@@ -54,9 +54,10 @@
 }
 
 .profileAvatar img{
-    height: 55px;
-    width: 55px;
+    height: 100%;
+    width: auto;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .logoutButton button{
@@ -72,6 +73,7 @@
     justify-content: center;
     padding: 10px;
     cursor: pointer;
+    background-color: #595959;
 
 }
 
@@ -81,12 +83,21 @@
     padding: 0;
     line-height: 25px;
     font-weight:500;
+    color: #FFF;
+}
+
+.logout-btn-icon {
+    color: #FFF;
 }
 
 .logoutButton button:hover{
-background-color: #5285B4;
+background-color: var(--orange-fill);
 color: white;
 }
+
+/* .logoutButton button:hover .logout-btn-icon {
+    color: ;
+} */
 
 .logoutButton button:hover .logoutButton button p{
     color: white;

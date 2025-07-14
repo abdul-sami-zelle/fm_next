@@ -448,41 +448,30 @@ const Products = ({ navigationType }) => {
 
     const handleWishList = async (item) => {
 
+        setOpenSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
+            setWishlistMessage('Removed from wish list')
+
+        } else {
+            addToList(item._id)
+            setWishlistMessage('added to wish list')
+        }
+
         if (userId && userToken) {
             const api = `${url}/api/v1/web-users/wishlist/${userId}`;
 
             try {
-                setOpenSnakeBar(true)
                 const response = await axios.put(api, { productId: item._id }, {
                     headers: {
-                        Authorization: userToken, // Replace with your actual token variable
-                        'Content-Type': 'application/json', // Optional but good practice
+                        Authorization: userToken,
+                        'Content-Type': 'application/json',
                     }
                 });
-                console.log("response remove wishlist", response)
-                setWishlistMessage('added to wish list')
             } catch (error) {
-                setOpenSnakeBar(false)
                 console.error("UnExpected Server Error", error);
-            } finally {
-                setOpenSnakeBar(false)
-            }
-        } else {
-            setOpenSnakeBar(true)
-            if (isInWishList(item.uid)) {
-                removeFromList(item.uid);
-                setWishlistMessage('Removed from wish list')
-
-            } else {
-                addToList(item)
-                setWishlistMessage('added to wish list')
             }
         }
-
-
-
-
-
     }
 
     const handleCloseSnakeBar = () => {

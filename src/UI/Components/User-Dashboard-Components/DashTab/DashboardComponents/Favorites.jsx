@@ -8,92 +8,131 @@ import { toast } from 'react-toastify';
 import { useParams } from 'next/navigation';
 import { url } from '@/utils/api';
 import axios from 'axios';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/productCardShimmer';
 
-const Favorites = ({ data }) => {
+const Favorites = ({ data, setloader }) => {
   const [loading, setLoading] = useState(false)
-  const {
-      wishList,
-      addToList,
-      removeFromList,
-      isInWishList
-    } = useList();
-    const [quickViewClicked, setQuickView] = useState(false);
-    const [quickViewProduct, setQuickViewProduct] = useState({})
-    const [activeGrid, setActiveGrid] = useState('single-col')
-    const [selectedGrid, setSelectedGrid] = useState('');
-    const maxLength = 50;
 
-    const params = useParams()
-    const id = params.id;
+  const [quickViewClicked, setQuickView] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState({})
+  const maxLength = 50;
 
-     const [userToken, setUserToken] = useState('');
-        useEffect(() => {
-            const getToken = localStorage.getItem('userToken');
-        if(getToken) {
-          setUserToken(getToken)
+  const params = useParams()
+  const id = params.id;
+
+  const [userToken, setUserToken] = useState('');
+  useEffect(() => {
+    const getToken = localStorage.getItem('userToken');
+    if (getToken) {
+      setUserToken(getToken)
+    }
+  }, [])
+
+
+  // Simulate data loading
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timeout);
+  }, []);
+
+
+  const truncateTitle = (title, maxLength) => {
+    if (!title) return '';
+    return title?.length > maxLength ? title.slice(0, maxLength) + '...' : title
+  };
+
+
+  const handleQuickViewOpen = (item) => {
+    setQuickView(true);
+    setQuickViewProduct(item)
+
+  }
+  const handleQuickViewClose = () => { setQuickView(false) }
+  const handleProductClick = (item) => {
+    router.push(`/product/${item.slug}`)
+  };
+
+  // wish list
+  // const { addToList, removeFromList, isInWishList } = useList()
+  const { addToList, removeFromList, isInWishList } = useList()
+  const [wishlistMessage, setWishlistMessage] = useState('')
+  const [openSnakeBar, setOpenSnakeBar] = useState(false);
+
+
+  // const handleWishList = async (item) => {
+  //   console.log("handle item", item)
+
+  //   const api = `${url}/api/v1/web-users/wishlist/${id}`;
+  //   setOpenSnakeBar(true)
+  //   if (isInWishList(item._id)) {
+  //     console.log("remove")
+  //     removeFromList(item._id);
+  //     setWishlistMessage('Removed from wish list')
+
+  //   } else {
+  //     console.log("add")
+  //     addToList(item._id)
+  //     setWishlistMessage('added to wish list')
+  //   }
+
+  //   try {
+  //     const response = await axios.put(api, { productId: item._id }, {
+  //       headers: {
+  //         Authorization: userToken,
+  //         'Content-Type': 'application/json',
+  //       }
+  //     });
+
+  //     console.log("fav res", response.status)
+  //     if (response.status === 200) {
+
+  //       console.log("inside status condition")
+
+
+  //     }
+
+  //   } catch (error) {
+  //     console.error("UnExpected Server Error", error);
+  //   }
+  // }
+
+  const handleWishList = async (item) => {
+
+    setOpenSnakeBar(true)
+    if (isInWishList(item._id)) {
+      removeFromList(item._id);
+      setWishlistMessage('Removed from wish list')
+
+    } else {
+      addToList(item._id)
+      setWishlistMessage('added to wish list')
+    }
+
+    const api = `${url}/api/v1/web-users/wishlist/${id}`;
+
+    try {
+      setloader(true)
+      const response = await axios.put(api, { productId: item._id }, {
+        headers: {
+          Authorization: userToken,
+          'Content-Type': 'application/json',
         }
-        }, [])
-  
-  
-    // Simulate data loading
-    useEffect(() => {
-      const timeout = setTimeout(() => setLoading(false), 1500);
-      return () => clearTimeout(timeout);
-    }, []);
-  
-  
-    const truncateTitle = (title, maxLength) => {
-      if (!title) return '';
-      return title?.length > maxLength ? title.slice(0, maxLength) + '...' : title
-    };
-  
-  
-    const handleQuickViewOpen = (item) => {
-      setQuickView(true);
-      setQuickViewProduct(item)
-  
-    }
-    const handleQuickViewClose = () => { setQuickView(false) }
-    const handleProductClick = (item) => {
-      router.push(`/product/${item.slug}`)
-    };
-  
-    // wish list
-    // const { addToList, removeFromList, isInWishList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
-    const handleWishList = async (item) => {
-      console.log("favorite item", item)
-
-      const api = `${url}/api/v1/web-users/wishlist/${id}`;
-
-      try {
-        const response = await axios.put(api, {productId: item._id}, {
-          headers: {
-              Authorization: userToken, // Replace with your actual token variable
-              'Content-Type': 'application/json', // Optional but good practice
-            }
-        });
-        console.log("response remove wishlist", response)
-      } catch (error) {
-        console.error("UnExpected Server Error", error);
+      });
+      if(response.status === 200) {
+        setloader(false)
       }
-
-
-      // if (isInWishList(item.uid)) {
-      //   removeFromList(item.uid);
-      //   notifyRemove('Removed from wish list', {
-      //     autoClose: 10000,
-      //     className: "toast-message",
-      //   })
-      // } else {
-      //   addToList(item)
-      //   notify("added to wish list", {
-      //     autoClose: 10000,
-      //   })
-      // }
+      console.log("api remove", response)
+    } catch (error) {
+      setloader(false);
+      console.error("UnExpected Server Error", error);
     }
-  
+  }
+
+  const handleCloseSnakeBar = () => {
+    setOpenSnakeBar(false)
+  }
+
   return (
     <div className="favorites-main-container">
       <div className='favorites-cards-container'>
@@ -142,6 +181,13 @@ const Favorites = ({ data }) => {
         setQuickViewProduct={quickViewProduct}
         quickViewShow={quickViewClicked}
         quickViewClose={handleQuickViewClose}
+      />
+
+      <SnakBar
+        message={wishlistMessage}
+        openSnakeBarProp={openSnakeBar}
+        setOpenSnakeBar={setOpenSnakeBar}
+        onClick={handleCloseSnakeBar}
       />
     </div>
   )

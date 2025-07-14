@@ -1,70 +1,60 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './AccountDetailsTab.css';
-import { CiUser, CiCircleMinus, CiCirclePlus } from "react-icons/ci";
-import { capitalize, formatPhoneNumber, useDisableBodyScroll } from '../../../../utils/api';
-import { FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
+import { CiUser } from "react-icons/ci";
+import { capitalize, formatPhoneNumber, url, useDisableBodyScroll } from '../../../../utils/api';
+import { FaEdit } from "react-icons/fa";
 import BillingAddressModal from '../../../../Global-Components/BillingAddressModal/BillingAddressModal';
-// import { CiCircleMinus } from "react-icons/ci";
+import axios from 'axios';
+import { useParams } from 'next/navigation';
+import StatusModal from '@/UI/Modals/StatusModal/StatusModal';
+import { IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline } from "react-icons/io";
+import { BsExclamationCircle } from "react-icons/bs";
 
-const AccountDetailsTab = ({ data }) => {
+const AccountDetailsTab = ({ data, setLoading }) => {
+  console.log("user data", data)
   const fileInputRef = useRef(null)
   const [userDetails, setUserDetails] = useState({
-    first_name: '',
-    last_name: '',
-    user_name: '',
-    contact: '',
-    email: '',
-    profile_image: null
+    first_name: data?.first_name ?? '',
+    last_name: data?.last_name ?? '',
+    // user_name: '',
+    // contact: '',
+    email: data?.email,
+    profile_image: data?.image
   })
 
-  const [password, setPassword] = useState({
-    old_password: '',
-    new_password: ''
-  })
+  useEffect(() => {
+    console.log("user details", userDetails);
+  }, [userDetails])
+
 
   const [imgUrl, setImgUrl] = useState('')
 
-  const [showInputs, setShowInputs] = useState(false)
-  const [showOldPass, setShowOldPass] = useState(false);
-  const [showNewPass, setShowNewPass] = useState(false);
 
-  const handleShowPasswordContainer = () => {
-    setShowInputs(!showInputs)
-  }
-
-  const handleShowHidePassword = (type) => {
-    if (type === 'old_password') {
-      setShowOldPass(!showOldPass);
-    } else if (type === 'new_password') {
-      setShowNewPass(!showNewPass)
-    }
-  }
 
   const handleButtonclick = () => {
     fileInputRef.current.click();
   }
 
+  const [isImageChange, setIsImageChange] = useState(false);
   const handleProfileChange = (e) => {
     const file = e.target.files[0];
-    // if (file) {
-    //   const imageUrl = URL.createObjectURL(file);
-    //   setImgUrl(imageUrl)
-    // }
-    // setUserDetails((prevInfo) => ({
-    //   ...prevInfo,
-    //   profile_image: file
-    // }))
-
     if (file) {
       const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
       if (file.size > maxSize) {
-        alert("File size should not exceed 2MB.");
+        setShowStatus(true);
+        setStatusModalData({
+          status: 'Warning',
+          message: "Image size must not exceed 2MB. Please upload a smaller file.",
+          textColor: '#FFA500',
+          icon: <BsExclamationCircle size={60} color='#FFA500' />
+        })
         return;
       }
 
       const imageUrl = URL.createObjectURL(file);
       setImgUrl(imageUrl);
+      setIsImageChange(true);
 
       setUserDetails((prevInfo) => ({
         ...prevInfo,
@@ -73,6 +63,64 @@ const AccountDetailsTab = ({ data }) => {
     }
 
   }
+  const params = useParams();
+  const id = params.id;
+  const [userToken, setUserToken] = useState('');
+  useEffect(() => {
+    const getToken = localStorage.getItem('userToken');
+    if (getToken) {
+      setUserToken(getToken)
+    }
+  }, [])
+
+  const [showStatus, setShowStatus] = useState(false);
+  const [successLoader, setSuccessLoader] = useState(false);
+  const [statusModalData, setStatusModalData] = useState({
+    status: '',
+    message: '',
+    textColor: '',
+    icon: null
+  })
+  const handleUpdateUserDetails = async () => {
+    const api = `${url}/api/v1/web-users/update-image/${id}`
+    const formData = new FormData();
+
+    formData.append('image', userDetails.profile_image)
+
+    try {
+      setLoading(true)
+      const response = await axios.put(api, formData, {
+        headers: {
+          Authorization: userToken,
+        }
+      })
+      console.log("image change response", response.data.message)
+      if(response.status === 200) {
+        setIsImageChange(false);
+        setLoading(false);
+        setShowStatus(true);
+        setStatusModalData({
+          status: response.data.status,
+          message: response.data.message,
+          textColor: 'green',
+          icon: <IoIosCheckmarkCircleOutline size={60} color='green' />
+        })
+      }
+    } catch (error) {
+      console.error("UnExpected Server Error", error);
+      setShowStatus(true)
+      setLoading(false)
+      setStatusModalData({
+          status: 'Failed',
+          message: error.response.data.message,
+          textColor: 'red',
+          icon: <IoIosCloseCircleOutline size={60} color='red' />
+        })
+    } finally {
+      setIsImageChange(false)
+      setLoading(false)
+    }
+  }
 
   const handleUserDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -80,14 +128,6 @@ const AccountDetailsTab = ({ data }) => {
       ...prevInfo,
       [name]: name === 'contact' ? formatPhoneNumber(value) : value
     }));
-  }
-
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPassword((prevPass) => ({
-      ...prevPass,
-      [name]: value
-    }))
   }
 
   const [openBillingModal, setOpenBillingModal] = useState(false);
@@ -108,18 +148,25 @@ const AccountDetailsTab = ({ data }) => {
     <div className='account-details-main-section'>
       <div className='account-details-inner-section'>
         <div className='account-detail-user-profile'>
-          <div className='account-detail-user-profile-container'>
+          <div className='account-detail-user-profile-container' onClick={handleButtonclick}>
             {userDetails.profile_image !== null ? (
-              <img src={imgUrl} alt='user profile' className='user-profile-picture' />
+              imgUrl !== '' ? <img src={imgUrl} alt='user profile' className='user-profile-picture' />  : <img src={url+userDetails.profile_image} alt='user profile' className='user-profile-picture' />
+              // <img src={imgUrl} alt='user profile' className='user-profile-picture' />
             ) : (
               <CiUser color='var(--secondary-color)' size={80} />
             )}
           </div>
 
           <input type='file' ref={fileInputRef} style={{ display: 'none' }} onChange={handleProfileChange} />
-          <button className='upload-image-button' onClick={handleButtonclick}>
+          {isImageChange ? (
+            <button className='upload-image-button' onClick={handleUpdateUserDetails}>
+            Update
+          </button>
+          ) : (
+            <button className='upload-image-button' onClick={handleButtonclick}>
             Change
           </button>
+          )}
         </div>
 
         <div className='account-details-user-info'>
@@ -135,7 +182,6 @@ const AccountDetailsTab = ({ data }) => {
             {Object.entries(userDetails).map((([key, value]) =>
               key !== 'profile_image' && (
                 <label>
-                  {/* {key.replace("_", " ").toUpperCase()}  */}
                   {capitalize(key)}
                   <input
                     type='text'
@@ -159,39 +205,6 @@ const AccountDetailsTab = ({ data }) => {
             </span>
           </div>
 
-          {/* <div className='user-info-password-container'>
-            <div className='user-info-pass-head' onClick={handleShowPasswordContainer}>
-              <h3>Update Password</h3>
-              <button>
-                {showInputs ? <CiCircleMinus size={24} color='var(--secondary-color)' /> : <CiCirclePlus size={24} color='var(--secondary-color)' />}
-              </button>
-            </div>
-
-            <div className={`user-info-passwords-inputs ${showInputs ? 'show-pass-container' : ''}`}>
-
-              <label>
-                <p>Old Password</p>
-                <div className='input-pass-container'>
-                  <input type={showOldPass ? 'text' : 'password'} name='old_password' value={password.old_password} onChange={handlePasswordChange} />
-                  {showOldPass ? <FaEyeSlash size={18} color='var(--secondary-color)' onClick={() => handleShowHidePassword('old_password')} /> : <FaEye size={18} color='var(--secondary-color)' onClick={() => handleShowHidePassword('old_password')} /> }
-                </div>
-              </label>
-
-              <label>
-
-                <p>New Password</p>
-                <div className='input-pass-container'>
-                  <input type={showNewPass ? 'text' : 'password'} name='new_password' value={password.new_password} onChange={handlePasswordChange} />
-                  {showNewPass ? <FaEyeSlash size={18} color='var(--secondary-color)' onClick={() => handleShowHidePassword('new_password')} /> : <FaEye size={18} color='var(--secondary-color)' onClick={() => handleShowHidePassword('new_password')} /> }
-                </div>
-              </label>
-
-              <div className='user-info-save-container'>
-                <button>Save</button>
-              </div>
-            </div>
-          </div> */}
-
         </div>
 
       </div>
@@ -203,6 +216,15 @@ const AccountDetailsTab = ({ data }) => {
       <BillingAddressModal
         showBilling={openBillingModal}
         handleCloseBillingModal={handleBillingModalclose}
+      />
+
+      <StatusModal 
+        showModal={showStatus}
+        setShowModal={setShowStatus}
+        status={statusModalData.status}
+        message={statusModalData.message}
+        statusIcon={statusModalData.icon}
+        textColor={statusModalData.textColor}
       />
     </div>
   )

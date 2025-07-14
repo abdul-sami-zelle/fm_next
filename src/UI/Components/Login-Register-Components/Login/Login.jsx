@@ -7,6 +7,7 @@ import { useUserDashboardContext } from '../../../../context/userDashboardContex
 import loadingIcon from "../../../../Assets/Loader-animations/loader-check-two.gif";
 import { useCart } from '../../../../context/cartContext/cartContext';
 import { useRouter } from 'next/navigation';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 const Login = ({ signupclicked, setSignupclicked }) => {
 
@@ -30,12 +31,15 @@ const Login = ({ signupclicked, setSignupclicked }) => {
   // const id = localStorage.getItem('uuid');
 
 
+  const [loginRegisterMessage, setLoginRegisterMessage] = useState('')
+    const [openSnakeBar, setOpenSnakeBar] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Simple validation for the form
     if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+       setOpenSnakeBar(true)
+      setLoginRegisterMessage("Passwords do not match!");
       return;
     }
     setError('');
@@ -68,12 +72,14 @@ const Login = ({ signupclicked, setSignupclicked }) => {
         setLoading(false);
       } else {
         // Handle error
-        setError(result.message || 'Something went wrong');
+        setOpenSnakeBar(true)
+        setLoginRegisterMessage(result.message || 'Something went wrong');
         setLoading(false);
       }
     } catch (error) {
       // Handle network error
-      setError('Network error, please try again later.');
+      setOpenSnakeBar(true)
+      setLoginRegisterMessage('Network error, please try again later.');
       setLoading(false);
     } finally {
       setLoading(false);
@@ -147,18 +153,24 @@ const Login = ({ signupclicked, setSignupclicked }) => {
         router.push(`/user-dashboard/${result?.data?._id}`)
       } else {
         // Handle error
-        setError(result.message || 'Something went wrong');
+        setOpenSnakeBar(true)
+        setLoginRegisterMessage(result.message || 'Something went wrong');
         setLoading(false);
       }
     } catch (error) {
       // Handle network error
-      setError('Network error, please try again later.');
+      setOpenSnakeBar
+      setLoginRegisterMessage('Network error, please try again later.');
       setLoading(false);
     } finally {
       setLoading(false);
       setLoading(false);
     }
   };
+
+  const handleCloseSnakeBar = () => {
+    setOpenSnakeBar(false)
+  }
 
 
 
@@ -260,7 +272,7 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
 
             {/* Error message */}
-            {error && <div className="error-message">{error}</div>}
+            {/* {error && <div className="error-message">{error}</div>} */}
 
             {/* Submit Button */}
             <button className="signup-button signup-sec-register-btn" type="submit">Register</button>
@@ -313,6 +325,13 @@ const Login = ({ signupclicked, setSignupclicked }) => {
           <p>Please Wait...</p>
         </div>}
       </div>
+
+      {/* <SnakBar
+        message={loginRegisterMessage}
+        openSnakeBarProp={openSnakeBar}
+        setOpenSnakeBar={setOpenSnakeBar}
+        onClick={handleCloseSnakeBar}
+      /> */}
     </div>
   )
 }

@@ -80,14 +80,14 @@ const BarChart = ({data}) => {
           plotOptions: {
             bar: {
               horizontal: false,
-              borderRadius: 10,
-              columnWidth: "20px",
+              borderRadius: 5,
+              columnWidth: "30px",
               dataLabels: {
                 position: "top",
               },
             },
           },
-          colors: ["var(--orange-fill)"],
+          colors: ["#595959"],
           states: {
             hover: {
               enable: false,

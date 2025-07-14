@@ -73,9 +73,6 @@ const LoginRegisterClient = () => {
     await checkToken();
   }
 
-  // Get location and state from the previous route
-  // const location = useLocation();
-  // const prevState = location.state;
 
   const [prevState, setPrevState] = useState(null);
   useEffect(() => {

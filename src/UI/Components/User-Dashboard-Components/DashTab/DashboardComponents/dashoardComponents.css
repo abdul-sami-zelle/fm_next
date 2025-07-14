@@ -63,15 +63,15 @@
 
 
 .dashboard_tab.white>.heading {
-  color: var(--tertiary-color);
+  color: var(--orange-fill);
 }
 
 .dashboard_tab.white>.count {
-  color: var(--tertiary-color);
+  color: var(--orange-fill);
 }
 
 .dashboard_tab.white>.count>span {
-  color: var(--tertiary-color);
+  color: var(--orange-fill);
 }
 
 

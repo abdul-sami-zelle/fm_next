@@ -130,7 +130,7 @@
 }
 
 .product-cart-top-tags-container {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -140,9 +140,9 @@
     height: auto;
 }
 
-.product-cart-top-tags-container.show-product-cart-top-tags {
+/* .product-cart-top-tags-container.show-product-cart-top-tags {
     display: flex;
-}
+} */
 
 
 .product-main-img {

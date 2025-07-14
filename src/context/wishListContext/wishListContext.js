@@ -28,21 +28,20 @@ export const WishListProvider = ({children}) => {
 
     // Add item to the wishlist if it doesn't already exist
     const addToList = (product) => {
-        const exists = wishList.some((item) => item.uid === product.uid);
-        if (!exists) {
-            setWishList((prevList) => [...prevList, product]);
-        } else {
-            alert(`Product with ID ${product.uid} already in the wishlist.`)
+        console.log("wish list item", product);
+        const exists = wishList.some((item) => item === product)
+        if(!exists) {
+            setWishList((prevList) => [...prevList, product])
         }
     };
     // Remove item from the wishlist
     const removeFromList = (productId) => {
-        setWishList((prevList) => prevList.filter((item) => item.uid !== productId));
+        setWishList((prevList) => prevList.filter((item) => item !== productId));
     };
 
     // Check if an item exists in the wishlist
     const isInWishList = (productId) => {
-        return wishList?.some((item) => item.uid === productId);
+        return wishList?.some((item) => item === productId);
     };
     
     return (

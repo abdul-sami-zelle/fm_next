@@ -11,6 +11,7 @@ import { url } from '../../../../utils/api';
 import axios from 'axios';
 import Favorites from '../DashTab/DashboardComponents/Favorites';
 import { useParams } from 'next/navigation';
+import { useList } from '@/context/wishListContext/wishListContext';
 
 const DashboardTabs = ({ data }) => {
     const [loading, setLoading] = useState(false);
@@ -18,12 +19,14 @@ const DashboardTabs = ({ data }) => {
     const params = useParams();
       const id = params.id;
     const [userToken, setUserToken] = useState('');
+    const {wishList} = useList()
     useEffect(() => {
         const getToken = localStorage.getItem('userToken');
     if(getToken) {
       setUserToken(getToken)
     }
     }, [])
+
 
 
     const [userData, setUserData] = useState();
@@ -91,6 +94,7 @@ const DashboardTabs = ({ data }) => {
     const handleFavoritesData = async () => {
         const api = `${url}/api/v1/web-users/wishlist/${id}`
         try {
+            setLoading(true)
             const response = await axios.get(api, 
                 {
             headers: {
@@ -103,8 +107,9 @@ const DashboardTabs = ({ data }) => {
           }
             console.log("wish list response", response);
         } catch (error) {
+            setLoading(false);
             console.log("unExpected Server Error", error);
-        }
+        } finally {setLoading(false)}
     }
 
 
@@ -115,11 +120,12 @@ const DashboardTabs = ({ data }) => {
             handleFavoritesData()
         }
     }, [currentTabIndex])
+
     useEffect(() => {
         if(currentTabIndex === 3) {
             handleFavoritesData()
         }
-    }, [favoritesData])
+    }, [wishList])
     
 
     return (
@@ -140,8 +146,8 @@ const DashboardTabs = ({ data }) => {
                 currentTabIndex === 0 ? <DashTab data={data} /> :
                     currentTabIndex === 1 ? <OrdersTab data={data} /> :
                         currentTabIndex === 2 ? <AddressesTab data={data} userAddresses={userData} setTrigerPoint={setTrigerApi} /> :
-                            currentTabIndex === 3 ? <Favorites data={favoritesData} />:
-                                currentTabIndex === 4 ? <AccountDetailsTab data={data} /> : <></>
+                            currentTabIndex === 3 ? <Favorites data={favoritesData} setloader={setLoading} />:
+                                currentTabIndex === 4 ? <AccountDetailsTab data={data} setLoading={setLoading} /> : <></>
             }
         </div>
     )

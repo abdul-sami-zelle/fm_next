@@ -5,8 +5,9 @@ import arrowRight from '../../../../Assets/icons/arrow-right-charcol.png';
 import Loader from '../../Loader/Loader';
 import OrderViewModal from '../OrderViewModal/OrderViewModal';
 import Pagination from '../../../../Global-Components/Pagination/Pagination';
+import { useRouter } from 'next/navigation';
 
-const OrdersTab = ({data}) => {
+const OrdersTab = ({ data }) => {
 
 
   const dataPerPage = 10;
@@ -25,12 +26,12 @@ const OrdersTab = ({data}) => {
           'Action'
         ],
       tableBody: data?.orders?.map((item, index) => ({
-      orderNumber: item.order_number,
-      invoice: item.inv_number,
-      date: item.date,
-      status: item.status,
-      total: `$${item.total} for ${item.items} items`,
-    }))
+        orderNumber: item.order_number,
+        invoice: item.inv_number,
+        date: item.date,
+        status: item.status,
+        total: `$${item.total} for ${item.items} items`,
+      }))
     }
   ]
 
@@ -86,6 +87,26 @@ const OrdersTab = ({data}) => {
       document.body.style.overflow = 'auto';
     }
   }, [viewProductModal])
+
+  const handleTrackOrder = () => {
+    window.open('https://track.myfurnituremecca.com/', '_blank');
+  }
+
+
+  function formatToNZTime(isoString) {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat('en-NZ', {
+      timeZone: 'Pacific/Auckland',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(date);
+  }
+
+
   return (
     <div className='dash-orders-main-container'>
       {loading && <Loader />}
@@ -101,14 +122,14 @@ const OrdersTab = ({data}) => {
               <tr key={tindex}>
                 <td>{tbody.orderNumber}</td>
                 <td>{tbody.invoice}</td>
-                <td>{tbody.date}</td>
+                <td>{formatToNZTime(tbody.date)}</td>
                 <td>{tbody.status}</td>
                 <td>{tbody.total}</td>
                 <td>
                   <div className='table-action-buttons'>
-                    <button onClick={() => handleViewProductData(tbody)}>View</button>
+                    <button onClick={() => handleTrackOrder(tbody)}>View</button>
                     <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
-                    <button onClick={() => handleViewProductData(tbody)}>Reschedule</button>
+                    <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
                   </div>
                 </td>
               </tr>
@@ -124,7 +145,7 @@ const OrdersTab = ({data}) => {
           handleNextPage={handleNextPage}
           handlePrevPage={handlePrevPage}
         />}
-        
+
 
 
       </div>
