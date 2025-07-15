@@ -29,7 +29,7 @@ const OrdersTab = ({ data }) => {
         orderNumber: item.order_number,
         invoice: item.inv_number,
         date: item.date,
-        status: item.status,
+        status: item?.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1).toLowerCase() : '',
         total: `$${item.total} for ${item.items} items`,
       }))
     }
@@ -93,12 +93,25 @@ const OrdersTab = ({ data }) => {
   }
 
 
-  function formatToNZTime(isoString) {
+  // function formatToNZTime(isoString) {
+  //   const date = new Date(isoString);
+  //   return new Intl.DateTimeFormat('en-NZ', {
+  //     timeZone: 'Pacific/Auckland',
+  //     day: '2-digit',
+  //     month: '2-digit',
+  //     year: 'numeric',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //     hour12: true
+  //   }).format(date);
+  // }
+
+  function formatToUSTime(isoString) {
     const date = new Date(isoString);
-    return new Intl.DateTimeFormat('en-NZ', {
-      timeZone: 'Pacific/Auckland',
-      day: '2-digit',
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', // Change to desired US timezone if needed
       month: '2-digit',
+      day: '2-digit',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
@@ -122,7 +135,7 @@ const OrdersTab = ({ data }) => {
               <tr key={tindex}>
                 <td>{tbody.orderNumber}</td>
                 <td>{tbody.invoice}</td>
-                <td>{formatToNZTime(tbody.date)}</td>
+                <td>{formatToUSTime(tbody.date)}</td>
                 <td>{tbody.status}</td>
                 <td>{tbody.total}</td>
                 <td>

@@ -81,6 +81,12 @@
     padding: 15px 0;
 }
 
+.delivery-promotion {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
 .cart-protect-card{
     display: flex;
     align-items: center;
@@ -139,7 +145,7 @@
 .cart-protection-plan-cart-desc{
     font-size: var(--content-one-size);
     /* line-height: var(--content-one-height); */
-    line-height: 12px;
+    line-height: 1.5;
     font-weight: var(--content-two-weight);
     color: var(--text-primary);
     opacity: 0.7;

@@ -440,7 +440,7 @@ const Header = ({ checkoutPage }) => {
           <div className={`search-product-display-div ${isSearchInputFocused === true && searchedProducts.length > 0 ? 'search-product-display-div-focused' : ''}`} onClick={(e) => e.stopPropagation()}>
             <div className='search-products-display-left'>
               <div className='searched-products'>
-                {searchedProducts.slice(0, 4).map((items, index) => (
+                {searchedProducts.map((items, index) => (
                   <Link
                     key={index}
                     className='searched-product'
@@ -464,13 +464,13 @@ const Header = ({ checkoutPage }) => {
                     </div>
                   </Link>
                 ))}
-              </div>
               <button
                 className='see-all-searched-products'
                 onClick={handleNavigateToSearchedProducts}
               >
-                See all Products {searchedProducts?.length}
+                See all Products ({searchedProducts?.length})
               </button>
+              </div>
             </div>
 
             {/* <div className='search-product-display-right'>

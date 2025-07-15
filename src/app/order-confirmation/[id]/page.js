@@ -175,7 +175,7 @@ export default function OrderConfirmationPage() {
                             <p className="sub_heading">
                                 Payment Method
                             </p>
-                            <p className="sub_content">
+                            <span className="sub_content">
                                 {/* <img src={card} alt="" /> */}
                                 <p>{order?.payment_method}</p>
                                 <svg width="25" height="25" viewBox="0 0 91 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +185,7 @@ export default function OrderConfirmationPage() {
                                     <rect x="62" y="50" width="18" height="6" fill="var(--secondary-color)" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M90 9H0V19H82.6836C84.7852 17.3008 87.2734 16.0645 90 15.4453V9Z" fill="var(--secondary-color)" />
                                 </svg>
-                            </p>
+                            </span>
                         </div>
                     </div>
                 </div>

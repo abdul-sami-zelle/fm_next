@@ -24,7 +24,7 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
   
 
   // new design scripts
-  const [selectedPaymentType, setSelectedPaymentType] = useState('credit-card');
+  const [selectedPaymentType, setSelectedPaymentType] = useState('cybersource_credit_card');
 
   useEffect(() => {
     setOrderPayload((prev) => ({
@@ -32,6 +32,8 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
       payment_method: selectedPaymentType
     }))
   }, [selectedPaymentType])
+
+  
 
 
 
@@ -48,7 +50,7 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
 
         <div className='selected-payment-type'>
           {
-            selectedPaymentType === 'credit-card' ?
+            selectedPaymentType === 'cybersource_credit_card' ?
               (
                 <CreditCard />
               )

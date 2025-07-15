@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './CheckoutClient.css';
 import PaymentMethod from '@/UI/Components/Summary-Components/PaymentMethod/PaymentMethod';
 import { useMyOrders } from '@/context/orderContext/ordersContext';
@@ -23,6 +23,8 @@ const CheckoutClient = () => {
 
   const handleDeliveryFormSubmit = () => {
   };
+
+  const handlePaymentSubmit = () => {}
 
 
 
@@ -54,6 +56,7 @@ const CheckoutClient = () => {
     warningMessage,
     showWarning,
     setShowWarning,
+    errorDetails,
   } = useMyOrders();
 
   const [isCheck, setIsCheck] = useState({});
@@ -156,6 +159,7 @@ const CheckoutClient = () => {
       // Proceed with form submission
       handleClickSave();
     } else {
+      setShowSnakeBar(true)
       handleShowSnakeToust("Please select a payment method!")
     }
   };
@@ -169,7 +173,7 @@ const CheckoutClient = () => {
     setShowWarning(false)
   }
 
-
+  useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
   return (
     <div className='summary-main-container'>
@@ -210,7 +214,7 @@ const CheckoutClient = () => {
                   <DeliveryInfo ref={deliveryInfoRef} onSubmit={handleDeliveryFormSubmit} />
                 </div> :
 
-                selectedTab === 1 ? <PaymentMethod handleSubmitOrder={handleSubmit} />
+                selectedTab === 1 ? <PaymentMethod onSubmit={handlePaymentSubmit} handleSubmitOrder={handleSubmit} />
                   : <></>
             }
           </div>
@@ -356,6 +360,7 @@ const CheckoutClient = () => {
       <MessageModal 
         showMessage={showWarning}
         message={warningMessage}
+        errorDetail={errorDetails}
         footerMessage={'This is Footer'}
         closeModal={handleCloseWarningModal}
       />

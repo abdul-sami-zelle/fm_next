@@ -14,6 +14,7 @@ import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import { url } from '@/utils/api';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import Image from 'next/image';
 
 
 const WishListClient = () => {
@@ -162,6 +163,7 @@ const WishListClient = () => {
           Array.from({ length: 4 }).map((_, index) => <ProductCardShimmer key={index} />)
         ) : wishlistProducts?.length === 0 ? (
           <div className='empty-wishlist'>
+            <Image src={'/icons/wishlist.svg'} width={60} height={60} alt='no items' />
             <h3>No items in your wishlist</h3>
           </div>
         ) : (

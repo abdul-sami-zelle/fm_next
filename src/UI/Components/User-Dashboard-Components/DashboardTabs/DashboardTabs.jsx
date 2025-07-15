@@ -79,7 +79,7 @@ const DashboardTabs = ({ data }) => {
         'Dashboard',
         'Orders',
         'Addresses',
-        'Favorites',
+        'Wishlist',
         'Profile'
     ]
 
@@ -112,9 +112,6 @@ const DashboardTabs = ({ data }) => {
         } finally {setLoading(false)}
     }
 
-
-
-    
     useEffect(() => {
         if(currentTabIndex === 3) {
             handleFavoritesData()

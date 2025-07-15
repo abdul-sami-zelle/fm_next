@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './AddressesTab.css';
-import editIcon from '../../../../Assets/icons/edit.png';
-import crossBtn from '../../../../Assets/icons/close-btn.png'
 import axios from 'axios';
 import { url } from '../../../../utils/api';
 import Loader from '../../Loader/Loader';
-import { use } from 'react';
 import { useParams } from 'next/navigation';
 
 const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
@@ -13,6 +10,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
   const params = useParams();
   const id = params.id;
   const [loading, setLoading] = useState(false);
+  const [modalType, setModalType] = useState('');
   const [billingPayload, setBillingPayload] = useState({
     // userId: '',
     billingAddress: {
@@ -23,8 +21,6 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       state: userAddresses?.billing_address?.state,
       postal_code: userAddresses?.billing_address?.postal_code,
       country: 'USA',
-      // email: userAddresses?.email,
-      // phone: '090078601'
     }
   })
   const [shippingPayload, setShippingPayload] = useState({
@@ -42,18 +38,69 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
     }
   })
 
+  useEffect(() => { console.log("billing payload", billingPayload) }, [billingPayload])
+
+  const fetchZipInfo = async (zip) => {
+    try {
+      const res = await fetch(`https://api.zippopotam.us/us/${zip}`);
+      if (!res.ok) throw new Error("ZIP not found");
+
+      const data = await res.json();
+      const city = data.places[0]['place name'];
+      const state = data.places[0]['state'];
+
+      if (modalType === 'billing-address') {
+        setBillingPayload(prev => ({
+          ...prev,
+          billingAddress: {
+            ...prev.billingAddress,
+            city,
+            state,
+          },
+        }));
+      } else {
+        setShippingPayload(prev => ({
+          ...prev,
+          shippingAddress: {
+            ...prev.shippingAddress,
+            city,
+            state,
+          },
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to auto-fill address:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    const zip =
+      modalType === 'billing-address'
+        ? billingPayload?.billingAddress?.postal_code
+        : shippingPayload?.shippingAddress?.postal_code;
+
+    if (zip && zip.length === 5) {
+      // call the function here
+      fetchZipInfo(zip);
+    }
+  }, [
+    billingPayload?.billingAddress?.postal_code,
+    shippingPayload?.shippingAddress?.postal_code,
+    modalType
+  ]);
+
+
   const [userToken, setUserToken] = useState();
   useEffect(() => {
     const getToken = localStorage.getItem('userToken');
-    if(getToken) {
+    if (getToken) {
       setUserToken(getToken)
     }
   }, []);
 
-
-
   const [isEditTrue, setIsEdit] = useState(false);
-  const [modalType, setModalType] = useState('');
+  
   const handleEditBillingAddress = (clickType) => {
     setIsEdit(true)
     setModalType(clickType)
@@ -149,36 +196,58 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
     } finally {
       setLoading(false)
       setIsEdit(false)
-      // setBillingPayload({
-      //   userId: '',
-      //   billingAddress: {
-      //     first_name: '',
-      //     last_name: '',
-      //     address_1: '',
-      //     city: '',
-      //     state: '',
-      //     postal_code: '',
-      //     country: 'USA',
-      //     email: '',
-      //     phone: ''
-      //   }
-      // })
-      // setShippingPayload({
-      //   userId: '',
-      //   shippingAddress: {
-      //     first_name: '',
-      //     last_name: '',
-      //     address_1: '',
-      //     city: '',
-      //     state: '',
-      //     postal_code: '',
-      //     country: 'USA',
-      //     email: '',
-      //     phone: ''
-      //   }
-      // })
     }
   }
+
+  // zip state city
+  const handleZipCodeChange = async (e) => {
+    const zip = e.target.value;
+
+    // Update zip in the form
+    const updatedPayload = { ...billingPayload };
+    if (modalType === 'billing-address') {
+      updatedPayload.billingAddress.postal_code = zip;
+      setBillingPayload(updatedPayload);
+    } else {
+      const updatedShipping = { ...shippingPayload };
+      updatedShipping.shippingAddress.postal_code = zip;
+      setShippingPayload(updatedShipping);
+    }
+
+    if (zip.length === 5) {
+      try {
+        const res = await fetch(`https://api.zippopotam.us/us/${zip}`);
+        if (!res.ok) throw new Error("Invalid ZIP");
+
+        const data = await res.json();
+        const city = data.places[0]['place name'];
+        const state = data.places[0]['state'];
+
+        if (modalType === 'billing-address') {
+          setBillingPayload(prev => ({
+            ...prev,
+            billingAddress: {
+              ...prev.billingAddress,
+              city,
+              state,
+            }
+          }));
+        } else {
+          setShippingPayload(prev => ({
+            ...prev,
+            shippingAddress: {
+              ...prev.shippingAddress,
+              city,
+              state,
+            }
+          }));
+        }
+      } catch (err) {
+        console.error('ZIP lookup failed:', err);
+      }
+    }
+  };
+
 
   return (
     <div className='addresses-main-container'>
@@ -285,7 +354,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                     ? billingPayload?.billingAddress?.postal_code
                     : shippingPayload?.shippingAddress?.postal_code
                   }
-                  onChange={handleInputData}
+                  onChange={handleZipCodeChange}
                 />
               </label>
               <label className='label-with-input'>
@@ -313,7 +382,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                     ? billingPayload?.billingAddress?.state
                     : shippingPayload?.shippingAddress?.state
                   }
-                  onChange={handleInputData}
+                  onChange={handleZipCodeChange}
                 />
               </label>
             </div>

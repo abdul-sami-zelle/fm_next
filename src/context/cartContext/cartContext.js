@@ -8,10 +8,10 @@ export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
 
-    const [eachProtectionValue, setEachProtectionValue] = useState(150); // 99 was old single protection price
-    const [eachProtectionValue2, setEachProtectionValue2] = useState(200); // 99 was old single protection price
-    const [totalProtectionValue, setTotalProtectionValue] = useState(200);
-    const [professionalAssemblyValue, setProfessionalAssemblyValue] = useState(210); // 199 was old all protection price
+    const [eachProtectionValue, setEachProtectionValue] = useState(149); // 99 was old single protection price
+    const [eachProtectionValue2, setEachProtectionValue2] = useState(199); // 99 was old single protection price
+    const [totalProtectionValue, setTotalProtectionValue] = useState(199);
+    const [professionalAssemblyValue, setProfessionalAssemblyValue] = useState(199); // 199 was old all protection price
 
     const [cartUid, setCartUid] = useState(() => {
         if (typeof window !== "undefined") {
@@ -25,7 +25,7 @@ export const CartProvider = ({ children }) => {
         if (typeof window !== "undefined") {
             const savedCart = localStorage.getItem('cart2');
             return savedCart ? JSON.parse(savedCart) : { products: [], is_all_protected: 0, is_professional_assembly: 0 };
-        } 
+        }
         return []
     });
 
@@ -105,7 +105,7 @@ export const CartProvider = ({ children }) => {
     // };
 
     const [singleProduct, setSingleProduct] = useState(() => {
-        if(typeof window !== "undefined") {
+        if (typeof window !== "undefined") {
             const savedSingleProduct = localStorage.getItem('singleProduct');
             return savedSingleProduct ? JSON.parse(savedSingleProduct) : []
         }
@@ -368,7 +368,7 @@ export const CartProvider = ({ children }) => {
         // return updateCartAPI(apiUrl, newCart, method);
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
-    
+
     const addSingleProtection = async (uid, isVariable = false) => {
         setIsCartLoading(true);
         try {

@@ -31,18 +31,49 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
-  const [info, setInfo] = useState(defaultInfo);
-
-  // Only override from localStorage in browser
-  useEffect(() => {
+  // ✅ Safely initialize `info` from localStorage or use default
+  const [info, setInfo] = useState(() => {
     if (typeof window !== "undefined") {
-      const savedInfo = localStorage.getItem('other_info');
-      if (savedInfo) {
-        setInfo(JSON.parse(savedInfo));
-        setAllShippingMethods()
+      const saved = localStorage.getItem("other_info");
+      try {
+        return saved ? JSON.parse(saved) : defaultInfo;
+      } catch {
+        return defaultInfo;
       }
     }
-  }, []);
+    return defaultInfo;
+  });
+
+  // ✅ Call `setAllShippingMethods()` only when info is loaded and has a valid zipCode
+  useEffect(() => {
+    if (info?.locationData?.zipCode) {
+      setAllShippingMethods();
+    }
+  }, [info]);
+
+  // const [info, setInfo] = useState(() => {
+  //   if (typeof window !== "undefined") {
+  //     const savedInfo = localStorage.getItem('other_info');
+  //     return savedInfo ? JSON.parse(savedInfo) : defaultInfo;
+  //   }
+  //   return defaultInfo; // fallback for SSR
+  // });
+
+
+
+  // const [info, setInfo] = useState();
+
+  // // Only override from localStorage in browser
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const savedInfo = localStorage.getItem('other_info');
+  //     if (savedInfo) {
+  //       console.log("seted info", savedInfo)
+  //       setInfo(savedInfo);
+  //       setAllShippingMethods()
+  //     } 
+  //   }
+  // }, []);
 
   const updateLocationData = (newLocationData) => {
     if (newLocationData) {
@@ -59,7 +90,7 @@ export const GlobalContextProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('other_info', JSON.stringify(info));
-      fetchAllstores();
+      fetchAllstores("code", info?.locationData?.zipCode);
     }
   }, [info])
 
@@ -225,6 +256,7 @@ export const GlobalContextProvider = ({ children }) => {
         selectedMethods.push(method3);
       }
       setSelectedOption(method1);
+      console.log("selected shipping methods", selectedMethods)
       setSelectedShippingMethods(selectedMethods)
       return;
 

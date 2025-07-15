@@ -43,10 +43,17 @@
 
 .empty-wishlist{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 50vh;
+    gap: 10px;
+}
+
+.empty-wishlist > img {
+    width: 200px;
+    height: auto;
 }
 
 .empty-wishlist h3{

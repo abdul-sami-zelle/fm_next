@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import Loader from "@/UI/Components/Loader/Loader";
 
 const containerStyle = {
   width: "100%",
@@ -58,7 +59,7 @@ function DeliveryLocationMap({ address_info }) {
     fetchLocation();
   }, [address_info]);
 
-  // if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <Loader />;
 
   return (
     <>

@@ -13,3 +13,25 @@
     row-gap: 15px;
     width: 100%;
 }
+
+.empty-wishlist-in-fav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+}
+
+.empty-wishlist-in-fav > img {
+    width: 200px;
+    height: auto;
+}
+
+.empty-wishlist-in-fav > h3 {
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #595959;
+}

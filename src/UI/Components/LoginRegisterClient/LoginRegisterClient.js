@@ -16,11 +16,11 @@ const LoginRegisterClient = () => {
 
   // const navigate = useNavigate();
   const router = useRouter()
-  const [signinClicked, setSigninClicked] = useState(false)
+  // const [signinClicked, setSigninClicked] = useState(false)
   const [mobileSignupClicked, setMobileSignupClicked] = useState(true)
 
   const { setMainLoader } = useGlobalContext();
-  const { setUserToken } = useUserDashboardContext();
+  const { setUserToken, signinClicked, setSigninClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
 

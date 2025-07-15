@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useImperativeHandle, ref, forwardRef, useRef } from 'react'
 import './CreditCard.css'
 import { useMyOrders } from '@/context/orderContext/ordersContext';
 
@@ -18,6 +18,11 @@ const CreditCard = () => {
         setCreditCardData,
         activePaymentMethods
     } = useMyOrders();
+
+    const nameRef = useRef(null)
+    const cardRef = useRef(null)
+    const expiryRef = useRef(null)
+    const svcCodeRef = useRef(null)
 
 
     const detectCardType = (cardNumber) => {
@@ -43,6 +48,34 @@ const CreditCard = () => {
 
     }, [activePaymentMethods])
 
+    // const [error, setError] = useState({})
+    // const handleSubmitCardInfo = () => {
+    //     let newErrors = {};
+
+    //     Object.keys(orderPayload?.card_info).forEach((field) => {
+    //         if (field === 'address2') return;
+    //         if (field === 'alt_phone') return;
+
+    //         if (!orderPayload?.card_info?.[field]?.trim()) {
+    //             newErrors[field] = `Required`;
+    //         }
+    //     });
+
+    //     if (Object.keys(newErrors).length > 0) {
+    //         setError((prev) => ({ ...prev, ...newErrors }));
+    //         console.log("Errors found: ", newErrors);
+    //         return false
+    //     }
+
+    //     setError({});
+    //     props.onSubmit();
+    //     return true;
+    // }
+
+    // useImperativeHandle(ref, () => ({
+    //     validateAndSubmit: handleSubmitCardInfo,
+    // }));
+
 
     const [error, setError] = useState({
         card_holder_name: '',
@@ -62,7 +95,7 @@ const CreditCard = () => {
             <div className='credit-card-type-body'>
                 <div className='credit-card-inputs'>
 
-                    <div className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""}`}>
+                    <div onClick={() => nameRef.current?.focus()} className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""}`}>
                         <label className="floating-label">
                             {error.card_holder_name ? <span className='error-message'>{error.card_holder_name}</span> : 'Card holder Name'}
                         </label>
@@ -95,7 +128,7 @@ const CreditCard = () => {
                             // onChange={handleDeliveryInfo}
                             name='card_number'
                             value={creditCardData.card_number}
-                            
+
                             onChange={(e) => {
                                 let { value } = e.target;
                                 value = value.replace(/\D/g, ''); // Remove all non-digit characters

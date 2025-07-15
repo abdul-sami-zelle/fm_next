@@ -10,7 +10,7 @@ import { useMyOrders } from '@/context/orderContext/ordersContext';
 const PaymentTypes = ({selectedPaymentType, setSelectedPaymentType, onSelectLabel}) => {
 
     const paymentTypeCheckData = [
-        {type: 'credit-card', sign: 'Credit/Debit Card', logo: '/Assets/icons/card-2.png', paymentMethodId: '9879079j7mummjh'},
+        {type: 'cybersource_credit_card', sign: 'Credit/Debit Card', logo: '/Assets/icons/card-2.png', paymentMethodId: '9879079j7mummjh'},
         {type: 'paypal',sign: 'Paypal', logo: '/Assets/icons/paypal-2.png'},
         // {type: 'finance-account', sign: 'Finance Account', paymentMethodId: '961803160m79delmiw'},
         // {type: 'acima-leasing', sign: 'Acima Leasing',logo: '/Assets/icons/acima-2.png', paymentMethodId: '19783168sagsk879'},

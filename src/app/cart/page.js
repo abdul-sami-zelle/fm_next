@@ -291,7 +291,7 @@ const Cart = () => {
               {isCartProtected ? (
                 <div className='cart-order-summary-price-detail-single-item'>
                   <p className='cart-order-summary-price-detail-single-item-title'>Protect Entire Order</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(200)}</p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
                 </div>
               ) : (
                 <></>
@@ -299,7 +299,7 @@ const Cart = () => {
               {isProfessionalAssembly ? (
                 <div className='cart-order-summary-price-detail-single-item'>
                   <p className='cart-order-summary-price-detail-single-item-title'>Professional Assembly</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(210)}</p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
                 </div>
               ) : (
                 <></>
@@ -360,7 +360,7 @@ const Cart = () => {
               </div>
             </div>
             <div className='financing-months-range-container'>
-              <h3 className='financing-month-range-heading'>${getAdjustedPrice(subTotal0)}/week</h3>
+              <h3 className='financing-month-range-heading'>${getAdjustedPrice(subTotal0)}/week for 12 months</h3>
               <button className='financing-month-range-apply-button' onClick={handleOpenFinancingModal}>
                 Apply for Financing
               </button>
@@ -417,7 +417,7 @@ const Cart = () => {
                   </div>
               )}
               showDots={true}
-              showArrows={true}
+              showArrows={false}
               spaceBetween={15}
               breakpoints={{
                 0: { slidesPerView: 1 },

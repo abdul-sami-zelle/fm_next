@@ -123,7 +123,7 @@ const CartSidePannel = (
                   />
                   Professional Assembly (+ ${totalProtectionValue})
                 </label>
-                <p className='order-summary-proffesional-check-item-detail'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>
+                <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
               </div>
             ) : (<></>)}
 
@@ -160,7 +160,7 @@ const CartSidePannel = (
                   />
                   Professional Assembly (+ ${totalProtectionValue})
                 </label>
-                <p className='order-summary-proffesional-check-item-detail'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>
+                <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
               </div>
             ) : (<></>)}
 

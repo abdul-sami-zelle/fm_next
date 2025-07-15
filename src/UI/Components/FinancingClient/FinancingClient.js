@@ -29,14 +29,14 @@ const FinancingClient = () => {
         }
     }, [financingPageData]);
 
-
+    console.log("financing image", financingPageData?.main_banner?.desktop?.image_url)
     return (
         <div className='financing-main-container'>
             {financingPageData && <LatestModulerBanner
                 customWidth={false}
                 mainImgShow={true}
-                mobileMainImage={url + financingPageData?.main_banner?.mobile?.image_url}
-                mainImage={url + financingPageData?.main_banner?.desktop?.image_url}
+                mobileMainImage={financingPageData?.main_banner?.mobile?.image_url}
+                mainImage={financingPageData?.main_banner?.desktop?.image_url}
             />}
             <div className='mobile-finance-secondBanner'>
                 <img src={mobileSecondBanner} alt='mobile-second-banner' />

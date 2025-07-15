@@ -2,7 +2,7 @@ import React from 'react'
 import './SalesPerformace.css';
 import ReactApexChart from 'react-apexcharts';
 
-const SalesPerformance = ({data}) => {
+const SalesPerformance = ({ data }) => {
 
     const [state, setState] = React.useState({
 
@@ -154,41 +154,55 @@ const SalesPerformance = ({data}) => {
 
     });
 
+
+    React.useEffect(() => {
+        if (data?.summary?.totalReview !== undefined) {
+            setState((prev) => ({
+                ...prev,
+                series: [data.summary.totalReview],
+            }));
+            setStrockedCircleState((prev) => ({
+                ...prev,
+                series: [data.summary.totalReview],
+            }));
+        }
+    }, [data]);
+
     return (
         // <div className='sales-performance-main-container'>
-            <div className='sales-performance-inner-container'>
-                <div className='sales-performance-head-head'>
-                    <p>Reviews</p>
-                </div>
-                <div className='sales-performance-body'>
-                    <div id="chart" className='radial-chart-container'>
-                        <ReactApexChart
-                            options={state.options}
-                            series={state.series}
-                            type="radialBar"
-                            height={300}
-                        />
+        <div className='sales-performance-inner-container'>
+            <div className='sales-performance-head-head'>
+                <p>Reviews</p>
+            </div>
+            <div className='sales-performance-body'>
+                <div id="chart" className='radial-chart-container'>
+                    <ReactApexChart
+                        options={state.options}
+                        series={state.series}
+                        type="radialBar"
+                        height={300}
+                    />
 
-                    </div>
-                    {/* <div className='inner-lined-chart'> */}
-                        <div id="chart2" className='inner-lined-chart'>
-                            <ReactApexChart
-                                options={strockedCircleState.options}
-                                series={strockedCircleState.series}
-                                type="radialBar"
-                                height={250}
-                            />
-                        </div>
-                        {/* <div id="html-dist"></div> */}
-                    {/* </div> */}
-                    <div id="html-dist"></div>
-                    <div className='sale-performance-under-line'></div>
-                    <div className='sale-performance-comments-container'>
-                        <h3>You'r Good</h3>
-                        <p>Your sales performance is better than 30% of other users</p>
-                    </div>
+                </div>
+                {/* <div className='inner-lined-chart'> */}
+                <div id="chart2" className='inner-lined-chart'>
+                    <ReactApexChart
+                        options={strockedCircleState.options}
+                        series={strockedCircleState.series}
+                        type="radialBar"
+                        height={250}
+                    />
+                </div>
+                {/* <div id="html-dist"></div> */}
+                {/* </div> */}
+                <div id="html-dist"></div>
+                <div className='sale-performance-under-line'></div>
+                <div className='sale-performance-comments-container'>
+                    <h3>You'r Good</h3>
+                    <p>Your sales performance is better than 30% of other users</p>
                 </div>
             </div>
+        </div>
         // </div>
     )
 }

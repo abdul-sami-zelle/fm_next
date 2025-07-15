@@ -75,11 +75,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
     useEffect(() => { }, [orderPayload])
 
     const {
-            selectedOption,
-            handleChange,
-            selectedShippingMethods,
-            handleButtonClick
-        } = useGlobalContext();
+        selectedOption,
+        handleChange,
+        selectedShippingMethods,
+        handleButtonClick
+    } = useGlobalContext();
 
 
 
@@ -357,7 +357,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             readOnly={editZip}
                         />
 
-                        
+
                     </div>
 
 
@@ -382,7 +382,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             value={orderPayload.billing?.city}
                             onChange={handleNestedValueChange}
                         />
-                        
+
                     </div>
 
                     <div
@@ -408,11 +408,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         />
                     </div>
 
-                    
+
 
                 </div>
 
-                <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true: false)}>Edit Zipcode?</button>
+                <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true : false)}>Edit Zipcode?</button>
 
 
             </div>

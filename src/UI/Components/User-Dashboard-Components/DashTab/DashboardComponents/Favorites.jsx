@@ -10,6 +10,7 @@ import { url } from '@/utils/api';
 import axios from 'axios';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/productCardShimmer';
+import Image from 'next/image';
 
 const Favorites = ({ data, setloader }) => {
   const [loading, setLoading] = useState(false)
@@ -60,43 +61,6 @@ const Favorites = ({ data, setloader }) => {
   const [openSnakeBar, setOpenSnakeBar] = useState(false);
 
 
-  // const handleWishList = async (item) => {
-  //   console.log("handle item", item)
-
-  //   const api = `${url}/api/v1/web-users/wishlist/${id}`;
-  //   setOpenSnakeBar(true)
-  //   if (isInWishList(item._id)) {
-  //     console.log("remove")
-  //     removeFromList(item._id);
-  //     setWishlistMessage('Removed from wish list')
-
-  //   } else {
-  //     console.log("add")
-  //     addToList(item._id)
-  //     setWishlistMessage('added to wish list')
-  //   }
-
-  //   try {
-  //     const response = await axios.put(api, { productId: item._id }, {
-  //       headers: {
-  //         Authorization: userToken,
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-
-  //     console.log("fav res", response.status)
-  //     if (response.status === 200) {
-
-  //       console.log("inside status condition")
-
-
-  //     }
-
-  //   } catch (error) {
-  //     console.error("UnExpected Server Error", error);
-  //   }
-  // }
-
   const handleWishList = async (item) => {
 
     setOpenSnakeBar(true)
@@ -122,7 +86,6 @@ const Favorites = ({ data, setloader }) => {
       if(response.status === 200) {
         setloader(false)
       }
-      console.log("api remove", response)
     } catch (error) {
       setloader(false);
       console.error("UnExpected Server Error", error);
@@ -135,15 +98,17 @@ const Favorites = ({ data, setloader }) => {
 
   return (
     <div className="favorites-main-container">
-      <div className='favorites-cards-container'>
+      
         {loading ? (
           Array.from({ length: 4 }).map((_, index) => <ProductCardShimmer key={index} />)
         ) : data?.length === 0 ? (
-          <div className='empty-wishlist'>
+          <div className='empty-wishlist-in-fav'>
+            <Image src={'/icons/wishlist.svg'} width={60} height={60} alt='empty wishlist icon' />
             <h3>No items in your wishlist</h3>
           </div>
         ) : (
-          data.map((item, index) => {
+          <div className='favorites-cards-container'>
+          {data.map((item, index) => {
             return (
               <ProductCardTwo
                 key={index}
@@ -173,9 +138,10 @@ const Favorites = ({ data, setloader }) => {
                 handleWishListclick={() => handleWishList(item)}
               />
             );
-          })
-        )}
+          })}
+
       </div>
+        )}
 
       <QuickView
         setQuickViewProduct={quickViewProduct}

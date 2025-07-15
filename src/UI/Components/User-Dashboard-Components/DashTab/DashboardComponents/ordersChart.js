@@ -126,7 +126,7 @@ const BarChart = ({data}) => {
         options={chartOptions.options}
         series={chartOptions.series}
         type="bar"
-        height={430}
+        height={305}
       />
     </div>
   );

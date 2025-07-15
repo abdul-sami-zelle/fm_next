@@ -32,13 +32,13 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
 
   const [loginRegisterMessage, setLoginRegisterMessage] = useState('')
-    const [openSnakeBar, setOpenSnakeBar] = useState(false);
+  const [openSnakeBar, setOpenSnakeBar] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Simple validation for the form
     if (password !== confirmPassword) {
-       setOpenSnakeBar(true)
+      setOpenSnakeBar(true)
       setLoginRegisterMessage("Passwords do not match!");
       return;
     }
@@ -151,15 +151,22 @@ const Login = ({ signupclicked, setSignupclicked }) => {
         }
         setLoading(false);
         router.push(`/user-dashboard/${result?.data?._id}`)
+      } else if (response.status === 400) {
+        setOpenSnakeBar(true)
+        setLoginRegisterMessage("Invalid Email");
+      } else if (response.status === 401) {
+        setOpenSnakeBar(true)
+        setLoginRegisterMessage("Invalid Password");
       } else {
         // Handle error
         setOpenSnakeBar(true)
         setLoginRegisterMessage(result.message || 'Something went wrong');
         setLoading(false);
+        console.log("message", response)
       }
     } catch (error) {
       // Handle network error
-      setOpenSnakeBar
+      setOpenSnakeBar(true)
       setLoginRegisterMessage('Network error, please try again later.');
       setLoading(false);
     } finally {
@@ -176,163 +183,165 @@ const Login = ({ signupclicked, setSignupclicked }) => {
 
 
   return (
-    <div className={`login-main-section ${signupclicked ? 'slide-log-in-into-left' : ''}`}>
-      <div className={`signup-containt-container ${signupclicked ? 'hide-signup-content' : ''}`}>
-        <h3 className='signup-sec-main-register-heading'>Register</h3>
-        <div className="signup-sec-content">
-          <form className="signup-form" onSubmit={handleSubmit}>
-            {/* First Name and Last Name in one row */}
-            <div className="form-row">
-              <label className="signup-sec-label">
-                <p>First Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
-                <input
-                  className="login-and-register-input"
-                  type="text"
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </label>
-              <label className="signup-sec-label">
-                <p>Last Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
-                <input
-                  className="login-and-register-input"
-                  type="text"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </label>
-            </div>
+    <>
+      <div className={`login-main-section ${signupclicked ? 'slide-log-in-into-left' : ''}`}>
+        <div className={`signup-containt-container ${signupclicked ? 'hide-signup-content' : ''}`}>
+          <h3 className='signup-sec-main-register-heading'>Register</h3>
+          <div className="signup-sec-content">
+            <form className="signup-form" onSubmit={handleSubmit}>
+              {/* First Name and Last Name in one row */}
+              <div className="form-row">
+                <label className="signup-sec-label">
+                  <p>First Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                  <input
+                    className="login-and-register-input"
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                  />
+                </label>
+                <label className="signup-sec-label">
+                  <p>Last Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                  <input
+                    className="login-and-register-input"
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
 
-            {/* Email in second row */}
-            <div className="form-row">
+              {/* Email in second row */}
+              <div className="form-row">
+                <label className="signup-sec-label">
+                  <p>Email<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                  <input
+                    className="login-and-register-input"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+
+              {/* Password and Confirm Password in third row */}
+              <div className="form-row">
+                <label className="signup-sec-label">
+                  <p>Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                  <input
+                    className="login-and-register-input"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+                <label className="signup-sec-label">
+                  <p>Confirm Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                  <input
+                    className="login-and-register-input"
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+
+
+              <label className="signup-sec-label checkbox">
+                <input
+                  type="checkbox"
+                  className='term-and-condition'
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  required
+                />
+                <span className='terms-conditions-agre-container'>I agree to the <Link href={'/privacy-policy'}>Privacy Policy</Link></span>
+              </label>
+              <label className="signup-sec-label checkbox">
+                <input
+                  type="checkbox"
+                  className='term-and-condition'
+                  checked={acceptPrivacy}
+                  onChange={(e) => setAcceptPrivacy(e.target.checked)}
+                  required
+                />
+                <span className='terms-conditions-agre-container'>I agree to the <Link href={'/terms-and-conditions'}>Terms & Conditions</Link></span>
+              </label>
+
+
+              {/* Error message */}
+              {/* {error && <div className="error-message">{error}</div>} */}
+
+              {/* Submit Button */}
+              <button className="signup-button signup-sec-register-btn" type="submit">Register</button>
+            </form>
+
+          </div>
+
+          {loading && <div className="loading_reg">
+            <img src={loadingIcon} alt="" />
+            <p>Creating Your Account...</p>
+          </div>}
+
+        </div>
+        <div className={`login-main-container ${signupclicked ? 'show-login-main-section' : ''}`}>
+          <h3 className='login-sec-main-heading'>Login</h3>
+          <div className='login-sec-id-pass-content'>
+            <form className="login-form" onSubmit={handleSubmitLogin}>
               <label className="signup-sec-label">
                 <p>Email<span style={{ color: "var(--primary-color)" }} >*</span></p>
                 <input
                   className="login-and-register-input"
                   type="email"
                   placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
                   required
                 />
               </label>
-            </div>
-
-            {/* Password and Confirm Password in third row */}
-            <div className="form-row">
               <label className="signup-sec-label">
                 <p>Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
                 <input
                   className="login-and-register-input"
                   type="password"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
                   required
                 />
               </label>
-              <label className="signup-sec-label">
-                <p>Confirm Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
-                <input
-                  className="login-and-register-input"
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </label>
-            </div>
+              <div className='login-sec-forgot-pass'>
+                <Link href={'/'}>Forgot Password</Link>
+              </div>
+              <button className="login-sec-login-btn" type="submit">Login</button>
+            </form>
 
 
-            <label className="signup-sec-label checkbox">
-              <input
-                type="checkbox"
-                className='term-and-condition'
-                checked={acceptTerms}
-                onChange={(e) => setAcceptTerms(e.target.checked)}
-                required
-              />
-              <span className='terms-conditions-agre-container'>I agree to the <Link href={'/privacy-policy'}>Privacy Policy</Link></span>
-            </label>
-            <label className="signup-sec-label checkbox">
-              <input
-                type="checkbox"
-                className='term-and-condition'
-                checked={acceptPrivacy}
-                onChange={(e) => setAcceptPrivacy(e.target.checked)}
-                required
-              />
-              <span className='terms-conditions-agre-container'>I agree to the <Link href={'/terms-and-conditions'}>Terms & Conditions</Link></span>
-            </label>
-
-
-            {/* Error message */}
-            {/* {error && <div className="error-message">{error}</div>} */}
-
-            {/* Submit Button */}
-            <button className="signup-button signup-sec-register-btn" type="submit">Register</button>
-          </form>
-
+          </div>
+          {loading && <div className="loading_reg">
+            <img src={loadingIcon} alt="" />
+            <p>Please Wait...</p>
+          </div>}
         </div>
-
-        {loading && <div className="loading_reg">
-          <img src={loadingIcon} alt="" />
-          <p>Creating Your Account...</p>
-        </div>}
-
-      </div>
-      <div className={`login-main-container ${signupclicked ? 'show-login-main-section' : ''}`}>
-        <h3 className='login-sec-main-heading'>Login</h3>
-        <div className='login-sec-id-pass-content'>
-          <form className="login-form" onSubmit={handleSubmitLogin}>
-            <label className="signup-sec-label">
-              <p>Email<span style={{ color: "var(--primary-color)" }} >*</span></p>
-              <input
-                className="login-and-register-input"
-                type="email"
-                placeholder="Email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                required
-              />
-            </label>
-            <label className="signup-sec-label">
-              <p>Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
-              <input
-                className="login-and-register-input"
-                type="password"
-                placeholder="Password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                required
-              />
-            </label>
-            <div className='login-sec-forgot-pass'>
-              <Link href={'/'}>Forgot Password</Link>
-            </div>
-            <button className="login-sec-login-btn" type="submit">Login</button>
-          </form>
-
-
-        </div>
-        {loading && <div className="loading_reg">
-          <img src={loadingIcon} alt="" />
-          <p>Please Wait...</p>
-        </div>}
       </div>
 
-      {/* <SnakBar
+      <SnakBar
         message={loginRegisterMessage}
         openSnakeBarProp={openSnakeBar}
         setOpenSnakeBar={setOpenSnakeBar}
         onClick={handleCloseSnakeBar}
-      /> */}
-    </div>
+      />
+    </>
   )
 }
 

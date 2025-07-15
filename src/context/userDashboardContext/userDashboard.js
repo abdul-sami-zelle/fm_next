@@ -7,6 +7,7 @@ const userDashboardContext = createContext();
 export const UserDashboardCtxProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [userUid, setUserUid] = useState(null);
+    const [signinClicked, setSigninClicked] = useState(false)
     const [isTokenValid, setIsTokenValid] = useState(false); // State to track token validity
 
     const setToken = (token,id) => {
@@ -30,7 +31,7 @@ export const UserDashboardCtxProvider = ({ children }) => {
     };
 
     return (
-        <userDashboardContext.Provider value={{ userToken, setToken, removeToken, setUserToken, isTokenValid,userUid, setUserUid }}>
+        <userDashboardContext.Provider value={{ userToken, setToken, removeToken, setUserToken, isTokenValid,userUid, setUserUid, signinClicked, setSigninClicked }}>
             {children}
         </userDashboardContext.Provider>
     );

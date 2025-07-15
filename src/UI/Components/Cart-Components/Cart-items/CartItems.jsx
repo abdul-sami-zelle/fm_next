@@ -219,7 +219,7 @@ const CartItems = ({
                                     </div>
                                     <span className='protection-details-and-message'>
                                         <p className='protection-price-message'>
-                                            {(cartProducts.is_all_protected === 1 || isProtected === 1) ? "Price shown in summary" : "$160"}
+                                            {(cartProducts.is_all_protected === 1 || isProtected === 1) ? "Price shown in summary" : "$149"}
                                         </p>
                                         <div className={`detail-container ${isOpen ? 'open' : ''}`}>
                                             <p className='protection-price-message detail'>

@@ -4,25 +4,29 @@ import React ,{useState,useEffect}from 'react'
 import './UserDashboard.css';
 import DashboardTabs from '../../Components/User-Dashboard-Components/DashboardTabs/DashboardTabs';
 import { url } from '../../../utils/api';
-// import { useLocation, useParams  } from 'react-router-dom';
 import { useUserDashboardContext } from '../../../context/userDashboardContext/userDashboard';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { useRouter } from 'next/navigation';
+import Loader from '../Loader/Loader';
 
 const UserDashboardClient = ({id}) => {
   // const navigate = useNavigate();
 const router = useRouter();
-  const { setMainLoader } = useGlobalContext();
+  const {mainLoader, setMainLoader } = useGlobalContext();
   const { setUserToken } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
   const [userData,setUserData] = useState({})
+  const [loader, setLoader] = useState(false);
+  // const [initialChecked, setInitialChecked] = useState(false);
 
   // const id = params.id;
 
   const checkToken = async () => {
-    const token = localStorage.getItem('userToken');
+    // const token = localStorage.getItem('userToken');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('userToken') : null;
     if (token) {
       try {
+        setLoader(true)
         setMainLoader(true);
         const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
           method: "GET",
@@ -43,6 +47,7 @@ const router = useRouter();
             // console.log("response 2 ok", data);
             setUserData(data.data)
             setIsTokenValid(true);
+            setLoader(false)
             setMainLoader(false);
           }else{
 
@@ -53,6 +58,7 @@ const router = useRouter();
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
+          setLoader(false)
           router.push("/my-account")
         }
       } catch (error) {
@@ -60,10 +66,12 @@ const router = useRouter();
         setUserToken(null);
         setIsTokenValid(false);
         setMainLoader(false);
+        setLoader(false)
         router.push("/my-account")
+      } finally {
+        setMainLoader(false);
+        setLoader(false)
       }
-
-      setMainLoader(false);
     }
     else {
       setMainLoader(false);
@@ -71,6 +79,19 @@ const router = useRouter();
     }
 
   };
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && !initialChecked) {
+  //     const uuid = localStorage.getItem('uuid');
+  //     const token = localStorage.getItem('userToken');
+  //     if (uuid && token) {
+  //       checkToken();
+  //     } else {
+  //       router.push('/my-account');
+  //     }
+  //     setInitialChecked(true); // 🔐 Prevent multiple calls
+  //   }
+  // }, [initialChecked]);
 
 
   const moveToLoginDash = async () => {
@@ -99,7 +120,6 @@ const router = useRouter();
         const userUid = localStorage.getItem('uuid')
         const userToken = localStorage.getItem('userToken')
         if(userUid && userToken) {
-          console.log("func call");
           moveToLoginDash()
         }
       }
@@ -109,6 +129,7 @@ const router = useRouter();
     
   return (
     <div className='user-dashboard-main-page'>
+      { Object.keys(userData).length === 0 && <Loader />}
       <div className='user-dashboard-main-heading'>
         <h3>My Account</h3>
       </div>

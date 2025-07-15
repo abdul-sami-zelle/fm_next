@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './DashTab.css';
 import DashboardTab from './DashboardComponents/dashTab';
 import SalesPerformance from './DashboardComponents/SalesPerformance';
@@ -8,6 +8,9 @@ import { IoMdLogOut } from "react-icons/io";
 import { useUserDashboardContext } from '../../../../context/userDashboardContext/userDashboard';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { FaUserCircle } from "react-icons/fa";
+import { url } from '@/utils/api';
+import Loader from '../../Loader/Loader';
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -15,17 +18,21 @@ const DashTab = ({ data }) => {
   // const navigate = useNavigate();
   const router = useRouter();
   const { setUserToken } = useUserDashboardContext();
+  const [loader, setLoader] = useState(false);
 
   const logout = async () => {
+    setLoader(true)
     localStorage.removeItem('userToken');
     localStorage.removeItem('uuid');
     localStorage.setItem('cartUid', "null");
     setUserToken(null);
     // navigate("/my-account", { state: { message: "decided" } })
     router.push("/my-account",)
+    // setLoader(false)
   }
   return (
     <div className='dash-tab-main-container'>
+      {loader && <Loader />}
       <div className="most_upper_section">
         <div className="most_upper_section_left">
           <h2 className='greeting'><strong>Hey</strong>, {data?.first_name} {data?.last_name}</h2>
@@ -33,9 +40,14 @@ const DashTab = ({ data }) => {
         </div>
         <div className="most_upper_section_right">
           <div className="profileAvatar">
-            
-              <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" alt="" srcset="" />
-            
+
+            {data && data?.image ? (
+              <Image src={`${url}${data?.image}`} width={60} height={60} alt='profile' />
+            ) : (
+              <span>
+                <FaUserCircle size={60} color='var( --tertiary-color)' />
+              </span>
+            )}
           </div>
           <div className="logoutButton">
             <button onClick={() => { logout() }} >
@@ -55,7 +67,6 @@ const DashTab = ({ data }) => {
       <div className="lower_charts">
         <div className="lower_charts_1">
           <SalesPerformance data={data}/>
-          {/* <DashboardTab2/> */}
         </div>
         <div className="lower_charts_2">
           <BarChart data={data} />

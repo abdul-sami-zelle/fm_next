@@ -24,6 +24,7 @@ const PromotionalBanner = (
     currentSelectedCountry 
   }) => {
 
+
   const router = useRouter()
   const [currentIndex, setCurrentIndex] = useState(0);
   const dynamicHeading = [0, 1, 2]
@@ -36,7 +37,7 @@ const PromotionalBanner = (
 
 
   // const { setMainLoader } = useGlobalContext();
-  const { setUserToken } = useUserDashboardContext();
+  const { setUserToken, setSigninClicked } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
 
   const handleClickOnOrders = async () => {
@@ -64,6 +65,35 @@ const PromotionalBanner = (
         console.error("Unexpected Error", error)
       }
     }
+  }
+
+  const handleUserLogin = async (clickType) => {
+    console.log("clicked ", clickType)
+    // if(typeof window !== 'undefined') {
+      const token = localStorage.getItem('userToken');
+      const id = localStorage.getItem('uuid');
+
+      try {
+        if (token) {
+          const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+            method: "GET",
+            headers: {
+              authorization: `${token}`,
+            },
+          });
+          if (response.ok) {
+            router.push(`/user-dashboard/${id}`);
+          }
+        } else {
+          localStorage.removeItem('userToken');
+          setUserToken(null);
+          setSigninClicked(clickType === 'login' ? true : false);
+          router.push('/my-account');
+        }
+      } catch (error) {
+        console.error("UnExpected Server Error", error);
+      }
+    // }
   }
 
   const handleCloseLoginMessageModal = () => {
@@ -103,7 +133,7 @@ const PromotionalBanner = (
         <div className='banner-link-container'>
           <Link href={'/blogs'}>Blogs</Link>
           <span>
-            <Link href={'/my-account'}>Log In</Link> | <Link href={'/my-account'}>Sign up</Link>
+            <p onClick={() => handleUserLogin('login')}>Log In</p> | <p onClick={() => handleUserLogin('signup')}>Sign up</p>
           </span>
           <Link href={'https://room.myfurnituremecca.com/'} target='_blank'>Free Design Consultation</Link>
           <Link href={'/store-locator'}>Stores</Link>

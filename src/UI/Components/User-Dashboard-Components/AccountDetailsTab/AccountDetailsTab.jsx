@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './AccountDetailsTab.css';
 import { CiUser } from "react-icons/ci";
-import { capitalize, formatPhoneNumber, url, useDisableBodyScroll } from '../../../../utils/api';
-import { FaEdit } from "react-icons/fa";
-import BillingAddressModal from '../../../../Global-Components/BillingAddressModal/BillingAddressModal';
+import { capitalize, formatPhoneNumber, url } from '../../../../utils/api';
+// import { FaEdit } from "react-icons/fa";
+// import BillingAddressModal from '../../../../Global-Components/BillingAddressModal/BillingAddressModal';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import StatusModal from '@/UI/Modals/StatusModal/StatusModal';
@@ -11,7 +11,7 @@ import { IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline } from "react-icon
 import { BsExclamationCircle } from "react-icons/bs";
 
 const AccountDetailsTab = ({ data, setLoading }) => {
-  console.log("user data", data)
+  // console.log("user data", data)
   const fileInputRef = useRef(null)
   const [userDetails, setUserDetails] = useState({
     first_name: data?.first_name ?? '',
@@ -23,7 +23,7 @@ const AccountDetailsTab = ({ data, setLoading }) => {
   })
 
   useEffect(() => {
-    console.log("user details", userDetails);
+    // console.log("user details", userDetails);
   }, [userDetails])
 
 
@@ -74,7 +74,7 @@ const AccountDetailsTab = ({ data, setLoading }) => {
   }, [])
 
   const [showStatus, setShowStatus] = useState(false);
-  const [successLoader, setSuccessLoader] = useState(false);
+  // const [successLoader, setSuccessLoader] = useState(false);
   const [statusModalData, setStatusModalData] = useState({
     status: '',
     message: '',
@@ -94,8 +94,8 @@ const AccountDetailsTab = ({ data, setLoading }) => {
           Authorization: userToken,
         }
       })
-      console.log("image change response", response.data.message)
-      if(response.status === 200) {
+      // console.log("image change response", response.data.message)
+      if (response.status === 200) {
         setIsImageChange(false);
         setLoading(false);
         setShowStatus(true);
@@ -111,11 +111,11 @@ const AccountDetailsTab = ({ data, setLoading }) => {
       setShowStatus(true)
       setLoading(false)
       setStatusModalData({
-          status: 'Failed',
-          message: error.response.data.message,
-          textColor: 'red',
-          icon: <IoIosCloseCircleOutline size={60} color='red' />
-        })
+        status: 'Failed',
+        message: error.response.data.message,
+        textColor: 'red',
+        icon: <IoIosCloseCircleOutline size={60} color='red' />
+      })
     } finally {
       setIsImageChange(false)
       setLoading(false)
@@ -130,18 +130,31 @@ const AccountDetailsTab = ({ data, setLoading }) => {
     }));
   }
 
-  const [openBillingModal, setOpenBillingModal] = useState(false);
-  const handleOpenBillingModal = () => {
-    setOpenBillingModal(true)
+  // const [openBillingModal, setOpenBillingModal] = useState(false);
+  // const handleOpenBillingModal = () => {
+  //   setOpenBillingModal(true)
+  // }
+
+
+  // const handleBillingModalclose = () => {
+  //   setOpenBillingModal(false);
+  // }
+
+  function formatToUSTime(isoString) {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', // Change to desired US timezone if needed
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    }).format(date);
   }
 
 
-  const handleBillingModalclose = () => {
-    setOpenBillingModal(false);
-  }
-
-
-  useDisableBodyScroll(openBillingModal)
+  // useDisableBodyScroll(openBillingModal)
 
 
   return (
@@ -150,8 +163,7 @@ const AccountDetailsTab = ({ data, setLoading }) => {
         <div className='account-detail-user-profile'>
           <div className='account-detail-user-profile-container' onClick={handleButtonclick}>
             {userDetails.profile_image !== null ? (
-              imgUrl !== '' ? <img src={imgUrl} alt='user profile' className='user-profile-picture' />  : <img src={url+userDetails.profile_image} alt='user profile' className='user-profile-picture' />
-              // <img src={imgUrl} alt='user profile' className='user-profile-picture' />
+              imgUrl !== '' ? <img src={imgUrl} alt='user profile' className='user-profile-picture' /> : <img src={url + userDetails.profile_image} alt='user profile' className='user-profile-picture' />
             ) : (
               <CiUser color='var(--secondary-color)' size={80} />
             )}
@@ -160,12 +172,12 @@ const AccountDetailsTab = ({ data, setLoading }) => {
           <input type='file' ref={fileInputRef} style={{ display: 'none' }} onChange={handleProfileChange} />
           {isImageChange ? (
             <button className='upload-image-button' onClick={handleUpdateUserDetails}>
-            Update
-          </button>
+              Update
+            </button>
           ) : (
             <button className='upload-image-button' onClick={handleButtonclick}>
-            Change
-          </button>
+              Change
+            </button>
           )}
         </div>
 
@@ -173,9 +185,9 @@ const AccountDetailsTab = ({ data, setLoading }) => {
 
           <div className='user-info-head'>
             <h3>User Information</h3>
-            <button>
+            {/* <button>
               <FaEdit size={24} color='var(--secondary-color)' onClick={handleOpenBillingModal} />
-            </button>
+            </button> */}
           </div>
 
           <div className='user-info-body'>
@@ -197,11 +209,11 @@ const AccountDetailsTab = ({ data, setLoading }) => {
           <div className='last-login-and-update-container'>
             <span className='last-login-and-update'>
               <p>Last Login:</p>
-              <h3>{data?.lastLogin}</h3>
+              <h3>{formatToUSTime(data?.lastLogin)}</h3>
             </span>
             <span className='last-login-and-update'>
               <p>Last Update:</p>
-              <h3>{data?.updatedAt}</h3>
+              <h3>{formatToUSTime(data?.updatedAt)}</h3>
             </span>
           </div>
 
@@ -213,12 +225,12 @@ const AccountDetailsTab = ({ data, setLoading }) => {
 
 
 
-      <BillingAddressModal
+      {/* <BillingAddressModal
         showBilling={openBillingModal}
         handleCloseBillingModal={handleBillingModalclose}
-      />
+      /> */}
 
-      <StatusModal 
+      <StatusModal
         showModal={showStatus}
         setShowModal={setShowStatus}
         status={statusModalData.status}

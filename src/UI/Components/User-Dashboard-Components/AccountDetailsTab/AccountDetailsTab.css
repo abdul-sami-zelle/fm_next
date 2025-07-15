@@ -36,6 +36,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    cursor: pointer;
     border: 1px solid var(--border-color);overflow: hidden;
 }
 
@@ -158,9 +159,9 @@ input, label {
 .last-login-and-update {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: space-between;
     gap: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .last-login-and-update > p {
@@ -170,9 +171,16 @@ input, label {
 }
 
 .last-login-and-update > h3 {
-    font-size: 16px;
-    line-height: 1.2;
-    font-weight: 500;
+    width: 75%;
+    background-color: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+    outline: none;
+    padding: 8px 10px;
 }
 
 /* update password container styling */

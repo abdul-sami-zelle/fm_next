@@ -227,25 +227,10 @@ export const MyOrdersProvider = ({ children }) => {
         
 
         updateZipCode(zipCode);
-        console.log("zip len", zipCode.length)
         if(zipCode.length === 5) {
             setZipCode(zipCode)
-        handleButtonClick()
+            handleButtonClick()
         }
-
-        // Update postal_code in state
-        // setOrderPayload(prevData => ({
-        //     ...prevData,
-        //     billing: {
-        //         ...prevData.billing,
-        //         postal_code: zipCode
-        //     }
-        // }));
-
-        // Only call API when exactly 5 digits are entered
-        // if (zipCode.length === 5 && /^\d{5}$/.test(zipCode)) {
-        //     handleZipCode(zipCode);
-        // }
     };
 
     useEffect(() => {
@@ -324,6 +309,11 @@ export const MyOrdersProvider = ({ children }) => {
     }
     const [showWarning, setShowWarning] = useState(false);
     const [warningMessage, setWarningMessage] = useState('');
+    const [errorDetails, setErrorDetails] = useState({
+        title: '',
+        message: '',
+        status: ''
+    })
     const sendProducts = async () => {
         try {
             setIsLoader(true);
@@ -377,20 +367,35 @@ export const MyOrdersProvider = ({ children }) => {
 
                 openLink(`https://fmnext.myfurnituremecca.com/order-confirmation/${response.data.order._id}`)
             }
+
             console.log("add ordr error", response)
         } catch (error) {
             let errorMessage
-            if(error.status === 400) {
+            // if(error.status === 400) {
                 errorMessage = error.response.data.message.split('.')
+                setErrorDetails({
+                    title: error.response.data.title,
+                    message: errorMessage,
+                    status: error.response.data.status
+                })
                 setWarningMessage(errorMessage[0])
                 setShowWarning(true);
-            }
+            // } else if (error.status === 500) {
+            //     errorMessage = error.response.data.message.split('.')
+            //     setErrorDetails({
+            //         title: error.response.data.title,
+            //         message: error.response.data.details,
+            //         status: error.response.data.status
+            //     })
+            //     setWarningMessage(errorMessage[0])
+            //     setShowWarning(true);
+            // }
             
             //  const errorMessage = error.data && error.response.data.message.split('.')
-            console.log("error message", errorMessage)
+            // console.log("error message", errorMessage)
             
-            console.error("add order catch error", error)
-            console.error("Error adding order:", error);
+            // console.error("add order catch error", error)
+            // console.error("Error adding order:", error);
         } finally {
             setIsLoader(false);
         }
@@ -449,6 +454,7 @@ export const MyOrdersProvider = ({ children }) => {
             warningMessage,
             showWarning,
             setShowWarning,
+            errorDetails,
         }}>
             {children}
         </MyOrderContext.Provider>
