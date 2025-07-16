@@ -86,7 +86,7 @@ const SalesPerformance = ({ data }) => {
             chart: {
                 height: 250,
                 type: 'radialBar',
-                offsetY: -5
+                offsetY: 0
             },
             plotOptions: {
                 radialBar: {

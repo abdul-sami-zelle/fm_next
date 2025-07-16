@@ -6,7 +6,7 @@ import PaymentMethod from '@/UI/Components/Summary-Components/PaymentMethod/Paym
 import { useMyOrders } from '@/context/orderContext/ordersContext';
 import Loader from '@/UI/Components/Loader/Loader';
 import { useCart } from '@/context/cartContext/cartContext';
-import { formatedPrice, truncateTitle, url } from '../../../utils/api';
+import { formatedPrice, truncateTitle, url, useDisableBodyScroll } from '../../../utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { IoIosArrowDown } from "react-icons/io";
 import Link from 'next/link';
@@ -15,9 +15,56 @@ import axios from 'axios';
 import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/termsConditionModal';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
+import { useRouter } from 'next/navigation';
 
 
 const CheckoutClient = () => {
+
+  const {
+    setOrderPayload,
+    orderPayload,
+    handlePaymentInfo,
+    addProducts,
+    sendProducts,
+    selectedTab,
+    handleClickTop,
+    handleTabOpen,
+    isLoader,
+    showThankyou,
+    setThankyouState,
+    warningMessage,
+    showWarning,
+    setShowWarning,
+    errorDetails,
+  } = useMyOrders();
+
+  const {
+    info,
+    zipCode,
+    handleInputChange,
+    handleButtonClick,
+    totalTax,
+    calculateTotalTax,
+    selectedOption,
+    CalculateGrandTotal
+  } = useGlobalContext();
+
+  const {
+    subTotal,
+    savings,
+    cartProducts,
+    cartUid,
+    subTotal0,
+    isCartProtected,
+    isProfessionalAssembly
+
+  } = useCart();
+
+  const router = useRouter()
+  if (typeof window !== 'undefined' && cartProducts?.products?.length === 0) {
+    router.replace('/cart');
+    return null; // Prevent rendering
+  }
 
   const deliveryInfoRef = useRef(null);
 
@@ -41,47 +88,11 @@ const CheckoutClient = () => {
   ]
 
   const [currentId, setCurrentId] = useState(0)
-  const {
-    setOrderPayload,
-    orderPayload,
-    handlePaymentInfo,
-    addProducts,
-    sendProducts,
-    selectedTab,
-    handleClickTop,
-    handleTabOpen,
-    isLoader,
-    showThankyou,
-    setThankyouState,
-    warningMessage,
-    showWarning,
-    setShowWarning,
-    errorDetails,
-  } = useMyOrders();
+  
 
   const [isCheck, setIsCheck] = useState({});
 
-  const {
-    info,
-    zipCode,
-    handleInputChange,
-    handleButtonClick,
-    totalTax,
-    calculateTotalTax,
-    selectedOption,
-    CalculateGrandTotal
-  } = useGlobalContext();
-
-  const {
-    subTotal,
-    savings,
-    cartProducts,
-    cartUid,
-    subTotal0,
-    isCartProtected,
-    isProfessionalAssembly
-
-  } = useCart();
+  
 
 
   const [isLoading, setIsLoading] = useState(false);
@@ -113,10 +124,11 @@ const CheckoutClient = () => {
         });
         return; // Stop here if validation fails
       }
+      handleTabOpen(1);
       try {
         const response = await axios.put(`${url}/api/v1/unused-cart/edit/${cartUid}`, { cart: cartProducts, checkout: orderPayload.billing });
         await new Promise((resolve) => setTimeout(resolve, 0)); // Ensures React processes state updates correctly
-        handleTabOpen(1);
+        // handleTabOpen(1);
         setIsLoading(false)
         return response.data;
 
@@ -172,6 +184,8 @@ const CheckoutClient = () => {
   const handleCloseWarningModal = () => {
     setShowWarning(false)
   }
+
+  useDisableBodyScroll(showWarning)
 
   useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 

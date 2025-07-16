@@ -6,11 +6,9 @@ import CartMainImage from '@/UI/Components/Cart-Components/CartMainImage/CartMai
 import CartProducts from '@/UI/Components/Cart-Components/Cart-Products/CartProducts';
 import { IoIosArrowDown } from "react-icons/io";
 import axios from 'axios'
-import Slider from 'react-slick'
 import { useCart } from '@/context/cartContext/cartContext';
 import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/productCardShimmer';
 import { useList } from '@/context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { formatedPrice, getAdjustedPrice, url } from '../../utils/api';
 import QuickView from '@/UI/Components/QuickView/QuickView';
@@ -19,29 +17,10 @@ import AppointmentModal from '@/Global-Components/AppointmentModal/AppointmentMo
 import ProductCardTwo from '@/UI/Components/ProductCardTwo/ProductCardTwo';
 import { useAppointment } from '@/context/AppointmentContext/AppointmentContext';
 import { useRouter } from 'next/navigation';
-
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
 
-function SamplePrevArrow(props) {
-  const { onClick, isVisible } = props;
-  if (!isVisible) return null;
-  return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left `} >
-      <MdKeyboardArrowLeft size={20} className='cart-also-like-slider-arrow-left' />
-    </div>
-  )
-}
 
-function SampleNextArrow(props) {
-  const { onClick, isVisible } = props;
-  if (!isVisible) return null;
-  return (
-    <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right `} >
-      <MdKeyboardArrowRight size={20} className='cart-also-like-slider-arrow-right' />
-    </div>
-  )
-}
 
 const Cart = () => {
   const [isZipUpdateOpen, setIsZipUpdateOpen] = useState(false)
@@ -75,6 +54,7 @@ const Cart = () => {
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
   }
+
   const handleCouponInput = () => {
     setIsCouponOpen(!isCouponOpen)
   }
@@ -138,77 +118,18 @@ const Cart = () => {
     router.push("/check-out");
   }
 
-  // Slick
-  let totalSlides = latestProducts?.length;
-  const [currentSlide, setCurrentSlide] = useState(0);
-  let settings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    arrows: true,
-    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
-    nextArrow: (
-      <SampleNextArrow
-        isVisible={currentSlide + 5 < totalSlides} // adjust 5 based on slidesToShow
-      />
-    ),
-    prevArrow: (
-      <SamplePrevArrow
-        isVisible={currentSlide > 0}
-      />
-    ),
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: false,
-          dots: false
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
-
   const {
     addToList,
     removeFromList,
     isInWishList
   } = useList()
 
-  const notify = (str) => toast.success(str);
-  const notifyRemove = (str) => toast.error(str)
   const handleWishList = (item) => {
     if (isInWishList(item.uid)) {
       removeFromList(item.uid);
-      notifyRemove('Removed from wish list', {
-        autoClose: 10000,
-        className: "toast-message",
-      })
+      
     } else {
       addToList(item)
-      notify("added to wish list", {
-        autoClose: 10000,
-      })
     }
   }
 
@@ -267,12 +188,30 @@ const Cart = () => {
     router.push(`/product/${item.slug}`);
   };
 
+  const [searchLocation, setSearchLocation] = useState(false);
+  const handleLocationModal = () => {
+    setSearchLocation(true)
+  }
+
+  const handleCloseSearch = () => {
+    setSearchLocation(false)
+  }
+
+  const [locationDetails, setLocationDetails] = useState({
+    zipCode: '',
+    city: '',
+    state: '',
+    country: ''
+  });
+
+
+
   return (
     <div className='cart-main-container'>
       <CartMainImage />
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
-          <CartProducts />
+          <CartProducts handleLocationModal={handleLocationModal} />
         </div>
         <div className={`cart-order-summery-section ${cartProducts?.products?.length === 0 ? 'hide-order-summary' : ''}`}>
           <div className='cart-order-summery-inner-section'>
@@ -381,61 +320,8 @@ const Cart = () => {
 
             {latestProducts && latestProducts?.length > 0 ? (
               <SwiperSlider
-              slidesData={latestProducts}
-              renderSlide={(item, index) => (
-                <div key={index} className='cart-latest-product-cards-container'>
-                    <ProductCardTwo
-                      key={index}
-                      slug={item.slug}
-                      singleProductData={item}
-                      maxWidthAccordingToComp={"100%"}
-                      justWidth={'100%'}
-                      percent={'12%'}
-                      showOnPage={true}
-                      tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
-                      tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                      mainImage={`${item.image.image_url}`}
-                      productCardContainerClass="product-card"
-                      ProductSku={item.sku}
-                      tags={item.tags}
-                      allow_back_order={item?.allow_back_order}
-                      ProductTitle={item.name}
-                      reviewCount={item.reviewCount}
-                      lowPriceAddvertisement={item.lowPriceAddvertisement}
-                      priceTag={item.regular_price}
-                      sale_price={item.sale_price}
-                      financingAdd={item.financingAdd}
-                      learnMore={item.learnMore}
-                      mainIndex={index}
-                      deliveryTime={item.deliveryTime}
-                      stock={item.manage_stock}
-                      attributes={item.attributes}
-                      handleCardClick={() => handleProductClick(item)}
-                      handleQuickView={() => handleQuickViewOpen(item)}
-                      handleWishListclick={() => handleWishList(item)}
-                    />
-                  </div>
-              )}
-              showDots={true}
-              showArrows={false}
-              spaceBetween={15}
-              breakpoints={{
-                0: { slidesPerView: 1 },
-                768: { slidesPerView: 4 },
-              }}
-            />
-            ) : (
-              <div style={{display: 'flex', width: '100%', gap: '15px'}}>
-                {Array.from({ length: 4 }).map((_, index) => (
-                    <ProductCardShimmer width={'100%'} />
-                  ))}
-              </div>
-            )}
-
-
-            {/* <Slider {...settings}>
-              {latestProducts && latestProducts?.length > 0 ? (
-                latestProducts.map((item, index) => (
+                slidesData={latestProducts}
+                renderSlide={(item, index) => (
                   <div key={index} className='cart-latest-product-cards-container'>
                     <ProductCardTwo
                       key={index}
@@ -468,13 +354,22 @@ const Cart = () => {
                       handleWishListclick={() => handleWishList(item)}
                     />
                   </div>
-                ))
-              ) : (
-                Array.from({ length: 4 }).map((_, index) => (
+                )}
+                showDots={true}
+                showArrows={false}
+                spaceBetween={15}
+                breakpoints={{
+                  0: { slidesPerView: 1 },
+                  768: { slidesPerView: 4 },
+                }}
+              />
+            ) : (
+              <div style={{ display: 'flex', width: '100%', gap: '15px' }}>
+                {Array.from({ length: 4 }).map((_, index) => (
                   <ProductCardShimmer width={'100%'} />
-                ))
-              )}
-            </Slider> */}
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -508,6 +403,13 @@ const Cart = () => {
         handleOpenSnakeBar={handleOpenSnakeBar}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
+      />
+
+      <LocationPopUp
+        searchLocation={searchLocation}
+        handleCloseSearch={handleCloseSearch}
+        setLocationDetails={setLocationDetails}
+        locationDetails={locationDetails}
       />
     </div>
   )

@@ -41,7 +41,7 @@ function FinanceBannerSlider({ images }) {
                 showDots={false}
                 showArrows={false}
                 spaceBetween={20}
-                autoplay={true}
+                autoplay={false}
                 loop={true}
                 delayTime={3000}
                 slidesPerView={1}

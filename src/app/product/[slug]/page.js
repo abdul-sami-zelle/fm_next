@@ -10,10 +10,8 @@ import ProductRecommendationTab from '@/UI/Components/Product-Display-Components
 import ProductReviewTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
 // import { useLocation, useParams } from 'react-router-dom';
 
-import axios from 'axios';
 import { url } from '../../../utils/api';
 import { useCart } from '@/context/cartContext/cartContext';
-import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 // import { useParams, useSearchParams } from 'next/navigation';
@@ -21,7 +19,6 @@ import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
-import DesignRoom from '@/UI/Modals/DesignYourRoomModal/Pages/DesignRoom/DesignRoom';
 import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 
 const ProductDisplay = ({ params }) => {
@@ -31,6 +28,24 @@ const ProductDisplay = ({ params }) => {
 
   const [product, setProduct] = useState(singleProductData || null);
   const [showDesignRoomModal, setShowDwsignRoomModal] = useState(false);
+  const [productDetails, setProductDetails] = useState({})
+  const [isSticky, setIsSticky] = useState(false)
+  const [singleProductCount, setSingleProductCount] = useState(0);
+  const [variationData, setVariationData] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [isProtectionCheck, setIsProtectionCheck] = useState(true)
+  const [quantity, setQuantity] = useState(1)
+  const [zoomIn, setZoomIn] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0); // For main slider image
+  const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
+  const thumbnailContainerRef = useRef(null); // To control the vertical scroll
+  const [dimensionModal, setDimensionModal] = useState(false)
+  const [clickedType, setClickedType] = useState('')
+  const [galleryModalWidth, setGalleryModalWidth] = useState(false);
+  const [steperIndex, setSteperIndex] = useState(0);
+  const [recomandedProducts, setRecomandedProducts] = useState([])
+  const [recomandationCount, setRecomandationCount] = useState(0)
 
   const showDRM = () => {
     setShowDwsignRoomModal(true)
@@ -40,7 +55,6 @@ const ProductDisplay = ({ params }) => {
     setShowDwsignRoomModal(false)
   }
 
-  const [productDetails, setProductDetails] = useState({})
   useEffect(() => {
     setProductDetails({
       collection: product?.collectionName ? product?.collectionName : '-',
@@ -54,12 +68,7 @@ const ProductDisplay = ({ params }) => {
     })
   }, [product])
 
-
-  const [isSticky, setIsSticky] = useState(false)
-
   const singleProductApi = slug ? `${url}/api/v1/products/get-by-slug/${slug}` : null;
-  const [singleProductCount, setSingleProductCount] = useState(0);
-
   const { data: singleProductContent, error: singleProductError, isLoading: singleProductLoading } = useSWR(singleProductApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -98,13 +107,6 @@ const ProductDisplay = ({ params }) => {
     isCartLoading
   } = useCart();
 
-  const [variationData, setVariationData] = useState([])
-  const [isLoading, setIsLoading] = useState(false);
-  const [isProtectionCheck, setIsProtectionCheck] = useState(true)
-  const [quantity, setQuantity] = useState(1)
-  const [zoomIn, setZoomIn] = useState(false);
-
-
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
   }
@@ -128,7 +130,6 @@ const ProductDisplay = ({ params }) => {
 
   const handleAddToCartProduct = (product) => {
     setCartSection(true);
-    // addToCart(product, quantity, !isProtectionCheck);
   }
 
   const handleCartClose = () => {
@@ -138,19 +139,9 @@ const ProductDisplay = ({ params }) => {
   }
 
   // Gallery Modal
-
   const {
     selectedVariationData
   } = useProductPage();
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(0); // For main slider image
-  const [thumbActiveIndex, setThumbActiveIndex] = useState(0); // For active thumbnail
-  const thumbnailContainerRef = useRef(null); // To control the vertical scroll
-  const [dimensionModal, setDimensionModal] = useState(false)
-  const [clickedType, setClickedType] = useState('')
-  const [galleryModalWidth, setGalleryModalWidth] = useState(false);
-  const [steperIndex, setSteperIndex] = useState(0);
 
   const handleOpenModal = (place, type) => {
     setZoomIn(false);
@@ -274,10 +265,7 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal])
 
-  const [recomandedProducts, setRecomandedProducts] = useState([])
   const recomandationApi = product ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
-  const [recomandationCount, setRecomandationCount] = useState(0)
-
   const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -310,7 +298,7 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal]);
 
-
+  const isDesignRoomActive = product?.dyrc?.active === 1;
 
   return (
     <div>
@@ -363,7 +351,44 @@ const ProductDisplay = ({ params }) => {
         />
 
         <div className='sticky-section-steper-main-container'>
-          {steperIndex === 0 ? (
+
+
+          {isDesignRoomActive && steperIndex === 0 ? (
+            // Design Your Room at index 0
+            <div className="design-room-transition show-design-room-view">
+              <DesignYourRoomIndv
+                designRef={sectionRefs.DesignYourRoom}
+                openFN={showDRM}
+                image={
+                  product?.images?.length > 1
+                    ? product?.images[1]?.image_url
+                    : product?.image?.image_url
+                }
+              />
+            </div>
+          ) : (!isDesignRoomActive && steperIndex === 0) || (isDesignRoomActive && steperIndex === 1) ? (
+            // Description becomes index 0 if DesignRoom is inactive, otherwise index 1
+            <div className="steper-description-tranition show-description-transition">
+              <ProductDescriptionTab
+                descriptionRef={sectionRefs.Description}
+                productData={product}
+                addMarginTop={isSticky}
+              />
+            </div>
+          ) : (
+            // Details becomes index 1 if DesignRoom is inactive, otherwise index 2
+            <div className="steper-details-tranition show-details-transition">
+              <ProductDetailTab
+                detailsRef={sectionRefs.Details}
+                productData={product}
+                productDetails={productDetails}
+              />
+            </div>
+          )}
+
+
+
+          {/* {steperIndex === 0 ? (
             <div className={`design-room-transition ${steperIndex === 0 ? 'show-design-room-view' : ''}`}>
               {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />}
             </div>
@@ -383,7 +408,7 @@ const ProductDisplay = ({ params }) => {
                 productDetails={productDetails}
               />
             </div>
-          )}
+          )} */}
         </div>
 
         {/* {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />} */}

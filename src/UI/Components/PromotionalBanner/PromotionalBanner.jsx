@@ -13,6 +13,7 @@ import { url, useDisableBodyScroll } from '../../../utils/api';
 // import crossButton from '../../../Assets/icons/close-btn.png'
 import crossButton from '../../../Assets/icons/close-btn.png'
 import Image from 'next/image';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 
 const PromotionalBanner = (
@@ -39,6 +40,7 @@ const PromotionalBanner = (
   // const { setMainLoader } = useGlobalContext();
   const { setUserToken, setSigninClicked } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
+  const {info } = useGlobalContext()
 
   const handleClickOnOrders = async () => {
     if(typeof window !== "undefined") {
@@ -153,7 +155,7 @@ const PromotionalBanner = (
         <img src={'/Assets/icon/location-outlined.svg'} alt="delivery" />
         <div className='mobile-view-delever-to'>
           <p>Deliver to : </p>
-          <Link href={'#'}> PA 19134</Link>
+          <Link href={'#'}> {info.locationData.zipCode} {info.locationData.stateCode}</Link>
         </div>
       </div>
 

@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './GalleryModal.css';
-
 import { RxCross2 } from "react-icons/rx";
 import { url } from '../../../../utils/api';
-
-// Swiper imports
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import { IoIosClose } from 'react-icons/io';
 
 const GalleryModal = ({
   dimensionModal,
@@ -24,10 +18,11 @@ const GalleryModal = ({
   galleryModalWidth
 }) => {
 
-  console.log("clocked type info", clickedType)
   const swiperRef = useRef();
 
+
   const hasDimensionImage = productData?.dimension_image?.image_url?.trim();
+
 
   const updatedVariationImages = hasDimensionImage
     ? [
@@ -45,31 +40,40 @@ const GalleryModal = ({
   const variationImagesWithoutDimenssion = [...(variationData?.images || [])]
   const simpleImagesWithoutDimenssion = [...(productData?.images || [])]
 
-  console.log("updated variation array", updatedVariationImages)
-
   const updatedSimpleImages = hasDimensionImage
-    ? [{ image_url: productData?.dimension_image?.image_url }, ...productData?.images]
+    ? [...productData?.images, { image_url: productData?.dimension_image?.image_url }]
     : productData?.images;
 
-  console.log("updated simple images array", updatedSimpleImages)
+  const withDimensionImages = productData?.type === 'variable' ? updatedVariationImages : updatedSimpleImages;
+  const withoutDimensionImages = productData.type === 'variable' ? variationImagesWithoutDimenssion : simpleImagesWithoutDimenssion
 
-  const images = clickedType === 'dimenssion-show' ? productData?.type === 'variable' ? updatedVariationImages : updatedSimpleImages : productData?.type === 'variable' ? variationImagesWithoutDimenssion : simpleImagesWithoutDimenssion;
+  const images = clickedType === 'dimenssion-show' ? withDimensionImages : withoutDimensionImages
 
   const onThumbnailClick = (index) => {
     swiperRef.current?.slideTo(index);
   };
 
-
+  const lastIndex = images?.length - 1
   useEffect(() => {
     if (dimensionModal && swiperRef.current) {
-      swiperRef.current.slideTo(0);         // Reset Swiper to first slide
-      setActiveIndex(0);                    // Reset state
-      handleThumbnailClick(0);              // Highlight first thumbnail
+      const startIndex = clickedType === 'dimenssion-show' ? lastIndex : 0;
+
+      swiperRef.current.slideTo(startIndex);
+      setActiveIndex(startIndex);
+      // handleThumbnailClick(startIndex)
+      setTimeout(() => {
+        handleThumbnailClick(startIndex);
+      }, 0);
     }
-  }, [dimensionModal]);
+  }, [dimensionModal, clickedType])
 
-
-
+  // useEffect(() => {
+  //   if (dimensionModal && swiperRef.current) {
+  //     swiperRef.current.slideTo(0);         // Reset Swiper to first slide
+  //     setActiveIndex(0);                    // Reset state
+  //     handleThumbnailClick(0);              // Highlight first thumbnail
+  //   }
+  // }, [dimensionModal]);
 
   function ImageZoomOnHover({ src, zoom = 3 }) {
     const [position, setPosition] = useState({ x: 50, y: 50 });
@@ -112,7 +116,7 @@ const GalleryModal = ({
     <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
       <div className={`dimension-modal-inner-container ${galleryModalWidth ? 'show-modal-full-width' : ''}`}>
         <button className='dimension-modal-close-button' onClick={handleCloseDimensionModal}>
-          <RxCross2 size={25} color='var(--secondary-color)' />
+          <IoIosClose size={25} color='var(--secondary-color)' />
         </button>
 
         {/* Thumbnail Section */}
@@ -138,7 +142,6 @@ const GalleryModal = ({
 
         {/* Swiper Slider Section */}
         <div className='dimension-modal-slider'>
-
           <SwiperSlider
             slidesData={images}
             renderSlide={(img, index) => (
@@ -154,12 +157,10 @@ const GalleryModal = ({
                 )}
               </div>
             )}
-
             showDots={true}
             showArrows={false}
             slidesPerView={1}
             spaceBetween={0}
-
             externalActiveIndex={activeIndex}
             onSlideChangeIndex={(index) => {
               setActiveIndex(index);
@@ -168,59 +169,6 @@ const GalleryModal = ({
             }}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
           />
-
-          {/* <SwiperSlider
-            slidesData={images}
-            renderSlide={(img, index) => (
-              <div key={index} className='dimension-modal-slider-single-image-container'>
-                {galleryModalWidth ? (
-                  <ImageZoomOnHover src={`${url}${img.image_url}`} zoom={3} />
-                ) : (
-                  <img
-                    src={`${url}${img.image_url}`}
-                    alt='slide'
-                    className='dimension-modal-slider-image'
-                  />
-                )}
-              </div>
-            )}
-            showDots={true}
-            showArrows={false}
-            spaceBetween={0}
-            slidesPerView={1}
-            breakpoints={{
-              0: { slidesPerView: 1 },
-              768: { slidesPerView: 1 },
-            }}
-          /> */}
-
-
-          {/* <Swiper
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-            onSlideChange={(swiper) => {
-              setActiveIndex(swiper.activeIndex);
-              handleThumbnailClick(swiper.activeIndex); // keeps thumb in sync
-            }}
-            pagination={{ dynamicBullets: true, clickable: true, dynamicMainBullets: 5, }}
-            modules={[Pagination]}
-            className='dimension-modal-main-slider-section'
-          >
-            {images?.map((img, index) => (
-              <SwiperSlide key={index}>
-                <div className='dimension-modal-slider-single-image-container'>
-                  {galleryModalWidth ? (
-                    <ImageZoomOnHover src={`${url}${img.image_url}`} zoom={3} />
-                  ) : (
-                    <img
-                      src={`${url}${img.image_url}`}
-                      alt='slide'
-                      className='dimension-modal-slider-image'
-                    />
-                  )}
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper> */}
         </div>
       </div>
     </div>
@@ -228,4 +176,3 @@ const GalleryModal = ({
 };
 
 export default GalleryModal;
-

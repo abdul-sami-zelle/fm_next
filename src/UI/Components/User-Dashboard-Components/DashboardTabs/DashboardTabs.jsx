@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './DashboardTabs.css';
 import DashTab from '../DashTab/DashTab';
 import OrdersTab from '../OrderTab/OrdersTab';
-import DownloadsTab from '../DownloadsTab/DownloadsTab';
 import AddressesTab from '../AddressesTab/AddressesTab';
-import PaymentMethodTab from '../PaymentMethodTab/PaymentMethodTab';
 import AccountDetailsTab from '../AccountDetailsTab/AccountDetailsTab';
 import Loader from '../../Loader/Loader';
 import { url } from '../../../../utils/api';

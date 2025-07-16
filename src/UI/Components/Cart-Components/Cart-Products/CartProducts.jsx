@@ -17,7 +17,7 @@ import { BsShop } from "react-icons/bs";
 import Image from 'next/image';
 
 
-const CartProducts = () => {
+const CartProducts = ({handleLocationModal}) => {
 
     const {
         cart,
@@ -39,6 +39,7 @@ const CartProducts = () => {
         selectedOption,
         handleChange,
         selectedShippingMethods,
+        info
     } = useGlobalContext();
 
 
@@ -50,20 +51,10 @@ const CartProducts = () => {
         }
     }, [cartProducts])
 
-
-
-    const [locationDetails, setLocationDetails] = useState({
-        zipCode: '',
-        city: '',
-        state: '',
-        country: ''
-    });
-
     calculateTotalPrice(cart)
 
     const [isOpen, setIsOpen] = useState(false);
     const [checkoutFixed, setCheckoutFixed] = useState(true);
-    const [searchLocation, setSearchLocation] = useState(false);
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
@@ -87,13 +78,6 @@ const CartProducts = () => {
 
     const [issingleProtected, setIsSingleProtected] = useState(false);
 
-    const handleLocationModal = () => {
-        setSearchLocation(true)
-    }
-    const handleCloseSearch = () => {
-        setSearchLocation(false)
-    }
-
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState()
     const handleShowSnakeToust = (name) => {
@@ -104,8 +88,6 @@ const CartProducts = () => {
     const handleCloseSnakeBar = () => {
         setShowSnakeBar(false)
     }
-
-
 
     return (
         <>
@@ -120,14 +102,14 @@ const CartProducts = () => {
                 <div className='zipcode-and-protection-plan-container'>
                     <span className='update-zip-code-on-cart-page'>
                         <IoLocationOutline size={15} />
-                        <p className='update-zip-on-cart-details'>Product Availability And Delivery Options For 19134</p>
+                        <p className='update-zip-on-cart-details'>Product Availability And Delivery Options For {info.locationData.zipCode} {info.locationData.stateCode}</p>
                         <p className='update-zip-on-cart-update-location' onClick={handleLocationModal}>Change Location</p>
                     </span>
 
                     <div className='mobile-view-update-zip-on-cart-page'>
                         <span>
                             <IoLocationOutline size={20} color='var(--secondary-color)' />
-                            <p>Product availability and delivery options for 19134</p>
+                            <p>Product availability and delivery options for {info.locationData.zipCode} {info.locationData.stateCode}</p>
                         </span>
                         <p onClick={handleLocationModal}> Change Location </p>
                     </div>
@@ -162,7 +144,7 @@ const CartProducts = () => {
                                 
                                 <div className='cart-protection-plan-details-container'>
                                     <p className='cart-protection-plan-card-header'>Professional Assembly (+ $199)</p>
-                                    <p className='cart-protection-plan-cart-desc'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
+                                    <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
                                 </div>
                                 <div className='cart-protection-checkbox-container'>
                                     <input
@@ -223,7 +205,8 @@ const CartProducts = () => {
                                 ))}
                         
                         </div>
-                        {selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
+                        {isProfessionalAssembly ? <p className='delivery-promotion'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
+                        {/* {selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>} */}
                     </div>
                     {cartProducts.products?.length <= 0 && <EmptyCart />}
                     {cartProducts && cartProducts?.products?.map((items, index) => {
@@ -264,6 +247,52 @@ const CartProducts = () => {
                     </div>}
                 </div>
                 <div className='mobile-cart-items'>
+
+                        <div className='cart-container-shipping-details'>
+                        <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
+                        <div className='cart-protect-or-not-container'>
+                            {selectedShippingMethods &&
+                                selectedShippingMethods?.map((option, index) => (
+                                    <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
+                                        {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+                                        
+                                        <div className='cart-protection-plan-details-container'>
+                                            <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                        </div>
+                                        <div className='cart-protection-radio-container'>
+                                            <label
+                                                key={option.id}
+                                                className="custom-radio"
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "flex-start",
+                                                    flexDirection: "row",
+                                                    justifyContent: "flex-start",
+                                                    // margin: "5px 0",
+                                                    gap: "10px",
+                                                }}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="options"
+                                                    value={option.id}
+                                                    checked={selectedOption?.id === option.id}
+                                                    readOnly
+                                                    onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+                                                    
+                                                />
+                                                <span className="radio-mark" />
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                ))}
+                        
+                        </div>
+                        {selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
+                    </div>
+
                     {cartProducts.products?.length <= 0 && <EmptyCart />}
                     {cartProducts && cartProducts?.products?.map((items, index) => (
                         <MobileCart
@@ -304,12 +333,12 @@ const CartProducts = () => {
                     handleToggle={handleToggle}
                 />
 
-                <LocationPopUp
+                {/* <LocationPopUp
                     searchLocation={searchLocation}
                     handleCloseSearch={handleCloseSearch}
                     setLocationDetails={setLocationDetails}
                     locationDetails={locationDetails}
-                />
+                /> */}
                 <SnakBar
                     message={snakeBarMessage}
                     openSnakeBarProp={showSnakeBar}

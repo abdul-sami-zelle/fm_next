@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import './TrendingNow.css';
 import { url } from '../../../utils/api';
 import TrandingNowShmmer from './TrandingNowShimmer/TrandingNowShmmer';
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BiSolidShoppingBag } from "react-icons/bi";
@@ -14,36 +9,21 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 
 const TrendingNow = ({ data }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    // const [currentIndex, setCurrentIndex] = useState(0);
 
-    useEffect(() => {
-        if (data && data?.sliders) {
-            const interval = setInterval(() => {
-                setCurrentIndex(prevIndex => (prevIndex + 1) % data?.sliders.length);
-            }, 3000);
+    // useEffect(() => {
+    //     if (data && data?.sliders) {
+    //         const interval = setInterval(() => {
+    //             setCurrentIndex(prevIndex => (prevIndex + 1) % data?.sliders.length);
+    //         }, 3000);
 
-            return () => clearInterval(interval);
-        }
-    }, [data]);
+    //         return () => clearInterval(interval);
+    //     }
+    // }, [data]);
 
     const productArray = data ? Object.keys(data)
         .filter(key => key.startsWith('product_'))
         .map(key => data[key]) : [];
-
-    const settings = {
-        infinite: true,
-        speed: 1000,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        draggable: true,
-        arrows: false,
-        dots: false,
-        pauseOnHover: false,
-    };
-
-
 
     return (
         <>
@@ -76,21 +56,6 @@ const TrendingNow = ({ data }) => {
                                     autoplay={true}
                                     slidesPerView={1}
                                 />
-
-                                {/* <Slider {...settings}>
-                                    {data?.sliders.map((image, index) => (
-                                        <Link href={`/product/${image.link_url}`} className="trending-slide" key={index}>
-                                            <Image
-                                                src={`${url}${image.image_url}`}
-                                                width={1160}
-                                                height={730}
-                                                alt={`Slide ${index + 1}`}
-                                            />
-
-
-                                        </Link>
-                                    ))}
-                                </Slider> */}
                                 <div className='tranding-cart-overlay-main-container'>
                                     <div className='tranding-card-bag-container'>
                                         <BiSolidShoppingBag size={30} className='tranding-now-cart-bag' />

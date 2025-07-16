@@ -27,18 +27,35 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
   useEffect(() => { fetchReviews(productData?.uid) }, [])
 
 
+  // const dimensionCards = [
+  //   { icon: <RxDimensions size={25} />, title: 'Dimensions' },
+  //   { icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' },
+  //   ...(customerPhotos?.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
+  //   { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} />, title: 'Zoom' },
+  // ]
+
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },
-    { icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' },
-    ...(customerPhotos?.length > 0 ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }] : []),
-    { icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} />, title: 'Zoom' },
-  ]
 
-  
+    ...(productData?.dyrc?.active === 1
+      ? [{ icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' }]
+      : []),
+
+    ...(customerPhotos?.length > 0
+      ? [{ icon: <FaRegImage size={25} />, title: 'Customer Photos' }]
+      : []),
+
+    {
+      icon: zoomIn ? <AiOutlineZoomOut size={25} /> : <AiOutlineZoomIn size={25} />,
+      title: 'Zoom',
+    },
+  ];
+
+
 
   const [dimensionIndex, setDimensionIndex] = useState(null)
 
-  
+
 
   const handleDimensionSelect = (item, index) => {
     setDimensionIndex((prevIndex) => prevIndex === index ? null : index)
@@ -54,20 +71,22 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
 
   useEffect(() => {
     // setDimensionIndex((prevIndex) => prevIndex === dimensionIndex ? null : dimensionIndex)
-    if(slideIndex === null) {
+    if (slideIndex === null) {
       setDimensionIndex(null)
-    } else if(dimensionModal === false) {
+    } else if (dimensionModal === false) {
       setDimensionIndex(null)
-    } else if(showDesignRoomModal === false) {
+    } else if (showDesignRoomModal === false) {
       setDimensionIndex(null)
     }
   }, [slideIndex, dimensionModal, showDesignRoomModal])
 
-  
+  console.log("product data", productData)
+
+
 
   return (
     <>
-      <div className='dimension-main-container'>
+      <div className={`dimension-main-container ${productData?.dyrc?.active === 1 ? 'dimension-3-column-container' : ''}`}>
         {dimensionCards.map((item, index) => (
           <div
             key={index}
@@ -87,7 +106,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
               <p className='dimensions-detail-button-title'>Dimensions</p>
             </div>
 
-            
+
 
             <div className='mobile-view-dimension-main' onClick={handleZoom}>
               {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
@@ -97,9 +116,9 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
           </div>
 
           <div className='mobile-view-dimension-main' onClick={showDrm}>
-              <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
-              <p className='dimensions-detail-button-title'>Design Your Room</p>
-            </div>
+            <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
+            <p className='dimensions-detail-button-title'>Design Your Room</p>
+          </div>
 
         </div>
 

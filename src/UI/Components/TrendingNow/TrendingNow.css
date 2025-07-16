@@ -406,6 +406,7 @@
 
     .trending-slide {
         height: 173px;
+        width: 100%;
     }
 
     .trending-slide img {

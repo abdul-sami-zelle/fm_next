@@ -347,6 +347,7 @@ export const MyOrdersProvider = ({ children }) => {
                     tax: selectedOption?.tax || "0",
                     cost: selectedOption?.cost || "0"
                 },
+                customer_id:localStorage?.getItem('uuid')
             };
 
             const api = `/api/v1/orders/add`;

@@ -63,6 +63,11 @@
     font-weight: 600;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .table-action-buttons{
     display: flex;
     width: 100%;

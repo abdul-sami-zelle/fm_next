@@ -22,13 +22,20 @@ const ProductStickyTabBar = (
     }) => {
 
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
-    const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
+    // const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
+
+    const tabBarItems = [
+        ...(productData?.dyrc?.active === 1 ? ['DesignYourRoom'] : []),
+        'Description',
+        'Details'
+    ];
+
     const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
     // const [isSticky, setIsSticky] = useState(false);
 
     const { info, fetchAllstores } = useGlobalContext();
- 
+
     useEffect(() => {
         const handleScroll = () => {
             const container = document.querySelector('.product-sticky-tab-bar-main-container');
@@ -103,29 +110,29 @@ const ProductStickyTabBar = (
         city: '',
         state: '',
         country: ''
-      });
+    });
 
     const handleSearchModal = () => {
-    setSearchLocation(true)
-  }
+        setSearchLocation(true)
+    }
 
-  const handleCloseSearch = () => {
-    setSearchLocation(false)
-  }
+    const handleCloseSearch = () => {
+        setSearchLocation(false)
+    }
 
-  const getDeliveryDate = () => {
-    const options = {weekday: "long", month: "long", day: "numeric"};
-    const today = new Date();
+    const getDeliveryDate = () => {
+        const options = { weekday: "long", month: "long", day: "numeric" };
+        const today = new Date();
 
-    const optionWithTimeZone = {...options, timeZone: "America/New_York"};
+        const optionWithTimeZone = { ...options, timeZone: "America/New_York" };
 
-    today.setDate(today.getDate() + 5);
-    return today.toLocaleDateString("en-us", optionWithTimeZone)
-  }
+        today.setDate(today.getDate() + 5);
+        return today.toLocaleDateString("en-us", optionWithTimeZone)
+    }
 
-  const handleStepperIndex = (index) => {
-    setSteperIndex(index);
-  }
+    const handleStepperIndex = (index) => {
+        setSteperIndex(index);
+    }
 
     return (
         <>
@@ -169,7 +176,7 @@ const ProductStickyTabBar = (
                         </div>
                     </div>
 
-                    
+
 
 
                     {/* <div className='product-sticky-fixed-tabs-container'>

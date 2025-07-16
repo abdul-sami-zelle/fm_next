@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 const OrdersTab = ({ data }) => {
 
+  
 
   const dataPerPage = 10;
   const [currentTableDataIndex, setCurrentTableDataIndex] = useState(0);
@@ -31,11 +32,11 @@ const OrdersTab = ({ data }) => {
         date: item.date,
         status: item?.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1).toLowerCase() : '',
         total: `$${item.total} for ${item.items} items`,
+        order_id: item?.order_id
       }))
     }
   ]
 
-  console.log("order details", ordersData)
 
   const totalItems = ordersData[0]?.tableBody.length || 0;
   const totalPages = Math.ceil(totalItems / dataPerPage);
@@ -75,9 +76,12 @@ const OrdersTab = ({ data }) => {
   // View Modal
   const [viewProductModal, setViewProductModal] = useState(false)
   const [selectedProductData, setSelectedProductData] = useState([])
+  const [orderID, setOrderId] = useState('')
   const handleViewProductData = (data) => {
+    console.log("product ID", data)
     setViewProductModal(true);
     setSelectedProductData(data);
+    setOrderId(data.order_id);
   }
 
   useEffect(() => {
@@ -91,20 +95,6 @@ const OrdersTab = ({ data }) => {
   const handleTrackOrder = () => {
     window.open('https://track.myfurnituremecca.com/', '_blank');
   }
-
-
-  // function formatToNZTime(isoString) {
-  //   const date = new Date(isoString);
-  //   return new Intl.DateTimeFormat('en-NZ', {
-  //     timeZone: 'Pacific/Auckland',
-  //     day: '2-digit',
-  //     month: '2-digit',
-  //     year: 'numeric',
-  //     hour: '2-digit',
-  //     minute: '2-digit',
-  //     hour12: true
-  //   }).format(date);
-  // }
 
   function formatToUSTime(isoString) {
     const date = new Date(isoString);
@@ -165,6 +155,7 @@ const OrdersTab = ({ data }) => {
       <OrderViewModal
         viewModal={viewProductModal}
         setViewModal={setViewProductModal}
+        orderId={orderID}
       />
     </div>
   )

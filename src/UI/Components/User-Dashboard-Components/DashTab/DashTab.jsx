@@ -59,9 +59,9 @@ const DashTab = ({ data }) => {
 
       </div>
       <div className='upper_tabs'>
-        <DashboardTab name={"Total Orders"} thunder={'var(--orange-fill)'} value={data?.summary?.totalOrders} unit={"Order"} slug={"total-orders"} />
-        <DashboardTab name={"Processing Orders"} thunder={'white'} value={data?.summary?.totalProcessingOrders} unit={"Order"} slug={"total-orders"} style_name={"white"} />
-        <DashboardTab name={"Wishlist Items"} thunder={'white'} value={data?.summary?.totalWishlists} unit={"Items"} slug={"total-orders"} style_name={"white"}/>
+        <DashboardTab name={"Total Orders"} thunder={'var(--orange-fill)'} value={data?.summary?.totalOrders} unit={data?.summary?.totalOrders > 1 ? "Orders" : "Order"} slug={"total-orders"} />
+        <DashboardTab name={"Processing Orders"} thunder={'white'} value={data?.summary?.totalProcessingOrders} unit={data?.summary?.totalProcessingOrders > 1 ? "Orders" : "Order"} slug={"total-orders"} style_name={"white"} />
+        <DashboardTab name={"Wishlist Items"} thunder={'white'} value={data?.summary?.totalWishlists} unit={data?.summary?.totalWishlists > 1 ? "Items" : "Item"} slug={"total-orders"} style_name={"white"}/>
       </div>
 
       <div className="lower_charts">

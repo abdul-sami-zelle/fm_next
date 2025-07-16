@@ -23,7 +23,7 @@
 .account-detail-user-profile{
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 25%;
     gap: 15px;
     align-items: center;
     justify-content: start;
@@ -70,7 +70,7 @@
 .account-details-user-info{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 75%;
     gap: 15px;
     align-items: start;
     justify-content: start;
