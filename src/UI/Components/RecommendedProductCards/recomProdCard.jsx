@@ -39,6 +39,8 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
         setCardHovered(false);
     }
 
+    const stockCheck = singleProductData?.type === 'variable' ?  '' : singleProductData?.manage_stock?.stock_status === 'inStock' && singleProductData?.manage_stock?.quantity === 0 || singleProductData?.manage_stock?.stock_status === 'outStock';
+
     return (
         <div className="recommendedProductCard">
             {parentProduct && (<div className="rpc_header_top_space"><p>Current Product</p></div>)}
@@ -96,7 +98,7 @@ export default function RecomProductCard({ handleQuickView, slug, singleProductD
                         <h2 className={singleProductData?.sale_price === "" ? "rpc_price" : "rpc_price sale"}>
                             ${singleProductData?.sale_price === "" ? singleProductData?.regular_price : singleProductData?.sale_price}
                         </h2>
-                        <button className={`rpc_recomanded_quick_view_button ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={() => {
+                        <button disabled={stockCheck} className={`rpc_recomanded_quick_view_button ${stockCheck ? 'disable-recomandation-add-to-cart' : ''} ${parentProduct ? 'hide_recomanded_quick_view_button' : ''}`} onClick={() => {
 
                             const isSimple = mainProduct.type === "simple";
                             const productUid = isSimple ? mainProduct.uid : mainProduct?.uid;

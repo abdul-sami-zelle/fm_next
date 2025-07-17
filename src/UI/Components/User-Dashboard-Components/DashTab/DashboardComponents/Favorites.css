@@ -35,3 +35,14 @@
     font-weight: 500;
     color: #595959;
 }
+
+@media only screen and (max-width: 480px) {
+    .favorites-main-container {
+        padding: 10px;
+        margin: 0 !important;
+    }
+
+    .favorites-cards-container {
+        grid-template-columns: auto;
+    }
+}

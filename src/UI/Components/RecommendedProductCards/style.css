@@ -234,6 +234,11 @@
   display: none;
 }
 
+.rpc_recomanded_quick_view_button.disable-recomandation-add-to-cart {
+  opacity: 0.4 !important;
+  cursor: not-allowed;
+}
+
 
 
 .shimmer {

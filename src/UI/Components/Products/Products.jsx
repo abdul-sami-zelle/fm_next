@@ -33,8 +33,6 @@ import SectionLoader from '../Loader/SectionLoader';
 import Image from 'next/image';
 import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import useSWR from 'swr';
-import { fetcher } from '@/utils/Fetcher';
 
 const Products = ({ navigationType }) => {
 
@@ -68,12 +66,7 @@ const Products = ({ navigationType }) => {
         setSelectedRelevanceValue,
     } = useProductArchive()
 
-    useEffect(() => {
-        if (navigationType !== 'POP' || products.length > 0) {
-            setActivePage(1);
-            setActivePageIndex(1);
-        }
-    }, [navigationType])
+    
 
 
     const slug = useParams();
@@ -81,7 +74,7 @@ const Products = ({ navigationType }) => {
 
     // const location = useLocation();
     const location = useSearchParams();
-    const params = new URLSearchParams(location.search);
+    // const params = new URLSearchParams(location.search);
 
     const pathname = usePathname()
 
@@ -99,14 +92,25 @@ const Products = ({ navigationType }) => {
     const [noProducts, setNoProducts] = useState();
     const [filtereState, setFilterState] = useState(false);
     const [clearFilters, setClearFilters] = useState(true);
-
-    // Path Extractor
     const pathSegments = pathname?.split('/').filter(Boolean)
     const currentRoute = pathSegments[pathSegments?.length - 1];
-
-    // Filters Section
     const [isOpen, setIsOpen] = useState('color-filter');
     const [ratingOpen, setRatingOpen] = useState(false);
+    const [ratingValue, setRatingValue] = useState([]);
+    const [isLocationCheck, setIsLocationCheck] = useState(false);
+    const [isDeliveryCheck, setIsDeliveryCheck] = useState(false);
+     const { addToList, removeFromList, isInWishList } = useList()
+    const [wishlistMessage, setWishlistMessage] = useState('')
+    const [openSnakeBar, setOpenSnakeBar] = useState(false);
+    const [userId, setUserId] = useState('');
+    const [userToken, setUserToken] = useState('');
+    const [selectedGrid, setSelectedGrid] = useState('single-col')
+    const [activeGrid, setActiveGrid] = useState('single-col')
+    const [showSortModal, setShowSortModal] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('')
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+     const router = useRouter()
 
     // Sub Categories show
     const categorySlug = useParams();
@@ -129,17 +133,10 @@ const Products = ({ navigationType }) => {
         }
     }
 
-    useEffect(() => { getSubCategories() }, [])
-    useEffect(() => {
-        getSubCategories()
-    }, [subCategorySlug])
-
-    // Hide and Show Filter section
     const handleFilterSection = () => {
         setHideFilters(!hideFilters)
     }
 
-    // Fetch Filters
     const fetchFilters = async () => {
         const api = `/api/v1/products/by-category/filters?categorySlug=${subCategorySlug}`
         try {
@@ -157,18 +154,12 @@ const Products = ({ navigationType }) => {
         }
     }
 
-    // Filters Functions
-
     const handleColorFilterOpenClose = (type) => {
         setIsOpen((prevOpen) => prevOpen === type ? '' : type)
         setRatingOpen((prevOpen) => prevOpen === type ? '' : type)
     }
 
-    const router = useRouter()
-
-
     const handleRangeChange = (newRange) => {
-        console.log("new range", newRange)
         const params = new URLSearchParams(window.location.search);
         if (newRange[0] !== priceRange[0] || newRange[1] !== priceRange[1]) {
             setPriceRange(newRange);
@@ -183,12 +174,9 @@ const Products = ({ navigationType }) => {
 
         router.push(`?${priceString}`);
         filterProducts(priceString)
-
     }
 
-
     const handleColorCheck = (value) => {
-        console.log("color value", value)
         const params = new URLSearchParams(window.location.search);
         const updatedColorValue = colorValue?.includes(value) ? [] : [value];
 
@@ -217,10 +205,7 @@ const Products = ({ navigationType }) => {
         filterProducts(queryString);
     };
 
-
-    const [ratingValue, setRatingValue] = useState([]);
     const handleRatingFilter = (value) => {
-        console.log("new rating value", value);
         const params = new URLSearchParams(window.location.search);
         const updatedRating = ratingValue.includes(value) ? [] : [value]
 
@@ -256,8 +241,6 @@ const Products = ({ navigationType }) => {
         setActivePageIndex(1);
         const pathname = window.location.pathname;
         router.replace(pathname, { shallow: true });
-
-
     }
 
     const filterProducts = async (filter) => {
@@ -321,8 +304,6 @@ const Products = ({ navigationType }) => {
         return today.toLocaleDateString("en-us", optionWithTimeZone);
     }
 
-    const [isLocationCheck, setIsLocationCheck] = useState(false);
-    const [isDeliveryCheck, setIsDeliveryCheck] = useState(false)
     const handleLocationToggler = (e) => {
         setIsLocationCheck(e.target.checked);
     }
@@ -405,15 +386,6 @@ const Products = ({ navigationType }) => {
         }
     };
 
-    useEffect(() => {
-        // if (navigationType !== 'POP' || !products?.length > 0) {
-        fetchProductData()
-        // }
-    }, [location.pathname, query])
-    // useEffect(() => {fetchProductData()}, [query])
-
-    // Product Click Functions 
-
     const handleCartSectionClose = () => {
         setAddToCartClicked(false)
     }
@@ -428,23 +400,6 @@ const Products = ({ navigationType }) => {
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`);
     };
-
-
-    // wish list Add And Remove Functionality
-    const { addToList, removeFromList, isInWishList } = useList()
-    const [wishlistMessage, setWishlistMessage] = useState('')
-    const [openSnakeBar, setOpenSnakeBar] = useState(false);
-
-    const [userId, setUserId] = useState('');
-    const [userToken, setUserToken] = useState('');
-    useEffect(() => {
-        const userId = localStorage.getItem('uuid');
-        const getToken = localStorage.getItem('userToken');
-        if (getToken && userId) {
-            setUserToken(getToken)
-            setUserId(userId)
-        }
-    }, [])
 
     const handleWishList = async (item) => {
 
@@ -477,8 +432,6 @@ const Products = ({ navigationType }) => {
     const handleCloseSnakeBar = () => {
         setOpenSnakeBar(false)
     }
-
-    // Pagination Click Functions
 
     const pageCache = useRef({})
 
@@ -569,6 +522,62 @@ const Products = ({ navigationType }) => {
         }
     };
 
+
+    const handleActiveGrid = (grid) => {
+        setActiveGrid(grid);
+        setSelectedGrid(grid)
+    }
+
+    const handleMobileFilters = () => {
+        setMobileFilters(true)
+    }
+
+    const handleOpenSortModal = () => {
+        setShowSortModal(true)
+    }
+
+    const handleCloseSortModal = () => {
+        setShowSortModal(false)
+    }
+
+    const handleSelectMobileRelevanceValue = (name) => {
+        sortProducts(name)
+        setShowSortModal(false);
+    }
+
+    const handleOpennfoModal = () => {
+        setIsInfoOpen(true);
+    }
+
+    const handleCloseInfoModal = () => {
+        setIsInfoOpen(false);
+    }
+
+    useEffect(() => { getSubCategories() }, [])
+    useEffect(() => {
+        getSubCategories()
+    }, [subCategorySlug])
+
+    useEffect(() => {
+        fetchProductData()
+    }, [location.pathname, query])
+
+    useEffect(() => {
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+        if (getToken && userId) {
+            setUserToken(getToken)
+            setUserId(userId)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (navigationType !== 'POP' || products.length > 0) {
+            setActivePage(1);
+            setActivePageIndex(1);
+        }
+    }, [navigationType])
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -590,42 +599,7 @@ const Products = ({ navigationType }) => {
 
     }, [location.search]);
 
-    // Mobile view Script
-
-    const [selectedGrid, setSelectedGrid] = useState('single-col')
-    const [activeGrid, setActiveGrid] = useState('single-col')
-    const handleActiveGrid = (grid) => {
-        setActiveGrid(grid);
-        setSelectedGrid(grid)
-    }
-
-    const handleMobileFilters = () => {
-        setMobileFilters(true)
-    }
-
-    const [showSortModal, setShowSortModal] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('')
-    const handleOpenSortModal = () => {
-        setShowSortModal(true)
-    }
-
-    const handleCloseSortModal = () => {
-        setShowSortModal(false)
-    }
-
-    const handleSelectMobileRelevanceValue = (name) => {
-        sortProducts(name)
-        setShowSortModal(false);
-    }
-
-    const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const handleOpennfoModal = () => {
-        setIsInfoOpen(true);
-    }
-
-    const handleCloseInfoModal = () => {
-        setIsInfoOpen(false);
-    }
+    
 
     // Disable Scroll on Modal Open
     useDisableBodyScroll(

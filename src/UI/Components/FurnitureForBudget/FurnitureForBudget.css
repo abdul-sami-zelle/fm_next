@@ -49,12 +49,10 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    /* flex-wrap: nowrap; */
 }
 
 .budget-furniture-card-img{
     width: 100%;
-    /* height: 100%; */
     height: auto;
     object-fit: cover;
     overflow: hidden;
@@ -129,7 +127,7 @@
 
 @media only screen and (max-width: 480px){
     .furniture-for-budget-main-secton{
-        padding: 15px 10px;
+        padding: 15px 10px 0 10px;
         gap: 10px;
     }
     .furniture-for-budget-card{
@@ -139,7 +137,6 @@
         overflow-x: auto;
         flex-wrap: nowrap;
         box-sizing: border-box;
-        /* flex-direction: column; */
     }
 
     .budget-furniturre-card{

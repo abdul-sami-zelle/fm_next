@@ -19,6 +19,7 @@ const ProductStickyTabBar = (
         quantity,
         steperIndex,
         setSteperIndex,
+        stockCheck,
     }) => {
 
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
@@ -80,11 +81,8 @@ const ProductStickyTabBar = (
     const handleTabClick = (tab) => {
         const section = sectionRefs[tab]?.current;
         const stickyBarHeight = document.querySelector('.product-sticky-fixed-tabs-container')?.offsetHeight || 0;
-        const offset = 0; // Adjust this value as needed for extra spacing
+        const offset = 0; 
 
-        // if (section) {
-        //     section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        // }
 
         if (section) {
             const sectionTop = section.getBoundingClientRect().top + window.scrollY;
@@ -165,6 +163,8 @@ const ProductStickyTabBar = (
                                 )}
                             </div>
                             <button
+                                disabled={stockCheck}
+                                className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
                                 onClick={() => {
                                     addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)
                                     handleAddToCartProduct(productData);

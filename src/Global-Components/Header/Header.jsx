@@ -391,7 +391,6 @@ const Header = ({ checkoutPage }) => {
   }, [info?.locationData?.zipCode])
 
 
-  useEffect(() => {console.log("searched products", searchedProducts)}, [searchedProducts])
   useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible)
 
 
@@ -671,8 +670,6 @@ const Header = ({ checkoutPage }) => {
         <div className={`mobile-view-search-products-modal-body `}>
           {
             searchedProducts && searchedProducts.map((item, index) => {
-              {console.log("searched regular price", item.regular_price)}
-              {console.log("searched sale price", item.sale_price)}
               return <div key={index} className='mobile-view-searched-product-result' onClick={() => handleNavigateToSingleProduct(item)}>
                 <img
                   src={`${url}${item?.image?.image_url}`}

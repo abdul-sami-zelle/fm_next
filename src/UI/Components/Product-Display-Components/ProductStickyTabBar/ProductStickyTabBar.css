@@ -211,6 +211,11 @@
     transition: all 0.3s ease-in-out;
 }
 
+.disable-sticky-add-to-cart {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+}
+
 .product-sticky-fixed-add-to-cart>button:hover {
     background-color: var(--orange-fill);
     color: var(--text-oposite);

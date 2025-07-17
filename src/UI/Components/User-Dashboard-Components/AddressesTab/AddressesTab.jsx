@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './AddressesTab.css';
 import axios from 'axios';
-import { url } from '../../../../utils/api';
+import { formatPhoneNumber, url } from '../../../../utils/api';
 import Loader from '../../Loader/Loader';
 import { useParams } from 'next/navigation';
+import { IoIosClose } from 'react-icons/io';
+import { FaHome } from "react-icons/fa";
 
 const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
 
@@ -11,8 +13,10 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
   const id = params.id;
   const [loading, setLoading] = useState(false);
   const [modalType, setModalType] = useState('');
+  const [isEditTrue, setIsEdit] = useState(false);
+
+
   const [billingPayload, setBillingPayload] = useState({
-    // userId: '',
     billingAddress: {
       first_name: userAddresses?.billing_address?.first_name,
       last_name: userAddresses?.billing_address?.last_name,
@@ -21,8 +25,11 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       state: userAddresses?.billing_address?.state,
       postal_code: userAddresses?.billing_address?.postal_code,
       country: 'USA',
+      phone: userAddresses?.billing_address?.phone,
+      alt_phone: userAddresses?.billing_address?.alt_phone,
     }
   })
+
   const [shippingPayload, setShippingPayload] = useState({
     userId: '',
     shippingAddress: {
@@ -33,12 +40,13 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       state: userAddresses?.shipping_address?.state,
       postal_code: userAddresses?.shipping_address?.postal_code,
       country: 'USA',
+      phone: userAddresses?.billing_address?.phone,
+      alt_phone: userAddresses?.billing_address?.alt_phone,
       // email: userAddresses?.email,
       // phone: '090078601'
     }
   })
 
-  useEffect(() => { console.log("billing payload", billingPayload) }, [billingPayload])
 
   const fetchZipInfo = async (zip) => {
     try {
@@ -73,34 +81,6 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
     }
   };
 
-
-  useEffect(() => {
-    const zip =
-      modalType === 'billing-address'
-        ? billingPayload?.billingAddress?.postal_code
-        : shippingPayload?.shippingAddress?.postal_code;
-
-    if (zip && zip.length === 5) {
-      // call the function here
-      fetchZipInfo(zip);
-    }
-  }, [
-    billingPayload?.billingAddress?.postal_code,
-    shippingPayload?.shippingAddress?.postal_code,
-    modalType
-  ]);
-
-
-  const [userToken, setUserToken] = useState();
-  useEffect(() => {
-    const getToken = localStorage.getItem('userToken');
-    if (getToken) {
-      setUserToken(getToken)
-    }
-  }, []);
-
-  const [isEditTrue, setIsEdit] = useState(false);
-  
   const handleEditBillingAddress = (clickType) => {
     setIsEdit(true)
     setModalType(clickType)
@@ -109,40 +89,22 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
     setIsEdit(false);
     setModalType('')
   }
-  useEffect(() => {
-  }, [modalType])
-
-  useEffect(() => {
-    const uuid = localStorage.getItem('uuid')
-    if (modalType === 'billing-address') {
-      setBillingPayload((prevPayload) => ({
-        ...prevPayload,
-        userId: uuid
-      }));
-    } else if (modalType === 'shipping-address') {
-      setShippingPayload((prevPayload) => ({
-        ...prevPayload,
-        userId: uuid
-      }));
-    }
-  }, [modalType])
-
   const handleInputData = (e) => {
     const { name, value } = e.target;
 
     if (modalType === 'billing-address') {
       setBillingPayload((prevPayload) => ({
-        ...prevPayload, // Keep previous state
+        ...prevPayload, 
         ...(name === 'email' ? { email: value } : {
           billingAddress: {
-            ...prevPayload.billingAddress, // Spread existing shippingAddress
-            [name]: value, // Dynamically update the field in shippingAddress
+            ...prevPayload.billingAddress, 
+            [name]: name === 'phone' ? formatPhoneNumber(value) : name === 'alt_phone' ? formatPhoneNumber(value) : value, 
           },
-        }), // Dynamically update the field in billingAddress
+        }), 
       }));
     } else if (modalType === 'shipping-address') {
       setShippingPayload((prevPayload) => ({
-        ...prevPayload, // Keep previous state
+        ...prevPayload, 
         ...(name === 'email' ? { email: value } : {
           shippingAddress: {
             ...prevPayload.shippingAddress, // Spread existing shippingAddress
@@ -152,10 +114,10 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       }));
     }
   }
-
   const handleUpdateAddress = async () => {
     const billingApi = `/api/v1/web-users/update-billing/${id}`
     const shippingApi = `/api/v1/web-users/update-shipping-address`;
+    const userToken = localStorage.getItem('userToken');
     try {
 
       if (modalType === 'billing-address') {
@@ -198,7 +160,6 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       setIsEdit(false)
     }
   }
-
   // zip state city
   const handleZipCodeChange = async (e) => {
     const zip = e.target.value;
@@ -249,25 +210,89 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
   };
 
 
+  useEffect(() => {
+    const zip =
+      modalType === 'billing-address'
+        ? billingPayload?.billingAddress?.postal_code
+        : shippingPayload?.shippingAddress?.postal_code;
+
+    if (zip && zip.length === 5) {
+      fetchZipInfo(zip);
+    }
+  }, [
+    billingPayload?.billingAddress?.postal_code,
+    shippingPayload?.shippingAddress?.postal_code,
+    modalType
+  ]);
+
+  useEffect(() => {
+    const uuid = localStorage.getItem('uuid')
+    if (modalType === 'billing-address') {
+      setBillingPayload((prevPayload) => ({
+        ...prevPayload,
+        userId: uuid
+      }));
+    } else if (modalType === 'shipping-address') {
+      setShippingPayload((prevPayload) => ({
+        ...prevPayload,
+        userId: uuid
+      }));
+    }
+  }, [modalType])
+
   return (
     <div className='addresses-main-container'>
-      {/* <p>The following addresses will be used on checkout page by default</p> */}
+      
       {loading && <Loader />}
+
       <div className='billing-and-shipping-addresses'>
         <div className='user-billing-address'>
+          <div>
+            <FaHome size={60} color='#595959' />
+          </div>
           <div className='billing-address-details'>
             <div className='title-and-edit-icon'>
               <h3>Billing Address</h3>
               <img src={'/Assets/icons/edit.png'} alt='edit icon' onClick={() => handleEditBillingAddress('billing-address')} />
             </div>
             <div className='billing-address-show'>
-              <p>{userAddresses?.billing_address?.first_name} {userAddresses?.billing_address?.last_name}</p>
-              <p>{userAddresses?.email}</p>
-              <p>{userAddresses?.billing_address?.phone}</p>
-              <p>{userAddresses?.billing_address?.address_1}</p>
-              <p>{userAddresses?.billing_address?.address_2}</p>
-              <p>{userAddresses?.billing_address?.postal_code}</p>
-              <p>{userAddresses?.billing_address?.city} {userAddresses?.billing_address?.state}</p>
+              <span className='address-show-detail-span'>
+                <p>Name</p>
+                <h3>{userAddresses?.billing_address?.first_name} {userAddresses?.billing_address?.last_name}</h3>
+              </span>
+              <span className='address-show-detail-span'>
+                <p>Email</p>
+                <h3>{userAddresses?.email}</h3>
+              </span>
+              {/* <span className='address-show-detail-span'>
+                <p>Phone</p>
+                <h3>{userAddresses?.billing_address?.phone}</h3>
+              </span> */}
+              <span className='address-show-detail-span'>
+                <p>Address 1</p>
+                <h3>{userAddresses?.billing_address?.address_1}</h3>
+              </span>
+              {/* <span className='address-show-detail-span'>
+                <p>Address 2</p>
+                <h3>{userAddresses?.billing_address?.address_2}</h3>
+              </span> */}
+              <span className='address-show-detail-span'>
+                <p>Postal Cose</p>
+                <h3>{userAddresses?.billing_address?.postal_code}</h3>
+              </span>
+              <span className='address-show-detail-span'>
+                <p>City</p>
+                <h3>{userAddresses?.billing_address?.city} {userAddresses?.billing_address?.state}</h3>
+              </span>
+
+
+              {/* <p>{userAddresses?.billing_address?.first_name} {userAddresses?.billing_address?.last_name}</p> */}
+              {/* <p>{userAddresses?.email}</p> */}
+              {/* <p>{userAddresses?.billing_address?.phone}</p> */}
+              {/* <p>{userAddresses?.billing_address?.address_1}</p> */}
+              {/* <p>{userAddresses?.billing_address?.address_2}</p> */}
+              {/* <p>{userAddresses?.billing_address?.postal_code}</p> */}
+              {/* <p>{userAddresses?.billing_address?.city} {userAddresses?.billing_address?.state}</p> */}
             </div>
           </div>
         </div>
@@ -276,16 +301,23 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
       </div>
 
       <div className={`address-edit-modal ${isEditTrue ? 'show-address-edit-modal' : ''}`}>
+
         <div className='address-edit-modal-content'>
+
           <div className='address-edit-modal-head'>
+
             <h3 className='address-edit-main-heading'>{modalType === 'billing-address' ? 'Billing Address Update' : 'Shipping Address Update'}</h3>
+            
             <button className='address-edit-modal-close-button' onClick={handleEditShippingClose}>
-              <img src={'/Assets/icons/close-btn.png'} alt='cross btn' />
+              <IoIosClose size={25} color='#595959' />
             </button>
+
           </div>
+
           <div className='address-edit-modal-body'>
 
             <div className='two-inputs-row'>
+
               <label className='label-with-input'>
                 First Name
                 <input
@@ -301,6 +333,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleInputData}
                 />
               </label>
+
               <label className='label-with-input'>
                 Last Name
                 <input
@@ -315,16 +348,51 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleInputData}
                 />
               </label>
+
             </div>
-
-
 
             <div className='country-indication'>
               <p className='country-region'>Country/Region</p>
               <h3 className='only-country'>United States (USA)</h3>
             </div>
 
+            <div className='two-inputs-row'>
+
+              <label className='label-with-input'>
+                Phone
+                <input
+                  className='input-with-label'
+                  type='text'
+                  placeholder='Phone'
+                  name='phone'
+                  value={
+                    modalType === 'billing-address'
+                      ? billingPayload?.billingAddress?.phone
+                      : shippingPayload?.shippingAddress?.phone
+                  }
+                  onChange={handleInputData}
+                />
+              </label>
+
+              <label className='label-with-input'>
+                Alternative Phone
+                <input
+                  className='input-with-label'
+                  type='text'
+                  placeholder='Alternative Phone'
+                  name='alt_phone'
+                  value={modalType === 'billing-address'
+                    ? billingPayload?.billingAddress?.alt_phone
+                    : shippingPayload?.shippingAddress?.alt_phone
+                  }
+                  onChange={handleInputData}
+                />
+              </label>
+
+            </div>
+
             <div className='double-address'>
+
               <label className='label-with-input'>
                 Street Address
                 <input
@@ -339,10 +407,13 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleInputData}
                 />
               </label>
+
               <input className='input-with-label' type='text' placeholder='Apartment, suite, unit etc' />
+
             </div>
 
             <div className='zip_city_state_input_container'>
+
               <label className='label-with-input'>
                 Zip Code
                 <input
@@ -357,6 +428,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleZipCodeChange}
                 />
               </label>
+
               <label className='label-with-input'>
                 Towt/City
                 <input
@@ -371,6 +443,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleInputData}
                 />
               </label>
+
               <label className='label-with-input'>
                 State
                 <input
@@ -385,6 +458,7 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                   onChange={handleZipCodeChange}
                 />
               </label>
+
             </div>
 
             <div className='update-address-div'>
@@ -392,8 +466,11 @@ const AddressesTab = ({ userAddresses, setTrigerPoint, data }) => {
                 Update Address
               </button>
             </div>
+
           </div>
+
         </div>
+
       </div>
 
     </div>

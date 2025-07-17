@@ -48,17 +48,19 @@ const DesignYourRoom = ({ data, firstChild }) => {
     };
 
     const handleSingleShuffle = (uid) => {
-    setDisplayedProducts((prevDisplayed) => {
-        const index = prevDisplayed.findIndex((item) => item.uid === uid);
-        if (index === -1 || remainingProducts.length === 0) return prevDisplayed;
+        setDisplayedProducts((prevDisplayed) => {
+            const index = prevDisplayed.findIndex((item) => item.uid === uid);
+            if (index === -1 || remainingProducts.length === 0) return prevDisplayed;
 
-        const [newProduct, ...rest] = remainingProducts;
-        const updated = [...prevDisplayed];
-        updated[index] = newProduct;
-        setRemainingProducts(rest);
-        return updated;
-    });
-};
+            const [newProduct, ...rest] = remainingProducts;
+            const updated = [...prevDisplayed];
+            updated[index] = newProduct;
+            setRemainingProducts(rest);
+            return updated;
+        });
+    };
+
+    
 
 
     return (
@@ -75,7 +77,8 @@ const DesignYourRoom = ({ data, firstChild }) => {
                         slug={item.slug}
                         singleProductData={item}
                         mainImage={`${item.image.image_url}`}
-                        mainProduct = {displayedProducts[0]}
+                        mainProduct={displayedProducts[0]}
+                        stockCheck
                     />
                 ))}
             </div>

@@ -174,7 +174,7 @@
 
 @media only screen and (max-width: 480px){
     .f-a-q-main-container{
-        padding: 20px 10px;
+        padding: 15px 10px;
     }
     .faq-details p:nth-child(1) {
         font-size: 15px;
@@ -189,7 +189,7 @@
     }
     .faq-details {
         gap: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     /* .questions-answeres{
     } */
@@ -197,7 +197,7 @@
         font-size: 20px;
         line-height: 24px;
         font-weight: 600;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
     .question-section{
         padding: 13px 0;

@@ -1,4 +1,4 @@
-.dash-orders-main-container{
+.dash-orders-main-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-.order-table{
+.order-table {
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -19,7 +19,7 @@
     justify-content: space-between; */
 }
 
-.order-table tr{
+.order-table tr {
     width: 100%;
     display: flex;
     align-items: start;
@@ -28,17 +28,17 @@
     border-bottom: 1px solid var(--border-color);
     /* border-top-left-radius: 5px;
     border-top-right-radius: 5px; */
-    
+
 }
 
-.order-table tr:nth-child(1){
+.order-table tr:nth-child(1) {
     background-color: #FDFDFD;
     border: 1px solid var(--border-color);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-.order-table tr th{
+.order-table tr th {
     display: flex;
     width: 100%;
     align-items: start;
@@ -49,7 +49,7 @@
     color: var(--text-primary);
 }
 
-.order-table tr td{
+.order-table tr td {
     display: flex;
     width: 100%;
     align-items: start;
@@ -59,16 +59,16 @@
     font-weight: 400;
 }
 
-.order-table tr td:nth-child(1){
+.order-table tr td:nth-child(1) {
     font-weight: 600;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.table-action-buttons{
+.table-action-buttons {
     display: flex;
     width: 100%;
     gap: 5px;
@@ -76,7 +76,7 @@ table {
     justify-content: start;
 }
 
-.table-action-buttons button{
+.table-action-buttons button {
     padding: 0 7px;
     border: 1px solid var(--border-color);
     background-color: #fff;
@@ -90,7 +90,7 @@ table {
 }
 
 /* Paginations */
-.paginations{
+.paginations {
     display: flex;
     width: 100%;
     padding: 10px;
@@ -98,7 +98,7 @@ table {
     justify-content: end;
 }
 
-.pagination-controls{
+.pagination-controls {
     display: flex;
     width: max-content;
     border: 1px solid var(--border-color);
@@ -106,7 +106,7 @@ table {
     padding: 0px 10px;
 }
 
-.pagination-counts{
+.pagination-counts {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -119,13 +119,13 @@ table {
     border-right: 1px solid var(--border-color);
 }
 
-.pagination-counts p{
+.pagination-counts p {
     font-weight: 600;
     font-size: 12px;
     line-height: 18px;
 }
 
-.pagination-page-change-arrows{
+.pagination-page-change-arrows {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,7 +133,7 @@ table {
     padding-left: 10px;
 }
 
-.pagination-page-change-arrows button{
+.pagination-page-change-arrows button {
     width: 20px;
     height: 20px;
     background-color: transparent;
@@ -145,8 +145,46 @@ table {
     cursor: pointer;
 }
 
-.pagination-page-change-arrows button img{
+.pagination-page-change-arrows button img {
     width: auto;
     height: 15px;
     object-fit: contain;
+}
+
+.action-td {
+    display: flex;
+}
+
+@media only screen and (max-width: 480px) {
+    .action-td {
+        display: none !important;
+    }
+
+    .dash-orders-main-container {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .order-table tr  {
+        padding: 5px;
+    }
+
+    .order-table tr th {
+    display: flex
+;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 9px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.order-table tr td {
+    font-size: 9px;
+    line-height: 1.2;
+    text-align: center;
+}
 }

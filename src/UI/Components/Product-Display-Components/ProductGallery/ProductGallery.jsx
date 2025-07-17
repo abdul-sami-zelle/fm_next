@@ -11,6 +11,7 @@ const ProductGallery = ({
     handleMouseUp,
     zoomIn,
     handleGalleryModal,
+    stockCheck,
 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [thumbActiveIndex, setThumbActiveIndex] = useState(0);
@@ -134,6 +135,8 @@ const ProductGallery = ({
         );
     }
 
+    // const inStockAndQuantityZero = productData?.type === 'variable' ?  '' : productData?.manage_stock?.stock_status === 'inStock' && productData?.manage_stock?.quantity === 0 || productData?.manage_stock?.stock_status === 'outStock';
+
     return (
         <div className='product-gallery-main-container'>
             {/* Thumbnail Section */}
@@ -179,7 +182,10 @@ const ProductGallery = ({
                 className='product-gallery-main-slider-section'
             >
                 <div className='product-gallery-main-slider-images'>
-
+                    { 
+                        stockCheck ? <span className='produt-stock-status-label'>Out Of Stock</span>
+                        : <></>
+                    }
                     <SwiperSlider
                         slidesData={images}
                         renderSlide={(imgItem, index) => (

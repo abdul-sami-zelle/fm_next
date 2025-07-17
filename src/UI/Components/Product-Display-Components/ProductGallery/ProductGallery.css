@@ -203,6 +203,23 @@
     /* Align images to the left */
 }
 
+.produt-stock-status-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--orange-fill);
+    padding: 5px 10px;
+    z-index: 99;
+    color: #FFF;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+}
+
 .product-gallery-main-slider-single-image-container {
     /* width: 100%; */
     /* Ensure each image takes the full width of the container */

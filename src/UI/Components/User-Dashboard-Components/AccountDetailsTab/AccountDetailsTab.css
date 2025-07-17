@@ -1,4 +1,4 @@
-.account-details-main-section{
+.account-details-main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-.account-details-inner-section{
+.account-details-inner-section {
     display: flex;
     width: 50%;
     align-items: start;
@@ -20,7 +20,7 @@
 }
 
 /* Profile image section */
-.account-detail-user-profile{
+.account-detail-user-profile {
     display: flex;
     flex-direction: column;
     width: 25%;
@@ -29,7 +29,7 @@
     justify-content: start;
 }
 
-.account-detail-user-profile-container{
+.account-detail-user-profile-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,16 +37,17 @@
     height: 150px;
     border-radius: 50%;
     cursor: pointer;
-    border: 1px solid var(--border-color);overflow: hidden;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
-.user-profile-picture{
+.user-profile-picture {
     width: 150px;
     height: 150px;
     object-fit: contain;
 }
 
-.upload-image-button{
+.upload-image-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,7 +68,7 @@
 }
 
 /* user inputs */
-.account-details-user-info{
+.account-details-user-info {
     display: flex;
     flex-direction: column;
     width: 75%;
@@ -76,21 +77,21 @@
     justify-content: start;
 }
 
-.user-info-head{
+.user-info-head {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
 }
 
-.user-info-head > h3 {
+.user-info-head>h3 {
     font-size: 18px;
     line-height: 1.5;
     font-weight: 500;
     color: var(--text-primary);
 }
 
-.user-info-head > button {
+.user-info-head>button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,7 +103,7 @@
     cursor: pointer;
 }
 
-.user-info-body{
+.user-info-body {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -111,17 +112,17 @@
     gap: 10px;
 }
 
-.user-info-body > label {
+.user-info-body>label {
     display: flex;
     width: 100%;
     flex-direction: row;
-    font-size: 14px;
+    font-size: 12px;
     align-items: center;
     justify-content: space-between;
-    
+
 }
 
-.user-info-body > label > p {
+.user-info-body>label>p {
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
@@ -129,12 +130,13 @@
     flex-shrink: 0;
 }
 
-input, label {
+input,
+label {
     font-weight: 400;
     width: 100%;
 }
 
-.user-info-body > label > input {
+.user-info-body>label>input {
     width: 75%;
     background-color: #fdfdfd;
     border: 1px solid var(--border-color);
@@ -164,13 +166,13 @@ input, label {
     width: 90%;
 }
 
-.last-login-and-update > p {
+.last-login-and-update>p {
     font-size: 14px;
     line-height: 1.2;
     font-weight: 400;
 }
 
-.last-login-and-update > h3 {
+.last-login-and-update>h3 {
     width: 75%;
     background-color: #fdfdfd;
     border: 1px solid var(--border-color);
@@ -184,7 +186,7 @@ input, label {
 }
 
 /* update password container styling */
-.user-info-password-container{
+.user-info-password-container {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -194,7 +196,7 @@ input, label {
     background-color: #FDFDFD;
 }
 
-.user-info-pass-head{
+.user-info-pass-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -205,14 +207,14 @@ input, label {
     cursor: pointer;
 }
 
-.user-info-pass-head > h3 {
+.user-info-pass-head>h3 {
     font-size: 18px;
     line-height: 1.5;
     font-weight: 500;
     color: var(--text-primary);
 }
 
-.user-info-pass-head > button {
+.user-info-pass-head>button {
     background-color: transparent;
     display: flex;
     align-items: center;
@@ -246,7 +248,7 @@ input, label {
     height: 160px;
 }
 
-.user-info-passwords-inputs > label {
+.user-info-passwords-inputs>label {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -259,13 +261,13 @@ input, label {
     justify-content: space-between;
 }
 
-.user-info-passwords-inputs > label > p {
+.user-info-passwords-inputs>label>p {
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
     color: var(--text-primary);
     flex-shrink: 0;
-    
+
 }
 
 .input-pass-container {
@@ -280,7 +282,7 @@ input, label {
     background-color: #FDFDFD;
 }
 
-.input-pass-container  > input {
+.input-pass-container>input {
     background-color: transparent;
     border: none;
     outline: none;
@@ -295,7 +297,7 @@ input, label {
     width: 100%;
 }
 
-.user-info-save-container > button {
+.user-info-save-container>button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -462,3 +464,103 @@ input, label {
     border-radius: 25px;
     cursor: pointer;
 } */
+
+@media only screen and (max-width: 480px) {
+    .account-details-main-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        /* width: 100%; */
+        gap: 25px;
+        padding: 10px;
+        margin: 0;
+        background-color: #f8f8f8;
+        box-sizing: border-box;
+    }
+
+    .account-details-inner-section {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .account-detail-user-profile {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .account-details-user-info {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        align-items: start;
+        justify-content: start;
+    }
+
+    .user-info-head>h3 {
+        font-size: 16px;
+    }
+
+    .user-info-body {
+        width: 100%;
+    }
+
+    .user-info-body>label {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        font-size: 14px;
+        align-items: start;
+        justify-content: start;
+    }
+
+    .user-info-body>label>input {
+        width: 100%;
+        background-color: #fdfdfd;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        color: var(--text-primary);
+        font-size: 12px;
+        line-height: 18px;
+        outline: none;
+        padding: 5px 10px;
+    }
+
+    .last-login-and-update {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .last-login-and-update>p {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.last-login-and-update>h3 {
+    width: 100%;
+    background-color: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: var(--text-primary);
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    outline: none;
+    padding: 5px 10px;
+}
+
+
+
+}

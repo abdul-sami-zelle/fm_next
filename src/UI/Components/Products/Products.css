@@ -1568,15 +1568,15 @@ label {
     display: grid;
     grid-template-columns: auto auto;
     gap: 10px;
-    padding: 10px;
+    padding: 15px 10px;
     border-bottom: 2px solid #D7D7D799;
 }
 
 .mobile-view-product-single-column {
-    padding: 10px 15px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     width: 100%;
     align-items: center;
     justify-content: center;

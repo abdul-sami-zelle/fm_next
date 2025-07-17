@@ -68,7 +68,6 @@ export const GlobalContextProvider = ({ children }) => {
   //   if (typeof window !== "undefined") {
   //     const savedInfo = localStorage.getItem('other_info');
   //     if (savedInfo) {
-  //       console.log("seted info", savedInfo)
   //       setInfo(savedInfo);
   //       setAllShippingMethods()
   //     } 
@@ -241,6 +240,7 @@ export const GlobalContextProvider = ({ children }) => {
 
 
 
+
   const [selectedShippingMethods, setSelectedShippingMethods] = useState(null);
   function getShippingMethods(subtotal, shippingMethods) {
     setSelectedOption({});
@@ -256,7 +256,6 @@ export const GlobalContextProvider = ({ children }) => {
         selectedMethods.push(method3);
       }
       setSelectedOption(method1);
-      console.log("selected shipping methods", selectedMethods)
       setSelectedShippingMethods(selectedMethods)
       return;
 

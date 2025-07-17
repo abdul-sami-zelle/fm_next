@@ -8,13 +8,11 @@ import ProductDescriptionTab from '@/UI/Components/Product-Display-Components/Pr
 import ProductDetailTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductDetailTab/ProductDetailTab';
 import ProductRecommendationTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductRecommendationTab/ProductRecommendationTab';
 import ProductReviewTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
-// import { useLocation, useParams } from 'react-router-dom';
 
 import { url } from '../../../utils/api';
 import { useCart } from '@/context/cartContext/cartContext';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
-// import { useParams, useSearchParams } from 'next/navigation';
 import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
@@ -24,8 +22,7 @@ import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 const ProductDisplay = ({ params }) => {
 
   const { slug } = use(params);
-  const { singleProductData } = useProductPage();
-
+  const { singleProductData, selectedVariationData } = useProductPage();
   const [product, setProduct] = useState(singleProductData || null);
   const [showDesignRoomModal, setShowDwsignRoomModal] = useState(false);
   const [productDetails, setProductDetails] = useState({})
@@ -138,10 +135,6 @@ const ProductDisplay = ({ params }) => {
 
   }
 
-  // Gallery Modal
-  const {
-    selectedVariationData
-  } = useProductPage();
 
   const handleOpenModal = (place, type) => {
     setZoomIn(false);
@@ -171,13 +164,11 @@ const ProductDisplay = ({ params }) => {
       const thumbnailElement = thumbnailContainerRef.current.children[index];
 
       if (window.innerWidth < 480) {
-        // Scroll horizontally for mobile view
         thumbnailContainerRef.current.scrollTo({
           left: thumbnailElement.offsetLeft - (thumbnailContainerRef.current.clientWidth / 2) + (thumbnailElement.clientWidth / 2),
           behavior: 'smooth',
         });
       } else {
-        // Scroll vertically for larger screens
         thumbnailContainerRef.current.scrollTo({
           top: thumbnailElement.offsetTop - (thumbnailContainerRef.current.clientHeight / 2) + (thumbnailElement.clientHeight / 2),
           behavior: 'smooth',
@@ -298,6 +289,18 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal]);
 
+  const stockCheck = product?.type === 'variable' ?  
+    selectedVariationData?.manage_stock?.stock_status === 'inStock' 
+    && selectedVariationData?.manage_stock?.quantity === 0 
+    || selectedVariationData?.manage_stock?.stock_status === 'outStock' 
+    || selectedVariationData?.manage_stock?.stock_status === 'outOfStock' 
+    : product?.manage_stock?.stock_status === 'inStock' 
+    && product?.manage_stock?.quantity === 0 
+    || product?.manage_stock?.stock_status === 'outStock' 
+    || product?.manage_stock?.stock_status === 'outOfStock';
+
+  console.log("variable product", selectedVariationData)
+
   const isDesignRoomActive = product?.dyrc?.active === 1;
 
   return (
@@ -312,6 +315,7 @@ const ProductDisplay = ({ params }) => {
           isLoading={isLoading}
           handleClick={handleClick}
           addToCart0={addToCart0}
+          stockCheck={stockCheck}
           isProtectionCheck={isProtectionCheck}
           handleAddToCartProduct={handleAddToCartProduct}
           cartProducts={cartProducts}
@@ -348,6 +352,7 @@ const ProductDisplay = ({ params }) => {
           quantity={quantity}
           steperIndex={steperIndex}
           setSteperIndex={setSteperIndex}
+          stockCheck={stockCheck}
         />
 
         <div className='sticky-section-steper-main-container'>

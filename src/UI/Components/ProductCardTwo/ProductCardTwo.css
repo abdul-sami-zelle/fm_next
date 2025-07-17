@@ -57,6 +57,25 @@
     justify-content: end;
 }
 
+.product-wishlist-icon-container.product-tag-space-between {
+    justify-content: space-between;
+}
+
+.product-archive-out-of-stock-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: max-content;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #FFF;
+    background-color: red;
+    flex-shrink: 0;
+}
+
 .product-image-wishlist-icon-container {
     display: none;
     position: absolute;

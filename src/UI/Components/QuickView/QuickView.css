@@ -277,6 +277,11 @@
     cursor: pointer;
 }
 
+.disable-quick-view-quantity {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+}
+
 .quick-view-add-or-minus-item button:hover {
     background-color: var(--orange-fill);
     color: var(--text-oposite);
@@ -337,6 +342,11 @@
     line-height: var(--sub-section-height);
     cursor: pointer;
     transition: background-color 0.5s;
+}
+
+.quick-view-add-to-cart.disable-quick-view-add-to-cart {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .quick-view-add-to-cart:hover{

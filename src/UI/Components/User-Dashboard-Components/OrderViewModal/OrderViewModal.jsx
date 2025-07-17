@@ -55,11 +55,11 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
         },
     ]
 
-    const ordersDetails = [
-        { itemId: '1657', name: 'Infinity Modular Sectional', price: '$1,299', protected: 'Yes', quantity: '1', total: '$1,299' },
-        { itemId: '1345', name: 'Haven 3 PC Sectional', price: '$1,299', protected: 'Yes', quantity: '2', total: '$2,998' },
-        { itemId: '1289', name: 'Micha TV Stand with Electric Fireplace', price: '$499', protected: 'Yes', quantity: '1', total: '$499' },
-    ]
+    // const ordersDetails = [
+    //     { itemId: '1657', name: 'Infinity Modular Sectional', price: '$1,299', protected: 'Yes', quantity: '1', total: '$1,299' },
+    //     { itemId: '1345', name: 'Haven 3 PC Sectional', price: '$1,299', protected: 'Yes', quantity: '2', total: '$2,998' },
+    //     { itemId: '1289', name: 'Micha TV Stand with Electric Fireplace', price: '$499', protected: 'Yes', quantity: '1', total: '$499' },
+    // ]
 
     function formatDateToReadable(isoDate) {
         const date = new Date(isoDate);
@@ -131,10 +131,10 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
                             <tbody className='order-table-body'>
                                 {orderData?.items?.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.variation_id === 0 ? item.product_id : `${item.variation_id} ${(item.protected_price)} `}</td>
+                                        <td>{item.variation_id === 0 ? item.product_id : `${item.variation_id}  `}</td>
                                         <td className='order-peoduct-name'>{item.name}</td>
                                         <td className='order-product-price'>{item.sale_price !== 0 ? formatedPrice(item.sale_price) : formatedPrice(item.regular_price)}</td>
-                                        <td>{item.is_protected === 1 ? 'Yes' : 'No'}</td>
+                                        <td>{item.is_protected === 1 ? <span style={{display: 'flex', flexDirection: 'column', width: '100%', fontSize: '8px', lineHeight: 1.2, fontWeight: 400}}><p style={{fontSize: '12px', lineHeight: 1.2, fontWeight: 400}}>Yes</p> ({formatedPrice(item.protected_price)})</span> : 'No'}</td>
                                         <td>{item.quantity}</td>
                                         <td className='order-product-price'>{formatedPrice(item.total)}</td>
                                     </tr>

@@ -67,6 +67,7 @@ const ProductDetailSticky = (
     showDesignRoomModal,
     zoomIn,
     setZoomIn,
+    stockCheck,
   }) => {
 
 
@@ -428,7 +429,7 @@ const ProductDetailSticky = (
               handleMouseUp={handleMouseUp}
               handleGalleryModal={handleGalleryModal}
               setSlideIndex={setSlideIndex}
-
+              stockCheck={stockCheck}
             />
             <ProductDimension productData={product} slideIndex={slideIndex} dimensionModal={dimensionModal} showDesignRoomModal={showDesignRoomModal} showDrm={showDRM} handleGalleryModal={handleGalleryModal} handleZoom={handleZoomImage} zoomIn={zoomIn} setZoomIn={setZoomIn} variationData={selectedVariationData} />
             {product?.weight_dimension && <DimensionDetail productData={product} handleGalleryModal={handleGalleryModal} />}
@@ -508,7 +509,7 @@ const ProductDetailSticky = (
 
               <div className='add-cart-or-add-items-div' ref={cartDivRef}>
                 <div className='item-count'>
-                  <button className={`minus-btn ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1}>
+                  <button className={`minus-btn ${stockCheck ? 'disable-quantity' : ''} ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1 || stockCheck}>
 
                     <FaWindowMinimize size={15} className='minus-icon' />
                   </button>
@@ -516,9 +517,11 @@ const ProductDetailSticky = (
                   <input
                     type='number'
                     value={quantity}
+                    readOnly={stockCheck}
                     onChange={handleQuantityChange}
+                    className={stockCheck ? 'disable-quantity' : ''}
                   />
-                  <button className='plus-btn' onClick={increaseLocalQuantity}>
+                  <button disabled={stockCheck} className={`plus-btn ${stockCheck ? 'disable-quantity' : ''}`} onClick={increaseLocalQuantity}>
 
                     <FaPlus size={15} className='plus-icon' />
                   </button>
@@ -537,11 +540,11 @@ const ProductDetailSticky = (
 
 
                 <button
-                  className={`add-to-cart-btn ${isLoading ? 'loading' : ''}`}
+                  className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
+                  disabled={stockCheck}
                   onClick={() => {
                     handleClick();
                     addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                    // handleAddToCartProduct(product);
                   }
                   }>
                   {isCartLoading && <div className="loader_2"></div>}

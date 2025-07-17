@@ -18,8 +18,10 @@ import {
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
+
 
     const {
         increamentQuantity,
@@ -35,6 +37,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const [viewDetails, setViewDetails] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [variableProductData, setVariableData] = useState();
+    const {selectedVariationData} = useProductPage()
 
 
     const handleCartSectionClose = () => {
@@ -138,6 +141,18 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setShowSnakeBar(false)
     }
 
+    // const stockCheck = setQuickViewProduct?.type === 'variable' ?  '' : setQuickViewProduct?.manage_stock?.stock_status === 'inStock' && setQuickViewProduct?.manage_stock?.quantity === 0 || setQuickViewProduct?.manage_stock?.stock_status === 'outStock';
+
+    const stockCheck = setQuickViewProduct?.type === 'variable' ?  
+    selectedVariationData?.manage_stock?.stock_status === 'inStock' 
+    && selectedVariationData?.manage_stock?.quantity === 0 
+    || selectedVariationData?.manage_stock?.stock_status === 'outStock' 
+    || selectedVariationData?.manage_stock?.stock_status === 'outOfStock' 
+    : setQuickViewProduct?.manage_stock?.stock_status === 'inStock' 
+    && setQuickViewProduct?.manage_stock?.quantity === 0 
+    || setQuickViewProduct?.manage_stock?.stock_status === 'outStock' 
+    || setQuickViewProduct?.manage_stock?.stock_status === 'outOfStock';
+
     return (
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
             <div
@@ -224,11 +239,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                     </>}
                 <div className='quick-view-add-item-or-cart-btn'>
                     <div className='quick-view-add-or-minus-item'>
-                        <button onClick={decreaseLocalQuantity}>
+                        <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={decreaseLocalQuantity}>
                             <FaMinus className='quick0view-minus' size={15} />
                         </button>
-                        <input type='number' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
-                        <button onClick={increaseLocalQuantity}>
+                        <input type='number' value={quantity} className={stockCheck ? 'disable-quick-view-quantity' : ''} readOnly={stockCheck} onChange={(e) => setQuantity(e.target.value)} />
+                        <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={increaseLocalQuantity}>
                             <FaPlus className='quick-view-plus' size={15} />
                         </button>
                     </div>
@@ -255,7 +270,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                 />
                         }
                     </div>
-                    <button className='quick-view-add-to-cart' onClick={() => handleAddToCartProduct(setQuickViewProduct)}>
+                    <button disabled={stockCheck} className={`quick-view-add-to-cart ${stockCheck ? 'disable-quick-view-add-to-cart' : ''}`} onClick={() => handleAddToCartProduct(setQuickViewProduct)}>
                         {isCartLoading && <div className="loader_2"></div>}
                         {isCartLoading ? ' Almost there...' : 'Add To Cart'}
                     </button>

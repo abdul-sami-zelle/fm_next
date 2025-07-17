@@ -6,7 +6,6 @@ import axios from "axios";
 import { useCart } from "../cartContext/cartContext";
 import { useGlobalContext } from "../GlobalContext/globalContext";
 import { openLink } from "../../utils/api";
-import { siteUrl } from "../../utils/api";
 
 const MyOrderContext = createContext();
 
@@ -17,7 +16,12 @@ export const MyOrdersProvider = ({ children }) => {
     const { cartProducts, subTotal } = useCart();
     const { info, totalTax, calculateTotalTax, getShippingInfo, selectedOption, setZipCode, handleButtonClick } = useGlobalContext();
     const [showThankyou, setThankyouState] = useState(false);
-
+    const [emptyField, setEmptyField] = useState({});
+    const [loading, setLoading] = useState(true); // Loading state
+    const [selectedTab, setSelectedTab] = useState(0)
+    const [isLoader, setIsLoader] = useState(false)
+    const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
 
     const [orderPlacedInfo, setOrderPlacedInfo] = useState({
         orderNumber: 0,
@@ -41,7 +45,6 @@ export const MyOrdersProvider = ({ children }) => {
         sec_code: '',
         card_type: ''
     })
-
 
     const [orderPayload, setOrderPayload] = useState({
         status: 'pending',
@@ -99,25 +102,51 @@ export const MyOrdersProvider = ({ children }) => {
         professional_assembled: cartProducts?.is_professional_assembly
     })
 
-    useEffect(() => {
-        if (selectedOption) {
-            setOrderPayload((prev) => ({
-                ...prev,
-                shipping_lines: {
-                    id: "",
-                    method_id: selectedOption?.id,
-                    tax: selectedOption?.tax,
-                    cost: selectedOption?.cost,
+    const [errorDetails, setErrorDetails] = useState({
+        title: '',
+        message: '',
+        status: ''
+    })
+
+    const getBillingData = async (userId, authToken) => {
+        try {
+            if (!authToken) {
+                throw new Error("Authorization token missing");
+            }
+
+            const response = await axios.get(
+                `${url}/api/v1/web-users/get/${userId}`,
+                {
+                    headers: {
+                        authorization: `${authToken}`,
+                    }
                 }
-            }))
+            );
+            if (response.status === 200) {
+
+                setOrderPayload((prev) => ({
+                    ...prev,
+                    billing: {
+                        ...prev.billing,
+                        first_name: response.data.data.billing_address.first_name,
+                        last_name: response.data.data.billing_address.last_name,
+                        address_1: response.data.data.billing_address.address_1,
+                        email: response.data.data.email,
+                        phone: response.data.data.billing_address.phone,
+                        alt_phone: response.data.data.billing_address.alt_phone
+                    }
+                }))
+                setTrigerApi(false)
+            } else {
+                console.log("Error fetching billing address data");
+            }
+
+
+        } catch (error) {
+            console.error("Error fetching billing address:", error.message);
+            throw error;
         }
-    }, [selectedOption])
-
-
-    const [emptyField, setEmptyField] = useState({});
-    const [loading, setLoading] = useState(true); // Loading state
-    const [selectedTab, setSelectedTab] = useState(0)
-    const [isLoader, setIsLoader] = useState(false)
+    }
 
     async function fetchActivePaymentMethods() {
         const apiUrl = `${url}/api/v1/payment-methods/get`;
@@ -147,26 +176,6 @@ export const MyOrdersProvider = ({ children }) => {
         setActivePaymentMethods(data?.activePaymentMethods);
     };
 
-
-    useEffect(() => {
-        const storeOrders = localStorage.getItem('myOrders');
-        if (storeOrders) {
-            try {
-                setOrderPayload(JSON.parse(storeOrders));
-            } catch (error) {
-                console.error("Failed to parse myOrders from localStorage:", error);
-            }
-        }
-        setLoading(false); // Set loading to false after processing
-        getActivePaymentMethods();
-    }, []);
-
-    useEffect(() => {
-        if (orderPayload) {
-            localStorage.setItem('myOrders', JSON.stringify(orderPayload)); // Save as a JSON string
-        }
-    }, [orderPayload]);
-
     const handleNestedValueChange = (e) => {
         const { name, value } = e.target;
 
@@ -174,7 +183,7 @@ export const MyOrdersProvider = ({ children }) => {
             ...prevOrders,
             billing: {
                 ...prevOrders.billing,
-                [name]: name === 'phone' ? formatPhoneNumber(value) : name === 'alt_phone' ? formatPhoneNumber(value) : value, // Update the specific field in billing
+                [name]: name === 'phone' ? formatPhoneNumber(value) : name === 'alt_phone' ? formatPhoneNumber(value) : value,
             },
         }));
         setEmptyField((prev) => ({ ...prev, [name]: "" }));
@@ -207,7 +216,7 @@ export const MyOrdersProvider = ({ children }) => {
 
     const updateZipCode = (zipCode) => {
         // Update order payload
-        
+
         setOrderPayload(prevData => ({
             ...prevData,
             billing: {
@@ -224,21 +233,13 @@ export const MyOrdersProvider = ({ children }) => {
 
     const handleZipCodeChange = (e) => {
         const zipCode = e.target.value;
-        
 
         updateZipCode(zipCode);
-        if(zipCode.length === 5) {
+        if (zipCode.length === 5) {
             setZipCode(zipCode)
             handleButtonClick()
         }
     };
-
-    useEffect(() => {
-        const initialZip = info?.locationData?.zipCode;
-        if (initialZip) {
-            updateZipCode(initialZip);
-        }
-    }, [info]);
 
     const handleNestedValueChangeShipping = (e) => {
         const { name, value } = e.target;
@@ -250,6 +251,7 @@ export const MyOrdersProvider = ({ children }) => {
                 [name]: value, // Update the specific field in billing
             },
         }));
+
         setEmptyField((prev) => ({ ...prev, [name]: "" }));
     };
 
@@ -278,10 +280,6 @@ export const MyOrdersProvider = ({ children }) => {
         }));
     }
 
-    useEffect(() => {
-        addProducts(cartProducts.products)
-    }, [cartProducts])
-
     const handleValueChange = (e) => {
         const { name, value } = e.target;
         setOrderPayload((prevFormData) => ({
@@ -307,17 +305,10 @@ export const MyOrdersProvider = ({ children }) => {
             scrollTop();
         }
     }
-    const [showWarning, setShowWarning] = useState(false);
-    const [warningMessage, setWarningMessage] = useState('');
-    const [errorDetails, setErrorDetails] = useState({
-        title: '',
-        message: '',
-        status: ''
-    })
+
     const sendProducts = async () => {
         try {
             setIsLoader(true);
-
             const updatedPayload = {
                 ...orderPayload,
                 items: cartProducts.products.map((product) => ({
@@ -347,7 +338,7 @@ export const MyOrdersProvider = ({ children }) => {
                     tax: selectedOption?.tax || "0",
                     cost: selectedOption?.cost || "0"
                 },
-                customer_id:localStorage?.getItem('uuid')
+                customer_id: localStorage?.getItem('uuid')
             };
 
             const api = `/api/v1/orders/add`;
@@ -356,7 +347,6 @@ export const MyOrdersProvider = ({ children }) => {
             if (response.status === 201) {
                 localStorage.removeItem('cart2')
 
-                // Update orderPlacedInfo with response data
                 setOrderPlacedInfo((prev) => ({
                     ...prev,
                     orderNumber: response.data.order.uid || "",
@@ -369,34 +359,16 @@ export const MyOrdersProvider = ({ children }) => {
                 openLink(`https://fmnext.myfurnituremecca.com/order-confirmation/${response.data.order._id}`)
             }
 
-            console.log("add ordr error", response)
         } catch (error) {
             let errorMessage
-            // if(error.status === 400) {
-                errorMessage = error.response.data.message.split('.')
-                setErrorDetails({
-                    title: error.response.data.title,
-                    message: errorMessage,
-                    status: error.response.data.status
-                })
-                setWarningMessage(errorMessage[0])
-                setShowWarning(true);
-            // } else if (error.status === 500) {
-            //     errorMessage = error.response.data.message.split('.')
-            //     setErrorDetails({
-            //         title: error.response.data.title,
-            //         message: error.response.data.details,
-            //         status: error.response.data.status
-            //     })
-            //     setWarningMessage(errorMessage[0])
-            //     setShowWarning(true);
-            // }
-            
-            //  const errorMessage = error.data && error.response.data.message.split('.')
-            // console.log("error message", errorMessage)
-            
-            // console.error("add order catch error", error)
-            // console.error("Error adding order:", error);
+            errorMessage = error.response.data.message.split('.')
+            setErrorDetails({
+                title: error.response.data.title,
+                message: errorMessage,
+                status: error.response.data.status
+            })
+            setWarningMessage(errorMessage[0])
+            setShowWarning(true);
         } finally {
             setIsLoader(false);
         }
@@ -421,8 +393,60 @@ export const MyOrdersProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        const initialZip = info?.locationData?.zipCode;
+        if (initialZip) {
+            updateZipCode(initialZip);
+        }
+    }, [info]);
+
+    useEffect(() => {
+        addProducts(cartProducts.products)
+    }, [cartProducts])
+
+    useEffect(() => {
         handlePaymentInfo();
     }, [creditCardData])
+
+    useEffect(() => {
+        const userId = localStorage.getItem('uuid')
+        const authToken = localStorage.getItem('userToken')
+        if (authToken) {
+            getBillingData(userId, authToken)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (selectedOption) {
+            setOrderPayload((prev) => ({
+                ...prev,
+                shipping_lines: {
+                    id: "",
+                    method_id: selectedOption?.id,
+                    tax: selectedOption?.tax,
+                    cost: selectedOption?.cost,
+                }
+            }))
+        }
+    }, [selectedOption])
+
+    useEffect(() => {
+        const storeOrders = localStorage.getItem('myOrders');
+        if (storeOrders) {
+            try {
+                setOrderPayload(JSON.parse(storeOrders));
+            } catch (error) {
+                console.error("Failed to parse myOrders from localStorage:", error);
+            }
+        }
+        setLoading(false); // Set loading to false after processing
+        getActivePaymentMethods();
+    }, []);
+
+    useEffect(() => {
+        if (orderPayload) {
+            localStorage.setItem('myOrders', JSON.stringify(orderPayload)); // Save as a JSON string
+        }
+    }, [orderPayload]);
 
     return (
         <MyOrderContext.Provider value={{

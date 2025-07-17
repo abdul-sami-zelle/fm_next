@@ -187,7 +187,6 @@ const CheckoutClient = () => {
 
   useDisableBodyScroll(showWarning)
 
-  useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
   return (
     <div className='summary-main-container'>

@@ -7,8 +7,6 @@ import EmptyCart from '../Empty-Cart/EmptyCart';
 import MobileCart from '../Mobile-Cart/MobileCart';
 import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 import { IoLocationOutline } from "react-icons/io5";
-import LocationPopUp from '../../LocationPopUp/LocationPopUp';
-// import guardIcon from '../../../../Assets/icons/guard-icon.png'
 import { formatedPrice } from '@/utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
@@ -17,7 +15,7 @@ import { BsShop } from "react-icons/bs";
 import Image from 'next/image';
 
 
-const CartProducts = ({handleLocationModal}) => {
+const CartProducts = ({ handleLocationModal }) => {
 
     const {
         cart,
@@ -113,7 +111,7 @@ const CartProducts = ({handleLocationModal}) => {
                         </span>
                         <p onClick={handleLocationModal}> Change Location </p>
                     </div>
-                    
+
                     <div className='cart-protection-plan-container'>
                         <h3
                             className='protection-plan-on-cart-container'
@@ -141,7 +139,7 @@ const CartProducts = ({handleLocationModal}) => {
 
                             <div className='cart-protect-card' onClick={handleCartAssembly}>
                                 <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
-                                
+
                                 <div className='cart-protection-plan-details-container'>
                                     <p className='cart-protection-plan-card-header'>Professional Assembly (+ $199)</p>
                                     <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
@@ -166,12 +164,12 @@ const CartProducts = ({handleLocationModal}) => {
                     <div className='cart-container-shipping-details'>
                         <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
                         <div className='cart-protect-or-not-container'>
+
                             {selectedShippingMethods &&
                                 selectedShippingMethods?.map((option, index) => (
                                     <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                         {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
-                                        
+
                                         <div className='cart-protection-plan-details-container'>
                                             <p className='cart-protection-plan-card-header'>{option.name}</p>
                                         </div>
@@ -195,7 +193,7 @@ const CartProducts = ({handleLocationModal}) => {
                                                     checked={selectedOption?.id === option.id}
                                                     readOnly
                                                     onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-                                                    
+
                                                 />
                                                 <span className="radio-mark" />
                                             </label>
@@ -203,10 +201,12 @@ const CartProducts = ({handleLocationModal}) => {
                                         </div>
                                     </div>
                                 ))}
-                        
+
+
+
+
                         </div>
                         {isProfessionalAssembly ? <p className='delivery-promotion'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
-                        {/* {selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>} */}
                     </div>
                     {cartProducts.products?.length <= 0 && <EmptyCart />}
                     {cartProducts && cartProducts?.products?.map((items, index) => {
@@ -248,7 +248,7 @@ const CartProducts = ({handleLocationModal}) => {
                 </div>
                 <div className='mobile-cart-items'>
 
-                        <div className='cart-container-shipping-details'>
+                    <div className='cart-container-shipping-details'>
                         <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
                         <div className='cart-protect-or-not-container'>
                             {selectedShippingMethods &&
@@ -256,7 +256,7 @@ const CartProducts = ({handleLocationModal}) => {
                                     <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
                                         {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                         {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
-                                        
+
                                         <div className='cart-protection-plan-details-container'>
                                             <p className='cart-protection-plan-card-header'>{option.name}</p>
                                         </div>
@@ -280,7 +280,7 @@ const CartProducts = ({handleLocationModal}) => {
                                                     checked={selectedOption?.id === option.id}
                                                     readOnly
                                                     onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-                                                    
+
                                                 />
                                                 <span className="radio-mark" />
                                             </label>
@@ -288,7 +288,7 @@ const CartProducts = ({handleLocationModal}) => {
                                         </div>
                                     </div>
                                 ))}
-                        
+
                         </div>
                         {selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
                     </div>

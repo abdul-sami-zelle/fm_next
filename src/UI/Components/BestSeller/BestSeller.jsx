@@ -110,18 +110,10 @@ const BestSeller = () => {
             removeFromList(item.uid);
             setShowSnakeBar(true);
             setSnakeBarMessage("Product Removed From Wish List");
-            // notifyRemove('Removed from wish list', {
-            //     autoClose: 10000,
-            //     // position: toast.POSITION.BOTTOM_CENTER,
-            //     className: "toast-message",
-            // })
         } else {
             addToList(item); // Add if not in wishlist
             setShowSnakeBar(true);
             setSnakeBarMessage("Product Added To Wish List")
-            // notify("added to wish list", {
-            //     autoClose: 10000,
-            // })
         }
     }
 

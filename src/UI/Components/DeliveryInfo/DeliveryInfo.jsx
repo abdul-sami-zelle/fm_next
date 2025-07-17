@@ -78,7 +78,8 @@ const DeliveryInfo = forwardRef((props, ref) => {
         selectedOption,
         handleChange,
         selectedShippingMethods,
-        handleButtonClick
+        handleButtonClick,
+        info
     } = useGlobalContext();
 
 
@@ -94,7 +95,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     {selectedShippingMethods &&
                         selectedShippingMethods?.map((option, index) => (
                             <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                 {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
                                 <div className='cart-protection-plan-details-container'>

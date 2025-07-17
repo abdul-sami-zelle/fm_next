@@ -118,17 +118,17 @@ const OrdersTab = ({ data }) => {
           <>
             <tr key={index}>
               {items.tableHeadData.map((headItems, headItemIndex) => (
-                <th key={headItemIndex}>{headItems}</th>
+                <th className={headItems === 'Action' || headItems === 'Date' ? 'action-td' : ''} key={headItemIndex}>{headItems}</th>
               ))}
             </tr>
             {currentItems.map((tbody, tindex) => (
               <tr key={tindex}>
                 <td>{tbody.orderNumber}</td>
                 <td>{tbody.invoice}</td>
-                <td>{formatToUSTime(tbody.date)}</td>
+                <td className='action-td'>{formatToUSTime(tbody.date)}</td>
                 <td>{tbody.status}</td>
                 <td>{tbody.total}</td>
-                <td>
+                <td className='action-td'>
                   <div className='table-action-buttons'>
                     <button onClick={() => handleTrackOrder(tbody)}>View</button>
                     <button onClick={() => handleViewProductData(tbody)}>Invoice</button>

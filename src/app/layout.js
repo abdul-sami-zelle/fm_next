@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
 
   const pathname = usePathname();
   const hideHeaderFooter = pathname.startsWith('/order-confirmation');
-  const hideChatOption = pathname.startsWith('/cart') || pathname.startsWith('/check-out') || pathname.startsWith('/order-confirmation');
+  const hideChatOption = pathname.startsWith('/cart') || pathname.startsWith('/check-out');
 
   return (
     <html lang="en">

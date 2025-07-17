@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api }) => {
 
@@ -24,8 +25,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     const now = new Date().getTime();
     const difference = targetDate - now;
     const padZero = (num) => String(num).padStart(2, '0');
-
-
 
     let timeLeft = {};
     if (difference > 0) {
@@ -85,7 +84,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   }, [dealData])
 
   const getPublishedProducts = () => {
-    // Filter products where parent === 0
     const productWithDiscount = allProducts
       .filter((product) => product.parent === 0) // Add filter condition here
       .map((product) => {
@@ -125,22 +123,23 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
   // wish list 
   const { addToList, removeFromList, isInWishList } = useList()
-  const notify = (str) => toast.success(str);
-  const notifyRemove = (str) => toast.error(str)
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+  const [snakeBarMessage, setSnakeBarMessage] = useState();
   const handleWishList = (item) => {
     if (isInWishList(item.uid)) {
       removeFromList(item.uid)
-      notifyRemove('Removed from wish list', {
-        autoClose: 10000,
-        className: "toast-message",
-      })
+      setShowSnakeBar(true);
+      setSnakeBarMessage("Product Removed From Wish List");
     } else {
       addToList(item)
-      notify("added to wish list", {
-        autoClose: 10000,
-      })
+      setShowSnakeBar(true);
+      setSnakeBarMessage("Product Added To Wish List")
     }
   }
+
+   const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
+    }
 
   const [isSharePopup, setIsSharePopup] = useState(null);
   const [selectedUid, setSelectedUid] = useState(null)
@@ -150,6 +149,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedProduct(items)
     setSelectedUid(items.uid);
   }
+
+
 
   if (!allProducts.length > 0) {
     return
@@ -186,24 +187,22 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
             <SwiperSlider
               slidesData={allProducts?.length > 0 && getPublishedProducts()}
               renderSlide={(items) => (
-                // <div key={items._id} className="blog-cards-container">
-                  <DealOfTheDayCard
-                    key={items._id}
-                    isDiscountable={items.discount.is_discountable === 1 ? true : false}
-                    productImage={items?.images?.[0]?.image_url}
-                    dealDayData={items}
-                    name={items.name}
-                    rating={items.rating}
-                    review={'200'}
-                    price={items.regular_price}
-                    newPrice={items.newPrice}
-                    descount={items.disc}
-                    dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
-                    handleDealCardClick={() => handleDealCardClick(items)}
-                    handleWishListClick={() => handleWishList(items)}
-                    handleShareProduct={() => handleShareProduct(items)}
-                  />
-                // </div>
+                <DealOfTheDayCard
+                  key={items._id}
+                  isDiscountable={items.discount.is_discountable === 1 ? true : false}
+                  productImage={items?.images?.[0]?.image_url}
+                  dealDayData={items}
+                  name={items.name}
+                  rating={items.rating}
+                  review={'200'}
+                  price={items.regular_price}
+                  newPrice={items.newPrice}
+                  descount={items.disc}
+                  dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
+                  handleDealCardClick={() => handleDealCardClick(items)}
+                  handleWishListClick={() => handleWishList(items)}
+                  handleShareProduct={() => handleShareProduct(items)}
+                />
               )}
               showDots={true}
               showArrows={false}
@@ -222,6 +221,13 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         selectedUid={selectedUid}
         setSelectedUid={setSelectedUid}
         selectedProduct={selectedProduct}
+      />
+
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
       />
     </div>
   )

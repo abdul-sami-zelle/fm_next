@@ -152,10 +152,16 @@
   .upper_tabs {
     flex-wrap: wrap;
   }
-  .dashboard-tabs-toggle-nav{
+
+  .dashboard-tabs-toggle-nav {
     width: 100%;
     overflow: auto;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    padding: 5px;
   }
+
   .most_upper_section {
     display: flex;
     align-items: start;
@@ -163,26 +169,31 @@
     width: 100%;
     flex-direction: column-reverse;
     gap: 10px;
-}
-.most_upper_section_right {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-.most_upper_section_left{
-  gap: 5px;
-}
-.user-dashboard-main-page {
-  padding: 15px 10px 50px 10px;
-}
-.dashboard-all-tabs-toggler-main-container{
-  gap: 20px;
-}
-.dash-tab-main-container{
-  padding: 10px;
-}
+  }
+
+  .most_upper_section_right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .most_upper_section_left {
+    gap: 5px;
+  }
+
+  .user-dashboard-main-page {
+    padding: 15px 10px 50px 10px;
+  }
+
+  .dashboard-all-tabs-toggler-main-container {
+    gap: 20px;
+  }
+
+  .dash-tab-main-container {
+    padding: 10px;
+  }
 
 }
 
@@ -190,15 +201,18 @@
   .dashboard_tab {
     width: 100%;
   }
+
   .dashboard_tab>.dashboard_tab_svg {
     width: 100%;
   }
+
   .circular_button {
     height: 60px !important;
     width: 60px !important;
   }
+
   .dashboard_tab>.heading {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .dashboard_tab>.count {

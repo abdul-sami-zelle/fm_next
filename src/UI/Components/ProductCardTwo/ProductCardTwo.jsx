@@ -11,6 +11,7 @@ import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimme
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
+import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
 const ProductCardTwo = ({
     productCardContainerClass,
@@ -41,6 +42,8 @@ const ProductCardTwo = ({
             attributes && attributes.find(attr => attr.type === "select");
     };
 
+    // console.log("single product data", singleProductData)
+
 
     const priorityAttribute = getPriorityAttribute(attributes);
 
@@ -49,6 +52,7 @@ const ProductCardTwo = ({
     const [selectedColorImage, setSelectedColorImage] = useState();
 
     const [isHovered, setIsHovered] = useState(false);
+    const [selectedVariation, setSelectedVariation] = useState({})
 
 
     const handleColorSelect = (color) => {
@@ -60,7 +64,7 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
-
+            console.log("check variation", matchingAttribute)
             setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
@@ -120,6 +124,9 @@ const ProductCardTwo = ({
                 attr?.uid === singleProductData.default_variation
             );
 
+            console.log("def variation", singleProductData.default_variation)
+            console.log("product data", singleProductData)
+
             // Get the default color
             const defAttrColor = defAttImage?.attributes?.find(attribute =>
                 attribute?.type === "color" &&
@@ -172,6 +179,22 @@ const ProductCardTwo = ({
         return today.toLocaleDateString("en-us", optionWithTimeZone);
     }
 
+    console.log("priority attributes", priorityAttribute)
+
+    const { selectedVariationData } = useProductPage()
+
+    console.log("single product on archive", singleProductData)
+
+    const stockCheck = singleProductData?.type === 'variable' ?
+        selectedVariationData?.manage_stock?.stock_status === 'inStock'
+        && selectedVariationData?.manage_stock?.quantity === 0
+        || selectedVariationData?.manage_stock?.stock_status === 'outStock'
+        || selectedVariationData?.manage_stock?.stock_status === 'outOfStock'
+        : singleProductData?.manage_stock?.stock_status === 'inStock'
+        && singleProductData?.manage_stock?.quantity === 0
+        || singleProductData?.manage_stock?.stock_status === 'outStock'
+        || singleProductData?.manage_stock?.stock_status === 'outOfStock';
+
     return (
         <>
             {/* {!isImageLoaded && <ProductCardShimmer width={'100%'} /> } */}
@@ -188,20 +211,26 @@ const ProductCardTwo = ({
                         <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}>
 
                             {
-                                tags?.length > 0 && <div className="product-tagging">
-                                    {
-                                        tags[0] && tags[0]?.type?.toLowerCase() === "text" ?
-                                            <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
-                                                {tags[0].text}
-                                            </div> :
-                                            <div className='image-tag' >
-                                                <img src={url + tags[0]?.image} alt="" srcset="" />
-                                            </div>
-                                    }
-                                </div>
+                                stockCheck ? (
+                                    <span className='product-archive-out-of-stock-tag'>Out Of Stock</span>
+                                ) : (
+                                    tags?.length > 0 && <div className="product-tagging">
+                                        {
+                                            tags[0] && tags[0]?.type?.toLowerCase() === "text" ?
+                                                <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
+                                                    {tags[0].text}
+                                                </div> :
+                                                <div className='image-tag' >
+                                                    <img src={url + tags[0]?.image} alt="" srcset="" />
+                                                </div>
+                                        }
+                                    </div>
+
+                                )
                             }
 
-                            <div className='product-wishlist-icon-container'>
+                            <div className={`product-wishlist-icon-container`}>
+
                                 {
                                     isInWishList(singleProductData._id) ?
                                         <VscHeartFilled
