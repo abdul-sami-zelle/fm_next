@@ -22,6 +22,7 @@ import { fetcher } from '@/utils/Fetcher';
 
 import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import { BiSolidShoppingBag } from 'react-icons/bi';
 
 
 const BestSellerSlider = (
@@ -29,7 +30,9 @@ const BestSellerSlider = (
         allProducts,
         setAllProducts,
         bestSellerNav1,
-        setBestSellerNav1
+        setBestSellerNav1,
+        setShowSnakeBar,
+        setSnakeBarMessage
     }) => {
 
     // States and Variables
@@ -81,6 +84,8 @@ const BestSellerSlider = (
         }
     }, [bestSellerMainData])
 
+    useEffect(() => { console.log("after category change", bestSellerProductLoading) }, [bestSellerProductLoading])
+
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [cardsPerPage] = useState(6);
@@ -101,6 +106,7 @@ const BestSellerSlider = (
     // Functions
     const handleActiveItem = (index) => {
         setActiveItem(index)
+        setLoading(true)
     }
 
     const handleMobileActiveindex = (index) => {
@@ -133,16 +139,13 @@ const BestSellerSlider = (
     const handleWishlisted = (item) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                // position: toast.POSITION.BOTTOM_CENTER,
-                className: "toast-message",
-            })
+            setShowSnakeBar(true);
+            setSnakeBarMessage('Removed from wish list')
+
         } else {
             addToList(item); // Add if not in wishlist
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            setShowSnakeBar(true);
+            setSnakeBarMessage("added to wish list")
         }
     }
 
@@ -156,8 +159,6 @@ const BestSellerSlider = (
 
     // Get the slice of products to display based on the current page
     const getDisplayedCards = () => {
-        // const start = currentPage * cardsPerPage;
-        // const end = start + cardsPerPage;
         const publishedProductes = allProducts.filter(product => product.status === 'published');
         const productWithDiscount = publishedProductes.map((product) => {
             let newPrice = parseFloat(product.regular_price);
@@ -182,7 +183,7 @@ const BestSellerSlider = (
                 newPrice
             }
         })
-
+        // setLoading(false)
         // return productWithDiscount.slice(start, end);
         return productWithDiscount;
     };
@@ -196,6 +197,8 @@ const BestSellerSlider = (
     ]
     useEffect(() => {
     }, [MobileActiveIndex])
+
+    console.log("all products", allProducts)
 
     return (
         <>
@@ -292,28 +295,38 @@ const BestSellerSlider = (
                 <div className='best-saller-mobile-container'>
                     <h3>Best Seller</h3>
                     <div className='mobile-card-nav-container'>
-                        {bestSellerNav1.map((item, index) => (
-                            <p
-                                key={index}
-                                className={`mobile-best-seller-nav-item ${mobIndex === index ? 'mobile-seller-nav-active' : ''}`}
-                                onClick={() => {
-                                    setCurrentSlug(item.slug)
-                                    handleMobileNavClick(index)
-                                    handleMobileActiveindex(index)
-                                }}
-                            >
-                                {item.Heading}
-                            </p>
-                        ))}
+                        {
+                            getDisplayedCards()?.length !== 0 ? (
+                                bestSellerNav1.map((item, index) => (
+                                    <p
+                                        key={index}
+                                        className={`mobile-best-seller-nav-item ${mobIndex === index ? 'mobile-seller-nav-active' : ''}`}
+                                        onClick={() => {
+                                            setCurrentSlug(item.slug)
+                                            handleMobileNavClick(index)
+                                            handleMobileActiveindex(index)
+                                        }}
+                                    >
+                                        {item.Heading}
+                                    </p>
+                                ))
+                            ) : (
+                                <div className='mobile-best-seller-products-nav-shimmer'>
+                                    <div className='mobile-seller-nav-item-shimmer'></div>
+                                    <div className='mobile-seller-nav-item-shimmer'></div>
+                                    <div className='mobile-seller-nav-item-shimmer'></div>
+                                </div>
+                            )
+                        }
                     </div>
 
                     <div className='mobile-view-cards-main-container'>
-                        {loading ? (
+                        {bestSellerProductLoading ? (
                             <BestSellerMobileShimmer width={'85%'} />
                         ) : (
 
                             <SwiperSlider
-                                slidesData={allProducts}
+                                slidesData={getDisplayedCards()}
                                 renderSlide={(item) => (
                                     // <div key={item._id} className="blog-cards-container">
                                     <Link key={item._id} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
@@ -353,7 +366,7 @@ const BestSellerSlider = (
                                         </div>
                                         <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
-                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                                <BiSolidShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
                                             </div>
                                         </div>
                                     </Link>

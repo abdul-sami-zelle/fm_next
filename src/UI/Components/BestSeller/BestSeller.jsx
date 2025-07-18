@@ -19,15 +19,15 @@ import { fetcher } from '@/utils/Fetcher';
 import Link from 'next/link';
 import RatingReview from '../starRating/starRating';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
-
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
 
 
 
 const BestSeller = () => {
 
     // States and variables
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [mainBanner, setMainBanner] = useState();
     const [allProducts, setAllProducts,] = useState([]);
     const [currentSlug, setCurrentSlug] = useState();
@@ -46,8 +46,6 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, [bestSelling]);
 
-
-
     const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
     const [categorySellerCount, setCategorySellerCount] = useState(0)
 
@@ -65,9 +63,18 @@ const BestSeller = () => {
         }, 1000)
     }
 
+    const handleActiveItem = (index, item) => {
+        setActiveItem(index);
+        setMainBanner(item?.image)
+        setCurrentSlug(item?.slug)
+        handleMobileNavClick(index)
+        setLoading(true);
+    };
+
     useEffect(() => {
         if (categorySellerData) {
             setAllProducts(categorySellerData.products);
+            setLoading(false)
         }
     }, [categorySellerData])
 
@@ -78,15 +85,11 @@ const BestSeller = () => {
     useEffect(() => {
         if (allProducts?.length === 0) {
             setLoading(false);
-        }
+        } 
+        console.log("products len", allProducts)
     }, [allProducts])
 
-    const handleActiveItem = (index, item) => {
-        setActiveItem(index);
-        setMainBanner(item?.image)
-        setCurrentSlug(item?.slug)
-        handleMobileNavClick(index)
-    };
+    
 
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`);
@@ -101,7 +104,7 @@ const BestSeller = () => {
     }
 
     const { addToList, isInWishList, removeFromList } = useList()
-    
+
 
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState();
@@ -200,8 +203,8 @@ const BestSeller = () => {
                     </div>
 
                     <div className='mobile-view-cards-main-container'>
-                        {loading ? (
-                            <BestSellerProductCardShimmer width={'85%'} />
+                        {categorySellerLoading ? (
+                            <BestSellerMobileShimmer width={'85%'} />
                         ) : (
                             <SwiperSlider
                                 slidesData={allProducts}

@@ -5,8 +5,9 @@ import axios from 'axios';
 import checked from "../../../Assets/checked.png"
 import LoaderAnimation from '../../../Assets/Loader-animations/loader-check-two.gif';
 import { url } from '../../../utils/api';
+import Image from 'next/image';
 
-const GetTheScop = () => {
+const GetTheScop = ({setShowSnakeBar, setSnakeBarMessage}) => {
 
   // State for email input and form submission status
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -29,11 +30,13 @@ const GetTheScop = () => {
     e.preventDefault();  // Prevent the default form submission
 
     if (!email) {
-      setError('Email is required');
+      setShowSnakeBar(true);
+      setSnakeBarMessage('Email is required')
       return;
     }
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address');
+      setShowSnakeBar(true);
+      setSnakeBarMessage('Please enter a valid email address')
       return;
     }
 
@@ -50,22 +53,28 @@ const GetTheScop = () => {
         setIsSubscribed(true);
       }
       else if (response.status === 409) {
-        setError('Email already exists');
+        setShowSnakeBar(true);
+        setSnakeBarMessage('Email already exists')
       }
       else {
-        setError(response.data.message || 'Something went wrong');
+        setShowSnakeBar(true);
+        setSnakeBarMessage(response.data.message || 'Something went wrong')
       }
     } catch (error) {
       // Handle error
       console.error('Error signing up:', error);
+      setShowSnakeBar(true);
+        setSnakeBarMessage('Error signing up')
 
       // Check if the error is due to the API response or a network issue
       if (error.response) {
         // If the error has a response (API returned an error)
-        setError(error.response.data.message || 'Something went wrong, please try again later.');
+        setShowSnakeBar(true);
+        setSnakeBarMessage(error.response.data.message || 'Something went wrong, please try again later.')
       } else {
         // If there was a network error or no response
-        setError('Network error, please try again later.');
+        setShowSnakeBar(true);
+        setSnakeBarMessage('Network error, please try again later.')
       }
     } finally {
       setIsSubmitting(false);
@@ -92,11 +101,11 @@ const GetTheScop = () => {
                   onChange={handleEmailChange}
                 />
 
-                {isSubmitting ? 
-                <img className='scoop_loader' src={LoaderAnimation} alt="" /> 
-                : <button className='get-the-scoop-submit-button' type='submit' disabled={isSubmitting}>
-                  Sign me up
-                </button>}
+                {isSubmitting ?
+                  <Image className='scoop_loader' src={'/Assets/Loader-animations/loader-check-two.gif'} width={60} height={60} alt="" />
+                  : <button className='get-the-scoop-submit-button' type='submit' disabled={isSubmitting}>
+                    Sign me up
+                  </button>}
               </div>
               {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -110,14 +119,14 @@ const GetTheScop = () => {
               <p className='done_message_2'>Your Subscription Has Been Done Successfully.</p>
               <p className='done_message_3'>Check your email</p>
             </div>}
-        
-        <div className="divider_line_gts">
 
+          <div className="divider_line_gts">
+
+          </div>
+
+          <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button>
         </div>
 
-        <button onClick={()=>{ window.open("https://flyer.myfurnituremecca.com", "_blank");}} className='see_all_promotions_btn'>View Exclusive Promotions</button>
-        </div>
-        
       </div>
 
       {/* Mobile view */}
@@ -142,7 +151,7 @@ const GetTheScop = () => {
                   onChange={handleEmailChange}
                 />
                 {error && <p style={{ color: 'red', fontSize: "13px", margin: "0", padding: "0", lineHeight: "10px" }}>{error}</p>}
-                {isSubmitting ? <img className='scoop_loader' src={LoaderAnimation} alt="" /> : <button type='submit' disabled={isSubmitting}>
+                {isSubmitting ? <Image className='scoop_loader' src={'/Assets/Loader-animations/loader-check-two.gif'} width={60} height={60} alt="" /> : <button type='submit' disabled={isSubmitting}>
                   Sign me up
                 </button>}
               </div>
@@ -150,13 +159,13 @@ const GetTheScop = () => {
             </form>
             :
             <div className="subscription_done">
-              <img src={checked} />
+              <Image src={'/Assets/checked.png'} width={40} height={40} />
               <p className='done_message'>Congratulations!</p>
               <p className='done_message_2'>Your Subscription Has Been Done Successfully.</p>
               <p className='done_message_3'>Check your email</p>
             </div>}
           <p className='mobile-view-conditions'>By signing up, you agree to our <Link href={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link href={'/terms-and-conditions'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p>
- <button onClick={()=>{ window.open("https://flyer.myfurnituremecca.com", "_blank");}} className='see_all_promotions_btn'>View Exclusive Promotions</button>
+          <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button>
         </div>
       </div>
     </>

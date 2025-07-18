@@ -1,4 +1,4 @@
-.mobile-register-main{
+.mobile-register-main {
     display: none;
     flex-direction: column;
     width: 100%;
@@ -12,28 +12,28 @@
     transition: all 0.3s ease-in-out;
 }
 
-.mobile-register-main.slide-register-left{
+.mobile-register-main.slide-register-left {
     visibility: visible;
     opacity: 1;
     z-index: 9999;
     display: flex;
 }
 
-.mobile-register-top-heading{
+.mobile-register-top-heading {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
 }
 
-.mobile-register-top-heading p{
+.mobile-register-top-heading p {
     font-size: 15px;
     line-height: 18px;
     font-weight: 500;
     color: var(--text-primary);
 }
 
-.mobile-register-top-heading button{
+.mobile-register-top-heading button {
     padding: 5px 15px;
     display: flex;
     align-items: center;
@@ -41,14 +41,14 @@
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     background-color: #fff;
-    font-size: 15px;
-    line-height: 18px;
+    font-size: 12px;
+    line-height: 1.2;
     font-weight: 500;
     border-radius: 25px;
     cursor: pointer;
 }
 
-.mobile-register-content{
+.mobile-register-content {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -59,21 +59,21 @@
     gap: 10px;
 }
 
-.mobile-register-heading{
+.mobile-register-heading {
     font-size: 15px;
     line-height: 22px;
     font-weight: 600;
     color: var(--text-primary);
 }
 
-.mobile-register-content p{
+.mobile-register-content p {
     font-size: 12px;
     line-height: 15px;
     font-weight: 400;
     color: var(--text-primary);
 }
 
-.mobile-view-register-btn{
+.mobile-view-register-btn {
     padding: 5px 30px;
     background-color: var(--primary-color);
     border: 1px solid var(--primary-color);

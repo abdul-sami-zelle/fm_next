@@ -4,7 +4,7 @@ import { url } from '../../../../utils/api';
 import Link from 'next/link';
 
 
-const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
+const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeBarMessage, setShowSnakeBar }) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -20,7 +20,8 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
 
         // Simple validation for the form
         if (password !== confirmPassword) {
-            setError("Passwords do not match!");
+            setShowSnakeBar(true);
+            setSnakeBarMessage("Password Deos Not Match")
             return;
         }
         setError('');
@@ -43,21 +44,19 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
             const result = await response.json();
 
             if (response.ok) {
-                // Handle success (e.g., show success message, reset form, etc.)
                 alert('Sign up successful!');
-                // Optionally reset the form here
                 setFirstName('');
                 setLastName('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
             } else {
-                // Handle error
-                setError(result.message || 'Something went wrong');
+                setShowSnakeBar(true);
+                setSnakeBarMessage(result.message || 'Something went wrong')
             }
         } catch (error) {
-            // Handle network error
-            setError('Network error, please try again later.');
+            setShowSnakeBar(true);
+            setSnakeBarMessage('Network error, please try again later.')
         } finally {
             setLoading(false);
         }
@@ -147,17 +146,11 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView }) => {
                         />
                         <span>I agree to the <Link href={'/terms-and-conditions'} >Terms And Condition</Link></span>
                     </label>
-
-
-                    {/* Error message */}
-                    {error && <div className="error-message">{error}</div>}
-
-                    {/* Submit Button */}
                     <button className="signup-button mobile-view-register-btn" type="submit">Register</button>
                 </form>
 
 
-              
+
             </div>
         </div>
     )

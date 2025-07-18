@@ -324,7 +324,7 @@ const ProductDetailSticky = (
     return () => window.removeEventListener('scroll', handleScrollAddToCart);
   }, [cartDivRef]);
   const [errorMessage, setErrorMessage] = useState('Something went wrong! Please try again later.');
-  
+
 
   const [showSnakeBar, setShowSnakeBar] = useState(false);
   const [snakeBarMessage, setSnakeBarMessage] = useState()
@@ -340,7 +340,7 @@ const ProductDetailSticky = (
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
   const { eachProtectionValue } = useCart();
   const [whatIsCoveredModa, setWhatIsCoveredModal] = useState(false);
-  
+
   const handleWhatIsCoveredModal = () => {
     setWhatIsCoveredModal(true);
   }
@@ -681,7 +681,7 @@ const ProductDetailSticky = (
                     Call
                   </a>
 
-                  <button  onClick={handleOpenChatUsOnly} >
+                  <button onClick={handleOpenChatUsOnly} >
                     <IoChatbubbleOutline size={18} color='var(--secondary-color)' />
                     Chat
                   </button>
@@ -754,9 +754,12 @@ const ProductDetailSticky = (
             </span>
           </div>
           <button
+            className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
+            disabled={stockCheck}
             onClick={() => {
               addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)
               handleAddToCartProduct(productData);
+
               // handleSubmitProduct(productData)
             }
             }
@@ -766,7 +769,7 @@ const ProductDetailSticky = (
         </div>
       </div>
 
-      <WhatIsCovered 
+      <WhatIsCovered
         showCoveredModal={whatIsCoveredModa}
         handleCloseCoveredModal={handleCloseWhatIsCoveredModal}
       />

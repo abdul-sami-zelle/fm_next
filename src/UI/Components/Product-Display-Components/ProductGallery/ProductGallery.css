@@ -207,7 +207,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-color: var(--orange-fill);
+    background-color: red;
     padding: 5px 10px;
     z-index: 99;
     color: #FFF;

@@ -55,5 +55,13 @@
     color: #fff;
 }
 
-
+@media only screen and (max-width: 480px) {
+    .snake-bar-inner-container {
+        width: 310px;
+    }
+    .snake-bar-main-container-text {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+}
 

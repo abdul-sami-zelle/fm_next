@@ -6,10 +6,11 @@ import Loader from '../../Loader/Loader';
 import OrderViewModal from '../OrderViewModal/OrderViewModal';
 import Pagination from '../../../../Global-Components/Pagination/Pagination';
 import { useRouter } from 'next/navigation';
+import { HiDotsHorizontal } from "react-icons/hi";
 
 const OrdersTab = ({ data }) => {
 
-  
+
 
   const dataPerPage = 10;
   const [currentTableDataIndex, setCurrentTableDataIndex] = useState(0);
@@ -76,9 +77,10 @@ const OrdersTab = ({ data }) => {
   // View Modal
   const [viewProductModal, setViewProductModal] = useState(false)
   const [selectedProductData, setSelectedProductData] = useState([])
+  const [showActionButtons, setShowActionButton] = useState(null);
   const [orderID, setOrderId] = useState('')
   const handleViewProductData = (data) => {
-    console.log("product ID", data)
+    setShowActionButton(null)
     setViewProductModal(true);
     setSelectedProductData(data);
     setOrderId(data.order_id);
@@ -94,6 +96,7 @@ const OrdersTab = ({ data }) => {
 
   const handleTrackOrder = () => {
     window.open('https://track.myfurnituremecca.com/', '_blank');
+    setShowActionButton(null);
   }
 
   function formatToUSTime(isoString) {
@@ -109,6 +112,10 @@ const OrdersTab = ({ data }) => {
     }).format(date);
   }
 
+  const handleActionButtons = (index) => {
+    setShowActionButton((prevInd) => prevInd !== index ? index : null);
+  }
+
 
   return (
     <div className='dash-orders-main-container'>
@@ -118,21 +125,33 @@ const OrdersTab = ({ data }) => {
           <>
             <tr key={index}>
               {items.tableHeadData.map((headItems, headItemIndex) => (
-                <th className={headItems === 'Action' || headItems === 'Date' ? 'action-td' : ''} key={headItemIndex}>{headItems}</th>
+                <th className={headItems === 'Date' || headItems === 'Order Number' ? 'action-td' : ''} key={headItemIndex}>{headItems}</th>
               ))}
             </tr>
             {currentItems.map((tbody, tindex) => (
               <tr key={tindex}>
-                <td>{tbody.orderNumber}</td>
+                <td className='action-td'>{tbody.orderNumber}</td>
                 <td>{tbody.invoice}</td>
                 <td className='action-td'>{formatToUSTime(tbody.date)}</td>
                 <td>{tbody.status}</td>
                 <td>{tbody.total}</td>
-                <td className='action-td'>
+                <td >
                   <div className='table-action-buttons'>
                     <button onClick={() => handleTrackOrder(tbody)}>View</button>
                     <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
                     <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
+                  </div>
+
+                  <div className='table-mobile-action-container'>
+                    <button onClick={() => handleActionButtons(tindex)}>
+                      <HiDotsHorizontal size={15} color='#595959' />
+                    </button>
+
+                    <div className={`table-mobile-buttons-container ${showActionButtons === tindex ? 'show-action-button-container' : ''}`}>
+                      <button onClick={() => handleTrackOrder(tbody)}>View</button>
+                      <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
+                      <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
+                    </div>
                   </div>
                 </td>
               </tr>

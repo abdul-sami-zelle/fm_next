@@ -152,7 +152,7 @@ const PromotionalBanner = (
       </div>
 
       <div className='on-tab-deliver-to' onClick={handleDeliverModal}>
-        <img src={'/Assets/icon/location-outlined.svg'} alt="delivery" />
+        <img src={'/Assets/icon/truck-white.svg'} alt="delivery" />
         <div className='mobile-view-delever-to'>
           <p>Deliver to : </p>
           <Link href={'#'}> {info.locationData.zipCode} {info.locationData.stateCode}</Link>

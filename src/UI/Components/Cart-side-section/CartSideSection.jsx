@@ -48,12 +48,12 @@ const CartSideSection = (
                             )
                         })}
                         {sale_price === '' ? (
-                            <div className='cart-side-section-price-and-count'>
+                            <div className='cart-side-panel-section-price-and-count'>
 
                                 <p> {formatedPrice(regular_price)} </p>
                             </div>
                         ) : (
-                            <div className='cart-side-section-price-and-count'>
+                            <div className='cart-side-panel-section-price-and-count'>
 
                                 <p> {formatedPrice(sale_price)} </p>
                                 <p><del style={{

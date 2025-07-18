@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -27,6 +27,7 @@ import LandingPageFinancing from '@/UI/Components/LandingPageFinancingBanners/La
 import { useBlog } from '@/context/BlogsContext/blogsContext';
 import { useRouter } from 'next/navigation';
 import { url } from '@/utils/api';
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 const Home = () => {
 
@@ -57,6 +58,13 @@ const Home = () => {
     router.push(`/${slug}${queryString}`);
   };
 
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
+
+    const handleCloseSnakeBar = () => {
+      setShowSnakeBar(false)
+    }
+
   return (
     <div className='home-page-main-container'>
       <NearStorePopUp />
@@ -73,6 +81,8 @@ const Home = () => {
         setAllProducts={setBestSellerProducts}
         bestSellerNav1={bestSellerNav1}
         setBestSellerNav1={setBestSellerNav1}
+        setShowSnakeBar={setShowSnakeBar}
+        setSnakeBarMessage={setSnakeBarMessage}
       />
 
       {content2?.section_2 && (
@@ -105,11 +115,21 @@ const Home = () => {
         <FurnitureForBudget budgetCardData={landingPageFOEB} />
       )}
 
-      <GetTheScop />
+      <GetTheScop 
+        setShowSnakeBar={setShowSnakeBar}
+        setSnakeBarMessage={setSnakeBarMessage}
+      />
       {blogs?.length > 0 && <BlogSlider />}
 
       <InstaGallery />
       <InstaTwoImageGallery />
+
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
+      />
       
     </div>
   )

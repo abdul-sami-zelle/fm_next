@@ -11,6 +11,7 @@ import { url } from '../../../utils/api';
 import { useUserDashboardContext } from '../../../context/userDashboardContext/userDashboard'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext'
 import { useRouter } from 'next/navigation'
+import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 
 const LoginRegisterClient = () => {
 
@@ -101,6 +102,14 @@ const LoginRegisterClient = () => {
     setMobileSignupClicked(!mobileSignupClicked);
   }
 
+  const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
+
+
+    const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
+    }
+
   return (
     <>
       <div className='login-register-main-page'>
@@ -116,12 +125,23 @@ const LoginRegisterClient = () => {
         <LoginMobileView
           mobileSignupClicked={mobileSignupClicked}
           handleRegisteView={handleMobileSignup}
+          setSnakeBarMessage={setSnakeBarMessage}
+          setShowSnakeBar={setShowSnakeBar}
         />
         <RegisterMobileView
           mobileSignupClicked={mobileSignupClicked}
           handleRegisterView={handleMobileSignup}
+          setSnakeBarMessage={setSnakeBarMessage}
+          setShowSnakeBar={setShowSnakeBar}
         />
       </div>
+
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
+      />
     </>
   )
 }

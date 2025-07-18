@@ -3,6 +3,11 @@ import './SalesPerformace.css';
 import ReactApexChart from 'react-apexcharts';
 
 const SalesPerformance = ({ data }) => {
+    const totalReview = data?.summary?.totalReview || 0;
+    const isZeroOrLow = totalReview <= 0;
+
+    const fallbackColor = 'green'; // inner color when not filled
+    const borderColor = 'orange';
 
     const [state, setState] = React.useState({
 
@@ -96,6 +101,7 @@ const SalesPerformance = ({ data }) => {
                 radialBar: {
                     startAngle: -140,
                     endAngle: 140,
+                    
                     track: {
                         // background: 'rgba(198, 27, 26, 0.2)',
                         fill: 'var(--tertiary-color)',
@@ -153,6 +159,7 @@ const SalesPerformance = ({ data }) => {
                 dashArray: 10,
                 // color: ['var(--primary-color)'] // Stroke color set to #C611B1A
             },
+
             labels: ['Out of 100 points'],
         },
 

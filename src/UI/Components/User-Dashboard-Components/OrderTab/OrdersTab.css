@@ -89,6 +89,75 @@ table {
     border-radius: 3px;
 }
 
+.table-mobile-action-container {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+.table-mobile-action-container > button {
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: max-content;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 3px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.table-mobile-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: max-content;
+    padding: 20px 30px;
+    background-color: #FFF;
+    position: absolute;
+    top: 95%;
+    left: -173%;
+    z-index: 9999;
+    border: 1px solid #d9d9d9;
+    opacity: 0;
+    border-radius: 5px;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.table-mobile-buttons-container.show-action-button-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.table-mobile-buttons-container > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: max-content;
+    background-color: var(--orange-fill);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--text-gray);
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border: 1px solid var(--orange-outline);
+    padding: 5px;
+}
+
 /* Paginations */
 .paginations {
     display: flex;
@@ -165,26 +234,36 @@ table {
         padding: 10px;
     }
 
-    .order-table tr  {
+    .order-table tr {
         padding: 5px;
     }
 
     .order-table tr th {
-    display: flex
-;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-size: 9px;
-    line-height: 1.2;
-    font-weight: 500;
-    color: var(--text-primary);
-}
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 9px;
+        line-height: 1.2;
+        font-weight: 500;
+        color: var(--text-primary);
+    }
 
-.order-table tr td {
-    font-size: 9px;
-    line-height: 1.2;
-    text-align: center;
-}
+    .order-table tr td {
+        font-size: 9px;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .paginations {
+        justify-content: center;
+    }
+
+    .table-action-buttons {
+        display: none;
+    }
+    .table-mobile-action-container {
+        display: flex;
+    }
 }

@@ -12,51 +12,12 @@ import { IoIosClose } from "react-icons/io";
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
 
   // States and Vaeiables
-  // const [headerData, setHeaderData] = useState([]);
-  const [headerSale, setHeaderSale] = useState([]);
   const [subNavData, setSubNavData] = useState([])
   const [openSubNav, setOpenSubNav] = useState(false)
   const router = useRouter()
 
-
-  // Functions
-  // async function fetchHeaderPayloads() {
-  //   try {
-  //     const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json", // Adjust headers as needed
-  //       },
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
-  //     }
-
-  //     const data = await response.json();
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error.message);
-  //     throw error;
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchHeaderPayloads().then(data => {
-  //     setHeaderData(data.data[0].categories)
-  //     setHeaderSale(data.data[0].sale)
-  //   }).catch(error => {
-  //     console.error(error);
-  //   });
-  // }, [])
-
   const handleNavbarClose = () => {
     setMobileNavVisible(false)
-  }
-
-  const handleOpenSubNav = (item) => {
-    setOpenSubNav(true);
-    setSubNavData(item)
   }
 
 
@@ -107,7 +68,6 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
     <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`} onClick={handleNavbarClose}>
       <div className={`mobile-nav-main-container`} onClick={(e) => e.stopPropagation()}>
         <button className='mobile-nav-close' onClick={handleNavbarClose}>
-          {/* <Image src={`/Assets/icons/close-btn.png`} width={20} height={20} alt='close-nav' /> */}
           <IoIosClose className='mobile-nav-close-icon' />
         </button>
         <div className='mobile-nav-logo-section'>
@@ -135,14 +95,6 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData }) => {
                     <Image src={'/icons/menu-order.svg'} width={25} height={25} alt='nav-icon' />
                     <p>{items.category}</p>
                   </Link>
-                  {/* <Image
-                  src={`/Assets/icons/nav-arrow.png`}
-                  width={20}
-                  height={20}
-                  alt='nav-icon'
-                  className='mobile-nav-single-item-nav-arrow'
-                  onClick={() => handleOpenSubNav(items)}
-                /> */}
                 </div>
               ))}
             </div>

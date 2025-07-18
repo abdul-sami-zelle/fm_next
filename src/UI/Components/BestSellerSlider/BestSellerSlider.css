@@ -311,6 +311,45 @@
     font-weight: 600;
 }
 
+/* nav shimmer */
+.mobile-best-seller-products-nav-shimmer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
+
+.mobile-seller-nav-item-shimmer {
+    height: 15px;
+    width: 80px;
+    border-radius: 10px;
+    background-color: var(--secondary-background);
+    overflow: hidden;
+    position: relative;
+}
+
+.mobile-seller-nav-item-shimmer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0%;
+    height: 100%;
+    width: 80px;
+    background: linear-gradient(90deg, var(--secondary-background) 0%, #FFFFFF 50%, var(--secondary-background) 100%);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 .mobile-view-cards-main-container {
     display: flex;
     align-items: center;

@@ -5,6 +5,8 @@ const BestSellerMobileShimmer = () => {
   return (
     <div className='best-seller-mobile-card-shimmer'>
 
+      <div className='mobile-best-seller-cart-shimmer-container'>
+      </div>
     </div>
   )
 }
