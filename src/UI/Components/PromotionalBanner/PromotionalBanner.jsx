@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react'
 import './PromotionalBanner.css';
 // import { Link, useNavigate } from 'react-router-dom';
-import  Link  from 'next/link'
+import Link from 'next/link'
 
 // import deliverTo from '../../../Assets/icons/delivery.png'
 import deliverTo from '../../../Assets/icons/delivery.png'
@@ -17,12 +17,12 @@ import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 
 const PromotionalBanner = (
-  { 
-    handleLanguageModal, 
-    handleDeliverModal, 
-    currentSelectedCountryFlag, 
-    usaFlag, 
-    currentSelectedCountry 
+  {
+    handleLanguageModal,
+    handleDeliverModal,
+    currentSelectedCountryFlag,
+    usaFlag,
+    currentSelectedCountry
   }) => {
 
 
@@ -40,13 +40,13 @@ const PromotionalBanner = (
   // const { setMainLoader } = useGlobalContext();
   const { setUserToken, setSigninClicked } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
-  const {info } = useGlobalContext()
+  const { info } = useGlobalContext()
 
   const handleClickOnOrders = async () => {
-    if(typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
       const token = localStorage.getItem('userToken');
       const id = localStorage.getItem('uuid');
-  
+
       try {
         if (token) {
           const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
@@ -70,31 +70,30 @@ const PromotionalBanner = (
   }
 
   const handleUserLogin = async (clickType) => {
-    console.log("clicked ", clickType)
     // if(typeof window !== 'undefined') {
-      const token = localStorage.getItem('userToken');
-      const id = localStorage.getItem('uuid');
+    const token = localStorage.getItem('userToken');
+    const id = localStorage.getItem('uuid');
 
-      try {
-        if (token) {
-          const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
-            method: "GET",
-            headers: {
-              authorization: `${token}`,
-            },
-          });
-          if (response.ok) {
-            router.push(`/user-dashboard/${id}`);
-          }
-        } else {
-          localStorage.removeItem('userToken');
-          setUserToken(null);
-          setSigninClicked(clickType === 'login' ? true : false);
-          router.push('/my-account');
+    try {
+      if (token) {
+        const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+          method: "GET",
+          headers: {
+            authorization: `${token}`,
+          },
+        });
+        if (response.ok) {
+          router.push(`/user-dashboard/${id}`);
         }
-      } catch (error) {
-        console.error("UnExpected Server Error", error);
+      } else {
+        localStorage.removeItem('userToken');
+        setUserToken(null);
+        setSigninClicked(clickType === 'login' ? true : false);
+        router.push('/my-account');
       }
+    } catch (error) {
+      console.error("UnExpected Server Error", error);
+    }
     // }
   }
 
@@ -155,17 +154,22 @@ const PromotionalBanner = (
         <img src={'/Assets/icon/truck-white.svg'} alt="delivery" />
         <div className='mobile-view-delever-to'>
           <p>Deliver to : </p>
-          <Link href={'#'}> {info.locationData.zipCode} {info.locationData.stateCode}</Link>
+          {info?.locationData?.zipCode && info?.locationData?.stateCode && (
+            <Link href="#">
+              {info.locationData.zipCode} {info.locationData.stateCode}
+            </Link>
+          )}
+          {/* <Link href={'#'}> {info.locationData.zipCode} {info.locationData.stateCode}</Link> */}
         </div>
       </div>
 
       <div className={`login-warning-modal-main-container ${isTokenValid ? 'show-login-warning-modal' : ''}`} onClick={handleCloseLoginMessageModal}>
         <div className={`login-warning-modal-inner-container ${isTokenValid ? 'zoom-login-inner-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
-          <button 
+          <button
             onClick={handleCloseLoginMessageModal}
             className='login-warning-modal-close-btn'
           >
-              <img src={'/Assets/icons/close-btn.png'} alt='cross' />
+            <img src={'/Assets/icons/close-btn.png'} alt='cross' />
           </button>
           <div className='login-warning-modal-inner-content'>
             <p>Login Required</p>
@@ -175,9 +179,9 @@ const PromotionalBanner = (
                 Login
               </button>
             </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }

@@ -53,6 +53,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
   }
 
   useEffect(() => {
+    if (!productId) return
     fetchCollections()
   }, [productId])
 

@@ -247,7 +247,7 @@
 .searched-product-name-and-sku {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 75%;
     flex-grow: 1;
     gap: 2px;
 }
@@ -263,7 +263,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 2em; /* Adjust based on your font size */
-    line-height: 12px; /* Ensure 2 lines are visible */
+    line-height: 1.2; /* Ensure 2 lines are visible */
     word-break: break-word;
 }
 
@@ -279,7 +279,8 @@
 .searched-product-prices {
     display: flex;
     flex-direction: column;
-    width: max-content;
+    width: 25% !important;
+
     gap: 2px;
 }
 
@@ -290,16 +291,22 @@
 }
 
 .searched-product-sale-price del {
-    font-size: 10px !important;
-    line-height: 14px !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
     font-weight: 400 !important;
     color: var(--text-primary) !important;
     opacity: 0.5 !important;
 }
 
 .searched-product-sale-price {
-    font-size: 12px;
-    line-height: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.2;
     font-weight: 600;
     color: var(--text-primary);
 }

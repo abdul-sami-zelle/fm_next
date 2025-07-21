@@ -63,7 +63,6 @@ const CreditCard = () => {
 
     //     if (Object.keys(newErrors).length > 0) {
     //         setError((prev) => ({ ...prev, ...newErrors }));
-    //         console.log("Errors found: ", newErrors);
     //         return false
     //     }
 

@@ -80,7 +80,6 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
     }
   }, [slideIndex, dimensionModal, showDesignRoomModal])
 
-  console.log("product data", productData)
 
 
 

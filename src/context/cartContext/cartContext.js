@@ -63,6 +63,7 @@ export const CartProvider = ({ children }) => {
     }, []);
 
     const [isCartLoading, setIsCartLoading] = useState(false);
+    const [isCardAddLoading, setISCardAddLoading] = useState(false);
     const [cartSection, setCartSection] = useState(false);
 
     // initialize cart from local storage
@@ -301,12 +302,14 @@ export const CartProvider = ({ children }) => {
     };
 
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
-        setIsCartLoading(true);
 
+        setIsCartLoading(true);
+        setCartSection(true);
         const isSimple = product.type === "simple";
         const productUid = isSimple ? product.uid : variationData?.uid;
 
         const newCart = await new Promise((resolve) => {
+
             setCartProducts((prev) => {
                 const updatedProducts = prev.products || [];
                 const existingProduct = updatedProducts.find((item) =>
@@ -609,7 +612,8 @@ export const CartProvider = ({ children }) => {
                 setProfessionalAssemblyValue,
                 cartSection,
                 setCartSection,
-                isCartLoading, setIsCartLoading
+                isCartLoading, setIsCartLoading,
+                isCardAddLoading, setISCardAddLoading,
             }
         }>
             {children}

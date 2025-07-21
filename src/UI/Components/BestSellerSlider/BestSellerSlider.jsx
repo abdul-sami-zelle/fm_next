@@ -84,7 +84,6 @@ const BestSellerSlider = (
         }
     }, [bestSellerMainData])
 
-    useEffect(() => { console.log("after category change", bestSellerProductLoading) }, [bestSellerProductLoading])
 
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -198,7 +197,6 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
-    console.log("all products", allProducts)
 
     return (
         <>

@@ -46,7 +46,10 @@ const BestSeller = () => {
         setCurrentSlug(bestSelling.categories[0].slug)
     }, [bestSelling]);
 
-    const categorySeller = `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
+    // const categorySeller = currentSlug ?? `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
+    const categorySeller = currentSlug
+        ? `${url}/api/v1/products/by-category?categorySlug=${currentSlug}&best_selling_product=1&per_page=6`
+        : null;
     const [categorySellerCount, setCategorySellerCount] = useState(0)
 
     const { data: categorySellerData, error: categorySellerError, isLoading: categorySellerLoading } = useSWR(categorySeller, fetcher, {
@@ -85,11 +88,10 @@ const BestSeller = () => {
     useEffect(() => {
         if (allProducts?.length === 0) {
             setLoading(false);
-        } 
-        console.log("products len", allProducts)
+        }
     }, [allProducts])
 
-    
+
 
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`);

@@ -87,6 +87,7 @@ const CartProducts = ({ handleLocationModal }) => {
         setShowSnakeBar(false)
     }
 
+
     return (
         <>
             <div className='cart-products-main-container'>
@@ -141,7 +142,7 @@ const CartProducts = ({ handleLocationModal }) => {
                                 <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
 
                                 <div className='cart-protection-plan-details-container'>
-                                    <p className='cart-protection-plan-card-header'>Professional Assembly (+ $199)</p>
+                                    <p className='cart-protection-plan-card-header'>Professional Assembly</p>
                                     <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
                                 </div>
                                 <div className='cart-protection-checkbox-container'>
@@ -162,12 +163,51 @@ const CartProducts = ({ handleLocationModal }) => {
 
                 <div className={`cart-items ${isOpen ? 'low-width' : ''}`}>
                     <div className='cart-container-shipping-details'>
-                        <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
+                        <h3 className='protection-plan-on-cart-container'>Choose Delivery Option</h3>
                         <div className='cart-protect-or-not-container'>
 
-                            {selectedShippingMethods &&
+                            {/* {selectedShippingMethods &&
                                 selectedShippingMethods?.map((option, index) => (
                                     <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                        {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+                                        
+                                        <div className='cart-protection-plan-details-container'>
+                                            <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                        </div>
+                                        <div className='cart-protection-radio-container'>
+                                            <label
+                                                key={option.id}
+                                                className="custom-radio"
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "flex-start",
+                                                    flexDirection: "row",
+                                                    justifyContent: "flex-start",
+                                                    // margin: "5px 0",
+                                                    gap: "10px",
+                                                }}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="options"
+                                                    value={option.id}
+                                                    checked={selectedOption?.id === option.id}
+                                                    readOnly
+                                                    onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+                                                    style={{display: 'none'}}
+
+                                                />
+                                                <span className="radio-mark" />
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                ))} */}
+
+                                {selectedShippingMethods &&
+                                selectedShippingMethods?.map((option, index) => (
+                                    <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                         {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
                                         <div className='cart-protection-plan-details-container'>
@@ -242,11 +282,41 @@ const CartProducts = ({ handleLocationModal }) => {
                         />
                     })}
 
+                    {cartProducts.products?.length <= 0 && <EmptyCart />}
+                    {cartProducts && cartProducts?.products?.map((items, index) => (
+                        <MobileCart
+                            key={items.product_uid}
+                            attributes={items.attributes}
+                            // onlyMobile={false}
+                            productData={items}
+                            issingleProtected={issingleProtected}
+                            handleSingleProtected={() => { }}
+                            cartIndex={items.product_uid}
+                            productsLength={cartProducts.products?.length}
+                            handleRomoveProduct={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                            cartProductName={items.name}
+                            cartPRoductImage={items.image?.image_url}
+                            cartProductTitle={items.name}
+                            isCartOpen={isOpen}
+                            quantity={items.quantity}
+                            productTotalPrice={items.total_price}
+                            sale_price={items.sale_price}
+                            regular_price={items.regular_price}
+                            isProtected={items.is_protected}
+                            productSubTotal={items.sub_total}
+                            handleIncreament={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                            handleDecreament={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                            removeProtection={() => removeProtection(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                            addProtection={() => addSingleProtection(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+
+                        />
+                    ))}
+
                     {isCartLoading && <div className="cart_products_overlay">
                         <div className="loader"></div>
                     </div>}
                 </div>
-                <div className='mobile-cart-items'>
+                {/* <div className='mobile-cart-items'>
 
                     <div className='cart-container-shipping-details'>
                         <h3 className='protection-plan-on-cart-container'>Choose Delivery Options</h3>
@@ -254,7 +324,6 @@ const CartProducts = ({ handleLocationModal }) => {
                             {selectedShippingMethods &&
                                 selectedShippingMethods?.map((option, index) => (
                                     <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                         {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
                                         <div className='cart-protection-plan-details-container'>
@@ -325,7 +394,7 @@ const CartProducts = ({ handleLocationModal }) => {
                     {isCartLoading && <div className="cart_products_overlay">
                         <div className="loader"></div>
                     </div>}
-                </div>
+                </div> */}
 
 
                 <CartPaymnetMethoud

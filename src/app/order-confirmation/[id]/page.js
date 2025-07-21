@@ -64,7 +64,6 @@ export default function OrderConfirmationPage() {
         setMainOrderProduct(item)
     }
 
-    console.log("shipping method", order)
 
 
     if (loading) {

@@ -101,7 +101,6 @@ const DashboardTabs = ({ data }) => {
             if (response.status === 200) {
                 setFavoritesData(response.data.wishlist)
             }
-            console.log("wish list response", response);
         } catch (error) {
             setLoading(false);
             console.log("unExpected Server Error", error);

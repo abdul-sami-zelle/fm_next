@@ -122,7 +122,7 @@ const Favorites = ({ data, setloader }) => {
                 ProductSku={item.sku}
                 tags={item.tags}
                 ProductTitle={truncateTitle(item.name, maxLength)}
-
+                colTwo={true}
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}

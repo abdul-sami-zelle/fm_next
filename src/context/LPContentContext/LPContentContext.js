@@ -45,7 +45,7 @@ export const LPContentProvider = ({ children }) => {
   // Standard Function
 
 
-  const landingPageContent2Api = `/api/v1/content2/get`;
+  const landingPageContent2Api = `${url}/api/v1/content2/get`;
   const [constent2Counter, setContent2Counter] = useState(0);
   const {data: contentTwoData, error: content2Error, isLoading: content2Loader} = useSWR(landingPageContent2Api, fetcher, {
     revalidateOnFocus: false,

@@ -42,7 +42,6 @@ const ProductCardTwo = ({
             attributes && attributes.find(attr => attr.type === "select");
     };
 
-    // console.log("single product data", singleProductData)
 
 
     const priorityAttribute = getPriorityAttribute(attributes);
@@ -52,7 +51,7 @@ const ProductCardTwo = ({
     const [selectedColorImage, setSelectedColorImage] = useState();
 
     const [isHovered, setIsHovered] = useState(false);
-    const [selectedVariation, setSelectedVariation] = useState({})
+    // const [selectedVariation, setSelectedVariation] = useState({})
 
 
     const handleColorSelect = (color) => {
@@ -64,7 +63,6 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
-            console.log("check variation", matchingAttribute)
             setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
@@ -124,9 +122,6 @@ const ProductCardTwo = ({
                 attr?.uid === singleProductData.default_variation
             );
 
-            console.log("def variation", singleProductData.default_variation)
-            console.log("product data", singleProductData)
-
             // Get the default color
             const defAttrColor = defAttImage?.attributes?.find(attribute =>
                 attribute?.type === "color" &&
@@ -179,11 +174,9 @@ const ProductCardTwo = ({
         return today.toLocaleDateString("en-us", optionWithTimeZone);
     }
 
-    console.log("priority attributes", priorityAttribute)
 
     const { selectedVariationData } = useProductPage()
 
-    console.log("single product on archive", singleProductData)
 
     const stockCheck = singleProductData?.type === 'variable' ?
         selectedVariationData?.manage_stock?.stock_status === 'inStock'
@@ -194,6 +187,7 @@ const ProductCardTwo = ({
         && singleProductData?.manage_stock?.quantity === 0
         || singleProductData?.manage_stock?.stock_status === 'outStock'
         || singleProductData?.manage_stock?.stock_status === 'outOfStock';
+
 
     return (
         <>
@@ -214,7 +208,7 @@ const ProductCardTwo = ({
                                 stockCheck ? (
                                     <span className='product-archive-out-of-stock-tag'>Out Of Stock</span>
                                 ) : (
-                                    tags?.length > 0 && <div className="product-tagging">
+                                    tags?.length > 0 && <div className={`product-tagging ${tags.length > 0 ? 'show-product-tag' : ''}`}>
                                         {
                                             tags[0] && tags[0]?.type?.toLowerCase() === "text" ?
                                                 <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
@@ -446,7 +440,7 @@ const ProductCardTwo = ({
                                     }
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
-                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week</p>
+                                        <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week for 12 months</p>
                                         <GoInfo onClick={(e) => { e.stopPropagation(); handleInfoModal() }}
                                         />
                                     </span>

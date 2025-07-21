@@ -11,20 +11,14 @@ import { IoIosCheckmarkCircleOutline, IoIosCloseCircleOutline } from "react-icon
 import { BsExclamationCircle } from "react-icons/bs";
 
 const AccountDetailsTab = ({ data, setLoading }) => {
-  // console.log("user data", data)
   const fileInputRef = useRef(null)
   const [userDetails, setUserDetails] = useState({
     first_name: data?.first_name ?? '',
     last_name: data?.last_name ?? '',
-    // user_name: '',
-    // contact: '',
     email: data?.email,
     profile_image: data?.image
   })
 
-  useEffect(() => {
-    // console.log("user details", userDetails);
-  }, [userDetails])
 
 
   const [imgUrl, setImgUrl] = useState('')
@@ -94,7 +88,6 @@ const AccountDetailsTab = ({ data, setLoading }) => {
           Authorization: userToken,
         }
       })
-      // console.log("image change response", response.data.message)
       if (response.status === 200) {
         setIsImageChange(false);
         setLoading(false);

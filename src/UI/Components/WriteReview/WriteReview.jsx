@@ -80,7 +80,9 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
 
 
 
-    useEffect(() => { checkToken() }, [])
+    useEffect(() => { 
+        checkToken() 
+    }, [])
 
 
     const [ratingCount, setRating] = useState(1);

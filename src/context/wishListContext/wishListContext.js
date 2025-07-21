@@ -28,7 +28,6 @@ export const WishListProvider = ({children}) => {
 
     // Add item to the wishlist if it doesn't already exist
     const addToList = (product) => {
-        console.log("wish list item", product);
         const exists = wishList.some((item) => item === product)
         if(!exists) {
             setWishList((prevList) => [...prevList, product])

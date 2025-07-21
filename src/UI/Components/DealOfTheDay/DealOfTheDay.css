@@ -151,18 +151,21 @@
 
 .mobile-view-timer {
     display: none;
-    background-color: var(--orange-fill);
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
     width: max-content;
     padding: 10px 42px;
-    border-radius: 20px;
-    border: 1px solid var(--orange-outline);
+    height: 43px;
+    border-radius: 8px;
+    border: 2px solid var(--orange-outline);
 }
 
 .mobile-view-timer p {
     font-size: 14px;
     line-height: 17px;
     font-weight: 600;
-    color: var(--text-oposite);
+    color: var(--text-gray);
 }
 
 @media only screen and (max-width: 480px) {

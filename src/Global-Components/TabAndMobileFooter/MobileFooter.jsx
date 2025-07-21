@@ -200,7 +200,7 @@ const MobileFooter = ({ checkoutPage }) => {
                     </Link>
                 })}
             </div>
-            
+
             <div className='copy-rights-contianer-main'>
                 <div className='copy-rights-dual-links'>
                     <span>
@@ -215,19 +215,23 @@ const MobileFooter = ({ checkoutPage }) => {
                 </div>
             </div>
 
-            <span className='mobile-footer-copy-rights'>
-                <FaRegCopyright color='#FFF' size={15} />
-                <p>2020 - 2025 Furniture Mecca. All Rights Reserved.</p>
-            </span>
-
-            <div className='mobile-view-right'>
-                <span>
-                    <p>Designed & managed by </p>
-                    <Link target='_blank' href={'https://zellesolutions.com/'}>Zelle Solutions</Link>
+            <div className='footer-mobile-copy-sight-and-manage-by'>
+                <span className='mobile-footer-copy-rights'>
+                    <FaRegCopyright color='#FFF' size={15} />
+                    <p>2020 - 2025 Furniture Mecca. All Rights Reserved.</p>
                 </span>
+
+                <div className='mobile-view-right'>
+                    <span>
+                        <p>Designed & Managed by </p>
+                        <Link target='_blank' href={'https://zellesolutions.com/'}>Zelle Solutions</Link>
+                    </span>
+                </div>
             </div>
 
-            
+
+
+
 
 
 

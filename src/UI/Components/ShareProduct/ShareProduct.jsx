@@ -7,7 +7,7 @@ import { formatedPrice, url } from '../../../utils/api';
 import copy from 'copy-to-clipboard';
 import RatingReview from '../starRating/starRating';
 
-import { FaFacebook, FaEnvelope , FaFacebookMessenger } from "react-icons/fa";
+import { FaFacebook, FaEnvelope, FaFacebookMessenger } from "react-icons/fa";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
@@ -20,7 +20,7 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
     const path = useSearchParams();
     const copyRef = useRef()
     let generatedLink;
-    if(window !== 'undefined') {
+    if (window !== 'undefined') {
         generatedLink = `${window.location.origin}/product/${selectedProduct?.slug}`
     }
 
@@ -65,11 +65,19 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
                 </button>
 
                 <div className='share-product-popup-product-div'>
-                    <img
+                    {selectedProduct?.images?.[0]?.image_url && (
+                        <img
+                            src={`${url}${selectedProduct.images[0].image_url}`}
+                            alt='main-img'
+                            className='share-product-selected-product-main-img'
+                        />
+                    )}
+
+                    {/* <img
                         src={`${url}${selectedProduct?.images?.[0]?.image_url}`}
                         alt='main-img'
                         className='share-product-selected-product-main-img'
-                    />
+                    /> */}
                     <div className='share-product-selected-product-details'>
                         <h3 className='shared-products-product-name'>{selectedProduct?.name}</h3>
                         <p className='shared-product-sku'>SKU: <span>{selectedProduct?.sku}</span></p>

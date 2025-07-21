@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { LiaShippingFastSolid } from "react-icons/lia"
 import { BsShop } from "react-icons/bs";
+import { useCart } from '@/context/cartContext/cartContext';
 
 const DeliveryInfo = forwardRef((props, ref) => {
 
@@ -26,6 +27,10 @@ const DeliveryInfo = forwardRef((props, ref) => {
     const stateRef = useRef(null)
     const postalCodeRef = useRef(null)
     const [editZip, setEditZip] = useState(true)
+    const [isStarted, setIsStarted] = useState(false);
+
+    const [userId, setUserId] = useState('');
+    const [userToken, setUserToken] = useState('')
 
     const [focusedField, setFocusedField] = useState("");
     const [signupEmail, setSignupEmail] = useState("");
@@ -79,8 +84,49 @@ const DeliveryInfo = forwardRef((props, ref) => {
         handleChange,
         selectedShippingMethods,
         handleButtonClick,
-        info
+        info,
+        shippingMethods,
+        setSelectedShippingMethods,
+        getShippingMethods,
     } = useGlobalContext();
+
+    const { subTotal } = useCart()
+
+    useEffect(() => {
+        const id = localStorage.getItem('uuid');
+        const token = localStorage.getItem('userToken');
+
+        if (id && token) {
+            setUserId(id);
+            setUserToken(token)
+        }
+
+    }, [])
+
+
+    // useEffect(() => { setSelectedShippingMethods(null) }, [info])
+
+    useEffect(() => {
+        if (shippingMethods) {
+            getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+        }
+    }, []); 
+
+    useEffect(() => {
+        if (shippingMethods) {
+            getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+            setIsStarted(!isStarted);
+        }
+    }, [subTotal, shippingMethods]); // Dependency array for changes in subTotal or shippingMethods
+
+    useEffect(() => {
+        if (shippingMethods) {
+            getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+        }
+    }, [isStarted])
+
+    
+
 
 
 
@@ -92,9 +138,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <h3 className='choose-delivery-checkout-heading'>Choose Delivery Options</h3>
                 <div className='checkout-page-shipping-method-inner-container'>
+
                     {selectedShippingMethods &&
                         selectedShippingMethods?.map((option, index) => (
                             <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                 {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
                                 <div className='cart-protection-plan-details-container'>
@@ -163,9 +211,10 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     />
                 </div>
+                {!userId && !userToken && <span>Already have an account <p onClick={handleNavigateToSignup}>SIGN IN</p></span>}
+                {!userId && !userToken && <p>You Can Create an Account After Checkout.</p>}
 
-                <span>Already have an account <p onClick={handleNavigateToSignup}>SIGN IN</p></span>
-                <p>You Can Create an Account After Checkout.</p>
+
 
             </div>
 

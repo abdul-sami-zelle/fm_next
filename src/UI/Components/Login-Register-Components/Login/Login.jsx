@@ -162,7 +162,6 @@ const Login = ({ signupclicked, setSignupclicked }) => {
         setOpenSnakeBar(true)
         setLoginRegisterMessage(result.message || 'Something went wrong');
         setLoading(false);
-        console.log("message", response)
       }
     } catch (error) {
       // Handle network error

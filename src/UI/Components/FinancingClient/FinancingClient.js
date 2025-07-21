@@ -29,7 +29,6 @@ const FinancingClient = () => {
         }
     }, [financingPageData]);
 
-    console.log("financing image", financingPageData?.main_banner?.desktop?.image_url)
     return (
         <div className='financing-main-container'>
             {financingPageData && <LatestModulerBanner

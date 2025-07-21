@@ -38,7 +38,9 @@ const Cart = () => {
     selectedOption,
     getShippingMethods,
     setSelectedShippingMethods,
-    CalculateGrandTotal
+    CalculateGrandTotal,
+        handleChange,
+        selectedShippingMethods,
   } = useGlobalContext();
 
 
@@ -127,7 +129,7 @@ const Cart = () => {
   const handleWishList = (item) => {
     if (isInWishList(item.uid)) {
       removeFromList(item.uid);
-      
+
     } else {
       addToList(item)
     }
@@ -364,11 +366,20 @@ const Cart = () => {
                 }}
               />
             ) : (
-              <div style={{ display: 'flex', width: '100%', gap: '15px' }}>
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <ProductCardShimmer width={'100%'} />
-                ))}
+              <div className='cart-page-also-like-cards-shimmer-contianer'>
+                <div className='cart-page-also-like-desktop-shimmer'>
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <ProductCardShimmer width={'100%'} />
+                  ))}
+                </div>
+
+                <div className='cart-page-also-like-mobile-shimmer'>
+                  {Array.from({ length: 1 }).map((_, index) => (
+                    <ProductCardShimmer width={'100%'} />
+                  ))}
+                </div>
               </div>
+
             )}
           </div>
         </div>

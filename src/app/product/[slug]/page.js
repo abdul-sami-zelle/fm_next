@@ -101,7 +101,7 @@ const ProductDisplay = ({ params }) => {
     cartProducts,
     cartSection,
     setCartSection,
-    isCartLoading
+    isCartLoading,
   } = useCart();
 
   const decreaseLocalQuantity = () => {
@@ -118,8 +118,9 @@ const ProductDisplay = ({ params }) => {
   }
 
   const handleClick = () => {
+    
+        setCartSection(true);
     setIsLoading(true);
-    setCartSection(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -256,7 +257,7 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal])
 
-  const recomandationApi = product ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
+  const recomandationApi = product._id ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
   const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -299,7 +300,6 @@ const ProductDisplay = ({ params }) => {
     || product?.manage_stock?.stock_status === 'outStock' 
     || product?.manage_stock?.stock_status === 'outOfStock';
 
-  console.log("variable product", selectedVariationData)
 
   const isDesignRoomActive = product?.dyrc?.active === 1;
 

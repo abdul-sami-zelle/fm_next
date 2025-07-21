@@ -52,8 +52,8 @@
 
 .info-modal-close-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 0;
+    right: 0;
     background-color: transparent;
     border: none;
     outline: none;

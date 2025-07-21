@@ -338,7 +338,7 @@ const ProductDetailSticky = (
   }
 
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
-  const { eachProtectionValue } = useCart();
+  const { eachProtectionValue} = useCart();
   const [whatIsCoveredModa, setWhatIsCoveredModal] = useState(false);
 
   const handleWhatIsCoveredModal = () => {

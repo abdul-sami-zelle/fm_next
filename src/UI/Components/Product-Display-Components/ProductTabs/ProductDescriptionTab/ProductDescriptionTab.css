@@ -9,6 +9,7 @@
 }
 
 .product-description-main-container > h3 {
+    display: flex;
     font-size: var(--section-size);
     line-height: var(--section-height);
     font-weight: var(--section-weight);
@@ -299,6 +300,8 @@
         font-weight: 600;
         color: var(--text-primary);
     }
+
+    .product-description-main-container > h3 {display: none;}
 
     /* .product-features-main-container {
         gap: 5px;

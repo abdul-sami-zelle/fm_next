@@ -96,6 +96,7 @@ const ShippingForm = () => {
     }
 
     useEffect(() => {
+        if(!userId) return
         verifyToken()
     }, [])
 

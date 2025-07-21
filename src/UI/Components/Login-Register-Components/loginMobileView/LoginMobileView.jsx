@@ -35,7 +35,6 @@ const LoginMobileView = ({ mobileSignupClicked, handleRegisteView, setSnakeBarMe
       });
 
       const result = await response.json();
-      console.log("response check login", response)
       if (response.ok) {
         setToken(result.token, result?.data?._id)
         setLoginEmail('');
@@ -53,12 +52,10 @@ const LoginMobileView = ({ mobileSignupClicked, handleRegisteView, setSnakeBarMe
         setShowSnakeBar(true)
         setSnakeBarMessage(result.message || 'Something went wrong');
         setLoading(false);
-        console.log("message", response)
       }
 
     } catch (error) {
       // Handle network error
-      console.log("catch block login");
       setError('Network error, please try again later.');
       setLoading(false);
     } finally {
@@ -79,7 +76,7 @@ const LoginMobileView = ({ mobileSignupClicked, handleRegisteView, setSnakeBarMe
           Email
           <input
             className='login-and-register-input'
-            type='text'
+            type='email'
             placeholder='name@gmail.com'
             value={loginEmail}
             onChange={(e) => setLoginEmail(e.target.value)}

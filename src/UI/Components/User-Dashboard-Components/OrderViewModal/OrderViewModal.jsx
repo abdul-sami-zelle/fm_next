@@ -26,7 +26,6 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
             if (response.status === 200) {
                 setOrderData(response.data.order)
             }
-            console.log("order response", response.data.order)
         } catch (error) {
             setLoader(false);
             console.error("UnExpected Server Error", error);

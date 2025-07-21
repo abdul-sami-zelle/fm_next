@@ -181,7 +181,7 @@
 
 .cart-order-summary-zip-code-input-and-button {
     display: flex;
-    width: 100%;
+    width: 85%;
     align-items: center;
     justify-content: start;
     gap: 0;
@@ -297,7 +297,7 @@
 
 .cart-order-summary-coupon-input-and-button {
     display: flex;
-    width: 100%;
+    width: 85%;
     align-items: center;
     justify-content: start;
     gap: 0;
@@ -658,6 +658,24 @@
     border-radius: 5px;
 }
 
+.cart-page-also-like-cards-shimmer-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.cart-page-also-like-desktop-shimmer {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+}
+.cart-page-also-like-mobile-shimmer {
+    display: none;
+    width: 100%;
+
+}
+
 @media only screen and (max-width: 480px) {
     .cart-you-may-like-section {
         display: none;
@@ -726,6 +744,13 @@
         font-weight: 500;
         line-height: 1.2;
         color: var(--text-primary);
+    }
+
+    .cart-page-also-like-desktop-shimmer{
+        display: none;
+    }
+    .cart-page-also-like-mobile-shimmer {
+        display: flex;
     }
 }
 

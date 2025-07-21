@@ -26,6 +26,7 @@
 
 .loader_overlay{
     width: 430px;
+    /* width: 100%; */
     height: 100%;
     position: absolute;
     right: 0;
@@ -139,6 +140,7 @@
     width: 100%;
     height: max-content;
     flex-grow: 1;
+    
 }
 
 .cart-section-products::-webkit-scrollbar {

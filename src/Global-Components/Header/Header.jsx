@@ -248,6 +248,7 @@ const Header = ({ checkoutPage }) => {
     setIsMobileSearched(false)
   }
 
+  const [mobileProductSearch, setMobileSearchProduct] = useState('')
   const handleNavigateToMobileViewSearchedProducts = (e) => {
     e.stopPropagation();
     router.push(`/searched-products?query=${mobileProductSearch}`)
@@ -271,7 +272,7 @@ const Header = ({ checkoutPage }) => {
     country: ''
   });
 
-  const [mobileProductSearch, setMobileSearchProduct] = useState('')
+  
   const handleMobileSearchModal = () => {
     setIsMobileSearched(true)
   }
@@ -660,6 +661,8 @@ const Header = ({ checkoutPage }) => {
             value={mobileProductSearch}
             onChange={handleMobileSearchValue}
           />
+
+          {isLoading ? <div className='input-loader'></div> : <></>}
 
           <button className='mobile-view-search-products-modal-close-btn'>
             <Image src={'/Assets/icons/close-btn.png'} width={20} height={20} alt='close' onClick={handleCloseMobileSearchProductModal} />

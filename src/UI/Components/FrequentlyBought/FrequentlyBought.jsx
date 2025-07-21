@@ -24,10 +24,8 @@ const FrequentlyBought = ({ isPadding, product }) => {
             currentProductId: product._id
         }
 
-        console.log("current payload", payload);
         try {
             const response = await axios.post(api, payload);
-            console.log("frequently buy response", response);
             if (response.status === 200) {
                 setData(response.data.products)
             }

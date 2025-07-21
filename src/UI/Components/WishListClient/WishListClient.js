@@ -47,7 +47,6 @@ const WishListClient = () => {
     let response;
     try {
       setLoading(true);
-      console.log("wishlist items", wishlistItem)
       if (userToken && userId) {
         response = await axios.get(userApi,
           {
@@ -60,15 +59,12 @@ const WishListClient = () => {
           setWishlistProducts(response.data.wishlist)
           setLoading(false)
         }
-        console.log("loged in user cards", response)
       } else {
         response = await axios.post(guestApi, { ids: wishlistItem });
         
-        console.log("res guest", response)
         // if(response.status === 200) {
           setWishlistProducts(response.data.products)
         // }
-        console.log("else called")
       }
     } catch (error) {
       setLoading(false);

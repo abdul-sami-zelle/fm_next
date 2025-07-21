@@ -149,8 +149,6 @@ const QuickViewVariations = ({ default_uid, attributes, productData, variations,
                             <h3 className='quick-view-attribute-heading-1'>{attribute.name}</h3>
                             <div className='attribute-variations'>
                                 {attribute.options.map((option) => {
-                                    // {console.log("selected attribute values and name", selectedAttributes[attribute.name].value === option.value)}
-                                    // {console.log("selected option val", option)}
                                     return <div
                                         key={option.value}
                                         className={`select-type-attribute ${

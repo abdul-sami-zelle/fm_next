@@ -33,6 +33,7 @@ import SectionLoader from '../Loader/SectionLoader';
 import Image from 'next/image';
 import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Loader from '../Loader/Loader';
 
 const Products = ({ navigationType }) => {
 
@@ -66,7 +67,7 @@ const Products = ({ navigationType }) => {
         setSelectedRelevanceValue,
     } = useProductArchive()
 
-    
+
 
 
     const slug = useParams();
@@ -99,7 +100,7 @@ const Products = ({ navigationType }) => {
     const [ratingValue, setRatingValue] = useState([]);
     const [isLocationCheck, setIsLocationCheck] = useState(false);
     const [isDeliveryCheck, setIsDeliveryCheck] = useState(false);
-     const { addToList, removeFromList, isInWishList } = useList()
+    const { addToList, removeFromList, isInWishList } = useList()
     const [wishlistMessage, setWishlistMessage] = useState('')
     const [openSnakeBar, setOpenSnakeBar] = useState(false);
     const [userId, setUserId] = useState('');
@@ -110,7 +111,7 @@ const Products = ({ navigationType }) => {
     const [selectedOption, setSelectedOption] = useState('')
     const [isInfoOpen, setIsInfoOpen] = useState(false);
 
-     const router = useRouter()
+    const router = useRouter()
 
     // Sub Categories show
     const categorySlug = useParams();
@@ -306,10 +307,19 @@ const Products = ({ navigationType }) => {
 
     const handleLocationToggler = (e) => {
         setIsLocationCheck(e.target.checked);
+        setLoader(true); // start loader
+        setTimeout(() => {
+            setLoader(false); // stop loader after 3 seconds
+        }, 3000);
     }
 
+    const [loader, setLoader] = useState(false);
     const handleDeliveryToggler = (e) => {
         setIsDeliveryCheck(e.target.checked);
+        setLoader(true); // start loader
+        setTimeout(() => {
+            setLoader(false); // stop loader after 3 seconds
+        }, 3000);
     }
 
     const relevanceData = [
@@ -599,7 +609,7 @@ const Products = ({ navigationType }) => {
 
     }, [location.search]);
 
-    
+
 
     // Disable Scroll on Modal Open
     useDisableBodyScroll(
@@ -612,6 +622,7 @@ const Products = ({ navigationType }) => {
     return (
         <div className='products-main-container'>
             {/* <Breadcrumb category={products.categories} /> */}
+            {loader && <Loader />}
             <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
                 {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
                     <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>

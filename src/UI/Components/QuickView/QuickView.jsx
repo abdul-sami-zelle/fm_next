@@ -93,6 +93,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     const handleAddToCartProduct = (product) => {
         addToCart0(product, variableProductData, 0, quantity)
+        
     }
 
     // const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;

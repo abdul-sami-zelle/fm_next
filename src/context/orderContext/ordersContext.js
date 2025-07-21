@@ -136,7 +136,7 @@ export const MyOrdersProvider = ({ children }) => {
                         alt_phone: response.data.data.billing_address.alt_phone
                     }
                 }))
-                setTrigerApi(false)
+                // setTrigerApi(false)
             } else {
                 console.log("Error fetching billing address data");
             }

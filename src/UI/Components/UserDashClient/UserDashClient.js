@@ -44,7 +44,6 @@ const router = useRouter();
           });
           if (response2.ok) {
             const data = await response2.json();
-            // console.log("response 2 ok", data);
             setUserData(data.data)
             setIsTokenValid(true);
             setLoader(false)
@@ -95,6 +94,7 @@ const router = useRouter();
 
 
   const moveToLoginDash = async () => {
+    if(!id) return
     await checkToken();
   }
 
@@ -125,7 +125,6 @@ const router = useRouter();
       }
     }, [userData ])
 
-    useEffect(() => {console.log("user data", userData)}, [userData])
     
   return (
     <div className='user-dashboard-main-page'>

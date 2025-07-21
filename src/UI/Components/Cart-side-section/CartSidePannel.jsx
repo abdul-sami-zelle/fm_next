@@ -2,15 +2,10 @@
 
 import React from 'react'
 import './CartSidePannel.css';
-import closeBtn from '../../../Assets/icons/close-btn.png'
 import CartSideSection from './CartSideSection';
-import cartBlack from '../../../Assets/icons/cart-bag-new.png';
-import minusBtn from '../../../Assets/icons/minus-white.png';
-import plusBtn from '../../../Assets/icons/plus-white.png';
 // import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../../context/cartContext/cartContext';
 import { formatedPrice } from '@/utils/api';
-import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import EmptyCart from '../Cart-Components/Empty-Cart/EmptyCart';
 import { useRouter } from 'next/navigation';
 
@@ -25,7 +20,6 @@ const CartSidePannel = (
     increamentQuantity,
 
   }) => {
-
 
 
 
@@ -50,9 +44,9 @@ const CartSidePannel = (
 
   }
 
-  const handleContinueShopping = () => {
-    setAddToCartClick(false)
-  }
+  // const handleContinueShopping = () => {
+  //   setAddToCartClick(false)
+  // }
 
   const navigateToCheckout = () => {
     setAddToCartClick(false)
@@ -121,9 +115,13 @@ const CartSidePannel = (
                     checked={isProfessionalAssembly}
                     onChange={() => handleCartAssembly()}
                   />
-                  Professional Assembly (+ ${totalProtectionValue})
+                  Professional Assembly
                 </label>
-                <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
+                {isProfessionalAssembly ? (
+                  <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
+                ) : (
+                  <p className='cart-protection-plan-cart-desc'>({formatedPrice(totalProtectionValue)})</p>
+                )}
               </div>
             ) : (<></>)}
 
@@ -194,12 +192,12 @@ const CartSidePannel = (
             </button>
           </div>
         </div>
-      </div>
-      {isCartLoading && <div className="loader_overlay">
-        <div className="loader">
+        {isCartLoading && <div className="loader_overlay">
+          <div className="loader">
 
-        </div>
-      </div>}
+          </div>
+        </div>}
+      </div>
     </div>
   )
 }

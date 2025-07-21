@@ -117,22 +117,22 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const [googleRating, setGoogleRating] = useState(null);
 
-    const fetchGoogleRating = async () => {
-        const api = `${url}/api/v1/stores/get-top-rated`;
+    // const fetchGoogleRating = async () => {
+    //     const api = `${url}/api/v1/stores/get-top-rated`;
 
-        try {
-            let response;
-            response = await axios.get(api);
-            const stores = response.data.data;
-            setGoogleRating(stores)
-        } catch (error) {
-            console.error("Error fetching stores data", error);
-        }
-    };
+    //     try {
+    //         let response;
+    //         response = await axios.get(api);
+    //         const stores = response.data.data;
+    //         setGoogleRating(stores)
+    //     } catch (error) {
+    //         console.error("Error fetching stores data", error);
+    //     }
+    // };
 
-    useEffect(() => {
-        fetchGoogleRating();
-    }, [])
+    // useEffect(() => {
+    //     fetchGoogleRating();
+    // }, [])
 
     // useEffect(() => {
     //     fetchHeaderPayloads().then(data => {

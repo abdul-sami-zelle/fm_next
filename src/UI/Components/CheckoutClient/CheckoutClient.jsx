@@ -38,7 +38,10 @@ const CheckoutClient = () => {
     errorDetails,
   } = useMyOrders();
 
+  // const [isStarted, setIsStarted] = useState(false);
+
   const {
+    shippingMethods,
     info,
     zipCode,
     handleInputChange,
@@ -46,7 +49,9 @@ const CheckoutClient = () => {
     totalTax,
     calculateTotalTax,
     selectedOption,
-    CalculateGrandTotal
+    getShippingMethods,
+    CalculateGrandTotal,
+    setSelectedShippingMethods
   } = useGlobalContext();
 
   const {
@@ -66,12 +71,33 @@ const CheckoutClient = () => {
     return null; // Prevent rendering
   }
 
+  // useEffect(() => { setSelectedShippingMethods(null) }, [info])
+
+  // useEffect(() => {
+  //     if (shippingMethods) {
+  //       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+  //     }
+  //   }, []); // Empty dependency array ensures this runs once when the component mounts
+
+  //   useEffect(() => {
+  //       if (shippingMethods) {
+  //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+  //         setIsStarted(!isStarted);
+  //       }
+  //     }, [subTotal, shippingMethods]); // Dependency array for changes in subTotal or shippingMethods
+    
+  //     useEffect(() => {
+  //       if (shippingMethods) {
+  //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+  //       }
+  //     }, [isStarted])
+
   const deliveryInfoRef = useRef(null);
 
   const handleDeliveryFormSubmit = () => {
   };
 
-  const handlePaymentSubmit = () => {}
+  const handlePaymentSubmit = () => { }
 
 
 
@@ -88,11 +114,11 @@ const CheckoutClient = () => {
   ]
 
   const [currentId, setCurrentId] = useState(0)
-  
+
 
   const [isCheck, setIsCheck] = useState({});
 
-  
+
 
 
   const [isLoading, setIsLoading] = useState(false);
@@ -339,6 +365,23 @@ const CheckoutClient = () => {
                 </div>
               </div>
 
+              <div className='desktop-total-and-continue'>
+                <div className='right-section-total-value'>
+                  <p className='right-section-total-price-text-and-value'>Total</p>
+                  <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
+                </div>
+
+                <div className='right-section-order-place-container'>
+                  <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
+                  {
+                    selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
+                      : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div className='checkout-total-and-continue-sticky'>
               <div className='right-section-total-value'>
                 <p className='right-section-total-price-text-and-value'>Total</p>
                 <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
@@ -370,7 +413,7 @@ const CheckoutClient = () => {
         setOpenSnakeBar={setShowSnakeBar}
         onClick={handleCloseSnakeBar}
       />
-      <MessageModal 
+      <MessageModal
         showMessage={showWarning}
         message={warningMessage}
         errorDetail={errorDetails}
