@@ -264,6 +264,12 @@
     flex-shrink: 0;
 }
 
+.cart-protection-plan-cart-desc {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
 .cart-section-view-cart-and-checkout-btn {
     display: flex;
     align-items: center;

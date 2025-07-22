@@ -658,6 +658,49 @@
     gap: 10px;
 }
 
+.email-blast-label {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.checkout-email-blast-checkbox{ 
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--orange-outline);
+    border-radius: 4px;
+    position: relative;
+    padding: 0px !important;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.checkout-email-blast-checkbox:checked {
+    background-color: var(--orange-fill);
+    border-color: var(--orange-outline);
+}
+
+.checkout-email-blast-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 3px;
+    height: 7px;
+    border: solid var(--text-oposite);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: block;
+}
+
 .right-section-order-place-container>p {
     /* display: flex; */
     /* flex-direction: column; */

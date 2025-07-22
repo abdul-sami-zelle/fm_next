@@ -101,7 +101,7 @@ const BookAppointmentClient = ({ params }) => {
         <div className='book-an-appointment-main-container'>
             <div className='book-appointment-head'>
                 <h3 className='book-appointment-main-container'>Book an Appointment</h3>
-                <p className='book-appointment-slogan'>Do You Want Our Expert To Give Your The Advice, Book An Appointment Now</p>
+                <p className='book-appointment-slogan'>Do You Want Our Expert To Give You The Advice, Book An Appointment Now</p>
             </div>
             <div className='book-appointments-body'>
                 <div className='book-appointment-select-tab-container'>

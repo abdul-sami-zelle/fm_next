@@ -20,6 +20,7 @@ import { FaArrowsRotate } from "react-icons/fa6";
 import ToggleSwitch from '../../../../Global-Components/ToggleSwitch/ToggleSwitch';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { IoIosClose } from "react-icons/io";
+import Image from 'next/image';
 
 const CartItems = ({
     cartProductName,
@@ -94,10 +95,9 @@ const CartItems = ({
     return (
         <>
 
-            <div className='cart-product'>
+            {/* <div className='cart-product'>
 
                 <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
-                    {/* <img src={'/Assets/icons/close-btn.png'} alt='close btn' /> */}
                     <IoIosClose color='var(--text-rgay)' size={20} />
                 </button>
 
@@ -131,23 +131,21 @@ const CartItems = ({
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Desktop view Card */}
             <div className={`desktop-cart-product`} style={{ borderBottom: totalProducts > 1 ? '1px solid #d7d7d7' : 'none' }} >
 
                 <div className='desktop-cart-product-image'>
-                    <img src={`${url}${cartPRoductImage}`} alt='product image' />
+                    <Image src={`${url}${cartPRoductImage}`} width={200} height={125} alt='product image' />
                 </div>
 
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
-                            {/* <img src={'/Assets/icons/Mask group (1).png'} alt='cross' /> */}
                             <IoIosClose color='var(--text-gray)' size={30} />
                         </button>
                         <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
-                            {/* <img src={rotatedArrow} className={`${saveForLeter ? 'arrow-rotate' : ''}`} />  */}
                             <FaArrowsRotate color='var(--secondary-color)' size={15} />
                             Save For Later
                         </button>
@@ -156,7 +154,7 @@ const CartItems = ({
                             <p className='cart-item-sku-tag'>SKU: {productData?.sku}</p>
                             {attributes && attributes.map((item, index) => {
                                 return (
-                                    <p className='desktop-product-extra-info'>{item?.options[0].name}</p>
+                                    <p key={index} className='desktop-product-extra-info'>{item?.options[0].name}</p>
                                 )
                             })}
                             <div className='cart-side-section-price-and-count'>
@@ -211,11 +209,10 @@ const CartItems = ({
                     <div className='desktop-cart-product-content-section-two'>
                         <div className='desktop-card-protection-div'>
                             <div className='guard-and-heading'>
-                                <img effect='blur' src={'/Assets/icons/guard-icon.png'} alt='guard' className='protection-guard-icon' />
+                                <Image effect='blur' src={'/Assets/icons/guard-icon.png'} width={50} height={50} alt='guard' className='protection-guard-icon' />
                                 <div className='guard-title-and-details'>
                                     <div className='guard-title-and-details-head'>
                                         <h3 className='protection-guard-title'>Platinum Elite Furniture</h3>
-                                        {/* <IoInformationCircle className='eye_icon' onClick={toggleDetails} /> */}
                                     </div>
                                     <span className='protection-details-and-message'>
                                         <p className='protection-price-message'>
@@ -232,7 +229,7 @@ const CartItems = ({
                             </div>
 
                             {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
-                                <img src={'/Assets/check.png'} alt="" srcset="" />
+                                <Image src={'/Assets/check.png'} width={50} height={50} alt="" srcset="" />
                                 <p>Protection Applied</p>
                             </div>
                                 : <div className='protection-btns-accept-and-cancel'>

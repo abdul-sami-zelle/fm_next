@@ -94,7 +94,7 @@
 }
 
 .product-detail-heading{
-    font-size: 12px;
+    font-size: 12px !important;
     line-height: 18px;
     font-weight: 400;
     color: var(--text-primary);

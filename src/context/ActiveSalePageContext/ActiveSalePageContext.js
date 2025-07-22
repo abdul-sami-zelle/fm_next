@@ -56,7 +56,7 @@ export const ActiveSalePageProvider = ({ children }) => {
     const fetchProductsByCategory = async (categoryUid) => {
         // Check if products are already fetched
         if (products) {
-            console.log("Products already fetched, skipping request.");
+            // console.log("Products already fetched, skipping request.");
             return;
         }
 

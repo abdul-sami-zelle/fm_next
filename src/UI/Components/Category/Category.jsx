@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
+
+  console.log("category data", categoryData)
  const [isloaded,setIsLoaded] = useState(false);
   return (
     <div className='category-main-container'>

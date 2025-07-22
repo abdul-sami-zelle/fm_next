@@ -285,23 +285,34 @@ const ProductCardTwo = ({
                                 }
                             </div> */}
 
-                            <img
+                            {selectedColorImage && (
+                                <img
+                                    src={`${url}${selectedColorImage}`}
+                                    alt='product img'
+                                    className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
+                                    effect='blur'
+                                    onLoad={() => setImageLoaded(true)}
+                                />
+                            )}
+
+                            {/* <img
                                 src={`${url}${selectedColorImage
                                     }`}
                                 alt='product img'
                                 className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
                                 effect='blur'
                                 onLoad={() => { setImageLoaded(true) }}
-                            />
-
-                            <img
-                                src={`${url}${hoveredImage
-                                    }`}
-                                alt='product img'
-                                className={`hovered-product-main-img ${isHovered ? 'visible-hovered' : ''}`}
-                                effect='blur'
-                                onLoad={() => { setImageLoaded(true) }}
-                            />
+                            /> */}
+                            {hoveredImage && (
+                                <img
+                                    src={`${url}${hoveredImage
+                                        }`}
+                                    alt='product img'
+                                    className={`hovered-product-main-img ${isHovered ? 'visible-hovered' : ''}`}
+                                    effect='blur'
+                                    onLoad={() => { setImageLoaded(true) }}
+                                />
+                            )}
 
                             {
                                 !isImageLoaded && <div className="image_shimmer_loader">

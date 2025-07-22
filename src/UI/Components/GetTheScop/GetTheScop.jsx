@@ -120,11 +120,11 @@ const GetTheScop = ({setShowSnakeBar, setSnakeBarMessage}) => {
               <p className='done_message_3'>Check your email</p>
             </div>}
 
-          <div className="divider_line_gts">
+          {/* <div className="divider_line_gts">
 
-          </div>
+          </div> */}
 
-          <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button>
+          {/* <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button> */}
         </div>
 
       </div>
@@ -164,8 +164,8 @@ const GetTheScop = ({setShowSnakeBar, setSnakeBarMessage}) => {
               <p className='done_message_2'>Your Subscription Has Been Done Successfully.</p>
               <p className='done_message_3'>Check your email</p>
             </div>}
-          <p className='mobile-view-conditions'>By signing up, you agree to our <Link href={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link href={'/terms-and-conditions'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p>
-          <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button>
+          {/* <p className='mobile-view-conditions'>By signing up, you agree to our <Link href={'/privacy-policy'} className='mobile-view-get-the-scoop-conditions'> Privacy Policy </Link> and <Link href={'/terms-and-conditions'} className='mobile-view-get-the-scoop-conditions'> Terms of Use </Link>.</p> */}
+          {/* <button onClick={() => { window.open("https://flyer.myfurnituremecca.com", "_blank"); }} className='see_all_promotions_btn'>View Exclusive Promotions</button> */}
         </div>
       </div>
     </>

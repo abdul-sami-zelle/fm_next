@@ -7,10 +7,12 @@ import { IoIosSearch } from "react-icons/io";
 import { IoIosAdd } from "react-icons/io";
 import Link from 'next/link';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
+import { useRouter } from 'next/navigation';
 
 
 const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
+    const router = useRouter()
     const { savedInfo, fetchAllstores, stores, } = useGlobalContext();
     const [currentIndex, setCurrentIndex] = useState(0)
     const {
@@ -103,6 +105,11 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
         fetchData();
     }, [zipCode]);
 
+    const handleFindStores = () => {
+        router.push(`/store-locator`)
+        setIsOpen(false)
+    }
+
 
 
     return (
@@ -121,7 +128,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                     <span onClick={handleCloseNearBy}>
                         <IoCloseOutline size={20} />
                     </span>
-                    <i>
+                    <i onClick={handleFindStores}>
                         <svg
                             width="50"
                             height="38"

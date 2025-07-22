@@ -9,11 +9,13 @@ import { CiCamera, CiYoutube } from "react-icons/ci";
 import axios from "axios";
 import { formatDate } from "react-calendar/dist/cjs/shared/dateFormatter.js";
 import Image from "next/image";
+import { useProductPage } from "@/context/ProductPageContext/productPageContext";
 
 
 export default function WriteReview({ product_id, productData, snakeBarOpen, review_enable, product_name, product_permalink, }) {
 
-
+    const { singleProductData } = useProductPage();
+    console.log("product data on review", singleProductData)
     const [reviewData, setReviewData] = useState(
         {
             "product_id": 0,
@@ -56,6 +58,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                             })
                             if (response2.ok) {
                                 const userResult = await response2.json();
+                                console.log("reviewer data", userResult)
                                 setReviewData((prevData) => ({
                                     ...prevData,
                                     reviewer: `${userResult?.data?.first_name} ${userResult?.data?.last_name}`,  // Set your desired name
@@ -90,11 +93,13 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         setReviewData((prevData) => ({
             ...prevData,
             rating: ratingCount,
-            product_id: productData?.uid,
-            product_name: productData?.name,
-            product_permalink: productData?.permalink
+            product_id: singleProductData?.uid,
+            product_name: singleProductData?.name,
+            product_permalink: singleProductData?.permalink
         }))
     }, [ratingCount])
+
+    useEffect(() => {console.log("review payload", reviewData)}, [reviewData])
 
     const [writeReview, setWriteReview] = useState(false);
     const handleWriteReview = () => {
@@ -171,6 +176,10 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
             formData.append("images", image); // 'images' is the key on the backend
         });
 
+        formData.forEach(item => {
+            console.log("form data item",item)
+        })
+
         const api = `/api/v1/reviews/add`
         try {
             const reviewResponse = await axios.post(`${url}${api}`, formData, {
@@ -178,6 +187,8 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                     "Content-Type": "multipart/form-data",
                 },
             });
+
+            console.log("review response", reviewResponse)
 
 
             setWriteReview(false)
@@ -250,7 +261,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                                     </p>
                                 </div>
                             </div>
-                            {productData?.image.image_url !== undefined && <Image src={url+productData?.image?.image_url} width={220} height={120} alt="product" />}
+                            {productData?.image?.image_url !== undefined && <Image src={url+productData?.image?.image_url} width={220} height={120} alt="product" />}
                         </div>
 
 

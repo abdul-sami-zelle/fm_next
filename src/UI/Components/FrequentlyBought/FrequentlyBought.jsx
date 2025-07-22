@@ -17,6 +17,10 @@ const FrequentlyBought = ({ isPadding, product }) => {
 
 
     const handleFrequentlyBought = async () => {
+        if (!product || !product.name || !product.categories || !product._id) {
+            return;
+        }
+
         const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-related-products`;
         const payload = {
             categories: product.categories,

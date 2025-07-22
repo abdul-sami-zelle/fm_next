@@ -15,7 +15,7 @@ import QuickView from "../../Components/QuickView/QuickView";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function SaleClient({slug}) {
     const router = useRouter();
@@ -85,6 +85,14 @@ export default function SaleClient({slug}) {
     }
 
 
+    const pathname = usePathname();
+    const splitedPath = pathname.split('/')
+    const childSlug = splitedPath[splitedPath.length -1];
+    const handleNavigateToOutlate = () => {
+        router.push(`/outlet/${childSlug}`)
+    }
+
+
     return (
         <>
             <div className="activeCategoryPage">
@@ -136,6 +144,9 @@ export default function SaleClient({slug}) {
                             ))
                         )}
 
+                    </div>
+                    <div className="active-sale-view-more-button-contianer">
+                        <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
                     </div>
                 </div>
 

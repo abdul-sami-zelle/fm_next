@@ -489,9 +489,9 @@
     }
 
     .delivery-form-signup-container>h3 {
-        font-size: 18px;
+        font-size: 15px;
         line-height: 1.2;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--text-primary);
     }
 
@@ -597,7 +597,7 @@
 
     /* Input text Size */
     .input-field-email{
-        font-size: 12px;
+        font-size: 12px !important;
         line-height: 1.2;
         font-weight: 400;
         padding: 10px 0 3px 2px !important;
@@ -611,6 +611,18 @@
 
     .cart-delivary-card {
         width: 100%;
+    }
+
+    .cart-protection-plan-card-header {
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 400;
+    }
+
+    .choose-delivery-checkout-heading {
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 500;
     }
 
 

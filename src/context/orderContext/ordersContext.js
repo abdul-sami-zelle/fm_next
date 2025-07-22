@@ -138,7 +138,7 @@ export const MyOrdersProvider = ({ children }) => {
                 }))
                 // setTrigerApi(false)
             } else {
-                console.log("Error fetching billing address data");
+                console.error("Error fetching billing address data");
             }
 
 

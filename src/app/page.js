@@ -115,11 +115,13 @@ const Home = () => {
         <FurnitureForBudget budgetCardData={landingPageFOEB} />
       )}
 
+      {blogs?.length > 0 && <BlogSlider />}
+
       <GetTheScop 
         setShowSnakeBar={setShowSnakeBar}
         setSnakeBarMessage={setSnakeBarMessage}
       />
-      {blogs?.length > 0 && <BlogSlider />}
+      
 
       <InstaGallery />
       <InstaTwoImageGallery />

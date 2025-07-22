@@ -262,7 +262,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 2em; /* Adjust based on your font size */
+    max-height: 2.5em; /* Adjust based on your font size */
     line-height: 1.2; /* Ensure 2 lines are visible */
     word-break: break-word;
 }

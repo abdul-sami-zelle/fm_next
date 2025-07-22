@@ -38,7 +38,7 @@ function FinanceBannerSlider({ images }) {
                         />
                     </div>
                 )}
-                showDots={false}
+                showDots={true}
                 showArrows={false}
                 spaceBetween={20}
                 autoplay={false}

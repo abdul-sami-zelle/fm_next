@@ -30,8 +30,8 @@ const ProductCard = ({
           width={720}
           height={450}
           alt="product"
-          onClick={(e) => {handleCardClicked(productData)}}
-          onDragStart={(e) => e.preventDefault()} // Prevent drag behavior
+          // onClick={(e) => {handleCardClicked(productData)}}
+          onDragStart={(e) => e.preventDefault()} 
         />
         <div className="product-img-detail">
           <div

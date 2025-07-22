@@ -45,7 +45,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: #f5fff8;
+    /* background-color: #f5fff8; */
+    background-color: var(--orange-fill);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -80,9 +82,9 @@
 }
 
 .budget-furniture-card-details p{
-    font-size: 20px;
-    line-height: 37px;
-    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 600;
     color: var(--text-primary);
 }
 

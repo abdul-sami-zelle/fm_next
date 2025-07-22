@@ -23,6 +23,7 @@ const ProductDisplay = ({ params }) => {
 
   const { slug } = use(params);
   const { singleProductData, selectedVariationData } = useProductPage();
+  console.log("single product data", singleProductData)
   const [product, setProduct] = useState(singleProductData || null);
   const [showDesignRoomModal, setShowDwsignRoomModal] = useState(false);
   const [productDetails, setProductDetails] = useState({})
@@ -44,6 +45,7 @@ const ProductDisplay = ({ params }) => {
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const [recomandationCount, setRecomandationCount] = useState(0)
 
+  console.log("product product", product)
   const showDRM = () => {
     setShowDwsignRoomModal(true)
   }
@@ -118,8 +120,8 @@ const ProductDisplay = ({ params }) => {
   }
 
   const handleClick = () => {
-    
-        setCartSection(true);
+
+    setCartSection(true);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -290,16 +292,15 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal]);
 
-  const stockCheck = product?.type === 'variable' ?  
-    selectedVariationData?.manage_stock?.stock_status === 'inStock' 
-    && selectedVariationData?.manage_stock?.quantity === 0 
-    || selectedVariationData?.manage_stock?.stock_status === 'outStock' 
-    || selectedVariationData?.manage_stock?.stock_status === 'outOfStock' 
-    : product?.manage_stock?.stock_status === 'inStock' 
-    && product?.manage_stock?.quantity === 0 
-    || product?.manage_stock?.stock_status === 'outStock' 
+  const stockCheck = product?.type === 'variable' ?
+    selectedVariationData?.manage_stock?.stock_status === 'inStock'
+    && selectedVariationData?.manage_stock?.quantity === 0
+    || selectedVariationData?.manage_stock?.stock_status === 'outStock'
+    || selectedVariationData?.manage_stock?.stock_status === 'outOfStock'
+    : product?.manage_stock?.stock_status === 'inStock'
+    && product?.manage_stock?.quantity === 0
+    || product?.manage_stock?.stock_status === 'outStock'
     || product?.manage_stock?.stock_status === 'outOfStock';
-
 
   const isDesignRoomActive = product?.dyrc?.active === 1;
 
@@ -439,12 +440,40 @@ const ProductDisplay = ({ params }) => {
 
       <ProductReviewTab
         reviewRef={sectionRefs.Reviews}
-        product={product}
+        productData={product}
         params={params}
       />
 
       {showDesignRoomModal && <div className='design_room_main_modal'>
-        <DesignRoomMain closeFn={closeDRM} product={product} />
+        {/* <DesignRoomMain closeFn={closeDRM} product={product} /> */}
+        <DesignRoomMain closeFn={closeDRM} product={product} data={
+          {
+            _id: product?._id,
+            product_uid: product?.parent === 0 ? product?.uid : product?.parent,
+            variation_uid: product?.parent === 0 ? 0 : product?.uid,
+            name: product?.name,
+            sku: product?.sku,
+            quantity: 1,
+            is_protected: 0,
+            slug: product?.slug,
+            type: product?.type,
+            // cat:'Sectional',
+            // cat:'Recliner-Sectional',
+            // cat:'Recliner',
+            cat: 'LoveSeat',
+            parent: product?.parent,
+            isVariable: product?.parent === 0 ? 0 : 1,
+            attributes: product?.attribute,
+            regular_price: product?.regular_price,
+            sale_price: product?.sale_price,
+            image: product?.image?.image_url,
+            // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
+            // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
+            // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
+            // png_image:'/Sofas&LoveSeat/Untitled-4.png'
+            png_image: product?.dyrc?.image,
+          }
+        } />
       </div>}
 
       <GalleryModal

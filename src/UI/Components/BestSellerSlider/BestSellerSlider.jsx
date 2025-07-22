@@ -208,11 +208,16 @@ const BestSellerSlider = (
                         {bestSellerLoading ? (
                             <div className='best-seller-main-cover-shimmer'></div>
                         ) : (
-                            <img
-                                key={bestSellerNav1[activeItem]?.image?.image_url} // forces re-render
-                                src={url + bestSellerNav1[activeItem]?.image?.image_url}
-                                alt='main banner'
-                            />
+
+                            
+                                bestSellerNav1[activeItem]?.image?.image_url ? (
+                                    <img
+                                        key={bestSellerNav1[activeItem].image.image_url}
+                                        src={url + bestSellerNav1[activeItem].image.image_url}
+                                        alt='main banner'
+                                    />
+                                ) : null
+                            
                         )}
                     </div>
 

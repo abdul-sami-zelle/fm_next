@@ -2,6 +2,32 @@
     width: 100%;
 }
 
+.active-sale-view-more-button-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.active-sale-view-more-button {
+    max-width: 280px;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    color: var(--text-gray);
+    border: 1px solid var(--orange-outline);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.active-sale-view-more-button:hover {
+    background-color: var(--orange-fill);
+    color: #FFF;
+}
 
 .banner-1-content {
     display: flex;

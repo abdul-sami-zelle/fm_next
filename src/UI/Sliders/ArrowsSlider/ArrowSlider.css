@@ -24,7 +24,7 @@
     font-weight: bold;
 }
 
-.arrow {
+.slider-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,22 +44,13 @@
     border-radius: 50%;
 }
 
-.arrow.left {
-    left: -100%;
-    transition: all 0.3s ease-in-out;
-}
-
-.arrow.right {
-    right: -100%;
-    transition: all 0.3s ease-in-out;
-}
-
-.slider-container:hover .arrow.left {
+.slider-arrow.slider-left {
     left: 20px;
 }
 
-.slider-container:hover .arrow.right {
+.slider-arrow.slider-right {
     right: 20px;
+    transition: all 0.3s ease-in-out;
 }
 
 

@@ -29,7 +29,7 @@ import { useAppointment } from '../../../../context/AppointmentContext/Appointme
 import { useCart } from '../../../../context/cartContext/cartContext'
 import { BsTruck } from "react-icons/bs";
 import ProductDisplayShimmer from '../ProductDisplayShimmers/ProductDisplayShimmer'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
 import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
@@ -338,7 +338,7 @@ const ProductDetailSticky = (
   }
 
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
-  const { eachProtectionValue} = useCart();
+  const { eachProtectionValue } = useCart();
   const [whatIsCoveredModa, setWhatIsCoveredModal] = useState(false);
 
   const handleWhatIsCoveredModal = () => {
@@ -348,6 +348,16 @@ const ProductDetailSticky = (
   const handleCloseWhatIsCoveredModal = () => {
     setWhatIsCoveredModal(false);
   }
+
+  const pathname = usePathname()
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '923171707283'; 
+    const message = `Hello, I am interested in this product! https://fmnext.myfurnituremecca.com${pathname}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappURL, '_blank');
+  };
 
   useDisableBodyScroll(whatIsCoveredModa)
 
@@ -507,49 +517,53 @@ const ProductDetailSticky = (
                 />
               </div>
 
-              <div className='add-cart-or-add-items-div' ref={cartDivRef}>
-                <div className='item-count'>
-                  <button className={`minus-btn ${stockCheck ? 'disable-quantity' : ''} ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1 || stockCheck}>
+              <div className='add-to-cart-and-out-of-stock-message-container'>
+                <div className='add-cart-or-add-items-div' ref={cartDivRef}>
+                  <div className='item-count'>
+                    <button className={`minus-btn ${stockCheck ? 'disable-quantity' : ''} ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1 || stockCheck}>
 
-                    <FaWindowMinimize size={15} className='minus-icon' />
-                  </button>
+                      <FaWindowMinimize size={15} className='minus-icon' />
+                    </button>
 
-                  <input
-                    type='number'
-                    value={quantity}
-                    readOnly={stockCheck}
-                    onChange={handleQuantityChange}
-                    className={stockCheck ? 'disable-quantity' : ''}
-                  />
-                  <button disabled={stockCheck} className={`plus-btn ${stockCheck ? 'disable-quantity' : ''}`} onClick={increaseLocalQuantity}>
+                    <input
+                      type='number'
+                      value={quantity}
+                      readOnly={stockCheck}
+                      onChange={handleQuantityChange}
+                      className={stockCheck ? 'disable-quantity' : ''}
+                    />
+                    <button disabled={stockCheck} className={`plus-btn ${stockCheck ? 'disable-quantity' : ''}`} onClick={increaseLocalQuantity}>
 
-                    <FaPlus size={15} className='plus-icon' />
+                      <FaPlus size={15} className='plus-icon' />
+                    </button>
+                  </div>
+                  <div
+                    className='product-details-add-to-wishlist-icon'
+                    onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
+                    style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--orange-outline)' }}
+                  >
+                    {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'var(--orange-fill)' : 'var(--orange-outline)'} />
+                      : <IoMdHeartEmpty size={20} color='var(--orange-outline)' />}
+                  </div>
+
+
+
+
+
+                  <button
+                    className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
+                    disabled={stockCheck}
+                    onClick={() => {
+                      handleClick();
+                      addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
+                    }
+                    }>
+                    {isCartLoading && <div className="loader_2"></div>}
+                    {isCartLoading ? ' Almost there...' : 'Add To Cart'}
                   </button>
                 </div>
-                <div
-                  className='product-details-add-to-wishlist-icon'
-                  onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
-                  style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--orange-outline)' }}
-                >
-                  {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'var(--orange-fill)' : 'var(--orange-outline)'} />
-                    : <IoMdHeartEmpty size={20} color='var(--orange-outline)' />}
-                </div>
+                {stockCheck && <p className='out-of-stoc-message'>This product will be available again in 10 to 12 days</p>}
 
-
-
-
-
-                <button
-                  className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
-                  disabled={stockCheck}
-                  onClick={() => {
-                    handleClick();
-                    addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                  }
-                  }>
-                  {isCartLoading && <div className="loader_2"></div>}
-                  {isCartLoading ? ' Almost there...' : 'Add To Cart'}
-                </button>
               </div>
 
 
@@ -610,8 +624,9 @@ const ProductDetailSticky = (
 
                 <div className='product-detail-chat-option-container'>
                   <p>Product Question?</p>
-                  <button onClick={handleNavigate}>Contact Us</button>
+                  <button onClick={handleWhatsAppClick}>Send Us Your Query</button>
                 </div>
+                <p className='have-a-question-message'>Have a question about this product? Our team is here to help you with details, dimensions, delivery, or anything else you need to know before you buy.</p>
 
               </div>
 
@@ -634,9 +649,9 @@ const ProductDetailSticky = (
 
                 <div className='see-it-in-person-body' onClick={handleCloseMiles}>
 
-                  <p>This collection is on display in 3 stores within</p>
+                  <p>This collection is on display in 9 Stores</p>
 
-                  <div className='see-it-in-person-distance-and-zip'>
+                  {/* <div className='see-it-in-person-distance-and-zip'>
 
                     <div className='see-it-in-person-distance-drop-down'>
                       <span onClick={handleMilesDropdown}>
@@ -660,7 +675,7 @@ const ProductDetailSticky = (
                       <p>{info.locationData.zipCode} {info.locationData.stateCode}</p>
                     </span>
 
-                  </div>
+                  </div> */}
 
                 </div>
 

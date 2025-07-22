@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 // import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
+import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
 
 
 // const SamplePrevArrow = (props) => {
@@ -200,7 +201,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
         <div className='cart-related-products-slider-main-div'>
 
           {data ? (
-            <SwiperSlider
+            <ArrowSlider
               slidesData={data}
               renderSlide={(item, index) => (
                 <div key={index} className='cart-latest-product-cards-container'>

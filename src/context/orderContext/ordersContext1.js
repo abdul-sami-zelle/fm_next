@@ -249,6 +249,7 @@ export const MyOrdersProvider = ({ children }) => {
     
             if (response.status === 201) {
                 console.log("Order added successfully!");
+
             }
         } catch (error) {
             console.error("Error adding order:", error);

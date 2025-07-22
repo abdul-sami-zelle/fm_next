@@ -22,7 +22,7 @@ import { url } from '../../../utils/api';
 import { MdOutlineDirections } from "react-icons/md";
 import UserComment from './userComment';
 import { FaPhone } from "react-icons/fa6";
-import { IoIosMailOpen } from "react-icons/io";
+import { IoIosMailOpen, IoIosClose } from "react-icons/io";
 import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 // import { useLocation } from 'react-router-dom';
 import SectionLoader from '../../Components/Loader/SectionLoader';
@@ -38,7 +38,7 @@ const showStore = {}
   const commentData = [
     {
       useName: 'Nana Adwoa Serwah',
-      profile: storeImage,
+      profile: '/Assets/all-stores-location-images/store-image.png',
       comment: `Owner was Amazing. He had the time to talk with us concerning the couch we bought. We even got a deal. Come here for sure for my next furniture shopping.`,
     }
   ]
@@ -76,9 +76,9 @@ const showStore = {}
   const [sliderIndex, setSliderIndex] = useState(0);
 
   const images = [
-    storeImage, // Replace with storeImage dynamically if needed
-    storeImage, // Duplicate or add more images for demonstration
-    storeImage,
+    '/Assets/all-stores-location-images/store-image.png', // Replace with storeImage dynamically if needed
+    '/Assets/all-stores-location-images/store-image.png', // Duplicate or add more images for demonstration
+    '/Assets/all-stores-location-images/store-image.png',
   ];
 
   const handleDotClick = (index) => {
@@ -354,12 +354,12 @@ const showStore = {}
                 key={index}
                 className='mobile-view-single-store-card'
               >
-                <button
+                {/* <button
                   onClick={() => handleShowTab('map', item.longitude, item.latitude)}
                   className='mobile-view-store-direction-button'
                 >
-                  <img src={directionIcon} alt='direction-icon' />
-                </button>
+                  <img src={'/Assets/icons/direction-icon.png'} alt='direction-icon' />
+                </button> */}
                 <div className='mobile-view-single-store-image-div'>
                   <img src={`${url}${item?.images?.[0]?.image_url}`} alt='store profile' className='mobile-view-single-store-image' />
                 </div>
@@ -387,7 +387,8 @@ const showStore = {}
               <hr className='horizontal-line' />
             </div>
             <button className='mobile-view-bottom-modal-close-button' onClick={handleCloseBottomModal}>
-              <img src={closeBtn} alt='close btn' />
+              {/* <img src={closeBtn} alt='close btn' /> */}
+              <IoIosClose size={25} color='#595959' />
             </button>
           </div>
 
@@ -419,11 +420,11 @@ const showStore = {}
           <div className='mobile-view-bottom-modal-delivery-options'>
             <h3 className='mobile-heading-comments-top-heading'>Delivery Options:</h3>
             <span>
-              <img src={blueTick} alt='blue-tick' />
+              <img src={'/Assets/icons/blue-tick.png'} alt='blue-tick' />
               In-store pickup
             </span>
             <span>
-              <img src={blueTick} alt='blue-tick' />
+              <img src={'/Assets/icons/blue-tick.png'} alt='blue-tick' />
               Delivery
             </span>
           </div>

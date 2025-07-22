@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './CartPaymentInfo.css';
 import visaCArd from '../../../../Assets/Furniture Mecca/Cart Page/visa-card.png';
 import masterCard from '../../../../Assets/Furniture Mecca/Cart Page/master-card.png';
 import discoverCArd from '../../../../Assets/Furniture Mecca/Cart Page/discover-card.png';
 import americanExpressCard from '../../../../Assets/Furniture Mecca/Cart Page/american-express-card.png'
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import CartContinueBtn from '../CartContinueBtn/CartContinueBtn';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CartPaymentInfo = ({ isPaymentTrue }) => {
 
@@ -32,8 +33,8 @@ const CartPaymentInfo = ({ isPaymentTrue }) => {
                 <div className='card-types-div' useRef={containerRef}>
                     <div className="indicator" style={{ transform: `translateX(${animationDirection}px)` }}></div>
                     {cardTypes.map((items, index) => (
-                        <div className={currentCardType === index ? 'card-name-div' : ''}>
-                            <h3 key={index} className={`${currentCardType === index ? 'active-card-type' : ''}`} onClick={() => setCurrentCardType(index)}>{items}</h3>
+                        <div key={index} className={currentCardType === index ? 'card-name-div' : ''}>
+                            <h3 className={`${currentCardType === index ? 'active-card-type' : ''}`} onClick={() => setCurrentCardType(index)}>{items}</h3>
                         </div>
                     ))}
                 </div>
@@ -41,7 +42,7 @@ const CartPaymentInfo = ({ isPaymentTrue }) => {
                     <p>Select Card Type</p>
                     <div className='cards-images'>
                         {cardIcons.map((img, index) => (
-                            <img src={img} alt='img' />
+                            <Image key={index} src={img} width={60} height={30} alt='img' />
                         ))}
                     </div>
                 </div>

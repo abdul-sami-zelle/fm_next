@@ -39,7 +39,7 @@ const MobileFooter = ({ checkoutPage }) => {
     ]
 
     const footerCustomerCareAndAbout = [
-        {
+        { 
             heading: 'Customer Care', navLinks: [
                 { name: 'Contact Us', link: '/contact-us' },
                 { name: 'Financing', link: '/financing' },
@@ -104,6 +104,25 @@ const MobileFooter = ({ checkoutPage }) => {
         setLocationAccordion(!locationAccordion);
     }
 
+    const handleSnakeBarOpen = (message) => {
+        setShowSnakeBar(true);
+        setSnakeBarMessage(message)
+    }
+
+    const handleClick = () => {
+        if (defaultStore?.latitude && defaultStore?.longitude) {
+            const googleMapsUrl = `https://www.google.com/maps?q=${defaultStore?.latitude},${defaultStore?.longitude}`;
+            // Open the URL in a new tab
+            window.open(googleMapsUrl, "_blank");
+        } else {
+            handleSnakeBarOpen("Latitude and Longitude are not available.");
+        }
+    };
+
+   
+
+ 
+
 
     return (
         <div className={`mobile-view-footer-main-container ${pathname === '/cart' ? 'hide-mobile-footer' : ''} ${checkoutPage ? 'hide-mobile-footer' : ''} `}>
@@ -128,11 +147,11 @@ const MobileFooter = ({ checkoutPage }) => {
                         ))}
                     </div>
                     <div className='appointment-and-outlet-div'>
-                        <Link href={'#'}>
+                        <Link href={'/store-locator'}>
                             <p>Outlet</p>
                         </Link>
                         <Link href={'#'}>
-                            <p>Directions</p>
+                            <p onClick={handleClick}>Directions</p>
                         </Link>
                         <Link href={'/book-an-appointment'}>
                             <p>Book an Appointment</p>
@@ -204,14 +223,14 @@ const MobileFooter = ({ checkoutPage }) => {
             <div className='copy-rights-contianer-main'>
                 <div className='copy-rights-dual-links'>
                     <span>
-                        <Link href={'#'}>Shipping & Delivery</Link>
+                        <Link href={'/shipping-and-delivery'}>Shipping & Delivery</Link>
                     </span>
                     <span>
-                        <Link href={'#'}>Term & Conditions</Link>
+                        <Link href={'/terms-and-conditions'}>Term & Conditions</Link>
                     </span>
                 </div>
                 <div className='copy-rights-single-link'>
-                    <Link href={'#'}>Return Policy</Link>
+                    <Link href={'/return-policy'}>Return Policy</Link>
                 </div>
             </div>
 

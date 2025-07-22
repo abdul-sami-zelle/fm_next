@@ -21,6 +21,8 @@
     /* margin: 0; */
     /* margin: 0 60px; */
     padding: 0;
+    align-items: stretch;
+    gap: 5px;
 }
 
 .landing-page-financing-left{
@@ -29,12 +31,15 @@
     width: 50%;
     margin: 0;
     padding: 0;
+    gap: 5px;
 }
 
 .landing-page-financing-left img{
     width: 100%;
     height: auto;
     object-fit: cover;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .landing-page-financing-right{
@@ -43,6 +48,9 @@
     width: 50%;
     margin: 0;
     padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .landing-page-financing-right img{
@@ -56,7 +64,7 @@
     grid-template-columns: auto auto;
     width: 100%;
     /* gap: 20px;  */
-    background-image: url('../../../Assets/Furniture Mecca/Landing Page/financing/btns-bg.png');
+    background-image: url('/Assets/Furniture Mecca/Landing Page/financing/btns-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -119,7 +127,7 @@
     grid-template-columns: auto auto;
     width: 100%;
     /* gap: 20px;  */
-    background-image: url('../../../Assets/Furniture Mecca/Landing Page/financing/btns-bg.png');
+    background-image: url('/Assets/Furniture Mecca/Landing Page/financing/btns-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;

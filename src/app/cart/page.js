@@ -395,7 +395,7 @@ const Cart = () => {
           <p className='mobile-you-save-text'>You Saved</p>
           <p className='mobile-you-save-text'>{formatedPrice(savings)}</p>
         </div>
-        <button onClick={navigateToCheckout} className='mobile-proceed-to-checkout-button'>
+        <button onClick={navigateToCheckout} disabled={cartProducts.products?.length === 0} className={`mobile-proceed-to-checkout-button ${cartProducts.products?.length === 0 ? 'disable-checkout-button' : ''}`}>
           Proceed to checkout
         </button>
       </div>

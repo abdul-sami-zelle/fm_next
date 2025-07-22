@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
-import './SwiperSlider.css';
+import './ArrowSlider.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
-const SwiperSlider = ({
+const ArrowSlider = ({
     slidesData = [],
     renderSlide,
     showDots = false,
@@ -64,8 +64,8 @@ const SwiperSlider = ({
 
     return (
         <div className="slider-container">
-            {showArrows && (
-                <button className={`arrow left`} onClick={handlePrev}>
+            {showArrows && slidesData.length > 4 && (
+                <button className={`slider-arrow slider-left`} onClick={handlePrev}>
                     <IoIosArrowBack color='#FFF' size={20} />
                 </button>
             )}
@@ -105,8 +105,8 @@ const SwiperSlider = ({
                 ))}
             </Swiper>
 
-            {showArrows  && (
-                <button className={`arrow right`} onClick={handleNext}>
+            {showArrows  && slidesData.length > 4 && (
+                <button className={`slider-arrow slider-right`} onClick={handleNext}>
                     <IoIosArrowForward size={20} color='#FFF' />
                 </button>
             )}
@@ -155,4 +155,4 @@ const SwiperSlider = ({
     );
 };
 
-export default SwiperSlider
+export default ArrowSlider

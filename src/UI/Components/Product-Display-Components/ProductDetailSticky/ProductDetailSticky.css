@@ -193,6 +193,22 @@
 } */
 /* Add To Card and Quantity Container */
 
+.add-to-cart-and-out-of-stock-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 10px;
+    width: 100%;
+}
+
+.out-of-stoc-message {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--text-red);
+}
+
 .add-cart-or-add-items-div {
     display: flex;
     gap: 10px;
@@ -572,10 +588,10 @@
     justify-content: center;
     width: max-content;
     padding: 5px 10px;
-    border: 1px solid var(--tertiary-color);
+    border: 1px solid var(--orange-outline);
     border-radius: 5px;
     background-color: transparent;
-    color: var(--tertiary-color);
+    color: var(--text-gray);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -583,7 +599,7 @@
 }
 
 .product-detail-add-protection-plan-button:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--orange-fill);
     color: #FFF;
 }
 
@@ -592,12 +608,17 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
 }
 
 .product-detail-chat-option-container>p {
-    font-size: var(--content-one-size);
+    /* font-size: var(--content-one-size);
     line-height: var(--content-one-height);
-    font-weight: var(--content-one-weight);
+    font-weight: var(--content-one-weight); */
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 500;
     color: var(--text-primary);
 }
 
@@ -607,20 +628,33 @@
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border: 1px solid var(--tertiary-color);
-    border-radius: 15px;
+    /* border: 1px solid var(--tertiary-color); */
+    border: 1px solid var(--orange-outline);
+    border-radius: 5px;
     cursor: pointer;
-    color: var(--tertiary-color);
-    font-size: var(--sub-section-size);
+    color: var(--text-gray);
+    /* color: var(--tertiary-color); */
+    /* font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
-    font-weight: var(--sub-section-weight);
+    font-weight: var(--sub-section-weight); */
+    height: 35px;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 500;
     padding: 5px 15px;
 
 }
 
 .product-detail-chat-option-container>button:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--orange-fill);
     color: #FFFFFF;
+}
+
+.have-a-question-message {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--text-gray);
 }
 
 /* See In Person */

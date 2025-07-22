@@ -430,7 +430,7 @@
 .filters-section {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 18%;
     height: max-content;
     gap: 30px;
     overflow-y: auto;
@@ -794,7 +794,7 @@ label {
     height: max-content;
     position: relative !important;
     border-left: 1px solid var(--border-color);
-    width: 80%;
+    width: 82%;
     gap: 15px;
     padding-left: 9px;
     transition: all 0.5s ease-in-out;

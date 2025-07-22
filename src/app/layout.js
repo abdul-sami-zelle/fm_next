@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
 
   const pathname = usePathname();
   const hideHeaderFooter = pathname.startsWith('/order-confirmation');
-  const hideOnlyFooter = pathname.startsWith('/check-out');
+  const hideOnlyFooter = pathname.startsWith('/order-confirmation') || pathname.startsWith('/check-out');
   const hideChatOption = pathname.startsWith('/cart') || pathname.startsWith('/check-out');
 
   return (
@@ -94,7 +94,7 @@ export default function RootLayout({ children }) {
                                               {!hideHeaderFooter && <Header />}
                                               {!hideHeaderFooter && <Shopvia />}
                                               <main>{children}</main>
-                                              {!hideHeaderFooter  && <Footer />}
+                                              {!hideOnlyFooter && <Footer />}
 
                                               {!hideChatOption && <Home />}
                                             </ChatOpenProvider>

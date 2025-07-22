@@ -120,7 +120,8 @@ const CartProducts = ({ handleLocationModal }) => {
                             Add Furniture Mecca Platinum Protection Plan & Professional Assembly
                         </h3>
 
-                        <div className='cart-protect-or-not-container'>
+                        {cartProducts.products?.length > 0 && (
+                            <div className='cart-protect-or-not-container'>
 
                             <div className='cart-protect-card' onClick={handleCartProtected}>
                                 <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
@@ -156,98 +157,62 @@ const CartProducts = ({ handleLocationModal }) => {
                             </div>
 
                         </div>
+                        )}
+
+                        
 
                     </div>
                 </div>
 
 
-                <div className={`cart-items ${isOpen ? 'low-width' : ''}`}>
-                    <div className='cart-container-shipping-details'>
-                        <h3 className='protection-plan-on-cart-container'>Choose Delivery Option</h3>
-                        <div className='cart-protect-or-not-container'>
-
-                            {/* {selectedShippingMethods &&
-                                selectedShippingMethods?.map((option, index) => (
-                                    <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                        {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
-                                        
-                                        <div className='cart-protection-plan-details-container'>
-                                            <p className='cart-protection-plan-card-header'>{option.name}</p>
-                                        </div>
-                                        <div className='cart-protection-radio-container'>
-                                            <label
-                                                key={option.id}
-                                                className="custom-radio"
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "flex-start",
-                                                    flexDirection: "row",
-                                                    justifyContent: "flex-start",
-                                                    // margin: "5px 0",
-                                                    gap: "10px",
-                                                }}
-                                            >
-                                                <input
-                                                    type="radio"
-                                                    name="options"
-                                                    value={option.id}
-                                                    checked={selectedOption?.id === option.id}
-                                                    readOnly
-                                                    onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-                                                    style={{display: 'none'}}
-
-                                                />
-                                                <span className="radio-mark" />
-                                            </label>
-
-                                        </div>
-                                    </div>
-                                ))} */}
+                <div className={`cart-items ${isOpen ? 'low-width' : ''}`} style={{height: cartProducts?.products?.length === 0 ? '100%' : 'max-content'}}>
+                    {cartProducts.products?.length > 0 && (
+                        <div className='cart-container-shipping-details'>
+                            <h3 className='protection-plan-on-cart-container'>Choose Delivery Option</h3>
+                            <div className='cart-protect-or-not-container'>
 
                                 {selectedShippingMethods &&
-                                selectedShippingMethods?.map((option, index) => (
-                                    <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                        {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
-                                        {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+                                    selectedShippingMethods?.map((option, index) => (
+                                        <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                            {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
+                                            {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
-                                        <div className='cart-protection-plan-details-container'>
-                                            <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                            <div className='cart-protection-plan-details-container'>
+                                                <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                            </div>
+                                            <div className='cart-protection-radio-container'>
+                                                <label
+                                                    key={option.id}
+                                                    className="custom-radio"
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "flex-start",
+                                                        flexDirection: "row",
+                                                        justifyContent: "flex-start",
+                                                        // margin: "5px 0",
+                                                        gap: "10px",
+                                                    }}
+                                                >
+                                                    <input
+                                                        type="radio"
+                                                        name="options"
+                                                        value={option.id}
+                                                        checked={selectedOption?.id === option.id}
+                                                        readOnly
+                                                        onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+
+                                                    />
+                                                    <span className="radio-mark" />
+                                                </label>
+
+                                            </div>
                                         </div>
-                                        <div className='cart-protection-radio-container'>
-                                            <label
-                                                key={option.id}
-                                                className="custom-radio"
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "flex-start",
-                                                    flexDirection: "row",
-                                                    justifyContent: "flex-start",
-                                                    // margin: "5px 0",
-                                                    gap: "10px",
-                                                }}
-                                            >
-                                                <input
-                                                    type="radio"
-                                                    name="options"
-                                                    value={option.id}
-                                                    checked={selectedOption?.id === option.id}
-                                                    readOnly
-                                                    onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
-
-                                                />
-                                                <span className="radio-mark" />
-                                            </label>
-
-                                        </div>
-                                    </div>
-                                ))}
-
-
-
-
+                                    ))}
+                            </div>
+                            {isProfessionalAssembly ? <p className='delivery-promotion'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
                         </div>
-                        {isProfessionalAssembly ? <p className='delivery-promotion'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
-                    </div>
+                    )}
+
                     {cartProducts.products?.length <= 0 && <EmptyCart />}
                     {cartProducts && cartProducts?.products?.map((items, index) => {
                         return <CartItems
@@ -282,7 +247,6 @@ const CartProducts = ({ handleLocationModal }) => {
                         />
                     })}
 
-                    {cartProducts.products?.length <= 0 && <EmptyCart />}
                     {cartProducts && cartProducts?.products?.map((items, index) => (
                         <MobileCart
                             key={items.product_uid}

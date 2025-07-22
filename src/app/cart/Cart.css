@@ -658,6 +658,11 @@
     border-radius: 5px;
 }
 
+.mobile-proceed-to-checkout-button.disable-checkout-button {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
 .cart-page-also-like-cards-shimmer-contianer {
     display: flex;
     align-items: center;

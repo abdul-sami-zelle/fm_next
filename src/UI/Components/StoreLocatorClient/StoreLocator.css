@@ -589,6 +589,7 @@
     display: flex;
     width: 100%;
     height: 50vh;
+    overflow: hidden;
 }
 
 .mobile-view-stores-list {
@@ -659,11 +660,12 @@
     align-items: center;
     justify-content: start;
     gap: 5px;
+    flex-wrap: wrap;
 }
 
 .mobile-view-single-card-days p {
     font-size: 7px;
-    line-height: 14px;
+    line-height: 1.2;
     font-weight: 400;
 }
 

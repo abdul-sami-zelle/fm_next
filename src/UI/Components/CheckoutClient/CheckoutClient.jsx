@@ -85,7 +85,7 @@ const CheckoutClient = () => {
   //         setIsStarted(!isStarted);
   //       }
   //     }, [subTotal, shippingMethods]); // Dependency array for changes in subTotal or shippingMethods
-    
+
   //     useEffect(() => {
   //       if (shippingMethods) {
   //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
@@ -117,6 +117,8 @@ const CheckoutClient = () => {
 
 
   const [isCheck, setIsCheck] = useState({});
+
+  const [emailBlast, setEmailBlast] = useState(true);
 
 
 
@@ -372,6 +374,16 @@ const CheckoutClient = () => {
                 </div>
 
                 <div className='right-section-order-place-container'>
+                  <label className='email-blast-label'>
+                    <input
+                      type="checkbox"
+                      className='checkout-email-blast-checkbox'
+                      checked={emailBlast}
+                      onChange={(e) => setEmailBlast(e.target.checked)}
+                      required
+                    />
+                    Opt into Receive Text and Emails Blasts.
+                  </label>
                   <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
                   {
                     selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
