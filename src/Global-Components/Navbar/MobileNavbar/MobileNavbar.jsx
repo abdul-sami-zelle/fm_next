@@ -99,14 +99,14 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
               ))}
 
               <div className='mobile-nav-single-item'>
-                  <Link href={`/${headerOffer.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
+                  <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
                     <Image src={'/icons/menu-order.svg'} width={25} height={25} alt='nav-icon' />
                     <p className='last-call-mobile'>{headerOffer.category} 🔥 </p>
                   </Link>
                 </div>
 
                 <div className='mobile-nav-single-item' >
-                  <Link href={`/${sale_data.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
+                  <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-item-name' onClick={() => setMobileNavVisible(false)}>
                     <Image src={'/icons/menu-order.svg'} width={25} height={25} alt='nav-icon' />
                     <p className='sale-offer-mobile'>{sale_data.category}</p>
                   </Link>

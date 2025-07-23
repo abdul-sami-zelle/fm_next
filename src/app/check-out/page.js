@@ -8,6 +8,6 @@ export async function generateMetadata({ params }) {
   }
 
 
-export default function Summary({ params }) {
-    return <CheckoutClient params={params} />
+export default async function Summary({ params }) {
+    return <CheckoutClient params={params.slug} />
   }

@@ -33,6 +33,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
+import ElipticalPagenation from './ElepticalPagination';
 
 const Products = ({ navigationType }) => {
 
@@ -615,6 +616,10 @@ const Products = ({ navigationType }) => {
 
 
 
+
+
+
+
     // Disable Scroll on Modal Open
     useDisableBodyScroll(
         isInfoOpen,
@@ -878,26 +883,87 @@ const Products = ({ navigationType }) => {
                                 </div>
                                 {/* Product Card Code End */}
 
-                                <div className='view-more-products-button-div'>
-                                    {totalPages?.totalPages > 1 ? (
-                                        <div className='desktop-pagination-buttons-container'>
-                                            {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
-
-                                                const pageNumber = index + 1;
+                                {/* <div className='view-more-products-pagination-main'>
 
 
-                                                return <span
+
+
+                                    <div className='pagination-buttons-container'>
+                                        <span
+                                            className={activePageIndex === 1 ? 'disabled' : ''}
+                                            onClick={handlePrevPage}
+                                            style={{
+                                                pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                                color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
+                                            }}
+                                        >
+                                            <FaRegArrowAltCircleLeft
+                                                size={18}
+                                                style={{
+                                                    pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
+                                                    color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
+                                                }}
+                                            />
+                                            <p className='hide-on-mob'> Previous </p>
+                                        </span>
+                                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
+                                            const pageNumber = index + 1;
+                                            const shouldShow =
+                                                pageNumber === activePageIndex ||
+                                                pageNumber === activePageIndex - 1 ||
+                                                pageNumber === activePageIndex + 1 ||
+                                                (activePageIndex === 1 && pageNumber === 3) ||
+                                                (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2);
+                                            return shouldShow ? (
+                                                <span
                                                     key={pageNumber}
                                                     onClick={() => handleActivePage(pageNumber)}
                                                     className={activePageIndex === pageNumber ? 'active-page-span' : ''}
                                                 >
                                                     {pageNumber}
                                                 </span>
+                                            ) : null;
+                                        })}
+                                        <span
+                                            className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
+                                            onClick={handleNextPage}
+                                            style={{
+                                                pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                                color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
+                                            }}
+                                        >
+                                            <p className='hide-on-mob'> Next </p>
+                                            <FaRegArrowAltCircleRight
+                                                size={18}
+                                                style={{
+                                                    pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
+                                                    color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
+                                                }}
+                                            />
+                                        </span>
+                                    </div>
+                                </div> */}
 
-                                            })}
-                                        </div>
-                                    ) : (<></>)}
-                                </div>
+                                <div className='view-more-products-button-div'>
+                                {totalPages?.totalPages > 1 ? (
+                                    <div className='desktop-pagination-buttons-container'>
+                                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
+
+                                            const pageNumber = index + 1;
+
+
+                                            return <span
+                                                key={pageNumber}
+                                                onClick={() => handleActivePage(pageNumber)}
+                                                className={activePageIndex === pageNumber ? 'active-page-span' : ''}
+                                            >
+                                                {pageNumber}
+                                            </span>
+
+                                        })}
+                                    </div>
+                                ) : (<></>)}
+                            </div>
                             </div>
                         )}
                     </div>

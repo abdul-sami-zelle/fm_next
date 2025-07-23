@@ -8,11 +8,8 @@
     top: 0;
     left: -480px;
     background-color: rgba(0, 0, 0, 0.2);
-    /* visibility: hidden; */
-    /* opacity: 0; */
     overflow: hidden;
     z-index: 99999999999;
-    
     transition: all 0.3s ease-in-out ;
 }
 
@@ -20,7 +17,6 @@
     visibility: visible;
     opacity: 1;
     left: 0;
-    /* width: 100%; */
 }
 
 .mobile-nav-main-container{

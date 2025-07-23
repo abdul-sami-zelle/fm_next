@@ -23,7 +23,7 @@ const FurnitureForBudget = ({ budgetCardData }) => {
                     budgetCardData && budgetCardData.map((items, index) => (
                     <div
                         key={index}
-                        className='budget-furniturre-card'
+                        className={`budget-furniturre-card ${index === 1 ? 'center-card' : ''}`}
                         onClick={() => {
                             navigateToDetails(items.uid, items.max_price, items.category)
                         }}
@@ -31,8 +31,10 @@ const FurnitureForBudget = ({ budgetCardData }) => {
                         <div className='budget-furniture-card-img'>
                             <Image src={url + items.img} width={640} height={400} alt='img' effect='blur' />
                         </div>
-                        <div className='budget-furniture-card-details'>
-                            <p>{items.sale}</p>
+                        <div className={`budget-furniture-card-details ${index === 1 ? 'center-card-details' : ''}`}>
+                            <p 
+                                // style={{color: index !== 1 ? '#FFF' : 'var(--text-primary)'}}
+                            >{items.sale}</p>
                             <button
                             onClick={()=>{
                                 navigateToDetails(items.uid,items.max_price,items.category)

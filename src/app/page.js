@@ -65,6 +65,8 @@ const Home = () => {
       setShowSnakeBar(false)
     }
 
+  console.log("landing page categories", landingPageCategories)
+
   return (
     <div className='home-page-main-container'>
       <NearStorePopUp />

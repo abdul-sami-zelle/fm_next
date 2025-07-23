@@ -192,6 +192,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Return Policy', link: '/return-policy' },
+                { name: 'Protection Plan', link: '/premium-bed-care' },
                 { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
             ]
         },

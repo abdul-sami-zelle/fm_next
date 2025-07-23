@@ -45,7 +45,7 @@ const MobileFooter = ({ checkoutPage }) => {
                 { name: 'Financing', link: '/financing' },
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
-                { name: 'Protection Plan', link: '#' },
+                { name: 'Protection Plan', link: '/premium-bed-care' },
                 { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
 
             ]

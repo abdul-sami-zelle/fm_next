@@ -61,12 +61,12 @@
 
 .offer-color {
     color: var(--text-red);
-    font-weight: 600;
+    font-weight: 700 !important;
 }
 
 .sale-color {
     color: var(--orange-fill);
-    font-weight: 600;
+    font-weight: 700 !important;
 }
 
 .nav-item.active .nav-link {

@@ -12,7 +12,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
   //   {icon: '/Assets/icon/sofa-side.svg', title: 'Seat Depth', secondTitle: '20.00"'},
   //   {icon: '/Assets/icon/sofa-front.svg', title: 'Seat Cushion Style', secondTitle: 'Loose'},
   // ]
-
+  console.log("product features", productData)
 
   return (
     <div
@@ -42,6 +42,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
                 key={index}
                 className='product-single-feature'
               >
+                
                 <img src={url+item.image} alt='icon' />
                 <div className='product-single-feature-title-and-desc'>
                   <h3>{item.title}</h3>

@@ -39,10 +39,14 @@ const LandingPageFinancing = () => {
         <h3 className='landing-page-financing-main-heading'>Flexible Financing Options</h3>
         <div className='landing-page-financing-banners-main-container'>
           <div className='landing-page-financing-left'>
-            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg'} width={900} height={350} alt='banner one' />
-            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-2.gif'} width={900} height={350} alt='banner two' />
+            <Link href={'/financing'}>
+              <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg'} width={900} height={350} alt='banner one' />
+            </Link>
+            <Link href={'/financing'}>
+              <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-2.gif'} width={900} height={350} alt='banner two' />
+            </Link>
           </div>
-          <div className='landing-page-financing-right'>
+          <Link href={'/financing'} className='landing-page-financing-right'>
             <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.jpg'} width={900} height={470}  alt='banner-three' />
             <div className='financing-page-buttons-div'>
               {financingButtons.map((item, index) => (
@@ -53,7 +57,7 @@ const LandingPageFinancing = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 

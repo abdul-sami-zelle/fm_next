@@ -1,4 +1,4 @@
-.activeCategoryPage{
+.activeCategoryPage {
     width: 100%;
 }
 
@@ -39,15 +39,38 @@
 
 }
 
-.banner-1-content > img {
+.banner-1-content>img {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.content_1_section{
+.content_1_section {
     display: flex;
-    /* width: 100%; */
+    box-sizing: border-box;
+    padding: 35px 60px;
+    width: 100%;
+    gap: 5%;
+}
+
+
+.left_side_cont {
+    width: 60%;
+}
+
+
+.right_side_cont {
+    width: 40%;
+}
+
+.right_side_cont img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* .content_1_section{
+    display: flex;
     box-sizing: border-box;
     margin: 35px 60px;
 }
@@ -62,9 +85,9 @@
     height: 500px;
     width: 100%;
     object-fit: contain;
-}
+} */
 
-.section_1_ASP{
+.section_1_ASP {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -87,10 +110,11 @@
     gap: 15px;
     position: relative;
     padding-bottom: 20px;
+    padding-top: 5px;
     transition: transform 0.5s ease, grid-template-columns 0.5s ease-in-out;
 }
 
-.section_3_ASP{
+.section_3_ASP {
     /* margin: 35px 60px; */
     padding: var(--global-padding);
 }
@@ -113,6 +137,7 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
 @media (max-width: 1000px) {
     .active-sale-cards {
         grid-template-columns: repeat(2, 1fr);
@@ -122,13 +147,30 @@
 @media (max-width: 480px) {
     .active-sale-cards {
         grid-template-columns: repeat(1, 1fr);
+        padding: 5px 10px;
+        gap: 10px;
     }
 
     .section_1_ASP {
-        margin: 15px;
+        margin: 15px 10px;
+        gap: 10px;
     }
+
     .content_1_section {
-        margin: 15px;
+        padding: 15px;
         flex-direction: column;
+        gap: 10px;
+    }
+
+    .left_side_cont {
+        /* width: 100%; */
+        display: none;
+    }
+
+    .right_side_cont {
+        width: 100%;
+    }
+    .banner-1-content {
+        display: none;
     }
 }

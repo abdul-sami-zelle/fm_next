@@ -19,7 +19,7 @@ import { fetcher } from '@/utils/Fetcher';
 import useSWR, { mutate } from 'swr';
 
 const CategoriesClient = ({ category }) => {
-
+  console.log("category slug", category)
 
   const router = useRouter();
   const location = usePathname();

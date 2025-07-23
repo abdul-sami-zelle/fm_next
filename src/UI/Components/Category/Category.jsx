@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
 
-  console.log("category data", categoryData)
  const [isloaded,setIsLoaded] = useState(false);
   return (
     <div className='category-main-container'>
@@ -20,7 +19,7 @@ const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
         {categoryData && categoryData.length > 0 ? (
           categoryData.map((item, index) => (
            <React.Fragment key={index}>
-              <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : `/${item.slug}` } state={item}>
+              <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : item.parent > 0 ? `/${item.parentSlug}/${item.slug}` : `/${item.slug}` } state={item}>
             <Image
               key={item.image}
               src={url + item.image}
@@ -44,7 +43,7 @@ const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
         {categoryData && categoryData.length > 0 ? (
           categoryData.map((item, index) => (
            <React.Fragment key={index}>
-            <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : `/${item.slug}` } state={item}>
+            <Link href={categorySlug !== undefined ? `/${categorySlug}/${item.slug}` : item.parent > 0 ? `/${item.parentSlug}/${item.slug}` : `/${item.slug}` } state={item}>
             {/* <img
               key={item.image}
               onClick={() => handleNavigate(item.slug, item)}
