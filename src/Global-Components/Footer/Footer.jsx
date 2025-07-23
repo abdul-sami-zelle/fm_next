@@ -287,7 +287,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                         <div className='left-section-contact'>
                             <div className='left-section-social-icons-div'>
                                 {socialIcons.map((items, index) => (
-                                    <a key={index} href={items.link}>
+                                    <a key={index} href={items.link} target='_blank'>
                                         <img src={items.icon} alt='icon' />
                                     </a>
                                 ))}

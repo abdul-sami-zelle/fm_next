@@ -76,6 +76,11 @@
     flex-shrink: 0;
 }
 
+.product-archive-out-of-stock-tag.apply-col-two-styling {
+    padding: 3px 10px;
+    font-size: 10px;
+}
+
 .product-image-wishlist-icon-container {
     display: none;
     position: absolute;
@@ -311,6 +316,7 @@
     line-height: 1.2 !important;
     font-size: 12px !important;
     font-weight: 500 !important;
+    height: 52px !important;
 }
 
 .product-title.heighted {
@@ -433,7 +439,7 @@
 }
 
 .product-card-get-it-by>h3 {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.5;
     font-weight: 600;
     color: var(--tertiary-color);
@@ -801,6 +807,31 @@
     width: 30px;
 }
 
+.mobile-color-variation .show-tick-mark::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 18px;
+    height: 15px;
+    border-radius: 4px;
+    clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+}
+
+.mobile-color-variation .show-tick-mark::after {
+    content: "";
+    position: absolute;
+    /* Position the tick mark roughly in the center */
+    top: 4px;
+    left: 6px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 2px;
+    height: 5px;
+    border-right: 1.75px solid var(--tick-color);
+    border-bottom: 1.75px solid var(--tick-color);
+}
+
 .product-delivery-time {
     font-size: 12px;
     line-height: 18px;
@@ -990,7 +1021,7 @@
     }
 
     .installment-plan-detail.apply-col-two-styling {
-        font-size: 10px;
+        font-size: 8px;
         line-height: 1.5;
         font-weight: 400;
     }

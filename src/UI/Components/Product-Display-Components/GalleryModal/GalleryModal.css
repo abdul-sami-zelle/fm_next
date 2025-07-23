@@ -46,14 +46,14 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 25px;
-    height: 25px;
-    background-color: transparent;
+    /* width: 25px;
+    height: 25px; */
+    /* background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    outline: none;
+    outline: none; */
     cursor: pointer;
     z-index: 99;
 }
@@ -205,9 +205,14 @@
     transform: scale(0.8);
 }
 
+.mobile-gallery-modal {
+    display: none;
+}
+
 
 @media only screen and (max-width: 480px) {
     .dimension-modal-inner-container {
+        display: none;
         width: 100%;
         flex-direction: column-reverse;
         padding: 15px;
@@ -246,11 +251,11 @@
         width: 100%;
         height: auto;
     }
-    .dimension-modal-close-button {
+    /* .dimension-modal-close-button {
         width: 20px;
         height: 20px;
-    }
-    .dimension-main-slider-arrow {
+    } */
+    .dimension-modal-main-container {
         display: none;
     }
 }

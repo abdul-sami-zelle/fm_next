@@ -181,6 +181,16 @@
     color: var(--text-primary);
 }
 
+.last-call-mobile {
+    color: var(--text-red) !important;
+    font-weight: 500;
+}
+
+.sale-offer-mobile {
+    color: var(--orange-fill) !important;
+    font-weight: 500;
+}
+
 .mobile-nav-single-item-nav-arrow{
     width: auto;
     height: 20px;

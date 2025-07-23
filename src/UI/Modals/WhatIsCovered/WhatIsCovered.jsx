@@ -16,9 +16,9 @@ const WhatIsCovered = ({ showCoveredModal, handleCloseCoveredModal }) => {
             <div className={`what-is-covered-container-contianer ${showCoveredModal ? 'drag-content-container' : ''}`} onClick={(e) => e.stopPropagation()} >
             <div className='what-is-covered-head-contianer'>
                 <h3>Premium Protection Plan</h3>
-                <button className='what-is-covered-modal-close' onClick={handleCloseCoveredModal}>
-                    <IoIosClose size={30} color='#595959' />
-                </button>
+                {/* <button className='what-is-covered-modal-close' onClick={handleCloseCoveredModal}> */}
+                    <IoIosClose size={30} color='#595959' className='what-is-covered-modal-close' onClick={handleCloseCoveredModal}/>
+                {/* </button> */}
             </div>
                 <div className='what-is-covered-components-contianer'>
                     <FurnitureProtectionPlan />

@@ -478,6 +478,7 @@ const ProductDisplay = ({ params }) => {
 
       <GalleryModal
         dimensionModal={dimensionModal}
+        setDimensionModal={setDimensionModal}
         handleCloseDimensionModal={handleCloseDimensionModal}
         productData={product}
         clickedType={clickedType}

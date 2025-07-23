@@ -8,6 +8,7 @@ import { useCart } from '../../../context/cartContext/cartContext';
 import { formatedPrice } from '@/utils/api';
 import EmptyCart from '../Cart-Components/Empty-Cart/EmptyCart';
 import { useRouter } from 'next/navigation';
+import { IoIosClose } from 'react-icons/io';
 
 const CartSidePannel = (
   {
@@ -60,9 +61,10 @@ const CartSidePannel = (
       className={`cart-side-main-section ${addToCartClicked ? 'show-side-cart' : ''} `}
       onClick={handleCartSectionClose}
     >
-      <button className='cart-section-close-btn' onClick={handleCartSectionClose}>
+      {/* <button className='cart-section-close-btn' onClick={handleCartSectionClose}>
         <img src={'/Assets/icons/close-btn.png'} alt='close btn' />
-      </button>
+      </button> */}
+      <IoIosClose size={25} color='#595959' className='cart-section-close-btn' onClick={handleCartSectionClose} />
       <div
         className={`cart-side-section-containt-div ${addToCartClicked ? 'show-side-cart-containt' : ''}`}
         onClick={(e) => e.stopPropagation()}

@@ -4,7 +4,7 @@ import DropdownMenu from './DropdownMenu/DropdownMenu';
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
 
-const Nav = ({ navLinks, sale_data }) => {
+const Nav = ({ navLinks, sale_data, headerOffer }) => {
     const [dropdownOpen, setDropdownOpen] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const path = usePathname();
@@ -23,6 +23,7 @@ const Nav = ({ navLinks, sale_data }) => {
         setDropdownOpen(null);
         setActiveIndex(path);
     }, [path]);
+
 
     return (
         <div className='navbar'>
@@ -50,12 +51,23 @@ const Nav = ({ navLinks, sale_data }) => {
                         </h3>
                     ))}
 
+                    {/* Sale Offer  */}
+                    <h3 className={`nav-item ${activeIndex === `/sale/${headerOffer.category_slug}` ? 'active' : ''}`}>
+                        <Link
+                            href={`/call/${headerOffer.category_slug}`}
+                            state={{ headerOffer }} // Passing data via state
+                            className='nav-link offer-color'
+                        >
+                            {headerOffer.category} 🔥
+                        </Link>
+                    </h3>
+
                     {/* Sale category with different redirection */}
                     <h3 className={`nav-item ${activeIndex === `/sale/${sale_data.category_slug}` ? 'active' : ''}`}>
                         <Link
                             href={`/sale/${sale_data.category_slug}`}
                             state={{ sale_data }} // Passing data via state
-                            className='nav-link'
+                            className='nav-link sale-color'
                         >
                             {sale_data.category}
                         </Link>

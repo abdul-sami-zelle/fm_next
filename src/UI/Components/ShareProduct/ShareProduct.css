@@ -48,19 +48,19 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 22px;
+    /* width: 22px;
     height: 22px;
     background-color: transparent;
     border: none;
-    outline: none;
+    outline: none; */
     cursor: pointer;
 }
 
-.share-product-link-pop-up-close-btn img {
+/* .share-product-link-pop-up-close-btn img {
     width: 100%;
     height: auto;
     object-fit: contain;
-}
+} */
 
 /* selected product styling */
 .share-product-selected-product-details {

@@ -4,6 +4,12 @@ import { RxCross2 } from "react-icons/rx";
 import { url } from '../../../../utils/api';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { IoIosClose } from 'react-icons/io';
+import FsLightbox from 'fslightbox-react';
+
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import "yet-another-react-lightbox/styles.css";
+
 
 const GalleryModal = ({
   dimensionModal,
@@ -15,7 +21,8 @@ const GalleryModal = ({
   activeIndex,
   clickedType,
   setActiveIndex,
-  galleryModalWidth
+  galleryModalWidth,
+  setDimensionModal
 }) => {
 
   const swiperRef = useRef();
@@ -67,6 +74,29 @@ const GalleryModal = ({
     }
   }, [dimensionModal, clickedType])
 
+
+  function setupMobileState(setIsMobile, breakpoint = 768) {
+    const updateState = () => {
+      setIsMobile(window.innerWidth <= breakpoint);
+    };
+    
+
+    window.addEventListener('resize', updateState);
+    updateState(); // initial check
+
+    return () => {
+      window.removeEventListener('resize', updateState);
+    };
+  }
+
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const cleanup = setupMobileState(setIsMobile);
+    return cleanup;
+  }, []);
+
   // useEffect(() => {
   //   if (dimensionModal && swiperRef.current) {
   //     swiperRef.current.slideTo(0);         // Reset Swiper to first slide
@@ -113,65 +143,79 @@ const GalleryModal = ({
   }
 
   return (
-    <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
-      <div className={`dimension-modal-inner-container ${galleryModalWidth ? 'show-modal-full-width' : ''}`}>
-        <button className='dimension-modal-close-button' onClick={handleCloseDimensionModal}>
-          <IoIosClose size={25} color='var(--secondary-color)' />
-        </button>
+    <>
+      <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
+        <div className={`dimension-modal-inner-container ${galleryModalWidth ? 'show-modal-full-width' : ''}`}>
+          {/* <button className='dimension-modal-close-button' onClick={handleCloseDimensionModal}> */}
+            <IoIosClose size={25} color='var(--secondary-color)' className='dimension-modal-close-button' onClick={handleCloseDimensionModal} />
+          {/* </button> */}
 
-        {/* Thumbnail Section */}
-        <div className='dimension-left-thumbnail-section'>
-          <div className='dimension-modal-products-thumb-heading'>
-            <p>Product Photos ({images?.length})</p>
+          {/* Thumbnail Section */}
+          <div className='dimension-left-thumbnail-section'>
+            <div className='dimension-modal-products-thumb-heading'>
+              <p>Product Photos ({images?.length})</p>
+            </div>
+            <div className='thumb-images-main-container'>
+              {images?.map((item, index) => (
+                <div
+                  key={index}
+                  className={`dimension-modal-thumb-single-image ${index === thumbActiveIndex ? 'dimension-modal-active-thumb' : ''}`}
+                  onClick={() => {
+                    onThumbnailClick(index); // this slides Swiper
+                    handleThumbnailClick(index); // this updates thumbActiveIndex
+                  }}
+                >
+                  <img src={`${url}${item.image_url}`} alt='thumb' className='dimension-modal-thumbnail-single-image' />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className='thumb-images-main-container'>
-            {images?.map((item, index) => (
-              <div
-                key={index}
-                className={`dimension-modal-thumb-single-image ${index === thumbActiveIndex ? 'dimension-modal-active-thumb' : ''}`}
-                onClick={() => {
-                  onThumbnailClick(index); // this slides Swiper
-                  handleThumbnailClick(index); // this updates thumbActiveIndex
-                }}
-              >
-                <img src={`${url}${item.image_url}`} alt='thumb' className='dimension-modal-thumbnail-single-image' />
-              </div>
-            ))}
+
+          {/* Swiper Slider Section */}
+          <div className='dimension-modal-slider'>
+            <SwiperSlider
+              slidesData={images}
+              renderSlide={(img, index) => (
+                <div key={index} className='dimension-modal-slider-single-image-container'>
+                  {galleryModalWidth ? (
+                    <ImageZoomOnHover src={`${url}${img.image_url}`} zoom={3} />
+                  ) : (
+                    <img
+                      src={`${url}${img.image_url}`}
+                      alt='slide'
+                      className='dimension-modal-slider-image'
+                    />
+                  )}
+                </div>
+              )}
+              showDots={true}
+              showArrows={false}
+              slidesPerView={1}
+              spaceBetween={0}
+              externalActiveIndex={activeIndex}
+              onSlideChangeIndex={(index) => {
+                setActiveIndex(index);
+                onThumbnailClick(index);
+                handleThumbnailClick(index);
+              }}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+            />
           </div>
         </div>
 
-        {/* Swiper Slider Section */}
-        <div className='dimension-modal-slider'>
-          <SwiperSlider
-            slidesData={images}
-            renderSlide={(img, index) => (
-              <div key={index} className='dimension-modal-slider-single-image-container'>
-                {galleryModalWidth ? (
-                  <ImageZoomOnHover src={`${url}${img.image_url}`} zoom={3} />
-                ) : (
-                  <img
-                    src={`${url}${img.image_url}`}
-                    alt='slide'
-                    className='dimension-modal-slider-image'
-                  />
-                )}
-              </div>
-            )}
-            showDots={true}
-            showArrows={false}
-            slidesPerView={1}
-            spaceBetween={0}
-            externalActiveIndex={activeIndex}
-            onSlideChangeIndex={(index) => {
-              setActiveIndex(index);
-              onThumbnailClick(index);
-              handleThumbnailClick(index);
-            }}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-          />
-        </div>
+
       </div>
-    </div>
+
+      {isMobile && (
+        <Lightbox
+          open={dimensionModal}
+          close={() => setDimensionModal(false)}
+          slides={images?.map((img) => ({ src: `${url}${img.image_url}` }))}
+          plugins={[Zoom]}
+        />
+      )}
+    </>
+
   );
 };
 

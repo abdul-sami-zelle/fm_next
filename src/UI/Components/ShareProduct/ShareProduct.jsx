@@ -59,10 +59,10 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
         <div className={`share-product-link-pop-up-main ${isSharePopup === selectedProduct?.uid ? 'show-product-share-pop-up' : ''}`} onClick={handleCloseShareProductPopup}>
             <div className='bg-blur-container'></div>
             <div className='share-product-link-pop-up-inner' onClick={(e) => e.stopPropagation()}>
-                <button className='share-product-link-pop-up-close-btn' onClick={handleCloseShareProductPopup}>
+                {/* <button className='share-product-link-pop-up-close-btn' onClick={handleCloseShareProductPopup}> */}
                     {/* <img src={closeBtn} alt='close' /> */}
-                    <IoClose size={22} color='#595959' />
-                </button>
+                    <IoClose size={22} color='#595959' className='share-product-link-pop-up-close-btn' onClick={handleCloseShareProductPopup} />
+                {/* </button> */}
 
                 <div className='share-product-popup-product-div'>
                     {selectedProduct?.images?.[0]?.image_url && (

@@ -76,16 +76,16 @@
     /* position: absolute;
     top: 20px;
     right: 20px; */
-    background-color: transparent;
+    /* background-color: transparent;
     border: none;
-    outline: none;
+    outline: none; */
     cursor: pointer;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
-    width: max-content;
+    justify-content: center; */
+    /* width: max-content; */
     z-index: 999999;
-    height: max-content;
+    /* height: max-content; */
 }
 
 

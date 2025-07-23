@@ -51,6 +51,7 @@ const Header = ({ checkoutPage }) => {
   const [isTabMenuOpen, setIsTabMenuOpen] = useState(false);
   const [showCart, setShowCart] = useState(false)
   const [headerData, setHeaderData] = useState([]);
+  const [headerOffer, setHeaderOffer] = useState([])
   const [headerSale, setHeaderSale] = useState([]);
   const [nearStorePopUp, setNearStorePopUp] = useState(false)
   const [changeLanguage, setChangeLanguage] = useState(false)
@@ -125,6 +126,7 @@ const Header = ({ checkoutPage }) => {
     if (headerContent) {
       setHeaderData(headerContent.data[0].categories)
       setHeaderSale(headerContent.data[0].sale)
+      setHeaderOffer(headerContent.data[0].lastCall)
     }
   }, [headerContent])
 
@@ -240,7 +242,6 @@ const Header = ({ checkoutPage }) => {
   // Navigate To product archive page with search query
   const handleNavigateToSearchedProducts = (e) => {
     e.stopPropagation();
-    // navigate.push(`/searched-products?query=${searchQuery}`)
     router.push(`/searched-products?query=${searchQuery}`);
     setSearchQuery('')
     setIsSearchInputFocused(false)
@@ -272,7 +273,7 @@ const Header = ({ checkoutPage }) => {
     country: ''
   });
 
-  
+
   const handleMobileSearchModal = () => {
     setIsMobileSearched(true)
   }
@@ -426,6 +427,11 @@ const Header = ({ checkoutPage }) => {
                 placeholder='Search Furniture Mecca'
                 onFocus={handleSearchInputFocus}
                 onChange={handleSearchInput}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchedProducts?.length > 0) {
+                    handleNavigateToSearchedProducts(e);
+                  }
+                }}
               />
               {isLoading ? <div className='input-loader'></div> : <></>}
             </div>
@@ -464,12 +470,12 @@ const Header = ({ checkoutPage }) => {
                     </div>
                   </Link>
                 ))}
-              <button
-                className='see-all-searched-products'
-                onClick={handleNavigateToSearchedProducts}
-              >
-                See all Products ({searchedProducts?.length})
-              </button>
+                <button
+                  className='see-all-searched-products'
+                  onClick={handleNavigateToSearchedProducts}
+                >
+                  See all Products ({searchedProducts?.length})
+                </button>
               </div>
             </div>
 
@@ -710,7 +716,7 @@ const Header = ({ checkoutPage }) => {
       {
         isTabMenuOpen ?
           <TabMenu isNavbarVisible={isTabMenuOpen} setIsNavbarVisible={setIsTabMenuOpen} navLinks={navLinks} /> :
-          <Nav navLinks={headerData && headerData} sale_data={headerSale && headerSale} />
+          <Nav navLinks={headerData && headerData} headerOffer={headerOffer} sale_data={headerSale && headerSale} />
       }
 
       {/* Language Modal */}
@@ -746,6 +752,8 @@ const Header = ({ checkoutPage }) => {
         showMobileNav={mobileNavVisible}
         headerData={headerData}
         setMobileNavVisible={setMobileNavVisible}
+        headerOffer={headerOffer} 
+        sale_data={headerSale && headerSale}
       />
 
     </div>

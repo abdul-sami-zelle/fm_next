@@ -43,22 +43,9 @@
     position: absolute;
     right: 10px;
     top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: none;
-    outline: none;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
 }
 
-.close-location-modal img{
-    width: auto;
-    height: 100%;
-    object-fit: contain;
-}
 
 .location-heading-and-search-bar-section{
     display: flex;

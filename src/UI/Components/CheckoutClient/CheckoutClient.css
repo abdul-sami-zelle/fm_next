@@ -708,6 +708,11 @@
     gap: 10px; */
     /* align-items: start;
     justify-content: start; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    justify-content: start;
     font-size: var(--content-one-size);
     line-height: var(--content-one-height);
     font-weight: var(--content-two-weight);

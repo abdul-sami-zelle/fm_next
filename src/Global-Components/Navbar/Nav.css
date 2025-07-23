@@ -49,12 +49,24 @@
     /* border-bottom: 2px solid var(--primary-color) !important; */
 }
 
-.nav-item:nth-child(8) .nav-link {
+/* .nav-item:nth-child(8) .nav-link {
     color: var(--primary-color);
+} */
+
+/* .nav-item:nth-child(9) .nav-link {
+    color: var(--tertiary-color);
+} */
+
+
+
+.offer-color {
+    color: var(--text-red);
+    font-weight: 600;
 }
 
-.nav-item:nth-child(9) .nav-link {
-    color: var(--tertiary-color);
+.sale-color {
+    color: var(--orange-fill);
+    font-weight: 600;
 }
 
 .nav-item.active .nav-link {

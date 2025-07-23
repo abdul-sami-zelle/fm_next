@@ -122,50 +122,52 @@ const CartProducts = ({ handleLocationModal }) => {
 
                         {cartProducts.products?.length > 0 && (
                             <div className='cart-protect-or-not-container'>
+                                
+                                <div className='cart-protect-card' onClick={cartProducts?.products?.length > 1 ? handleCartProtected : undefined}>
+                                    {cartProducts?.products?.length === 1 && <div className='protect-entire-cart-disable-overlay'></div>}
+                                    <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
+                                    <div className='cart-protection-plan-details-container'>
+                                        <p className='cart-protection-plan-card-header'>Protect Entire Order</p>
+                                        <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
+                                    </div>
+                                    <div className='cart-protection-checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            className='order-summary-checkbox'
+                                            checked={isCartProtected}
+                                            readOnly
+                                            disabled={cartProducts?.products?.length === 1}
+                                        />
+                                    </div>
+                                </div>
 
-                            <div className='cart-protect-card' onClick={handleCartProtected}>
-                                <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
-                                <div className='cart-protection-plan-details-container'>
-                                    <p className='cart-protection-plan-card-header'>Protect Entire Order</p>
-                                    <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
+                                <div className='cart-protect-card' onClick={handleCartAssembly}>
+                                    <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
+
+                                    <div className='cart-protection-plan-details-container'>
+                                        <p className='cart-protection-plan-card-header'>Professional Assembly</p>
+                                        <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
+                                    </div>
+                                    <div className='cart-protection-checkbox-container'>
+                                        <input
+                                            type="checkbox"
+                                            className='order-summary-checkbox'
+                                            checked={isProfessionalAssembly}
+                                            readOnly
+                                        />
+                                    </div>
                                 </div>
-                                <div className='cart-protection-checkbox-container'>
-                                    <input
-                                        type="checkbox"
-                                        className='order-summary-checkbox'
-                                        checked={isCartProtected}
-                                        readOnly
-                                    />
-                                </div>
+
                             </div>
-
-                            <div className='cart-protect-card' onClick={handleCartAssembly}>
-                                <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
-
-                                <div className='cart-protection-plan-details-container'>
-                                    <p className='cart-protection-plan-card-header'>Professional Assembly</p>
-                                    <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
-                                </div>
-                                <div className='cart-protection-checkbox-container'>
-                                    <input
-                                        type="checkbox"
-                                        className='order-summary-checkbox'
-                                        checked={isProfessionalAssembly}
-                                        readOnly
-                                    />
-                                </div>
-                            </div>
-
-                        </div>
                         )}
 
-                        
+
 
                     </div>
                 </div>
 
 
-                <div className={`cart-items ${isOpen ? 'low-width' : ''}`} style={{height: cartProducts?.products?.length === 0 ? '100%' : 'max-content'}}>
+                <div className={`cart-items ${isOpen ? 'low-width' : ''}`} style={{ height: cartProducts?.products?.length === 0 ? '100%' : 'max-content' }}>
                     {cartProducts.products?.length > 0 && (
                         <div className='cart-container-shipping-details'>
                             <h3 className='protection-plan-on-cart-container'>Choose Delivery Option</h3>

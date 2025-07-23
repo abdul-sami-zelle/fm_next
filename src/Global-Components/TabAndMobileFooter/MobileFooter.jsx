@@ -220,7 +220,7 @@ const MobileFooter = ({ checkoutPage }) => {
                 })}
             </div>
 
-            <div className='copy-rights-contianer-main'>
+            {/* <div className='copy-rights-contianer-main'>
                 <div className='copy-rights-dual-links'>
                     <span>
                         <Link href={'/shipping-and-delivery'}>Shipping & Delivery</Link>
@@ -232,7 +232,7 @@ const MobileFooter = ({ checkoutPage }) => {
                 <div className='copy-rights-single-link'>
                     <Link href={'/return-policy'}>Return Policy</Link>
                 </div>
-            </div>
+            </div> */}
 
             <div className='footer-mobile-copy-sight-and-manage-by'>
                 <span className='mobile-footer-copy-rights'>

@@ -83,8 +83,8 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
 
 
 
-    useEffect(() => { 
-        checkToken() 
+    useEffect(() => {
+        checkToken()
     }, [])
 
 
@@ -99,7 +99,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         }))
     }, [ratingCount])
 
-    useEffect(() => {console.log("review payload", reviewData)}, [reviewData])
+    useEffect(() => { console.log("review payload", reviewData) }, [reviewData])
 
     const [writeReview, setWriteReview] = useState(false);
     const handleWriteReview = () => {
@@ -125,17 +125,49 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         }));
     };
 
-    useEffect(() => {}, [reviewData])
+    useEffect(() => { }, [reviewData])
 
     // Function to handle button click & trigger file input
     const fileInputRef = useRef(null);
     const [images, setImages] = useState([])
-   
 
-    
+
+
     const [imagesUrl, setImagesUrl] = useState([])
+    // const handleImageChange = (e) => {
+    //     const files = e.target.files;
+
+
+
+    //     for (let i = 0; i < files.length; i++) {
+    //         const file = files[i];
+    //         if (files.length + images.length <= 5) { // Ensure no more than 5 images
+    //             const newImages = [...images];
+    //             const newImageUrls = [...imagesUrl];
+
+    //             for (let i = 0; i < files.length; i++) {
+    //                 newImages.push(files[i]); // Store file references
+    //                 newImageUrls.push(URL.createObjectURL(files[i]));
+    //             }
+    //             setImages(newImages); // Update the images state
+    //             setImagesUrl(newImageUrls);
+    //         } else {
+    //             snakeBarOpen('You can upload up to 5 images only.')
+    //         }
+    //     }
+    // };
+
     const handleImageChange = (e) => {
-        const files = e.target.files;
+    const files = e.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        if (file.size > 5 * 1024 * 1024) {
+            snakeBarOpen('Each image must be less than 5MB.');
+            return;
+        }
+
         if (files.length + images.length <= 5) { // Ensure no more than 5 images
             const newImages = [...images];
             const newImageUrls = [...imagesUrl];
@@ -147,12 +179,41 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
             setImages(newImages); // Update the images state
             setImagesUrl(newImageUrls);
         } else {
-            snakeBarOpen('You can upload up to 5 images only.')
-            // alert("You can upload up to 5 images only.");
+            snakeBarOpen('You can upload up to 5 images only.');
         }
-    };
+    }
+};
 
-    useEffect(() => {  }, [images])
+    // const handleImageChange = (e) => {
+    //     const files = Array.from(e.target.files);
+    //     const maxFilesAllowed = 5;
+    //     const maxSizeInBytes = 2 * 1024 * 1024; // 2MB
+
+    //     const newImages = [...images];
+    //     const newImageUrls = [...imagesUrl];
+
+    //     for (const file of files) {
+    //         if (newImages.length >= maxFilesAllowed) {
+    //             snakeBarOpen('You can upload up to 5 images only.');
+    //             break;
+    //         }
+
+    //         if (file.size > maxSizeInBytes) {
+    //             snakeBarOpen(`"${file.name}" is larger than 2MB.`);
+    //             continue;
+    //         }
+
+    //         newImages.push(file);
+    //         newImageUrls.push(URL.createObjectURL(file));
+    //     }
+
+    //     setImages(newImages);
+    //     setImagesUrl(newImageUrls);
+    // };
+
+
+
+    useEffect(() => { }, [images])
 
 
     const handleSubmitReview = async (e) => {
@@ -177,7 +238,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         });
 
         formData.forEach(item => {
-            console.log("form data item",item)
+            console.log("form data item", item)
         })
 
         const api = `/api/v1/reviews/add`
@@ -213,7 +274,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         }
     }
 
-    
+
 
     const [showGuideLine, setShowGuideLine] = useState(false);
     const handleShowGuideline = () => {
@@ -232,12 +293,12 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                 <div className="write-review-inner-section">
 
                     <div className="write-review-inner-sub-section">
-                        <button
+                        {/* <button
                             onClick={handleWriteReviewClose}
                             className="write-review-modal-close-button"
-                        >
-                            <IoIosClose size={30} />
-                        </button>
+                        > */}
+                            <IoIosClose size={25} className="write-review-modal-close-button" onClick={handleWriteReviewClose} />
+                        {/* </button> */}
                         <h3 className="review-modal-main-heading">Please Share Your Experience</h3>
 
                         <div className="review-modal-head">
@@ -261,7 +322,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                                     </p>
                                 </div>
                             </div>
-                            {productData?.image?.image_url !== undefined && <Image src={url+productData?.image?.image_url} width={220} height={120} alt="product" />}
+                            {productData?.image?.image_url !== undefined && <Image src={url + productData?.image?.image_url} width={220} height={120} alt="product" />}
                         </div>
 
 
@@ -376,7 +437,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                                     ))}
                                 </div>
 
-                                
+
                             </div>
                             <p>
                                 <IoInformationCircleOutline size={20} />
@@ -384,7 +445,7 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                             </p>
                         </div>
 
-                        
+
 
                         <div className="submit-review-container">
                             <button type="button" onClick={handleSubmitReview} >

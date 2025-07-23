@@ -11,17 +11,17 @@ import { IoIosClose } from "react-icons/io";
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
 
-  const { 
-    updateLocationData, 
+  const {
+    updateLocationData,
     zipCode,
-    handleInputChange, 
+    handleInputChange,
     handleButtonClick,
     info
-  } = useGlobalContext(); 
+  } = useGlobalContext();
 
 
   const [userLocation, setUserLocation] = useState(null);
-  
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -52,8 +52,8 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
           city: '',
           state: '',
           country: '',
-          latitude:'41.3976361',
-          longitude:'-80.0684789'
+          latitude: '41.3976361',
+          longitude: '-80.0684789'
         }
         addressComponent.forEach(component => {
           if (component.types.includes('postal_code')) {
@@ -91,10 +91,9 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         className={`location-modal-containt-div ${searchLocation ? 'show-location-bar-inner-container' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch}>
-          {/* <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' /> */}
-          <IoIosClose size={25} color='#595959' />
-        </button>
+
+        <IoIosClose size={25} color='#595959' className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch} />
+
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>
             <span>
@@ -111,7 +110,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
                 onChange={handleInputChange} // Update state on input change
                 placeholder="Enter zip code"
               />
-              <button className="update-zip-btn" onClick={async () => {await handleButtonClick(); handleCloseSearch()} }>
+              <button className="update-zip-btn" onClick={async () => { await handleButtonClick(); handleCloseSearch() }}>
                 Update Zip Code
               </button>
             </div>

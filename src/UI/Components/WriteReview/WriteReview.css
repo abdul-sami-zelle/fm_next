@@ -404,14 +404,14 @@
     position: absolute;
     top: 0px;
     right: 0px;
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
     width: max-content;
     padding: 5px;
     background-color: transparent;
     border: none;
-    outline: none;
+    outline: none; */
     cursor: pointer;
 }
 

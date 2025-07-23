@@ -206,7 +206,7 @@ const ProductCardTwo = ({
 
                             {
                                 stockCheck ? (
-                                    <span className='product-archive-out-of-stock-tag'>Out Of Stock</span>
+                                    <span className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' :''}`}>Out Of Stock</span>
                                 ) : (
                                     tags?.length > 0 && <div className={`product-tagging ${tags.length > 0 ? 'show-product-tag' : ''}`}>
                                         {
@@ -395,7 +395,7 @@ const ProductCardTwo = ({
                                             {priorityAttribute.options.map((item, index) => (
                                                 <span
                                                     key={index}
-                                                    className="mobile-color-variation"
+                                                    className={`mobile-color-variation ${selectedColor === item.value ? 'show-tick-mark' : ''}`}
                                                     onClick={(e) => { e.stopPropagation(); handleColorSelect(item.value) }}
                                                     style={{
                                                         backgroundColor: item.value,

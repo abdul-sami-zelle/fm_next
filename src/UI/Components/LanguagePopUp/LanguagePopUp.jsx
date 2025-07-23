@@ -33,10 +33,9 @@ const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageM
         className={`language-modal-containt-div ${changeLanguage ? 'show-language-modal-inner-container' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* <button className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} onClick={handleCLoseLanguageModal}> */}
-          {/* <img src={'/Assets/icons/close-btn-black.png'} alt='close btn' /> */}
+        
           <IoIosClose className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} color='var(--text-gray)' onClick={handleCLoseLanguageModal} />
-        {/* </button> */}
+        
         <div className='select-language-container'>
           <div className='modal-headin-div'>
             <h3>Language</h3>

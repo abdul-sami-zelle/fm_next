@@ -69,6 +69,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    gap: 25px;
     margin: 35px 60px;
 
 }
@@ -121,5 +122,13 @@
 @media (max-width: 480px) {
     .active-sale-cards {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .section_1_ASP {
+        margin: 15px;
+    }
+    .content_1_section {
+        margin: 15px;
+        flex-direction: column;
     }
 }

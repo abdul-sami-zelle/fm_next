@@ -57,20 +57,20 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    width: 22px;
+    /* width: 22px;
     height: 22px;
     background-color: transparent;
     border: none;
-    outline: none;
+    outline: none; */
     cursor: pointer;
     z-index: 999;
 }
 
-.quick-view-close-modal-button img {
+/* .quick-view-close-modal-button img {
     width: 22px;
     height: 22px;
     object-fit: contain;
-}
+} */
 
 .quick-view-heading-and-rating{
     display: flex;

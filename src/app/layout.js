@@ -34,6 +34,7 @@ import '../Styles/App.css'; // Global styles for the entire app
 import '../Styles/index.css' // Global styles for the entire app
 import { usePathname } from 'next/navigation';
 import { ChatOpenProvider } from '@/context/ChatbotContext/ChatbotContext';
+import { LastCallProvider } from '@/context/LastCallContext/LastCallContext';
 
 
 
@@ -70,46 +71,48 @@ export default function RootLayout({ children }) {
               <GlobalContextProvider>
                 <BlogsProvider>
                   <ActiveSalePageProvider>
-                    <WishListProvider>
-                      <LPContentProvider>
-                        <OrderProvivder>
-                          <NavigationProvider>
-                            <AddCartProvider>
-                              <ProductProvider>
-                                <AppointmentProvider>
-                                  <SingleProductProvider>
-                                    <MyOrdersProvider>
-                                      <ProductPageProvider>
-                                        <VariationProvider>
-                                          <ProductArchiveProvider>
-                                            <ChatOpenProvider>
+                    <LastCallProvider>
+                      <WishListProvider>
+                        <LPContentProvider>
+                          <OrderProvivder>
+                            <NavigationProvider>
+                              <AddCartProvider>
+                                <ProductProvider>
+                                  <AppointmentProvider>
+                                    <SingleProductProvider>
+                                      <MyOrdersProvider>
+                                        <ProductPageProvider>
+                                          <VariationProvider>
+                                            <ProductArchiveProvider>
+                                              <ChatOpenProvider>
 
 
-                                              <ToastContainer
-                                                style={{ zIndex: 99999 }}
-                                                position="top-center"
-                                                transition={Zoom}
-                                                autoClose={1000}
-                                              />
-                                              {!hideHeaderFooter && <Header />}
-                                              {!hideHeaderFooter && <Shopvia />}
-                                              <main>{children}</main>
-                                              {!hideOnlyFooter && <Footer />}
+                                                <ToastContainer
+                                                  style={{ zIndex: 99999 }}
+                                                  position="top-center"
+                                                  transition={Zoom}
+                                                  autoClose={1000}
+                                                />
+                                                {!hideHeaderFooter && <Header />}
+                                                {!hideHeaderFooter && <Shopvia />}
+                                                <main>{children}</main>
+                                                {!hideOnlyFooter && <Footer />}
 
-                                              {!hideChatOption && <Home />}
-                                            </ChatOpenProvider>
-                                          </ProductArchiveProvider>
-                                        </VariationProvider>
-                                      </ProductPageProvider>
-                                    </MyOrdersProvider>
-                                  </SingleProductProvider>
-                                </AppointmentProvider>
-                              </ProductProvider>
-                            </AddCartProvider>
-                          </NavigationProvider>
-                        </OrderProvivder>
-                      </LPContentProvider>
-                    </WishListProvider>
+                                                {!hideChatOption && <Home />}
+                                              </ChatOpenProvider>
+                                            </ProductArchiveProvider>
+                                          </VariationProvider>
+                                        </ProductPageProvider>
+                                      </MyOrdersProvider>
+                                    </SingleProductProvider>
+                                  </AppointmentProvider>
+                                </ProductProvider>
+                              </AddCartProvider>
+                            </NavigationProvider>
+                          </OrderProvivder>
+                        </LPContentProvider>
+                      </WishListProvider>
+                    </LastCallProvider>
                   </ActiveSalePageProvider>
                 </BlogsProvider>
               </GlobalContextProvider>

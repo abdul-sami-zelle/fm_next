@@ -14,7 +14,6 @@ import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer
 import QuickView from '../QuickView/QuickView';
 import CartSidePannel from '../Cart-side-section/CartSidePannel';
 import MobileViewProductFilters from '../MobileViewProductFilters/MobileViewProductFilters';
-import Breadcrumb from '@/Global-Components/BreadCrumb/BreadCrumb';
 
 // Functions and Context
 import { formatedPrice, url, useDisableBodyScroll } from '../../../utils/api';
@@ -169,7 +168,8 @@ const Products = ({ navigationType }) => {
         params.set('price', newRange.join(','));
 
         params.set('page', 1);
-        setActivePageIndex(1)
+        setActivePage(1);
+        setActivePageIndex(1);
 
         let priceString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
 
@@ -195,6 +195,8 @@ const Products = ({ navigationType }) => {
 
         // Always reset to page 1 on filter change
         params.set('page', '1');
+        setActivePage(1);
+        setActivePageIndex(1);
 
         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
         const pathname = window.location.pathname;
@@ -219,6 +221,8 @@ const Products = ({ navigationType }) => {
         }
 
         params.set('page', 1);
+        setActivePage(1);
+        setActivePageIndex(1);
 
         const ratingString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
 

@@ -14,6 +14,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 // Assets
 import {
     IoIosArrowDown,
+    IoIosClose,
 } from "react-icons/io";
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
@@ -160,9 +161,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 className={`quick-view-main ${quickViewShow ? 'slide-quick-view-inner-modal' : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                <button className='quick-view-close-modal-button' onClick={quickViewClose}>
+                {/* <button className='quick-view-close-modal-button' onClick={quickViewClose}>
                     <img src={'/Assets/icons/close-btn.png'} alt='close' />
-                </button>
+                </button> */}
+
+                <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose}/>
 
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>
