@@ -35,6 +35,7 @@ function FinanceBannerSlider({ images }) {
                             width={1599}
                             height={218}
                             alt={`slide ${index + 1}`}
+                            layout="responsive"
                         />
                     </div>
                 )}

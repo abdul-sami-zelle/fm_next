@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from 'react-icons/fa';
-import './products.css';
+import './Products.css';
 
 const ElipticalPagenation = ({
   activePageIndex,

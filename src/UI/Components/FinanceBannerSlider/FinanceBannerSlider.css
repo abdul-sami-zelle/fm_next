@@ -14,13 +14,13 @@
 
 .carousel-slide{
     min-width: 100%;
-    height: auto;
+    height: 218px;
     cursor: grab;
 }
 
-.carousel-slide img{
+.carousel-slide > img{
     width: 100%;
-    /* height: auto; */
+    height: auto;
     /* object-fit: contain; */
 }
 
@@ -39,6 +39,9 @@
 }
 
 @media only screen and (max-width: 480px){
+    .carousel-slide{
+        height: auto;
+    }
     .carousel-container{
         display: none;
     }
