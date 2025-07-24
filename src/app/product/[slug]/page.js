@@ -458,7 +458,7 @@ const ProductDisplay = ({ params }) => {
             // cat:'Sectional',
             // cat:'Recliner-Sectional',
             // cat:'Recliner',
-            cat: 'LoveSeat',
+            cat: product?.dyrc?.catType,
             parent: product?.parent,
             isVariable: product?.parent === 0 ? 0 : 1,
             attributes: product?.attribute,
