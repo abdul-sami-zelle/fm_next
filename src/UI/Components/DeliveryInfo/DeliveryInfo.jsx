@@ -64,7 +64,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
         if (Object.keys(newErrors).length > 0) {
             setError((prev) => ({ ...prev, ...newErrors }));
-            console.log("Errors found: ", newErrors);
+            console.error("Errors found: ", newErrors);
             return false
         }
 
@@ -103,9 +103,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
     }, [])
 
-
-    // useEffect(() => { setSelectedShippingMethods(null) }, [info])
-
     useEffect(() => {
         if (shippingMethods) {
             getShippingMethods(subTotal, shippingMethods['shippingMethods']);
@@ -125,11 +122,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
         }
     }, [isStarted])
 
-    
-
-
-
-
     return (
         <div className='delivery-form-main-container'>
 
@@ -142,7 +134,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     {selectedShippingMethods &&
                         selectedShippingMethods?.map((option, index) => (
                             <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                 {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
                                 <div className='cart-protection-plan-details-container'>
@@ -271,27 +262,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div className='delivery-info-email-and-phone'>
 
-                    {/* <div
-                        onClick={() => emailRef.current?.focus()}
-                        style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
-                        className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
-                    >
-                        <label
-                            className="floating-label"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="text"
-                            ref={emailRef}
-                            className="input-field-email"
-                            onFocus={() => setFocusedField("email")}
-                            onBlur={() => setFocusedField("")}
-                            name='email'
-                            value={orderPayload.billing?.email}
-                            onChange={handleNestedValueChange}
-                        />
-                    </div> */}
+                    
 
                     <div
                         onClick={() => phoneRef.current?.focus()}

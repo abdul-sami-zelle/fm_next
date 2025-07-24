@@ -5,14 +5,6 @@ import Image from 'next/image'
 
 const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,}) => {
 
-  // const featuresData = [
-  //   {icon: '/Assets/icon/performance-fabric.svg', title: 'Upholstery Material', secondTitle: 'Performance Fabric'},
-  //   {icon: '/Assets/icon/pillows.svg', title: '# of Accent Pillows', secondTitle: '2'},
-  //   {icon: '/Assets/icon/home-dimention.svg', title: 'Lifestyle Size', secondTitle: 'Small Space'},
-  //   {icon: '/Assets/icon/sofa-side.svg', title: 'Seat Depth', secondTitle: '20.00"'},
-  //   {icon: '/Assets/icon/sofa-front.svg', title: 'Seat Cushion Style', secondTitle: 'Loose'},
-  // ]
-  console.log("product features", productData)
 
   return (
     <div
@@ -33,7 +25,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
         </div>
       </div>
 
-      {productData?.product_features?.length > 0 && <div className='product-features-main-container'>
+      {/* {productData?.product_features?.length > 0 && <div className='product-features-main-container'>
         <h3>Features</h3>
         <div className='product-features-and-extra-features-container'>
           <div className='product-features-section'>
@@ -53,7 +45,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
           </div>
 
         </div>
-      </div>}
+      </div>} */}
 
     </div>
   )

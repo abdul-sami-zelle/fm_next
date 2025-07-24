@@ -45,7 +45,7 @@ const DashboardTabs = ({ data }) => {
                 setUserData(response.data.data)
                 setTrigerApi(false)
             } else {
-                console.log("Error fetching billing address data");
+                console.error("Error fetching billing address data");
             }
 
 
@@ -103,7 +103,7 @@ const DashboardTabs = ({ data }) => {
             }
         } catch (error) {
             setLoading(false);
-            console.log("unExpected Server Error", error);
+            console.error("unExpected Server Error", error);
         } finally { setLoading(false) }
     }
 

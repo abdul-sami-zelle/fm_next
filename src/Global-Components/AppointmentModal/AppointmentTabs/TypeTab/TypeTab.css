@@ -125,6 +125,12 @@
 }
 
 @media only screen and (max-width: 480px){
+    .type-tab-main-container {
+        gap: 15px !important;
+    }
+    .type-tab-main-container > h3 {
+        font-size: 12px !important;
+    }
     .type-categories-container{
         grid-template-columns:repeat(2, 1fr);
     }
@@ -135,5 +141,13 @@
     }
     .type-option {
         width: 100% !important;
+        gap: 5px !important;
+    }
+    .type-option > p {
+        font-size: 10px !important;
+    }
+    
+    .type-category > p {
+        font-size: 10px !important;
     }
 }

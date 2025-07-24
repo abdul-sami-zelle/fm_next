@@ -198,7 +198,7 @@ const CanvasApp = ({ data }) => {
 
 
   const addImageToCanvas = async (src, config = {}, canvasOverride = null) => {
-    console.log('src', src)
+    
     const activeCanvas = canvasOverride || canvas;
     if (!activeCanvas) return null;
 
@@ -338,7 +338,6 @@ const CanvasApp = ({ data }) => {
     },
     addCenterTableImage: (src) => {
 
-      console.log('center table', src)
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
 
@@ -449,7 +448,6 @@ const CanvasApp = ({ data }) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
 
-      console.log('src', src)
 
       let style;
 

@@ -292,4 +292,37 @@
         align-items: start;
         justify-content: start;
     }
+
+    .location-tab-header {
+        gap: 10px;
+    }
+
+    .location-tab-header>h3 {
+        font-size: 12px;
+    }
+    .location-search-container {
+        height: 35px;
+    }
+    .location-search-container>label>input {
+        font-size: 12px;
+    }
+
+    .location-tab-main-container {
+        gap: 10px;
+    }
+    .location-body-heading-and-title>h3 {
+        font-size: 12px;
+    }
+    .location-body-heading-and-title>p {
+        font-size: 12px;
+    }
+    .location-body-heading-and-title>p>span {
+        font-size: 12px;
+    }
+    .location-head-title-and-miles>h3 {
+        font-size: 12px;
+    }
+    .location-tab-store-head>button {
+        font-size: 12px;
+    }
 }

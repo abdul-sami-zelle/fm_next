@@ -59,7 +59,7 @@ export const LPContentProvider = ({ children }) => {
   }
   useEffect(() => {
     if(contentTwoData) {
-      setContent2(contentTwoData.data);
+      setContent2(contentTwoData);
     }
   }, [contentTwoData])
 

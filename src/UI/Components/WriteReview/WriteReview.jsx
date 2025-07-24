@@ -15,7 +15,6 @@ import { useProductPage } from "@/context/ProductPageContext/productPageContext"
 export default function WriteReview({ product_id, productData, snakeBarOpen, review_enable, product_name, product_permalink, }) {
 
     const { singleProductData } = useProductPage();
-    console.log("product data on review", singleProductData)
     const [reviewData, setReviewData] = useState(
         {
             "product_id": 0,
@@ -58,7 +57,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                             })
                             if (response2.ok) {
                                 const userResult = await response2.json();
-                                console.log("reviewer data", userResult)
                                 setReviewData((prevData) => ({
                                     ...prevData,
                                     reviewer: `${userResult?.data?.first_name} ${userResult?.data?.last_name}`,  // Set your desired name
@@ -99,7 +97,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
         }))
     }, [ratingCount])
 
-    useEffect(() => { console.log("review payload", reviewData) }, [reviewData])
 
     const [writeReview, setWriteReview] = useState(false);
     const handleWriteReview = () => {
@@ -237,10 +234,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
             formData.append("images", image); // 'images' is the key on the backend
         });
 
-        formData.forEach(item => {
-            console.log("form data item", item)
-        })
-
         const api = `/api/v1/reviews/add`
         try {
             const reviewResponse = await axios.post(`${url}${api}`, formData, {
@@ -249,7 +242,6 @@ export default function WriteReview({ product_id, productData, snakeBarOpen, rev
                 },
             });
 
-            console.log("review response", reviewResponse)
 
 
             setWriteReview(false)

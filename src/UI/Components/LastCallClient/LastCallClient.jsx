@@ -29,10 +29,10 @@ export default function LastCallClient({ slug }) {
         const api = `${url}/api/v1/last-call-page/get`;
         try {
             const response = await axios.get(api);
-            if(response.status === 200) {
-                setLastCallData(response.data)
-            }
-            console.log("response last call", response);
+            // if(response.status === 200) {
+            //     setLastCallData(response.data)
+            // }
+            // console.log("response last call", response);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

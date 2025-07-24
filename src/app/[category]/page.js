@@ -9,7 +9,6 @@ export async function generateMetadata({ params }) {
 
 export default async function Category({ params }) {
 
-  console.log("category param", params)
   
   return <CategoriesClient category={params.category} />
 }

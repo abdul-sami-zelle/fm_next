@@ -65,7 +65,6 @@ const Home = () => {
       setShowSnakeBar(false)
     }
 
-  console.log("landing page categories", landingPageCategories)
 
   return (
     <div className='home-page-main-container'>
@@ -87,6 +86,19 @@ const Home = () => {
         setSnakeBarMessage={setSnakeBarMessage}
       />
 
+      
+
+      {/* {content2?.section_1 && (
+        <Comparision
+          heading={content2.section_1.heading}
+          image={content2.section_1.image}
+          mobileImage={content2.section_1.mobile_image}
+        />
+      )}  */}
+
+      {featuredProducts &&
+        (<ProductSlider cardData={featuredProducts} />)
+      }
       {content2?.section_2 && (
         <FinanceBanner2
           heading={content2.section_2?.heading}
@@ -95,17 +107,7 @@ const Home = () => {
         />
       )}
 
-      {content2?.section_1 && (
-        <Comparision
-          heading={content2.section_1.heading}
-          image={content2.section_1.image}
-          mobileImage={content2.section_1.mobile_image}
-        />
-      )} 
 
-      {featuredProducts &&
-        (<ProductSlider cardData={featuredProducts} />)
-      }
       <DealOfTheDay
         allProducts={allProducts}
         setAllProducts={setAllProducts}

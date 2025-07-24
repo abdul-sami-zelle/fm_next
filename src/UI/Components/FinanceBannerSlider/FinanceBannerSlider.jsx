@@ -33,7 +33,7 @@ function FinanceBannerSlider({ images }) {
                         <Image
                             src={`${url}${image.image_url}`}
                             width={1599}
-                            height={218}
+                            height={146}
                             alt={`slide ${index + 1}`}
                             layout="responsive"
                         />
@@ -44,6 +44,7 @@ function FinanceBannerSlider({ images }) {
                 spaceBetween={20}
                 autoplay={false}
                 loop={true}
+                height="150px"
                 delayTime={3000}
                 slidesPerView={1}
             />

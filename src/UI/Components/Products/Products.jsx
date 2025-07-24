@@ -127,10 +127,10 @@ const Products = ({ navigationType }) => {
                 const result = response.data.sub_categories
                 setSubCategories(result)
             } else {
-                console.log("UnExpected Error", response.status)
+                console.error("UnExpected Error", response.status)
             }
         } catch (error) {
-            console.log("UnExpected Server Error", error);
+            console.error("UnExpected Server Error", error);
         }
     }
 
@@ -478,64 +478,118 @@ const Products = ({ navigationType }) => {
         }
     };
 
+    // const handlePrevPage = () => {
+    //     if (activePage > 1) {
+
+    //         // const params = new URLSearchParams(searchParams);
+    //         const params = new URLSearchParams(window.location.search);
+    //         params.set('page', activePage - 1);
+
+    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+    //         const pathname = window.location.pathname;
+
+    //         // setSearchParams(params.toString())
+    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
+    //         setActivePage(activePage - 1);
+    //         setActivePageIndex(activePageIndex - 1);
+
+    //         if (pageCache.current[index]) {
+    //             setProducts(pageCache.current[index]);
+    //         } else {
+    //             sortProducts(selectedRelevanceValue)
+    //             filterProducts(params.toString())
+    //         }
+
+    //         window.scrollTo({
+    //             top: 0,
+    //             behavior: 'smooth'
+    //         })
+
+    //     }
+    // };
+
+    // const handleNextPage = () => {
+
+    //     if (activePage < totalPages?.totalPages) {
+
+    //         // const params = new URLSearchParams(searchParams);
+    //         const params = new URLSearchParams(window.location.search);
+    //         params.set('page', activePage + 1);
+
+    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+    //         const pathname = window.location.pathname;
+
+    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+    //         // setSearchParams(params.toString());
+    //         setActivePage(activePage + 1);
+    //         setActivePageIndex(activePageIndex + 1);
+    //         if (pageCache.current[index]) {
+    //             setProducts(pageCache.current[index]);
+    //         } else {
+    //             sortProducts(selectedRelevanceValue)
+    //             filterProducts(params.toString())
+    //         }
+    //         window.scrollTo({
+    //             top: 0,
+    //             behavior: 'smooth'
+    //         })
+    //     }
+    // };
+
     const handlePrevPage = () => {
         if (activePage > 1) {
+            const newPage = activePage - 1;
 
-            // const params = new URLSearchParams(searchParams);
             const params = new URLSearchParams(window.location.search);
-            params.set('page', activePage - 1);
+            params.set('page', newPage);
 
             const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
             const pathname = window.location.pathname;
 
-            // setSearchParams(params.toString())
             router.replace(`${pathname}?${queryString}`, { shallow: true });
-            setActivePage(activePage - 1);
-            setActivePageIndex(activePageIndex - 1);
 
-            if (pageCache.current[index]) {
-                setProducts(pageCache.current[index]);
+            setActivePage(newPage);
+            setActivePageIndex(newPage);
+
+            if (pageCache.current[newPage]) {
+                setProducts(pageCache.current[newPage]);
             } else {
-                sortProducts(selectedRelevanceValue)
-                filterProducts(params.toString())
+                sortProducts(selectedRelevanceValue);
+                filterProducts(queryString);
             }
 
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
-
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     const handleNextPage = () => {
-
         if (activePage < totalPages?.totalPages) {
+            const newPage = activePage + 1;
 
-            // const params = new URLSearchParams(searchParams);
             const params = new URLSearchParams(window.location.search);
-            params.set('page', activePage + 1);
+            params.set('page', newPage);
 
             const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
             const pathname = window.location.pathname;
 
             router.replace(`${pathname}?${queryString}`, { shallow: true });
 
-            // setSearchParams(params.toString());
-            setActivePage(activePage + 1);
-            setActivePageIndex(activePageIndex + 1);
-            if (pageCache.current[index]) {
-                setProducts(pageCache.current[index]);
+            setActivePage(newPage);
+            setActivePageIndex(newPage);
+
+            if (pageCache.current[newPage]) {
+                setProducts(pageCache.current[newPage]);
             } else {
-                sortProducts(selectedRelevanceValue)
-                filterProducts(params.toString())
+                sortProducts(selectedRelevanceValue);
+                filterProducts(queryString);
             }
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
+
+
 
 
     const handleActiveGrid = (grid) => {
@@ -883,87 +937,13 @@ const Products = ({ navigationType }) => {
                                 </div>
                                 {/* Product Card Code End */}
 
-                                {/* <div className='view-more-products-pagination-main'>
-
-
-
-
-                                    <div className='pagination-buttons-container'>
-                                        <span
-                                            className={activePageIndex === 1 ? 'disabled' : ''}
-                                            onClick={handlePrevPage}
-                                            style={{
-                                                pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
-                                                color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
-                                            }}
-                                        >
-                                            <FaRegArrowAltCircleLeft
-                                                size={18}
-                                                style={{
-                                                    pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
-                                                    color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
-                                                }}
-                                            />
-                                            <p className='hide-on-mob'> Previous </p>
-                                        </span>
-                                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
-                                            const pageNumber = index + 1;
-                                            const shouldShow =
-                                                pageNumber === activePageIndex ||
-                                                pageNumber === activePageIndex - 1 ||
-                                                pageNumber === activePageIndex + 1 ||
-                                                (activePageIndex === 1 && pageNumber === 3) ||
-                                                (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2);
-                                            return shouldShow ? (
-                                                <span
-                                                    key={pageNumber}
-                                                    onClick={() => handleActivePage(pageNumber)}
-                                                    className={activePageIndex === pageNumber ? 'active-page-span' : ''}
-                                                >
-                                                    {pageNumber}
-                                                </span>
-                                            ) : null;
-                                        })}
-                                        <span
-                                            className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
-                                            onClick={handleNextPage}
-                                            style={{
-                                                pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                                                color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
-                                            }}
-                                        >
-                                            <p className='hide-on-mob'> Next </p>
-                                            <FaRegArrowAltCircleRight
-                                                size={18}
-                                                style={{
-                                                    pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                                                    color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
-                                                }}
-                                            />
-                                        </span>
-                                    </div>
-                                </div> */}
-
-                                <div className='view-more-products-button-div'>
-                                {totalPages?.totalPages > 1 ? (
-                                    <div className='desktop-pagination-buttons-container'>
-                                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
-
-                                            const pageNumber = index + 1;
-
-
-                                            return <span
-                                                key={pageNumber}
-                                                onClick={() => handleActivePage(pageNumber)}
-                                                className={activePageIndex === pageNumber ? 'active-page-span' : ''}
-                                            >
-                                                {pageNumber}
-                                            </span>
-
-                                        })}
-                                    </div>
-                                ) : (<></>)}
-                            </div>
+                                <ElipticalPagenation
+                                    activePageIndex={activePageIndex}
+                                    totalPages={totalPages?.totalPages}
+                                    onPrevPage={handlePrevPage}
+                                    onNextPage={handleNextPage}
+                                    onPageChange={handleActivePage}
+                                />
                             </div>
                         )}
                     </div>

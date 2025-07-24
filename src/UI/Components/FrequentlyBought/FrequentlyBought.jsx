@@ -34,7 +34,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                 setData(response.data.products)
             }
         } catch (error) {
-            console.log("UnExpected Server Error", error)
+            console.error("UnExpected Server Error", error)
         }
     }
 

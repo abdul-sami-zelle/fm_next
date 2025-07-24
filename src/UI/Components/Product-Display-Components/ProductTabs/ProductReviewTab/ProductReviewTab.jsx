@@ -12,7 +12,6 @@ import { fetcher } from '@/utils/Fetcher'
 
 const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
 
-  console.log("data data", productData)
   const { slug } = use(params);
   // const location = useLocation();
   const [product, setProduct] = useState(productData || null);
@@ -73,9 +72,6 @@ const ProductReviewTab = ({ id, reviewRef, productData, params }) => {
       setReviews(reviewData.reviews);
     }
   }, [reviewData])
-
-  
-  useEffect(() => {console.log("fetched product", product)}, [product])
 
 
   return (

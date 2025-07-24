@@ -247,10 +247,9 @@ export const MyOrdersProvider = ({ children }) => {
             const api = `/api/v1/orders/add`;
             const response = await axios.post(`${url}${api}, ${updatedPayload}`);
     
-            if (response.status === 201) {
-                console.log("Order added successfully!");
+            // if (response.status === 201) {
 
-            }
+            // }
         } catch (error) {
             console.error("Error adding order:", error);
         } finally {

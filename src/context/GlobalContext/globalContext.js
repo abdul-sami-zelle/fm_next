@@ -44,12 +44,14 @@ export const GlobalContextProvider = ({ children }) => {
     return defaultInfo;
   });
 
+
   // ✅ Call `setAllShippingMethods()` only when info is loaded and has a valid zipCode
   useEffect(() => {
     if (info?.locationData?.zipCode) {
       setAllShippingMethods();
     }
   }, [info]);
+
 
   // const [info, setInfo] = useState(() => {
   //   if (typeof window !== "undefined") {
@@ -101,8 +103,17 @@ export const GlobalContextProvider = ({ children }) => {
     return ""; // Default empty if info not available
   });
 
+  // const handleInputChange = (e) => {
+
+  //   setZipCode(e.target.value);
+  // };
   const handleInputChange = (e) => {
-    setZipCode(e.target.value);
+    const input = e.target.value;
+
+    // Only allow up to 5 digits (0-9 only)
+    if (/^\d{0,5}$/.test(input)) {
+      setZipCode(input);
+    }
   };
 
   async function getStateByPostalCode(postalCode) {
@@ -231,57 +242,125 @@ export const GlobalContextProvider = ({ children }) => {
     return taxAmount;
   }
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState(null);
 
+  const [selectedOption, setSelectedOption] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedOption = localStorage.getItem("selected_shipping_option");
+      try {
+        return savedOption ? JSON.parse(savedOption) : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
+
+
+  // const handleChange = (e, option) => {
+  //   setSelectedOption(option);
+  // };
+
+  useEffect(() => {
+    localStorage.setItem("selected_shipping_option", JSON.stringify(selectedOption));
+  }, [selectedOption])
 
   const handleChange = (e, option) => {
     setSelectedOption(option);
+    localStorage.setItem("selected_shipping_option", JSON.stringify(option));
   };
 
 
 
 
+
   const [selectedShippingMethods, setSelectedShippingMethods] = useState(null);
+
   function getShippingMethods(subtotal, shippingMethods) {
-    setSelectedOption({});
+    const savedOption = typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("selected_shipping_option"))
+      : null;
+
     let selectedMethods = [];
 
-    // Case 1: METHOD-1 (Free Shipping)
     const method1 = shippingMethods.find((method) => method.id === "METHOD-1");
     if (method1 && subtotal >= method1.min_cost) {
       selectedMethods.push(method1);
-
       const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
       if (method3 && method3.cost === 0) {
         selectedMethods.push(method3);
       }
-      setSelectedOption(method1);
-      setSelectedShippingMethods(selectedMethods)
-      return;
 
+      // Reapply stored option if it's in selectedMethods
+      const stored = selectedMethods.find(opt => opt.id === savedOption?.id);
+      setSelectedOption(stored || method1);
+      setSelectedShippingMethods(selectedMethods);
+      return;
     }
 
-    // Case 2: METHOD-2 (Flat Rate Shipping)
     const method2 = shippingMethods.find((method) => method.id === "METHOD-2");
     if (method2) {
       selectedMethods.push({ ...method2, cost: subtotal >= method2.min_cost ? method2.cost : 0 });
     }
 
-    // Case 3: METHOD-3 (Local Pickup)
     const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
     if (method3 && method3.cost === 0) {
       selectedMethods.push({ ...method3, cost: 0 });
     }
 
-    // Handle default selection logic
-    if (selectedMethods?.length === 2) {
-      const defaultMethod = selectedMethods.find((method) => method.id === "METHOD-1") || method3;
-      setSelectedOption(defaultMethod); // Set METHOD-2 by default, or METHOD-3 if METHOD-2 is unavailable
-    } else if (selectedMethods?.length > 0) {
-      setSelectedOption(selectedMethods[0]); // Default to the first available method
-    }
+    // Apply stored option if found
+    const stored = selectedMethods.find(opt => opt.id === savedOption?.id);
+    setSelectedOption(stored || selectedMethods[0]);
     setSelectedShippingMethods(selectedMethods);
   }
+
+
+  // function getShippingMethods(subtotal, shippingMethods) {
+  //   setSelectedOption({});
+
+  //   const savedOption = typeof window !== "undefined"
+  //   ? JSON.parse(localStorage.getItem("selected_shipping_option"))
+  //   : null;
+
+
+  //   let selectedMethods = [];
+
+  //   // Case 1: METHOD-1 (Free Shipping)
+  //   const method1 = shippingMethods.find((method) => method.id === "METHOD-1");
+  //   if (method1 && subtotal >= method1.min_cost) {
+  //     selectedMethods.push(method1);
+
+  //     const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
+  //     if (method3 && method3.cost === 0) {
+  //       selectedMethods.push(method3);
+  //     }
+  //     setSelectedOption(method1);
+  //     setSelectedShippingMethods(selectedMethods)
+  //     return;
+
+  //   }
+
+  //   // Case 2: METHOD-2 (Flat Rate Shipping)
+  //   const method2 = shippingMethods.find((method) => method.id === "METHOD-2");
+  //   if (method2) {
+  //     selectedMethods.push({ ...method2, cost: subtotal >= method2.min_cost ? method2.cost : 0 });
+  //   }
+
+  //   // Case 3: METHOD-3 (Local Pickup)
+  //   const method3 = shippingMethods.find((method) => method.id === "METHOD-3");
+  //   if (method3 && method3.cost === 0) {
+  //     selectedMethods.push({ ...method3, cost: 0 });
+  //   }
+
+  //   // Handle default selection logic
+  //   if (selectedMethods?.length === 2) {
+  //     const defaultMethod = selectedMethods.find((method) => method.id === "METHOD-1") || method3;
+  //     setSelectedOption(defaultMethod); // Set METHOD-2 by default, or METHOD-3 if METHOD-2 is unavailable
+  //   } else if (selectedMethods?.length > 0) {
+  //     setSelectedOption(selectedMethods[0]); // Default to the first available method
+  //   }
+  //   setSelectedShippingMethods(selectedMethods);
+  // }
 
   useEffect(() => {
     setAllShippingMethods();

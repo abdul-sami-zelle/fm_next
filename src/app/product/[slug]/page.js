@@ -23,7 +23,6 @@ const ProductDisplay = ({ params }) => {
 
   const { slug } = use(params);
   const { singleProductData, selectedVariationData } = useProductPage();
-  console.log("single product data", singleProductData)
   const [product, setProduct] = useState(singleProductData || null);
   const [showDesignRoomModal, setShowDwsignRoomModal] = useState(false);
   const [productDetails, setProductDetails] = useState({})
@@ -45,7 +44,6 @@ const ProductDisplay = ({ params }) => {
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const [recomandationCount, setRecomandationCount] = useState(0)
 
-  console.log("product product", product)
   const showDRM = () => {
     setShowDwsignRoomModal(true)
   }

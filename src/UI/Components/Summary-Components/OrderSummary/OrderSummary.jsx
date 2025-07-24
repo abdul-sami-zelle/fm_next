@@ -32,13 +32,13 @@ const OrderSummary = () => {
     const [isStarted, setIsStarted] = useState(false);
 
 
-    useEffect(() => {
-        // Always fetch lates
-        // Fetch shipping methods if they are available
-        if (shippingMethods) {
-            getShippingMethods(subTotal, shippingMethods['shippingMethods']);
-        }
-    }, []); // Empty dependency array ensures this runs once when the component mounts
+    // useEffect(() => {
+    //     // Always fetch lates
+    //     // Fetch shipping methods if they are available
+    //     if (shippingMethods) {
+    //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
+    //     }
+    // }, []); // Empty dependency array ensures this runs once when the component mounts
 
     useEffect(() => {
         // Call getShippingMethods whenever subTotal or shippingMethods changes

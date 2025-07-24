@@ -21,17 +21,13 @@ import { useRouter } from 'next/navigation';
 const CheckoutClient = () => {
 
   const {
-    setOrderPayload,
     orderPayload,
     handlePaymentInfo,
-    addProducts,
     sendProducts,
     selectedTab,
-    handleClickTop,
     handleTabOpen,
     isLoader,
     showThankyou,
-    setThankyouState,
     warningMessage,
     showWarning,
     setShowWarning,
@@ -41,7 +37,6 @@ const CheckoutClient = () => {
   // const [isStarted, setIsStarted] = useState(false);
 
   const {
-    shippingMethods,
     info,
     zipCode,
     handleInputChange,
@@ -49,9 +44,7 @@ const CheckoutClient = () => {
     totalTax,
     calculateTotalTax,
     selectedOption,
-    getShippingMethods,
     CalculateGrandTotal,
-    setSelectedShippingMethods
   } = useGlobalContext();
 
   const {
@@ -70,27 +63,6 @@ const CheckoutClient = () => {
     router.replace('/cart');
     return null; // Prevent rendering
   }
-
-  // useEffect(() => { setSelectedShippingMethods(null) }, [info])
-
-  // useEffect(() => {
-  //     if (shippingMethods) {
-  //       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
-  //     }
-  //   }, []); // Empty dependency array ensures this runs once when the component mounts
-
-  //   useEffect(() => {
-  //       if (shippingMethods) {
-  //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
-  //         setIsStarted(!isStarted);
-  //       }
-  //     }, [subTotal, shippingMethods]); // Dependency array for changes in subTotal or shippingMethods
-
-  //     useEffect(() => {
-  //       if (shippingMethods) {
-  //         getShippingMethods(subTotal, shippingMethods['shippingMethods']);
-  //       }
-  //     }, [isStarted])
 
   const deliveryInfoRef = useRef(null);
 
@@ -340,7 +312,7 @@ const CheckoutClient = () => {
 
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : selectedOption?.cost}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : formatedPrice(selectedOption?.cost)}</p>
               </div>
 
               <div className='cart-order-summary-price-detail-single-item'>

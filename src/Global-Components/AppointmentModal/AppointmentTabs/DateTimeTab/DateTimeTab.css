@@ -71,7 +71,7 @@
     height: 42px !important;
 }
 
- /* Month Button Set */
+/* Month Button Set */
 
 .date-time-tab-calender-section .react-calendar__navigation__next-button {
 
@@ -86,13 +86,13 @@
 .date-time-tab-calender-section .react-calendar__navigation__prev-button {
     display: flex !important;
     align-items: center !important;
-     justify-content: center !important;
+    justify-content: center !important;
     border: none !important;
     outline: none !important;
     cursor: pointer !important;
     width: 45px !important;
     height: 100% !important;
-    background-color:  transparent !important;
+    background-color: transparent !important;
 }
 
 /* Year Button Hide */
@@ -124,20 +124,20 @@
 .custom-tile {
     border: 1px solid var(--border-color) !important;
     height: 42px !important;
-    
+
 }
 
 .selected-date {
-  background-color: var(--tertiary-color) !important;
-  color: white !important;
-  border-radius: 5px !important;
+    background-color: var(--tertiary-color) !important;
+    color: white !important;
+    border-radius: 5px !important;
 }
 
 .today-date {
-  border: 2px solid var(--tertiary-color) !important;
-  /* border-radius: 5px !important; */
-  color: var(--tertiary-color) !important;
-  background-color: transparent !important;
+    border: 2px solid var(--tertiary-color) !important;
+    /* border-radius: 5px !important; */
+    color: var(--tertiary-color) !important;
+    background-color: transparent !important;
 }
 
 .react-calendar__month-view__weekdays__weekday abbr[title] {
@@ -179,5 +179,11 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+    }
+
+    .single-time-slot {
+        width: 100%;
+        height: 35px;
+        font-size: 12px;
     }
 }

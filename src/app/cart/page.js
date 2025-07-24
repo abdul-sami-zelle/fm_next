@@ -247,7 +247,7 @@ const Cart = () => {
               )}
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : selectedOption?.cost}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : formatedPrice(selectedOption?.cost)}</p>
               </div>
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>

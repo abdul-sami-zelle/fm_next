@@ -87,7 +87,6 @@ const AppointmentModal = (
         }
     }
 
-    useEffect(() => { }, [appointmentPayload])
 
     const [confirmAppointment, setConfirmAppointment] = useState(false)
 
@@ -109,7 +108,7 @@ const AppointmentModal = (
 
             if (Object.keys(newErrors).length > 0) {
                 setError((prev) => ({ ...prev, ...newErrors }));
-                console.log("Errors found: ", newErrors);
+                console.error("Errors found: ", newErrors);
                 return false
             }
 

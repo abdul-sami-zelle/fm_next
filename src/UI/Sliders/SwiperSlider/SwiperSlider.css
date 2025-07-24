@@ -12,6 +12,10 @@
     padding: 2px !important;
 }
 
+.swiper {
+    height: 100%;
+}
+
 .slide {
     /* height: 200px; */
     height: 100%;

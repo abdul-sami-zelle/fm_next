@@ -203,10 +203,30 @@
         width: 100%;
         padding: 15px;
     }
+    .appointment-modal-tab-btn-container {
+        gap: 5px !important;
+    }
+
+    .appointment-modal-tab-btn {
+        font-size: 12px !important;
+        width: 35px !important;
+        height: 35px !important;
+    }
 
     .appointment-modal-head > p {
         font-size: var(--sub-section-size);
         line-height: var(--sub-section-height);
         font-weight: var(--sub-section-weight);
     }
+
+    .appointment-modal-tabs-container {
+        gap: 10px;
+    }
+
+    .pagination-tab-section-container {
+        height: 70px !important;
+    }
+
+    
+    
 }

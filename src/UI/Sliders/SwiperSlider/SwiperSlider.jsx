@@ -19,6 +19,7 @@ const SwiperSlider = ({
     autoplay = false,
     loop = false,
     delayTime = 0,
+    height = '100%',
     arrowSlide = false,
     isPadding = false,
 }) => {

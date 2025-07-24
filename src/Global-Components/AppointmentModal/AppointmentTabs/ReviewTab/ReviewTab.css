@@ -128,8 +128,11 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .confirm-associate-container {
+    gap: 5px;
+  }
   .confirm-associate-container>h3 {
-    font-size: var(--content-one-size);
+    font-size: 8px;
     line-height: var(--content-one-height);
     font-weight: var(--content-one-weight);
     color: var(--text-primary);
@@ -145,5 +148,20 @@
   }
   .review-tab-form>label>input {
     font-size: 12px;
+  }
+  .review-tab-main-container {
+    gap: 10px;
+  }
+  .review-tab-main-container>h3 {
+    font-size: 12px;
+  }
+  .review-tab-form>label  {
+    height: 35px;
+  }
+  .review-tab-form>label>input {
+    font-size: 10px;
+  }
+  .review-tab-form {
+    gap: 15px;
   }
 }
