@@ -22,23 +22,9 @@ import { useLastCallContext } from "@/context/LastCallContext/LastCallContext";
 export default function LastCallClient({ slug }) {
     const router = useRouter();
     // const { salesData, products } = useActiveSalePage();
-    const {lastCallData, products} = useLastCallContext()
-    // const [lastCallData, setLastCallData] = useState([])
+    const { lastCallData, products, totalProducts } = useLastCallContext()
 
-    const fetchData = async () => {
-        const api = `${url}/api/v1/last-call-page/get`;
-        try {
-            const response = await axios.get(api);
-            // if(response.status === 200) {
-            //     setLastCallData(response.data)
-            // }
-            // console.log("response last call", response);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    useEffect(() => {fetchData()}, [])
+    console.log("ltotal products", totalProducts)
 
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`)
@@ -156,9 +142,12 @@ export default function LastCallClient({ slug }) {
                         )}
 
                     </div>
-                    <div className="active-sale-view-more-button-contianer">
-                        <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
-                    </div>
+                    {totalProducts > 16 && (
+                        <div className="active-sale-view-more-button-contianer">
+                            <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
+                        </div>
+                    )}
+
                 </div>
 
                 <div className="banner-1-content">

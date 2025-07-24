@@ -2,7 +2,7 @@ import SaleClient from "@/UI/Components/SaleClient/SaleClient";
 
 export async function generateMetadata({params}) {
     return {
-      title: `Active Sale`,
+      title: `Tent Sale - My Furniture Mecca`,
       description: `Browse our ${params.sale} collection`,
     };
   }

@@ -132,6 +132,27 @@ const BookAppointmentClient = ({ params }) => {
         setConfirmAppointment(true);
     }
 
+    const handleAppointmentModalClose = () => {
+        setConfirmAppointment(false);
+        setSelectedTab(1)
+        setServiceTypeIndex(null)
+        setAppointmentPayload({
+            serviceType: '',
+            selectedCategories: [],
+            selectedStore: {},
+            otherDetails: 'Customer has sensitive skin',
+            selectedDate: '',
+            selectedSlot: '',
+            details: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                contact: '',
+                associate: ''
+            }
+        })
+    }
+
 
     return (
         <div className='book-an-appointment-main-container'>
@@ -141,7 +162,7 @@ const BookAppointmentClient = ({ params }) => {
             </div>
 
 
-            <div className={`appointment-modal-inner-container ${confirmAppointment ? 'hide-appointment-modal' : ''}`}>
+            <div className={`appointment-page-inner-container ${confirmAppointment ? 'hide-appointment-modal' : ''}`}>
                 {loading && <Loader />}
 
                 <div className='appointment-inner-content'>
@@ -192,6 +213,7 @@ const BookAppointmentClient = ({ params }) => {
 
             <ConfirmationModal
                 confirmAppointment={confirmAppointment}
+                handleAppointmentModalClose={handleAppointmentModalClose}
             />
 
         </div>

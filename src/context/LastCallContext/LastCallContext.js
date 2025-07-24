@@ -8,6 +8,7 @@ const LastCallContext = createContext();
 export const LastCallProvider = ({ children }) => {
     const [lastCallData, setLastCallData] = useState(null); // State to store fetched data
     const [products, setProducts] = useState(null);   // State to store fetched products
+    const [totalProducts, setTotalProducts] = useState(0)
     const [loading, setLoading] = useState(false);    // State to track loading status
     const [error, setError] = useState(null);         // State to store error (if any)
 
@@ -60,7 +61,7 @@ export const LastCallProvider = ({ children }) => {
             return;
         }
 
-        const finalApi = `${url}/api/v1/products/by-category?categoryUid=${categoryUid}`;
+        const finalApi = `${url}/api/v1/products/by-category?categoryUid=${categoryUid}&&per_page=16`;
         const options = {
             method: 'GET',
             headers: {
@@ -71,7 +72,9 @@ export const LastCallProvider = ({ children }) => {
         try {
             setLoading(true);
             const data = await fetchWithRetry(finalApi, options);
+            console.log("response products data", data)
             setProducts(data.products); // Store the fetched products in state
+            setTotalProducts(data.pagination.totalProducts)
         } catch (error) {
             setError(error.message);
             console.error('Error fetching products:', error);
@@ -85,7 +88,7 @@ export const LastCallProvider = ({ children }) => {
     }, []);
 
     return (
-        <LastCallContext.Provider value={{ lastCallData, products, fetchProductsByCategory, loading, error }}>
+        <LastCallContext.Provider value={{ lastCallData, products, fetchProductsByCategory, loading, error, totalProducts }}>
             {children}
         </LastCallContext.Provider>
     );

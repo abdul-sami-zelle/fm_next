@@ -90,7 +90,7 @@ const Products = ({ navigationType }) => {
     const [quickViewProduct, setQuickViewProduct] = useState({})
     const [colors, setColors] = useState([]);
     const [mobileFilters, setMobileFilters] = useState(false);
-    const [noProducts, setNoProducts] = useState();
+    const [noProducts, setNoProducts] = useState(false);
     const [filtereState, setFilterState] = useState(false);
     const [clearFilters, setClearFilters] = useState(true);
     const pathSegments = pathname?.split('/').filter(Boolean)
@@ -288,8 +288,10 @@ const Products = ({ navigationType }) => {
 
             if (!response.data.products.length > 0) {
                 setFilterState(true);
+                setNoProducts(true);
             } else {
                 setFilterState(false)
+                setNoProducts(false)
             }
         } catch (error) {
             console.error("Internal Server Error");
@@ -670,7 +672,7 @@ const Products = ({ navigationType }) => {
 
 
 
-
+    console.log("no product state value", noProducts)
 
 
 
@@ -981,53 +983,73 @@ const Products = ({ navigationType }) => {
                         </button>
                     </div>
                 </div>
-                <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
-                    {products.length === 0 ? (
-                        selectedGrid === 'single-col' ?
-                            Array.from({ length: 1 }).map((_, index) => (
-                                <ProductCardShimmer width={'100%'} key={index} />
-                            )) : Array.from({ length: 2 }).map((_, index) => (
-                                <ProductCardShimmer width={'100%'} key={index} />
-                            ))
-                    ) : (
-                        products.map((item, index) => {
-                            return <ProductCardTwo
-                                key={item.slug}
-                                slug={item.slug}
-                                singleProductData={item}
-                                maxWidthAccordingToComp={"100%"}
-                                justWidth={'100%'}
-                                showOnPage={true}
-                                showExtraLines={true}
-                                percent={'12%'}
-                                colTwo={selectedGrid === 'single-col' ? false : true}
-                                tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
-                                tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                                mainImage={`${item?.image?.image_url}`}
-                                productCardContainerClass="product-card"
-                                ProductSku={item.sku}
-                                tags={item.tags}
-                                allow_back_order={item?.allow_back_order}
-                                ProductTitle={item.name}
-                                reviewCount={item.average_rating}
-                                lowPriceAddvertisement={item.lowPriceAddvertisement}
-                                priceTag={item.regular_price}
-                                sale_price={item.sale_price}
-                                financingAdd={item.financingAdd}
-                                learnMore={item.learnMore}
-                                mainIndex={index}
-                                deliveryTime={item.deliveryTime}
-                                stock={item.manage_stock}
-                                attributes={item.attributes}
-                                handleCardClick={() => handleProductClick(item)}
-                                handleQuickView={() => handleQuickViewOpen(item)}
-                                handleWishListclick={() => handleWishList(item)}
-                                handleInfoModal={handleOpennfoModal}
-                            />
-                        })
-                    )}
-                </div>
-                <div className='view-more-products-pagination-main'>
+                {noProducts ? (
+                    <div className='mobile-product-not-found-container'>
+                       
+                        <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='no found' />
+                        <h3>No Products Found</h3>
+                        <p>Your search did not match any product.</p>
+                    </div>
+                ) : (
+                    <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
+                        {products.length === 0 ? (
+                            selectedGrid === 'single-col' ?
+                                Array.from({ length: 1 }).map((_, index) => (
+                                    <ProductCardShimmer width={'100%'} key={index} />
+                                )) : Array.from({ length: 2 }).map((_, index) => (
+                                    <ProductCardShimmer width={'100%'} key={index} />
+                                ))
+                        ) : (
+                            products.map((item, index) => {
+                                return <ProductCardTwo
+                                    key={item.slug}
+                                    slug={item.slug}
+                                    singleProductData={item}
+                                    maxWidthAccordingToComp={"100%"}
+                                    justWidth={'100%'}
+                                    showOnPage={true}
+                                    showExtraLines={true}
+                                    percent={'12%'}
+                                    colTwo={selectedGrid === 'single-col' ? false : true}
+                                    tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
+                                    tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                                    mainImage={`${item?.image?.image_url}`}
+                                    productCardContainerClass="product-card"
+                                    ProductSku={item.sku}
+                                    tags={item.tags}
+                                    allow_back_order={item?.allow_back_order}
+                                    ProductTitle={item.name}
+                                    reviewCount={item.average_rating}
+                                    lowPriceAddvertisement={item.lowPriceAddvertisement}
+                                    priceTag={item.regular_price}
+                                    sale_price={item.sale_price}
+                                    financingAdd={item.financingAdd}
+                                    learnMore={item.learnMore}
+                                    mainIndex={index}
+                                    deliveryTime={item.deliveryTime}
+                                    stock={item.manage_stock}
+                                    attributes={item.attributes}
+                                    handleCardClick={() => handleProductClick(item)}
+                                    handleQuickView={() => handleQuickViewOpen(item)}
+                                    handleWishListclick={() => handleWishList(item)}
+                                    handleInfoModal={handleOpennfoModal}
+                                />
+                            })
+                        )}
+                    </div>
+                )}
+                {!noProducts && (
+                    <ElipticalPagenation
+                        activePageIndex={activePageIndex}
+                        totalPages={totalPages?.totalPages}
+                        onPrevPage={handlePrevPage}
+                        onNextPage={handleNextPage}
+                        onPageChange={handleActivePage}
+                    />
+
+                )}
+
+                {/* <div className='view-more-products-pagination-main'>
 
 
 
@@ -1086,7 +1108,7 @@ const Products = ({ navigationType }) => {
                             />
                         </span>
                     </div>
-                </div>
+                </div> */}
             </div>
             <CartSidePannel
                 cartData={cartProducts}

@@ -38,7 +38,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const [viewDetails, setViewDetails] = useState(null)
     const [currentIndex, setCurrentIndex] = useState(0);
     const [variableProductData, setVariableData] = useState();
-    const {selectedVariationData} = useProductPage()
+    const { selectedVariationData } = useProductPage()
 
 
     const handleCartSectionClose = () => {
@@ -94,7 +94,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     const handleAddToCartProduct = (product) => {
         addToCart0(product, variableProductData, 0, quantity)
-        
+
     }
 
     // const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
@@ -106,7 +106,9 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setQuantity(quantity + 1);
     }
     const decreaseLocalQuantity = () => {
-        setQuantity(quantity - 1);
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
     }
 
     const [selectedVariationUid, setSelectedVariationUid] = useState(null);
@@ -145,15 +147,15 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
     // const stockCheck = setQuickViewProduct?.type === 'variable' ?  '' : setQuickViewProduct?.manage_stock?.stock_status === 'inStock' && setQuickViewProduct?.manage_stock?.quantity === 0 || setQuickViewProduct?.manage_stock?.stock_status === 'outStock';
 
-    const stockCheck = setQuickViewProduct?.type === 'variable' ?  
-    selectedVariationData?.manage_stock?.stock_status === 'inStock' 
-    && selectedVariationData?.manage_stock?.quantity === 0 
-    || selectedVariationData?.manage_stock?.stock_status === 'outStock' 
-    || selectedVariationData?.manage_stock?.stock_status === 'outOfStock' 
-    : setQuickViewProduct?.manage_stock?.stock_status === 'inStock' 
-    && setQuickViewProduct?.manage_stock?.quantity === 0 
-    || setQuickViewProduct?.manage_stock?.stock_status === 'outStock' 
-    || setQuickViewProduct?.manage_stock?.stock_status === 'outOfStock';
+    const stockCheck = setQuickViewProduct?.type === 'variable' ?
+        selectedVariationData?.manage_stock?.stock_status === 'inStock'
+        && selectedVariationData?.manage_stock?.quantity === 0
+        || selectedVariationData?.manage_stock?.stock_status === 'outStock'
+        || selectedVariationData?.manage_stock?.stock_status === 'outOfStock'
+        : setQuickViewProduct?.manage_stock?.stock_status === 'inStock'
+        && setQuickViewProduct?.manage_stock?.quantity === 0
+        || setQuickViewProduct?.manage_stock?.stock_status === 'outStock'
+        || setQuickViewProduct?.manage_stock?.stock_status === 'outOfStock';
 
     return (
         <div className={`quick-view-main-container ${quickViewShow ? 'show-quick-view-modal' : ''}`} onClick={quickViewClose}>
@@ -165,7 +167,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                     <img src={'/Assets/icons/close-btn.png'} alt='close' />
                 </button> */}
 
-                <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose}/>
+                <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose} />
 
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>
@@ -193,7 +195,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     <SwiperSlider
                                         slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
                                         renderSlide={(image, index) => (
-                                           <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                            <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
                                         )}
                                         showDots={true}
                                         showArrows={false}
@@ -209,9 +211,9 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     <SwiperSlider
                                         slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
                                         renderSlide={(image, index) => (
-                                            
-                                                <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
-                                            )}
+
+                                            <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                        )}
                                         showDots={true}
                                         showArrows={false}
                                         spaceBetween={20}
@@ -246,7 +248,20 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                         <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={decreaseLocalQuantity}>
                             <FaMinus className='quick0view-minus' size={15} />
                         </button>
-                        <input type='number' value={quantity} className={stockCheck ? 'disable-quick-view-quantity' : ''} readOnly={stockCheck} onChange={(e) => setQuantity(e.target.value)} />
+                        <input
+                            type='number'
+                            value={quantity}
+                            className={stockCheck ? 'disable-quick-view-quantity' : ''}
+                            readOnly
+                            // onChange={(e) => setQuantity(e.target.value)} 
+                            onChange={(e) => {
+                                const value = parseInt(e.target.value);
+                                if (!isNaN(value) && value >= 1) {
+                                    setQuantity(value);
+                                }
+                            }}
+                            
+                        />
                         <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={increaseLocalQuantity}>
                             <FaPlus className='quick-view-plus' size={15} />
                         </button>

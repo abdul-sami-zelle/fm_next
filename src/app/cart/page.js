@@ -39,8 +39,8 @@ const Cart = () => {
     getShippingMethods,
     setSelectedShippingMethods,
     CalculateGrandTotal,
-        handleChange,
-        selectedShippingMethods,
+    handleChange,
+    selectedShippingMethods,
   } = useGlobalContext();
 
 
@@ -62,6 +62,7 @@ const Cart = () => {
   }
 
   const [latestProducts, setLatestProducts] = useState([]);
+  const [noProduct, setNoProduct] = useState(false);
 
   useEffect(() => {
     const getLatestProducts = async () => {
@@ -72,6 +73,11 @@ const Cart = () => {
       try {
         const response = await axios.post(api, payload);
         setLatestProducts(response.data.recommendations);
+        if (response.data.recommendations.length === 0) {
+          setNoProduct(true)
+        } else {
+          setNoProduct(false)
+        }
       } catch (error) {
         console.error("error", error);
       }
@@ -319,8 +325,70 @@ const Cart = () => {
           <h3>You May Also Like</h3>
           <div className='cart-related-products-slider-main-div'>
 
+            {!noProduct && (
+              latestProducts && latestProducts?.length > 0 ? (
+                <SwiperSlider
+                  slidesData={latestProducts}
+                  renderSlide={(item, index) => (
+                    <div key={index} className='cart-latest-product-cards-container'>
+                      <ProductCardTwo
+                        key={index}
+                        slug={item.slug}
+                        singleProductData={item}
+                        maxWidthAccordingToComp={"100%"}
+                        justWidth={'100%'}
+                        percent={'12%'}
+                        showOnPage={true}
+                        tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
+                        tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                        mainImage={`${item.image.image_url}`}
+                        productCardContainerClass="product-card"
+                        ProductSku={item.sku}
+                        tags={item.tags}
+                        allow_back_order={item?.allow_back_order}
+                        ProductTitle={item.name}
+                        reviewCount={item.reviewCount}
+                        lowPriceAddvertisement={item.lowPriceAddvertisement}
+                        priceTag={item.regular_price}
+                        sale_price={item.sale_price}
+                        financingAdd={item.financingAdd}
+                        learnMore={item.learnMore}
+                        mainIndex={index}
+                        deliveryTime={item.deliveryTime}
+                        stock={item.manage_stock}
+                        attributes={item.attributes}
+                        handleCardClick={() => handleProductClick(item)}
+                        handleQuickView={() => handleQuickViewOpen(item)}
+                        handleWishListclick={() => handleWishList(item)}
+                      />
+                    </div>
+                  )}
+                  showDots={true}
+                  showArrows={false}
+                  spaceBetween={15}
+                  breakpoints={{
+                    0: { slidesPerView: 1 },
+                    768: { slidesPerView: 4 },
+                  }}
+                />
+              ) : (
+                <div className='cart-page-also-like-cards-shimmer-contianer'>
+                  <div className='cart-page-also-like-desktop-shimmer'>
+                    {Array.from({ length: 4 }).map((_, index) => (
+                      <ProductCardShimmer width={'100%'} />
+                    ))}
+                  </div>
 
-            {latestProducts && latestProducts?.length > 0 ? (
+                  <div className='cart-page-also-like-mobile-shimmer'>
+                    {Array.from({ length: 1 }).map((_, index) => (
+                      <ProductCardShimmer width={'100%'} />
+                    ))}
+                  </div>
+                </div>
+
+              )
+            )}
+            {/* {latestProducts && latestProducts?.length > 0 ? (
               <SwiperSlider
                 slidesData={latestProducts}
                 renderSlide={(item, index) => (
@@ -380,7 +448,7 @@ const Cart = () => {
                 </div>
               </div>
 
-            )}
+            )} */}
           </div>
         </div>
       )}

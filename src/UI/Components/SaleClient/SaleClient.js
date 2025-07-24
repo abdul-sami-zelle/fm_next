@@ -19,7 +19,8 @@ import { usePathname, useRouter } from "next/navigation";
 
 export default function SaleClient({slug}) {
     const router = useRouter();
-    const { salesData, products } = useActiveSalePage();
+    const { salesData, products, totalProducts } = useActiveSalePage();
+    console.log("sale total products", totalProducts)
     // const maxLength = 50;
     // const truncateTitle = (title, maxLength) => {
     //     if (!title) return '';
@@ -145,9 +146,11 @@ export default function SaleClient({slug}) {
                         )}
 
                     </div>
-                    <div className="active-sale-view-more-button-contianer">
-                        <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
-                    </div>
+                    {totalProducts > 16 && (
+                        <div className="active-sale-view-more-button-contianer">
+                            <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
+                        </div>
+                    )}
                 </div>
 
                 <div className="banner-1-content">

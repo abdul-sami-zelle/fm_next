@@ -8,6 +8,7 @@ const ActiveSalePageContext = createContext();
 export const ActiveSalePageProvider = ({ children }) => {
     const [salesData, setSalesData] = useState(null); // State to store fetched data
     const [products, setProducts] = useState(null);   // State to store fetched products
+    const [totalProducts, setTotalProducts] = useState(0)
     const [loading, setLoading] = useState(false);    // State to track loading status
     const [error, setError] = useState(null);         // State to store error (if any)
 
@@ -71,6 +72,7 @@ export const ActiveSalePageProvider = ({ children }) => {
             setLoading(true);
             const data = await fetchWithRetry(api, options);
             setProducts(data.products); // Store the fetched products in state
+            setTotalProducts(data.pagination.totalProducts)
         } catch (error) {
             setError(error.message);
             console.error('Error fetching products:', error);
@@ -84,7 +86,7 @@ export const ActiveSalePageProvider = ({ children }) => {
     }, []);
 
     return (
-        <ActiveSalePageContext.Provider value={{ salesData, products, fetchProductsByCategory, loading, error }}>
+        <ActiveSalePageContext.Provider value={{ salesData, products, fetchProductsByCategory, loading, error, totalProducts }}>
             {children}
         </ActiveSalePageContext.Provider>
     );
