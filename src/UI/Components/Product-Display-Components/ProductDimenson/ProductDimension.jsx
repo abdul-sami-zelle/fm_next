@@ -37,7 +37,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
   const dimensionCards = [
     { icon: <RxDimensions size={25} />, title: 'Dimensions' },
 
-    ...(productData?.dyrc?.active === 1
+    ...((productData?.type === "variable" ? variationData?.dyrc?.active === 1 : productData?.dyrc?.active === 1)
       ? [{ icon: <SiMaterialdesignicons size={22} />, title: 'Design Your Room' }]
       : []),
 
@@ -85,7 +85,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
 
   return (
     <>
-      <div className={`dimension-main-container ${productData?.dyrc?.active === 1 ? 'dimension-3-column-container' : ''}`}>
+      <div className={`dimension-main-container ${(productData?.type === "variable" ? variationData?.dyrc?.active === 1 : productData?.dyrc?.active === 1) ? 'dimension-3-column-container' : ''}`}>
         {dimensionCards.map((item, index) => (
           <div
             key={index}

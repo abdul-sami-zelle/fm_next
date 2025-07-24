@@ -44,6 +44,11 @@ const ProductDisplay = ({ params }) => {
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const [recomandationCount, setRecomandationCount] = useState(0)
 
+  useEffect(() => {
+    console.log(selectedVariationData, "here selectedVariationData")
+    console.log(singleProductData, "here singleProductData")
+  }, [selectedVariationData, singleProductData])
+
   const showDRM = () => {
     setShowDwsignRoomModal(true)
   }
@@ -300,7 +305,10 @@ const ProductDisplay = ({ params }) => {
     || product?.manage_stock?.stock_status === 'outStock'
     || product?.manage_stock?.stock_status === 'outOfStock';
 
-  const isDesignRoomActive = product?.dyrc?.active === 1;
+  const isDesignRoomActive =
+  product?.type === 'variable' ? (  
+  selectedVariationData?.dyrc?.active === 1?true :false)  :
+  product?.dyrc?.active === 1;
 
   return (
     <div>
@@ -445,31 +453,58 @@ const ProductDisplay = ({ params }) => {
       {showDesignRoomModal && <div className='design_room_main_modal'>
         {/* <DesignRoomMain closeFn={closeDRM} product={product} /> */}
         <DesignRoomMain closeFn={closeDRM} product={product} data={
-          {
-            _id: product?._id,
-            product_uid: product?.parent === 0 ? product?.uid : product?.parent,
-            variation_uid: product?.parent === 0 ? 0 : product?.uid,
-            name: product?.name,
-            sku: product?.sku,
-            quantity: 1,
-            is_protected: 0,
-            slug: product?.slug,
-            type: product?.type,
-            // cat:'Sectional',
-            // cat:'Recliner-Sectional',
-            // cat:'Recliner',
-            cat: product?.dyrc?.catType,
-            parent: product?.parent,
-            isVariable: product?.parent === 0 ? 0 : 1,
-            attributes: product?.attribute,
-            regular_price: product?.regular_price,
-            sale_price: product?.sale_price,
-            image: product?.image?.image_url,
-            // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
-            // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
-            // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
-            // png_image:'/Sofas&LoveSeat/Untitled-4.png'
-            png_image: product?.dyrc?.image,
+          product.type === 'variable' ?
+            {
+              _id: selectedVariationData?._id,
+              product_uid: product?.parent === 0 ? product?.uid : product?.parent,
+              variation_uid: product?.parent === 0 ? 0 : selectedVariationData?.uid,
+              name: product?.name,
+              sku: selectedVariationData?.sku,
+              quantity: 1,
+              is_protected: 0,
+              slug: selectedVariationData?.slug,
+              type: product?.type,
+              // cat:'Sectional',
+              // cat:'Recliner-Sectional',
+              // cat:'Recliner',
+              cat: selectedVariationData?.dyrc?.catType,
+              parent: selectedVariationData?.parent,
+              isVariable: product?.parent === 0 ? 0 : 1,
+              attributes: selectedVariationData?.attribute,
+              regular_price: selectedVariationData?.regular_price,
+              sale_price: selectedVariationData?.sale_price,
+              image: selectedVariationData?.image?.image_url,
+              // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
+              // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
+              // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
+              // png_image:'/Sofas&LoveSeat/Untitled-4.png'
+              png_image: selectedVariationData?.dyrc?.image,
+            }
+         : {
+          _id: product?._id,
+        product_uid: product?.parent === 0 ? product?.uid : product?.parent,
+        variation_uid: product?.parent === 0 ? 0 : product?.uid,
+        name: product?.name,
+        sku: product?.sku,
+        quantity: 1,
+        is_protected: 0,
+        slug: product?.slug,
+        type: product?.type,
+        // cat:'Sectional',
+        // cat:'Recliner-Sectional',
+        // cat:'Recliner',
+        cat: product?.dyrc?.catType,
+        parent: product?.parent,
+        isVariable: product?.parent === 0 ? 0 : 1,
+        attributes: product?.attribute,
+        regular_price: product?.regular_price,
+        sale_price: product?.sale_price,
+        image: product?.image?.image_url,
+        // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
+        // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
+        // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
+        // png_image:'/Sofas&LoveSeat/Untitled-4.png'
+        png_image: product?.dyrc?.image,
           }
         } />
       </div>}
