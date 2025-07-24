@@ -3,19 +3,92 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, FabricImage, Rect } from 'fabric';
 import LayerList from './layerlist';
 
-
 const CanvasApp = ({ data }) => {
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
   const [activeCategory, setActiveCategory] = useState('Wall');
   const [paintedWallColor, setPaintedWallColor] = useState('#fff');
   const [isSectionalSelected, setIsSectionals] = useState(false);
-  const [reclining, setReclining] = useState(false)
-  const [isRecliningNonSectional, setRecliningNonSectional] = useState(false)
-  const [tools, setTools] = useState([])
+  const [reclining, setReclining] = useState(false);
+  const [isRecliningNonSectional, setRecliningNonSectional] = useState(false);
+  const [selectedSofa, setSelectedSofa] = useState();
+  const [tools, setTools] = useState([]);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const containerRef = useRef(null);
   const sofaRef = useRef(null);
   let lastSofaSrc = null;
   const baseURL = "https://roomapi.myfurnituremecca.com";
+
+  // Handle container resize
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setContainerSize({
+          width: containerRef.current.clientWidth,
+          height: containerRef.current.clientHeight
+        });
+      }
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  // Apply zoom and adjust canvas size
+  const applyZoom = (zoom) => {
+    if (canvas) {
+      canvas.setZoom(zoom);
+      const canvasWidth = Math.min(containerSize.width * 0.7, 1200); // Limit max width
+      const canvasHeight = Math.min(containerSize.height * 0.8, 800); // Limit max height
+      canvas.setWidth(canvasWidth);
+      canvas.setHeight(canvasHeight);
+      canvas.renderAll();
+    }
+  };
+
+  // Zoom handlers
+  const handleZoomIn = () => {
+    const newZoom = Math.min(zoomLevel + 0.1, 3);
+    setZoomLevel(newZoom);
+    applyZoom(newZoom);
+  };
+
+  const handleZoomOut = () => {
+    const newZoom = Math.max(zoomLevel - 0.1, 0.5);
+    setZoomLevel(newZoom);
+    applyZoom(newZoom);
+  };
+
+  const handleZoomReset = () => {
+    setZoomLevel(1);
+    applyZoom(1);
+  };
+
+  // Mouse wheel zoom with Ctrl key
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -0.1 : 0.1;
+        const newZoom = Math.min(Math.max(zoomLevel + delta, 0.5), 3);
+        setZoomLevel(newZoom);
+        applyZoom(newZoom);
+      }
+    };
+
+    const canvasElement = canvasRef.current;
+    if (canvasElement) {
+      canvasElement.addEventListener('wheel', handleWheel, { passive: false });
+    }
+
+    return () => {
+      if (canvasElement) {
+        canvasElement.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [zoomLevel, canvas, containerSize]);
 
   useEffect(() => {
     getProducts()
@@ -23,18 +96,19 @@ const CanvasApp = ({ data }) => {
 
   useEffect(() => {
     const loadInitialImages = async () => {
-      if (canvasRef.current) {
+      if (canvasRef.current && containerSize.width > 0) {
         const initCanvas = new Canvas(canvasRef.current, {
-          width: 1000,
-          height: 600,
+          width: containerSize.width * 0.7,
+          height: containerSize.height * 0.8,
           backgroundColor: '#fff',
         });
 
-        const wallSrc = `${baseURL}/uploads/Products/1751613914188_249_02.jpg`;
-        const floorSrc = `${baseURL}/uploads/Products/1751530574642_171_01.jpg`;
-        const sofaSrc = data.png_image; // update with correct path
+        const wallSrc = `${baseURL}/uploads/Products/1753184712785_429_06.png`;
+        const floorSrc = `${baseURL}/uploads/Products/1751612646817_958_04.jpg`;
+        const sofaSrc = data.png_image;
 
-        // Add wall
+        setSelectedSofa(data)
+
         await addImageToCanvas(wallSrc, {
           left: 0,
           top: 0,
@@ -44,7 +118,6 @@ const CanvasApp = ({ data }) => {
           evented: false,
         }, initCanvas);
 
-        // Add floor
         await addImageToCanvas(floorSrc, {
           left: 0,
           top: initCanvas.getHeight() * 0.55,
@@ -54,8 +127,7 @@ const CanvasApp = ({ data }) => {
           evented: false,
         }, initCanvas);
 
-        // Add sofa last (so it stays on top)
-        if (data.cat == 'Sectional') {
+        if (data.cat == 'SSectional') {
           const sofa = await addImageToCanvas(sofaSrc, {
             left: initCanvas.getWidth() * 0.18,
             top: initCanvas.getHeight() * 0.37,
@@ -66,11 +138,11 @@ const CanvasApp = ({ data }) => {
           if (sofa) {
             setIsSectionals(true)
             initCanvas.remove(sofa);
-            initCanvas.add(sofa); // bring to top
+            initCanvas.add(sofa);
             sofaRef.current = sofa;
           }
         }
-        else if (data.cat == 'Recliner-Sectional') {
+        else if (data.cat == 'RSectional') {
           const sofa = await addImageToCanvas(sofaSrc, {
             left: initCanvas.getWidth() * 0.12,
             top: initCanvas.getHeight() * 0.37,
@@ -81,11 +153,11 @@ const CanvasApp = ({ data }) => {
           if (sofa) {
             setReclining(true)
             initCanvas.remove(sofa);
-            initCanvas.add(sofa); // bring to top
+            initCanvas.add(sofa);
             sofaRef.current = sofa;
           }
         }
-        else if (data.cat == 'Recliner') {
+        else if (data.cat == 'RSofanlove') {
           const sofa = await addImageToCanvas(sofaSrc, {
             left: initCanvas.getWidth() * 0.10,
             top: initCanvas.getHeight() * 0.31,
@@ -98,7 +170,7 @@ const CanvasApp = ({ data }) => {
             setReclining(false)
             setIsSectionals(false)
             initCanvas.remove(sofa);
-            initCanvas.add(sofa); // bring to top
+            initCanvas.add(sofa);
             sofaRef.current = sofa;
           }
         }
@@ -112,11 +184,10 @@ const CanvasApp = ({ data }) => {
 
           if (sofa) {
             initCanvas.remove(sofa);
-            initCanvas.add(sofa); // bring to top
+            initCanvas.add(sofa);
             sofaRef.current = sofa;
           }
         }
-
 
         initCanvas.renderAll();
         setCanvas(initCanvas);
@@ -124,20 +195,19 @@ const CanvasApp = ({ data }) => {
     };
 
     loadInitialImages();
-  }, []);
+  }, [containerSize, data]);
 
   const getProducts = () => {
     fetch(`${baseURL}/api/v1/mega/get`)
       .then((res) => res.json())
       .then((data) => {
-        // Inject onClick for specific sections
         const updatedTools = data.map(section => {
           if (section.section === "Wall") {
             return {
               ...section,
               items: section.items.map(item => ({
                 ...item,
-                onClick: 'addWall', // or any function name
+                onClick: 'addWall',
               }))
             };
           }
@@ -146,7 +216,7 @@ const CanvasApp = ({ data }) => {
               ...section,
               items: section.items.map(item => ({
                 ...item,
-                onClick: 'addFloor', // or any function name
+                onClick: 'addFloor',
               }))
             };
           }
@@ -155,20 +225,28 @@ const CanvasApp = ({ data }) => {
               ...section,
               items: section.items.map(item => ({
                 ...item,
-                onClick: 'addwallfram', // or any function name
+                onClick: 'addwallfram',
               }))
             };
           }
-          if (section.section === "Coffee & End Tables") {
+          if (section.section === "Coffee Tables") {
             return {
               ...section,
               items: section.items.map(item => ({
                 ...item,
-                onClick: 'addCenterTableImage', // or any function name
+                onClick: 'addCenterTableImage',
               }))
             };
           }
-
+          if (section.section === "End Tables") {
+            return {
+              ...section,
+              items: section.items.map(item => ({
+                ...item,
+                onClick: 'addEndTableImage',
+              }))
+            };
+          }
           if (section.section === "Rugs") {
             return {
               ...section,
@@ -187,15 +265,13 @@ const CanvasApp = ({ data }) => {
               }))
             };
           }
-
-          return section; // default: no change
+          return section;
         });
 
         setTools(updatedTools);
       })
       .catch((error) => console.error("API error:", error));
   };
-
 
   const addImageToCanvas = async (src, config = {}, canvasOverride = null) => {
     const activeCanvas = canvasOverride || canvas;
@@ -207,7 +283,6 @@ const CanvasApp = ({ data }) => {
         : `https://roomapi.myfurnituremecca.com${src}`;
 
       const img = await FabricImage.fromURL(fullSrc);
-      // const img = await FabricImage.fromURL(src);
       const canvasWidth = activeCanvas.getWidth();
       const canvasHeight = activeCanvas.getHeight();
 
@@ -233,27 +308,24 @@ const CanvasApp = ({ data }) => {
 
       activeCanvas.add(img);
       activeCanvas.renderAll();
-      return img; // ✅ Make sure this is returned
+      return img;
     } catch (error) {
       console.error(`Failed to load image: ${src}`, error);
       return null;
     }
   };
 
-
-
   let paintedWallRef = null;
 
   const handlers = {
-
     addPaintedWall: () => {
       if (!canvas) return;
 
       const wall = new Rect({
         left: 0,
         top: 0,
-        width: 1000,
-        height: 370,
+        width: canvas.getWidth(),
+        height: canvas.getHeight() * 0.55,
         fill: paintedWallColor,
         selectable: false,
         evented: false,
@@ -262,15 +334,13 @@ const CanvasApp = ({ data }) => {
 
       paintedWallRef = wall;
       canvas.add(wall);
-      // canvas.sendToBack(wall);
       canvas.renderAll();
     },
     addWall: (src) => addImageToCanvas(src, {
-
       left: 0,
       top: 0,
-      targetWidthRatio: 1,          // 100% width
-      targetHeightRatio: 0.55,      // 62% of height
+      targetWidthRatio: 1,
+      targetHeightRatio: 0.55,
       selectable: false,
       evented: false,
     }),
@@ -278,7 +348,7 @@ const CanvasApp = ({ data }) => {
     addFloor: (src) => {
       addImageToCanvas(src, {
         left: 0,
-        top: canvas?.getHeight() * 0.55, // dynamic top
+        top: canvas?.getHeight() * 0.55,
         targetWidthRatio: 1,
         targetHeightRatio: 0.45,
         selectable: false,
@@ -307,7 +377,6 @@ const CanvasApp = ({ data }) => {
       })
     },
 
-
     addReclinerSofaImage: (src) => {
       setIsSectionals(false);
       setReclining(true);
@@ -329,14 +398,13 @@ const CanvasApp = ({ data }) => {
       const canvasHeight = canvas?.getHeight() ?? 600;
 
       addImageToCanvas(src, {
-        left: canvasWidth * 0.39,       // 39% from left
-        top: canvasHeight * 0.04,        // 4% from top
-        targetWidthRatio: 0.23,         // 23% of canvas width
-        targetHeightRatio: 0.23,        // 23% of canvas height
+        left: canvasWidth * 0.39,
+        top: canvasHeight * 0.04,
+        targetWidthRatio: 0.23,
+        targetHeightRatio: 0.23,
       });
     },
     addCenterTableImage: (src) => {
-
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
 
@@ -344,7 +412,7 @@ const CanvasApp = ({ data }) => {
 
       if (isSectionalSelected) {
         style = {
-          left: canvasWidth * 0.20,           // Adjusted for sectional layout
+          left: canvasWidth * 0.20,
           top: canvasHeight * 0.52,
           targetWidthRatio: 0.40,
           targetHeightRatio: 0.4,
@@ -352,7 +420,7 @@ const CanvasApp = ({ data }) => {
       }
       else if (reclining) {
         style = {
-          left: canvasWidth * 0.33,           // Adjusted for sectional layout
+          left: canvasWidth * 0.33,
           top: canvasHeight * 0.57,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.35,
@@ -360,7 +428,7 @@ const CanvasApp = ({ data }) => {
       }
       else if (isRecliningNonSectional) {
         style = {
-          left: canvasWidth * 0.35,           // Default center table placement
+          left: canvasWidth * 0.35,
           top: canvasHeight * 0.55,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.32,
@@ -368,7 +436,7 @@ const CanvasApp = ({ data }) => {
       }
       else {
         style = {
-          left: canvasWidth * 0.35,           // Default center table placement
+          left: canvasWidth * 0.35,
           top: canvasHeight * 0.52,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.40,
@@ -382,10 +450,10 @@ const CanvasApp = ({ data }) => {
       const canvasHeight = canvas?.getHeight() ?? 600;
 
       addImageToCanvas(src, {
-        left: canvasWidth * 0.22,           // 380 / 1000 = 38%
-        top: canvasHeight * 0.46,         // 350 / 600 ≈ 58.33%
-        targetWidthRatio: 0.55,             // 250 / 1000 = 25%
-        targetHeightRatio: 0.35,            // 150 / 600 = 25%
+        left: canvasWidth * 0.22,
+        top: canvasHeight * 0.46,
+        targetWidthRatio: 0.55,
+        targetHeightRatio: 0.35,
       });
     },
 
@@ -394,10 +462,10 @@ const CanvasApp = ({ data }) => {
       const canvasHeight = canvas?.getHeight() ?? 600;
 
       addImageToCanvas(src, {
-        left: canvasWidth * 0.28,           // 380 / 1000 = 38%
-        top: canvasHeight * 0.43,         // 350 / 600 ≈ 58.33%
-        targetWidthRatio: 0.42,             // 250 / 1000 = 25%
-        targetHeightRatio: 0.43,            // 150 / 600 = 25%
+        left: canvasWidth * 0.28,
+        top: canvasHeight * 0.43,
+        targetWidthRatio: 0.42,
+        targetHeightRatio: 0.43,
       });
     },
 
@@ -415,29 +483,21 @@ const CanvasApp = ({ data }) => {
       if (reclining) {
         style.top = canvasHeight * 0.70;
       }
-      // 1. First move sofa to temp variable
-      const sofa = sofaRef.current;
 
-      // 2. Remove sofa from canvas temporarily
+      const sofa = sofaRef.current;
       if (sofa && canvas) {
         canvas.remove(sofa);
       }
 
-      // 3. Add rug (will now be below sofa)
       await addImageToCanvas(src, style);
 
-      // 4. Re-add sofa (will automatically be on top)
       if (sofa && canvas) {
         canvas.add(sofa);
-
-        // 5. Forcefully move to front (double protection)
-        sofa.moveTo(Infinity); // This is the most reliable in Fabric 6+
+        sofa.moveTo(Infinity);
         canvas.requestRenderAll();
       }
 
-      // add rug first
       addImageToCanvas(src, style).then(() => {
-        // re-add sofa (ensure previous source is reused or passed again)
         if (lastSofaSrc) {
           handlers.addSofaImage(lastSofaSrc);
         }
@@ -446,7 +506,6 @@ const CanvasApp = ({ data }) => {
     addLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
-
 
       let style;
 
@@ -485,18 +544,6 @@ const CanvasApp = ({ data }) => {
 
       addImageToCanvas(src, style);
     },
-
-    // addSmailLampImage: (src) => {
-    //   const canvasWidth  = canvas?.getWidth()  ?? 1000;  // fallback to defaults
-    //   const canvasHeight = canvas?.getHeight() ?? 600;
-
-    //   addImageToCanvas(src, {
-    //     left: canvasWidth  * 0.71,    // 100 px of 1000 px  ➜ 10 % from the left
-    //     top:  canvasHeight * 0.35,  // 350 px of 600 px ➜ ~58 % from the top
-    //     targetWidthRatio:  0.30,      // 100 / 1000 = 10 % of canvas width
-    //     targetHeightRatio: 0.27,      // 150 / 600  = 25 % of canvas height
-    //   });
-    // },
 
     addSmailLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
@@ -586,7 +633,6 @@ const CanvasApp = ({ data }) => {
           targetWidthRatio: 0.17,
           targetHeightRatio: 0.32,
         };
-
       }
       else if (isRecliningNonSectional) {
         style = {
@@ -607,50 +653,91 @@ const CanvasApp = ({ data }) => {
 
       addImageToCanvas(src, style);
     }
+  };
 
+  const handleCheckout = (items) => {
+    console.log("Complete checkout items:", items);
   };
 
   return (
-    <div className="editor-container" style={{ display: 'flex', height: '100vh' }}>
-      {/* Toolbar */}
+    <div 
+      ref={containerRef}
+      className="editor-container" 
+      style={{ 
+        display: 'flex',
+        flexDirection: 'row',
+        height: '100vh',
+        width: '100vw',
+        overflow: 'hidden',
+        position: 'fixed',
+        top: 0,
+        left: 0
+      }}
+    >
+      {/* Toolbar - Fixed width, scrollable content */}
       <div style={{
         width: '250px',
+        minWidth: '250px',
         padding: '12px',
         backgroundColor: '#f8f8f8',
         borderRight: '1px solid #e0e0e0',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        height: '100%',
+        boxSizing: 'border-box'
       }}>
-        {/* Category selector */}
+        {/* Zoom controls */}
         <div style={{
           display: 'flex',
           gap: '6px',
-          padding: '8px 0',
-          overflowX: 'auto',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
+          marginBottom: '12px',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}>
-          {tools?.map((toolSection) => (
-            <button
-              key={toolSection.section}
-              onClick={() => setActiveCategory(toolSection.section)}
-              style={{
-                flexShrink: 0,
-                padding: '4px 10px',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                backgroundColor: activeCategory === toolSection.section ? '#2c3e50' : '#e0e0e0',
-                color: activeCategory === toolSection.section ? 'white' : '#333',
-                border: 'none',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                whiteSpace: 'nowrap',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
-              }}
-            >
-              {toolSection.section}
-            </button>
-          ))}
+          <button onClick={handleZoomOut} style={{
+            padding: '4px 8px',
+            backgroundColor: '#e0e0e0',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}>-</button>
+          <span style={{ fontSize: '0.8rem' }}>{Math.round(zoomLevel * 100)}%</span>
+          <button onClick={handleZoomIn} style={{
+            padding: '4px 8px',
+            backgroundColor: '#e0e0e0',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}>+</button>
+          <button onClick={handleZoomReset} style={{
+            padding: '4px 8px',
+            backgroundColor: '#e0e0e0',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '0.7rem'
+          }}>Reset</button>
+        </div>
+
+        <div>
+          <select
+            value={activeCategory}
+            onChange={(e) => setActiveCategory(e.target.value)}
+            style={{
+              padding: '6px 10px',
+              fontSize: '0.9rem',
+              borderRadius: '8px',
+              marginBottom: '10px',
+              border: '1px solid #ccc',
+              outline: 'none',
+              width: '100%',
+            }}
+          >
+            {tools?.map((toolSection) => (
+              <option key={toolSection.section} value={toolSection.section}>
+                {toolSection.section}
+              </option>
+            ))}
+          </select>
         </div>
 
         {/* Items grid */}
@@ -665,7 +752,6 @@ const CanvasApp = ({ data }) => {
           </h4>
           <div style={{
             display: 'grid',
-            // gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))',
             gap: '5px',
           }}>
             {tools
@@ -679,24 +765,16 @@ const CanvasApp = ({ data }) => {
                   }
                 }}>
                   <button
-                    // onClick={() => handlers[item.onClick]?.(item.image)}
                     onClick={() => {
                       if (item.name === 'Painted Wall') {
                         document.getElementById('wallColorPickerHidden').click();
                       } else {
-                        handlers[item.onClick]?.(item.price === 'Not Applicable'  ? item.image : item.png_image);
+                        handlers[item.onClick]?.(item.price === 'Not Applicable' ? item.image : item.png_image);
                       }
                     }}
-
-                    // style={{
-                    //   background: 'none',
-                    //   border: 'none',
-                    //   padding: 0,
-                    //   cursor: 'pointer'
-                    // }}
                     style={{
                       width: '150px',
-                      height: '150px',
+                      // height: '150px',
                       backgroundColor: item.name === 'Painted Wall' ? paintedWallColor : 'transparent',
                       borderRadius: '4px',
                       border: '1px solid #000',
@@ -706,19 +784,17 @@ const CanvasApp = ({ data }) => {
                     {item.name === 'Painted Wall' ? null
                       :
                       <img
-                        // src={item.image}
                         src={item.png_image ? `${baseURL}${item.png_image}` : `${baseURL}${item.image}`}
                         alt={item.name}
                         style={{
                           width: '150px',
                           height: item.price === 'Not Aplicable' ? '150px' : '100px',
-                          objectFit: item?.type && item.type == 'lamp' ? 'contain' : 'fill',
+                          // objectFit:'fill',
+                          // objectFit: item?.type && item.type == 'lamp' ? 'contain' : 'fill',
                           borderRadius: '4px',
-                          // border: '1px solid #eee'
                         }}
                       />
                     }
-
                   </button>
                   <div style={{
                     fontSize: '0.7rem',
@@ -740,28 +816,37 @@ const CanvasApp = ({ data }) => {
                       color: '#2c3e50',
                       fontWeight: '600'
                     }}>
-                      ${item.price}
+                      ${item.price ? item.price : item.sale_price}
                     </div>
                   }
-
                 </div>
               ))}
           </div>
         </div>
       </div>
 
-      {/* Canvas area */}
-      <div style={{ flex: 1, padding: '12px', overflow: 'auto' }}>
+      {/* Canvas area - Flexible width */}
+      <div style={{
+        flex: 1,
+        padding: '12px',
+        overflow: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        boxSizing: 'border-box'
+      }}>
         <canvas
           ref={canvasRef}
-          width={1000}
-          height={600}
           style={{
             border: '1px solid #e0e0e0',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            maxWidth: '100%',
+            maxHeight: '100%'
           }}
         />
       </div>
+      
       <input
         type="color"
         id="wallColorPickerHidden"
@@ -770,16 +855,15 @@ const CanvasApp = ({ data }) => {
         onChange={(e) => {
           const newColor = e.target.value;
           setPaintedWallColor(newColor);
-          handlers.addPaintedWall(); // after picking color, add wall with that color
+          handlers.addPaintedWall();
         }}
       />
-
-
-      {/* Layer list */}
-      <LayerList canvas={canvas} tools={tools}/>
+      
+      <LayerList canvas={canvas} tools={tools} onCheckout={handleCheckout} selectedSofa={selectedSofa}/>
     </div>
   );
 };
 
 export default CanvasApp;
+
 
