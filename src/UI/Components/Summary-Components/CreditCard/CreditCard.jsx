@@ -16,7 +16,9 @@ const CreditCard = () => {
     const {
         creditCardData,
         setCreditCardData,
-        activePaymentMethods
+        activePaymentMethods,
+        error, 
+        setError
     } = useMyOrders();
 
     const nameRef = useRef(null)
@@ -48,40 +50,14 @@ const CreditCard = () => {
 
     }, [activePaymentMethods])
 
-    // const [error, setError] = useState({})
-    // const handleSubmitCardInfo = () => {
-    //     let newErrors = {};
-
-    //     Object.keys(orderPayload?.card_info).forEach((field) => {
-    //         if (field === 'address2') return;
-    //         if (field === 'alt_phone') return;
-
-    //         if (!orderPayload?.card_info?.[field]?.trim()) {
-    //             newErrors[field] = `Required`;
-    //         }
-    //     });
-
-    //     if (Object.keys(newErrors).length > 0) {
-    //         setError((prev) => ({ ...prev, ...newErrors }));
-    //         return false
-    //     }
-
-    //     setError({});
-    //     props.onSubmit();
-    //     return true;
-    // }
-
-    // useImperativeHandle(ref, () => ({
-    //     validateAndSubmit: handleSubmitCardInfo,
-    // }));
 
 
-    const [error, setError] = useState({
-        card_holder_name: '',
-        card_number: '',
-        expiry_date: '',
-        sec_code: '',
-    })
+    // const [error, setError] = useState({
+    //     card_holder_name: '',
+    //     card_number: '',
+    //     expiry_date: '',
+    //     sec_code: '',
+    // })
 
     return (
         <div className='credit-card-type-main-container'>
@@ -94,7 +70,7 @@ const CreditCard = () => {
             <div className='credit-card-type-body'>
                 <div className='credit-card-inputs'>
 
-                    <div onClick={() => nameRef.current?.focus()} className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""}`}>
+                    <div onClick={() => nameRef.current?.focus()} className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""} ${error.card_holder_name ? "error-border" : ""}`}>
                         <label className="floating-label">
                             {error.card_holder_name ? <span className='error-message'>{error.card_holder_name}</span> : 'Card holder Name'}
                         </label>
@@ -111,11 +87,12 @@ const CreditCard = () => {
                                     ...prevData,
                                     card_holder_name: value
                                 }))
+                                setError(prev => ({ ...prev, card_holder_name: '' }));
                             }}
                         />
                     </div>
 
-                    <div className={`delivery-input-container ${focusedField === 'card_number' || creditCardData.card_number ? "focused" : ""}`}>
+                    <div className={`delivery-input-container ${focusedField === 'card_number' || creditCardData.card_number ? "focused" : ""} ${error.card_number ? "error-border" : ""}`}>
                         <label className="floating-label">
                             {error.card_number ? <span className='error-message'>{error.card_number}</span> : 'Card Number'}
                         </label>
@@ -148,6 +125,7 @@ const CreditCard = () => {
                                     card_number: formattedValue,
                                     card_type: cardType, // Set the detected card type
                                 }));
+                                setError(prev => ({ ...prev, card_number: '' }));
                             }}
 
                         />
@@ -157,7 +135,7 @@ const CreditCard = () => {
 
                 <div className='credit-card-expiry-and-code-inputs'>
 
-                    <div className={`delivery-input-container ${focusedField === 'expiry_date' || creditCardData.expiry_date ? "focused" : ""}`}>
+                    <div className={`delivery-input-container ${focusedField === 'expiry_date' || creditCardData.expiry_date ? "focused" : ""} ${error.expiry_date ? "error-border" : ""}`}>
                         <label className="floating-label">
                             {error.expiry_date ? <span className='error-message'>{error.expiry_date}</span> : 'Expiry Date'}
                         </label>
@@ -188,12 +166,13 @@ const CreditCard = () => {
                                     ...prevData,
                                     expiry_date: value
                                 }))
+                                setError(prev => ({ ...prev, expiry_date: '' }));
                             }}
 
                         />
                     </div>
 
-                    <div className={`delivery-input-container ${focusedField === 'sec_code' || creditCardData.sec_code ? "focused" : ""}`}>
+                    <div className={`delivery-input-container ${focusedField === 'sec_code' || creditCardData.sec_code ? "focused" : ""} ${error.sec_code? "error-border" : ""}`}>
                         <label className="floating-label">
                             {error.sec_code ? <span className='error-message'>{error.sec_code}</span> : 'CVV'}
                         </label>
@@ -218,6 +197,7 @@ const CreditCard = () => {
                                     ...prevData,
                                     sec_code: formattedValue
                                 }))
+                                setError(prev => ({ ...prev, sec_code: '' }));
                             }}
 
 

@@ -524,7 +524,7 @@
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
-    color: var(--text-primary);
+    color: var(--text-red);
 }
 
 .product-details-protection-plan-details-and-add {

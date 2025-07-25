@@ -11,15 +11,17 @@
 }
 
 
-
+ 
 .cart-side-section-remove-btn{
     position: absolute;
-    top: 5px;
-    right: 5px;
-    /* background-color: transparent;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
     border: none;
-    outline: none; */
+    outline: none;
     cursor: pointer;
+    width: max-content;
+    height: max-content;
 }
 
 /* .cart-side-section-remove-btn img{

@@ -91,8 +91,10 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         className={`location-modal-containt-div ${searchLocation ? 'show-location-bar-inner-container' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-
-        <IoIosClose size={25} color='#595959' className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch} />
+        <button className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch}>
+          <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
+        </button>
+        {/* <IoIosClose size={25} color='#595959' className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch} /> */}
 
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>

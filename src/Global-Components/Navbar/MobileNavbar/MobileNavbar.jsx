@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react'
 import './MobileNavbar.css'
 import MobileSubNav from './MobileSubNav/MobileSubNav';
 import Link from 'next/link';
-import { url, useDisableBodyScroll } from '../../../utils/api';
+import { formatedPrice, url, useDisableBodyScroll } from '../../../utils/api';
 import Image from 'next/image';
 import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 // import ordersIcon from '../../../Assets/icons/order.png';
 import { useRouter } from 'next/navigation';
 import { IoIosClose } from "react-icons/io";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_data, headerOffer }) => {
 
@@ -19,6 +23,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
   const handleNavbarClose = () => {
     setMobileNavVisible(false)
   }
+  const {CalculateGrandTotal} = useGlobalContext()
 
 
   const { setUserToken } = useUserDashboardContext();
@@ -67,10 +72,70 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
   return (
     <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`} onClick={handleNavbarClose}>
       <div className={`mobile-nav-main-container`} onClick={(e) => e.stopPropagation()}>
-        <button className='mobile-nav-close' onClick={handleNavbarClose}>
+
+        <div className='mobile-nav-head'>
+          <div className='mobile-nav-head-container'>
+            <div className='mobile-nav-header-image-contianer'>
+              <Image src={'/Assets/Logo/fm-main-logo.png'} width={70} height={70} alt='main-logo' />
+            </div>
+            <div className='mobile-nav-header-llogin-signup'>
+              <Link href={'/my-account'}>Login / Signup</Link>
+            </div>
+            <div className='mobile-nav-header-arrow-container'>
+              <MdKeyboardArrowRight size={20} color='#595959' />
+
+            </div>
+          </div>
+
+          <div className='mobile-nav-cart-container'>
+            <div className='mobile-nav-cart-icon-and-total-container'>
+              <span >
+                <HiOutlineShoppingBag size={30} color='#FFFFFF' />
+              </span>
+              <div className='mobile-head-cart-total-container'>
+                <p>Cart Total Amount</p>
+                <h3>USD {CalculateGrandTotal()}</h3>
+              </div>
+            </div>
+            <div className='mobile-nav-head-total-price-arrow-container'>
+              <MdKeyboardArrowRight size={20} color='#FFFFFF' />
+            </div>
+          </div>
+        </div>
+
+        <div className='mobile-nav-links-container'>
+          {headerData.map((items, index) => (
+            <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} >
+              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                <p>{items.category}</p>
+              </div>
+              <span>
+                <MdKeyboardArrowRight size={20} color='#595959' />
+              </span>
+            </Link>
+          ))}
+        </div>
+
+
+        <div className='mobile-nav-footer-buttons'>
+          <button className='mobile-nav-store-locator-button'>
+            Store Locator
+          </button>
+          <button className='mobile-nav-wishlist-button'>
+            Store Locator
+          </button>
+        </div>
+
+
+
+
+        {/* <button className='mobile-nav-close' onClick={handleNavbarClose}>
           <IoIosClose className='mobile-nav-close-icon' />
-        </button>
-        <div className='mobile-nav-logo-section'>
+        </button> */}
+
+
+        {/* <div className='mobile-nav-logo-section'>
           <Link href={'/'}>
             <Image src={'/Assets/Logo/main-logo.png'} width={180} height={35} alt='website-logo' />
           </Link>
@@ -141,7 +206,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
 
       </div>

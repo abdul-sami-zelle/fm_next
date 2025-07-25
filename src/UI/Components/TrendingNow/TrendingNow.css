@@ -304,7 +304,8 @@
 
 @media only screen and (min-width: 781px) {
     .trending-now-main-container {
-        padding: var(--global-padding);
+        /* padding: var(--global-padding); */
+        padding: 0 60px 35px 60px;
     }
 
     .tranding-slider-and-categories {
@@ -388,7 +389,7 @@
 
     .trending-item-category img {
         width: 100%;
-        height: auto;
+        /* height: auto; */
         object-fit: cover;
         transition: transform 0.3s ease;
     }

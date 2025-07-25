@@ -30,6 +30,34 @@
   color: var(--text-primary);
 }
 
+.review-tab-address-field {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  justify-content: start;
+  height: 50px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+
+.review-tab-address-field>input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.review-tab-first-and-last-name-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
 /* Flouting */
 .floating-input-container {
   position: relative;
@@ -63,7 +91,7 @@
   padding: 0 4px;
 }
 
-.review-tab-form>label {
+.review-tab-first-and-last-name-container>label {
   display: flex;
   width: 100%;
   align-items: start;
@@ -74,7 +102,7 @@
   border-radius: 5px;
 }
 
-.review-tab-form>label>input {
+.review-tab-first-and-last-name-container>label>input {
   width: 100%;
   height: 100%;
   border: none;
@@ -117,8 +145,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--tertiary-color);
-  border: 1px solid var(--tertiary-color);
+  background-color: var(--orange-fill);
+  border: 1px solid var(--orange-fill);
   border-radius: 5px;
   color: #fff;
   font-size: var(--sub-section-size);
@@ -146,7 +174,13 @@
   .eview-tab-form>label {
     height: 35px;
   }
-  .review-tab-form>label>input {
+
+  .review-tab-first-and-last-name-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-tab-first-and-last-name-container>label>input {
     font-size: 12px;
   }
   .review-tab-main-container {
@@ -155,10 +189,16 @@
   .review-tab-main-container>h3 {
     font-size: 12px;
   }
-  .review-tab-form>label  {
+  .review-tab-first-and-last-name-container>label  {
     height: 35px;
   }
-  .review-tab-form>label>input {
+  .review-tab-address-field {
+    height: 35px;
+  }
+  .review-tab-address-field > input {
+    font-size: 10px;
+  }
+  .review-tab-first-and-last-name-container>label>input {
     font-size: 10px;
   }
   .review-tab-form {

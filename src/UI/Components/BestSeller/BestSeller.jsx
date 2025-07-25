@@ -21,6 +21,7 @@ import RatingReview from '../starRating/starRating';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
+import { BiSolidShoppingBag } from 'react-icons/bi';
 
 
 
@@ -255,7 +256,7 @@ const BestSeller = () => {
                                         </div>
                                         <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
-                                                <HiOutlineShoppingBag size={25} className='best-seller-cart-icon' />
+                                                <BiSolidShoppingBag size={25} className='best-seller-cart-icon' />
                                             </div>
                                         </div>
 

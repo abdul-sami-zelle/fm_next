@@ -48,22 +48,19 @@ const ProductCard = ({
         </div>
       </div>
       <div className="product-details">
-        <p
+        <Link
           className='product-detail-heading'
-          to={{pathname: `/product/${productData?.slug}`, state: productData}}
-          // onClick={() => handleCardClicked(productData)}
+          href={{ pathname: `/product/${productData?.slug}`, state: productData }}
         >
           {heading}
-        </p>
-        <Link 
+        </Link>
+        {/* <Link 
           className='product-detail-btn'
-          // onClick={() => handleCardClicked(productData)}
           href={{ pathname: `/product/${productData?.slug}`, state: productData }}
         >
           <div>{btnTxt}</div>
           <MdKeyboardArrowRight size={20} className='featured-product-button-arrow' />
-          {/* <Image src={'/Assets/icons/arrow-left-black.png'} width={15} height={15} alt="arrow left" /> */}
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

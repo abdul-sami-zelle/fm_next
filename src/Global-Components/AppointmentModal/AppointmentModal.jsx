@@ -101,6 +101,8 @@ const AppointmentModal = (
             Object.keys(appointmentPayload.details).forEach((field) => {
                 if (field === 'associate') return;
 
+                if(field === 'address') return
+
                 if (!appointmentPayload.details?.[field]?.trim()) {
                     newErrors[field] = `Required`;
                 }
@@ -148,6 +150,7 @@ const AppointmentModal = (
                 lastName: '',
                 email: '',
                 contact: '',
+                addess: '',
                 associate: ''
             }
         })
@@ -163,7 +166,7 @@ const AppointmentModal = (
                     <div className='appointment-modal-head-section'>
 
                         <div className='appointment-modal-head'>
-                            <SlCalender size={25} color='var(--tertiary-color)' />
+                            <SlCalender size={25} color='var(--orange-fill)' />
                             <p>Schedule a Consultation</p>
                         </div>
 

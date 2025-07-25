@@ -35,14 +35,14 @@ const FurnitureForBudget = ({ budgetCardData }) => {
                             <p 
                                 // style={{color: index !== 1 ? '#FFF' : 'var(--text-primary)'}}
                             >{items.sale}</p>
-                            <button
+                            {/* <button
                             onClick={()=>{
                                 navigateToDetails(items.uid,items.max_price,items.category)
                             }}
                             >
                                 {items.shopNow}
                                 <div className='shop-now-btn-under-line'></div>
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ))

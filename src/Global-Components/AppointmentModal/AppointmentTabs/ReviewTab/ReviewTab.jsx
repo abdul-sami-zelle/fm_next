@@ -27,21 +27,31 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
       
       <div className='review-tab-form'>
 
-        <label style={{border: error.firstName ? '1px solid var(--orange-outline)' : ''}}>
-          <input type='text' name='firstName' value={appointmentPayload.details.firstName} placeholder='First Name' onChange={handleUserDataChange} />
-        </label>
+        <div className='review-tab-first-and-last-name-container'>
+          <label style={{border: error.firstName ? '1px solid var(--orange-outline)' : ''}}>
+            <input type='text' name='firstName' value={appointmentPayload.details.firstName} placeholder='First Name' onChange={handleUserDataChange} />
+          </label>
 
-        <label style={{border: error.lastName ? '1px solid var(--orange-outline)' : ''}}>
-          <input type='text' name='lastName' value={appointmentPayload.details.lastName} placeholder='Last Name' onChange={handleUserDataChange} />
-        </label>
+          <label style={{border: error.lastName ? '1px solid var(--orange-outline)' : ''}}>
+            <input type='text' name='lastName' value={appointmentPayload.details.lastName} placeholder='Last Name' onChange={handleUserDataChange} />
+          </label>
+        </div>
 
-        <label style={{border: error.email ? '1px solid var(--orange-outline)' : ''}}>
-          <input type='text' name='email' value={appointmentPayload.details.email} placeholder='Email Address' onChange={handleUserDataChange} />
-        </label>
+        <div className='review-tab-first-and-last-name-container'>
+          <label style={{border: error.email ? '1px solid var(--orange-outline)' : ''}}>
+            <input type='text' name='email' value={appointmentPayload.details.email} placeholder='Email Address' onChange={handleUserDataChange} />
+          </label>
 
-        <label style={{border: error.contact ? '1px solid var(--orange-outline)' : ''}}>
-          <input type='text' name='contact' value={appointmentPayload.details.contact} placeholder='Contact Phone' onChange={handleUserDataChange} />
-        </label>
+          <label style={{border: error.contact ? '1px solid var(--orange-outline)' : ''}}>
+            <input type='text' name='contact' value={appointmentPayload.details.contact} placeholder='Contact Phone' onChange={handleUserDataChange} />
+          </label>
+          
+        </div>
+
+        <label className='review-tab-address-field'>
+            <input type='text' name='address' value={appointmentPayload.details.ddress} placeholder='Contact Phone' onChange={handleUserDataChange} />
+          </label> 
+
 
         <div className='confirm-associate-container'>
           <input 
@@ -53,7 +63,7 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
         </div>
 
         {isChecked && (
-          <label>
+          <label className='review-tab-address-field'>
             <input type='text' name='associate' value={appointmentPayload.details.associate} placeholder='Associate Name' onChange={handleUserDataChange} />
           </label>
         )}

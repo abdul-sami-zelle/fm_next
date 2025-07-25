@@ -306,7 +306,28 @@ export const MyOrdersProvider = ({ children }) => {
         }
     }
 
+    const [error, setError] = useState({
+            card_holder_name: '',
+            card_number: '',
+            expiry_date: '',
+            sec_code: '',
+        })
     const sendProducts = async () => {
+
+        // Basic validation for credit card fields
+        const missingFields = {};
+        if (!creditCardData.card_holder_name.trim()) missingFields.card_holder_name = 'Card holder name is required';
+        if (!creditCardData.card_number.trim()) missingFields.card_number = 'Card number is required';
+        if (!creditCardData.expiry_date.trim()) missingFields.expiry_date = 'Expiry date is required';
+        if (!creditCardData.sec_code.trim()) missingFields.sec_code = 'CVV is required';
+
+        // If there are any errors, set them and stop execution
+        if (Object.keys(missingFields).length > 0) {
+            setError(missingFields);
+            // setShowWarning(true);
+            return;
+        }
+
         try {
             setIsLoader(true);
             const updatedPayload = {
@@ -480,6 +501,8 @@ export const MyOrdersProvider = ({ children }) => {
             showWarning,
             setShowWarning,
             errorDetails,
+            error, 
+            setError,
         }}>
             {children}
         </MyOrderContext.Provider>

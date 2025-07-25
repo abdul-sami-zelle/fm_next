@@ -57,11 +57,11 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    /* width: 22px;
-    height: 22px;
+    width: max-content;
+    height: max-content;
     background-color: transparent;
     border: none;
-    outline: none; */
+    outline: none;
     cursor: pointer;
     z-index: 999;
 }

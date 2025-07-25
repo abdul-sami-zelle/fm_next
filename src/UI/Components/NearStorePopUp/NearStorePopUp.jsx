@@ -8,6 +8,7 @@ import { IoIosAdd } from "react-icons/io";
 import Link from 'next/link';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 
 const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
@@ -126,7 +127,8 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
                 <div className='pop-up-header'>
                     <span onClick={handleCloseNearBy}>
-                        <IoCloseOutline size={20} />
+                        {/* <IoCloseOutline size={20} /> */}
+                        <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='' />
                     </span>
                     <i onClick={handleFindStores}>
                         <svg

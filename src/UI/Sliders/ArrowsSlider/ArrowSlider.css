@@ -1,9 +1,10 @@
-.slider-container {
+.arrow-slider-container {
     position: relative;
     width: 100%;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    padding: 5px;
 
 }
 

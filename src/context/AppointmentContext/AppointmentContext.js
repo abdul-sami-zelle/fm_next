@@ -20,6 +20,7 @@ export const AppointmentProvider = ({ children }) => {
       lastName: '',
       email: '',
       contact: '',
+      address: '',
       associate: ''
     }
   })

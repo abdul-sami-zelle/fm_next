@@ -1,0 +1,24 @@
+.related-products-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+    gap: 15px;
+    padding: 35px 60px 0 60px;
+}
+
+.related-crds-slider-contaner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+    .related-products-main-container {
+        padding: 15px;
+        gap: 0;
+    }
+}

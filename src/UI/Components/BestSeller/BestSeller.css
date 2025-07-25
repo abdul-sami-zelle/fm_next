@@ -470,10 +470,12 @@
     background-color: #FFFFFF;
     border-radius: 0.625rem;
     cursor: pointer;
+    cursor: pointer;
+    border: 1px solid var(--orange-outline);
 }
 
 .best-seller-cart-icon {
-    color: var(--primary-color);
+    color: var(--orange-outline);
 }
 
 /* Slick Style */

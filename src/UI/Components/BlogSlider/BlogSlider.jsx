@@ -13,6 +13,8 @@ const BlogSlider = () => {
     blogs,
   } = useBlog()
 
+  console.log("blogs data", blogs);
+
   const handleNavigateToSingleBlog = (item) => {
     router.push(`/single-blog/${item.slug}`, { state: item })
   }
@@ -37,6 +39,8 @@ const BlogSlider = () => {
                 category={item?.category?.name}
                 title={item?.title}
                 createdBy={item?.author}
+                readTime={item.readTime}
+                totalViews={item.totalViews}
                 comments="4 comments"
                 date={26}
                 month="FEB"

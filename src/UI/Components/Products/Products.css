@@ -14,6 +14,14 @@
     /* margin-top: 5px; */
 }
 
+.select-your-category-products-heading {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+    font-weight: 600 !important;
+    margin: 0 0 0 10px;
+
+}
+
 .product-archive-sub-categories-container {
     display: flex;
     align-items: center;
@@ -1801,5 +1809,12 @@ label {
     }
     .mobile-product-not-found-container {
         display: flex;
+    }
+    .select-your-category-products-heading {
+        font-size: 15px !important;
+        margin: 15px 0 0 10px;
+    }
+    .products-main-container h3 {
+        margin: 15px 0 0 10px;
     }
 }

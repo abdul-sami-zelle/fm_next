@@ -441,7 +441,7 @@ const ProductDisplay = ({ params }) => {
           product={product}
         />
 
-        <DesignYourRoom data={recomandedProducts} firstChild={product} />
+        {/* <DesignYourRoom data={recomandedProducts} firstChild={product} /> */}
       </div>
 
       <ProductReviewTab

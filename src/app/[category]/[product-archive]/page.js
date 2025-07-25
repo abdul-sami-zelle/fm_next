@@ -9,6 +9,8 @@ import Products from '@/UI/Components/Products/Products';
 import RelatedCategories from '@/UI/Components/Related-categories-Tags/RelatedCategories';
 import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiveContext';
 import { usePathname } from 'next/navigation';
+import axios from 'axios';
+import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
 
 const ProductArchive = () => {
 
@@ -16,6 +18,29 @@ const ProductArchive = () => {
   const { activePage, setActivePage, setActivePageIndex, setColorValue } = useProductArchive()
   const pathname = usePathname();
   const hideSection = pathname.startsWith('/searched-products');
+  console.log("pathname", pathname)
+  const childSlug = pathname.split('/').filter(Boolean).pop();
+  const [relatedProducts, setRelatedProducts] = useState([])
+  const [hasProducts, setHasProducts] = useState(false)
+  const findRelatedProducts = async () => {
+    const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-best-selling/${childSlug}`;
+    try {
+      const response = await axios.get(api);
+      if(response.status === 200) {
+        setRelatedProducts(response.data.products);
+      }
+      if(response.data.products.length > 0 ) {
+        setHasProducts(true);
+      } else {
+        setHasProducts(false);
+      }
+      console.log("response related", response)
+    } catch (error) {
+      console.error("UnExpected Server Error", error);
+    }
+  }
+
+  useEffect(() => {findRelatedProducts()}, [childSlug])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
@@ -44,6 +69,9 @@ const ProductArchive = () => {
           navigationType={navigationType}
         />
       )}
+
+      {hasProducts && <RelatedProducts data={relatedProducts} />}
+
       {!hideSection && (
         <FAQ />
       )}

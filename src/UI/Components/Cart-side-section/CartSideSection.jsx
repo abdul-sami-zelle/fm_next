@@ -5,6 +5,7 @@ import { useCart } from '../../../context/cartContext/cartContext';
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { IoIosClose } from 'react-icons/io';
+import Image from 'next/image';
 
 const CartSideSection = (
     {
@@ -30,10 +31,10 @@ const CartSideSection = (
 
     return (
         <div className='cart-side-section-product'>
-            {/* <button className='cart-side-section-remove-btn' onClick={handleItemRemove}>
-                <img src={closeBtn} alt='close btn' />
-            </button> */}
-            <IoIosClose size={25} color='#595959' className='cart-side-section-remove-btn' onClick={handleItemRemove} />
+            <button className='cart-side-section-remove-btn' onClick={handleItemRemove}>
+                <Image src={'/icons/close-charcoal.svg'} width={10} height={10} alt='close btn' />
+            </button>
+            {/* <IoIosClose size={25} color='#595959' className='cart-side-section-remove-btn' onClick={handleItemRemove} /> */}
             <div className='cart-side-section-product-item-name'>
                 <h3>{productTitle}</h3>
             </div>

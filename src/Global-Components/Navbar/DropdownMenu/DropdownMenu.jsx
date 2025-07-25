@@ -48,7 +48,7 @@ const DropdownMenu = (
 
             <div className='nav-items-outer-container'>
                 <div className='menu-links'>
-                    <Link href={`/${parentCategorySlug}/shop-all-${parentCategorySlug}`} className='living-room-heading'>{`See All ${navHeading}`}</Link>
+                    <Link href={`/${parentCategorySlug}/shop-all-${parentCategorySlug}`} className='living-room-heading'>{`Shop All ${navHeading}`}</Link>
                     
                     <div className='mattresses-links-div'>
                         {chunkedNavData.map((chunk, columnIndex) => (

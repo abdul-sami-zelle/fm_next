@@ -12,8 +12,8 @@ const TypeTab = ({ selectedTab, setSelectedTab, handleServiceType, handleCategor
 
 
   const chatOptions = [
-    { id: 1, title: 'In-Store', serviceType: 'in-store', description: 'Select a showroom to meet with a Home Furnishing Consultant', icon: <IoStorefrontOutline size={20} color='var(--tertiary-color)' />},
-    { id: 2, title: 'Video Call', serviceType: 'video', description: 'Set up a video call with a local Home Furnishing Consultant', icon: <CiVideoOn size={20} color='var(--tertiary-color)' />}
+    { id: 1, title: 'In-Store', serviceType: 'in-store', description: 'Select a showroom to meet with a Home Furnishing Consultant', icon: <IoStorefrontOutline size={20} color='var(--orange-fill)' />},
+    { id: 2, title: 'Video Call', serviceType: 'video', description: 'Set up a video call with a local Home Furnishing Consultant', icon: <CiVideoOn size={20} color='var(--orange-fill)' />}
   ]
 
   const { appointmentPayload, parentCategories } = useAppointment()

@@ -59,3 +59,27 @@
     line-height: 15px;
     font-weight: 400;
 }
+
+@media only screen and (max-width: 480px) {
+    .tranding-blogs-main-section {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .tranding-blogs-main-section h3 {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+    .tranding-single-blog-card {
+        padding: 10px 0;
+        gap: 15px;
+    }
+    .tranding-blog-man-image  {
+        width: 50px;
+        height: 50px;
+    }
+    .tranding-blog-name {
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+    }
+}

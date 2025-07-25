@@ -12,6 +12,9 @@ import { url, formatDate } from '@/utils/api'
 import { useBlog } from '@/context/BlogsContext/blogsContext'
 import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
+import axios from 'axios'
+
+import { FaFacebook, FaYoutube, FaInstagramSquare , FaTiktok, FaEnvelope, } from "react-icons/fa";
 
 const SingleBlog = () => {
     const router = useRouter();
@@ -35,16 +38,17 @@ const SingleBlog = () => {
     }
 
 
+
     useEffect(() => {
         fetchBlogs(singleBlog?.category?._id)
     }, [])
 
     const socialLinks = [
-        { icon: '/Assets/icons/fb-icon.png', link: '#' },
-        { icon: '/Assets/icons/yt-icon.png', link: '#' },
-        { icon: '/Assets/icons/insta-icon.png', link: '#' },
-        { icon: '/Assets/icons/tik-tok-icon.png', link: '#' },
-        { icon: '/Assets/icons/main-icon.png', link: '#' },
+        { icon: FaFacebook, link: '#' },
+        { icon: FaYoutube, link: '#' },
+        { icon: FaInstagramSquare, link: '#' },
+        { icon: FaTiktok, link: '#' },
+        { icon: FaEnvelope, link: '#' },
     ]
 
     const filteredBlogs = blogs.filter((item) => item.slug !== singleBlog?.[0]?.slug);
@@ -66,6 +70,21 @@ const SingleBlog = () => {
     };
 
     const { beforeIndex, afterIndex } = getSurroundingBlogs(singleBlog.slug);
+
+    const updateBlogView = async () => {
+        const api = `${url}/api/v1/blogs/${singleBlog._id}/view`
+
+        try {
+            const response = await axios.put(api);
+            console.log("view response", response)
+        } catch (error) {
+            console.error("UnExpected Server Error", error);
+        }
+    }
+
+    useEffect(() => {
+        updateBlogView()
+    }, [singleBlog?._id])
 
 
     const navigateToSingleBlog = (item) => {
@@ -97,13 +116,15 @@ const SingleBlog = () => {
                         <div className='single-blog-social-icons'>
                             {socialLinks.map((items, index) => (
                                 <Link href={'#'} key={index} className='social-single-icon'>
-                                    <Image src={items.icon}
-                                        width={0}
-                                        height={0}
+                                    {<items.icon size={30} color='#595959'/>} 
+
+                                    {/* <Image src={items.icon}
+                                        width={25}
+                                        height={25}
                                         alt='social-icon'
                                         className='social-icon-img'
                                         style={{ width: 'auto', height: '20px' }}
-                                    />
+                                    /> */}
                                 </Link>
                             ))}
                         </div>

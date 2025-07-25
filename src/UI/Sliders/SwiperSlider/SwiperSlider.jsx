@@ -67,7 +67,7 @@ const SwiperSlider = ({
         <div className="slider-container">
             {showArrows && (
                 <button className={`arrow left`} onClick={handlePrev}>
-                    <IoIosArrowBack color='#FFF' size={20} />
+                    <IoIosArrowBack color='var(--orange-outline)' size={20} />
                 </button>
             )}
 
@@ -108,7 +108,7 @@ const SwiperSlider = ({
 
             {showArrows  && (
                 <button className={`arrow right`} onClick={handleNext}>
-                    <IoIosArrowForward size={20} color='#FFF' />
+                    <IoIosArrowForward size={20} color='var(--orange-outline)' />
                 </button>
             )}
 

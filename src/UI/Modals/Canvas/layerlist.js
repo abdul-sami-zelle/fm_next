@@ -258,9 +258,9 @@ const LayerList = ({ canvas, tools, onCheckout, selectedSofa }) => {
       flexDirection: 'column',
       height: '100%'
     }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
         <h3 style={{ margin: 0 }}>Design Panel</h3>
-      </div>
+      </div> */}
 
       {/* Layers Section */}
       {/* <div style={{ marginBottom: 20, borderBottom: '1px solid #e0e0e0', paddingBottom: 10 }}>
@@ -390,13 +390,14 @@ const LayerList = ({ canvas, tools, onCheckout, selectedSofa }) => {
             alignItems: 'center',
             cursor: 'pointer',
             marginBottom: 5,
+            marginTop:60,
             padding: '5px 10px',
             backgroundColor: '#f0f0f0',
             borderRadius: 4
           }}
           onClick={() => setShowBill(!showBill)}
         >
-          <h4 style={{ margin: 0 }}>Summary</h4>
+          <h4 style={{ margin: 0 }}>Summary  ({bill.length + (selectedSofa ? 1 : 0)})</h4>
           <span style={{ fontSize: '1.2em' }}>{showBill ? '−' : '+'}</span>
         </div>
         
@@ -406,7 +407,7 @@ const LayerList = ({ canvas, tools, onCheckout, selectedSofa }) => {
               padding: 0,
               listStyle: "none",
               marginBottom: 10,
-              maxHeight: 200,
+              maxHeight: 500,
               overflowY: 'auto'
             }}>
               {selectedSofa && (
@@ -489,7 +490,7 @@ const LayerList = ({ canvas, tools, onCheckout, selectedSofa }) => {
           }}
           disabled={bill.length === 0 && !selectedSofa}
         >
-          Add to cart ({bill.length + (selectedSofa ? 1 : 0)} Items)
+          Add To Cart
         </button>
       </div>
     </div>

@@ -79,11 +79,11 @@
     color: var(--text-primary);
 }
 
-.pop-up-header span{
+.pop-up-header span{ 
     right: 10px;
     top: 10px;
-    width: 20px;
-    height: 20px;
+    width: max-content;
+    height: max-content;
     position: absolute;
     cursor: pointer;
     color: var(--text-primary);

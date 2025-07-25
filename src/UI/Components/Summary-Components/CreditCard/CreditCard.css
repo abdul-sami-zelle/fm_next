@@ -46,6 +46,15 @@
     gap: 30px;
 }
 
+.error-border {
+  border: 1px solid var(--text-red) !important;
+}
+
+
+.error-message {
+    color: var(--text-red) !important;
+}
+
 @media only screen and (max-width: 480px){
     .credit-card-inputs {
         display: flex;

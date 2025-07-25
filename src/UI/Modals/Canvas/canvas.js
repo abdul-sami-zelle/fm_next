@@ -15,6 +15,16 @@ const CanvasApp = ({ data }) => {
   const [tools, setTools] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [canvasElements, setCanvasElements] = useState({
+    wall: null,
+    floor: null,
+    sofa: null,
+    wallArt: null,
+    centerTable: null,
+    endTable: null,
+    rug: null,
+    lamp: null
+  });
   const containerRef = useRef(null);
   const sofaRef = useRef(null);
   let lastSofaSrc = null;
@@ -40,8 +50,8 @@ const CanvasApp = ({ data }) => {
   const applyZoom = (zoom) => {
     if (canvas) {
       canvas.setZoom(zoom);
-      const canvasWidth = Math.min(containerSize.width * 0.7, 1200); // Limit max width
-      const canvasHeight = Math.min(containerSize.height * 0.8, 800); // Limit max height
+      const canvasWidth = Math.min(containerSize.width * 0.7, 1200);
+      const canvasHeight = Math.min(containerSize.height * 0.8, 800);
       canvas.setWidth(canvasWidth);
       canvas.setHeight(canvasHeight);
       canvas.renderAll();
@@ -91,117 +101,55 @@ const CanvasApp = ({ data }) => {
   }, [zoomLevel, canvas, containerSize]);
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
 
+  // Initialize empty canvas
   useEffect(() => {
-    const loadInitialImages = async () => {
-      if (canvasRef.current && containerSize.width > 0) {
-        const initCanvas = new Canvas(canvasRef.current, {
-          width: containerSize.width * 0.7,
-          height: containerSize.height * 0.8,
-          backgroundColor: '#fff',
-        });
+    const initEmptyCanvas = () => {
+      if (!canvasRef.current) return;
 
-        const wallSrc = `${baseURL}/uploads/Products/1753184712785_429_06.png`;
-        const floorSrc = `${baseURL}/uploads/Products/1751612646817_958_04.jpg`;
-        const sofaSrc = data.png_image;
-
-        setSelectedSofa(data)
-
-        await addImageToCanvas(wallSrc, {
-          left: 0,
-          top: 0,
-          targetWidthRatio: 1,
-          targetHeightRatio: 0.55,
-          selectable: false,
-          evented: false,
-        }, initCanvas);
-
-        await addImageToCanvas(floorSrc, {
-          left: 0,
-          top: initCanvas.getHeight() * 0.55,
-          targetWidthRatio: 1,
-          targetHeightRatio: 0.45,
-          selectable: false,
-          evented: false,
-        }, initCanvas);
-
-        if (data.cat == 'SSectional') {
-          const sofa = await addImageToCanvas(sofaSrc, {
-            left: initCanvas.getWidth() * 0.18,
-            top: initCanvas.getHeight() * 0.37,
-            targetWidthRatio: 0.69,
-            targetHeightRatio: 0.47,
-          }, initCanvas)
-
-          if (sofa) {
-            setIsSectionals(true)
-            initCanvas.remove(sofa);
-            initCanvas.add(sofa);
-            sofaRef.current = sofa;
-          }
-        }
-        else if (data.cat == 'RSectional') {
-          const sofa = await addImageToCanvas(sofaSrc, {
-            left: initCanvas.getWidth() * 0.12,
-            top: initCanvas.getHeight() * 0.37,
-            targetWidthRatio: 0.77,
-            targetHeightRatio: 0.40,
-          }, initCanvas)
-
-          if (sofa) {
-            setReclining(true)
-            initCanvas.remove(sofa);
-            initCanvas.add(sofa);
-            sofaRef.current = sofa;
-          }
-        }
-        else if (data.cat == 'RSofanlove') {
-          const sofa = await addImageToCanvas(sofaSrc, {
-            left: initCanvas.getWidth() * 0.10,
-            top: initCanvas.getHeight() * 0.31,
-            targetWidthRatio: 0.77,
-            targetHeightRatio: 0.47,
-          }, initCanvas)
-
-          if (sofa) {
-            setRecliningNonSectional(true)
-            setReclining(false)
-            setIsSectionals(false)
-            initCanvas.remove(sofa);
-            initCanvas.add(sofa);
-            sofaRef.current = sofa;
-          }
-        }
-        else {
-          const sofa = await addImageToCanvas(sofaSrc, {
-            left: initCanvas.getWidth() * 0.10,
-            top: initCanvas.getHeight() * 0.22,
-            targetWidthRatio: 0.77,
-            targetHeightRatio: 0.62,
-          }, initCanvas)
-
-          if (sofa) {
-            initCanvas.remove(sofa);
-            initCanvas.add(sofa);
-            sofaRef.current = sofa;
-          }
-        }
-
-        initCanvas.renderAll();
-        setCanvas(initCanvas);
+      // Dispose existing canvas if it exists
+      if (canvas) {
+        canvas.dispose();
       }
+
+      const canvasWidth = Math.max(containerSize.width * 0.7, 800);
+      const canvasHeight = Math.max(containerSize.height * 0.8, 600);
+      
+      const initCanvas = new Canvas(canvasRef.current, {
+        width: canvasWidth,
+        height: canvasHeight,
+        backgroundColor: '#fff',
+      });
+
+      setCanvas(initCanvas);
+      initCanvas.renderAll();
     };
 
-    loadInitialImages();
-  }, [containerSize, data]);
+    if (containerSize.width > 0) {
+      initEmptyCanvas();
+    }
+
+    return () => {
+      if (canvas) {
+        canvas.dispose();
+      }
+    };
+  }, [containerSize]);
 
   const getProducts = () => {
     fetch(`${baseURL}/api/v1/mega/get`)
       .then((res) => res.json())
-      .then((data) => {
-        const updatedTools = data.map(section => {
+      .then((res) => {
+        const arr = res;
+        const newSection = {
+          section: "Product",
+          items: [data]
+        };
+        arr.splice(4, 0, newSection);
+        
+        const updatedTools = arr.map(section => {
           if (section.section === "Wall") {
             return {
               ...section,
@@ -219,6 +167,41 @@ const CanvasApp = ({ data }) => {
                 onClick: 'addFloor',
               }))
             };
+          }
+          if (section.section === 'Product') {
+            if (data.cat === 'SSofanlove') {
+              return {
+                ...section,
+                items: section.items.map(item => ({
+                  ...item,
+                  onClick: 'addloveSeatImage',
+                }))
+              };
+            } else if (data.cat === 'RSofanlove') {
+              return {
+                ...section,
+                items: section.items.map(item => ({
+                  ...item,
+                  onClick: 'addSofaImage',
+                }))
+              };
+            } else if (data.cat === 'RSectional') {
+              return {
+                ...section,
+                items: section.items.map(item => ({
+                  ...item,
+                  onClick: 'addReclinerSofaImage',
+                }))
+              };
+            } else if (data.cat === 'SSectional') {
+              return {
+                ...section,
+                items: section.items.map(item => ({
+                  ...item,
+                  onClick: 'addSectionalImage',
+                }))
+              };
+            }
           }
           if (section.section === "Wall Art") {
             return {
@@ -273,11 +256,17 @@ const CanvasApp = ({ data }) => {
       .catch((error) => console.error("API error:", error));
   };
 
-  const addImageToCanvas = async (src, config = {}, canvasOverride = null) => {
+  const addImageToCanvas = async (src, config = {}, canvasOverride = null, elementType = null) => {
     const activeCanvas = canvasOverride || canvas;
     if (!activeCanvas) return null;
 
     try {
+      // Remove previous element of this type if it exists
+      if (elementType && canvasElements[elementType]) {
+        activeCanvas.remove(canvasElements[elementType]);
+        setCanvasElements(prev => ({ ...prev, [elementType]: null }));
+      }
+
       const fullSrc = src.startsWith('http')
         ? src
         : `https://roomapi.myfurnituremecca.com${src}`;
@@ -308,6 +297,12 @@ const CanvasApp = ({ data }) => {
 
       activeCanvas.add(img);
       activeCanvas.renderAll();
+
+      // Update the element tracking if this is a tracked type
+      if (elementType) {
+        setCanvasElements(prev => ({ ...prev, [elementType]: img }));
+      }
+
       return img;
     } catch (error) {
       console.error(`Failed to load image: ${src}`, error);
@@ -320,6 +315,11 @@ const CanvasApp = ({ data }) => {
   const handlers = {
     addPaintedWall: () => {
       if (!canvas) return;
+
+      // Remove previous wall if it exists
+      if (canvasElements.wall) {
+        canvas.remove(canvasElements.wall);
+      }
 
       const wall = new Rect({
         left: 0,
@@ -334,6 +334,7 @@ const CanvasApp = ({ data }) => {
 
       paintedWallRef = wall;
       canvas.add(wall);
+      setCanvasElements(prev => ({ ...prev, wall }));
       canvas.renderAll();
     },
     addWall: (src) => addImageToCanvas(src, {
@@ -343,67 +344,59 @@ const CanvasApp = ({ data }) => {
       targetHeightRatio: 0.55,
       selectable: false,
       evented: false,
-    }),
+    }, null, 'wall'),
 
-    addFloor: (src) => {
-      addImageToCanvas(src, {
-        left: 0,
-        top: canvas?.getHeight() * 0.55,
-        targetWidthRatio: 1,
-        targetHeightRatio: 0.45,
-        selectable: false,
-        evented: false,
-      })
-    },
+    addFloor: (src) => addImageToCanvas(src, {
+      left: 0,
+      top: canvas?.getHeight() * 0.55,
+      targetWidthRatio: 1,
+      targetHeightRatio: 0.45,
+      selectable: false,
+      evented: false,
+    }, null, 'floor'),
 
     addSofaImage: (src) => {
       setRecliningNonSectional(true);
-      setReclining(false)
-      setIsSectionals(false)
-      addImageToCanvas(src, {
+      setReclining(false);
+      setIsSectionals(false);
+      return addImageToCanvas(src, {
         left: canvas?.getWidth() * 0.10,
-        top: canvas?.getHeight() * 0.31,
+        top: canvas?.getHeight() * 0.27,
         targetWidthRatio: 0.77,
-        targetHeightRatio: 0.47,
-      })
+        targetHeightRatio: 0.55,
+      }, null, 'sofa');
     },
     addSectionalImage: (src) => {
       setIsSectionals(true);
-      addImageToCanvas(src, {
+      return addImageToCanvas(src, {
         left: canvas?.getWidth() * 0.18,
         top: canvas?.getHeight() * 0.37,
         targetWidthRatio: 0.69,
         targetHeightRatio: 0.47,
-      })
+      }, null, 'sofa');
     },
-
     addReclinerSofaImage: (src) => {
       setIsSectionals(false);
       setReclining(true);
-      addImageToCanvas(src, {
-        left: canvas?.getWidth() * 0.12,
-        top: canvas?.getHeight() * 0.37,
-        targetWidthRatio: 0.77,
-        targetHeightRatio: 0.40,
-      })
+      return addImageToCanvas(src, {
+        left: canvas?.getWidth() * 0.07,
+        top: canvas?.getHeight() * 0.28,
+        targetWidthRatio: 0.87,
+        targetHeightRatio: 0.57,
+      }, null, 'sofa');
     },
     addloveSeatImage: (src) => addImageToCanvas(src, {
       left: canvas?.getWidth() * 0.10,
-      top: canvas?.getHeight() * 0.22,
+      top: canvas?.getHeight() * 0.25,
       targetWidthRatio: 0.77,
       targetHeightRatio: 0.62,
-    }),
-    addwallfram: (src) => {
-      const canvasWidth = canvas?.getWidth() ?? 1000;
-      const canvasHeight = canvas?.getHeight() ?? 600;
-
-      addImageToCanvas(src, {
-        left: canvasWidth * 0.39,
-        top: canvasHeight * 0.04,
-        targetWidthRatio: 0.23,
-        targetHeightRatio: 0.23,
-      });
-    },
+    }, null, 'sofa'),
+    addwallfram: (src) => addImageToCanvas(src, {
+      left: canvas?.getWidth() * 0.39,
+      top: canvas?.getHeight() * 0.04,
+      targetWidthRatio: 0.23,
+      targetHeightRatio: 0.23,
+    }, null, 'wallArt'),
     addCenterTableImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -417,24 +410,21 @@ const CanvasApp = ({ data }) => {
           targetWidthRatio: 0.40,
           targetHeightRatio: 0.4,
         };
-      }
-      else if (reclining) {
+      } else if (reclining) {
         style = {
           left: canvasWidth * 0.33,
           top: canvasHeight * 0.57,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.35,
         };
-      }
-      else if (isRecliningNonSectional) {
+      } else if (isRecliningNonSectional) {
         style = {
           left: canvasWidth * 0.35,
           top: canvasHeight * 0.55,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.32,
         };
-      }
-      else {
+      } else {
         style = {
           left: canvasWidth * 0.35,
           top: canvasHeight * 0.52,
@@ -443,66 +433,26 @@ const CanvasApp = ({ data }) => {
         };
       }
 
-      addImageToCanvas(src, style);
+      return addImageToCanvas(src, style, null, 'centerTable');
     },
-    addHadaskyCoffeetable: (src) => {
-      const canvasWidth = canvas?.getWidth() ?? 1000;
-      const canvasHeight = canvas?.getHeight() ?? 600;
-
-      addImageToCanvas(src, {
-        left: canvasWidth * 0.22,
-        top: canvasHeight * 0.46,
-        targetWidthRatio: 0.55,
-        targetHeightRatio: 0.35,
-      });
-    },
-
-    addFLEMINGCOFFEETABLE: (src) => {
-      const canvasWidth = canvas?.getWidth() ?? 1000;
-      const canvasHeight = canvas?.getHeight() ?? 600;
-
-      addImageToCanvas(src, {
-        left: canvasWidth * 0.28,
-        top: canvasHeight * 0.43,
-        targetWidthRatio: 0.42,
-        targetHeightRatio: 0.43,
-      });
-    },
-
-    addRugImage: async (src) => {
-      const canvasWidth = canvas?.getWidth() ?? 1000;
-      const canvasHeight = canvas?.getHeight() ?? 600;
-
-      let style = {
-        left: canvasWidth * 0.03,
-        top: canvasHeight * 0.65,
-        targetWidthRatio: 0.93,
-        targetHeightRatio: 0.32,
-      };
-
-      if (reclining) {
-        style.top = canvasHeight * 0.70;
-      }
-
-      const sofa = sofaRef.current;
-      if (sofa && canvas) {
-        canvas.remove(sofa);
-      }
-
-      await addImageToCanvas(src, style);
-
-      if (sofa && canvas) {
-        canvas.add(sofa);
-        sofa.moveTo(Infinity);
-        canvas.requestRenderAll();
-      }
-
-      addImageToCanvas(src, style).then(() => {
-        if (lastSofaSrc) {
-          handlers.addSofaImage(lastSofaSrc);
-        }
-      });
-    },
+    addHadaskyCoffeetable: (src) => addImageToCanvas(src, {
+      left: canvas?.getWidth() * 0.22,
+      top: canvas?.getHeight() * 0.46,
+      targetWidthRatio: 0.55,
+      targetHeightRatio: 0.35,
+    }, null, 'centerTable'),
+    addFLEMINGCOFFEETABLE: (src) => addImageToCanvas(src, {
+      left: canvas?.getWidth() * 0.28,
+      top: canvas?.getHeight() * 0.43,
+      targetWidthRatio: 0.42,
+      targetHeightRatio: 0.43,
+    }, null, 'centerTable'),
+    addRugImage: (src) => addImageToCanvas(src, {
+      left: canvas?.getWidth() * 0.03,
+      top: reclining ? canvas?.getHeight() * 0.70 : canvas?.getHeight() * 0.65,
+      targetWidthRatio: 0.93,
+      targetHeightRatio: 0.32,
+    }, null, 'rug'),
     addLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -512,28 +462,25 @@ const CanvasApp = ({ data }) => {
       if (isSectionalSelected) {
         style = {
           left: canvasWidth * 0.07,
-          top: canvasHeight * 0.20,
+          top: canvasHeight * 0.16,
           targetWidthRatio: 0.12,
           targetHeightRatio: 0.29,
         };
-      }
-      else if (isRecliningNonSectional) {
+      } else if (isRecliningNonSectional) {
         style = {
           left: canvasWidth * 0.85,
-          top: canvasHeight * 0.33,
+          top: canvasHeight * 0.31,
           targetWidthRatio: 0.10,
           targetHeightRatio: 0.25,
         };
-      }
-      else if (reclining) {
+      } else if (reclining) {
         style = {
           left: canvasWidth * 0.87,
           top: canvasHeight * 0.33,
           targetWidthRatio: 0.10,
           targetHeightRatio: 0.25,
         };
-      }
-      else {
+      } else {
         style = {
           left: canvasWidth * 0.87,
           top: canvasHeight * 0.28,
@@ -542,9 +489,8 @@ const CanvasApp = ({ data }) => {
         };
       }
 
-      addImageToCanvas(src, style);
+      return addImageToCanvas(src, style, null, 'lamp');
     },
-
     addSmailLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -558,24 +504,21 @@ const CanvasApp = ({ data }) => {
           targetWidthRatio: 0.32,
           targetHeightRatio: 0.30,
         };
-      }
-      else if (reclining) {
+      } else if (reclining) {
         style = {
           left: canvasWidth * 0.76,
           top: canvasHeight * 0.33,
           targetWidthRatio: 0.32,
           targetHeightRatio: 0.28,
         };
-      }
-      else if (isRecliningNonSectional) {
+      } else if (isRecliningNonSectional) {
         style = {
           left: canvasWidth * 0.74,
           top: canvasHeight * 0.31,
           targetWidthRatio: 0.32,
           targetHeightRatio: 0.30,
         };
-      }
-      else {
+      } else {
         style = {
           left: canvasWidth * 0.78,
           top: canvasHeight * 0.27,
@@ -584,34 +527,14 @@ const CanvasApp = ({ data }) => {
         };
       }
 
-      addImageToCanvas(src, style);
+      return addImageToCanvas(src, style, null, 'lamp');
     },
-
-    addFloorLampImage: (src) => {
-      const canvasWidth = canvas?.getWidth() ?? 1000;
-      const canvasHeight = canvas?.getHeight() ?? 600;
-
-      let style;
-
-      if (isSectionalSelected) {
-        style = {
-          left: canvasWidth * 0.82,
-          top: canvasHeight * 0.09,
-          targetWidthRatio: 0.18,
-          targetHeightRatio: 0.65,
-        };
-      } else {
-        style = {
-          left: canvasWidth * -0.01,
-          top: canvasHeight * 0.18,
-          targetWidthRatio: 0.15,
-          targetHeightRatio: 0.60,
-        };
-      }
-
-      addImageToCanvas(src, style);
-    },
-
+    addFloorLampImage: (src) => addImageToCanvas(src, {
+      left: isSectionalSelected ? canvas?.getWidth() * 0.82 : canvas?.getWidth() * -0.01,
+      top: isSectionalSelected ? canvas?.getHeight() * 0.09 : canvas?.getHeight() * 0.18,
+      targetWidthRatio: isSectionalSelected ? 0.18 : 0.15,
+      targetHeightRatio: isSectionalSelected ? 0.65 : 0.60,
+    }, null, 'lamp'),
     addEndTableImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -625,33 +548,30 @@ const CanvasApp = ({ data }) => {
           targetWidthRatio: 0.2,
           targetHeightRatio: 0.3,
         };
-      }
-      else if (reclining) {
+      } else if (reclining) {
         style = {
           left: canvasWidth * 0.83,
           top: canvasHeight * 0.53,
           targetWidthRatio: 0.17,
           targetHeightRatio: 0.32,
         };
-      }
-      else if (isRecliningNonSectional) {
+      } else if (isRecliningNonSectional) {
         style = {
           left: canvasWidth * 0.80,
-          top: canvasHeight * 0.53,
+          top: canvasHeight * 0.52,
           targetWidthRatio: 0.19,
-          targetHeightRatio: 0.35,
+          targetHeightRatio: 0.27,
         };
-      }
-      else {
+      } else {
         style = {
-          left: canvasWidth * 0.82,
+          left: canvasWidth * 0.83,
           top: canvasHeight * 0.47,
           targetWidthRatio: 0.22,
-          targetHeightRatio: 0.36,
+          targetHeightRatio: 0.30,
         };
       }
 
-      addImageToCanvas(src, style);
+      return addImageToCanvas(src, style, null, 'endTable');
     }
   };
 
@@ -665,13 +585,14 @@ const CanvasApp = ({ data }) => {
       className="editor-container" 
       style={{ 
         display: 'flex',
+        alignSelf:'center',
         flexDirection: 'row',
-        height: '100vh',
-        width: '100vw',
+        height: '90vh',
+        width: '95vw',
         overflow: 'hidden',
-        position: 'fixed',
-        top: 0,
-        left: 0
+        // position: 'fixed',
+        // top: 0,
+        // left: 0
       }}
     >
       {/* Toolbar - Fixed width, scrollable content */}
@@ -686,7 +607,7 @@ const CanvasApp = ({ data }) => {
         boxSizing: 'border-box'
       }}>
         {/* Zoom controls */}
-        <div style={{
+        {/* <div style={{
           display: 'flex',
           gap: '6px',
           marginBottom: '12px',
@@ -716,30 +637,96 @@ const CanvasApp = ({ data }) => {
             cursor: 'pointer',
             fontSize: '0.7rem'
           }}>Reset</button>
-        </div>
+        </div> */}
 
-        <div>
-          <select
-            value={activeCategory}
-            onChange={(e) => setActiveCategory(e.target.value)}
-            style={{
-              padding: '6px 10px',
-              fontSize: '0.9rem',
-              borderRadius: '8px',
-              marginBottom: '10px',
-              border: '1px solid #ccc',
-              outline: 'none',
-              width: '100%',
-            }}
-          >
-            {tools?.map((toolSection) => (
-              <option key={toolSection.section} value={toolSection.section}>
-                {toolSection.section}
-              </option>
-            ))}
-          </select>
-        </div>
+<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+  {tools?.map((toolSection) => (
+    <button
+      key={toolSection.section}
+      onClick={() => {
+        setActiveCategory(toolSection.section);
+        
+        // Clear canvas based on selected section
+        if (canvas) {
+          // Get all objects from canvas
+          const objects = canvas.getObjects();
+          
+          // Filter objects to keep based on section
+          const objectsToRemove = objects.filter(obj => {
+            // Always keep walls
+            if (obj === canvasElements.wall) return false;
 
+            switch (toolSection.section) {
+              case 'Wall':
+                // Keep only wall and wall art
+                return obj !== canvasElements.wall
+              
+              case 'Floor':
+                // Keep wall, floor, and wall art
+                return obj !== canvasElements.wall && 
+                       obj !== canvasElements.floor;
+              
+              case 'Rugs':
+                // Keep wall, floor, wall art, and rug
+                return obj !== canvasElements.wall && 
+                       obj !== canvasElements.floor && 
+                       obj !== canvasElements.wallArt &&
+                       obj !== canvasElements.rug;
+              
+              case 'Product':
+                // Keep wall, floor, wall art, rug, and product (sofa)
+                return obj !== canvasElements.wall && 
+                       obj !== canvasElements.floor && 
+                       obj !== canvasElements.wallArt &&
+                       obj !== canvasElements.rug && 
+                       obj !== canvasElements.sofa;
+              
+              case 'Coffee Tables':
+                // Keep wall, floor, wall art, rug, product, and coffee tables
+                return obj !== canvasElements.wall && 
+                       obj !== canvasElements.floor && 
+                       obj !== canvasElements.wallArt &&
+                       obj !== canvasElements.rug && 
+                       obj !== canvasElements.sofa &&
+                       obj !== canvasElements.centerTable;
+              
+              case 'End Tables':
+                // Keep wall, floor, wall art, rug, product, coffee tables, and end tables
+                return obj !== canvasElements.wall && 
+                       obj !== canvasElements.floor && 
+                       obj !== canvasElements.wallArt &&
+                       obj !== canvasElements.rug && 
+                       obj !== canvasElements.sofa &&
+                       obj !== canvasElements.centerTable &&
+                       obj !== canvasElements.endTable;
+              
+              default:
+                // For other sections, keep everything
+                return false;
+            }
+          });
+
+          // Remove filtered objects
+          objectsToRemove.forEach(obj => canvas.remove(obj));
+          canvas.renderAll();
+        }
+      }}
+      style={{
+        padding: '6px 10px',
+        fontSize: '0.9rem',
+        borderRadius: '8px',
+        border: '1px solid #ccc',
+        outline: 'none',
+        width: '100%',
+        textAlign: 'left',
+        backgroundColor: activeCategory === toolSection.section ? '#f0f0f0' : 'white',
+        cursor: 'pointer',
+      }}
+    >
+      {toolSection.section}
+    </button>
+  ))}
+</div>
         {/* Items grid */}
         <div style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '12px' }}>
           <h4 style={{
@@ -774,27 +761,23 @@ const CanvasApp = ({ data }) => {
                     }}
                     style={{
                       width: '150px',
-                      // height: '150px',
                       backgroundColor: item.name === 'Painted Wall' ? paintedWallColor : 'transparent',
                       borderRadius: '4px',
                       border: '1px solid #000',
                       cursor: 'pointer'
                     }}
                   >
-                    {item.name === 'Painted Wall' ? null
-                      :
+                    {item.name === 'Painted Wall' ? null : (
                       <img
                         src={item.png_image ? `${baseURL}${item.png_image}` : `${baseURL}${item.image}`}
                         alt={item.name}
                         style={{
                           width: '150px',
                           height: item.price === 'Not Aplicable' ? '150px' : '100px',
-                          // objectFit:'fill',
-                          // objectFit: item?.type && item.type == 'lamp' ? 'contain' : 'fill',
                           borderRadius: '4px',
                         }}
                       />
-                    }
+                    )}
                   </button>
                   <div style={{
                     fontSize: '0.7rem',
@@ -803,22 +786,50 @@ const CanvasApp = ({ data }) => {
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    width:'150px',
-                    display:'flex',
-                    alignSelf:'center',
-                    marginLeft:'40px'
+                    width: '150px',
+                    display: 'flex',
+                    alignSelf: 'center',
+                    marginLeft: '40px'
                   }}>
                     {item.name}
                   </div>
-                  {item.price === 'Not Aplicable' ? null :
+                  {item.price === 'Not Aplicable' ? null : (
                     <div style={{
-                      fontSize: '0.7rem',
-                      color: '#2c3e50',
-                      fontWeight: '600'
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginLeft: '40px',
+                      gap: '4px',
+                      marginBottom: '4px'
                     }}>
-                      ${item.price ? item.price : item.sale_price}
+                      {item.sale_price && item.sale_price !== item.regular_price ? (
+                        <>
+                          <span style={{
+                            fontSize: '0.8rem',
+                            color: '#2c3e50',
+                            fontWeight: '800'
+                          }}>
+                            ${item.sale_price}
+                          </span>
+                          <span style={{
+                            fontSize: '0.6rem',
+                            color: '#999',
+                            textDecoration: 'line-through',
+                            fontWeight: '400'
+                          }}>
+                            ${item.regular_price}
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{
+                          fontSize: '0.7rem',
+                          color: '#2c3e50',
+                          fontWeight: '600'
+                        }}>
+                          ${item.regular_price}
+                        </span>
+                      )}
                     </div>
-                  }
+                  )}
                 </div>
               ))}
           </div>
@@ -827,14 +838,14 @@ const CanvasApp = ({ data }) => {
 
       {/* Canvas area - Flexible width */}
       <div style={{
-        flex: 1,
-        padding: '12px',
-        overflow: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        boxSizing: 'border-box'
+        // flex: 1,
+        // padding: '12px',
+        // overflow: 'auto',
+        // display: 'flex',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // height: '100%',
+        // boxSizing: 'border-box'
       }}>
         <canvas
           ref={canvasRef}
@@ -865,5 +876,3 @@ const CanvasApp = ({ data }) => {
 };
 
 export default CanvasApp;
-
-

@@ -117,6 +117,7 @@ const Products = ({ navigationType }) => {
     const categorySlug = useParams();
     const parentCategory = categorySlug.category
 
+
     const getSubCategories = async () => {
 
         const api = `/api/v1/sub-category/get/${parentCategory}`
@@ -591,9 +592,6 @@ const Products = ({ navigationType }) => {
         }
     };
 
-
-
-
     const handleActiveGrid = (grid) => {
         setActiveGrid(grid);
         setSelectedGrid(grid)
@@ -670,12 +668,6 @@ const Products = ({ navigationType }) => {
 
     }, [location.search]);
 
-
-
-    console.log("no product state value", noProducts)
-
-
-
     // Disable Scroll on Modal Open
     useDisableBodyScroll(
         isInfoOpen,
@@ -683,11 +675,19 @@ const Products = ({ navigationType }) => {
         showSortModal
     )
 
-
     return (
         <div className='products-main-container'>
             {/* <Breadcrumb category={products.categories} /> */}
             {loader && <Loader />}
+            {/* <h3 className='select-your-category-products-heading'>Select Your {subCategorySlug.replace(/-/g, ' ').toUpperCase()}</h3> */}
+            <h3>
+                Select Your{" "}
+                {decodeURIComponent(subCategorySlug)
+                    .toLowerCase()
+                    .split('-')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ')}
+            </h3>
             <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
                 {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
                     <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>
@@ -985,7 +985,7 @@ const Products = ({ navigationType }) => {
                 </div>
                 {noProducts ? (
                     <div className='mobile-product-not-found-container'>
-                       
+
                         <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='no found' />
                         <h3>No Products Found</h3>
                         <p>Your search did not match any product.</p>

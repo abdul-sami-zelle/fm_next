@@ -4,6 +4,7 @@ import { url } from '../../../utils/api';
 import Image from 'next/image';
 import RatingReview from '../starRating/starRating';
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { FaRegClock } from "react-icons/fa";
 
 const BlogCard = (
     {
@@ -13,8 +14,12 @@ const BlogCard = (
         navigateToSingleBlog,
         date,
         month,
-        start
+        start,
+        totalViews,
+        readTime,
     }) => {
+
+        console.log("read time", readTime);
     
 
   return (
@@ -31,14 +36,13 @@ const BlogCard = (
                 <h3>{title}</h3>
                 <div className='blog-created-by-and-comments'>
                     <div className='blog-star-rating'>
-                        <RatingReview rating={5} disabled={true} size={"10px"} />
-                        (200)
+                        <FaRegClock size={10} color='#595959' />
+                         {readTime} min
                     </div>
-                    <span className='mobile-view-blog-card-author'>By: <p>Furniture Mecca</p></span>
-                    <p>{comments}</p>
+                    <p>{totalViews} Views</p>
                 </div>
             </div>
-            <div className='blog-para-and-see-more'>
+            {/* <div className='blog-para-and-see-more'>
                 <p>
                 {start?.length > 200 ? `${start.substring(0, 200)}...` : start}
                 </p>
@@ -46,7 +50,7 @@ const BlogCard = (
                     Read more
                     <MdKeyboardArrowRight size={20} className='blog-card-button-arrow' />
                 </button>
-            </div>
+            </div> */}
         </div> 
     </>
   )

@@ -63,7 +63,7 @@ const ArrowSlider = ({
     };
 
     return (
-        <div className="slider-container">
+        <div className="arrow-slider-container">
             {showArrows && slidesData.length > 4 && (
                 <button className={`slider-arrow slider-left`} onClick={handlePrev}>
                     <IoIosArrowBack color='#FFF' size={20} />

@@ -178,7 +178,7 @@
 }
 
 .appointment-modal-tab-btn.selected-tab {
-    background-color: var(--tertiary-color);
+    background-color: var(--orange-fill);
     color: #fff;
     cursor: pointer;
 }

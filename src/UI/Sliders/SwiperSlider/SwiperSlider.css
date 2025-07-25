@@ -36,9 +36,10 @@
     top: 50%;
     z-index: 10;
     /* background: rgba(0, 0, 0, 0.5); */
-    background-color: var(--orange-fill);
+    /* background-color: var(--orange-fill); */
+    background-color: transparent;
     color: white;
-    border: none;
+    border: 1px solid var(--orange-outline);
     width: 35px;
     height: 35px;
     font-size: 25px;

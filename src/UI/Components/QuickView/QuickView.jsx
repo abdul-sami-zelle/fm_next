@@ -20,6 +20,7 @@ import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
+import Image from 'next/image';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
@@ -163,11 +164,11 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 className={`quick-view-main ${quickViewShow ? 'slide-quick-view-inner-modal' : ''}`}
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* <button className='quick-view-close-modal-button' onClick={quickViewClose}>
-                    <img src={'/Assets/icons/close-btn.png'} alt='close' />
-                </button> */}
+                <button className='quick-view-close-modal-button' onClick={quickViewClose}>
+                    <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='close' />
+                </button>
 
-                <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose} />
+                {/* <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose} /> */}
 
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>

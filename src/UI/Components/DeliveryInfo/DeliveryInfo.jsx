@@ -10,6 +10,7 @@ import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { LiaShippingFastSolid } from "react-icons/lia"
 import { BsShop } from "react-icons/bs";
 import { useCart } from '@/context/cartContext/cartContext';
+import LocationPopUp from '../LocationPopUp/LocationPopUp';
 
 const DeliveryInfo = forwardRef((props, ref) => {
 
@@ -26,7 +27,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
     const cityRef = useRef(null)
     const stateRef = useRef(null)
     const postalCodeRef = useRef(null)
-    const [editZip, setEditZip] = useState(true)
+    const [editZip, setEditZip] = useState(false)
     const [isStarted, setIsStarted] = useState(false);
 
     const [userId, setUserId] = useState('');
@@ -92,6 +93,17 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
     const { subTotal } = useCart()
 
+    const [locationDetails, setLocationDetails] = useState({
+        zipCode: '',
+        city: '',
+        state: '',
+        country: ''
+    });
+
+    const handleCloseSearch = () => {
+        setEditZip(false)
+    }
+
     useEffect(() => {
         const id = localStorage.getItem('uuid');
         const token = localStorage.getItem('userToken');
@@ -107,7 +119,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
         if (shippingMethods) {
             getShippingMethods(subTotal, shippingMethods['shippingMethods']);
         }
-    }, []); 
+    }, []);
 
     useEffect(() => {
         if (shippingMethods) {
@@ -262,7 +274,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div className='delivery-info-email-and-phone'>
 
-                    
+
 
                     <div
                         onClick={() => phoneRef.current?.focus()}
@@ -374,7 +386,8 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             value={orderPayload.billing?.postal_code}
                             onChange={handleZipCodeChange}
                             maxLength={5}
-                            readOnly={editZip}
+                            // readOnly={editZip}
+                            readOnly
                         />
 
 
@@ -436,6 +449,13 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
             </div>
+
+            <LocationPopUp
+                searchLocation={editZip}
+                handleCloseSearch={handleCloseSearch}
+                setLocationDetails={setLocationDetails}
+                locationDetails={locationDetails}
+            />
 
         </div>
     )

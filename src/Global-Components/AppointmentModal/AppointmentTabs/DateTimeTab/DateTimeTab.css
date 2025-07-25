@@ -34,13 +34,13 @@
 .single-time-slot {
     width: 200px;
     height: 40px;
-    border: 1px solid var(--tertiary-color);
+    border: 1px solid var(--orange-fill);
     border-radius: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    color: var(--tertiary-color);
+    color: var(--orange-fill);
     font-size: var(--sub-section-size);
     line-height: var(--sub-section-height);
     font-weight: var(--sub-section-weight);
@@ -49,7 +49,7 @@
 }
 
 .single-time-slot:hover {
-    background-color: var(--tertiary-color);
+    background-color: var(--orange-fill);
     color: #fff;
 }
 
@@ -128,15 +128,15 @@
 }
 
 .selected-date {
-    background-color: var(--tertiary-color) !important;
+    background-color: var(--orange-fill) !important;
     color: white !important;
     border-radius: 5px !important;
 }
 
 .today-date {
-    border: 2px solid var(--tertiary-color) !important;
+    border: 2px solid var(--orange-fill) !important;
     /* border-radius: 5px !important; */
-    color: var(--tertiary-color) !important;
+    color: var(--orange-fill) !important;
     background-color: transparent !important;
 }
 

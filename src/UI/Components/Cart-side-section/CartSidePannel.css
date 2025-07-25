@@ -41,18 +41,18 @@
 
 .cart-section-close-btn {
     position: absolute;
-    /* display: flex;
+    display: flex;
     align-items: center;
-    justify-content: center; */
-    /* width: max-content;
-    height: max-content; */
+    justify-content: center;
+    width: max-content;
+    height: max-content;
     padding: 5px;
     /* border-radius: 50%; */
-    top: 10px;
-    right: 10px;
-    /* background-color: transparent;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
     border: none;
-    outline: none; */
+    outline: none;
     cursor: pointer;
     z-index: 999;
 }

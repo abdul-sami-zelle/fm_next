@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: var(--global-padding);
+    /* padding: var(--global-padding); */
+    padding: 0 60px 35px 60px;
     gap: 25px;
 }
 
@@ -23,7 +24,7 @@
 }
 
 .furniture-for-budget-heading-section p{
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 24px;
     color: var(--text-primary);
@@ -81,7 +82,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 15px 23px 15px 23px;
+    padding: 10px 23px;
     gap: 10px;
     position: relative;
 }
@@ -113,7 +114,7 @@
     bottom: -5px;
     width: 100%;
     height: 2px;
-    background-color: #000;
+    background-color: #FFF;
     transition: left 0.5s ease, background-color 0.5s ease, width 0.5s;
 }
 
@@ -173,7 +174,7 @@
     }
 
     .budget-furniture-card-details{
-        padding: 15px 0 40px 0;
+        padding: 5px 0 10px 0;
     }
 
     .budget-furniture-card-details p{

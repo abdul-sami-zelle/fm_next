@@ -100,12 +100,15 @@ const CheckoutClient = () => {
 
   const moveToNextTab = async () => {
     if (deliveryInfoRef.current) {
+      setIsLoading(true)
       const isValid = await deliveryInfoRef.current.validateAndSubmit(); // Ensure it's awaited
 
       if (!isValid) {
+        setIsLoading(false)
         return; // Stop here if validation fails
       }
       handleTabOpen(1);
+      setIsLoading(false)
     }
   };
 
@@ -371,13 +374,18 @@ const CheckoutClient = () => {
                 <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
 
-              <div className='right-section-order-place-container'>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault(); // Prevent actual form submission
+                  selectedTab === 0 ? handleContinueToPayment() : handleSubmit();
+                }}
+              >
                 <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
                 }
-              </div>
+              </form>
             </div>
 
           </div>
@@ -404,6 +412,7 @@ const CheckoutClient = () => {
         footerMessage={'This is Footer'}
         closeModal={handleCloseWarningModal}
       />
+
     </div>
   )
 }

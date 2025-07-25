@@ -143,7 +143,8 @@ const CartItems = ({
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
-                            <IoIosClose color='var(--text-gray)' size={30} />
+                            {/* <IoIosClose color='var(--text-gray)' size={30} /> */}
+                            <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                         </button>
                         <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
                             <FaArrowsRotate color='var(--secondary-color)' size={15} />

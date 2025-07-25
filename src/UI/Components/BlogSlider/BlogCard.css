@@ -82,14 +82,25 @@
 }
 
 .blog-arther-details h3 {
-    font-size: 20px;
+    /* font-size: 20px;
     line-height: 24px;
     font-weight: 500;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
+    max-width: 100%; */
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    text-align: center;
+    height: 50px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .blog-created-by-and-comments {
@@ -105,12 +116,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2px;
+    gap: 5px;
     font-size: 12px;
     padding-right: 20px;
     border-right: 1px solid #d7d7d7;
 }
 
+/* 
 .blog-star-rating img {
     width: auto;
     height: 15px;
@@ -119,7 +131,7 @@
 
 .blog-star-rating img:nth-last-child(1) {
     margin-left: 5px;
-}
+} */
 
 
 .blog-created-by-and-comments p span {
@@ -224,6 +236,7 @@
         font-size: 14px;
         line-height: 1.2;
     }
+
     .blog-created-by-and-comments p {
         font-size: 10px;
         line-height: 1.2;
@@ -261,9 +274,9 @@
         display: none;
     }
 
-    .blog-star-rating {
+    /* .blog-star-rating {
         display: none;
-    }
+    } */
 
     .mobile-view-blog-card-author {
         display: flex;
