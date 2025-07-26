@@ -1,14 +1,14 @@
 .blogs-main-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     width: 100%;
     height: auto;
     /* padding: var(--global-padding); */
     padding: 0 60px 35px 60px;
     text-align: center;
-    gap: 10px;
+    gap: 25px;
 }
 
 .blogs-main-container h3{
@@ -27,19 +27,22 @@
 
 
 .blogs-slider-main-container{
+    display: flex;
+    align-items: stretch;
+    justify-content: start;
     width: 100%;
     height: auto;
 }
 
-.slick-slider{
+/* .slick-slider{
     margin-bottom: 25px;
     display: flex !important;
     width: 100%;
-}
+} */
 
-.blogs-slider-main-container .slick-track{
+/* .blogs-slider-main-container .slick-track{
     display: flex !important;
-}
+} */
 
 .blog-card-shimmer-container{
     display: flex;

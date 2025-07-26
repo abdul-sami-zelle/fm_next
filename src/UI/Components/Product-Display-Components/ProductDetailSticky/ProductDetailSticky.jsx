@@ -351,7 +351,7 @@ const ProductDetailSticky = (
 
   const pathname = usePathname()
   const handleWhatsAppClick = () => {
-    const phoneNumber = '923171707283'; 
+    const phoneNumber = '15402927702'; 
     const message = `Hello, I am interested in this product! https://fmnext.myfurnituremecca.com${pathname}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;

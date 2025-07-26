@@ -18,6 +18,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Pagination from "../Pagination/PaginationRashid";
 import SectionLoader from "../Loader/SectionLoader";
+import ElipticalPagenation from "../Products/ElepticalPagination";
 
 export default function FurnitureAtEveryBudgetClient() {
 
@@ -68,120 +69,120 @@ export default function FurnitureAtEveryBudgetClient() {
 
 
 
-// useEffect(() => {
-//   const fetchInitialData = async () => {
-//     try {
-//       setIsInitialLoad(true); // Start shimmer for first load
-//       const response = await fetch(`http://localhost:3002/api/v1/content1/get-foeb?uid=1&slug=living-room&page=1`);
-//       if (!response.ok) throw new Error("Failed to fetch initial data");
+    // useEffect(() => {
+    //   const fetchInitialData = async () => {
+    //     try {
+    //       setIsInitialLoad(true); // Start shimmer for first load
+    //       const response = await fetch(`http://localhost:3002/api/v1/content1/get-foeb?uid=1&slug=living-room&page=1`);
+    //       if (!response.ok) throw new Error("Failed to fetch initial data");
 
-//       const result = await response.json();
+    //       const result = await response.json();
 
-//       setBannerImages(result.furnitureBudget);
-//       setProducts(result.products);
-//       setPagination(result.pagination);
+    //       setBannerImages(result.furnitureBudget);
+    //       setProducts(result.products);
+    //       setPagination(result.pagination);
 
-//       setProductCache(prev => ({ ...prev, [1]: result.products }));
-//     } catch (err) {
-//       setError(err.message);
-//     } finally {
-//       setIsInitialLoad(false); // Stop shimmer
-//     }
-//   };
+    //       setProductCache(prev => ({ ...prev, [1]: result.products }));
+    //     } catch (err) {
+    //       setError(err.message);
+    //     } finally {
+    //       setIsInitialLoad(false); // Stop shimmer
+    //     }
+    //   };
 
-//   const fetchPaginatedProducts = async () => {
-//       if (typeof window !== 'undefined') {
-//     window.scrollTo({ top: 0, behavior: 'smooth' });
-//   }
-//     if (productCache[currentPage]) {
-//       setProducts(productCache[currentPage]);
-//       return;
-//     }
+    //   const fetchPaginatedProducts = async () => {
+    //       if (typeof window !== 'undefined') {
+    //     window.scrollTo({ top: 0, behavior: 'smooth' });
+    //   }
+    //     if (productCache[currentPage]) {
+    //       setProducts(productCache[currentPage]);
+    //       return;
+    //     }
 
-//     try {
-//       setLoading(true); // Use loading for pagination
-//       const category = searchParams.get('categoryUid');
-//       const max_price = searchParams.get('max_price');
+    //     try {
+    //       setLoading(true); // Use loading for pagination
+    //       const category = searchParams.get('categoryUid');
+    //       const max_price = searchParams.get('max_price');
 
-//       const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
-//       if (!response.ok) throw new Error("Failed to fetch paginated products");
+    //       const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
+    //       if (!response.ok) throw new Error("Failed to fetch paginated products");
 
-//       const result = await response.json();
+    //       const result = await response.json();
 
-//       setProducts(result.products);
-//       setPagination(result.pagination);
-//       setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
-//     } catch (err) {
-//       setError(err.message);
-//     } finally {
-//       setLoading(false); // Stop pagination loader
-//     }
-//   };
+    //       setProducts(result.products);
+    //       setPagination(result.pagination);
+    //       setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
+    //     } catch (err) {
+    //       setError(err.message);
+    //     } finally {
+    //       setLoading(false); // Stop pagination loader
+    //     }
+    //   };
 
-//   if (currentPage === 1 && isInitialLoad) {
-//     fetchInitialData();
-//   } else {
-//     fetchPaginatedProducts();
-//   }
-// }, [currentPage]);
+    //   if (currentPage === 1 && isInitialLoad) {
+    //     fetchInitialData();
+    //   } else {
+    //     fetchPaginatedProducts();
+    //   }
+    // }, [currentPage]);
 
 
 
-useEffect(() => {
-  const fetchInitialData = async () => {
-    try {
-      setIsInitialLoad(true);
-      setProductCache({}); // clear cache on filter change
-      const response = await fetch(`${url}/api/v1/content1/get-foeb?uid=${category}&slug=${categorySlug}&page=1`);
-      if (!response.ok) throw new Error("Failed to fetch initial data");
+    useEffect(() => {
+        const fetchInitialData = async () => {
+            try {
+                setIsInitialLoad(true);
+                setProductCache({}); // clear cache on filter change
+                const response = await fetch(`${url}/api/v1/content1/get-foeb?uid=${category}&slug=${categorySlug}&page=1`);
+                if (!response.ok) throw new Error("Failed to fetch initial data");
 
-      const result = await response.json();
+                const result = await response.json();
 
-      setBannerImages(result.furnitureBudget);
-      setProducts(result.products);
-      setPagination(result.pagination);
+                setBannerImages(result.furnitureBudget);
+                setProducts(result.products);
+                setPagination(result.pagination);
 
-      setProductCache({ 1: result.products }); // reset with new cache
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsInitialLoad(false);
-    }
-  };
+                setProductCache({ 1: result.products }); // reset with new cache
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setIsInitialLoad(false);
+            }
+        };
 
-  const fetchPaginatedProducts = async () => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        const fetchPaginatedProducts = async () => {
+            if (typeof window !== 'undefined') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
 
-    if (productCache[currentPage]) {
-      setProducts(productCache[currentPage]);
-      return;
-    }
+            if (productCache[currentPage]) {
+                setProducts(productCache[currentPage]);
+                return;
+            }
 
-    try {
-      setLoading(true);
-      const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
-      if (!response.ok) throw new Error("Failed to fetch paginated products");
+            try {
+                setLoading(true);
+                const response = await fetch(`${url}/api/v1/products/by-category?categoryUid=${category}&max_price=${max_price}&page=${currentPage}&per_page=12`);
+                if (!response.ok) throw new Error("Failed to fetch paginated products");
 
-      const result = await response.json();
+                const result = await response.json();
 
-      setProducts(result.products);
-      setPagination(result.pagination);
-      setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+                setProducts(result.products);
+                setPagination(result.pagination);
+                setProductCache(prev => ({ ...prev, [currentPage]: result.products }));
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  if (currentPage === 1 && isInitialLoad) {
-    fetchInitialData();
-  } else {
-    fetchPaginatedProducts();
-  }
-}, [currentPage, category, max_price]); // added dependencies
+        if (currentPage === 1 && isInitialLoad) {
+            fetchInitialData();
+        } else {
+            fetchPaginatedProducts();
+        }
+    }, [currentPage, category, max_price]); // added dependencies
 
 
     const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -194,7 +195,6 @@ useEffect(() => {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const handleProductClick = (item) => {
-        // navigate(`/product/${item.slug}`, { state: item })
         router.push(`/product/${item.slug}`,)
     };
 
@@ -254,16 +254,10 @@ useEffect(() => {
     }
 
     const [selectVariation, setSelectVariation] = useState(0);
-    // const handleSelectVariation = (value) => {
-    //     setSelectVariation(value);
-    //     getVariationMatch()
-    // }
+
 
     const [selectedColor, setSelectedColor] = useState();
-    // const handleSelectColor = (value) => {
-    //     setSelectedColor(value)
-    //     getVariationMatch()
-    // }
+
 
     const getInitialDefaultValues = () => {
         const defAttImage = data?.variations?.find(attr =>
@@ -287,36 +281,28 @@ useEffect(() => {
         getVariationMatch()
     };
 
-    // useEffect(() => {
-    //     getInitialDefaultValues()
-    // }, []);
     useEffect(() => {
         if (data && data.variations && data.default_variation) {
             getInitialDefaultValues();
         }
     }, [data]);
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Error: {error}</p>;
     const [activeGrid, setActiveGrid] = useState('single-col')
     const [selectedGrid, setSelectedGrid] = useState('single-col');
-    // const handleActiveGrid = (grid) => {
-    //     setActiveGrid(grid)
-    //     setSelectedGrid('single-col');
-    // }
+
 
     const [imagePreloader, setImagePreloader] = useState(false);
-      const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
-      const handlePrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
+    const handlePrevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
 
-  const handleNextPage = () => {
-    if (currentPage < pagination?.totalPages) setCurrentPage(currentPage + 1);
-  };
+    const handleNextPage = () => {
+        if (currentPage < pagination?.totalPages) setCurrentPage(currentPage + 1);
+    };
 
 
     return (
@@ -337,7 +323,7 @@ useEffect(() => {
                         sizes="(max-width: 768px) 100vw, 50vw"
                     />
                 )}
-                 {bannerImages?.deskImg && (
+                {bannerImages?.deskImg && (
                     <Image
                         src={`${url}${bannerImages.mobImg}`}
                         className="foeb_cover_mob"
@@ -446,7 +432,18 @@ useEffect(() => {
                     )}
                 </div>
 
-                <Pagination activePageIndex={currentPage} totalPages={pagination?.totalPages} onNextPage={handleNextPage} onPrevPage={handlePrevPage} onPageChange={handlePageChange} />
+                {/* {!noProducts && ( */}
+                    <ElipticalPagenation
+                        activePageIndex={currentPage}
+                        totalPages={pagination?.totalPages}
+                        onPrevPage={handlePrevPage}
+                        onNextPage={handleNextPage}
+                        onPageChange={handlePageChange}
+                    />
+
+                {/* )} */}
+
+                {/* <Pagination activePageIndex={currentPage} totalPages={pagination?.totalPages} onNextPage={handleNextPage} onPrevPage={handlePrevPage} onPageChange={handlePageChange} /> */}
 
                 <QuickView
                     setQuickViewProduct={quickViewProduct}
@@ -457,10 +454,10 @@ useEffect(() => {
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
                 />
-              
-                {loading && <SectionLoader/>}
+
+                {loading && <SectionLoader />}
             </div>
-  
+
         </>
     );
 }

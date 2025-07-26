@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './InstaGallery.css';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -15,14 +14,10 @@ const InstaGallery = () => {
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%206%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%207%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%208%20Instagram.jpg', 
-        // 'https://fmapi.myfurnituremecca.com/uploads/media/Image%208%20Instagram.jpg', 
-        // 'https://fmapi.myfurnituremecca.com/uploads/media/Image%209%20Instagram.jpg', 
-        // 'https://fmapi.myfurnituremecca.com/uploads/media/Image%2010%20Instagram.jpg', 
-       
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%2010%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%209%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%206%20Instagram.jpg', 
-          'https://fmapi.myfurnituremecca.com/uploads/media/Image%201%20Instagram.jpg', 
+        'https://fmapi.myfurnituremecca.com/uploads/media/Image%201%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%208%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%2010%20Instagram.jpg', 
         'https://fmapi.myfurnituremecca.com/uploads/media/Image%204%20Instagram.jpg', 
@@ -42,9 +37,6 @@ const InstaGallery = () => {
             }, 1000);
         }, 1500)
 
-        // setTimeout(() => {
-        //     setAnimateMouse(false);
-        // }, 1500)
     }
 
     const stopAnimation = () => {

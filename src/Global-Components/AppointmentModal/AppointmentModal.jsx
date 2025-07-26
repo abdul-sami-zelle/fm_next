@@ -12,6 +12,7 @@ import { url } from '../../utils/api';
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal';
 import Loader from '../../UI/Components/Loader/Loader';
 import SnakBar from '../SnakeBar/SnakBar';
+import Image from 'next/image';
 
 const AppointmentModal = (
     {
@@ -171,7 +172,8 @@ const AppointmentModal = (
                         </div>
 
                         <button className='appointment-modal-close-btn' onClick={handleCloseModal}>
-                            <IoIosClose size={30} color='var(--secondary-color)' />
+                            {/* <IoIosClose size={30} color='var(--secondary-color)' /> */}
+                            <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                         </button>
                     </div>
 

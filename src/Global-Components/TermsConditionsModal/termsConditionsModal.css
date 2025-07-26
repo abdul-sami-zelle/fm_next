@@ -50,11 +50,11 @@
 }
 
 .term-condition-modal-close-button {
-    /* position: absolute; */
-    /* top: 25px;
-    right: 35px; */
-    width: 30px;
-    height: 30px;
+    position: absolute; 
+    top: 25px;
+    right: 35px;
+    width: max-content;
+    height: max-content;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -807,7 +807,7 @@
     width: 30px;
 }
 
-.mobile-color-variation .show-tick-mark::before {
+.mobile-color-variation.show-tick-mark::before {
     content: "";
     position: absolute;
     top: 0;
@@ -819,7 +819,7 @@
     clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
 }
 
-.mobile-color-variation .show-tick-mark::after {
+.mobile-color-variation.show-tick-mark::after {
     content: "";
     position: absolute;
     /* Position the tick mark roughly in the center */

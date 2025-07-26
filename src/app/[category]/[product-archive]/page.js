@@ -64,13 +64,16 @@ const ProductArchive = () => {
       <Products
         navigationType={navigationType}
       />
+
+      {hasProducts && <RelatedProducts data={relatedProducts} />}
+      
       {!hideSection && (
         <RelatedCategories
           navigationType={navigationType}
         />
       )}
 
-      {hasProducts && <RelatedProducts data={relatedProducts} />}
+      
 
       {!hideSection && (
         <FAQ />

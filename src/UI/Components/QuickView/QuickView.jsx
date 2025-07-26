@@ -165,7 +165,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <button className='quick-view-close-modal-button' onClick={quickViewClose}>
-                    <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='close' />
+                    <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                 </button>
 
                 {/* <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose} /> */}

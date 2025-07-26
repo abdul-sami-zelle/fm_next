@@ -411,7 +411,7 @@ const Header = ({ checkoutPage }) => {
       <div className='header'>
         <div className='logo-container'>
           <Link href={'/'}>
-            <img src={'/Assets/Logo/main-logo.png'} alt="logo" />
+            <img src={'/Assets/Logo/new-main-logo.png'} alt="logo" />
           </Link>
         </div>
 
@@ -478,30 +478,6 @@ const Header = ({ checkoutPage }) => {
                 </button>
               </div>
             </div>
-
-            {/* <div className='search-product-display-right'>
-              <div className='searched-selected-product-main-image-div'>
-                <img
-                  src={`${url}${searchedProducts?.[currentInd]?.image?.image_url}`}
-                  alt='main-img'
-                  className='searched-selected-product-main-image'
-                />
-              </div>
-              <div className='searched-selected-product-name-and-price'>
-                <h3 className='searched-selected-product-name'>{searchedProducts?.[currentInd]?.name}</h3>
-                <p className='searched-selected-product-sku'>SKU: {searchedProducts?.[currentInd]?.sku?.split(':')}</p>
-                <div className='searched-selected-product-price'>
-                  {
-                    searchedProducts?.[currentInd]?.sale_price === "" ?
-                      <h3 className='searched-product-regular-price'>${searchedProducts?.[currentInd]?.regular_price}</h3> :
-                      <h3 className='searched-product-sale-price-on-single-view'>${searchedProducts?.[currentInd]?.sale_price} <del>${searchedProducts?.[currentInd]?.regular_price}</del></h3>
-                  }
-                </div>
-              </div>
-              <div className='searched-selected-product-description-div'>
-                <div className="custom-description" dangerouslySetInnerHTML={{ __html: searchedProducts?.[currentInd]?.description, descriptionLength }} ></div>
-              </div>
-            </div> */}
           </div>
         </div>
 
@@ -620,7 +596,7 @@ const Header = ({ checkoutPage }) => {
           </div>
           {/* <img className='nav-toggler' src={navToggler} alt="togle button" onClick={showMobileNav} /> */}
           <Link className='center_section_logo' href='/'>
-            <Image className='mobile-logo' src={'/Assets/Logo/main-logo.png'} width={120} height={32} alt='mobile-logo' />
+            <Image className='mobile-logo' src={'/Assets/Logo/new-main-logo.png'} width={120} height={32} alt='mobile-logo' />
           </Link>
           <div className='mobile-view-cart-and-location'>
             {/* <img src={locationIcon} alt='location' onClick={handleNearStorePopUp} /> */}

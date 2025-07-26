@@ -5,6 +5,7 @@ import "./termsConditionsModal.css";
 import { url } from "../../utils/api";
 import { IoClose } from "react-icons/io5";
 import Loader from "@/UI/Components/Loader/Loader";
+import Image from "next/image";
 
 const TermsConditionsModal = ({ openModal, closeModal }) => {
   const [termsContent, setTermsContent] = useState("");
@@ -43,7 +44,8 @@ const TermsConditionsModal = ({ openModal, closeModal }) => {
         {loading && <Loader />}
         <div className="terms-modal-head-contianer">
           <button className="term-condition-modal-close-button" onClick={closeModal}>
-            <IoClose size={25} color="#595959" />
+            {/* <IoClose size={25} color="#595959" /> */}
+            <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt="close" />
           </button>
         </div>
         <div className="html-modal-inner-sub-container">

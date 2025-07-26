@@ -22,11 +22,11 @@ const BlogSlider = () => {
   return (
     <div className='blogs-main-container'>
       <h3>Exciting Blogs Created By <span>Furniture Mecca</span></h3>
-      <p className='blogs-main-para'>
+      {/* <p className='blogs-main-para'>
         Captivating narratives by Jasons Furniture Outlet, where each blog tells a unique tale of style,
         comfort, and functionality. Discover the enchanting stories behind every furnishing at The Furniture Depots,
         turning your home into a haven filled with both charm and character.
-      </p>
+      </p> */}
       <div className='blogs-slider-main-container'>
         {blogs && blogs?.length > 0 ? (
           <SwiperSlider

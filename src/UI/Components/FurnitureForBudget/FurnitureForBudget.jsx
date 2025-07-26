@@ -16,7 +16,7 @@ const FurnitureForBudget = ({ budgetCardData }) => {
         <div className='furniture-for-budget-main-secton'>
             <div className='furniture-for-budget-heading-section'>
                 <h3>Furniture For Every Budget</h3>
-                <p>From glam vibes to laid-back comfort, these sofas all have one thing in common—and that’s amazing value.</p>
+                {/* <p>From glam vibes to laid-back comfort, these sofas all have one thing in common—and that’s amazing value.</p> */}
             </div>
             <div className='furniture-for-budget-card'>
                 {budgetCardData && budgetCardData.length > 0 ? (
@@ -35,14 +35,7 @@ const FurnitureForBudget = ({ budgetCardData }) => {
                             <p 
                                 // style={{color: index !== 1 ? '#FFF' : 'var(--text-primary)'}}
                             >{items.sale}</p>
-                            {/* <button
-                            onClick={()=>{
-                                navigateToDetails(items.uid,items.max_price,items.category)
-                            }}
-                            >
-                                {items.shopNow}
-                                <div className='shop-now-btn-under-line'></div>
-                            </button> */}
+                            
                         </div>
                     </div>
                 ))

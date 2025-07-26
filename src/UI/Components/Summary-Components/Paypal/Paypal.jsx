@@ -17,7 +17,7 @@ const Paypal = () => {
     }
 
     const script = document.createElement('script');
-    script.src = "https://www.paypal.com/sdk/js?client-id=AWrBzvI6Un2l--w2Eysg8tYWpipIgsU7-LcEgpKf0gjbTeEbE_M5-yaeJzKRsRTuYc7AHeqGRbht_YTV&currency=USD";
+    script.src = "https://www.paypal.com/sdk/js?client-id=AWrBzvI6Un2l--w2Eysg8tYWpipIgsU7-LcEgpKf0gjbTeEbE_M5-yaeJzKRsRTuYc7AHeqGRbht_YTV&currency=USD&disable-funding=card";
     script.id = 'paypal-sdk';
     script.async = true;
     script.onload = () => setSdkReady(true);

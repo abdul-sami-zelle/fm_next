@@ -7,8 +7,8 @@ import Image from 'next/image';
 const LandingPageFinancing = () => {
   const bannersData = [
     '/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg',
-    '/Assets/Furniture Mecca/Landing Page/financing/banner-2.gif',
-    '/Assets/Furniture Mecca/Landing Page/financing/banner-3.jpg'
+    '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-3.gif',
+    '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-2.jpg',
   ]
   const financingButtons = [
     {
@@ -31,7 +31,7 @@ const LandingPageFinancing = () => {
       title: 'acima',
       link: `https://ams.acimacredit.com/discover/new?utm_campaign=merchant&utm_source=web&merchant_guid=merc-3bd04932-d6a0-4848-8a30-af0a9d935f25#/select_location`
     },
-    
+
   ]
   return (
     <>
@@ -47,7 +47,7 @@ const LandingPageFinancing = () => {
             </Link>
           </div>
           <Link href={'/financing'} className='landing-page-financing-right'>
-            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.jpg'} width={900} height={470}  alt='banner-three' />
+            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.jpg'} width={900} height={470} alt='banner-three' />
             <div className='financing-page-buttons-div'>
               {financingButtons.map((item, index) => (
                 <div key={index} className='financing-page-buttons-div-column'>
@@ -63,19 +63,23 @@ const LandingPageFinancing = () => {
 
       <div className='mobile-view-banners-container'>
         {bannersData.map((item, index) => (
-          <div key={index} className='mobile-view-banner-container'>
+          <div key={index} className={index === 1 ? `hide-gif-banner-on-phone` : `mobile-view-banner-container`}>
             <img src={item} alt='banner' className='mobile-view-banner' />
           </div>
         ))}
         <div className='mobile-view-banner-buttons-container'>
           {financingButtons.map((item, index) => (
-                <div key={index} className='mobile-view-financing-page-buttons-div-column'>
-                  <Link target='_blank' href={item.link} className='mobile-view-financing-buttons'>
-                    <img src={item.img} alt={item.title} />
-                  </Link>
-                </div>
-              ))}
+            <div key={index} className={`hide-paypal-section`}>
+              <Link target='_blank' href={item.link} className='mobile-view-financing-buttons'>
+                <img src={item.img} alt={item.title} />
+              </Link>
+            </div>
+          ))}
         </div>
+        <div  className={`mobile-view-banner-container-hide-on-desktop`}>
+          <img src={'/Assets/Furniture Mecca/Landing Page/financing/mob-banner-3.gif'} alt='banner' className='mobile-view-banner' />
+        </div>
+
       </div>
     </>
   )

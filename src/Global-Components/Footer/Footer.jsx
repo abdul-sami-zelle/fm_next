@@ -22,29 +22,6 @@ import { useRouter } from 'next/navigation';
 import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const Footer = ({ notLandingPage, checkoutPage }) => {
-    // const [headerData, setHeaderData] = useState([]);
-
-
-    // async function fetchHeaderPayloads() {
-    //     try {
-    //         const response = await fetch(`${url}/api/v1/header-payloads/get`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json", // Adjust headers as needed
-    //             },
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(`Error: ${response.status} ${response.statusText}`);
-    //         }
-
-    //         const data = await response.json();
-    //         return data;
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error.message);
-    //         throw error;
-    //     }
-    // }
 
     const router = useRouter();
 
@@ -117,30 +94,6 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
 
     const [googleRating, setGoogleRating] = useState(null);
 
-    // const fetchGoogleRating = async () => {
-    //     const api = `${url}/api/v1/stores/get-top-rated`;
-
-    //     try {
-    //         let response;
-    //         response = await axios.get(api);
-    //         const stores = response.data.data;
-    //         setGoogleRating(stores)
-    //     } catch (error) {
-    //         console.error("Error fetching stores data", error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchGoogleRating();
-    // }, [])
-
-    // useEffect(() => {
-    //     fetchHeaderPayloads().then(data => {
-    //         setHeaderData(data.data[0].categories);
-    //     }).catch(error => {
-    //         console.error(error);
-    //     });
-    // }, [])
 
     const socialIcons = [
         { name: 'facebook', icon: '/icons/facebook.svg', link: 'https://www.facebook.com/myfurnituremecca' },

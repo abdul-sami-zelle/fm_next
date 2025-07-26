@@ -66,7 +66,7 @@ const ArrowSlider = ({
         <div className="arrow-slider-container">
             {showArrows && slidesData.length > 4 && (
                 <button className={`slider-arrow slider-left`} onClick={handlePrev}>
-                    <IoIosArrowBack color='#FFF' size={20} />
+                    <IoIosArrowBack color='var(--orange-outline)' size={20} />
                 </button>
             )}
 
@@ -107,7 +107,7 @@ const ArrowSlider = ({
 
             {showArrows  && slidesData.length > 4 && (
                 <button className={`slider-arrow slider-right`} onClick={handleNext}>
-                    <IoIosArrowForward size={20} color='#FFF' />
+                    <IoIosArrowForward size={20} color='var(--orange-outline)' />
                 </button>
             )}
 

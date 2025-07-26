@@ -212,11 +212,11 @@
     display: none;
 }
 
-.cross-btn img {
+/* .cross-btn img {
     height: 22px;
     width: auto;
     object-fit: contain;
-}
+} */
 
 .desktop-name-and-single-price{
     display: flex;

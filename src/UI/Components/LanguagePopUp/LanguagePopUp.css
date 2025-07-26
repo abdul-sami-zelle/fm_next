@@ -49,22 +49,22 @@
     border: none;
     outline: none;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: max-content;
+    height: max-content;
 }
 
-.close-language-modal img{
+/* .close-language-modal img{
     width: auto;
     height: 100%;
     object-fit: contain;
-}
+} */
 
-.language-modal-close-icon {
+/* .language-modal-close-icon {
     display: flex;
     flex-shrink: 0;
     width: 100%;
     height: 100%;
-}
+} */
 
 .select-language-container{
     display: flex;

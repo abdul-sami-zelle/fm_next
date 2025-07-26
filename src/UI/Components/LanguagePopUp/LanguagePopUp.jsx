@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './LanguagePopUp.css';
-import closeBtn from '../../../Assets/icons/close-btn-black.png';
-import usaFlag from '../../../Assets/icons/usa-flage.png'
-import { IoIosClose } from "react-icons/io";
+// import closeBtn from '../../../Assets/icons/close-btn-black.png';
+// import usaFlag from '../../../Assets/icons/usa-flage.png'
+// import { IoIosClose } from "react-icons/io";
 import Image from 'next/image';
 
 const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageModal, currentSelectedCountry, setCurrentSelectedCountry, currentSelectedCountryFlag, setCurrentSelectedCountryFlag }) => {
@@ -35,7 +35,7 @@ const LanguagePopUp = ({ changeLanguage, setChangeLanguage, handleCLoseLanguageM
         onClick={(e) => e.stopPropagation()}
       >
           <button className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} onClick={handleCLoseLanguageModal}>
-              <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='' />
+              <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='' />
           </button>
           {/* <IoIosClose className={`close-language-modal ${changeLanguage ? '' : 'hide-close-btn'}`} color='var(--text-gray)' onClick={handleCLoseLanguageModal} /> */}
         

@@ -73,11 +73,21 @@ const Products = ({ navigationType }) => {
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
 
+
+    console.log("sub category slug", subCategorySlug)
+
     // const location = useLocation();
     const location = useSearchParams();
     // const params = new URLSearchParams(location.search);
 
     const pathname = usePathname()
+
+    const firstSegment = pathname.split('/')[1]; // "accent-furniture"
+
+    const formatted = firstSegment
+        .split('-')                          // ['accent', 'furniture']
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each
+        .join(' ') + 's';
 
     const searchParams = useSearchParams()
     const query = searchParams.get('query');
@@ -680,13 +690,14 @@ const Products = ({ navigationType }) => {
             {/* <Breadcrumb category={products.categories} /> */}
             {loader && <Loader />}
             {/* <h3 className='select-your-category-products-heading'>Select Your {subCategorySlug.replace(/-/g, ' ').toUpperCase()}</h3> */}
-            <h3>
+            <h3 className='select-your-category-heading'>
                 Select Your{" "}
-                {decodeURIComponent(subCategorySlug)
+                {formatted}
+                {/* {decodeURIComponent('/accent-furniture')
                     .toLowerCase()
-                    .split('-')
+                    .split('/')
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ')}
+                    .join(' ')} */}
             </h3>
             <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
                 {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
@@ -1049,66 +1060,7 @@ const Products = ({ navigationType }) => {
 
                 )}
 
-                {/* <div className='view-more-products-pagination-main'>
-
-
-
-
-                    <div className='pagination-buttons-container'>
-                        <span
-                            className={activePageIndex === 1 ? 'disabled' : ''}
-                            onClick={handlePrevPage}
-                            style={{
-                                pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
-                                color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
-                            }}
-                        >
-                            <FaRegArrowAltCircleLeft
-                                size={18}
-                                style={{
-                                    pointerEvents: activePageIndex === 1 ? 'none' : 'auto',
-                                    color: activePageIndex === 1 ? '#ccc' : 'var(--tertiary-color)',
-                                }}
-                            />
-                            <p className='hide-on-mob'> Previous </p>
-                        </span>
-                        {Array.from({ length: totalPages?.totalPages }).map((_, index) => {
-                            const pageNumber = index + 1;
-                            const shouldShow =
-                                pageNumber === activePageIndex ||
-                                pageNumber === activePageIndex - 1 ||
-                                pageNumber === activePageIndex + 1 ||
-                                (activePageIndex === 1 && pageNumber === 3) ||
-                                (activePageIndex === totalPages?.totalPages && pageNumber === totalPages?.totalPages - 2);
-                            return shouldShow ? (
-                                <span
-                                    key={pageNumber}
-                                    onClick={() => handleActivePage(pageNumber)}
-                                    className={activePageIndex === pageNumber ? 'active-page-span' : ''}
-                                >
-                                    {pageNumber}
-                                </span>
-                            ) : null;
-                        })}
-                        <span
-                            className={activePageIndex === totalPages?.totalPages ? 'disabled' : ''}
-                            onClick={handleNextPage}
-                            style={{
-                                pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                                color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
-                            }}
-                        >
-                            <p className='hide-on-mob'> Next </p>
-                            <FaRegArrowAltCircleRight
-                                size={18}
-                                style={{
-                                    pointerEvents: activePageIndex === totalPages?.totalPages ? 'none' : 'auto',
-                                    color: activePageIndex === totalPages?.totalPages ? '#ccc' : 'var(--tertiary-color)',
-                                }}
-                            />
-                        </span>
-                    </div>
-                </div> */}
+                
             </div>
             <CartSidePannel
                 cartData={cartProducts}

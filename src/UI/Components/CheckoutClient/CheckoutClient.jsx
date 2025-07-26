@@ -374,18 +374,13 @@ const CheckoutClient = () => {
                 <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
               </div>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault(); // Prevent actual form submission
-                  selectedTab === 0 ? handleContinueToPayment() : handleSubmit();
-                }}
-              >
-                <p>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
+              <div className='mob-terms-condition-and-procced-button-container'>
+                <p className='terms-and-condition-agree'>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
                 }
-              </form>
+              </div>
             </div>
 
           </div>

@@ -48,11 +48,11 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    /* width: 22px;
-    height: 22px;
+    width: max-content;
+    height: max-content;
     background-color: transparent;
     border: none;
-    outline: none; */
+    outline: none;
     cursor: pointer;
 }
 

@@ -128,7 +128,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                 <div className='pop-up-header'>
                     <span onClick={handleCloseNearBy}>
                         {/* <IoCloseOutline size={20} /> */}
-                        <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='' />
+                        <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='' />
                     </span>
                     <i onClick={handleFindStores}>
                         <svg
@@ -164,6 +164,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                         </button>
                     </div>
                 </div>
+                
                 <div className='pop-up-single-city-card'>
 
                     <div className='pop-up-single-city-cart'>

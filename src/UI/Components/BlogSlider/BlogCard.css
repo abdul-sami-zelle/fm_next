@@ -14,9 +14,9 @@
     display: flex;
 } */
 
-.blog-card:hover {
+/* .blog-card:hover {
     margin-top: -10px;
-}
+} */
 
 .blog-card-image {
     width: 100%;
@@ -71,6 +71,7 @@
     flex-direction: column;
     width: 100%;
     padding: 10px;
+    flex-shrink: 0;
     border-bottom: 1px solid #d7d7d7;
 }
 

@@ -60,7 +60,7 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
             <div className='bg-blur-container'></div>
             <div className='share-product-link-pop-up-inner' onClick={(e) => e.stopPropagation()}>
                 <button className='share-product-link-pop-up-close-btn' onClick={handleCloseShareProductPopup}>
-                    <Image src={'/icons/close-charcoal.svg'} width={25} height={25} alt='close' />
+                    <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                     {/* <IoClose size={22} color='#595959' className='share-product-link-pop-up-close-btn' onClick={handleCloseShareProductPopup} /> */}
                 </button>
 

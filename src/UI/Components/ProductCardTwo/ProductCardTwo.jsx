@@ -353,9 +353,7 @@ const ProductCardTwo = ({
                                                     onClick={(e) => { e.stopPropagation(); handleColorSelect(item.value) }}
                                                     style={{
                                                         backgroundColor: item.value,
-                                                        // border: 'none',
                                                         border: selectedColor === item.value ? `1px solid ${item.value}` : 'none',
-                                                        // boxShadow: ''
                                                         boxShadow: selectedColor === item.value ? `inset 0 0 0 2px #FFFF` : '',
                                                         "--tick-color": item.value
 
