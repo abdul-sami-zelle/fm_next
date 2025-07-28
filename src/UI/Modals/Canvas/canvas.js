@@ -2,8 +2,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, FabricImage, Rect } from 'fabric';
 import LayerList from './layerlist';
+import { useCart } from "@/context/cartContext/cartContext";
 
 const CanvasApp = ({ data }) => {
+
+  const {
+    addToCart0
+  } = useCart();
+
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
   const [activeCategory, setActiveCategory] = useState('Wall');
@@ -116,7 +122,7 @@ const CanvasApp = ({ data }) => {
 
       const canvasWidth = Math.max(containerSize.width * 0.7, 800);
       const canvasHeight = Math.max(containerSize.height * 0.8, 600);
-      
+
       const initCanvas = new Canvas(canvasRef.current, {
         width: canvasWidth,
         height: canvasHeight,
@@ -148,7 +154,7 @@ const CanvasApp = ({ data }) => {
           items: [data]
         };
         arr.splice(4, 0, newSection);
-        
+
         const updatedTools = arr.map(section => {
           if (section.section === "Wall") {
             return {
@@ -575,17 +581,35 @@ const CanvasApp = ({ data }) => {
     }
   };
 
-  const handleCheckout = (items) => {
-    console.log("Complete checkout items:", items);
+
+  const handleCheckout = async (items) => {
+    console.log("✅ Adding multiple items to cart...", items);
+
+    // for (const product of items) {
+    //   const isSimple = product.type === "simple";
+    //   const variationData = isSimple ? null : null; // Placeholder if you add variations later
+    //   const isProtected = product?.is_protected || 0;
+    //   const quantity = product?.quantity || 1;
+
+    //   try {
+    //     await addToCart0(product, variationData, isProtected, quantity);
+    //     console.log(`✅ Added to cart: ${product.name}`);
+    //   } catch (error) {
+    //     console.error(`❌ Failed to add: ${product.name}`, error);
+    //   }
+    // }
+
+    // console.log("✅ All items processed");
   };
 
+
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="editor-container" 
-      style={{ 
+      className="editor-container"
+      style={{
         display: 'flex',
-        alignSelf:'center',
+        alignSelf: 'center',
         flexDirection: 'row',
         height: '90vh',
         width: '95vw',
@@ -639,94 +663,94 @@ const CanvasApp = ({ data }) => {
           }}>Reset</button>
         </div> */}
 
-<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-  {tools?.map((toolSection) => (
-    <button
-      key={toolSection.section}
-      onClick={() => {
-        setActiveCategory(toolSection.section);
-        
-        // Clear canvas based on selected section
-        if (canvas) {
-          // Get all objects from canvas
-          const objects = canvas.getObjects();
-          
-          // Filter objects to keep based on section
-          const objectsToRemove = objects.filter(obj => {
-            // Always keep walls
-            if (obj === canvasElements.wall) return false;
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          {tools?.map((toolSection) => (
+            <button
+              key={toolSection.section}
+              onClick={() => {
+                setActiveCategory(toolSection.section);
 
-            switch (toolSection.section) {
-              case 'Wall':
-                // Keep only wall and wall art
-                return obj !== canvasElements.wall
-              
-              case 'Floor':
-                // Keep wall, floor, and wall art
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor;
-              
-              case 'Rugs':
-                // Keep wall, floor, wall art, and rug
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug;
-              
-              case 'Product':
-                // Keep wall, floor, wall art, rug, and product (sofa)
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa;
-              
-              case 'Coffee Tables':
-                // Keep wall, floor, wall art, rug, product, and coffee tables
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa &&
-                       obj !== canvasElements.centerTable;
-              
-              case 'End Tables':
-                // Keep wall, floor, wall art, rug, product, coffee tables, and end tables
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa &&
-                       obj !== canvasElements.centerTable &&
-                       obj !== canvasElements.endTable;
-              
-              default:
-                // For other sections, keep everything
-                return false;
-            }
-          });
+                // Clear canvas based on selected section
+                if (canvas) {
+                  // Get all objects from canvas
+                  const objects = canvas.getObjects();
 
-          // Remove filtered objects
-          objectsToRemove.forEach(obj => canvas.remove(obj));
-          canvas.renderAll();
-        }
-      }}
-      style={{
-        padding: '6px 10px',
-        fontSize: '0.9rem',
-        borderRadius: '8px',
-        border: '1px solid #ccc',
-        outline: 'none',
-        width: '100%',
-        textAlign: 'left',
-        backgroundColor: activeCategory === toolSection.section ? '#f0f0f0' : 'white',
-        cursor: 'pointer',
-      }}
-    >
-      {toolSection.section}
-    </button>
-  ))}
-</div>
+                  // Filter objects to keep based on section
+                  const objectsToRemove = objects.filter(obj => {
+                    // Always keep walls
+                    if (obj === canvasElements.wall) return false;
+
+                    switch (toolSection.section) {
+                      case 'Wall':
+                        // Keep only wall and wall art
+                        return obj !== canvasElements.wall
+
+                      case 'Floor':
+                        // Keep wall, floor, and wall art
+                        return obj !== canvasElements.wall &&
+                          obj !== canvasElements.floor;
+
+                      case 'Rugs':
+                        // Keep wall, floor, wall art, and rug
+                        return obj !== canvasElements.wall &&
+                          obj !== canvasElements.floor &&
+                          obj !== canvasElements.wallArt &&
+                          obj !== canvasElements.rug;
+
+                      case 'Product':
+                        // Keep wall, floor, wall art, rug, and product (sofa)
+                        return obj !== canvasElements.wall &&
+                          obj !== canvasElements.floor &&
+                          obj !== canvasElements.wallArt &&
+                          obj !== canvasElements.rug &&
+                          obj !== canvasElements.sofa;
+
+                      case 'Coffee Tables':
+                        // Keep wall, floor, wall art, rug, product, and coffee tables
+                        return obj !== canvasElements.wall &&
+                          obj !== canvasElements.floor &&
+                          obj !== canvasElements.wallArt &&
+                          obj !== canvasElements.rug &&
+                          obj !== canvasElements.sofa &&
+                          obj !== canvasElements.centerTable;
+
+                      case 'End Tables':
+                        // Keep wall, floor, wall art, rug, product, coffee tables, and end tables
+                        return obj !== canvasElements.wall &&
+                          obj !== canvasElements.floor &&
+                          obj !== canvasElements.wallArt &&
+                          obj !== canvasElements.rug &&
+                          obj !== canvasElements.sofa &&
+                          obj !== canvasElements.centerTable &&
+                          obj !== canvasElements.endTable;
+
+                      default:
+                        // For other sections, keep everything
+                        return false;
+                    }
+                  });
+
+                  // Remove filtered objects
+                  objectsToRemove.forEach(obj => canvas.remove(obj));
+                  canvas.renderAll();
+                }
+              }}
+              style={{
+                padding: '6px 10px',
+                fontSize: '0.9rem',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                outline: 'none',
+                width: '100%',
+                textAlign: 'left',
+                backgroundColor: activeCategory === toolSection.section ? '#f0f0f0' : 'white',
+                cursor: 'pointer',
+              }}
+            >
+              {toolSection.section}
+            </button>
+          ))}
+        </div>
         {/* Items grid */}
         <div style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '12px' }}>
           <h4 style={{
@@ -857,7 +881,7 @@ const CanvasApp = ({ data }) => {
           }}
         />
       </div>
-      
+
       <input
         type="color"
         id="wallColorPickerHidden"
@@ -869,8 +893,8 @@ const CanvasApp = ({ data }) => {
           handlers.addPaintedWall();
         }}
       />
-      
-      <LayerList canvas={canvas} tools={tools} onCheckout={handleCheckout} selectedSofa={selectedSofa}/>
+
+      <LayerList canvas={canvas} tools={tools} onCheckout={handleCheckout} selectedSofa={selectedSofa} />
     </div>
   );
 };
