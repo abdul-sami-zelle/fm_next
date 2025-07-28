@@ -18,7 +18,6 @@ const ProductArchive = () => {
   const { activePage, setActivePage, setActivePageIndex, setColorValue } = useProductArchive()
   const pathname = usePathname();
   const hideSection = pathname.startsWith('/searched-products');
-  console.log("pathname", pathname)
   const childSlug = pathname.split('/').filter(Boolean).pop();
   const [relatedProducts, setRelatedProducts] = useState([])
   const [hasProducts, setHasProducts] = useState(false)

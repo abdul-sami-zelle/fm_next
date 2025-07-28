@@ -135,16 +135,36 @@ const BestSellerSlider = (
 
     }
 
-    const handleWishlisted = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            setShowSnakeBar(true);
+
+    const handleWishList = async (item) => {
+
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+
+        setShowSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
             setSnakeBarMessage('Removed from wish list')
 
         } else {
-            addToList(item); // Add if not in wishlist
-            setShowSnakeBar(true);
-            setSnakeBarMessage("added to wish list")
+            addToList(item._id)
+            
+            setSnakeBarMessage('added to wish list')
+        }
+
+        if (userId && getToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: getToken,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.error("UnExpected Server Error", error);
+            }
         }
     }
 
@@ -209,15 +229,15 @@ const BestSellerSlider = (
                             <div className='best-seller-main-cover-shimmer'></div>
                         ) : (
 
-                            
-                                bestSellerNav1[activeItem]?.image?.image_url ? (
-                                    <img
-                                        key={bestSellerNav1[activeItem].image.image_url}
-                                        src={url + bestSellerNav1[activeItem].image.image_url}
-                                        alt='main banner'
-                                    />
-                                ) : null
-                            
+
+                            bestSellerNav1[activeItem]?.image?.image_url ? (
+                                <img
+                                    key={bestSellerNav1[activeItem].image.image_url}
+                                    src={url + bestSellerNav1[activeItem].image.image_url}
+                                    alt='main banner'
+                                />
+                            ) : null
+
                         )}
                     </div>
 
@@ -276,7 +296,7 @@ const BestSellerSlider = (
                                                 newPrice={item.newPrice}
                                                 listed={listed}
                                                 handleCardClicked={() => handleCardClicked(item)}
-                                                handleWishListClicked={() => handleWishlisted(item)}
+                                                handleWishListClicked={() => handleWishList(item)}
                                             />
                                         )) :
                                         <>
@@ -335,22 +355,24 @@ const BestSellerSlider = (
                                     <Link key={item._id} href={{ pathname: `/product/${item?.slug}`, state: item }} className='best-seller-card-main-container'>
                                         <div className='mobile-best-seller-cart-wishlist-container'>
                                             {
-                                                isInWishList(item?.uid) ? (
+                                                isInWishList(item?._id) ? (
                                                     <VscHeartFilled
                                                         size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
+                                                        style={{ color: 'var(--orange-fill)' }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            handleWishlisted(item);
+                                                            e.preventDefault();
+                                                            handleWishList(item);
                                                         }}
                                                     />
                                                 ) : (
                                                     <VscHeart
                                                         size={25}
-                                                        style={{ color: 'var(--primary-color)' }}
+                                                        style={{ color: 'var(--orange-fill)' }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            handleWishlisted(item);
+                                                            e.preventDefault();
+                                                            handleWishList(item);
                                                         }}
                                                     />
                                                 )
@@ -387,6 +409,8 @@ const BestSellerSlider = (
                     </div>
                 </div>
             </div>
+
+
         </>
     );
 };

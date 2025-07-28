@@ -89,7 +89,7 @@ const DealOfTheDayCard = ({
               </button>
             
               <button  
-                  className={`deal-of-the-day-icon-two ${isInWishList(dealDayData.uid) ? 'active-wish-list-btn' : ''}`}
+                  className={`deal-of-the-day-icon-two ${isInWishList(dealDayData._id) ? 'active-wish-list-btn' : ''}`}
                   onClick={(e) => {e.stopPropagation(); handleWishListClick(dealDayData)}} 
               >
                 <IoMdHeartEmpty className='deal-of-month-heart-icon' size={20} color='var--text-gray' />

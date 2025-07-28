@@ -28,7 +28,7 @@ const ShippingAndDeliveryClient = () => {
 
   return (
     <div className='shipping-and-delivery-main-container'>
-      <div dangerouslySetInnerHTML={{ __html: shippingAndDelivery }} ></div>
+      <div className='shipping-content' dangerouslySetInnerHTML={{ __html: shippingAndDelivery }} ></div>
     </div>
   )
 }

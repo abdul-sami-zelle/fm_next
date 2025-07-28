@@ -26,14 +26,16 @@ import { IoIosMailOpen, IoIosClose } from "react-icons/io";
 import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 // import { useLocation } from 'react-router-dom';
 import SectionLoader from '../../Components/Loader/SectionLoader';
+import Image from 'next/image';
+import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 const StoreLocatorClient = () => {
   const API_KEY = `AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU&amp;libraries=maps,marker,places,geometry`
   const [storesApiData, setStoresApiData] = useState()
   const [isFetching, setFetching] = useState(false)
-//   const location = useLocation()
-//   const showStore = location.state || {}
-const showStore = {}
+  //   const location = useLocation()
+  //   const showStore = location.state || {}
+  const showStore = {}
 
   const commentData = [
     {
@@ -49,15 +51,16 @@ const showStore = {}
   const [currentIndex, setCurrentIndex] = useState(null);
   const [selectedStore, setSelectedStore] = useState();
   const [zipCode, setZipCode] = useState('');
+  const [selectedStoreData, setSelectedStoreData] = useState([])
 
   const [showModal, setShowModal] = useState(null)
 
   useEffect(() => {
     setShowModal(Object.keys(showStore).length > 0
-    ? storesApiData?.findIndex(
+      ? storesApiData?.findIndex(
         (store) => store.store_id === showStore.store_id
       )
-    : null)
+      : null)
 
     handleLocationDetails(showStore, showModal)
   }, [])
@@ -96,15 +99,13 @@ const showStore = {}
 
   const handleShowTab = (type, lat, long) => {
     setStoreSelected(type);
+    if (type === 'store-list') {
+      setSelectedStoreData([])
+      setSelectedLatitude(null)
+      setSelectedLongitude(null)
+    }
     altitude.latitude = lat
     altitude.longitude = long
-    if (type === 'map') {
-      setTimeout(() => {
-        setShowBottomModal(true)
-      }, 1000);
-    } else {
-      setShowBottomModal(false)
-    }
   }
   const handleCloseBottomModal = () => {
     setShowBottomModal(false)
@@ -180,6 +181,19 @@ const showStore = {}
       alert('Please enter a valid zip code');
     }
   };
+
+
+  const handleStoreData = (item) => {
+    setSelectedStoreData([item])
+    console.log("selected item", item)
+
+    setSelectedLatitude(item.latitude)
+    setSelectedLongitude(item.longitude)
+    setStoreSelected('map');
+    setShowBottomModal(true)
+  }
+
+  useEffect(() => { console.log("Selected store image", selectedStoreData) }, [selectedStoreData])
 
   return (
     <div className='store-locator-main-container'>
@@ -258,7 +272,7 @@ const showStore = {}
                     {showLocationDetails?.images?.map((image, index) => (
                       <div className="single-location-slide" key={index}>
                         <img src={url + image?.image_url} alt="stores" />
-                      
+
                       </div>
                     ))}
                   </div>
@@ -308,10 +322,10 @@ const showStore = {}
                 );
               })}
             </div>
-            
+
           </div >
 
-         
+
         </div >
         <div className="all-store-map">
           {isLoaded ? (
@@ -337,9 +351,16 @@ const showStore = {}
         {storeSelected === 'map' ? (
           <div className='mobile-view-single-store-map'>
             {isLoaded ? (
-              
+
               <DeliveryLocationMap
+                mapWidth={'320px'}
                 address_info={``}
+                storesData={
+                  Object.keys(selectedStoreData).length === 0
+                    ? storesApiData
+                    : selectedStoreData
+                }
+                selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
               />
             ) : (
               <div className="loading-map-container">
@@ -353,13 +374,8 @@ const showStore = {}
               <div
                 key={index}
                 className='mobile-view-single-store-card'
+                onClick={() => handleStoreData(item)}
               >
-                {/* <button
-                  onClick={() => handleShowTab('map', item.longitude, item.latitude)}
-                  className='mobile-view-store-direction-button'
-                >
-                  <img src={'/Assets/icons/direction-icon.png'} alt='direction-icon' />
-                </button> */}
                 <div className='mobile-view-single-store-image-div'>
                   <img src={`${url}${item?.images?.[0]?.image_url}`} alt='store profile' className='mobile-view-single-store-image' />
                 </div>
@@ -382,81 +398,106 @@ const showStore = {}
 
       <div className={`mobile-view-bottom-modal ${showBottomModal ? 'show-bottom-modal' : ''}`} onClick={handleCloseBottomModal}>
         <div className='mobile-view-bottom-modal-inner-container' onClick={(e) => e.stopPropagation()}>
-          <div className='mobile-view-bottom-modal-header'>
-            <div className='mobile-view-bottom-modal-top-header-line'>
-              <hr className='horizontal-line' />
-            </div>
-            <button className='mobile-view-bottom-modal-close-button' onClick={handleCloseBottomModal}>
-              {/* <img src={closeBtn} alt='close btn' /> */}
-              <IoIosClose size={25} color='#595959' />
-            </button>
-          </div>
+          <div className='mobile-view-bottom-modal-inner-scrollable-container'>
 
-          <div className="single-location-slider">
-            <div className="single-location-slider-wrapper">
-              <div
-                className="mobile-view-slider-track"
-                style={{ transform: `translateX(-${sliderIndex * 140}px)` }}
-              >
-                {images?.map((image, index) => (
-                  <div className="mobile-view-single-location-slide" key={index}>
-                    <img src={image} alt="stores" />
-                    {/* <p>...</p> */}
-                  </div>
+            <div className='mobile-view-bottom-modal-header'>
+              <div className='mobile-view-bottom-modal-top-header-line'>
+                <hr className='horizontal-line' />
+              </div>
+              <button className='mobile-view-bottom-modal-close-button' onClick={handleCloseBottomModal}>
+                <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close btn' />
+                {/* <IoIosClose size={25} color='#595959' /> */}
+              </button>
+            </div>
+
+            <div className="single-location-slider">
+
+              <SwiperSlider
+                slidesData={selectedStoreData[0]?.images}
+                renderSlide={(img, index) => (
+
+                  <Image
+                    src={`${url}${img.image_url}`}
+                    alt={`slide ${index + 1}`}
+                    width={480}
+                    height={190}
+                    className='store-locator-mobile-image'
+                  />
+                )}
+                showDots={true}
+                showArrows={false}
+                spaceBetween={15}
+                delayTime={5000}
+                autoplay={true}
+                slidesPerView={1}
+                arrowSlide={true}
+                isPadding={false}
+              />
+
+              {/* <div className="single-location-slider-wrapper">
+                <div
+                  className="mobile-view-slider-track"
+                  style={{ transform: `translateX(-${sliderIndex * 140}px)` }}
+                >
+                  {images?.map((image, index) => (
+                    <div className="mobile-view-single-location-slide" key={index}>
+                      <img src={image} alt="stores" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mobile-view-slider-dots">
+                {images?.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`dot ${sliderIndex === index ? "active" : ""}`}
+                    onClick={() => handleDotClick(index)}
+                  ></button>
+                ))}
+              </div> */}
+            </div>
+
+            <div className='mobile-view-bottom-modal-delivery-options'>
+              <h3 className='mobile-heading-comments-top-heading'>Delivery Options:</h3>
+              <span>
+                <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' />
+                In-store pickup
+              </span>
+              <span>
+                <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' />
+                Delivery
+              </span>
+            </div>
+
+            <h3 className='mobile-heading-comments-top-heading'>Reviews & Ratings:</h3>
+            <div className='mobile-view-rating-and-reviews-of-product'>
+              <p>4.1</p>
+              <div>
+                {[0, 1, 2, 3, 4].map((item, index) => (
+                  <FaStar key={index} size={15} color='#50BED3' />
                 ))}
               </div>
+              <p>(1707 Reviews)</p>
             </div>
-            <div className="mobile-view-slider-dots">
-              {images?.map((_, index) => (
-                <button
-                  key={index}
-                  className={`dot ${sliderIndex === index ? "active" : ""}`}
-                  onClick={() => handleDotClick(index)}
-                ></button>
-              ))}
-            </div>
-          </div>
-
-          <div className='mobile-view-bottom-modal-delivery-options'>
-            <h3 className='mobile-heading-comments-top-heading'>Delivery Options:</h3>
-            <span>
-              <img src={'/Assets/icons/blue-tick.png'} alt='blue-tick' />
-              In-store pickup
-            </span>
-            <span>
-              <img src={'/Assets/icons/blue-tick.png'} alt='blue-tick' />
-              Delivery
-            </span>
-          </div>
-
-          <h3 className='mobile-heading-comments-top-heading'>Reviews & Ratings:</h3>
-          <div className='mobile-view-rating-and-reviews-of-product'>
-            <p>4.1</p>
-            <div>
-              {[0, 1, 2, 3, 4].map((item, index) => (
-                <FaStar size={15} color='#50BED3' />
-              ))}
-            </div>
-            <p>(1707 Reviews)</p>
-          </div>
-          {
-            commentData?.map((item, index) => (
-              <div className='single-location-comment-card'>
-                <div className='comment-user-section'>
-                  <img src={item.profile} alt='profile' className='user-profile-picture' />
-                  <div className='comment-user-name-and-rating'>
-                    <h3>{item.useName}</h3>
-                    <div className='user-rating'>
-                      {[0, 1, 2, 3, 4].map((star, index) => (
-                        <FaStar size={15} color='#F0AD4E' />
-                      ))}
+            {
+              commentData?.map((item, index) => (
+                <div className='single-location-comment-card'>
+                  <div className='comment-user-section'>
+                    <img src={item.profile} alt='profile' className='user-profile-picture' />
+                    <div className='comment-user-name-and-rating'>
+                      <h3>{item.useName}</h3>
+                      <div className='user-rating'>
+                        {[0, 1, 2, 3, 4].map((star, index) => (
+                          <FaStar size={15} color='#F0AD4E' />
+                        ))}
+                      </div>
                     </div>
                   </div>
+                  <p className='comment-user-feedback'>{item.comment}</p>
                 </div>
-                <p className='comment-user-feedback'>{item.comment}</p>
-              </div>
-            ))
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
 

@@ -97,7 +97,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                         <p>Email<span style={{ color: "var(--primary-color)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
-                            type="text"
+                            type="email"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}

@@ -46,25 +46,46 @@ const FrequentlyBought = ({ isPadding, product }) => {
 
 
     // wish list
-    const [snakeBarMessage, setSnakBarMessage] = useState();
-    const [showSnakeBar, setShowSnakeBar] = useState(false);
 
     const { addToList, removeFromList, isInWishList } = useList()
-    const handleWishList = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            setShowSnakeBar(true)
-            setSnakBarMessage("Product Removed Successfully")
-
-        } else {
-            addToList(item)
-            setSnakBarMessage("Product Added To Wish List");
-            setShowSnakeBar(true)
-
+    const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
+  
+  
+    const handleWishList = async (item) => {
+  
+      const userId = localStorage.getItem('uuid');
+      const getToken = localStorage.getItem('userToken');
+  
+      setShowSnakeBar(true)
+      if (isInWishList(item._id)) {
+        removeFromList(item._id);
+        setSnakeBarMessage('Removed from wish list')
+  
+      } else {
+        addToList(item._id)
+  
+        setSnakeBarMessage('added to wish list')
+      }
+  
+      if (userId && getToken) {
+        const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+  
+        try {
+          const response = await axios.put(api, { productId: item._id }, {
+            headers: {
+              Authorization: getToken,
+              'Content-Type': 'application/json',
+            }
+          });
+        } catch (error) {
+          console.error("UnExpected Server Error", error);
         }
+      }
     }
+  
     const handleCloseSnakeBar = () => {
-        setShowSnakeBar(false)
+      setShowSnakeBar(false)
     }
 
     const [quickViewClicked, setQuickView] = useState(false);

@@ -18,6 +18,7 @@ import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import { useLastCallContext } from "@/context/LastCallContext/LastCallContext";
+import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 
 export default function LastCallClient({ slug }) {
     const router = useRouter();
@@ -42,21 +43,44 @@ export default function LastCallClient({ slug }) {
     }
     // wish list 
     const { addToList, removeFromList, isInWishList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
-    const handleWishList = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                className: "toast-message",
-            })
+    const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
+
+
+    const handleWishList = async (item) => {
+
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+
+        setShowSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
+            setSnakeBarMessage('Removed from wish list')
+
         } else {
-            addToList(item)
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            addToList(item._id)
+
+            setSnakeBarMessage('added to wish list')
         }
+
+        if (userId && getToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: getToken,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.error("UnExpected Server Error", error);
+            }
+        }
+    }
+
+    const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
     }
 
     const {
@@ -178,6 +202,13 @@ export default function LastCallClient({ slug }) {
                     setQuickViewProduct={quickViewProduct}
                     quickViewShow={quickViewClicked}
                     quickViewClose={handleQuickViewClose}
+                />
+
+                <SnakBar
+                    message={snakeBarMessage}
+                    openSnakeBarProp={showSnakeBar}
+                    setOpenSnakeBar={setShowSnakeBar}
+                    onClick={handleCloseSnakeBar}
                 />
 
 

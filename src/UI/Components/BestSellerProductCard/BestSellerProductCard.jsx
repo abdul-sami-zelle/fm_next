@@ -1,6 +1,6 @@
 import React from 'react'
 import './BestSellerProductCard.css';
-import { VscHeartFilled } from "react-icons/vsc";
+import { VscHeart, VscHeartFilled } from "react-icons/vsc";
 import { useList } from '../../../context/wishListContext/wishListContext';
 import RatingReview from '../starRating/starRating';
 import { formatedPrice, url } from '../../../utils/api';
@@ -56,7 +56,31 @@ const BestSellerProductCard = (
                             <p>{formatedPrice(oldPrice)}</p>
                         </div>
                     )}
+
                     {
+                        isInWishList(productData?._id) ? (
+                            <VscHeartFilled
+                                size={25}
+                                style={{ color: 'var(--orange-fill)' }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    handleWishListClicked(productData);
+                                }}
+                            />
+                        ) : (
+                            <VscHeart
+                                size={25}
+                                style={{ color: 'var(--orange-fill)' }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    handleWishListClicked(productData);
+                                }}
+                            />
+                        )
+                    }
+                    {/* {
                         isInWishList(productData.uid) ? <VscHeartFilled
                             size={25}
                             style={{ color: 'var(--primary-color)' }}
@@ -65,7 +89,7 @@ const BestSellerProductCard = (
                                 alt='heart'
                                 className='hide-on-mobile'
                                 onClick={(e) => { e.stopPropagation(); handleWishListClicked(productData) }} />
-                    }
+                    } */}
                 </div>
             </div>
         </Link>

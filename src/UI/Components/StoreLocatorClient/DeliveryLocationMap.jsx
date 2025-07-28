@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
-const containerStyle = {
-  width: "580px",
-  height: "290px",
-};
+
 
 const mobileContainerStyle = {
-  width: "100%",
+  // width: "100%",
   height: "250px",
 };
 
-const mapOptions = {
-  mapTypeControl: false,
-  streetViewControl: false,
-  fullscreenControl: false,
-  zoomControl: false,
-  draggable: false,
-};
 
-function DeliveryLocationMap({ address_info }) {
+
+function DeliveryLocationMap({ address_info, mapWidth, storesData, selectedLocation }) {
+
+  const containerStyle = {
+    // width: mapWidth,
+    height: "100%",
+  };
+
+  const mapOptions = {
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+    zoomControl: false,
+    draggable: false,
+  };
+
+
+
   const { isLoaded } = useLoadScript({
     // googleMapsApiKey: "AIzaSyBCllVZsJjrhrGSJLJTE5NzPNt94ChqHc8",
-    googleMapsApiKey:"AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU",
+    googleMapsApiKey: "AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU",
   });
 
   const [location, setLocation] = useState(null);
@@ -64,7 +71,26 @@ function DeliveryLocationMap({ address_info }) {
 
   return (
     <>
-      <div className="google-map-desktop">
+      <div className="google-map-desktop" style={{width: '100%'}}>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          // center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
+          // zoom={location ? 15 : 7}
+          // options={mapOptions}
+          center={(selectedLocation.lat === null || selectedLocation.lng === null) ? { lat: 39.9526, lng: -75.1652 } : selectedLocation} // Default center
+          zoom={(selectedLocation.lat === null || selectedLocation.lng === null) ? 8.6 : 18} // Adjust zoom on selection
+          options={mapOptions}
+        >
+          {/* {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />} */}
+          {storesData?.map((location, index) => (
+                  <Marker
+                    key={index}
+                    position={{ lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) }}
+                  />
+                ))}
+        </GoogleMap>
+      </div>
+      {/* <div className="google-map-mobile">
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
@@ -73,17 +99,7 @@ function DeliveryLocationMap({ address_info }) {
         >
           {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
         </GoogleMap>
-      </div>
-      <div className="google-map-mobile">
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={location || { lat: 37.7749, lng: -122.4194 }} // Default center if location is not available
-          zoom={location ? 15 : 7}
-          options={mapOptions}
-        >
-          {location && <Marker position={{ lat: 37.7749, lng: -122.4194 }} />}
-        </GoogleMap>
-      </div>
+      </div> */}
     </>
   );
 }

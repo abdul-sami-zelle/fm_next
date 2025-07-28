@@ -111,20 +111,41 @@ const BestSeller = () => {
 
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState();
-    const handleWishlisted = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            setShowSnakeBar(true);
-            setSnakeBarMessage("Product Removed From Wish List");
+
+
+    const handleWishlisted = async (item) => {
+
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+
+        setShowSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
+            setSnakeBarMessage('Removed from wish list')
+
         } else {
-            addToList(item); // Add if not in wishlist
-            setShowSnakeBar(true);
-            setSnakeBarMessage("Product Added To Wish List")
+            addToList(item._id)
+
+            setSnakeBarMessage('added to wish list')
+        }
+
+        if (userId && getToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: getToken,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.error("UnExpected Server Error", error);
+            }
         }
     }
-
     const handleCloseSnakeBar = () => {
-        setShowSnakeBar(false)
+      setShowSnakeBar(false)
     }
 
 
@@ -160,6 +181,7 @@ const BestSeller = () => {
                                         productName={item.name}
                                         oldPrice={item.regular_price}
                                         newPrice={item.sale_price}
+                                        handleWishListClicked={() => handleWishlisted(item)}
                                         handleCardClicked={() => handleProductClick(item)}
                                     />
                                 ))}
@@ -216,7 +238,7 @@ const BestSeller = () => {
 
                                         <div className='mobile-best-seller-cart-wishlist-container'>
                                             {
-                                                isInWishList(item?.uid) ? (
+                                                isInWishList(item?._id) ? (
                                                     <VscHeartFilled
                                                         size={25}
                                                         style={{
@@ -225,6 +247,7 @@ const BestSeller = () => {
                                                         }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
+                                                            e.preventDefault();
                                                             handleWishlisted(item);
                                                         }}
                                                     />
@@ -237,6 +260,7 @@ const BestSeller = () => {
                                                         }}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
+                                                            e.preventDefault();
                                                             handleWishlisted(item);
                                                         }}
                                                     />

@@ -96,13 +96,6 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
               <Image src={'/Assets/Logo/new-main-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
             <CiUser strokeWidth={0.8} className='mobile-user-icon' />
-            {/* <div className='mobile-nav-header-llogin-signup'>
-              <Link href={'/my-account'}>Login / Signup</Link>
-            </div> */}
-            {/* <div className='mobile-nav-header-arrow-container'>
-              <MdKeyboardArrowRight size={20} color='#595959' />
-
-            </div> */}
           </div>
 
           <div className='mobile-nav-cart-container' onClick={handleNAvigateToCart}>
@@ -133,6 +126,26 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
               </span>
             </Link>
           ))}
+
+          <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container'>
+              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                <p>{headerOffer.category} 🔥</p>
+              </div>
+              <span>
+                <MdKeyboardArrowRight size={20} color='#595959' />
+              </span>
+            </Link>
+
+            <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
+              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                <p>{sale_data.category}</p>
+              </div>
+              <span>
+                <MdKeyboardArrowRight size={20} color='#595959' />
+              </span>
+            </Link>
         </div>
 
 

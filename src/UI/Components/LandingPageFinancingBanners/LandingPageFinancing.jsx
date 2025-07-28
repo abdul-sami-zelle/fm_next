@@ -2,12 +2,13 @@ import React from 'react'
 import './LandingPageFinancing.css'
 import Link from 'next/link';
 import Image from 'next/image';
+import { url } from '@/utils/api';
 
 
 const LandingPageFinancing = () => {
   const bannersData = [
     '/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg',
-    '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-3.gif',
+    '/Assets/Furniture Mecca/Landing Page/financing/banner-2.gif',
     '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-2.jpg',
   ]
   const financingButtons = [
@@ -77,7 +78,7 @@ const LandingPageFinancing = () => {
           ))}
         </div>
         <div  className={`mobile-view-banner-container-hide-on-desktop`}>
-          <img src={'/Assets/Furniture Mecca/Landing Page/financing/mob-banner-3.gif'} alt='banner' className='mobile-view-banner' />
+          <Image src={`/Assets/Furniture Mecca/Landing Page/financing/PAYPAL-BANNER2.gif`} width={480} height={150} alt='banner gif' className='mobile-view-banner' />
         </div>
 
       </div>

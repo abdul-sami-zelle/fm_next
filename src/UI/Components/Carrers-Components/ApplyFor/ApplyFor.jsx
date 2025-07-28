@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './ApplyFor.css'
 import { useRef } from 'react'
-import applyIcon from '../../../../Assets/Furniture Mecca/Careers/Mask group.png'
 import axios from 'axios'
 import { formatPhoneNumber, url } from '../../../../utils/api'
 import { BsSend } from "react-icons/bs";
 
 const ApplyFor = ({setLoading}) => {
-
-    // const [loading, setLoading] = useState(false)
-
 
     const [applyForData, setApplyForData] = useState({
         firstName: '',
@@ -23,7 +19,6 @@ const ApplyFor = ({setLoading}) => {
     })
 
     const [error, setError] = useState({})
-
     // const [newData, setNewData] = useState({...applyForData})
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -50,7 +45,7 @@ const ApplyFor = ({setLoading}) => {
         }));
 
         // Reset state if ZIP code is empty
-        if (!zipCode) {
+        if (!zipCode || zipCode.length !== 5 || !/^\d{5}$/.test(zipCode)) {
             setApplyForData((prevData) => ({ ...prevData, state: "" }));
             return;
         }
@@ -71,10 +66,8 @@ const ApplyFor = ({setLoading}) => {
                 city: result.city || ""
             }));
 
-            // setError((prevError) => ({ ...prevError, state: false }));
         } catch (error) {
             console.error("Error fetching ZIP code data:", error);
-            // setError((prevError) => ({ ...prevError, state: true }));
         } finally {
             setLoading(false);
         }
@@ -114,11 +107,8 @@ const ApplyFor = ({setLoading}) => {
         }
     }
 
-
-
     const sendUserData = async (e) => {
         e.preventDefault();
-
         const newError = {}
         Object.keys(applyForData).forEach((key) => {
             if (!applyForData[key] || (typeof applyForData[key] === "string" && !applyForData[key].trim())) {
@@ -127,7 +117,6 @@ const ApplyFor = ({setLoading}) => {
         });
 
         // Email validation
-
         if (applyForData.email && !validateEmail(applyForData.email)) {
             newError.email = "Enter a valid email address";
         }
@@ -137,10 +126,7 @@ const ApplyFor = ({setLoading}) => {
             return;
         }
 
-
-
         const formattedContact = applyForData.contact.replace(/\D/g, "");
-
         if (formattedContact.length !== 10) {
             console.error("Invalid contact number length"); // Ensure it's exactly 10 digits
         } 
@@ -157,20 +143,12 @@ const ApplyFor = ({setLoading}) => {
         if (applyForData.resume) {
             formData.append("resume", applyForData.resume);
         }
-
-
         // Fetch state information
         const api = `/api/v1/careers/add`
 
         try {
             setLoading(true)
-            const response = await axios.post(url+api, formData 
-                // {
-                // headers: {
-                //     "Content-Type": "multipart/form-data",
-                // },
-            // }
-        )
+            const response = await axios.post(url+api, formData )
 
             if (response.status === 201) {
                 alert("Your contact information has been submitted successfully!");
@@ -191,15 +169,10 @@ const ApplyFor = ({setLoading}) => {
         } finally {
             setLoading(false)
         }
-
-
     }
 
-   
-
-
     const handleSubmitCareerForm = async () => { }
-
+    
     return (
         <form className='apply-for-main' onSubmit={handleSubmitCareerForm}>
 

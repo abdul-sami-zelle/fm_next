@@ -4,8 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import './Products.css';
 
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { FaRegArrowAltCircleLeft } from "react-icons/fa";
-import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { FaPlus, FaTruck, FaLocationDot, FaMinus } from "react-icons/fa6";
 
 
@@ -73,9 +71,6 @@ const Products = ({ navigationType }) => {
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
 
-
-    console.log("sub category slug", subCategorySlug)
-
     // const location = useLocation();
     const location = useSearchParams();
     // const params = new URLSearchParams(location.search);
@@ -120,6 +115,8 @@ const Products = ({ navigationType }) => {
     const [showSortModal, setShowSortModal] = useState(false);
     const [selectedOption, setSelectedOption] = useState('')
     const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+    console.log("products", products)
 
     const router = useRouter()
 
@@ -491,65 +488,6 @@ const Products = ({ navigationType }) => {
         }
     };
 
-    // const handlePrevPage = () => {
-    //     if (activePage > 1) {
-
-    //         // const params = new URLSearchParams(searchParams);
-    //         const params = new URLSearchParams(window.location.search);
-    //         params.set('page', activePage - 1);
-
-    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-    //         const pathname = window.location.pathname;
-
-    //         // setSearchParams(params.toString())
-    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
-    //         setActivePage(activePage - 1);
-    //         setActivePageIndex(activePageIndex - 1);
-
-    //         if (pageCache.current[index]) {
-    //             setProducts(pageCache.current[index]);
-    //         } else {
-    //             sortProducts(selectedRelevanceValue)
-    //             filterProducts(params.toString())
-    //         }
-
-    //         window.scrollTo({
-    //             top: 0,
-    //             behavior: 'smooth'
-    //         })
-
-    //     }
-    // };
-
-    // const handleNextPage = () => {
-
-    //     if (activePage < totalPages?.totalPages) {
-
-    //         // const params = new URLSearchParams(searchParams);
-    //         const params = new URLSearchParams(window.location.search);
-    //         params.set('page', activePage + 1);
-
-    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-    //         const pathname = window.location.pathname;
-
-    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
-
-    //         // setSearchParams(params.toString());
-    //         setActivePage(activePage + 1);
-    //         setActivePageIndex(activePageIndex + 1);
-    //         if (pageCache.current[index]) {
-    //             setProducts(pageCache.current[index]);
-    //         } else {
-    //             sortProducts(selectedRelevanceValue)
-    //             filterProducts(params.toString())
-    //         }
-    //         window.scrollTo({
-    //             top: 0,
-    //             behavior: 'smooth'
-    //         })
-    //     }
-    // };
-
     const handlePrevPage = () => {
         if (activePage > 1) {
             const newPage = activePage - 1;
@@ -689,15 +627,9 @@ const Products = ({ navigationType }) => {
         <div className='products-main-container'>
             {/* <Breadcrumb category={products.categories} /> */}
             {loader && <Loader />}
-            {/* <h3 className='select-your-category-products-heading'>Select Your {subCategorySlug.replace(/-/g, ' ').toUpperCase()}</h3> */}
-            <h3 className='select-your-category-heading'>
+            <h3 className={`select-your-category-products-heading ${currentRoute === 'searched-products' ? 'hide-category-heading' : ''}`}>
                 Select Your{" "}
                 {formatted}
-                {/* {decodeURIComponent('/accent-furniture')
-                    .toLowerCase()
-                    .split('/')
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ')} */}
             </h3>
             <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
                 {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (

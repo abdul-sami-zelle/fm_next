@@ -78,7 +78,7 @@ const LoginMobileView = ({ mobileSignupClicked, handleRegisteView, setSnakeBarMe
             className='login-and-register-input'
             type='email'
             placeholder='Email'
-            value={loginEmail}
+            value={loginEmail} required
             onChange={(e) => setLoginEmail(e.target.value)}
           />
         </label>
@@ -87,6 +87,7 @@ const LoginMobileView = ({ mobileSignupClicked, handleRegisteView, setSnakeBarMe
           <input
             className='login-and-register-input'
             type='text'
+            required
             placeholder='Password'
             value={loginPassword}
             onChange={(e) => setLoginPassword(e.target.value)}

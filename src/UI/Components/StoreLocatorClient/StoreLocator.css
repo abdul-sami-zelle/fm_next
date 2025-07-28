@@ -322,14 +322,24 @@
 }
 
 .single-location-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: auto;
+    height: 100%;
+    min-height: max-content;
     padding: 10px 0;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
 }
 
-.single-location-slider-wrapper {
+.store-locator-mobile-image {
+    width: 100%;
+    /* height: auto; */
+    object-fit: cover;
+}
+
+/* .single-location-slider-wrapper {
     display: flex;
     width: 100%;
     height: 100%;
@@ -339,7 +349,7 @@
     display: flex;
     height: 100%;
     transition: transform 0.5s ease-in-out;
-}
+} */
 
 .single-location-slide {
     min-width: 100%;
@@ -592,6 +602,12 @@
     overflow: hidden;
 }
 
+.mobile-view-single-store-map > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .mobile-view-stores-list {
     display: flex;
     flex-direction: column;
@@ -688,18 +704,31 @@
     bottom: 0;
     left: 0;
     height: 450px;
+    overflow: hidden;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-view-bottom-modal-inner-scrollable-container {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
-    gap: 20px;
-    background-color: #fff;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    padding: 20px 10px;
-
+    gap: 10px;
 }
 
-.mobile-view-bottom-modal-inner-container::-webkit-scrollbar {
+
+
+.mobile-view-bottom-modal-inner-scrollable-container::-webkit-scrollbar {
     display: none;
 }
 
@@ -730,25 +759,17 @@
 }
 
 .mobile-view-bottom-modal-close-button {
-    /* position: absolute; */
-    /* top: 20px;
-    right: 20px; */
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
-    height: 25px;
+    width: max-content;
+    height: max-content;
     background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
 }
 
-.mobile-view-bottom-modal-close-button img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
 
 .mobile-view-slider-track {
     display: flex;
@@ -787,9 +808,10 @@
     align-items: center;
     justify-content: start;
     gap: 10px;
+    font-size: 12px;
 }
 
-.mobile-view-comments-top-heading {
+.mobile-heading-comments-top-heading {
     font-size: 15px;
     line-height: 22px;
     font-weight: 500;
@@ -805,8 +827,8 @@
 }
 
 .mobile-view-rating-and-reviews-of-product p {
-    font-size: 14px;
-    line-height: 21px;
+    font-size: 10px;
+    line-height: 1.5;
     font-weight: 400;
 }
 

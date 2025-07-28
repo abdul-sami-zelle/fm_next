@@ -34,6 +34,7 @@ import useSWR from 'swr'
 import { fetcher } from '@/utils/Fetcher'
 import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
 import { useChatOpenContext } from '@/context/ChatbotContext/ChatbotContext'
+import { VscHeart, VscHeartFilled } from 'react-icons/vsc'
 
 
 
@@ -198,20 +199,26 @@ const ProductDetailSticky = (
   };
 
   const { addToList, removeFromList, isInWishList } = useList()
-  const handleWishList = (item) => {
-    if (isInWishList(item?.uid)) {
-      removeFromList(item?.uid)
-      handleShowSnakeToust("Product Removed From Wish List")
+  // const handleWishList = (item) => {
+  //   if (isInWishList(item?.uid)) {
+  //     removeFromList(item?.uid)
+  //     handleShowSnakeToust("Product Removed From Wish List")
 
-    } else {
-      addToList(item)
-      handleShowSnakeToust("Product Added Wish List")
-    }
-  }
+  //   } else {
+  //     addToList(item)
+  //     handleShowSnakeToust("Product Added Wish List")
+  //   }
+  // }
 
-  const handleNavigate = () => {
-    router.push('/contact-us')
-  }
+  // const handleNavigate = () => {
+  //   router.push('/contact-us')
+  // }
+
+
+
+
+
+
 
   // const [zoomIn, setZoomIn] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -333,6 +340,39 @@ const ProductDetailSticky = (
     setSnakeBarMessage(message)
   }
 
+
+  const handleWishList = async (item) => {
+
+    const userId = localStorage.getItem('uuid');
+    const getToken = localStorage.getItem('userToken');
+
+    setShowSnakeBar(true)
+    if (isInWishList(item._id)) {
+      removeFromList(item._id);
+      setSnakeBarMessage('Removed from wish list')
+
+    } else {
+      addToList(item._id)
+
+      setSnakeBarMessage('added to wish list')
+    }
+
+    if (userId && getToken) {
+      const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+      try {
+        const response = await axios.put(api, { productId: item._id }, {
+          headers: {
+            Authorization: getToken,
+            'Content-Type': 'application/json',
+          }
+        });
+      } catch (error) {
+        console.error("UnExpected Server Error", error);
+      }
+    }
+  }
+
   const handleCloseSnakeBar = () => {
     setShowSnakeBar(false);
   }
@@ -351,7 +391,7 @@ const ProductDetailSticky = (
 
   const pathname = usePathname()
   const handleWhatsAppClick = () => {
-    const phoneNumber = '15402927702'; 
+    const phoneNumber = '15402927702';
     const message = `Hello, I am interested in this product! https://fmnext.myfurnituremecca.com${pathname}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -542,8 +582,19 @@ const ProductDetailSticky = (
                     onClick={(e) => { e.stopPropagation(); handleWishList(product) }}
                     style={{ border: isInWishList(product.uid) ? '1px solid red' : '1px solid var(--orange-outline)' }}
                   >
-                    {isInWishList(product.uid) ? <IoMdHeart size={20} color={isInWishList(product.uid) ? 'var(--orange-fill)' : 'var(--orange-outline)'} />
-                      : <IoMdHeartEmpty size={20} color='var(--orange-outline)' />}
+                    {
+                      isInWishList(product?._id) ? (
+                        <VscHeartFilled
+                          size={25}
+                          style={{ color: 'var(--orange-fill)' }}
+                        />
+                      ) : (
+                        <VscHeart
+                          size={25}
+                          style={{ color: 'var(--orange-fill)' }}
+                        />
+                      )
+                    }
                   </div>
 
 

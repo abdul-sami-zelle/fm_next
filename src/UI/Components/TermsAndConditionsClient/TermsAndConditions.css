@@ -50,3 +50,9 @@
     line-height: 18px;
     font-weight: 400;
 }
+
+@media only screen and (max-width: 480px) {
+    .terms-and-conditions-main-container {
+        padding: 15px;
+    }
+}

@@ -121,6 +121,14 @@
 @media only screen and (max-width: 480px){
     .apply-for-main{
         width: 100%;
+        padding: 10px;
+    }
+    .apply-for-input-labels input {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    .career-form-first-and-last-name-container {
+        gap: 10px;
     }
 }
 

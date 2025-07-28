@@ -13,7 +13,7 @@ import { fetcher } from '@/utils/Fetcher';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 
-const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api }) => {
+const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, }) => {
 
   const router = useRouter();
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -123,23 +123,47 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
   // wish list 
   const { addToList, removeFromList, isInWishList } = useList()
+
+
   const [showSnakeBar, setShowSnakeBar] = useState(false);
   const [snakeBarMessage, setSnakeBarMessage] = useState();
-  const handleWishList = (item) => {
-    if (isInWishList(item.uid)) {
-      removeFromList(item.uid)
-      setShowSnakeBar(true);
-      setSnakeBarMessage("Product Removed From Wish List");
+
+
+  const handleWishList = async (item) => {
+
+    const userId = localStorage.getItem('uuid');
+    const getToken = localStorage.getItem('userToken');
+
+    setShowSnakeBar(true)
+    if (isInWishList(item._id)) {
+      removeFromList(item._id);
+      setSnakeBarMessage('Removed from wish list')
+
     } else {
-      addToList(item)
-      setShowSnakeBar(true);
-      setSnakeBarMessage("Product Added To Wish List")
+      addToList(item._id)
+
+      setSnakeBarMessage('added to wish list')
+    }
+
+    if (userId && getToken) {
+      const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+      try {
+        const response = await axios.put(api, { productId: item._id }, {
+          headers: {
+            Authorization: getToken,
+            'Content-Type': 'application/json',
+          }
+        });
+      } catch (error) {
+        console.error("UnExpected Server Error", error);
+      }
     }
   }
 
-   const handleCloseSnakeBar = () => {
-        setShowSnakeBar(false)
-    }
+  const handleCloseSnakeBar = () => {
+    setShowSnakeBar(false)
+  }
 
   const [isSharePopup, setIsSharePopup] = useState(null);
   const [selectedUid, setSelectedUid] = useState(null)

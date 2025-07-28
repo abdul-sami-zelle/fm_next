@@ -74,18 +74,38 @@ const SimillerProducts = ({ isPadding, productId }) => {
   const { addToList, removeFromList, isInWishList } = useList()
 
   const [showSnakeBar, setShowSnakeBar] = useState(false);
-  const [snakeBarMessage, setSnakeBarMessage] = useState()
-  const handleWishList = (item) => {
-    if (isInWishList(item.uid)) {
-      removeFromList(item.uid);
-      setShowSnakeBar(true);
-      setSnakeBarMessage("Product Removed From Wish List");
+  const [snakeBarMessage, setSnakeBarMessage] = useState();
+
+
+  const handleWishList = async (item) => {
+
+    const userId = localStorage.getItem('uuid');
+    const getToken = localStorage.getItem('userToken');
+
+    setShowSnakeBar(true)
+    if (isInWishList(item._id)) {
+      removeFromList(item._id);
+      setSnakeBarMessage('Removed from wish list')
 
     } else {
-      addToList(item)
-      setShowSnakeBar(true);
-      setSnakeBarMessage("Product Added To Wish List");
+      addToList(item._id)
 
+      setSnakeBarMessage('added to wish list')
+    }
+
+    if (userId && getToken) {
+      const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+      try {
+        const response = await axios.put(api, { productId: item._id }, {
+          headers: {
+            Authorization: getToken,
+            'Content-Type': 'application/json',
+          }
+        });
+      } catch (error) {
+        console.error("UnExpected Server Error", error);
+      }
     }
   }
 

@@ -10,7 +10,6 @@ import { VscHeart } from "react-icons/vsc";
 import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimmer';
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
-import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 
 const ProductCardTwo = ({

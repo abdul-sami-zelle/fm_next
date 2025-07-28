@@ -26,6 +26,8 @@ const WishListClient = () => {
     removeFromList,
     isInWishList
   } = useList();
+
+  console.log("wish list", wishList)
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -40,6 +42,7 @@ const WishListClient = () => {
 
   const handleWishListProducts = async () => {
     const wishlistItem = JSON.parse(localStorage.getItem('wishList'));
+    console.log("local wish list", wishlistItem)
     const userId = localStorage.getItem('uuid');
     const userToken = localStorage.getItem('userToken');
     const userApi = `${url}/api/v1/web-users/wishlist/${userId}`
@@ -60,6 +63,7 @@ const WishListClient = () => {
           setLoading(false)
         }
       } else {
+        console.log("gues list", wishlistItem)
         response = await axios.post(guestApi, { ids: wishlistItem });
         
         // if(response.status === 200) {

@@ -16,8 +16,9 @@ import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import { usePathname, useRouter } from "next/navigation";
+import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 
-export default function SaleClient({slug}) {
+export default function SaleClient({ slug }) {
     const router = useRouter();
     const { salesData, products, totalProducts } = useActiveSalePage();
     console.log("sale total products", totalProducts)
@@ -46,21 +47,44 @@ export default function SaleClient({slug}) {
     }
     // wish list 
     const { addToList, removeFromList, isInWishList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
-    const handleWishList = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                className: "toast-message",
-            })
+    const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState();
+
+
+    const handleWishList = async (item) => {
+
+        const userId = localStorage.getItem('uuid');
+        const getToken = localStorage.getItem('userToken');
+
+        setShowSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
+            setSnakeBarMessage('Removed from wish list')
+
         } else {
-            addToList(item)
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            addToList(item._id)
+
+            setSnakeBarMessage('added to wish list')
         }
+
+        if (userId && getToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: getToken,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.error("UnExpected Server Error", error);
+            }
+        }
+    }
+
+    const handleCloseSnakeBar = () => {
+        setShowSnakeBar(false)
     }
 
     const {
@@ -88,7 +112,7 @@ export default function SaleClient({slug}) {
 
     const pathname = usePathname();
     const splitedPath = pathname.split('/')
-    const childSlug = splitedPath[splitedPath.length -1];
+    const childSlug = splitedPath[splitedPath.length - 1];
     const handleNavigateToOutlate = () => {
         router.push(`/outlet/${childSlug}`)
     }
@@ -183,10 +207,17 @@ export default function SaleClient({slug}) {
                     quickViewClose={handleQuickViewClose}
                 />
 
-                
+                <SnakBar
+                    message={snakeBarMessage}
+                    openSnakeBarProp={showSnakeBar}
+                    setOpenSnakeBar={setShowSnakeBar}
+                    onClick={handleCloseSnakeBar}
+                />
+
+
             </div>
 
-        
+
         </>
     )
 }
