@@ -144,7 +144,7 @@ const HomeScreen = ({
           <div className="support-people-list">
             {conversations.length > 0 && (
               <>
-                <h2>Continue the conversation</h2>
+                {/* <h2>Continue the conversation</h2> */}
                 <div className="support-people-items">
                   {visibleConversations.map((c, i) => (
                     <div className="support-person" key={i}>

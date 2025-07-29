@@ -23,6 +23,7 @@ import { fetcher } from '@/utils/Fetcher';
 import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { BiSolidShoppingBag } from 'react-icons/bi';
+import generateInvoicePDF from '../User-Dashboard-Components/OrderInvoice/OrderInvoice';
 
 
 const BestSellerSlider = (

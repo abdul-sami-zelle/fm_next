@@ -9,6 +9,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { CiUser } from 'react-icons/ci';
 import { useRouter } from 'next/navigation';
+import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_data, headerOffer }) => {
 
@@ -35,8 +36,10 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
     handleNavbarClose()
   }
 
+  const {setSigninClicked} = useUserDashboardContext()
   const handleNAvigateToLogin = () => {
     router.push('/user-dashboard/:id');
+    setSigninClicked(true);
     handleNavbarClose()
   }
 

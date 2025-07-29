@@ -11,6 +11,8 @@ import ProductCardImageShimmer from '../Loaders/CardImageShimmer/cardImageShimme
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css'; // important!
 
 const ProductCardTwo = ({
     productCardContainerClass,
@@ -205,7 +207,11 @@ const ProductCardTwo = ({
 
                             {
                                 stockCheck ? (
-                                    <span className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' :''}`}>Out Of Stock</span>
+                                    <span
+                                        data-tooltip-id="my-tooltip"
+                                        data-tooltip-content="Available in 7 to 8 weeks"
+                                        className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>Out Of Stock</span>
+
                                 ) : (
                                     tags?.length > 0 && <div className={`product-tagging ${tags.length > 0 ? 'show-product-tag' : ''}`}>
                                         {
@@ -217,10 +223,13 @@ const ProductCardTwo = ({
                                                     <img src={url + tags[0]?.image} alt="" srcset="" />
                                                 </div>
                                         }
+
                                     </div>
 
                                 )
                             }
+
+
 
                             <div className={`product-wishlist-icon-container`}>
 
@@ -496,7 +505,7 @@ const ProductCardTwo = ({
                 </div>
             </div>
 
-
+            <Tooltip id="my-tooltip" className="custom-tooltip" />
         </>
     )
 }

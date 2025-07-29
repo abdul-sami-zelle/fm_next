@@ -114,10 +114,10 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
 
           </div>
 
-          <div className='mobile-view-dimension-main' onClick={showDrm}>
+          {/* <div className='mobile-view-dimension-main' onClick={showDrm}>
             <SiMaterialdesignicons size={20} color='var(--secondary-color)' />
             <p className='dimensions-detail-button-title'>Design Your Room</p>
-          </div>
+          </div> */}
 
         </div>
 

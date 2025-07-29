@@ -860,6 +860,17 @@
     left: 0;
 }
 
+.custom-tooltip {
+    background-color: rgba(89, 89, 89, 0.2) !important;       /* Custom background */
+  color: #FFF !important;                  /* Custom text color */
+  font-size: 12px !important;              /* Custom font size */
+  padding: 6px 10px !important;             /* Optional padding */
+  width: max-content !important;
+  height: max-content !important;
+  border-radius: 6px !important;           /* Optional rounded corners */
+  z-index: 9999 !important;
+}
+
 @media only screen and (max-width: 1700px) {
     .product-card-get-it-by-title.show-product-card-get-it-by-title {
         display: none !important;

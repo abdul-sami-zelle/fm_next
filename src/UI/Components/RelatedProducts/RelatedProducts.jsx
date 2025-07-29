@@ -96,7 +96,7 @@ const RelatedProducts = ({ data }) => {
           isPadding={true}
           breakpoints={{
             0: { slidesPerView: 1 },
-            768: { slidesPerView: 4 },
+            768: { slidesPerView: 5 },
           }}
         />
 

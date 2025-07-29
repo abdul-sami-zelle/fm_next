@@ -65,13 +65,21 @@ const Home = () => {
           !isOpen &&
           !showChatUsOnly &&
           !showOfflineScreen &&
-          !showOnlineChatUs && (
+          !showOnlineChatUs ? (
             <StartScreen
               onOpen={handleOpen}
+              source={"/Assets/chat/Images/ai-chatbot.gif"}
               onChatUsClick={handleOpenChatUsOnly}
               onStartScreenClose={handleStartScreenClose}
             />
-          )}
+          ) : (
+            <StartScreen
+              onOpen={handleOpen}
+              source={"/Assets/chat/Images/Chat-Placeholder.jpg"}
+              onChatUsClick={handleOpenChatUsOnly}
+              onStartScreenClose={handleStartScreenClose}
+            />
+          ) }
 
         {startScreenClosed &&
           !isOpen &&

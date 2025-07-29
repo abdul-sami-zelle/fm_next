@@ -5,6 +5,7 @@ import CategoryShimmer from '../Loaders/Category/categoryShimmer';
 import { url } from '../../../utils/api';
 import Link from 'next/link';
 import Image from 'next/image';
+import generateInvoicePDF from '../User-Dashboard-Components/OrderInvoice/OrderInvoice';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
 

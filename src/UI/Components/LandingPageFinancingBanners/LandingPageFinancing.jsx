@@ -8,7 +8,7 @@ import { url } from '@/utils/api';
 const LandingPageFinancing = () => {
   const bannersData = [
     '/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg',
-    '/mix-images/PAYPAL-BANNER2.gif',
+    '/mix-images/option-2.gif',
     '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-2.jpg',
   ]
   const financingButtons = [
@@ -44,7 +44,7 @@ const LandingPageFinancing = () => {
               <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg'} width={900} height={350} alt='banner one' />
             </Link>
             <Link href={'/financing'}>
-              <Image src={'/mix-images/PAYPAL-BANNER2.gif'} width={900} height={350} alt='banner two' />
+              <Image src={'/mix-images/option-2.gif'} width={900} height={350} alt='banner two' />
             </Link>
           </div>
           <Link href={'/financing'} className='landing-page-financing-right'>

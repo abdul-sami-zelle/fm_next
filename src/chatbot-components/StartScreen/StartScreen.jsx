@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
-const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose }) => {
+
+const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
   return (
     <div className="chatbot-wrapper">
       <div className="chatbot-frame">
         <div className="animated-border">
           <div className="chatbot-inner">
+
+
             
+
             <img
               className="chatbot-video"
-              src="/Assets/chat/Images/ai-chatbot.gif"
+              src={source}
               alt="AI Chatbot animation"
               onClick={onOpen}
             />
+
+            {/* <img
+              className="chatbot-video"
+              src="/Assets/chat/Images/ai-chatbot.gif"
+              alt="AI Chatbot animation image"
+              onClick={onOpen}
+            /> */}
 
             <div className="ai-label">AI</div>
             <RxCross2
