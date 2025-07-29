@@ -81,7 +81,8 @@
     border-top: 3px solid #FFFFFF;
     border-left: 3px solid #ffffff;
     border-radius: 1.25rem 0 0 0;
-    padding: 0.2125rem 0.2125rem 0 0.2125rem ;
+    /* padding: 0.2125rem 0.2125rem 0 0.2125rem ; */
+    padding: 0.3125rem 0.3125rem 0 0.3125rem ;
     display: flex;
     align-items: center;
     justify-content: center;

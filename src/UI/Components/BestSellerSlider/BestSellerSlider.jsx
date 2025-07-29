@@ -391,7 +391,7 @@ const BestSellerSlider = (
                                         </div>
                                         <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
-                                                <BiSolidShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
+                                                <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
                                             </div>
                                         </div>
                                     </Link>

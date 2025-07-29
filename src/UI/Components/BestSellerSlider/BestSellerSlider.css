@@ -485,8 +485,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     background-color: #FFFFFF;
     border-radius: 0.625rem;
     cursor: pointer;

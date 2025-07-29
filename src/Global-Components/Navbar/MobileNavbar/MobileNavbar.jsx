@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 import './MobileNavbar.css'
-// import MobileSubNav from './MobileSubNav/MobileSubNav';
 import Link from 'next/link';
 import { useDisableBodyScroll } from '../../../utils/api';
 import Image from 'next/image';
-// import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
-// import ordersIcon from '../../../Assets/icons/order.png';
-// import { useRouter } from 'next/navigation';
-// import { IoIosClose } from "react-icons/io";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -17,57 +12,14 @@ import { useRouter } from 'next/navigation';
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_data, headerOffer }) => {
 
-  // States and Vaeiables
-  // const [subNavData, setSubNavData] = useState([])
-  // const [openSubNav, setOpenSubNav] = useState(false)
-  // const router = useRouter()
 
   const handleNavbarClose = () => {
     setMobileNavVisible(false)
   }
   const {CalculateGrandTotal} = useGlobalContext()
 
-
-  // const { setUserToken } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
 
-  // const handleClickOnOrders = async () => {
-  //   if (typeof window !== "undefined") {
-  //     const token = localStorage.getItem('userToken');
-  //     const id = localStorage.getItem('uuid');
-
-  //     try {
-  //       if (token) {
-  //         const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
-  //           method: "GET",
-  //           headers: {
-  //             authorization: `${token}`,
-  //           },
-  //         });
-  //         if (response.ok) {
-  //           router.push(`/user-dashboard/${id}`);
-  //           setMobileNavVisible(false)
-  //         }
-  //       } else {
-  //         localStorage.removeItem('userToken');
-  //         setUserToken(null);
-  //         setIsTokenValid(true);
-  //       }
-  //     } catch (error) {
-  //       console.error("Unexpected Error", error)
-  //     }
-  //   }
-  // }
-
-  // const handleCloseLoginMessageModal = () => {
-  //   setIsTokenValid(false)
-  // }
-
-  // const handleNavigateToLogin = () => {
-  //   router.push('/my-account')
-  //   setIsTokenValid(false)
-  //   setMobileNavVisible(false)
-  // }
 
   const menuFooterIcons = [
     {icon: '/icons/clipboard-icon.png', link: '#'},
@@ -80,7 +32,12 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
   const handleNAvigateToCart = () => {
     router.push('/cart')
-    setMobileNavVisible(false)
+    handleNavbarClose()
+  }
+
+  const handleNAvigateToLogin = () => {
+    router.push('/user-dashboard/:id');
+    handleNavbarClose()
   }
 
   useDisableBodyScroll(isTokenValid)
@@ -92,10 +49,10 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
         <div className='mobile-nav-head'>
           <div className='mobile-nav-head-container'>
             <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' onClick={handleNavbarClose} />
-            <Link href={'/'} className='mobile-nav-header-image-contianer'>
+            <Link href={'/'} className='mobile-nav-header-image-contianer' onClick={handleNavbarClose}>
               <Image src={'/Assets/Logo/new-main-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
-            <CiUser strokeWidth={0.8} className='mobile-user-icon' />
+              <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={handleNAvigateToLogin} />
           </div>
 
           <div className='mobile-nav-cart-container' onClick={handleNAvigateToCart}>
@@ -117,7 +74,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
         <div className='mobile-nav-links-container'>
           {headerData.map((items, index) => (
             <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} >
-              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
                 <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
                 <p>{items.category}</p>
               </div>
@@ -128,7 +85,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
           ))}
 
           <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container'>
-              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
                 <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
                 <p>{headerOffer.category} 🔥</p>
               </div>
@@ -138,7 +95,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             </Link>
 
             <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
-              <div  className='mobile-nav-single-item-name-anchor' onClick={() => setMobileNavVisible(false)}>
+              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
                 <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
                 <p>{sale_data.category}</p>
               </div>

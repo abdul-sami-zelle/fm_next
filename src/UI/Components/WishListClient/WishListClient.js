@@ -27,7 +27,6 @@ const WishListClient = () => {
     isInWishList
   } = useList();
 
-  console.log("wish list", wishList)
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -42,7 +41,7 @@ const WishListClient = () => {
 
   const handleWishListProducts = async () => {
     const wishlistItem = JSON.parse(localStorage.getItem('wishList'));
-    console.log("local wish list", wishlistItem)
+    const productIds = wishlistItem.map(item => item._id)
     const userId = localStorage.getItem('uuid');
     const userToken = localStorage.getItem('userToken');
     const userApi = `${url}/api/v1/web-users/wishlist/${userId}`
@@ -64,7 +63,12 @@ const WishListClient = () => {
         }
       } else {
         console.log("gues list", wishlistItem)
-        response = await axios.post(guestApi, { ids: wishlistItem });
+        response = await axios.get(guestApi, { 
+          params: {
+            'ids[]': productIds
+          }
+        });
+        GiConsoleController.log("guest response", response)
         
         // if(response.status === 200) {
           setWishlistProducts(response.data.products)

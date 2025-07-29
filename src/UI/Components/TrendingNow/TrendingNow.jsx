@@ -9,17 +9,7 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 
 const TrendingNow = ({ data }) => {
-    // const [currentIndex, setCurrentIndex] = useState(0);
-
-    // useEffect(() => {
-    //     if (data && data?.sliders) {
-    //         const interval = setInterval(() => {
-    //             setCurrentIndex(prevIndex => (prevIndex + 1) % data?.sliders.length);
-    //         }, 3000);
-
-    //         return () => clearInterval(interval);
-    //     }
-    // }, [data]);
+    
 
     const productArray = data ? Object.keys(data)
         .filter(key => key.startsWith('product_'))
@@ -76,8 +66,8 @@ const TrendingNow = ({ data }) => {
                                     />
                                     <div className='small-tranding-cart-overlay-main-container'>
                                         <div className='small-tranding-card-bag-container'>
-                                            <BiSolidShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
-                                            <BiSolidShoppingBag size={20} className='tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={30} className='tranding-now-cart-bag' />
                                         </div>
                                     </div>
                                 </Link>

@@ -14,7 +14,6 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
         setViewModal(false)
     }
 
-    // https://fmnext.myfurnituremecca.com/order-confirmation/${response.data.order._id}
     const [loader, setLoader] = useState(false);
     const [orderData, setOrderData] = useState({})
     const handleOrderDetails = async () => {
@@ -54,12 +53,6 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
         },
     ]
 
-    // const ordersDetails = [
-    //     { itemId: '1657', name: 'Infinity Modular Sectional', price: '$1,299', protected: 'Yes', quantity: '1', total: '$1,299' },
-    //     { itemId: '1345', name: 'Haven 3 PC Sectional', price: '$1,299', protected: 'Yes', quantity: '2', total: '$2,998' },
-    //     { itemId: '1289', name: 'Micha TV Stand with Electric Fireplace', price: '$499', protected: 'Yes', quantity: '1', total: '$499' },
-    // ]
-
     function formatDateToReadable(isoDate) {
         const date = new Date(isoDate);
         return date.toLocaleDateString("en-GB", {
@@ -68,10 +61,6 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
             year: "numeric",
         });
     }
-
-
-
-
 
     return (
         <div className={`order-view-modal-main ${viewModal ? 'show-product-modal' : ''}`} onClick={handleCloseOrderView}>

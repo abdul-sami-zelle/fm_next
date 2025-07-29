@@ -1,6 +1,6 @@
 'use client'
 
-import React ,{useState,useEffect}from 'react'
+import React, { useState, useEffect } from 'react'
 import './UserDashboard.css';
 import DashboardTabs from '../../Components/User-Dashboard-Components/DashboardTabs/DashboardTabs';
 import { url } from '../../../utils/api';
@@ -9,13 +9,13 @@ import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { useRouter } from 'next/navigation';
 import Loader from '../Loader/Loader';
 
-const UserDashboardClient = ({id}) => {
+const UserDashboardClient = ({ id }) => {
   // const navigate = useNavigate();
-const router = useRouter();
-  const {mainLoader, setMainLoader } = useGlobalContext();
+  const router = useRouter();
+  const { mainLoader, setMainLoader } = useGlobalContext();
   const { setUserToken } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
-  const [userData,setUserData] = useState({})
+  const [userData, setUserData] = useState({})
   const [loader, setLoader] = useState(false);
   // const [initialChecked, setInitialChecked] = useState(false);
 
@@ -48,10 +48,10 @@ const router = useRouter();
             setIsTokenValid(true);
             setLoader(false)
             setMainLoader(false);
-          }else{
+          } else {
 
           }
-          
+
         } else {
           localStorage.removeItem('userToken');
           setUserToken(null);
@@ -79,60 +79,46 @@ const router = useRouter();
 
   };
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined' && !initialChecked) {
-  //     const uuid = localStorage.getItem('uuid');
-  //     const token = localStorage.getItem('userToken');
-  //     if (uuid && token) {
-  //       checkToken();
-  //     } else {
-  //       router.push('/my-account');
-  //     }
-  //     setInitialChecked(true); // 🔐 Prevent multiple calls
-  //   }
-  // }, [initialChecked]);
-
-
   const moveToLoginDash = async () => {
-    if(!id) return
+    if (!id) return
     await checkToken();
   }
 
   const [prevState, setPrevState] = useState(null);
-    useEffect(() => {
-      // Ensure this runs only in the browser
-      const storedUuid = localStorage.getItem('uuid');
-      if (storedUuid) {
-        setPrevState(storedUuid);
-      }
-    }, []);
+  useEffect(() => {
+    // Ensure this runs only in the browser
+    const storedUuid = localStorage.getItem('uuid');
+    if (storedUuid) {
+      setPrevState(storedUuid);
+    }
+  }, []);
 
-  
-    // Check if the state exists and set default values accordingly
-    useEffect(() => {
-      if (!prevState) {
-          moveToLoginDash();
-      }
-    }, [prevState]);
 
-    useEffect(() => {
-      if(userData.length === 0) {
-        const userUid = localStorage.getItem('uuid')
-        const userToken = localStorage.getItem('userToken')
-        if(userUid && userToken) {
-          moveToLoginDash()
-        }
-      }
-    }, [userData ])
+  // Check if the state exists and set default values accordingly
+  useEffect(() => {
+    if (!prevState) {
+      moveToLoginDash();
+    }
+  }, [prevState]);
 
-    
+  useEffect(() => {
+    if (userData.length === 0) {
+      const userUid = localStorage.getItem('uuid')
+      const userToken = localStorage.getItem('userToken')
+      if (userUid && userToken) {
+        moveToLoginDash()
+      }
+    }
+  }, [userData])
+
+
   return (
     <div className='user-dashboard-main-page'>
-      { Object.keys(userData).length === 0 && <Loader />}
+      {Object.keys(userData).length === 0 && <Loader />}
       <div className='user-dashboard-main-heading'>
         <h3>My Account</h3>
       </div>
-      <DashboardTabs data={userData}  />
+      <DashboardTabs data={userData} />
     </div>
   )
 }

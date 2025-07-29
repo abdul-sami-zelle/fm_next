@@ -83,6 +83,21 @@
     object-fit: contain;
 }
 
+/* invoice two description */
+.order-second-invoice-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+}
+
+.order-second-invoice-desc > p {
+    font-size: 8px;
+    line-height: 10px;
+    font-weight: 500;
+}
+
 .date-and-invoice-number-contianer {
     display: flex;
     align-items: center;
@@ -258,6 +273,90 @@
     color: #FFF;
 }
 
+/* Second invoice total */
+.second-invoice-order-total-and-costumer-agree {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    gap: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 20px 20px;
+}
+
+.ordered-second-invoice-products-total-container {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    width: 100%;
+    height: max-content;
+}
+
+/* Second modal costumer agree */
+.order-invoice-second-costumer-agree {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    gap: 15px;
+}
+
+.order-invoice-second-costumer-agree > span {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+}
+
+.order-invoice-second-costumer-agree > span > p {
+    font-size: 8px;
+    line-height: 10px;
+    font-weight: 500;
+}
+
+.order-invoice-second-costumer-agree > p {
+    font-size: 8px;
+    line-height: 10px;
+    font-weight: 500;
+}
+
+.order-invoice-costumer-sign {
+    display: flex;
+    align-items: end;
+    justify-content: start;
+    width: 100%;
+    gap: 3px;
+}
+
+
+.order-invoice-costumer-sign > h3 {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 500;
+}
+
+.order-invoice-sign-line {
+    display: flex;
+    width: 180px;
+    height: 13px;
+    margin-bottom: 2px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+.order-invoice-costumer-sign > p {
+    font-size: 10px;
+    line-height: 15px;
+    font-weight: 500;
+}
+
+
 /* Order Modal Footer */
 .order-view-modal-footer-contianer {
     display: flex;
@@ -283,4 +382,48 @@
     line-height: 1.5;
     font-weight: 400;
     color: #000;
+}
+
+/* Second invoice footer */
+.order-second-invoice-view-modal-footer-contianer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    background-color: #EAEAEA;
+    gap: 10px;
+    width: 100%;
+    height: max-content;
+    padding: 10px;
+}
+
+.order-second-invoice-view-modal-footer-contianer > label {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    gap: 3px;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 500;
+}
+
+.order-second-invoice-view-modal-footer-contianer > label > input {
+    width: max-content;
+    height: max-content;
+}
+
+.order-second-invoice-view-modal-footer-contianer > span {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    gap: 5px;
+}
+
+.order-second-invoice-view-modal-footer-contianer > span > p{
+    font-size: 8px;
+    line-height: 10px;
+    font-weight: 500;
 }

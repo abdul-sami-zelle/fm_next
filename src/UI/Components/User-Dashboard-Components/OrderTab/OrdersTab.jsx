@@ -7,6 +7,8 @@ import OrderViewModal from '../OrderViewModal/OrderViewModal';
 import Pagination from '../../../../Global-Components/Pagination/Pagination';
 import { useRouter } from 'next/navigation';
 import { HiDotsHorizontal } from "react-icons/hi";
+import OrderViewSecondModal from '../OrderViewModal/OrderViewSecondModal';
+import generateInvoicePDF from '../OrderInvoice/OrderInvoice';
 
 const OrdersTab = ({ data }) => {
 
@@ -86,6 +88,11 @@ const OrdersTab = ({ data }) => {
     setOrderId(data.order_id);
   }
 
+  const handleTrackOrder = () => {
+    window.open('https://track.myfurnituremecca.com/', '_blank');
+    setShowActionButton(null);
+  }
+
   useEffect(() => {
     if (viewProductModal) {
       document.body.style.overflow = 'hidden';
@@ -94,10 +101,7 @@ const OrdersTab = ({ data }) => {
     }
   }, [viewProductModal])
 
-  const handleTrackOrder = () => {
-    window.open('https://track.myfurnituremecca.com/', '_blank');
-    setShowActionButton(null);
-  }
+  
 
   function formatToUSTime(isoString) {
     const date = new Date(isoString);
@@ -137,7 +141,7 @@ const OrdersTab = ({ data }) => {
                 <td>{tbody.total}</td>
                 <td >
                   <div className='table-action-buttons'>
-                    <button onClick={() => handleTrackOrder(tbody)}>View</button>
+                    <button onClick={generateInvoicePDF}>View</button>
                     <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
                     <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
                   </div>
@@ -148,7 +152,7 @@ const OrdersTab = ({ data }) => {
                     </button>
 
                     <div className={`table-mobile-buttons-container ${showActionButtons === tindex ? 'show-action-button-container' : ''}`}>
-                      <button onClick={() => handleTrackOrder(tbody)}>View</button>
+                      <button onClick={generateInvoicePDF}>View</button>
                       <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
                       <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
                     </div>
@@ -171,7 +175,12 @@ const OrdersTab = ({ data }) => {
 
 
       </div>
-      <OrderViewModal
+      {/* <OrderViewModal
+        viewModal={viewProductModal}
+        setViewModal={setViewProductModal}
+        orderId={orderID}
+      /> */}
+      <OrderViewSecondModal
         viewModal={viewProductModal}
         setViewModal={setViewProductModal}
         orderId={orderID}

@@ -18,6 +18,7 @@ const DashboardTabs = ({ data }) => {
     const id = params.id;
     const [userToken, setUserToken] = useState('');
     const { wishList } = useList()
+    
     useEffect(() => {
         const getToken = localStorage.getItem('userToken');
         if (getToken) {

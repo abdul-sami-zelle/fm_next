@@ -4,7 +4,7 @@ import { url } from '../../../utils/api';
 import Image from 'next/image';
 import RatingReview from '../starRating/starRating';
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { FaRegClock } from "react-icons/fa";
+import { FaRegClock, FaEye } from "react-icons/fa";
 
 const BlogCard = (
     {
@@ -39,7 +39,7 @@ const BlogCard = (
                         <FaRegClock size={10} color='#595959' />
                          {readTime} min
                     </div>
-                    <p>{totalViews} Views</p>
+                    <p className='blog-total-reviews'> <FaEye size={10} color='#595959' /> {totalViews} Views</p>
                 </div>
             </div>
             {/* <div className='blog-para-and-see-more'>

@@ -251,7 +251,7 @@ const LayerList = ({ canvas, tools, onCheckout, selectedSofa }) => {
     <div className="layerList" style={{ 
       width: 250, 
       padding: 10,
-      backgroundColor: '#f8f8f8',
+      backgroundColor: '#fff',
       borderLeft: '1px solid #e0e0e0',
       overflowY: 'auto',
       display: 'flex',

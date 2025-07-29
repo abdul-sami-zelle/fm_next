@@ -15,6 +15,8 @@ const CanvasApp = ({ data }) => {
   const [tools, setTools] = useState([]);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const [enabledSections, setEnabledSections] = useState(['Wall']);
+  const [hoveredDisabledSection, setHoveredDisabledSection] = useState(null);
   const [canvasElements, setCanvasElements] = useState({
     wall: null,
     floor: null,
@@ -58,23 +60,6 @@ const CanvasApp = ({ data }) => {
     }
   };
 
-  // Zoom handlers
-  const handleZoomIn = () => {
-    const newZoom = Math.min(zoomLevel + 0.1, 3);
-    setZoomLevel(newZoom);
-    applyZoom(newZoom);
-  };
-
-  const handleZoomOut = () => {
-    const newZoom = Math.max(zoomLevel - 0.1, 0.5);
-    setZoomLevel(newZoom);
-    applyZoom(newZoom);
-  };
-
-  const handleZoomReset = () => {
-    setZoomLevel(1);
-    applyZoom(1);
-  };
 
   // Mouse wheel zoom with Ctrl key
   useEffect(() => {
@@ -138,6 +123,8 @@ const CanvasApp = ({ data }) => {
     };
   }, [containerSize]);
 
+ 
+
   const getProducts = () => {
     fetch(`${baseURL}/api/v1/mega/get`)
       .then((res) => res.json())
@@ -147,9 +134,33 @@ const CanvasApp = ({ data }) => {
           section: "Product",
           items: [data]
         };
-        arr.splice(4, 0, newSection);
+        const desiredOrder = [
+          "Wall",
+          "Floor",
+          "Rugs",
+          "Coffee Tables",
+          "End Tables",
+          "Table Lamps",
+          "Floor Lamps",
+          "Wall Art"  // Added Wall Art as the 8th item as per your request
+      ];
+      
+      // Sort the response array
+      const sortedResponse = arr.sort((a, b) => {
+          const indexA = desiredOrder.indexOf(a.section);
+          const indexB = desiredOrder.indexOf(b.section);
+          
+          // Handle cases where section names might not be in our desired order
+          if (indexA === -1) return 1;  // Move unknown sections to end
+          if (indexB === -1) return -1; // Move unknown sections to end
+          
+          return indexA - indexB;
+      });
+      
+      console.log(sortedResponse);
+      sortedResponse.splice(2, 0, newSection);
         
-        const updatedTools = arr.map(section => {
+        const updatedTools = sortedResponse.map(section => {
           if (section.section === "Wall") {
             return {
               ...section,
@@ -239,12 +250,21 @@ const CanvasApp = ({ data }) => {
               }))
             };
           }
-          if (section.section === "Lamps & Lighting") {
+          if (section.section === "Table Lamps") {
             return {
               ...section,
               items: section.items.map(item => ({
                 ...item,
                 onClick: 'addLampImage',
+              }))
+            };
+          }
+          if (section.section === 'Floor Lamps'){
+            return {
+              ...section,
+              items: section.items.map(item => ({
+                ...item,
+                onClick: 'addFloorLampImage',
               }))
             };
           }
@@ -379,9 +399,9 @@ const CanvasApp = ({ data }) => {
       setIsSectionals(false);
       setReclining(true);
       return addImageToCanvas(src, {
-        left: canvas?.getWidth() * 0.07,
-        top: canvas?.getHeight() * 0.28,
-        targetWidthRatio: 0.87,
+        left: canvas?.getWidth() * 0.10,
+        top: canvas?.getHeight() * 0.29,
+        targetWidthRatio: 0.80,
         targetHeightRatio: 0.57,
       }, null, 'sofa');
     },
@@ -412,7 +432,7 @@ const CanvasApp = ({ data }) => {
         };
       } else if (reclining) {
         style = {
-          left: canvasWidth * 0.33,
+          left: canvasWidth * 0.34,
           top: canvasHeight * 0.57,
           targetWidthRatio: 0.35,
           targetHeightRatio: 0.35,
@@ -447,12 +467,42 @@ const CanvasApp = ({ data }) => {
       targetWidthRatio: 0.42,
       targetHeightRatio: 0.43,
     }, null, 'centerTable'),
-    addRugImage: (src) => addImageToCanvas(src, {
-      left: canvas?.getWidth() * 0.03,
-      top: reclining ? canvas?.getHeight() * 0.70 : canvas?.getHeight() * 0.65,
-      targetWidthRatio: 0.93,
-      targetHeightRatio: 0.32,
-    }, null, 'rug'),
+    // addRugImage: (src) => addImageToCanvas(src, {
+    //   left: canvas?.getWidth() * 0.03,
+    //   top: reclining ? canvas?.getHeight() * 0.70 : canvas?.getHeight() * 0.65,
+    //   targetWidthRatio: 0.93,
+    //   targetHeightRatio: 0.32,
+    // }, null, 'rug'),
+   
+addRugImage: async (src) => {
+  const canvasWidth = canvas?.getWidth() ?? 1000;
+  const canvasHeight = canvas?.getHeight() ?? 600;
+
+  let style = {
+    left: canvasWidth * 0.03,
+    top: reclining ? canvasHeight * 0.65 : canvasHeight * 0.65,
+    targetWidthRatio: 0.93,
+    targetHeightRatio: 0.32,
+  };
+
+  // Store current sofa reference
+  const sofa = canvasElements.sofa;
+
+  // Temporarily remove sofa if it exists
+  if (sofa) canvas.remove(sofa);
+
+  // Add rug (will be at bottom without sofa)
+  const rug = await addImageToCanvas(src, style, null, 'rug');
+
+  // Re-add sofa (will automatically go on top)
+  if (sofa) {
+    canvas.add(sofa);
+    sofa.moveTo(Infinity); // Ensure it stays on top
+  }
+
+  canvas.requestRenderAll();
+  return rug;
+},
     addLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -530,11 +580,11 @@ const CanvasApp = ({ data }) => {
       return addImageToCanvas(src, style, null, 'lamp');
     },
     addFloorLampImage: (src) => addImageToCanvas(src, {
-      left: isSectionalSelected ? canvas?.getWidth() * 0.82 : canvas?.getWidth() * -0.01,
-      top: isSectionalSelected ? canvas?.getHeight() * 0.09 : canvas?.getHeight() * 0.18,
-      targetWidthRatio: isSectionalSelected ? 0.18 : 0.15,
+      left: isSectionalSelected ? canvas?.getWidth() * 0.75 : canvas?.getWidth() * -0.07,
+      top: isSectionalSelected ? canvas?.getHeight() * 0.09 : canvas?.getHeight() * 0.20,
+      targetWidthRatio: isSectionalSelected ? 0.32 : 0.32,
       targetHeightRatio: isSectionalSelected ? 0.65 : 0.60,
-    }, null, 'lamp'),
+    }, null, 'floorLamp'),
     addEndTableImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -564,8 +614,8 @@ const CanvasApp = ({ data }) => {
         };
       } else {
         style = {
-          left: canvasWidth * 0.83,
-          top: canvasHeight * 0.47,
+          left: canvasWidth * 0.81,
+          top: canvasHeight * 0.49,
           targetWidthRatio: 0.22,
           targetHeightRatio: 0.30,
         };
@@ -579,6 +629,7 @@ const CanvasApp = ({ data }) => {
     console.log("Complete checkout items:", items);
   };
 
+
   return (
     <div 
       ref={containerRef}
@@ -590,6 +641,7 @@ const CanvasApp = ({ data }) => {
         height: '90vh',
         width: '95vw',
         overflow: 'hidden',
+        backgroundColor:'#fff'
         // position: 'fixed',
         // top: 0,
         // left: 0
@@ -600,47 +652,24 @@ const CanvasApp = ({ data }) => {
         width: '250px',
         minWidth: '250px',
         padding: '12px',
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#fff',
         borderRight: '1px solid #e0e0e0',
         overflowY: 'auto',
         height: '100%',
         boxSizing: 'border-box'
       }}>
-        {/* Zoom controls */}
-        {/* <div style={{
-          display: 'flex',
-          gap: '6px',
-          marginBottom: '12px',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <button onClick={handleZoomOut} style={{
-            padding: '4px 8px',
-            backgroundColor: '#e0e0e0',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}>-</button>
-          <span style={{ fontSize: '0.8rem' }}>{Math.round(zoomLevel * 100)}%</span>
-          <button onClick={handleZoomIn} style={{
-            padding: '4px 8px',
-            backgroundColor: '#e0e0e0',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}>+</button>
-          <button onClick={handleZoomReset} style={{
-            padding: '4px 8px',
-            backgroundColor: '#e0e0e0',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontSize: '0.7rem'
-          }}>Reset</button>
-        </div> */}
-
-<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-  {tools?.map((toolSection) => (
+<h1 style={{
+            fontSize: '1.2rem',
+            marginBottom: '10px',
+            color: '#000',
+            fontWeight: '600'
+          }}>Choose Your Product</h1>
+<div style={{  display: 'grid', borderTop: '1px solid #eee',paddingTop:'10px',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: '8px',
+  marginBottom: '12px' }}>
+  {tools?.map((toolSection) => {
+    return(
     <button
       key={toolSection.section}
       onClick={() => {
@@ -671,7 +700,8 @@ const CanvasApp = ({ data }) => {
                 return obj !== canvasElements.wall && 
                        obj !== canvasElements.floor && 
                        obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug;
+                       obj !== canvasElements.rug &&
+                       obj !== canvasElements.sofa;
               
               case 'Product':
                 // Keep wall, floor, wall art, rug, and product (sofa)
@@ -712,20 +742,26 @@ const CanvasApp = ({ data }) => {
         }
       }}
       style={{
-        padding: '6px 10px',
-        fontSize: '0.9rem',
-        borderRadius: '8px',
-        border: '1px solid #ccc',
+        padding: '8px 12px',
+        fontSize: '0.85rem',
+        borderRadius: '6px',
+        border: `1px solid ${activeCategory === toolSection.section ? '#FF8415' : '#FF6B00'}`,
         outline: 'none',
         width: '100%',
-        textAlign: 'left',
-        backgroundColor: activeCategory === toolSection.section ? '#f0f0f0' : 'white',
+        textAlign: 'center',
+        backgroundColor: activeCategory === toolSection.section ? '#FF8415' : 'white',
+        color: activeCategory === toolSection.section ? 'white' : '#000',
         cursor: 'pointer',
+        fontWeight: 'normal',
+        transition: 'all 0.2s ease',
+        ':hover': {
+          backgroundColor: activeCategory === toolSection.section ? '#FF6B00' : '#FFF4EB'
+        }
       }}
     >
-      {toolSection.section}
+      {toolSection.section == 'Coffee Tables' ? 'Coffee Table' : toolSection.section == 'Lamps & Lighting' ? 'Tbl Lamps' : toolSection.section == 'End Tables' ?'End Table' : toolSection.section == 'Table Lamps' ?'Table Lamp':toolSection.section == 'End Tables' ?'End Table' : toolSection.section == 'Floor Lamps' ?'Floor Lamp': toolSection.section}
     </button>
-  ))}
+  )})}
 </div>
         {/* Items grid */}
         <div style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '12px' }}>
@@ -819,15 +855,8 @@ const CanvasApp = ({ data }) => {
                             ${item.regular_price}
                           </span>
                         </>
-                      ) : (
-                        <span style={{
-                          fontSize: '0.7rem',
-                          color: '#2c3e50',
-                          fontWeight: '600'
-                        }}>
-                          ${item.regular_price}
-                        </span>
-                      )}
+                      ) : null
+                      }
                     </div>
                   )}
                 </div>
