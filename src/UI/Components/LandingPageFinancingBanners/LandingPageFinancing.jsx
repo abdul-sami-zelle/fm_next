@@ -9,7 +9,7 @@ const LandingPageFinancing = () => {
   const bannersData = [
     '/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg',
     '/mix-images/option-2.gif',
-    '/Assets/Furniture Mecca/Landing Page/financing/mob-banner-2.jpg',
+    '/mix-images/larg-banner.jpg',
   ]
   const financingButtons = [
     {
@@ -48,7 +48,7 @@ const LandingPageFinancing = () => {
             </Link>
           </div>
           <Link href={'/financing'} className='landing-page-financing-right'>
-            <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-3.jpg'} width={900} height={470} alt='banner-three' />
+            <Image src={'/mix-images/larg-banner.jpg'} width={900} height={470} alt='banner-three' />
             <div className='financing-page-buttons-div'>
               {financingButtons.map((item, index) => (
                 <div key={index} className='financing-page-buttons-div-column'>
@@ -78,7 +78,7 @@ const LandingPageFinancing = () => {
           ))}
         </div>
         <div  className={`mobile-view-banner-container-hide-on-desktop`}>
-          <Image src={`/mix-images/PAYPAL-BANNER2.gif`} width={480} height={150} alt='banner gif' className='mobile-view-banner' />
+          <Image src={`/mix-images/option-2.gif`} width={480} height={150} alt='banner gif' className='mobile-view-banner' />
         </div>
 
       </div>
