@@ -304,7 +304,7 @@ const ProductDisplay = ({ params }) => {
   const isDesignRoomActive =
   product?.type === 'variable' ? (  
   selectedVariationData?.dyrc?.active === 1?true :false)  :
-  product?.dyrc?.active === 1;
+  product?.dyrc?.active === 1 ? true : false;
 
   return (
     <div>
@@ -363,7 +363,7 @@ const ProductDisplay = ({ params }) => {
 
           {isDesignRoomActive && steperIndex === 0 ? (
             // Design Your Room at index 0
-            <div className="design-room-transition show-design-room-view">
+            <div className="design-room-transition">
               <DesignYourRoomIndv
                 designRef={sectionRefs.DesignYourRoom}
                 openFN={showDRM}

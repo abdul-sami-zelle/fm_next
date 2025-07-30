@@ -264,7 +264,6 @@ const Header = ({ checkoutPage }) => {
     setSearchedProducts([])
   }
 
-  useEffect(() => { }, [searchedProducts])
 
   const [locationDetails, setLocationDetails] = useState({
     zipCode: '',
@@ -470,13 +469,13 @@ const Header = ({ checkoutPage }) => {
                     </div>
                   </Link>
                 ))}
+              </div>
                 <button
                   className='see-all-searched-products'
                   onClick={handleNavigateToSearchedProducts}
                 >
                   See all Products ({searchedProducts?.length})
                 </button>
-              </div>
             </div>
           </div>
         </div>

@@ -1,8 +1,19 @@
 // components/invoicePDF.js
+import { formatedPrice } from '@/utils/api';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 const generateInvoicePDF = (data) => {
+
+    function formatDateToReadable(isoDate) {
+        const date = new Date(isoDate);
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+    }
+
     const doc = new jsPDF();
     doc.setFont('helvetica');
 
@@ -24,7 +35,6 @@ const generateInvoicePDF = (data) => {
     doc.setFontSize(8);
     doc.setFont(undefined, 'bold');
     doc.text('ninguna mercancía.', 10, 29);
-
 
     // invoice numbr and date
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -53,8 +63,8 @@ const generateInvoicePDF = (data) => {
     doc.setFontSize(8);
     doc.setTextColor(0, 0, 0);
     doc.setFont(undefined, 'normal');
-    const leftTextContent = 'INV-2312 312312312355';
-    const rightTextContent = '12 July 2025';
+    const leftTextContent = `INV-${data.uid}`;
+    const rightTextContent = formatDateToReadable(data.createdAt);
 
     doc.text(leftTextContent, containerX + 19.5, containerY + 6.5)
     doc.text(rightTextContent, containerX + containerWidth - 3, containerY + 6.5, { align: 'right' })
@@ -70,31 +80,49 @@ const generateInvoicePDF = (data) => {
     doc.setFontSize(8);
     doc.setTextColor(0, 0, 0);
     doc.setFont(undefined, 'normal');
-    doc.text('101 East Venango St', 10, 58);
-    doc.text('(349) 898-4389', 10, 62);
-    doc.text('meccacustomercare@gmail.com', 10, 66);
 
-    doc.text('John Mosley', 90, 58);
-    doc.text('house 13 street 5 Area City', 90, 62);
-    doc.text('125153554545', 90, 66);
+    doc.text(`${data.billing.first_name} ${data.billing.last_name}`, 10, 58);
+    doc.text(data.billing.address_1, 10, 62);
+    doc.text(data.billing.phone, 10, 66);
 
-    doc.text('Bank Transfer', 160, 58);
-    doc.text('ER73829 27382 28338', 160, 62);
+
+    doc.text('101 East Venango St', 90, 58);
+    doc.text('(349) 898-4389', 90, 62);
+    doc.text('meccacustomercare@gmail.com', 90, 66);
+
+
+
+    doc.text(data.payment_method === 'cybersource_credit_card' ? 'Credit Card' : 'Credit Card', 160, 58);
+    doc.text(data.transaction_id.toString(), 160, 62);
+
+    const body = data.items.map((item) => {
+        const itemId = item.variation_id === 0 ? item.product_id : item.variation_id;
+        const productName = item.name;
+        const price = item.sale_price === '' ? formatedPrice(item.regular_price).toString() : formatedPrice(item.sale_price).toString();
+        const isProtected = item.is_protected === 1 ? 'Yes' : 'No';
+        const qty = item.quantity;
+        const total = formatedPrice(item.total).toString();
+
+        return [
+            itemId,
+            productName,
+            price,
+            isProtected,
+            qty,
+            total,
+        ]
+    })
 
     // Table data
     autoTable(doc, {
         head: [['Item ID', 'Name', 'Price', 'Protected', 'Qty', 'Total']],
-        body: [
-            ['1657', 'Infinity Modular Sectional', '$1,299', 'Yes', '1', '$1,299'],
-            ['1345', 'Haven 3 PC Sectional', '$1,299', 'Yes', '2', '$2,998'],
-            ['1289', 'Micha TV Stand with Electric Fireplace', '$499', 'Yes', '1', '$499'],
-        ],
+        body: body,
         startY: 72,
-        margin: { left: 10, right: 10 }, 
+        margin: { left: 10, right: 10 },
         tableWidth: 'auto',
         headStyles: {
-            fillColor: [89, 89, 89], 
-            textColor: 255,  
+            fillColor: [89, 89, 89],
+            textColor: 255,
             fontStyle: 'bold',
             fontSize: 8,
             halign: 'left',
@@ -125,13 +153,13 @@ const generateInvoicePDF = (data) => {
     doc.text("Tax", 120, totalContainerY + 31)
 
     // Coordinates and dimensions for the "Total Amount" background box
-    const boxX = 118;              
-    const boxY = totalContainerY + 33; 
-    const boxWidth = 75;
+    const boxX = 118;
+    const boxY = totalContainerY + 33;
+    const boxWidth = 80;
     const boxHeight = 7;
 
     // Draw background rectangle with dark color
-    doc.setFillColor("#595959");  
+    doc.setFillColor("#595959");
     doc.roundedRect(boxX, boxY, boxWidth, boxHeight, 1, 1, 'F');
 
     doc.setTextColor(255)
@@ -140,14 +168,16 @@ const generateInvoicePDF = (data) => {
     doc.setFontSize(10);
     doc.setTextColor(0)
     doc.setFont(undefined, 'normal');
-    doc.text("$3097", 180, totalContainerY + 5)
-    doc.text("$199", 180, totalContainerY + 11)
-    doc.text("$199", 180, totalContainerY + 18)
-    doc.text("Free", 180, totalContainerY + 24)
-    doc.text("$263", 180, totalContainerY + 31)
+    doc.text(formatedPrice(data.sub_total).toString(), 180, totalContainerY + 5)
+    doc.text(data.professional_assembled === 1 ? formatedPrice(data.professional_assembled_price).toString() : '0', 180, totalContainerY + 11)
+    doc.text(data.cart_protected === 1 ? formatedPrice(data.cart_protection_price).toString() : '0', 180, totalContainerY + 18)
+
+    doc.text(data.shipping_cost === 0 ? 'Free' : formatedPrice(data.shipping_cost).toString(), 180, totalContainerY + 24)       
+
+    doc.text(formatedPrice(data.tax).toString(), 180, totalContainerY + 31)
 
     doc.setTextColor(255)
-    doc.text("$3,559", 180, totalContainerY + 38)
+    doc.text(formatedPrice(data.total).toString(), 180, totalContainerY + 38)
 
     const signatureContainerY = pageHeight - footerHeight - signatureContainer;
 

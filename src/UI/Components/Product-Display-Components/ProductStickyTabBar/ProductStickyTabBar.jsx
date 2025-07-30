@@ -198,7 +198,7 @@ const ProductStickyTabBar = (
                         <div
                             key={index}
                             // className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
-                            className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''}`}
+                            className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''} ${ item === 'DesignYourRoom' ? 'display-hide' : ''}`}
                             // onClick={() => handleTabClick(item)}
                             onClick={() => handleStepperIndex(index)}
                         >

@@ -36,6 +36,14 @@
     gap: 10px;
 }
 
+.landing-page-financing-left > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
 .landing-page-financing-left img{
     width: 100%;
     height: auto;

@@ -117,7 +117,8 @@ const HomeScreen = ({
                     <div className="online-dot"></div>
                     <div className="avatar-image-inner">
                       <img
-                        src="https://cdn.servicebell.com/assets/bella-idle-default.c62aea33..jpeg"
+                        // src="https://cdn.servicebell.com/assets/bella-idle-default.c62aea33..jpeg"
+                        src="/Assets/chat/images/Chat-Placeholder.jpg"
                         alt="AI Avatar"
                         className="avatar-image"
                       />
@@ -141,10 +142,9 @@ const HomeScreen = ({
             </p>
           </div>
 
-          <div className="support-people-list">
+          {/* <div className="support-people-list">
             {conversations.length > 0 && (
               <>
-                {/* <h2>Continue the conversation</h2> */}
                 <div className="support-people-items">
                   {visibleConversations.map((c, i) => (
                     <div className="support-person" key={i}>
@@ -167,7 +167,7 @@ const HomeScreen = ({
                 )}
               </>
             )}
-          </div>
+          </div> */}
           <div className="support-people-list">
             <h2>Frequently Asked Questions</h2>
             <div className="faq">

@@ -129,6 +129,7 @@ const ProductGallery = ({
                         width: "100%",
                         height: "100%",
                         objectFit: "contain",
+                        cursor: 'pointer',
                     }}
                 />
             </div>
@@ -204,7 +205,7 @@ const ProductGallery = ({
                                         src={`${url}${imgItem.image_url}`}
                                         alt="Main"
                                         className="product-gallery-main-slider-image"
-                                        style={{ width: '100%' }}
+                                        style={{ width: '100%', cursor: 'pointer' }}
                                     />
                                 )}
                             </div>

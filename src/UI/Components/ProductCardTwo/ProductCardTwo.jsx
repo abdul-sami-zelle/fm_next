@@ -202,8 +202,8 @@ const ProductCardTwo = ({
 
                     onClick={() => handleCardClick(singleProductData)}
                 >
-                    <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`}>
-                        <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}>
+                    <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`} onClick={(e) => e.stopPropagation()}>
+                        {/* <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}> */}
 
                             {
                                 stockCheck ? (
@@ -257,7 +257,7 @@ const ProductCardTwo = ({
                                         />
                                 }
                             </div>
-                        </div>
+                        {/* </div> */}
                     </div>
 
                     <div className='product-main-image-container'>

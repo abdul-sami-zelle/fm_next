@@ -68,7 +68,13 @@
   overflow: hidden;
   height: 100%;
   width: 100%;
+  background-image: url('/Assets/chat/images/Chat-Placeholder-1.jpg');
   z-index: 3;
+    background-repeat: no-repeat;
+    width: 100%;
+    z-index: 3;
+    /* background-position: center; */
+    background-size: cover;
 }
 
 .chatbot-video {

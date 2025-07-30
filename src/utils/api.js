@@ -6,7 +6,17 @@ import { useEffect } from "react";
 
 // export const url = `https://fm.skyhub.pk`
 // export const url = `https://fm.zellehost.com`
+
+
+// Live
 export const url = `https://fmapi.myfurnituremecca.com`;
+
+//  Development
+// export const url = `https://devapi.myfurnituremecca.com`;
+
+
+
+
 // export const url = `http://fm_api.myfurnituremecca.com`;
 // export const url = `http://localhost:8080`
 export const siteUrl = `https://fm.myfurnituremecca.com`

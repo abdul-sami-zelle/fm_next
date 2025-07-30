@@ -31,7 +31,7 @@ const WishListClient = () => {
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
   const [activeGrid, setActiveGrid] = useState('single-col')
-  const [selectedGrid, setSelectedGrid] = useState('');
+  const [selectedGrid, setSelectedGrid] = useState('single-col');
   const maxLength = 50;
 
   const [wishlistProducts, setWishlistProducts] = useState([])
@@ -62,12 +62,8 @@ const WishListClient = () => {
           setLoading(false)
         }
       } else {
-        response = await axios.get(guestApi, { 
-          params: {
-            'ids[]': productIds
-          }
-        });
-        GiConsoleController.log("guest response", response)
+        response = await axios.post(guestApi, {ids: productIds});
+        console.log("guest response", response)
         
         // if(response.status === 200) {
           setWishlistProducts(response.data.products)
@@ -184,7 +180,7 @@ const WishListClient = () => {
                 ProductSku={item.sku}
                 tags={item.tags}
                 ProductTitle={truncateTitle(item.name, maxLength)}
-
+                colTwo={selectedGrid}
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}
@@ -237,8 +233,8 @@ const WishListClient = () => {
             />
           })
         ) : (
-          Array.from({ length: 4 }).map((_, index) => (
-            <ProductCardShimmer key={index} />
+          Array.from({ length: 1 }).map((_, index) => (
+            <ProductCardShimmer key={index} width={'100%'} />
           ))
         )}
       </div>

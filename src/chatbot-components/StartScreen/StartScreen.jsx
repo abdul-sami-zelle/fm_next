@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 
 
 const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
+  const [isGifLoaded, setIsGifLoaded] = useState(true);
   return (
     <div className="chatbot-wrapper">
       <div className="chatbot-frame">
@@ -12,21 +13,23 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
           <div className="chatbot-inner">
 
 
-            
+            {!isGifLoaded && (
+              <img
+                className="chatbot-video"
+                src="/Assets/chat/images/Chat-Placeholder-1.jpg" // Replace with your placeholder image path
+                alt="Loading..."
+                onClick={onOpen}
+              />
+            )}
 
             <img
               className="chatbot-video"
               src={source}
               alt="AI Chatbot animation"
               onClick={onOpen}
+              onLoad={() => setIsGifLoaded(true)}
+              style={{ display: isGifLoaded ? "block" : "none" }}
             />
-
-            {/* <img
-              className="chatbot-video"
-              src="/Assets/chat/Images/ai-chatbot.gif"
-              alt="AI Chatbot animation image"
-              onClick={onOpen}
-            /> */}
 
             <div className="ai-label">AI</div>
             <RxCross2

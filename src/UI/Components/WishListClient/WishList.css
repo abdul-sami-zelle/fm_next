@@ -122,6 +122,9 @@
     .wish-listed-products {
         display: none;
     }
+    .wish-listed-empty-products {
+        display: none;
+    }
 
     .mobile-view-wishlist-card-grid-select{
         display: flex;
@@ -134,9 +137,18 @@
     }
     .wishlist-mobile-cards.single-col{
         grid-template-columns: auto;
+        column-gap: 5px;
+        row-gap: 5px;
+        align-items: center;
+        justify-content: center;
     }
     .wishlist-mobile-cards.two-col{
         grid-template-columns: repeat(2, 1fr);
+        column-gap: 5px;
+        row-gap: 5px;
+        align-items: center;
+        justify-content: center;
+        place-items: center;
     }
 
 

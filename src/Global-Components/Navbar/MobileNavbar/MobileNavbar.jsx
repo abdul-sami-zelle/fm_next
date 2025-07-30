@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './MobileNavbar.css'
 import Link from 'next/link';
-import { useDisableBodyScroll } from '../../../utils/api';
+import { url, useDisableBodyScroll } from '../../../utils/api';
 import Image from 'next/image';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
@@ -13,7 +13,6 @@ import { useUserDashboardContext } from '@/context/userDashboardContext/userDash
 
 const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_data, headerOffer }) => {
 
-
   const handleNavbarClose = () => {
     setMobileNavVisible(false)
   }
@@ -23,10 +22,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
 
   const menuFooterIcons = [
-    {icon: '/icons/order-icon.png', link: '#'},
-    {icon: '/icons/wishlist.png', link: '#'},
-    {icon: '/icons/store-locator.png', link: '#'},
-    {icon: '/icons/help-icon.png', link: '#'},
+    {name: 'Track', icon: '/icons/order-icon.png', link: 'https://track.myfurnituremecca.com/'},
+    {name: 'Wishlist', icon: '/icons/wishlist.png', link: '/wishlist'},
+    {name: 'Stores', icon: '/icons/store-locator.png', link: '/store-locator'},
+    {name: 'Financing', icon: '/icons/financing-icon.png', link: '/financing'},
+    {name: 'Help', icon: '/icons/help-icon.png', link: 'tel:2153521600'},
   ]
 
   const router = useRouter()
@@ -78,7 +78,12 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
           {headerData.map((items, index) => (
             <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} >
               <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
-                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                {items.mob_img === '' ? (
+                    <Image src={`/Assets/mobile-nav-assets/living-room-set.png`} width={70} height={60} alt='nav-icon' />
+                ) : (
+                  <Image src={`${url}${items.mob_img}`} width={70} height={60} alt='nav-icon' />
+                )}
+                
                 <p>{items.category}</p>
               </div>
               <span>
@@ -89,7 +94,12 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
           <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container'>
               <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
-                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                {/* {headerOffer.mob_img === '' ? ( */}
+                  <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                {/* // ) : (
+                //   <Image src={url+headerOffer.mob_img} width={70} height={60} alt='nav-icon' />
+                // )} */}
+                
                 <p>{headerOffer.category} 🔥</p>
               </div>
               <span>
@@ -99,7 +109,12 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
             <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
               <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
-                <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                {/* {sale_data.mob_img === '' ? ( */}
+                  <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                {/* ) : (
+                  <Image src={url+sale_data.mob_img} width={70} height={60} alt='nav-icon' />
+                )} */}
+                
                 <p>{sale_data.category}</p>
               </div>
               <span>
@@ -108,11 +123,11 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             </Link>
         </div>
 
-
         <div className='mobile-nav-footer-buttons'>
           {menuFooterIcons.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <Image src={item.icon} width={40} height={40} alt='icon' />
+            <Link key={index} href={item.link} target={item.name === 'Track' ? '_blank' : ''} onClick={handleNavbarClose}>
+              <Image src={item.icon} width={30} height={30} alt='icon' />
+              {item.name}
             </Link>
           ))}
         </div>

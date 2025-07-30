@@ -3,12 +3,28 @@ const nextConfig = {
     eslint: {
     ignoreDuringBuilds: true,
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'fmapi.myfurnituremecca.com',
+  //       hostname: 'https://devapi.myfurnituremecca.com/',
+  //       pathname: '/**', // allow all paths from this host
+  //     },
+  //   ],
+  // },
+
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'fmapi.myfurnituremecca.com',
-        pathname: '/**', // allow all paths from this host
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'devapi.myfurnituremecca.com',
+        pathname: '/**',
       },
     ],
   },
