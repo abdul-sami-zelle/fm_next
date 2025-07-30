@@ -13,7 +13,6 @@ const BlogSlider = () => {
     blogs,
   } = useBlog()
 
-  console.log("blogs data", blogs);
 
   const handleNavigateToSingleBlog = (item) => {
     router.push(`/single-blog/${item.slug}`, { state: item })

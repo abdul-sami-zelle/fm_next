@@ -76,7 +76,6 @@ const SingleBlog = () => {
 
         try {
             const response = await axios.put(api);
-            console.log("view response", response)
         } catch (error) {
             console.error("UnExpected Server Error", error);
         }

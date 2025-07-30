@@ -185,7 +185,6 @@ const StoreLocatorClient = () => {
 
   const handleStoreData = (item) => {
     setSelectedStoreData([item])
-    console.log("selected item", item)
 
     setSelectedLatitude(item.latitude)
     setSelectedLongitude(item.longitude)
@@ -193,7 +192,6 @@ const StoreLocatorClient = () => {
     setShowBottomModal(true)
   }
 
-  useEffect(() => { console.log("Selected store image", selectedStoreData) }, [selectedStoreData])
 
   return (
     <div className='store-locator-main-container'>

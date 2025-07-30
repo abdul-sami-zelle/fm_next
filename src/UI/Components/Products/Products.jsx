@@ -116,7 +116,6 @@ const Products = ({ navigationType }) => {
     const [selectedOption, setSelectedOption] = useState('')
     const [isInfoOpen, setIsInfoOpen] = useState(false);
 
-    console.log("products", products)
 
     const router = useRouter()
 

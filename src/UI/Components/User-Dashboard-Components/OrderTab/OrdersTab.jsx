@@ -9,6 +9,9 @@ import { useRouter } from 'next/navigation';
 import { HiDotsHorizontal } from "react-icons/hi";
 import OrderViewSecondModal from '../OrderViewModal/OrderViewSecondModal';
 import generateInvoicePDF from '../OrderInvoice/OrderInvoice';
+import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
+import axios from 'axios';
+import { url } from '@/utils/api';
 
 const OrdersTab = ({ data }) => {
 
@@ -80,7 +83,18 @@ const OrdersTab = ({ data }) => {
   const [viewProductModal, setViewProductModal] = useState(false)
   const [selectedProductData, setSelectedProductData] = useState([])
   const [showActionButtons, setShowActionButton] = useState(null);
+
   const [orderID, setOrderId] = useState('')
+
+  const handleViewInvoice = async (item) => {
+    const response = await axios.get(`${url}/api/v1/orders/get_by_id?_id=${item.order_id}`)
+    console.log("response invoice", response)
+    if(response.status === 200) {
+      generateInvoicePDF(response.data.order)
+    }
+  }
+
+
   const handleViewProductData = (data) => {
     setShowActionButton(null)
     setViewProductModal(true);
@@ -101,7 +115,7 @@ const OrdersTab = ({ data }) => {
     }
   }, [viewProductModal])
 
-  
+
 
   function formatToUSTime(isoString) {
     const date = new Date(isoString);
@@ -141,7 +155,7 @@ const OrdersTab = ({ data }) => {
                 <td>{tbody.total}</td>
                 <td >
                   <div className='table-action-buttons'>
-                    <button onClick={generateInvoicePDF}>View</button>
+                    <button onClick={() => handleViewInvoice(tbody)}>View</button>
                     <button onClick={() => handleViewProductData(tbody)}>Invoice</button>
                     <button onClick={() => handleTrackOrder(tbody)}>Reschedule</button>
                   </div>

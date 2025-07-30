@@ -33,7 +33,6 @@ const ProductArchive = () => {
       } else {
         setHasProducts(false);
       }
-      console.log("response related", response)
     } catch (error) {
       console.error("UnExpected Server Error", error);
     }

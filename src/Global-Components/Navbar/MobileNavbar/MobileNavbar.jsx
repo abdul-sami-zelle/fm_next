@@ -23,10 +23,10 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
 
   const menuFooterIcons = [
-    {icon: '/icons/clipboard-icon.png', link: '#'},
+    {icon: '/icons/order-icon.png', link: '#'},
+    {icon: '/icons/wishlist.png', link: '#'},
     {icon: '/icons/store-locator.png', link: '#'},
-    {icon: '/icons/clipboard-icon.png', link: '#'},
-    {icon: '/icons/clipboard-icon.png', link: '#'},
+    {icon: '/icons/help-icon.png', link: '#'},
   ]
 
   const router = useRouter()
@@ -115,12 +115,6 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
               <Image src={item.icon} width={40} height={40} alt='icon' />
             </Link>
           ))}
-          {/* <Link href={'/store-locator'} className='mobile-nav-store-locator-button'>
-            Store Locator
-          </Link>
-          <Link href={'/wishlist'} className='mobile-nav-wishlist-button'>
-            Wishlist
-          </Link> */}
         </div>
 
       </div>

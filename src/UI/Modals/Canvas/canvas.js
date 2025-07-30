@@ -157,7 +157,6 @@ const CanvasApp = ({ data }) => {
           return indexA - indexB;
       });
       
-      console.log(sortedResponse);
       sortedResponse.splice(2, 0, newSection);
         
         const updatedTools = sortedResponse.map(section => {

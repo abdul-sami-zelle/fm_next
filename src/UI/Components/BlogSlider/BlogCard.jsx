@@ -19,7 +19,6 @@ const BlogCard = (
         readTime,
     }) => {
 
-        console.log("read time", readTime);
     
 
   return (

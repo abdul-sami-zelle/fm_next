@@ -44,10 +44,6 @@ const ProductDisplay = ({ params }) => {
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const [recomandationCount, setRecomandationCount] = useState(0)
 
-  useEffect(() => {
-    console.log(selectedVariationData, "here selectedVariationData")
-    console.log(singleProductData, "here singleProductData")
-  }, [selectedVariationData, singleProductData])
 
   const showDRM = () => {
     setShowDwsignRoomModal(true)

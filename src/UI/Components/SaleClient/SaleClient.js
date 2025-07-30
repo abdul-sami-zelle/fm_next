@@ -21,7 +21,6 @@ import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 export default function SaleClient({ slug }) {
     const router = useRouter();
     const { salesData, products, totalProducts } = useActiveSalePage();
-    console.log("sale total products", totalProducts)
     // const maxLength = 50;
     // const truncateTitle = (title, maxLength) => {
     //     if (!title) return '';

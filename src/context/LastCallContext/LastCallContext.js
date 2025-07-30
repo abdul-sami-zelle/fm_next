@@ -72,7 +72,6 @@ export const LastCallProvider = ({ children }) => {
         try {
             setLoading(true);
             const data = await fetchWithRetry(finalApi, options);
-            console.log("response products data", data)
             setProducts(data.products); // Store the fetched products in state
             setTotalProducts(data.pagination.totalProducts)
         } catch (error) {

@@ -25,7 +25,6 @@ export default function LastCallClient({ slug }) {
     // const { salesData, products } = useActiveSalePage();
     const { lastCallData, products, totalProducts } = useLastCallContext()
 
-    console.log("ltotal products", totalProducts)
 
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`)

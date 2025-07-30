@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react'
+import React, { useEffect, useState } from 'react'
 import './OrderViewModal.css';
 import './OrderViewSecondModall.css'
 import { IoIosClose } from 'react-icons/io'
@@ -10,63 +10,63 @@ import Loader from '../../Loader/Loader'
 const OrderViewSecondModal = ({ viewModal, setViewModal, orderId }) => {
 
     const handleCloseOrderView = () => {
-            setViewModal(false)
-        }
-    
-        const [loader, setLoader] = useState(false);
-        const [orderData, setOrderData] = useState({})
-        const handleOrderDetails = async () => {
-            const api = `${url}/api/v1/orders/get_by_id?_id=${orderId}`;
-    
-            try {
-                setLoader(true);
-                const response = await axios.get(api);
-                if (response.status === 200) {
-                    setOrderData(response.data.order)
-                }
-            } catch (error) {
-                setLoader(false);
-                console.error("UnExpected Server Error", error);
-            } finally { setLoader(false) }
-        }
-    
-        useEffect(() => {
-            handleOrderDetails()
-        }, [orderId])
-    
-        const invoiceDetails = [
-            {
-                section: 'Invoice to:', details: [
-                    { name: `${orderData?.billing?.first_name} ${orderData?.billing?.last_name}`, valOne: orderData?.billing?.address_1, valTwo: orderData?.billing?.phone }
-                ]
-            },
-            {
-                section: 'Invoice from:', details: [
-                    { name: '101 East Venango St', valOne: '(349) 898-4389', valTwo: 'meccacustomercare@gmail.com' }
-                ]
-            },
-            {
-                section: 'Payment Method:', details: [
-                    { name: orderData?.payment_method === 'cybersource_credit_card' && 'Credit Card', valOne: orderData?.transaction_id }
-                ]
-            },
-        ]
-    
-        function formatDateToReadable(isoDate) {
-            const date = new Date(isoDate);
-            return date.toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-            });
-        }
+        setViewModal(false)
+    }
+
+    const [loader, setLoader] = useState(false);
+    const [orderData, setOrderData] = useState({})
+    const handleOrderDetails = async () => {
+        const api = `${url}/api/v1/orders/get_by_id?_id=${orderId}`;
+
+        try {
+            setLoader(true);
+            const response = await axios.get(api);
+            if (response.status === 200) {
+                setOrderData(response.data.order)
+            }
+        } catch (error) {
+            setLoader(false);
+            console.error("UnExpected Server Error", error);
+        } finally { setLoader(false) }
+    }
+
+    useEffect(() => {
+        handleOrderDetails()
+    }, [orderId])
+
+    const invoiceDetails = [
+        {
+            section: 'Invoice to:', details: [
+                { name: `${orderData?.billing?.first_name} ${orderData?.billing?.last_name}`, valOne: orderData?.billing?.address_1, valTwo: orderData?.billing?.phone }
+            ]
+        },
+        {
+            section: 'Invoice from:', details: [
+                { name: '101 East Venango St', valOne: '(349) 898-4389', valTwo: 'meccacustomercare@gmail.com' }
+            ]
+        },
+        {
+            section: 'Payment Method:', details: [
+                { name: orderData?.payment_method === 'cybersource_credit_card' && 'Credit Card', valOne: orderData?.transaction_id }
+            ]
+        },
+    ]
+
+    function formatDateToReadable(isoDate) {
+        const date = new Date(isoDate);
+        return date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+    }
 
 
-   return (
+    return (
         <div className={`order-view-modal-main ${viewModal ? 'show-product-modal' : ''}`} onClick={handleCloseOrderView}>
             {loader && <Loader />}
             <div className='order-view-modal-inner-sec' onClick={(e) => e.stopPropagation()}>
-                
+
 
                 {/* Body */}
                 <div className='order-view-modal-body'>
@@ -125,7 +125,7 @@ const OrderViewSecondModal = ({ viewModal, setViewModal, orderId }) => {
                                         <td>{item.variation_id === 0 ? item.product_id : `${item.variation_id}  `}</td>
                                         <td className='order-peoduct-name'>{item.name}</td>
                                         <td className='order-product-price'>{item.sale_price !== 0 ? formatedPrice(item.sale_price) : formatedPrice(item.regular_price)}</td>
-                                        <td>{item.is_protected === 1 ? <span style={{display: 'flex', flexDirection: 'column', width: '100%', fontSize: '8px', lineHeight: 1.2, fontWeight: 400}}><p style={{fontSize: '12px', lineHeight: 1.2, fontWeight: 400}}>Yes</p> ({formatedPrice(item.protected_price)})</span> : 'No'}</td>
+                                        <td>{item.is_protected === 1 ? <span style={{ display: 'flex', flexDirection: 'column', width: '100%', fontSize: '8px', lineHeight: 1.2, fontWeight: 400 }}><p style={{ fontSize: '12px', lineHeight: 1.2, fontWeight: 400 }}>Yes</p> ({formatedPrice(item.protected_price)})</span> : 'No'}</td>
                                         <td>{item.quantity}</td>
                                         <td className='order-product-price'>{formatedPrice(item.total)}</td>
                                     </tr>
@@ -187,7 +187,7 @@ const OrderViewSecondModal = ({ viewModal, setViewModal, orderId }) => {
                                 <h3>Customer Signature</h3>
                                 <div className='order-invoice-sign-line'></div>
                                 {/* <p>_________________________</p> */}
-                                
+
                             </div>
 
                             <p>By signing here the customer has read the policy and agreed to the store’s terms and conditions.</p>
@@ -201,7 +201,7 @@ const OrderViewSecondModal = ({ viewModal, setViewModal, orderId }) => {
                 <div className='order-second-invoice-view-modal-footer-contianer'>
                     <label>
                         <input type='checkbox' />
-                        Opt in to receive text and email blasts 
+                        Opt in to receive text and email blasts
                     </label>
                     <span>
                         <p>Reply HELP for help and STOP to opt-out. Message and Data rates may apply. </p>

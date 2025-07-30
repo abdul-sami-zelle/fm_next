@@ -62,7 +62,6 @@ const WishListClient = () => {
           setLoading(false)
         }
       } else {
-        console.log("gues list", wishlistItem)
         response = await axios.get(guestApi, { 
           params: {
             'ids[]': productIds

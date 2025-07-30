@@ -6,15 +6,17 @@ import { url } from '../../../utils/api';
 import Link from 'next/link';
 import Image from 'next/image';
 import generateInvoicePDF from '../User-Dashboard-Components/OrderInvoice/OrderInvoice';
+import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const Category = ({ title, categoryData, handleNavigate, categorySlug }) => {
 
  const [isloaded,setIsLoaded] = useState(false);
+
   return (
     <div className='category-main-container'>
       <div className="category-bread-crumb-and-title">
         {/* <Breadcrumb /> */}
-        <h3 className='category-heading'>{title}</h3>
+        <h3 className='category-heading' onClick={generateInvoicePDF}>{title}</h3>
       </div>
       <div className='category-cards-container'>
         {categoryData && categoryData.length > 0 ? (

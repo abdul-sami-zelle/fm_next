@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState} from "react";
+import { createContext, useContext, useState } from "react";
 
 const userDashboardContext = createContext();
 
@@ -10,8 +10,9 @@ export const UserDashboardCtxProvider = ({ children }) => {
     const [signinClicked, setSigninClicked] = useState(false)
     const [isTokenValid, setIsTokenValid] = useState(false); // State to track token validity
 
-    const setToken = (token,id) => {
-        if(typeof window !== 'undefined') {
+
+    const setToken = (token, id) => {
+        if (typeof window !== 'undefined') {
             localStorage.setItem('userToken', token);
             localStorage.setItem('uuid', id);
             setUserToken(token);
@@ -21,7 +22,7 @@ export const UserDashboardCtxProvider = ({ children }) => {
     };
 
     const removeToken = () => {
-        if(typeof window !== 'undefined') {
+        if (typeof window !== 'undefined') {
             localStorage.removeItem('userToken');
             localStorage.removeItem('uuid');
             setUserToken(null);
@@ -30,8 +31,21 @@ export const UserDashboardCtxProvider = ({ children }) => {
         }
     };
 
+    
+
+
+
     return (
-        <userDashboardContext.Provider value={{ userToken, setToken, removeToken, setUserToken, isTokenValid,userUid, setUserUid, signinClicked, setSigninClicked }}>
+        <userDashboardContext.Provider value={{
+            userToken,
+            setToken,
+            removeToken,
+            setUserToken,
+            isTokenValid, userUid,
+            setUserUid,
+            signinClicked,
+            setSigninClicked,
+        }}>
             {children}
         </userDashboardContext.Provider>
     );
