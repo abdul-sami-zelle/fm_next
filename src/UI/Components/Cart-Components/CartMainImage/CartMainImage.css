@@ -17,6 +17,7 @@
     .cart-header{
         /* height: 220px; */
         height: 380px;
+        
     }
 }
 
@@ -46,6 +47,7 @@
 
 @media only screen and (max-width: 480px){
     .cart-header{
-        display: none;
+        /* display: none; */
+        background-image: url('/mix-images/cart-mob-bg.jpg');
     }
 }

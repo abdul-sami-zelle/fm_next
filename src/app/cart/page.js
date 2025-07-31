@@ -87,6 +87,7 @@ const Cart = () => {
     }
   }, [cartProducts]);
 
+
   useEffect(() => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
@@ -320,7 +321,7 @@ const Cart = () => {
         </div>
       </div>
 
-      {cartProducts?.products?.length > 0 && (
+      {latestProducts && latestProducts?.length > 0 && (
         <div className='cart-related-products-display-section'>
           <h3>You May Also Like</h3>
           <div className='cart-related-products-slider-main-div'>
@@ -344,7 +345,7 @@ const Cart = () => {
                         mainImage={`${item.image.image_url}`}
                         productCardContainerClass="product-card"
                         ProductSku={item.sku}
-                        tags={item.tags}
+                        tags={item.product_tag}
                         allow_back_order={item?.allow_back_order}
                         ProductTitle={item.name}
                         reviewCount={item.reviewCount}

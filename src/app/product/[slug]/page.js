@@ -301,10 +301,15 @@ const ProductDisplay = ({ params }) => {
     || product?.manage_stock?.stock_status === 'outStock'
     || product?.manage_stock?.stock_status === 'outOfStock';
 
+  console.log("over stock check variation data", selectedVariationData)
+  console.log("over stock simple product", product)
+  const isVariableOrNot = product.type === 'variable' ? true : false
   const isDesignRoomActive =
-  product?.type === 'variable' ? (  
-  selectedVariationData?.dyrc?.active === 1?true :false)  :
-  product?.dyrc?.active === 1 ? true : false;
+    product?.type === 'variable' ? (
+      selectedVariationData?.dyrc?.active === 1 ? true : false) :
+      product?.dyrc?.active === 1 ? true : false;
+
+  console.log("final design room active value", isDesignRoomActive)
 
   return (
     <div>
@@ -345,6 +350,7 @@ const ProductDisplay = ({ params }) => {
 
         <ProductStickyTabBar
           sectionRefs={sectionRefs}
+          selectedVariationData={selectedVariationData}
           productData={product}
           isSticky={isSticky}
           setIsSticky={setIsSticky}
@@ -368,10 +374,10 @@ const ProductDisplay = ({ params }) => {
                 designRef={sectionRefs.DesignYourRoom}
                 openFN={showDRM}
                 image={
-                  product?.images?.length > 1
-                    ? product?.images[1]?.image_url
-                    : product?.image?.image_url
+                  isVariableOrNot ? selectedVariationData.images.length > 1 ? selectedVariationData?.images[1]?.image_url : selectedVariationData.image.image_url : product.images.length > 1 ? product.images[1].image_url : product.image.image_url
                 }
+
+              // image={product.images[1].image_url}
               />
             </div>
           ) : (!isDesignRoomActive && steperIndex === 0) || (isDesignRoomActive && steperIndex === 1) ? (
@@ -476,32 +482,32 @@ const ProductDisplay = ({ params }) => {
               // png_image:'/Sofas&LoveSeat/Untitled-4.png'
               png_image: selectedVariationData?.dyrc?.image,
             }
-         : {
-          _id: product?._id,
-        product_uid: product?.parent === 0 ? product?.uid : product?.parent,
-        variation_uid: product?.parent === 0 ? 0 : product?.uid,
-        name: product?.name,
-        sku: product?.sku,
-        quantity: 1,
-        is_protected: 0,
-        slug: product?.slug,
-        type: product?.type,
-        // cat:'Sectional',
-        // cat:'Recliner-Sectional',
-        // cat:'Recliner',
-        cat: product?.dyrc?.catType,
-        parent: product?.parent,
-        isVariable: product?.parent === 0 ? 0 : 1,
-        attributes: product?.attribute,
-        regular_price: product?.regular_price,
-        sale_price: product?.sale_price,
-        image: product?.image?.image_url,
-        // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
-        // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
-        // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
-        // png_image:'/Sofas&LoveSeat/Untitled-4.png'
-        png_image: product?.dyrc?.image,
-          }
+            : {
+              _id: product?._id,
+              product_uid: product?.parent === 0 ? product?.uid : product?.parent,
+              variation_uid: product?.parent === 0 ? 0 : product?.uid,
+              name: product?.name,
+              sku: product?.sku,
+              quantity: 1,
+              is_protected: 0,
+              slug: product?.slug,
+              type: product?.type,
+              // cat:'Sectional',
+              // cat:'Recliner-Sectional',
+              // cat:'Recliner',
+              cat: product?.dyrc?.catType,
+              parent: product?.parent,
+              isVariable: product?.parent === 0 ? 0 : 1,
+              attributes: product?.attribute,
+              regular_price: product?.regular_price,
+              sale_price: product?.sale_price,
+              image: product?.image?.image_url,
+              // png_image: "/furniture/Bartram-6-PC-Reclining-Sectional.png",
+              // png_image:"/sectionals/Mason-2PC-Sectional.png" //sectional
+              // png_image:'/Sofas&LoveSeat/Untitled-3.png' //Recliner
+              // png_image:'/Sofas&LoveSeat/Untitled-4.png'
+              png_image: product?.dyrc?.image,
+            }
         } />
       </div>}
 

@@ -15,6 +15,7 @@ import axios from 'axios';
 import { url } from '@/utils/api';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import Image from 'next/image';
+import ProductInfoModal from '@/Global-Components/ProductInfoModal/ProductInfoModal';
 
 
 const WishListClient = () => {
@@ -31,7 +32,7 @@ const WishListClient = () => {
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
   const [activeGrid, setActiveGrid] = useState('single-col')
-  const [selectedGrid, setSelectedGrid] = useState('single-col');
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const maxLength = 50;
 
   const [wishlistProducts, setWishlistProducts] = useState([])
@@ -62,11 +63,11 @@ const WishListClient = () => {
           setLoading(false)
         }
       } else {
-        response = await axios.post(guestApi, {ids: productIds});
+        response = await axios.post(guestApi, { ids: productIds });
         console.log("guest response", response)
-        
+
         // if(response.status === 200) {
-          setWishlistProducts(response.data.products)
+        setWishlistProducts(response.data.products)
         // }
       }
     } catch (error) {
@@ -137,8 +138,16 @@ const WishListClient = () => {
 
   const handleActiveGrid = (grid) => {
     setActiveGrid(grid)
-    setSelectedGrid(grid)
   }
+
+  const handleOpennfoModal = () => {
+        setIsInfoOpen(true);
+    }
+
+    const handleCloseInfoModal = () => {
+        setIsInfoOpen(false);
+    }
+
 
   return (
     <div className='wish-list-main-container'>
@@ -147,10 +156,14 @@ const WishListClient = () => {
         <h3 className='wish-list-main-heading'>Favorite Products</h3>
 
         <div className='mobile-view-wishlist-card-grid-select'>
-          <div className={`mobile-view-wishlist-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => handleActiveGrid('single-col')}></div>
-          <div className='mobile-view-wishlist-card-grid-dual-col' onClick={() => handleActiveGrid('dual-col')}>
-            <div className={`mobile-view-wishlist-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
-            <div className={`mobile-view-wishlist-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+          <div className={`mob-wish-list-single-col-container ${activeGrid === 'single-col' ? 'active-wishlist-single-box' : ''}`}>
+            <div className={`mobile-view-wishlist-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => { handleActiveGrid('single-col') }}></div>
+          </div>
+          <div className={`mobile-wish-list-dual-col-contianer ${activeGrid === 'dual-col' ? 'active-wishlist-dual-box' : ''}`}>
+            <div className='mobile-view-wishlist-card-grid-dual-col' onClick={() => handleActiveGrid('dual-col')}>
+              <div className={`mobile-view-wishlist-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+              <div className={`mobile-view-wishlist-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+            </div>
           </div>
         </div>
 
@@ -173,14 +186,19 @@ const WishListClient = () => {
                 slug={item.slug}
                 singleProductData={item}
                 maxWidthAccordingToComp={"100%"}
+                justWidth={'100%'}
+                showOnPage={true}
+                showExtraLines={true}
+                percent={'12%'}
+                colTwo={activeGrid === 'single-col'}
                 tagIcon={item.productTag ? item.productTag : heart}
                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                 mainImage={`${item?.image?.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.tags}
+                tags={item.product_tag}
                 ProductTitle={truncateTitle(item.name, maxLength)}
-                colTwo={selectedGrid}
+                allow_back_order={item?.allow_back_order}
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}
@@ -194,13 +212,14 @@ const WishListClient = () => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
+                handleInfoModal={handleOpennfoModal}
               />
             );
           })
         )}
       </div>
 
-      <div className={`wishlist-mobile-cards ${selectedGrid === 'single-col' ? 'single-col' : 'two-col'}`}>
+      <div className={`wishlist-mobile-cards ${activeGrid === 'single-col' ? 'single-col' : 'two-col'}`}>
         {wishlistProducts && wishlistProducts?.length > 0 ? (
           wishlistProducts.map((item, index) => {
             return <ProductCardTwo
@@ -208,13 +227,14 @@ const WishListClient = () => {
               slug={item.slug}
               singleProductData={item}
               maxWidthAccordingToComp={"100%"}
+              colTwo={activeGrid === 'single-col' ? false : true}
               // justWidth={'100%'}
               tagIcon={item.productTag ? item.productTag : heart}
               tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
               mainImage={`${item.image.image_url}`}
               productCardContainerClass="product-card"
               ProductSku={item.sku}
-              tags={item.tags}
+              tags={item.product_tag}
               ProductTitle={truncateTitle(item.name, maxLength)}
 
               reviewCount={item.reviewCount}
@@ -249,6 +269,10 @@ const WishListClient = () => {
         openSnakeBarProp={openSnakeBar}
         setOpenSnakeBar={setOpenSnakeBar}
         onClick={handleCloseSnakeBar}
+      />
+      <ProductInfoModal
+        openModal={isInfoOpen}
+        closeModal={handleCloseInfoModal}
       />
     </div>
   )

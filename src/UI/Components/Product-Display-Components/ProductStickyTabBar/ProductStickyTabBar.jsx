@@ -20,13 +20,22 @@ const ProductStickyTabBar = (
         steperIndex,
         setSteperIndex,
         stockCheck,
+        selectedVariationData,
     }) => {
 
+    console.log("variation data", variationData);
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
-
+    console.log("product dyrc", productData);
     const tabBarItems = [
-        ...(productData?.dyrc?.active === 1 ? ['DesignYourRoom'] : []),
+        // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
+        ...(productData?.type === 'variable'
+            ? selectedVariationData?.dyrc?.active === 1
+                ? ['DesignYourRoom']
+                : []
+            : productData?.dyrc?.active === 1
+                ? ['DesignYourRoom']
+                : []),
         'Description',
         'Details'
     ];
@@ -81,7 +90,7 @@ const ProductStickyTabBar = (
     const handleTabClick = (tab) => {
         const section = sectionRefs[tab]?.current;
         const stickyBarHeight = document.querySelector('.product-sticky-fixed-tabs-container')?.offsetHeight || 0;
-        const offset = 0; 
+        const offset = 0;
 
 
         if (section) {
@@ -198,7 +207,7 @@ const ProductStickyTabBar = (
                         <div
                             key={index}
                             // className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}
-                            className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''} ${ item === 'DesignYourRoom' ? 'display-hide' : ''}`}
+                            className={`product-sticky-tab-bar-item-container ${steperIndex === index ? 'active-tab' : ''} ${item === 'DesignYourRoom' ? 'display-hide' : 'other-stepers'}`}
                             // onClick={() => handleTabClick(item)}
                             onClick={() => handleStepperIndex(index)}
                         >

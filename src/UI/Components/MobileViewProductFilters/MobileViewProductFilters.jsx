@@ -22,8 +22,19 @@ const MobileViewProductFilters = (
         setColorValue,
         handlePriceRange,
         ratingValue,
-        clearFilters
+        clearFilters,
+        collectionValue,
+        brandValue,
+        isFeatured,
+        isStock,
+        handleColllectionSelect,
+        handleBrandSelect,
+        handleFeatured,
+        handleStock,
     }) => {
+
+
+        console.log("mobile filters data", filtersData)
 
 
     const handleFiltersClose = () => {
@@ -33,64 +44,25 @@ const MobileViewProductFilters = (
     const [colorFilter, setColorFilter] = useState('');
     const [ratingFilter, setRatingFilter] = useState('')
     const [categoryFilter, setCategoryFilter] = useState('')
+    const [collectionFilter, setCollectionFilter] = useState('')
+    const [brandFilter, setBrandFilter] = useState('')
+    const [isFeaturedFilter, setIsFeaturedFilter] = useState('')
+    const [isStockFilter, setIStockFilter] = useState('')
 
     const handleFilterType = (type) => {
         setColorFilter((prevOpen) => prevOpen === type ? '' : type)
         setRatingFilter((prevOpen) => prevOpen === type ? '' : type);
         setCategoryFilter((prevOpen) => prevOpen === type ? '' : type)
+        setCollectionFilter((prevOpen) => prevOpen === type ? '' : type)
+        setBrandFilter((prevOpen) => prevOpen === type ? '' : type)
+        setIsFeaturedFilter((prevOpen) => prevOpen === type ? '' : type)
+        setIStockFilter((prevOpen) => prevOpen === type ? '' : type)
     }
-    // const [showAllFilters, setShowAllFilters] = useState(false)
-    // const handleShowAllFilters = () => {
-    //     setShowAllFilters(!showAllFilters)
-    // }
-
-    // const [tempRange, setTampRange] = useState([])
-    // const [tempColorValue, setTempColorValue] = useState();
-    // const [tempRatingValue, setTempRatingValue] = useState([]);
-    // const [tempCategoryValue, setTempCategoryValue] = useState([])
-
-
-
-
-    // const handleMobileColorCheck = (value, name) => {
-
-    //     const updatedColorValue = colorValue.includes(value) ?
-    //         colorValue.filter((item) => item !== value) :
-    //         [...colorValue, value]
-
-    //     setTempColorValue(updatedColorValue)
-    // }
-
-    // const handleMobileRatingFilter = (value) => {
-    //     const updatedRating = tempRatingValue.includes(value) ?
-    //         tempRatingValue.filter((item) => item !== value) :
-    //         [...tempRatingValue, value];
-
-    //     setTempRatingValue(updatedRating)
-    // }
-
-    // const handleMobileCategorySelect = (value) => {
-    //     const updatedCategory = tempCategoryValue.includes(value) ?
-    //         tempCategoryValue.filter((item) => item !== value) :
-    //         [...tempCategoryValue, value]
-
-    //     setTempCategoryValue(updatedCategory)
-    // }
 
 
 
     const handlePriceRangeClick = () => {
-        // handlePriceRange(priceRange)
-
-        // handleColor(tempColorValue)
-
-        // handleRating(tempRatingValue);
-        // handleCategory(tempCategoryValue)
-
-
-
         setMobileFilters(false)
-
     }
 
     return (
@@ -112,6 +84,7 @@ const MobileViewProductFilters = (
                 </div>
                 <div className='mobile-view-filters-div'>
 
+                    {/* Price Filter */}
                     <DoubleRangeSlider
                         min={filtersData?.priceRange?.minPrice}
                         max={filtersData?.priceRange?.maxPrice}
@@ -122,6 +95,7 @@ const MobileViewProductFilters = (
                         maxLabel='Max Price:'
                     />
 
+                    {/* {Color Filters} */}
                     <div className='mobile-view-single-filter-dropdown'>
                         <div className='mobile-view-single-type'
                             onClick={() => handleFilterType('open-color')}
@@ -151,8 +125,97 @@ const MobileViewProductFilters = (
                         </div>
                     </div>
 
-                    {/* Rating Filter */}
+                    {/* {Trending Filters} */}
+                    <div className='mobile-view-single-filter-dropdown'>
+                        <div className='mobile-view-single-type'
+                            onClick={() => handleFilterType('highlight')}
+                        >
+                            <p>Trending</p>
+                            
+                            {isFeaturedFilter === 'highlight' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
+                        </div>
+                        <div className={`mobile-single-type-filters 
+                                ${isFeaturedFilter === 'highlight' ? 'show-filter-type' : ''}`
+                        }>
+                            {filtersData?.highlights.map((item, index) => (
+                                <label className='single-filter-label' key={index}>
+                                    <input
+                                        type='checkbox'
+                                        placeholder='checkbox'
+                                        value={item.code}
+                                        checked={isFeatured.includes(item.code)}
+                                        onChange={(e) => handleFeatured(item)}
+                                        style={{ border: `1px solid var(--tertiary-color)` }}
+                                        className='color-custom-checkbox'
+                                        id={`filter-${index}`}
+                                    />
+                                    {item.name}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
 
+                    {/* {Collection Filters} */}
+                    <div className='mobile-view-single-filter-dropdown'>
+                        <div className='mobile-view-single-type'
+                            onClick={() => handleFilterType('collections')}
+                        >
+                            <p>Collection</p>
+                            
+                            {collectionFilter === 'collections' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
+                        </div>
+                        <div className={`mobile-single-type-filters 
+                                ${collectionFilter === 'collections' ? 'show-filter-type' : ''}`
+                        }>
+                            {filtersData?.collections.map((item, index) => (
+                                <label className='single-filter-label' key={index}>
+                                    <input
+                                        type='checkbox'
+                                        placeholder='checkbox'
+                                        value={item.uid}
+                                        checked={collectionValue.includes(item.uid)}
+                                        onChange={(e) => handleColllectionSelect(item)}
+                                        style={{ border: `1px solid var(--tertiary-color)` }}
+                                        className='color-custom-checkbox'
+                                        id={`filter-${index}`}
+                                    />
+                                    {item.name}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* {Brand Filters} */}
+                    <div className='mobile-view-single-filter-dropdown'>
+                        <div className='mobile-view-single-type'
+                            onClick={() => handleFilterType('brand')}
+                        >
+                            <p>Brand</p>
+                            
+                            {brandFilter === 'brand' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
+                        </div>
+                        <div className={`mobile-single-type-filters 
+                                ${brandFilter === 'brand' ? 'show-filter-type' : ''}`
+                        }>
+                            {filtersData?.brands.map((item, index) => (
+                                <label className='single-filter-label' key={index}>
+                                    <input
+                                        type='checkbox'
+                                        placeholder='checkbox'
+                                        value={item.name}
+                                        checked={brandValue.includes(item.name)}
+                                        onChange={(e) => handleBrandSelect(item)}
+                                        style={{ border: `1px solid var(--tertiary-color)` }}
+                                        className='color-custom-checkbox'
+                                        id={`filter-${index}`}
+                                    />
+                                    {item.name}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Rating Filter */}
                     <div className='mobile-view-single-filter-dropdown'>
                         <div className='mobile-view-single-type'
                             onClick={() => handleFilterType('open-rating')}
@@ -183,31 +246,37 @@ const MobileViewProductFilters = (
                         </div>
                     </div>
 
-                    {/* <div className='mobile-view-single-filter-dropdown'>
+                    {/* {Stock Filters} */}
+                    <div className='mobile-view-single-filter-dropdown'>
                         <div className='mobile-view-single-type'
-                            onClick={() => handleFilterType('open-category')}
+                            onClick={() => handleFilterType('stock')}
                         >
-                            <p>Categories</p>
-                            {categoryFilter === 'open-category' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
+                            <p>Stock Status</p>
+                            
+                            {isStockFilter === 'stock' ? <FaMinus size={20} color='#595959' /> : <FaPlus size={20} color='#595959' />}
                         </div>
                         <div className={`mobile-single-type-filters 
-                                ${categoryFilter === 'open-category' ? 'show-filter-type' : ''}`
+                                ${isStockFilter === 'stock' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.categories?.map((item, index) => (
-                                <span key={index} className={`color-span`} >
+                            {filtersData?.stock.map((item, index) => (
+                                <label className='single-filter-label' key={index}>
                                     <input
                                         type='checkbox'
                                         placeholder='checkbox'
-                                        value={item.name}
-                                        onChange={(e) => handleMobileCategorySelect(e.target.value)}
-                                        className='custom-checkbox'
+                                        value={item.code}
+                                        checked={isStock.includes(item.code)}
+                                        onChange={(e) => handleStock(item)}
+                                        style={{ border: `1px solid var(--tertiary-color)` }}
+                                        className='color-custom-checkbox'
                                         id={`filter-${index}`}
                                     />
-                                    <label htmlFor={`filter-${index}`}>{item.name}</label>
-                                </span>
+                                    {item.name}
+                                </label>
                             ))}
                         </div>
-                    </div> */}
+                    </div>
+
+                    
 
                 </div>
 

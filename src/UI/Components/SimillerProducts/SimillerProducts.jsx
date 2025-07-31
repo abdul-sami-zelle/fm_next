@@ -240,7 +240,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     mainImage={`${item.image.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
-                    tags={item.tags}
+                    tags={item.product_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
 
@@ -297,7 +297,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     mainImage={`${item.image.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
-                    tags={item.tags}
+                    tags={item.product_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
 

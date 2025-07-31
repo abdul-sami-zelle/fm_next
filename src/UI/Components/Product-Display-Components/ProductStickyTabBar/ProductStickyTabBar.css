@@ -240,6 +240,10 @@
     padding: 0 10px;
 }
 
+.product-sticky-tab-bar-item-container.display-hide {
+    display: flex !important;
+}
+
 @media only screen and (max-width: 480px) {
     .product-description-main-container {
         padding: 0 !important;
@@ -279,9 +283,9 @@
         /* flex-shrink: 0; */
     }
 
-    .product-sticky-tab-bar-item-container.display-hide {
+    /* .product-sticky-tab-bar-item-container.display-hide {
         display: none !important;
-    }
+    } */
 
     .product-sticky-tab-bar-item-container>p {
         font-size: 10px;

@@ -141,13 +141,10 @@
 }
 
 .dropdown.show-drop-down {
-    /* height: 325px; */
-    /* height: 380px; */
-    /* height: max-content; */
-    max-height: 900px;
+    max-height: 1500px;
 }
 
-@media only screen and (max-width: 1200px) {
+/* @media only screen and (max-width: 1200px) {
     .dropdown.show-drop-down {
         height: 305px;
     }
@@ -157,7 +154,7 @@
     .dropdown.show-drop-down {
         height: 340px;
     }
-}
+} */
 
 .shimmer-nav-item-container {
     display: flex;

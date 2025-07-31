@@ -16,17 +16,18 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
   const handleNavbarClose = () => {
     setMobileNavVisible(false)
   }
-  const {CalculateGrandTotal} = useGlobalContext()
+  const { CalculateGrandTotal } = useGlobalContext()
 
   const [isTokenValid, setIsTokenValid] = useState(false);
 
-
+  console.log("sale data", sale_data.mob_img);
+  console.log("offer data", headerOffer);
   const menuFooterIcons = [
-    {name: 'Track', icon: '/icons/order-icon.png', link: 'https://track.myfurnituremecca.com/'},
-    {name: 'Wishlist', icon: '/icons/wishlist.png', link: '/wishlist'},
-    {name: 'Stores', icon: '/icons/store-locator.png', link: '/store-locator'},
-    {name: 'Financing', icon: '/icons/financing-icon.png', link: '/financing'},
-    {name: 'Help', icon: '/icons/help-icon.png', link: 'tel:2153521600'},
+    { name: 'Track', icon: '/icons/order-icon.png', link: 'https://track.myfurnituremecca.com/' },
+    { name: 'Wishlist', icon: '/icons/wishlist.png', link: '/wishlist' },
+    { name: 'Stores', icon: '/icons/store-locator.png', link: '/store-locator' },
+    { name: 'Financing', icon: '/icons/financing-icon.png', link: '/financing' },
+    { name: 'Help', icon: '/icons/help-icon.png', link: 'tel:2153521600' },
   ]
 
   const router = useRouter()
@@ -36,7 +37,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
     handleNavbarClose()
   }
 
-  const {setSigninClicked} = useUserDashboardContext()
+  const { setSigninClicked } = useUserDashboardContext()
   const handleNAvigateToLogin = () => {
     router.push('/user-dashboard/:id');
     setSigninClicked(true);
@@ -55,7 +56,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             <Link href={'/'} className='mobile-nav-header-image-contianer' onClick={handleNavbarClose}>
               <Image src={'/Assets/Logo/new-main-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
-              <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={handleNAvigateToLogin} />
+            <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={handleNAvigateToLogin} />
           </div>
 
           <div className='mobile-nav-cart-container' onClick={handleNAvigateToCart}>
@@ -77,13 +78,13 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
         <div className='mobile-nav-links-container'>
           {headerData.map((items, index) => (
             <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} >
-              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+              <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
                 {items.mob_img === '' ? (
-                    <Image src={`/Assets/mobile-nav-assets/living-room-set.png`} width={70} height={60} alt='nav-icon' />
+                  <Image src={`/Assets/mobile-nav-assets/living-room-set.png`} width={70} height={60} alt='nav-icon' />
                 ) : (
                   <Image src={`${url}${items.mob_img}`} width={70} height={60} alt='nav-icon' />
                 )}
-                
+
                 <p>{items.category}</p>
               </div>
               <span>
@@ -93,34 +94,68 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
           ))}
 
           <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container'>
-              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
-                {/* {headerOffer.mob_img === '' ? ( */}
-                  <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
-                {/* // ) : (
-                //   <Image src={url+headerOffer.mob_img} width={70} height={60} alt='nav-icon' />
-                // )} */}
-                
-                <p>{headerOffer.category} 🔥</p>
-              </div>
-              <span>
-                <MdKeyboardArrowRight size={20} color='#595959' />
-              </span>
-            </Link>
-
-            <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
-              <div  className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
-                {/* {sale_data.mob_img === '' ? ( */}
-                  <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
-                {/* ) : (
-                  <Image src={url+sale_data.mob_img} width={70} height={60} alt='nav-icon' />
+            <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+              {/* {headerOffer.mob_img === '' ? (
+              <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+              ) : (
+                  <Image src={url+headerOffer.mob_img} width={70} height={60} alt='nav-icon' />
                 )} */}
-                
-                <p>{sale_data.category}</p>
-              </div>
-              <span>
-                <MdKeyboardArrowRight size={20} color='#595959' />
-              </span>
-            </Link>
+
+                {!headerOffer?.mob_img
+                ? (
+                  <Image
+                    src="/Assets/mobile-nav-assets/living-room-set.png"
+                    width={70}
+                    height={60}
+                    alt="nav-icon"
+                  />
+                ) : (
+                  <Image
+                    src={url + headerOffer.mob_img}
+                    width={70}
+                    height={60}
+                    alt="nav-icon"
+                  />
+                )}
+
+              <p>{headerOffer.category} 🔥</p>
+            </div>
+            <span>
+              <MdKeyboardArrowRight size={20} color='#595959' />
+            </span>
+          </Link>
+
+          <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
+            <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+              {/* {sale_data && sale_data?.mob_img === '' ? (
+                  <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
+                  ) : (
+                   <Image src={url+sale_data?.mob_img} width={70} height={60} alt='nav-icon' />
+                 )}  */}
+
+              {!sale_data?.mob_img
+                ? (
+                  <Image
+                    src="/Assets/mobile-nav-assets/living-room-set.png"
+                    width={70}
+                    height={60}
+                    alt="nav-icon"
+                  />
+                ) : (
+                  <Image
+                    src={url + sale_data.mob_img}
+                    width={70}
+                    height={60}
+                    alt="nav-icon"
+                  />
+                )}
+
+              <p>{sale_data.category}</p>
+            </div>
+            <span>
+              <MdKeyboardArrowRight size={20} color='#595959' />
+            </span>
+          </Link>
         </div>
 
         <div className='mobile-nav-footer-buttons'>

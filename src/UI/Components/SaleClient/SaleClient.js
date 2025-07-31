@@ -17,27 +17,21 @@ import { toast } from "react-toastify";
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import { usePathname, useRouter } from "next/navigation";
 import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
+import ProductInfoModal from "@/Global-Components/ProductInfoModal/ProductInfoModal";
 
 export default function SaleClient({ slug }) {
     const router = useRouter();
     const { salesData, products, totalProducts } = useActiveSalePage();
-    // const maxLength = 50;
-    // const truncateTitle = (title, maxLength) => {
-    //     if (!title) return '';
-    //     return title.length > maxLength ? title.slice(0, maxLength) + '...' : title
-    // };
+
     const handleProductClick = (item) => {
-        // router.push(`/product/${item.slug}`, { state: item });
         router.push(`/product/${item.slug}`)
     };
 
-    // const moveToProductArchive = () => {
-    //     navigate(`/outlet/${salesData?.data?.categoryData?.slug}`, { state: salesData?.data?.categoryData });
-    // };
 
     const [quickViewProduct, setQuickViewProduct] = useState({})
     const [quickViewClicked, setQuickView] = useState(false);
     const [addToCartClicked, setAddToCartClicked] = useState(false)
+    const [activeGrid, setActiveGrid] = useState('single-col')
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -116,6 +110,10 @@ export default function SaleClient({ slug }) {
         router.push(`/outlet/${childSlug}`)
     }
 
+    const handleActiveGrid = (grid) => {
+        setActiveGrid(grid)
+    }
+
 
     return (
         <>
@@ -123,8 +121,22 @@ export default function SaleClient({ slug }) {
                 {salesData && <Sliderr images={salesData?.data?.mainSlider} />}
 
                 <div className="section_1_ASP">
-                    <h3 className='category-heading'>{salesData ? salesData?.data?.categoryData?.name : ""}</h3>
-                    <div className="active-sale-cards increase-columns" >
+                    <div className="offer-head-and-grid-select">
+                        <h3 className='category-heading'>{salesData ? salesData?.data?.categoryData?.name : ""}</h3>
+
+                        <div className="offer-grid-main-container">
+                            <div className={`offer-single-col-outer-container ${activeGrid === 'single-col' ? 'active-offer-single-col' : ''}`} onClick={() => handleActiveGrid('single-col')}>
+                                <div className={`offer-single-col-inner-container ${activeGrid === 'single-col' ? 'active-single-inner-col' : ''}`}></div>
+                            </div>
+                            <div className={`offer-dual-col-outer-container ${activeGrid === 'dual-col' ? 'active-offer-dual-col-outer' : ''}`}>
+                                <div className={`offer-dual-col-grid-container`} onClick={() => handleActiveGrid('dual-col')}>
+                                    <div className={`offer-dual-col-inner-container ${activeGrid === 'dual-col' ? 'active-offer-dual-col-inner' : ''}`}></div>
+                                    <div className={`offer-dual-col-inner-container ${activeGrid === 'dual-col' ? 'active-offer-dual-col-inner' : ''}`}></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`active-sale-cards increase-columns ${activeGrid === 'single-col' ? 'offer-cards-single-grid' : 'offer-cards-dual-col'}`}>
 
                         {products && products.length > 0 ? (
                             products.map((item, index) => {
@@ -134,12 +146,13 @@ export default function SaleClient({ slug }) {
                                     singleProductData={item}
                                     maxWidthAccordingToComp={"100%"}
                                     justWidth={'100%'}
+                                    colTwo={activeGrid === 'single-col' ? false : true}
                                     tagIcon={item.productTag ? item.productTag : heart}
                                     tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                                     mainImage={`${item.image.image_url}`}
                                     productCardContainerClass="product-card"
                                     ProductSku={item.sku}
-                                    tags={item.tags}
+                                    tags={item.product_tag}
                                     ProductTitle={item.name}
                                     reviewCount={item.reviewCount}
                                     lowPriceAddvertisement={item.lowPriceAddvertisement}
@@ -213,6 +226,10 @@ export default function SaleClient({ slug }) {
                     onClick={handleCloseSnakeBar}
                 />
 
+                <ProductInfoModal
+                    openModal={isInfoOpen}
+                    closeModal={handleCloseInfoModal}
+                />
 
             </div>
 

@@ -278,15 +278,15 @@
 }
 
 .product-tagging {
-    display: none;
+    display: flex;
     margin-top: 0px !important;
     flex-shrink: 0;
     height: 100%;
 }
 
-.product-tagging.show-product-tag {
+/* .product-tagging.show-product-tag {
     display: flex;
-}
+} */
 
 
 .product-title {

@@ -591,7 +591,7 @@ const ProductDetailSticky = (
                       ) : (
                         <VscHeart
                           size={25}
-                          style={{ color: 'var(--orange-fill)' }}
+                          style={{ color: 'var(--orange-outline)' }}
                         />
                       )
                     }

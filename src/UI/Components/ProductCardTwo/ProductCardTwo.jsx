@@ -179,6 +179,7 @@ const ProductCardTwo = ({
     const { selectedVariationData } = useProductPage()
 
 
+
     const stockCheck = singleProductData?.type === 'variable' ?
         selectedVariationData?.manage_stock?.stock_status === 'inStock'
         && selectedVariationData?.manage_stock?.quantity === 0
@@ -188,6 +189,8 @@ const ProductCardTwo = ({
         && singleProductData?.manage_stock?.quantity === 0
         || singleProductData?.manage_stock?.stock_status === 'outStock'
         || singleProductData?.manage_stock?.stock_status === 'outOfStock';
+
+        
 
 
     return (
@@ -213,16 +216,11 @@ const ProductCardTwo = ({
                                         className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>Out Of Stock</span>
 
                                 ) : (
-                                    tags?.length > 0 && <div className={`product-tagging ${tags.length > 0 ? 'show-product-tag' : ''}`}>
-                                        {
-                                            tags[0] && tags[0]?.type?.toLowerCase() === "text" ?
-                                                <div className='text-tag' style={{ backgroundColor: tags[0].bg_color, color: tags[0].text_color }} >
-                                                    {tags[0].text}
-                                                </div> :
-                                                <div className='image-tag' >
-                                                    <img src={url + tags[0]?.image} alt="" srcset="" />
+                                    <div className={`product-tagging`}>
+                                        
+                                                <div className='text-tag' style={{ backgroundColor: tags.bg_color, color: tags.text_color }} >
+                                                    {tags.name}
                                                 </div>
-                                        }
 
                                     </div>
 

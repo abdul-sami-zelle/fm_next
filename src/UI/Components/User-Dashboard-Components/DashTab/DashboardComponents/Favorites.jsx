@@ -120,7 +120,7 @@ const Favorites = ({ data, setloader }) => {
                 mainImage={`${item.image.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.tags}
+                tags={item.product_tag}
                 ProductTitle={truncateTitle(item.name, maxLength)}
                 colTwo={true}
                 reviewCount={item.reviewCount}

@@ -656,7 +656,7 @@
 
 .mobile-view-single-store-details {
     display: flex;
-    width: 60%;
+    width: 100%;
     height: auto;
     flex-direction: column;
     gap: 5px;
@@ -703,15 +703,63 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 450px;
+    /* height: 450px; */
+    height: 350px;
     overflow: hidden;
     width: 100%;
     padding: 20px;
+    gap: 15px;
     background-color: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     display: flex;
     flex-direction: column;
+}
+
+.mobile-view-store-locator-modal-stepper-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.mobile-view-store-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 35px;
+    font-weight: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--orange-outline);
+    border: 1px solid var(--orange-outline);
+    background-color: #FFF;
+}
+
+.mobile-view-store-images.active-store-images-steper {
+    background-color: var(--orange-fill);
+    color: #FFF;
+}
+
+.mobile-view-store-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 35px;
+    font-weight: 16px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--orange-outline);
+    border: 1px solid var(--orange-outline);
+    background-color: #FFF;
+}
+
+.mobile-view-store-details.active-store-details-steper {
+    background-color: var(--orange-fill);
+    color: #FFF;
 }
 
 .mobile-view-bottom-modal-inner-scrollable-container {
@@ -818,6 +866,23 @@
     color: var(--text-primary);
 }
 
+.mobile-bottom-modal-single-store-timing-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mobile-bottom-modal-single-store-timing-contianer > p {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.mobile-bottom-modal-single-store-timing-contianer > p:nth-last-child(1) {
+    font-weight: 500;
+}
+
 .mobile-view-rating-and-reviews-of-product {
     display: flex;
     width: 100%;
@@ -903,7 +968,7 @@
 
 @media only screen and (max-width: 480px) {
     .store-locator-main-container {
-        padding: 30px 0;
+        padding: 0 0 30px 0;
         gap: 20px;
         align-items: center;
         justify-content: center;
@@ -911,9 +976,10 @@
     }
 
     .store-locator-main-heading {
-        font-size: 15px;
+        display: none;
+        /* font-size: 15px;
         line-height: 18px;
-        font-weight: 600;
+        font-weight: 600; */
         /* margin: 32px 0 0px 0; */
     }
 

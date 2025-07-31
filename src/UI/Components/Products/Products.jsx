@@ -6,7 +6,6 @@ import './Products.css';
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaPlus, FaTruck, FaLocationDot, FaMinus } from "react-icons/fa6";
 
-
 // Components
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 import QuickView from '../QuickView/QuickView';
@@ -63,9 +62,15 @@ const Products = ({ navigationType }) => {
         sortProducts,
         selectedRelevanceValue,
         setSelectedRelevanceValue,
+        collectionValue,
+        setCollectionValue,
+        brandValue,
+        setBrandValue,
+        isFeatured,
+        setIsFeatured,
+        isStock, 
+        setIsStock,
     } = useProductArchive()
-
-
 
 
     const slug = useParams();
@@ -102,6 +107,10 @@ const Products = ({ navigationType }) => {
     const currentRoute = pathSegments[pathSegments?.length - 1];
     const [isOpen, setIsOpen] = useState('color-filter');
     const [ratingOpen, setRatingOpen] = useState(false);
+    const [collectionOpen, setCollectionOpen] = useState('');
+    const [brandOpen, setBrandOpen] = useState('');
+    const [highlightOpen, setHighlightOpen] = useState('');
+    const [stockOpen, setStockOpen] = useState('');
     const [ratingValue, setRatingValue] = useState([]);
     const [isLocationCheck, setIsLocationCheck] = useState(false);
     const [isDeliveryCheck, setIsDeliveryCheck] = useState(false);
@@ -165,6 +174,10 @@ const Products = ({ navigationType }) => {
     const handleColorFilterOpenClose = (type) => {
         setIsOpen((prevOpen) => prevOpen === type ? '' : type)
         setRatingOpen((prevOpen) => prevOpen === type ? '' : type)
+        setCollectionOpen((prevOpen) => prevOpen === type ? '' : type)
+        setBrandOpen((prevOpen) => prevOpen === type ? '' : type)
+        setHighlightOpen((prevOpen) => prevOpen === type ? '' : type)
+        setStockOpen((prevOpen) => prevOpen === type ? '' : type)
     }
 
     const handleRangeChange = (newRange) => {
@@ -241,6 +254,141 @@ const Products = ({ navigationType }) => {
         filterProducts(ratingString);
     }
 
+    const handleColllectionSelect = (value) => {
+        const params = new URLSearchParams(window.location.search);
+        const updatedCollectionValue = collectionValue?.includes(value.uid) ? [] : [value.uid];
+
+
+        setCollectionValue(updatedCollectionValue);
+
+        const selectedName = allFilters.collections.filter((item) => item.uid === value.uid)
+            .map((item) => item.name);
+
+
+        if (selectedName.length > 0) {
+            params.set('collectionId', value.uid);
+        } else {
+            params.delete('collection');
+        }
+
+        // Always reset to page 1 on filter change
+        params.set('page', '1');
+        setActivePage(1);
+        setActivePageIndex(1);
+
+        const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+        const pathname = window.location.pathname;
+
+        // ✅ Update the URL
+        router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+        // ✅ Call API after updating query
+        filterProducts(queryString);
+    };
+
+    const handleBrandSelect = (value) => {
+        const params = new URLSearchParams(window.location.search);
+        const updatedBrandName = brandValue?.includes(value.name) ? [] : [value.name];
+
+
+        setBrandValue(updatedBrandName);
+
+        const selectedName = allFilters.brands.filter((item) => item.name === value.name)
+            .map((item) => item.name);
+
+
+        if (selectedName.length > 0) {
+            params.set('brand', value.name);
+        } else {
+            params.delete('brand');
+        }
+
+        // Always reset to page 1 on filter change
+        params.set('page', '1');
+        setActivePage(1);
+        setActivePageIndex(1);
+
+        const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+        const pathname = window.location.pathname;
+
+        // ✅ Update the URL
+        router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+        // ✅ Call API after updating query
+        filterProducts(queryString);
+    };
+
+    const handleFeatured = (value) => {
+        const params = new URLSearchParams(window.location.search);
+
+
+        // Clone current isFeatured array
+        let updatedFeatureCodes = [...isFeatured];
+
+        // ✅ Remove or add feature from isFeatured state
+        if (updatedFeatureCodes.includes(value.code)) {
+            // If already selected, remove it
+            updatedFeatureCodes = updatedFeatureCodes.filter(code => code !== value.code);
+            params.delete(value.code);
+        } else {
+            // If not selected, add it
+            updatedFeatureCodes.push(value.code);
+            params.set(value.code, '1');
+        }
+
+        // 🔄 Update state with all selected feature codes
+        setIsFeatured(updatedFeatureCodes);
+
+        // Always reset to page 1 on filter change
+        params.set('page', '1');
+        setActivePage(1);
+        setActivePageIndex(1);
+
+        // Clean query string
+        const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+        const pathname = window.location.pathname;
+
+        // ✅ Update the URL
+        router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+        // ✅ Call API with updated query
+        filterProducts(queryString);
+    };
+
+    const handleStock = (value) => {
+        const params = new URLSearchParams(window.location.search);
+        const updatedStock = isStock?.includes(value.code) ? [] : [value.code];
+
+        setIsStock(updatedStock);
+
+        const selectedName = allFilters.stock.filter((item) => item.code === value.code)
+            .map((item) => item.name);
+
+        if (selectedName.length > 0) {
+            if(value.code === 'inStock') {
+                params.set('stockStatus', 1);
+            } else {
+                params.set('stockStatus', 0)
+            }
+        } else {
+            params.delete('stoctStatus');
+        }
+
+        // Always reset to page 1 on filter change
+        params.set('page', '1');
+        setActivePage(1);
+        setActivePageIndex(1);
+
+        const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+        const pathname = window.location.pathname;
+
+        // ✅ Update the URL
+        router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+        // ✅ Call API after updating query
+        filterProducts(queryString);
+    };
+
     const handleCategorySelect = (value) => {
     };
 
@@ -249,6 +397,10 @@ const Products = ({ navigationType }) => {
         setColorValue([]);
         setRatingValue([]);
         fetchProductData();
+        setCollectionValue([])
+        setBrandValue([])
+        setIsFeatured([])
+        setIsStock([])
         fetchFilters();
         setActivePage(1);
         setActivePageIndex(1);
@@ -257,7 +409,6 @@ const Products = ({ navigationType }) => {
     }
 
     const filterProducts = async (filter) => {
-
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
         try {
             setClearFilters(true)
@@ -295,13 +446,13 @@ const Products = ({ navigationType }) => {
 
             if (!response.data.products.length > 0) {
                 setFilterState(true);
-                setNoProducts(true);
+                // setNoProducts(true);
             } else {
                 setFilterState(false)
-                setNoProducts(false)
+                // setNoProducts(false)
             }
         } catch (error) {
-            console.error("Internal Server Error");
+            console.error("Internal Server Error", error);
             setClearFilters(false);
         } finally {
             setClearFilters(false)
@@ -709,6 +860,84 @@ const Products = ({ navigationType }) => {
                                         </div>
                                     </div>
 
+                                    {/* Featured Filter */}
+                                    <div className='single-filter'>
+                                        <span onClick={() => handleColorFilterOpenClose('highlight')}>
+                                            <h3 className='filters-heading'>Trending</h3>
+                                            <i className='add-button-round'>
+                                                {highlightOpen === 'highlight' ? <FaMinus ize={14} color='var(--secondary-color)' /> : <FaPlus ize={14} color='var(--secondary-color)' />}
+                                            </i>
+                                        </span>
+                                        <div className={`single-filter-items-container ${highlightOpen === 'highlight' ? 'show-single-filter-icons' : ''}`}>
+                                            {allFilters?.highlights?.map((item, index) => (
+                                                <span key={index} className={`color-span`} >
+                                                    <input
+                                                        type='checkbox'
+                                                        placeholder='checkbox'
+                                                        value={item.code}
+                                                        checked={isFeatured?.includes(item.code)}
+                                                        onChange={(e) => handleFeatured(item)}
+                                                        className='custom-checkbox'
+                                                        id={`brand-filter-${index}`}
+                                                    />
+                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Collections Filter */}
+                                    <div className='single-filter'>
+                                        <span onClick={() => handleColorFilterOpenClose('collections')}>
+                                            <h3 className='filters-heading'>Collection</h3>
+                                            <i className='add-button-round'>
+                                                {collectionOpen === 'collections' ? <FaMinus ize={14} color='var(--secondary-color)' /> : <FaPlus ize={14} color='var(--secondary-color)' />}
+                                            </i>
+                                        </span>
+                                        <div className={`single-filter-items-container ${collectionOpen === 'collections' ? 'show-single-filter-icons' : ''}`}>
+                                            {allFilters?.collections?.map((item, index) => (
+                                                <span key={index} className={`color-span`} >
+                                                    <input
+                                                        type='checkbox'
+                                                        placeholder='checkbox'
+                                                        value={item.uid}
+                                                        checked={collectionValue?.includes(item.uid)}
+                                                        onChange={(e) => handleColllectionSelect(item)}
+                                                        className='custom-checkbox'
+                                                        id={`collection-filter-${index}`}
+                                                    />
+                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Brand Filter */}
+                                    <div className='single-filter'>
+                                        <span onClick={() => handleColorFilterOpenClose('brand')}>
+                                            <h3 className='filters-heading'>Brand</h3>
+                                            <i className='add-button-round'>
+                                                {brandOpen === 'brand' ? <FaMinus ize={14} color='var(--secondary-color)' /> : <FaPlus ize={14} color='var(--secondary-color)' />}
+                                            </i>
+                                        </span>
+                                        <div className={`single-filter-items-container ${brandOpen === 'brand' ? 'show-single-filter-icons' : ''}`}>
+                                            {allFilters?.brands?.map((item, index) => (
+                                                <span key={index} className={`color-span`} >
+                                                    <input
+                                                        type='checkbox'
+                                                        placeholder='checkbox'
+                                                        value={item.name}
+                                                        checked={brandValue?.includes(item.name)}
+                                                        onChange={(e) => handleBrandSelect(item)}
+                                                        className='custom-checkbox'
+                                                        id={`brand-filter-${index}`}
+                                                    />
+                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                     {/* Rating Filter */}
                                     <div className='single-filter'>
                                         <span onClick={() => handleColorFilterOpenClose('rating-filter')}>
@@ -738,6 +967,32 @@ const Products = ({ navigationType }) => {
                                         </div>
                                     </div>
 
+                                    {/* Stock Filter */}
+                                    <div className='single-filter'>
+                                        <span onClick={() => handleColorFilterOpenClose('stock')}>
+                                            <h3 className='filters-heading'>Stock Status</h3>
+                                            <i className='add-button-round'>
+                                                {stockOpen === 'stock' ? <FaMinus ize={14} color='var(--secondary-color)' /> : <FaPlus ize={14} color='var(--secondary-color)' />}
+                                            </i>
+                                        </span>
+                                        <div className={`single-filter-items-container ${stockOpen === 'stock' ? 'show-single-filter-icons' : ''}`}>
+                                            {allFilters?.stock?.map((item, index) => (
+                                                <span key={index} className={`color-span`} >
+                                                    <input
+                                                        type='checkbox'
+                                                        placeholder='checkbox'
+                                                        value={item.code}
+                                                        checked={isStock?.includes(item.code)}
+                                                        onChange={(e) => handleStock(item)}
+                                                        className='custom-checkbox'
+                                                        id={`brand-filter-${index}`}
+                                                    />
+                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -746,8 +1001,9 @@ const Products = ({ navigationType }) => {
                         {filtereState ? (
                             <div className='product-not-found-container' >
                                 <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='empty' />
+                                <h3>No Products Found</h3>
                                 <p>
-                                    We didn’t find any products that match all your selections.Try Adjusting Your Filters for More Results.
+                                    We didn’t find any products that match all your selections. <br />Try Adjusting Your Filters for More Results.
                                 </p>
                             </div>
                         ) : (
@@ -853,7 +1109,7 @@ const Products = ({ navigationType }) => {
                                                 mainImage={`${item?.image?.image_url}`}
                                                 productCardContainerClass="product-card"
                                                 ProductSku={item.sku}
-                                                tags={item.tags}
+                                                tags={item.product_tag}
                                                 allow_back_order={item?.allow_back_order}
                                                 ProductTitle={item.name}
                                                 reviewCount={item.average_rating}
@@ -958,7 +1214,7 @@ const Products = ({ navigationType }) => {
                                     mainImage={`${item?.image?.image_url}`}
                                     productCardContainerClass="product-card"
                                     ProductSku={item.sku}
-                                    tags={item.tags}
+                                    tags={item.product_tag}
                                     allow_back_order={item?.allow_back_order}
                                     ProductTitle={item.name}
                                     reviewCount={item.average_rating}
@@ -991,7 +1247,7 @@ const Products = ({ navigationType }) => {
 
                 )}
 
-                
+
             </div>
             <CartSidePannel
                 cartData={cartProducts}
@@ -1018,10 +1274,18 @@ const Products = ({ navigationType }) => {
                 colorValue={colorValue}
                 setColorValue={setColorValue}
                 ratingValue={ratingValue}
+                collectionValue={collectionValue}
+                brandValue={brandValue}
+                isFeatured={isFeatured}
+                isStock={isStock}
                 handleColor={handleColorCheck}
                 handleRating={handleRatingFilter}
                 handleCategory={handleCategorySelect}
                 handlePriceRange={handleRangeChange}
+                handleColllectionSelect={handleColllectionSelect}
+                handleBrandSelect={handleBrandSelect}
+                handleFeatured={handleFeatured}
+                handleStock={handleStock}
                 clearFilters={handleClearFilters}
             />
             <SortModal

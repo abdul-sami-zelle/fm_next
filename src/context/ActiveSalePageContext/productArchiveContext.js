@@ -29,6 +29,10 @@ export const ProductArchiveProvider = ({ children }) => {
   }, [allFilters]);
 
   const [colorValue, setColorValue] = useState([]);
+  const [collectionValue, setCollectionValue] = useState([])
+  const [brandValue, setBrandValue] = useState([])
+  const [isFeatured, setIsFeatured] = useState([])
+  const [isStock, setIsStock] = useState([])
 
   const [subCategories, setSubCategories] = useState([])
 
@@ -92,6 +96,14 @@ export const ProductArchiveProvider = ({ children }) => {
         sortProducts,
         selectedRelevanceValue,
         setSelectedRelevanceValue,
+        collectionValue, 
+        setCollectionValue,
+        brandValue, 
+        setBrandValue,
+        isFeatured, 
+        setIsFeatured,
+        isStock, 
+        setIsStock,
       }}
     >
       {children}

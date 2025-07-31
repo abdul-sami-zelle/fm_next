@@ -109,6 +109,7 @@ const StoreLocatorClient = () => {
   }
   const handleCloseBottomModal = () => {
     setShowBottomModal(false)
+    setSteperValue('images')
   }
 
   const fetchStoresData = async (using, zip, lat, lng) => {
@@ -184,12 +185,19 @@ const StoreLocatorClient = () => {
 
 
   const handleStoreData = (item) => {
+    console.log("selected store data", item)
     setSelectedStoreData([item])
 
     setSelectedLatitude(item.latitude)
     setSelectedLongitude(item.longitude)
     setStoreSelected('map');
     setShowBottomModal(true)
+  }
+
+  const [steperValue, setSteperValue] = useState('images')
+
+  const handleSteperValue = (value) => {
+    setSteperValue(value);
   }
 
 
@@ -396,6 +404,14 @@ const StoreLocatorClient = () => {
 
       <div className={`mobile-view-bottom-modal ${showBottomModal ? 'show-bottom-modal' : ''}`} onClick={handleCloseBottomModal}>
         <div className='mobile-view-bottom-modal-inner-container' onClick={(e) => e.stopPropagation()}>
+          <div className='mobile-view-store-locator-modal-stepper-container'>
+            <button className={`mobile-view-store-images ${steperValue === 'images' ? 'active-store-images-steper' : ''}`} onClick={() => handleSteperValue('images')}>
+              Images
+            </button>
+            <button className={`mobile-view-store-details ${steperValue === 'details' ? 'active-store-details-steper' : ''}`} onClick={() => handleSteperValue('details')}>
+              Details
+            </button>
+          </div>
           <div className='mobile-view-bottom-modal-inner-scrollable-container'>
 
             <div className='mobile-view-bottom-modal-header'>
@@ -408,93 +424,89 @@ const StoreLocatorClient = () => {
               </button>
             </div>
 
-            <div className="single-location-slider">
+            {steperValue === 'images' ? (
+              <div className="single-location-slider">
 
-              <SwiperSlider
-                slidesData={selectedStoreData[0]?.images}
-                renderSlide={(img, index) => (
+                <SwiperSlider
+                  slidesData={selectedStoreData[0]?.images}
+                  renderSlide={(img, index) => (
 
-                  <Image
-                    src={`${url}${img.image_url}`}
-                    alt={`slide ${index + 1}`}
-                    width={480}
-                    height={190}
-                    className='store-locator-mobile-image'
-                  />
-                )}
-                showDots={true}
-                showArrows={false}
-                spaceBetween={15}
-                delayTime={5000}
-                autoplay={true}
-                slidesPerView={1}
-                arrowSlide={true}
-                isPadding={false}
-              />
+                    <Image
+                      src={`${url}${img.image_url}`}
+                      alt={`slide ${index + 1}`}
+                      width={480}
+                      height={190}
+                      className='store-locator-mobile-image'
+                    />
+                  )}
+                  showDots={true}
+                  showArrows={false}
+                  spaceBetween={15}
+                  delayTime={5000}
+                  autoplay={true}
+                  slidesPerView={1}
+                  arrowSlide={true}
+                  isPadding={false}
+                />
 
-              {/* <div className="single-location-slider-wrapper">
-                <div
-                  className="mobile-view-slider-track"
-                  style={{ transform: `translateX(-${sliderIndex * 140}px)` }}
-                >
-                  {images?.map((image, index) => (
-                    <div className="mobile-view-single-location-slide" key={index}>
-                      <img src={image} alt="stores" />
-                    </div>
-                  ))}
+              </div>
+            ) : (
+              <div className='mobile-view-single-store-details'>
+                <div className='mobile-view-bottom-modal-delivery-options'>
+                  <h3 className='mobile-heading-comments-top-heading'>{selectedStoreData[0]?.name}</h3>
+                  <span>
+                    {/* <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' /> */}
+                    <FaPhone size={15} color='#595959' />
+                    {selectedStoreData[0]?.phone}
+                  </span>
+                  <span>
+                    {/* <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' /> */}
+                    <IoIosMailOpen size={15} color='#595959' />
+                    {selectedStoreData[0]?.email}
+                  </span>
                 </div>
-              </div>
-              <div className="mobile-view-slider-dots">
-                {images?.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`dot ${sliderIndex === index ? "active" : ""}`}
-                    onClick={() => handleDotClick(index)}
-                  ></button>
-                ))}
-              </div> */}
-            </div>
 
-            <div className='mobile-view-bottom-modal-delivery-options'>
-              <h3 className='mobile-heading-comments-top-heading'>Delivery Options:</h3>
-              <span>
-                <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' />
-                In-store pickup
-              </span>
-              <span>
-                <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' />
-                Delivery
-              </span>
-            </div>
-
-            <h3 className='mobile-heading-comments-top-heading'>Reviews & Ratings:</h3>
-            <div className='mobile-view-rating-and-reviews-of-product'>
-              <p>4.1</p>
-              <div>
-                {[0, 1, 2, 3, 4].map((item, index) => (
-                  <FaStar key={index} size={15} color='#50BED3' />
+                <h3 className='mobile-heading-comments-top-heading'>Store Timings</h3>
+                {selectedStoreData[0]?.timings.map((item) => (
+                  <span className='mobile-bottom-modal-single-store-timing-contianer'>
+                    <p>{item.day}</p>
+                    <p>{item.time}</p>
+                  </span>
                 ))}
-              </div>
-              <p>(1707 Reviews)</p>
-            </div>
-            {
-              commentData?.map((item, index) => (
-                <div className='single-location-comment-card'>
-                  <div className='comment-user-section'>
-                    <img src={item.profile} alt='profile' className='user-profile-picture' />
-                    <div className='comment-user-name-and-rating'>
-                      <h3>{item.useName}</h3>
-                      <div className='user-rating'>
-                        {[0, 1, 2, 3, 4].map((star, index) => (
-                          <FaStar size={15} color='#F0AD4E' />
-                        ))}
-                      </div>
-                    </div>
+
+                {/* <div className='mobile-view-rating-and-reviews-of-product'>
+                  <p>4.1</p>
+                  <div>
+                    {[0, 1, 2, 3, 4].map((item, index) => (
+                      <FaStar key={index} size={15} color='#50BED3' />
+                    ))}
                   </div>
-                  <p className='comment-user-feedback'>{item.comment}</p>
-                </div>
-              ))
-            }
+                  <p>(1707 Reviews)</p>
+                </div> */}
+                {/* {
+                  commentData?.map((item, index) => (
+                    <div className='single-location-comment-card'>
+                      <div className='comment-user-section'>
+                        <img src={item.profile} alt='profile' className='user-profile-picture' />
+                        <div className='comment-user-name-and-rating'>
+                          <h3>{item.useName}</h3>
+                          <div className='user-rating'>
+                            {[0, 1, 2, 3, 4].map((star, index) => (
+                              <FaStar size={15} color='#F0AD4E' />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <p className='comment-user-feedback'>{item.comment}</p>
+                    </div>
+                  ))
+                } */}
+              </div>
+            )}
+
+
+
+
           </div>
         </div>
       </div>

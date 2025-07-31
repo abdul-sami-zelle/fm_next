@@ -5,8 +5,9 @@ import { url } from "@/utils/api";
 export default function DesignYourRoomIndv({ image,openFN, designRef }) {
 
   const [showIframe, setShowIframe] = useState(false);
+  console.log("dyrc image ", image)
 
-  
+  console.log("dyrc full image path", url+image)
   return (
     <div className="design_room_indv" id={'DesignYourRoom'} ref={designRef}>
       

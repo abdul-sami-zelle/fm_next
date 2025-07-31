@@ -3,7 +3,7 @@
     justify-content: start;
     width: 100%;
     gap: 50px;
-    height: auto;
+    height: 100%;
     padding: 25px 50px 25px 50px;
     gap: 15px;
     background-color: var(--secondary-background);
