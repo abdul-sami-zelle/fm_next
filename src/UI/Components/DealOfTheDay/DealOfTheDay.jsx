@@ -12,6 +12,7 @@ import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider';
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, }) => {
 
@@ -208,7 +209,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               </div>
             </div>
           ) : (
-            <SwiperSlider
+            <ArrowSlider
               slidesData={allProducts?.length > 0 && getPublishedProducts()}
               renderSlide={(items) => (
                 <DealOfTheDayCard
@@ -229,7 +230,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
                 />
               )}
               showDots={true}
-              showArrows={false}
+              showArrows={true}
+              arrowLeftPosition={true}
               spaceBetween={20}
               breakpoints={{
                 0: { slidesPerView: 1 },

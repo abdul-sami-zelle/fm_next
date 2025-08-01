@@ -372,6 +372,37 @@ export const CartProvider = ({ children }) => {
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
 
+    const addToCartListSimple = async (transformedList) => {
+        setIsCartLoading(true);
+        setCartSection(true);
+
+        setCartProducts((prevCart) => {
+            let updatedProducts = [...prevCart.products];
+
+            transformedList.forEach((newProduct) => {
+                const index = updatedProducts.findIndex(
+                    (item) => item.product_uid === newProduct.product_uid
+                );
+
+                if (index !== -1) {
+                    // Product exists, increase quantity
+                    updatedProducts[index] = {
+                        ...updatedProducts[index],
+                        quantity: (updatedProducts[index].quantity || 1) + 1,
+                    };
+                } else {
+                    // Product doesn't exist, add it
+                    updatedProducts.push({ ...newProduct, quantity: 1 });
+                }
+            });
+
+            return { products: updatedProducts };
+        });
+
+         setIsCartLoading(false);
+        return { products: transformedList }; // Optionally return what was added
+    };
+
     const addSingleProtection = async (uid, isVariable = false) => {
         setIsCartLoading(true);
         try {
@@ -614,6 +645,7 @@ export const CartProvider = ({ children }) => {
                 setCartSection,
                 isCartLoading, setIsCartLoading,
                 isCardAddLoading, setISCardAddLoading,
+                addToCartListSimple,
             }
         }>
             {children}

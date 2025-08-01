@@ -9,38 +9,43 @@ const ElipticalPagenation = ({
   onNextPage,
   onPageChange
 }) => {
- const generatePages = () => {
-  const pages = [];
+  const generatePages = () => {
+    const pages = [];
 
-  const middlePages = [
-    activePageIndex - 1,
-    activePageIndex,
-    activePageIndex + 1,
-  ].filter(p => p > 0 && p < totalPages);
+    const middlePages = [
+      activePageIndex - 1,
+      activePageIndex,
+      activePageIndex + 1,
+    ].filter(p => p > 0 && p < totalPages);
 
-  const uniquePages = new Set();
+    const uniquePages = new Set();
 
-  // Add middle pages
-  middlePages.forEach(p => uniquePages.add(p));
+    // Add middle pages
+    // middlePages.forEach(p => uniquePages.add(p));
+    // [1, 2 , 3].forEach(p => uniquePages.add(p))
 
-  // Always add last page
-  uniquePages.add(totalPages);
+    [1, 2, 3].forEach(p => {
+      if (p <= totalPages) pages.add(p);
+    });
 
-  // Add "..." only if there's a gap before the last page
-  const sorted = Array.from(uniquePages).sort((a, b) => a - b);
+    // Always add last page
+    uniquePages.add(totalPages);
 
-  const finalPages = [];
-  for (let i = 0; i < sorted.length; i++) {
-    finalPages.push(sorted[i]);
+    // Add "..." only if there's a gap before the last page
+    const sorted = Array.from(uniquePages).sort((a, b) => a - b);
 
-    // Check for gap
-    if (i < sorted.length - 1 && sorted[i + 1] - sorted[i] > 1) {
-      finalPages.push('...');
+    const finalPages = [];
+    for (let i = 0; i < sorted.length; i++) {
+      finalPages.push(sorted[i]);
+
+      // Check for gap
+      if (i < sorted.length - 1 && sorted[i + 1] - sorted[i] > 1) {
+        finalPages.push('...');
+      }
     }
-  }
 
-  return finalPages;
-};
+    return finalPages;
+  };
 
 
   const pages = generatePages();

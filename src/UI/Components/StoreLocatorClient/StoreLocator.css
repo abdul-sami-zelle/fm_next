@@ -323,6 +323,8 @@
 
 .single-location-slider {
     display: flex;
+    flex-direction: column;
+    gap: 15;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -621,11 +623,18 @@
 
 .mobile-view-single-store-card {
     display: flex;
+    flex-direction: column;
+    gap: 5px;
     position: relative;
-    padding: 10px;
-    gap: 10px;
     width: 100%;
     box-shadow: 0px 1px 6px 1px #00000026;
+}
+
+.mobille-view-single-store-content-container {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    padding: 10px;
 }
 
 .mobile-view-store-direction-button {
@@ -685,6 +694,30 @@
     font-weight: 400;
 }
 
+.mobile-view-single-store-modal-show-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mobile-view-show-map-and-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    padding: 5px;
+    background-color: var(--orange-fill);
+    color: #FFF;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
 .mobile-view-bottom-modal {
     position: fixed;
     display: flex;
@@ -704,7 +737,9 @@
     bottom: 0;
     left: 0;
     /* height: 450px; */
-    height: 350px;
+    /* height: 350px; */
+    height: 425px;
+    transform: translate(0%, 100%);
     overflow: hidden;
     width: 100%;
     padding: 20px;
@@ -714,6 +749,11 @@
     border-top-right-radius: 15px;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease-in-out;
+}
+
+.mobile-view-bottom-modal-inner-container.drag-store-detail-modal {
+    transform: translate(0%, 0%);
 }
 
 .mobile-view-store-locator-modal-stepper-container {

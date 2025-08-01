@@ -395,6 +395,30 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                     <div
+                        onClick={() => stateRef.current?.focus()}
+                        style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
+                        className={`delivery-input-container ${focusedField === 'state' || orderPayload.billing?.state ? "focused" : ""}`}
+                    >
+                        <label
+                            className="floating-label"
+                        >
+                            State
+                        </label>
+                        <input
+                            type="text"
+                            ref={stateRef}
+                            className="input-field-email"
+                            onFocus={() => setFocusedField("state")}
+                            onBlur={() => setFocusedField("")}
+                            name='state'
+                            readOnly
+                            value={orderPayload.billing?.state}
+                            onChange={handleNestedValueChange}
+                        />
+                    </div>
+
+
+                    <div
                         onClick={() => cityRef.current?.focus()}
                         style={{ border: error.city ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'city' || orderPayload.billing?.city ? "focused" : ""}`}
@@ -418,28 +442,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     </div>
 
-                    <div
-                        onClick={() => stateRef.current?.focus()}
-                        style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
-                        className={`delivery-input-container ${focusedField === 'state' || orderPayload.billing?.state ? "focused" : ""}`}
-                    >
-                        <label
-                            className="floating-label"
-                        >
-                            State
-                        </label>
-                        <input
-                            type="text"
-                            ref={stateRef}
-                            className="input-field-email"
-                            onFocus={() => setFocusedField("state")}
-                            onBlur={() => setFocusedField("")}
-                            name='state'
-                            readOnly
-                            value={orderPayload.billing?.state}
-                            onChange={handleNestedValueChange}
-                        />
-                    </div>
+                    
 
 
 

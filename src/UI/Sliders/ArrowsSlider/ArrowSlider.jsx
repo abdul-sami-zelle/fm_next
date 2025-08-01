@@ -17,6 +17,7 @@ const ArrowSlider = ({
     externalActiveIndex,
     onSlideChangeIndex,
     autoplay = false,
+    arrowLeftPosition= false,
     loop = false,
     delayTime = 0,
     arrowSlide = false,
@@ -62,17 +63,21 @@ const ArrowSlider = ({
         swiperRef.current?.slideNext();
     };
 
+    console.log("isMobile:", isMobile);
+    console.log("showArrows:", showArrows);
+    console.log("slidesData.length:", slidesData.length);
+
     return (
         <div className="arrow-slider-container">
-            {showArrows && slidesData.length > 4 && (
-                <button className={`slider-arrow slider-left`} onClick={handlePrev}>
+            {!isMobile && showArrows && slidesData.length > 4 && (
+                <button className={`slider-arrow slider-left ${arrowLeftPosition ? 'arrow-stick-to-start' : ''}`} onClick={handlePrev}>
                     <IoIosArrowBack color='var(--orange-outline)' size={20} />
                 </button>
             )}
 
             <Swiper
-            className={isPadding ? 'swiper-padding' : 'swiper'}
-            loop={loop}
+                className={isPadding ? 'swiper-padding' : 'swiper'}
+                loop={loop}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                     onSwiper(swiper); // ✅ Expose swiper to parent
@@ -87,9 +92,9 @@ const ArrowSlider = ({
                 autoplay={
                     autoplay
                         ? {
-                              delay: delayTime, // ✅ 5 seconds delay
-                              disableOnInteraction: false,
-                          }
+                            delay: delayTime, // ✅ 5 seconds delay
+                            disableOnInteraction: false,
+                        }
                         : false
                 }
                 modules={autoplay ? [Autoplay] : []}
@@ -105,13 +110,13 @@ const ArrowSlider = ({
                 ))}
             </Swiper>
 
-            {showArrows  && slidesData.length > 4 && (
-                <button className={`slider-arrow slider-right`} onClick={handleNext}>
+            {!isMobile && showArrows && slidesData.length > 4 && (
+                <button className={`slider-arrow slider-right ${arrowLeftPosition ? 'arrow-right-to-start' : ''}`} onClick={handleNext}>
                     <IoIosArrowForward size={20} color='var(--orange-outline)' />
                 </button>
             )}
 
-            {showDots && (
+            {showDots && isMobile && (
                 <div className="custom-pagination-dots">
                     {(() => {
                         const currentIndex = externalActiveIndex ?? activeIndex;

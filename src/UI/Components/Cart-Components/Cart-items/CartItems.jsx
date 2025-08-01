@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './CartItems.css';
-import { url } from '../../../../utils/api';
+import { formatedPrice, url } from '../../../../utils/api';
 import Link from 'next/link';
 import { useCart } from '@/context/cartContext/cartContext';
 
@@ -191,6 +191,13 @@ const CartItems = ({
                             </div>
 
                             <p className='cart-product-card-total-price'>{formatedTotalPrice}</p>
+                            {(cartProducts.is_all_protected === 1 || isProtected === 1) && (
+                                <span className='single-product-protection-plan-details'>
+                                    <p>5 Year Protection</p>
+                                    <p>Plan Added</p>
+                                    <p>{formatedPrice(eachProtectionValue)}</p>
+                                </span>
+                            )}
 
                         </div>
 
@@ -213,11 +220,12 @@ const CartItems = ({
                                 <Image effect='blur' src={'/Assets/icons/guard-icon.png'} width={50} height={50} alt='guard' className='protection-guard-icon' />
                                 <div className='guard-title-and-details'>
                                     <div className='guard-title-and-details-head'>
-                                        <h3 className='protection-guard-title'>Platinum Elite Furniture</h3>
+                                        <h3 className='protection-guard-title'>Furniture Premium</h3>
                                     </div>
                                     <span className='protection-details-and-message'>
                                         <p className='protection-price-message'>
-                                            {(cartProducts.is_all_protected === 1 || isProtected === 1) ? "Price shown in summary" : "$149"}
+                                            Protection Plan
+                                            {/* {(cartProducts.is_all_protected === 1 || isProtected === 1) ? "Price shown in summary" : "$149"} */}
                                         </p>
                                         <div className={`detail-container ${isOpen ? 'open' : ''}`}>
                                             <p className='protection-price-message detail'>

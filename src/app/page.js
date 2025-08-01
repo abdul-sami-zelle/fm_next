@@ -28,6 +28,7 @@ import { useBlog } from '@/context/BlogsContext/blogsContext';
 import { useRouter } from 'next/navigation';
 import { url } from '@/utils/api';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import ZipCodeModal from '@/UI/Modals/ZipCodeModal/ZipCodeModal';
 
 const Home = () => {
 
@@ -136,6 +137,10 @@ const Home = () => {
         setOpenSnakeBar={setShowSnakeBar}
         onClick={handleCloseSnakeBar}
       />
+
+      {/* <ZipCodeModal 
+        showZipModal={true}
+      /> */}
       
     </div>
   )

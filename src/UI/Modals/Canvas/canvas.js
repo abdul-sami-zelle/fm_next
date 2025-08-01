@@ -2,8 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, FabricImage, Rect } from 'fabric';
 import LayerList from './layerlist';
+import { useCart } from '@/context/cartContext/cartContext';
 
 const CanvasApp = ({ data }) => {
+
+  const {addToCartListSimple} = useCart()
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
   const [activeCategory, setActiveCategory] = useState('Wall');
@@ -625,7 +628,35 @@ addRugImage: async (src) => {
   };
 
   const handleCheckout = (items) => {
-    console.log("Complete checkout items:", items);
+    console.log("non transform",items);
+
+
+    const transformedItems = items.map((item) => ({
+      product_uid: item.parent !== 0 ? item.parent : item.uid ,
+      variation_uid: item.type !== 0 ? item.uid || item.product_uid : 0,
+      _id: item._id,
+      name: item.name,
+      isVariable: item.type !== 0 ? 1 : 0,
+      image: {
+        image_url: item.image || "",
+        alt_text: "",
+        title: "",
+        link_url: "",
+        description: "",
+        _id: "" 
+      },
+      attributes: item.attributes || [],
+      sale_price: item.sale_price || "",
+      regular_price: item.regular_price || "",
+      quantity: item.quantity || 1,
+      sku: item.sku || "",
+      slug: item.slug ,
+      is_protected: item.is_protected || 0
+    }));
+
+    console.log("Transformed checkout items:", transformedItems);
+
+    addToCartListSimple(transformedItems);
   };
 
 

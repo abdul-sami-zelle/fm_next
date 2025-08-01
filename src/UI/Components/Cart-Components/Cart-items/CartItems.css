@@ -311,7 +311,7 @@
     display: flex;
     width: 100%;
     gap: 10px;
-    align-items: start;
+    align-items: center;
     justify-content: start;
 }
 
@@ -329,8 +329,10 @@
 }
 
 .protection-guard-title{
-    font-size: var(--sub-section-size) !important;
-    line-height: var(--sub-section-height) !important;
+    /* font-size: var(--sub-section-size) !important; */
+    /* line-height: var(--sub-section-height) !important; */
+    font-size: 13px;
+    line-height: 1.2;
     font-weight: var(--sub-section-weight) !important;
     color: var(--text-primary);
     flex-shrink: 0;
@@ -375,8 +377,10 @@
 }
 
 .protection-price-message{
-    font-size: var(--content-one-size) !important;
-    line-height: var(--content-one-height) !important;
+    /* font-size: var(--content-one-size) !important; */
+    /* line-height: var(--content-one-height) !important; */
+    font-size: 13px;
+    line-height: 1.2;
     font-weight: var(--content-one-weight) !important;
     color: var(--text-primary) !important;
 }
@@ -541,6 +545,26 @@
     display: flex;
     align-items: end;
     justify-content: end;
+    margin-top: 10px;
+}
+
+.single-product-protection-plan-details {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    width: max-content;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+}
+
+.single-product-protection-plan-details > p {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    color: #595959 !important;
+    opacity: 0.5 !important;
 }
 
 .save-for-leter{
@@ -587,9 +611,10 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    align-items: start;
+    align-items: end;
     justify-content: end;
-    gap: 10px;
+    gap: 0px;
+    margin-top: 10px;
 }
 
 .desktop-total-price-and-remove-item.hide-total-and-remove-item{
@@ -616,7 +641,7 @@
     display: none;
 }
 
-.desktop-total-price-and-remove-item p{
+.desktop-total-price-and-remove-item > p{
     font-size: var(--section-size);
     font-weight: var(--section-weight);
     line-height: var(--section-height);

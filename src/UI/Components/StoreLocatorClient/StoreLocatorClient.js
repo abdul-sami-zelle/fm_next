@@ -191,7 +191,11 @@ const StoreLocatorClient = () => {
     setSelectedLatitude(item.latitude)
     setSelectedLongitude(item.longitude)
     setStoreSelected('map');
+  }
+
+  const handleOnlyModalOpen = (item) => {
     setShowBottomModal(true)
+    setSelectedStoreData([item])
   }
 
   const [steperValue, setSteperValue] = useState('images')
@@ -380,20 +384,25 @@ const StoreLocatorClient = () => {
               <div
                 key={index}
                 className='mobile-view-single-store-card'
-                onClick={() => handleStoreData(item)}
+
               >
-                <div className='mobile-view-single-store-image-div'>
-                  <img src={`${url}${item?.images?.[0]?.image_url}`} alt='store profile' className='mobile-view-single-store-image' />
-                </div>
-                <div className='mobile-view-single-store-details'>
-                  <p>{item.address_1}</p>
-                  <p>{item.phone}</p>
-                  <p>{item.timings[0].time}</p>
-                  <div className='mobile-view-single-card-days'>
-                    {item.timings?.map((day, dayIndex) => (
-                      <p>{day.day},</p>
-                    ))}
+                <div className='mobille-view-single-store-content-container' onClick={() => handleOnlyModalOpen(item)}>
+                  <div className='mobile-view-single-store-image-div'>
+                    <img src={`${url}${item?.images?.[0]?.image_url}`} alt='store profile' className='mobile-view-single-store-image' />
                   </div>
+                  <div className='mobile-view-single-store-details'>
+                    <p>{item.address_1}</p>
+                    <p>{item.phone}</p>
+                    <p>{item.timings[0].time}</p>
+                    <div className='mobile-view-single-card-days'>
+                      {item.timings?.map((day, dayIndex) => (
+                        <p>{day.day},</p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className='mobile-view-single-store-modal-show-container' onClick={() => handleStoreData(item)}>
+                  <button className='mobile-view-show-map-and-location'>View On Map</button>
                 </div>
               </div>
             ))}
@@ -403,7 +412,7 @@ const StoreLocatorClient = () => {
 
 
       <div className={`mobile-view-bottom-modal ${showBottomModal ? 'show-bottom-modal' : ''}`} onClick={handleCloseBottomModal}>
-        <div className='mobile-view-bottom-modal-inner-container' onClick={(e) => e.stopPropagation()}>
+        <div className={`mobile-view-bottom-modal-inner-container ${showBottomModal ? 'drag-store-detail-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
           <div className='mobile-view-store-locator-modal-stepper-container'>
             <button className={`mobile-view-store-images ${steperValue === 'images' ? 'active-store-images-steper' : ''}`} onClick={() => handleSteperValue('images')}>
               Images
@@ -427,6 +436,20 @@ const StoreLocatorClient = () => {
             {steperValue === 'images' ? (
               <div className="single-location-slider">
 
+                <div className='mobile-view-bottom-modal-delivery-options'>
+                  <h3 className='mobile-heading-comments-top-heading'>{selectedStoreData[0]?.name}</h3>
+                  <span>
+                    {/* <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' /> */}
+                    <FaPhone size={15} color='#595959' />
+                    {selectedStoreData[0]?.phone}
+                  </span>
+                  <span>
+                    {/* <Image src={'/Assets/icons/blue-tick.png'} width={12} height={12} alt='blue-tick' /> */}
+                    <IoIosMailOpen size={15} color='#595959' />
+                    {selectedStoreData[0]?.email}
+                  </span>
+                </div>
+
                 <SwiperSlider
                   slidesData={selectedStoreData[0]?.images}
                   renderSlide={(img, index) => (
@@ -444,7 +467,7 @@ const StoreLocatorClient = () => {
                   spaceBetween={15}
                   delayTime={5000}
                   autoplay={true}
-                  slidesPerView={1}
+                  slidesPerView={2}
                   arrowSlide={true}
                   isPadding={false}
                 />
