@@ -397,16 +397,26 @@ const Header = ({ checkoutPage }) => {
   const handleINitialLocationSetModal = () => {
     setShowLocationSetStarter(false)
   }
-  useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible, )
 
-  
-  const disableScroll = () => {
-
+  useEffect(() => {
+    document.documentElement.style.overflow = showLocationSetStarter ? "hidden" : "auto";
     document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
+  }, [showLocationSetStarter]);
 
-  };
+  // useEffect(() => {
+  //   document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
+  // }, [showLocationSetStarter]);
 
-  useEffect(() => {disableScroll}, [showLocationSetStarter])
+
+  // const disableScroll = () => {
+
+  //   document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
+
+  // };
+
+  // useEffect(() => {disableScroll()}, [showLocationSetStarter])
+
+  useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible,)
 
   return (
     <div className={`haider-main-container ${checkoutPage ? 'hide-header' : ''}`}>

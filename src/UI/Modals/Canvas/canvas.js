@@ -657,7 +657,7 @@ addRugImage: async (src) => {
     console.log("Transformed checkout items:", transformedItems);
 
     addToCartListSimple(transformedItems);
-  };
+  };``
 
 
   return (
