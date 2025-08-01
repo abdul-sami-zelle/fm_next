@@ -9,10 +9,10 @@ import { useEffect } from "react";
 
 
 // Live
-// export const url = `https://fmapi.myfurnituremecca.com`;
+export const url = `https://fmapi.myfurnituremecca.com`;
 
 //  Development
-export const url = `https://devapi.myfurnituremecca.com`;
+// export const url = `https://devapi.myfurnituremecca.com`;
 
 
 

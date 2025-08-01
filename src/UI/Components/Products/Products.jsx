@@ -261,14 +261,10 @@ const Products = ({ navigationType }) => {
 
         setCollectionValue(updatedCollectionValue);
 
-        const selectedName = allFilters.collections.filter((item) => item.uid === value.uid)
-            .map((item) => item.name);
-
-
-        if (selectedName.length > 0) {
-            params.set('collectionId', value.uid);
+        if(updatedCollectionValue.length > 0 ){
+            params.set('collectionId', value.uid)
         } else {
-            params.delete('collection');
+            params.delete('collectionId')
         }
 
         // Always reset to page 1 on filter change
@@ -293,14 +289,10 @@ const Products = ({ navigationType }) => {
 
         setBrandValue(updatedBrandName);
 
-        const selectedName = allFilters.brands.filter((item) => item.name === value.name)
-            .map((item) => item.name);
-
-
-        if (selectedName.length > 0) {
-            params.set('brand', value.name);
+        if(updatedBrandName.length > 0) {
+            params.set('brand', value.name)
         } else {
-            params.delete('brand');
+            params.delete('brand')
         }
 
         // Always reset to page 1 on filter change
@@ -361,17 +353,10 @@ const Products = ({ navigationType }) => {
 
         setIsStock(updatedStock);
 
-        const selectedName = allFilters.stock.filter((item) => item.code === value.code)
-            .map((item) => item.name);
-
-        if (selectedName.length > 0) {
-            if(value.code === 'inStock') {
-                params.set('stockStatus', 1);
-            } else {
-                params.set('stockStatus', 0)
-            }
+        if(updatedStock.length > 0) {
+            params.set('stockStatus', value.code === 'inStock' ? 1 : 0)
         } else {
-            params.delete('stoctStatus');
+            params.delete('stockStatus')
         }
 
         // Always reset to page 1 on filter change
@@ -392,21 +377,28 @@ const Products = ({ navigationType }) => {
     const handleCategorySelect = (value) => {
     };
 
+    const [trigerProductCall, setTrigerProdutCall] = useState(false)
     const handleClearFilters = () => {
         setPriceRange([priceRange[0], priceRange[1]])
         setColorValue([]);
         setRatingValue([]);
-        fetchProductData();
         setCollectionValue([])
         setBrandValue([])
         setIsFeatured([])
         setIsStock([])
-        fetchFilters();
         setActivePage(1);
         setActivePageIndex(1);
+        setTrigerProdutCall(prev => !prev)
+        
+        
         const pathname = window.location.pathname;
         router.replace(pathname, { shallow: true });
+
+        fetchFilters();
+        filterProducts('')
     }
+
+    
 
     const filterProducts = async (filter) => {
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
@@ -878,9 +870,9 @@ const Products = ({ navigationType }) => {
                                                         checked={isFeatured?.includes(item.code)}
                                                         onChange={(e) => handleFeatured(item)}
                                                         className='custom-checkbox'
-                                                        id={`brand-filter-${index}`}
+                                                        id={`feature-${index}`}
                                                     />
-                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                    <label className='filter-inner-text' htmlFor={`feature-${index}`}>{item.name}</label>
                                                 </span>
                                             ))}
                                         </div>
@@ -904,9 +896,9 @@ const Products = ({ navigationType }) => {
                                                         checked={collectionValue?.includes(item.uid)}
                                                         onChange={(e) => handleColllectionSelect(item)}
                                                         className='custom-checkbox'
-                                                        id={`collection-filter-${index}`}
+                                                        id={`collection-${index}`}
                                                     />
-                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                    <label className='filter-inner-text' htmlFor={`collection-${index}`}>{item.name}</label>
                                                 </span>
                                             ))}
                                         </div>
@@ -930,9 +922,9 @@ const Products = ({ navigationType }) => {
                                                         checked={brandValue?.includes(item.name)}
                                                         onChange={(e) => handleBrandSelect(item)}
                                                         className='custom-checkbox'
-                                                        id={`brand-filter-${index}`}
+                                                        id={`brand-${index}`}
                                                     />
-                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                    <label className='filter-inner-text' htmlFor={`brand-${index}`}>{item.name}</label>
                                                 </span>
                                             ))}
                                         </div>
@@ -957,9 +949,9 @@ const Products = ({ navigationType }) => {
                                                         checked={ratingValue.includes(rating)}
                                                         onChange={(e) => handleRatingFilter(Number(e.target.value))}
                                                         className='custom-checkbox'
-                                                        id={`rating-filter-${rating}`}
+                                                        id={`rating-${rating}`}
                                                     />
-                                                    <label htmlFor={`filter-${5 - item}`}>
+                                                    <label htmlFor={`rating-${5 - item}`}>
                                                         <RatingReview rating={item + 1} disabled={true} size={"20px"} />
                                                     </label>
                                                 </span>
@@ -985,9 +977,9 @@ const Products = ({ navigationType }) => {
                                                         checked={isStock?.includes(item.code)}
                                                         onChange={(e) => handleStock(item)}
                                                         className='custom-checkbox'
-                                                        id={`brand-filter-${index}`}
+                                                        id={`stock-${index}`}
                                                     />
-                                                    <label className='filter-inner-text' htmlFor={`filter-${index}`}>{item.name}</label>
+                                                    <label className='filter-inner-text' htmlFor={`stock-${index}`}>{item.name}</label>
                                                 </span>
                                             ))}
                                         </div>

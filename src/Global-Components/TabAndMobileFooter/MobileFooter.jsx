@@ -34,8 +34,8 @@ const MobileFooter = ({ checkoutPage }) => {
 
     const contactData = [
         { icon: locationIcon, title: 'Philadelphia', link: '#' },
-        { icon: callIcon, title: '215 352 1600', link: '#' },
-        { icon: mailIcon, title: 'meccacustomercare@gmail.com', link: '#' }
+        { icon: callIcon, title: '215 352 1600', link: 'tel:2153521600' },
+        { icon: mailIcon, title: 'meccacustomercare@gmail.com', link: 'mailto:meccacustomercare@gmail.com' }
     ]
 
     const footerCustomerCareAndAbout = [
@@ -202,9 +202,10 @@ const MobileFooter = ({ checkoutPage }) => {
                 {contactData.map((item, index) => {
                     return <span key={index}>
                         <Image src={item.icon} width={22} height={22} alt='img' />
+                        {/* <Link href={item.link}>{item.title}</Link> */}
                         {
-                            item.title === '215 352 1600' ?
-                                <a href='tel:2153521600'>{item.title}</a> :
+                            item.title === 'meccacustomercare@gmail.com' ?
+                                <a href='mailto:meccacustomercare@gmail.com'>{item.title}</a> :
                                 <Link href={item.link}>{item.title}</Link>
                         }
 

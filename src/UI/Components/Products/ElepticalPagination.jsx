@@ -70,7 +70,7 @@ const ElipticalPagenation = ({
 
           return (
             <span
-              key={page}
+              key={idx}
               onClick={() => onPageChange(page)}
               className={activePageIndex === page ? 'active-page-span' : ''}
             >

@@ -3,6 +3,7 @@ import './LandingPageFinancing.css'
 import Link from 'next/link';
 import Image from 'next/image';
 import { url } from '@/utils/api';
+import { useRouter } from 'next/navigation';
 
 
 const LandingPageFinancing = () => {
@@ -34,31 +35,38 @@ const LandingPageFinancing = () => {
     },
 
   ]
+
+  const router = useRouter();
+  const navigateTofinancing = () => {
+    router.push('/financing')
+  }
   return (
     <>
       <div className='landing-page-financing-main-container'>
         <h3 className='landing-page-financing-main-heading'>Flexible Financing Options</h3>
         <div className='landing-page-financing-banners-main-container'>
           <div className='landing-page-financing-left'>
-            <Link href={'/financing'}>
+
+            <div onClick={navigateTofinancing}>
               <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg'} width={900} height={350} alt='banner one' />
-            </Link>
-            <Link href={'/financing'}>
+            </div>
+
+            <div onClick={navigateTofinancing}>
               <Image src={'/mix-images/option-2.gif'} width={900} height={350} alt='banner two' />
-            </Link>
+            </div>
           </div>
-          <Link href={'/financing'} className='landing-page-financing-right'>
+          <div onClick={navigateTofinancing} className='landing-page-financing-right'>
             <Image src={'/mix-images/larg-banner.jpg'} width={900} height={470} alt='banner-three' />
             <div className='financing-page-buttons-div'>
               {financingButtons.map((item, index) => (
-                <div key={index} className='financing-page-buttons-div-column'>
+                <div key={index} className='financing-page-buttons-div-column' onClick={(e) => e.stopPropagation()}>
                   <Link target='_blank' href={item.link} className='financing-buttons'>
                     <img src={item.img} alt={item.title} />
                   </Link>
                 </div>
               ))}
             </div>
-          </Link>
+          </div>
         </div>
       </div>
 

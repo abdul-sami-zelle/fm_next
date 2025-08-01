@@ -20,7 +20,7 @@ const ProductCard = ({
   onImageDrage,
   index,
 }) => {
-  const backgroundColor = index % 2 === 0 ? '#F29039' : '#CC433B';
+  // const backgroundColor = index % 2 === 0 ? '#F29039' : '#CC433B';
 
   return (
     <div className="product" >
@@ -35,7 +35,7 @@ const ProductCard = ({
         />
         <div className="product-img-detail">
           <div
-            style={{ backgroundColor }}
+            // style={{ backgroundColor }}
             className="top_rated_head"
           >
             {/* TOP RATED */}

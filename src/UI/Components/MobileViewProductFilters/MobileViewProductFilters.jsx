@@ -137,7 +137,7 @@ const MobileViewProductFilters = (
                         <div className={`mobile-single-type-filters 
                                 ${isFeaturedFilter === 'highlight' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.highlights.map((item, index) => (
+                            {filtersData?.highlights?.map((item, index) => (
                                 <label className='single-filter-label' key={index}>
                                     <input
                                         type='checkbox'
@@ -167,7 +167,7 @@ const MobileViewProductFilters = (
                         <div className={`mobile-single-type-filters 
                                 ${collectionFilter === 'collections' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.collections.map((item, index) => (
+                            {filtersData?.collections?.map((item, index) => (
                                 <label className='single-filter-label' key={index}>
                                     <input
                                         type='checkbox'
@@ -197,7 +197,7 @@ const MobileViewProductFilters = (
                         <div className={`mobile-single-type-filters 
                                 ${brandFilter === 'brand' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.brands.map((item, index) => (
+                            {filtersData?.brands?.map((item, index) => (
                                 <label className='single-filter-label' key={index}>
                                     <input
                                         type='checkbox'
@@ -258,7 +258,7 @@ const MobileViewProductFilters = (
                         <div className={`mobile-single-type-filters 
                                 ${isStockFilter === 'stock' ? 'show-filter-type' : ''}`
                         }>
-                            {filtersData?.stock.map((item, index) => (
+                            {filtersData?.stock?.map((item, index) => (
                                 <label className='single-filter-label' key={index}>
                                     <input
                                         type='checkbox'

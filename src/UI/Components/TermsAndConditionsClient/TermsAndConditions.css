@@ -51,8 +51,171 @@
     font-weight: 400;
 }
 
+
+
 @media only screen and (max-width: 480px) {
     .terms-and-conditions-main-container {
         padding: 15px;
     }
+
+    .container-items > div:nth-child(1) > span {
+        font-size: 20px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-child(1) {
+        margin-top: 5px !important;
+        font-size: 14px !important;
+    }
+
+    .container-items > div:nth-child(2) > ul {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+
+    .container-items > div:nth-child(2) > div > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(3) > span {
+        /* background-color: orange; */
+        font-size: 14px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(5) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(5) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(6) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(6) > ul {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(7) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(8) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(9) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(10) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(11) > div {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(11) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(12) > div:nth-child(1) {
+       font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(12) > div:nth-child(2) {
+       font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(13) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(13) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(3) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(4) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(5) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(6) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(7) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(8) {
+        font-size: 12px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(14) > div:nth-child(9) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(15) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(15) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(16) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(16) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(17) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(17) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(18) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(18) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(19) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(19) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(20) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(20) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(21) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(21) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(22) > div:nth-child(1) {
+        font-size: 14px !important;
+    }
+    .container-items > div:nth-child(2) > div:nth-last-child(1) > div:nth-child(22) > div:nth-child(2) {
+        font-size: 12px !important;
+    }
+
 }
