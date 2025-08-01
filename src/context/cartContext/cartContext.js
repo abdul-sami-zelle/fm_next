@@ -374,7 +374,7 @@ export const CartProvider = ({ children }) => {
 
     const addToCartListSimple = async (transformedList) => {
         setIsCartLoading(true);
-        setCartSection(true);
+        // setCartSection(true);
 
         setCartProducts((prevCart) => {
             let updatedProducts = [...prevCart.products];

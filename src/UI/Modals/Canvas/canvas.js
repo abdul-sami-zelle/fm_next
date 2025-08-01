@@ -4,7 +4,7 @@ import { Canvas, FabricImage, Rect } from 'fabric';
 import LayerList from './layerlist';
 import { useCart } from '@/context/cartContext/cartContext';
 
-const CanvasApp = ({ data }) => {
+const CanvasApp = ({ data ,closeFn}) => {
 
   const {addToCartListSimple} = useCart()
   const canvasRef = useRef(null);
@@ -628,6 +628,7 @@ addRugImage: async (src) => {
   };
 
   const handleCheckout = (items) => {
+    closeFn();
     console.log("non transform",items);
 
 
@@ -657,7 +658,8 @@ addRugImage: async (src) => {
     console.log("Transformed checkout items:", transformedItems);
 
     addToCartListSimple(transformedItems);
-  };``
+   
+  };
 
 
   return (

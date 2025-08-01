@@ -398,10 +398,10 @@ const Header = ({ checkoutPage }) => {
     setShowLocationSetStarter(false)
   }
 
-  useEffect(() => {
-    document.documentElement.style.overflow = showLocationSetStarter ? "hidden" : "auto";
-    document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
-  }, [showLocationSetStarter]);
+  // useEffect(() => {
+  //   document.documentElement.style.overflow = showLocationSetStarter ? "hidden" : "auto";
+  //   document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
+  // }, [showLocationSetStarter]);
 
   // useEffect(() => {
   //   document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
@@ -589,7 +589,7 @@ const Header = ({ checkoutPage }) => {
                 </span>
 
                 <button className='nearby-store-set-location-close-button' onClick={handleINitialLocationSetModal}>
-                  <Image src={'/icons/close-charcoal.svg'} width={15} height={15} />
+                  <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt="svg" />
                 </button>
               </div>
 
