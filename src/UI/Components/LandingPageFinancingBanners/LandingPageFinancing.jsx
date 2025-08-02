@@ -72,7 +72,7 @@ const LandingPageFinancing = () => {
 
       <div className='mobile-view-banners-container'>
         {bannersData.map((item, index) => (
-          <div key={index} className={index === 1 ? `hide-gif-banner-on-phone` : `mobile-view-banner-container`}>
+          <div key={index} className={index === 1 ? `hide-gif-banner-on-phone` : index === 2 ? 'combined-poster' :  `mobile-view-banner-container`}>
             <img src={item} alt='banner' className='mobile-view-banner' />
           </div>
         ))}

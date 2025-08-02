@@ -98,7 +98,7 @@ export const GlobalContextProvider = ({ children }) => {
   // const [zipCode, setZipCode] = useState(`${info.locationData.zipCode} ${info.locationData.stateCode}`);
   const [zipCode, setZipCode] = useState(() => {
     if (info && info.locationData) {
-      return `${info.locationData.zipCode} ${info.locationData.stateCode}`;
+      return `${info.locationData.zipCode}`;
     }
     return ""; // Default empty if info not available
   });

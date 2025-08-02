@@ -24,7 +24,14 @@
   background-repeat: no-repeat;
   position: relative;
   border-radius: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+.temp-design-room-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* max-height: 400px; */
 }
 
 .iframe-container {

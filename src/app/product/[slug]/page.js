@@ -307,7 +307,6 @@ const ProductDisplay = ({ params }) => {
       selectedVariationData?.dyrc?.active === 1 ? true : false) :
       product?.dyrc?.active === 1 ? true : false;
 
-      console.log("product data on single product", product)
 
   return (
     <div>
@@ -371,6 +370,7 @@ const ProductDisplay = ({ params }) => {
               <DesignYourRoomIndv
                 designRef={sectionRefs.DesignYourRoom}
                 openFN={showDRM}
+                productUid={product?.uid}
                 image={
                   isVariableOrNot ? selectedVariationData.images.length > 1 ? selectedVariationData?.images[1]?.image_url : selectedVariationData.image.image_url : product.images.length > 1 ? product.images[1].image_url : product.image.image_url
                 }

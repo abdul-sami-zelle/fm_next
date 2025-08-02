@@ -95,8 +95,6 @@ const Products = ({ navigationType }) => {
     const query = searchParams.get('query');
     
 
-    console.log("search params", searchParams);
-    console.log("query param", query)
 
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
@@ -407,7 +405,6 @@ const Products = ({ navigationType }) => {
     
 
     const filterProducts = async (filter) => {
-        console.log("run filter func")
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
         try {
             setClearFilters(true)
@@ -442,10 +439,8 @@ const Products = ({ navigationType }) => {
 
             setProducts(response.data.products)
             setTotalPages(response.data.pagination)
-            console.log("filter state condition", response.data.products.length)
             if (!response.data.products.length > 0) {
                 setFilterState(true);
-                console.log("filter state condition ", response.data.products.length)
                 // setNoProducts(true);
             } else {
                 setFilterState(false)
@@ -503,7 +498,6 @@ const Products = ({ navigationType }) => {
     const pageFromURL = parseInt(searchParams.get('page') || '1');
     const fetchProductData = async () => {
         const queryApi = `/api/v1/products/by-name?name`;
-        console.log("product search query", query)
         try {
             setClearFilters(true)
             let response;
@@ -773,6 +767,9 @@ const Products = ({ navigationType }) => {
         quickViewClicked,
         showSortModal
     )
+
+
+    
 
     return (
         <div className='products-main-container'>

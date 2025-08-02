@@ -64,7 +64,6 @@ const WishListClient = () => {
         }
       } else {
         response = await axios.post(guestApi, { ids: productIds });
-        console.log("guest response", response)
 
         // if(response.status === 200) {
         setWishlistProducts(response.data.products)

@@ -88,6 +88,9 @@ const ProductCardTwo = ({
     }
 
 
+    // console.log("single product data", singleProductData)
+
+
 
 
     const handleImageSelect = (image) => {
@@ -120,7 +123,6 @@ const ProductCardTwo = ({
         return array;
     }
 
-    // console.log("single product data on card", singleProductData)
 
     useEffect(() => {
         if (singleProductData?.type === "variable") {

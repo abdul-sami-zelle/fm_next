@@ -11,6 +11,7 @@ import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiv
 import { usePathname } from 'next/navigation';
 import axios from 'axios';
 import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
+import { url } from '@/utils/api';
 
 const ProductArchive = () => {
 
@@ -22,7 +23,7 @@ const ProductArchive = () => {
   const [relatedProducts, setRelatedProducts] = useState([])
   const [hasProducts, setHasProducts] = useState(false)
   const findRelatedProducts = async () => {
-    const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-best-selling/${childSlug}`;
+    const api = `${url}/api/v1/products/get-best-selling/${childSlug}`;
     try {
       const response = await axios.get(api);
       if(response.status === 200) {

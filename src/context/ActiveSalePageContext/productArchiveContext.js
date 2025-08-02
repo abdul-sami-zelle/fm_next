@@ -1,18 +1,18 @@
 'use client'
 
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ProductArchiveContext = createContext();
 
 export const ProductArchiveProvider = ({ children }) => {
-  const searchParams = useSearchParams();
-  const pageFromURL = parseInt(searchParams.get('page') || '1');
+  // const searchParams = useSearchParams();
+  // const pageFromURL = parseInt(searchParams.get('page') || '1');
 
   const [products, setProducts] = useState([]);
 
-  const [activePage, setActivePage] = useState(pageFromURL);
-  const [activePageIndex, setActivePageIndex] = useState(pageFromURL);
+  const [activePage, setActivePage] = useState(1);
+  const [activePageIndex, setActivePageIndex] = useState(1);
 
   const [priceRange, setPriceRange] = useState([130, 900]);
   const [selectedRelevanceValue, setSelectedRelevanceValue] = useState('Recent')
