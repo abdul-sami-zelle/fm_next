@@ -22,7 +22,7 @@ function DesignRoomMain({closeFn,product, data, }) {
     <div className="design_room_popup">
         {/* <DesignRoom name={product?.name} wasPrice={"$"+product?.regular_price} nowPrice={"$"+product?.sale_price} image={url+product?.image?.image_url} setAddToCart={setAddToCart} /> */}
         <CanvasApp 
-          data={data}
+          data={data} closeFn={closeFn}
         />
         <div onClick={()=>{closeFn()}} className="close_btn_design_room_popup">
             <AiFillCloseSquare size={30} />

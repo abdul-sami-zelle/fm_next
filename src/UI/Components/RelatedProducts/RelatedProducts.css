@@ -9,6 +9,12 @@
     padding: 0px 60px 35px 60px;
 }
 
+.related-products-main-container>h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
 .related-crds-slider-contaner {
     display: flex;
     align-items: center;
@@ -20,5 +26,11 @@
     .related-products-main-container {
         padding: 15px;
         gap: 0;
+    }
+
+    .related-products-main-container>h3 {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 600;
     }
 }

@@ -318,6 +318,11 @@ input:-webkit-autofill {
   justify-content: center;
 }
 
+
+.swal2-container {
+  z-index: 99999999 !important;
+}
+
 /* .best-seller-swiper {
   padding-bottom: 30px;
 } */

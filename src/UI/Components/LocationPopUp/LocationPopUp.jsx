@@ -7,6 +7,7 @@ import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { CiLocationOn } from "react-icons/ci";
 import Image from 'next/image';
 import { IoIosClose } from "react-icons/io";
+import CloseButton from '@/Global-Components/CloseButton/CloseButton';
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
@@ -91,11 +92,14 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
         className={`location-modal-containt-div ${searchLocation ? 'show-location-bar-inner-container' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch}>
-          <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
-        </button>
-        {/* <IoIosClose size={25} color='#595959' className={`close-location-modal ${searchLocation ? '' : 'hide-location-close-btn'}`} onClick={handleCloseSearch} /> */}
-
+        {searchLocation && (
+          <CloseButton 
+            handleClose={handleCloseSearch}
+            position={'absolute'}
+            top={'15px'}
+            right={'15px'}
+          />
+        )}
         <div className='location-heading-and-search-bar-section'>
           <div className='location-modal-heading-container'>
             <span>

@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import "./style.css";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+
 
 
 const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
   const [isGifLoaded, setIsGifLoaded] = useState(true);
+  const [isMuted, setISMuted] = useState(false);
   return (
     <div className="chatbot-wrapper">
       <div className="chatbot-frame">
@@ -31,7 +34,9 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
               style={{ display: isGifLoaded ? "block" : "none" }}
             />
 
-            <div className="ai-label">AI</div>
+            <div className="ai-label" onClick={() => setISMuted(!isMuted)}>
+              {isMuted ? <HiSpeakerWave size={15} color="#6658f1" /> : <HiSpeakerXMark size={15} color="#6658f1" />}
+            </div>
             <RxCross2
               className="RxCross2"
               onClick={(e) => {

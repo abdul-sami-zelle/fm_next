@@ -39,22 +39,6 @@
     right: 0;
 }
 
-.close-location-modal{
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    cursor: pointer;
-    width: max-content;
-    height: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
-
 .location-heading-and-search-bar-section{
     display: flex;
     flex-direction: column;

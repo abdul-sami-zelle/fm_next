@@ -190,6 +190,7 @@ export const formatPhoneNumber = (value) => {
 export const useDisableBodyScroll = (...states) => {
   useEffect(() => {
     const shouldDisableScroll = states.some(state => state);
+    document.documentElement.style.overflow = shouldDisableScroll ? "hidden" : "auto";
     document.body.style.overflow = shouldDisableScroll ? "hidden" : "auto";
   }, [...states]);
 };

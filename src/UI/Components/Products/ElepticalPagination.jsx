@@ -10,7 +10,12 @@ const ElipticalPagenation = ({
   onPageChange
 }) => {
   const generatePages = () => {
-    const pages = [];
+    const pages = new Set();
+
+    // Always show first 3 pages if totalPages > 3
+    [1, 2, 3].forEach(p => {
+      if (p <= totalPages) pages.add(p);
+    });
 
     const middlePages = [
       activePageIndex - 1,
@@ -24,8 +29,8 @@ const ElipticalPagenation = ({
     // middlePages.forEach(p => uniquePages.add(p));
     // [1, 2 , 3].forEach(p => uniquePages.add(p))
 
-    [1, 2, 3].forEach(p => {
-      if (p <= totalPages) pages.add(p);
+    middlePages.forEach(p => {
+      if (p <= totalPages) uniquePages?.add(p);
     });
 
     // Always add last page

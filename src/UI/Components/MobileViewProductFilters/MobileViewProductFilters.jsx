@@ -34,7 +34,6 @@ const MobileViewProductFilters = (
     }) => {
 
 
-        console.log("mobile filters data", filtersData)
 
 
     const handleFiltersClose = () => {
@@ -282,7 +281,7 @@ const MobileViewProductFilters = (
 
                 <div className='mobile-view-filters-togle-button'>
                     <button className='mobile-view-result-button' onClick={handlePriceRangeClick}>
-                        View Result
+                        Apply Filter
                     </button>
                 </div>
             </div>

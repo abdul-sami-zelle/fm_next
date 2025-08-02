@@ -76,6 +76,8 @@ const Products = ({ navigationType }) => {
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
 
+  
+
     // const location = useLocation();
     const location = useSearchParams();
     // const params = new URLSearchParams(location.search);
@@ -91,6 +93,10 @@ const Products = ({ navigationType }) => {
 
     const searchParams = useSearchParams()
     const query = searchParams.get('query');
+    
+
+    console.log("search params", searchParams);
+    console.log("query param", query)
 
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
@@ -401,6 +407,7 @@ const Products = ({ navigationType }) => {
     
 
     const filterProducts = async (filter) => {
+        console.log("run filter func")
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
         try {
             setClearFilters(true)
@@ -435,9 +442,10 @@ const Products = ({ navigationType }) => {
 
             setProducts(response.data.products)
             setTotalPages(response.data.pagination)
-
+            console.log("filter state condition", response.data.products.length)
             if (!response.data.products.length > 0) {
                 setFilterState(true);
+                console.log("filter state condition ", response.data.products.length)
                 // setNoProducts(true);
             } else {
                 setFilterState(false)
@@ -492,9 +500,10 @@ const Products = ({ navigationType }) => {
     const handleRelevance = () => {
         setRelevanceTrue(!relevanceTrue);
     }
-
+    const pageFromURL = parseInt(searchParams.get('page') || '1');
     const fetchProductData = async () => {
         const queryApi = `/api/v1/products/by-name?name`;
+        console.log("product search query", query)
         try {
             setClearFilters(true)
             let response;
@@ -502,7 +511,7 @@ const Products = ({ navigationType }) => {
                 response = await axios.get(`${url}${queryApi}=${query}`);
             } else {
                 response = await axios.get(
-                    `${url}/api/v1/products/by-category?categorySlug=${subCategorySlug}&per_page=12`
+                    `${url}/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${pageFromURL}&per_page=12`
                 );
             }
 
@@ -573,11 +582,11 @@ const Products = ({ navigationType }) => {
         setOpenSnakeBar(true)
         if (isInWishList(item._id)) {
             removeFromList(item._id);
-            setWishlistMessage('Removed from wish list')
+            setWishlistMessage('Removed from wishlist')
 
         } else {
             addToList(item._id)
-            setWishlistMessage('added to wish list')
+            setWishlistMessage('added to wishlist')
         }
 
         if (userId && userToken) {
@@ -1181,7 +1190,17 @@ const Products = ({ navigationType }) => {
                         <p>Your search did not match any product.</p>
                     </div>
                 ) : (
-                    <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
+
+                    filtereState ? (
+                        <div className='product-not-found-container' >
+                                <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='empty' />
+                                <h3>No Products Found</h3>
+                                <p>
+                                    We didn’t find any products that match all your selections. <br />Try Adjusting Your Filters for More Results.
+                                </p>
+                            </div>
+                    ) : (
+                        <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
                         {products.length === 0 ? (
                             selectedGrid === 'single-col' ?
                                 Array.from({ length: 1 }).map((_, index) => (
@@ -1227,6 +1246,8 @@ const Products = ({ navigationType }) => {
                             })
                         )}
                     </div>
+                    )
+                    
                 )}
                 {!noProducts && (
                     <ElipticalPagenation

@@ -88,7 +88,6 @@ const OrdersTab = ({ data }) => {
 
   const handleViewInvoice = async (item) => {
     const response = await axios.get(`${url}/api/v1/orders/get_by_id?_id=${item.order_id}`)
-    console.log("response invoice", response)
     if(response.status === 200) {
       generateInvoicePDF(response.data.order)
     }

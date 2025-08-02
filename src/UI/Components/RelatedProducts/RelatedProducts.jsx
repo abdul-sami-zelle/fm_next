@@ -90,13 +90,16 @@ const RelatedProducts = ({ data }) => {
               />
             </div>
           )}
-          showDots={false}
+          showDots={true}
           showArrows={true}
           spaceBetween={10}
           isPadding={true}
           breakpoints={{
             0: { slidesPerView: 1 },
-            768: { slidesPerView: 5 },
+            481: {slidesPerView: 2},
+            768: { slidesPerView: 3 },
+            1000: {slidesPerView: 4},
+            1200: {slidesPerView: 5},
           }}
         />
 

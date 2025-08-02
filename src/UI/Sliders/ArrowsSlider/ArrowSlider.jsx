@@ -63,9 +63,6 @@ const ArrowSlider = ({
         swiperRef.current?.slideNext();
     };
 
-    console.log("isMobile:", isMobile);
-    console.log("showArrows:", showArrows);
-    console.log("slidesData.length:", slidesData.length);
 
     return (
         <div className="arrow-slider-container">

@@ -79,7 +79,7 @@ const GalleryModal = ({
     const updateState = () => {
       setIsMobile(window.innerWidth <= breakpoint);
     };
-    
+
 
     window.addEventListener('resize', updateState);
     updateState(); // initial check
@@ -96,6 +96,28 @@ const GalleryModal = ({
     const cleanup = setupMobileState(setIsMobile);
     return cleanup;
   }, []);
+
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (dimensionModal) {
+        setDimensionModal(false);
+      }
+    };
+
+    if (dimensionModal) {
+      // Push a new state into the history stack when modal opens
+      window.history.pushState({ modalOpen: true }, '');
+
+      // Listen for back button
+      window.addEventListener('popstate', handlePopState);
+    }
+
+    return () => {
+      // Cleanup the listener when modal is closed or component unmounts
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [dimensionModal]);
 
   // useEffect(() => {
   //   if (dimensionModal && swiperRef.current) {
@@ -147,7 +169,7 @@ const GalleryModal = ({
       <div className={`dimension-modal-main-container ${dimensionModal ? 'show-dimension-modal' : ''}`}>
         <div className={`dimension-modal-inner-container ${galleryModalWidth ? 'show-modal-full-width' : ''}`}>
           {/* <button className='dimension-modal-close-button' onClick={handleCloseDimensionModal}> */}
-            <IoIosClose size={25} color='var(--secondary-color)' className='dimension-modal-close-button' onClick={handleCloseDimensionModal} />
+          <IoIosClose size={25} color='var(--secondary-color)' className='dimension-modal-close-button' onClick={handleCloseDimensionModal} />
           {/* </button> */}
 
           {/* Thumbnail Section */}

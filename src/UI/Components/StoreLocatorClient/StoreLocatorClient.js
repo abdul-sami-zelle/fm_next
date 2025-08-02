@@ -185,7 +185,6 @@ const StoreLocatorClient = () => {
 
 
   const handleStoreData = (item) => {
-    console.log("selected store data", item)
     setSelectedStoreData([item])
 
     setSelectedLatitude(item.latitude)

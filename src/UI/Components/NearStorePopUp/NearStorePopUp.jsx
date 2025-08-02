@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import CloseButton from '@/Global-Components/CloseButton/CloseButton';
 
 
 const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
@@ -126,10 +127,13 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
             >
 
                 <div className='pop-up-header'>
-                    <span onClick={handleCloseNearBy}>
-                        {/* <IoCloseOutline size={20} /> */}
-                        <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='' />
-                    </span>
+                    
+                    <CloseButton 
+                        handleClose={handleCloseNearBy}
+                        position={'absolute'}
+                        top={15}
+                        right={15}
+                    />
                     <i onClick={handleFindStores}>
                         <svg
                             width="50"

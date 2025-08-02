@@ -301,15 +301,13 @@ const ProductDisplay = ({ params }) => {
     || product?.manage_stock?.stock_status === 'outStock'
     || product?.manage_stock?.stock_status === 'outOfStock';
 
-  console.log("over stock check variation data", selectedVariationData)
-  console.log("over stock simple product", product)
   const isVariableOrNot = product.type === 'variable' ? true : false
   const isDesignRoomActive =
     product?.type === 'variable' ? (
       selectedVariationData?.dyrc?.active === 1 ? true : false) :
       product?.dyrc?.active === 1 ? true : false;
 
-  console.log("final design room active value", isDesignRoomActive)
+      console.log("product data on single product", product)
 
   return (
     <div>

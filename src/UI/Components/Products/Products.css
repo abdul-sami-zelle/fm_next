@@ -17,7 +17,7 @@
 .select-your-category-products-heading {
     font-size: 20px !important;
     line-height: 1.2 !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     margin: 0 0 0 10px;
 
 }
@@ -1299,8 +1299,7 @@ label {
 
     .pagination-buttons-container span {
         padding: 5px 10px;
-
-        font-size: 10px;
+        font-size: 14px;
     }
 }
 
@@ -1811,7 +1810,14 @@ label {
         grid-template-columns: repeat(1, 1fr);
     }
     .product-not-found-container {
-        display: none;
+        /* display: none; */
+        gap: 15px;
+    }
+    .product-not-found-container > h3 {
+        font-size: 22px;
+    }
+    .product-not-found-container > p {
+        font-size: 12px;
     }
     .mobile-product-not-found-container {
         display: flex;

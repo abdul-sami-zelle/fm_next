@@ -23,10 +23,8 @@ const ProductStickyTabBar = (
         selectedVariationData,
     }) => {
 
-    console.log("variation data", variationData);
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
-    console.log("product dyrc", productData);
     const tabBarItems = [
         // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
         ...(productData?.type === 'variable'

@@ -1,15 +1,27 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { Canvas, FabricImage, Rect } from 'fabric';
+import { Canvas, FabricImage, Rect, Text } from 'fabric';
 import LayerList from './layerlist';
+import Swal from 'sweetalert2';
 import { useCart } from '@/context/cartContext/cartContext';
 
-const CanvasApp = ({ data }) => {
+const CanvasApp = ({ data, closeFn }) => {
 
   const {addToCartListSimple} = useCart()
+  const CATEGORY_ORDER = [
+    'Wall',
+    'Floor',
+    'Product',
+    'Rugs',
+    'Coffee Tables',
+    'End Tables',
+    'Table Lamps',
+    'Floor Lamps',
+    'Wall Art'
+  ];
   const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
-  const [activeCategory, setActiveCategory] = useState('Wall');
+  const [activeCategory, setActiveCategory] = useState('');
   const [paintedWallColor, setPaintedWallColor] = useState('#fff');
   const [isSectionalSelected, setIsSectionals] = useState(false);
   const [reclining, setReclining] = useState(false);
@@ -20,6 +32,8 @@ const CanvasApp = ({ data }) => {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [enabledSections, setEnabledSections] = useState(['Wall']);
   const [hoveredDisabledSection, setHoveredDisabledSection] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [lastSelectedCategory, setLastSelectedCategory] = useState(null);
   const [canvasElements, setCanvasElements] = useState({
     wall: null,
     floor: null,
@@ -33,7 +47,8 @@ const CanvasApp = ({ data }) => {
   const containerRef = useRef(null);
   const sofaRef = useRef(null);
   let lastSofaSrc = null;
-  const baseURL = "https://roomapi.myfurnituremecca.com";
+  // const baseURL = "https://roomapi.myfurnituremecca.com";
+  const baseURL = "https://roomapidev.myfurnituremecca.com/"
 
   // Handle container resize
   useEffect(() => {
@@ -92,7 +107,6 @@ const CanvasApp = ({ data }) => {
     getProducts();
   }, []);
 
-  // Initialize empty canvas
   useEffect(() => {
     const initEmptyCanvas = () => {
       if (!canvasRef.current) return;
@@ -104,12 +118,90 @@ const CanvasApp = ({ data }) => {
 
       const canvasWidth = Math.max(containerSize.width * 0.7, 800);
       const canvasHeight = Math.max(containerSize.height * 0.8, 600);
-      
+
       const initCanvas = new Canvas(canvasRef.current, {
         width: canvasWidth,
         height: canvasHeight,
-        backgroundColor: '#fff',
+        backgroundColor: '#333333',
       });
+
+      // Add dark background
+      const background = new Rect({
+        left: 0,
+        top: 0,
+        width: canvasWidth,
+        height: canvasHeight,
+        fill: '#222',
+        selectable: false,
+        evented: false,
+      });
+      initCanvas.add(background);
+
+      // Create elements first
+      const heading = new Text('Design Your Home with Furniture Mecca', {
+        fontSize: 28,
+        fill: 'white',
+        fontWeight: 'bold',
+        originX: 'center',
+        textAlign: 'center',
+        top: -60,
+        left: 0
+      });
+
+      const description = new Text('Use our free Room Design Tool To Find Your Style, Set Your Budget And Design Your Space.', {
+        fontSize: 18,
+        fill: '#ccc',
+        originX: 'center',
+        textAlign: 'center',
+        top: -20,
+        left: 0
+      });
+
+      const buttonBg = new Rect({
+        width: 180,
+        height: 45,
+        // padding:10,
+        fill: '#FF8415',
+        // rx: 6,
+        // ry: 6,
+        top: 30,
+        // left: -90, // half of width to center
+        originX: 'center',
+        hoverCursor: 'pointer',
+      });
+
+      const buttonText = new Text('Select Wall', {
+        fontSize: 16,
+        fill: 'white',
+        fontWeight: 'bold',
+        originX: 'center',
+        // originY: 'center',
+        top: 44,
+        left: 0,
+        hoverCursor: 'pointer',
+      });
+
+      // Position elements manually (alternative to Group in v6+)
+      const centerX = canvasWidth / 2;
+      const centerY = canvasHeight / 2;
+
+      [heading, description, buttonBg, buttonText].forEach(obj => {
+        obj.set({
+          left: obj.left ? centerX + obj.left : centerX,
+          top: obj.top ? centerY + obj.top : centerY,
+          selectable: false
+        });
+        initCanvas.add(obj);
+      });
+
+      // Add click handler for the button
+      const handleClick = () => {
+        setLastSelectedCategory('Wall')
+        setActiveCategory('Wall');
+      };
+
+      buttonBg.on('mousedown', handleClick);
+      buttonText.on('mousedown', handleClick);
 
       setCanvas(initCanvas);
       initCanvas.renderAll();
@@ -126,7 +218,6 @@ const CanvasApp = ({ data }) => {
     };
   }, [containerSize]);
 
- 
 
   const getProducts = () => {
     fetch(`${baseURL}/api/v1/mega/get`)
@@ -146,22 +237,22 @@ const CanvasApp = ({ data }) => {
           "Table Lamps",
           "Floor Lamps",
           "Wall Art"  // Added Wall Art as the 8th item as per your request
-      ];
-      
-      // Sort the response array
-      const sortedResponse = arr.sort((a, b) => {
+        ];
+
+        // Sort the response array
+        const sortedResponse = arr.sort((a, b) => {
           const indexA = desiredOrder.indexOf(a.section);
           const indexB = desiredOrder.indexOf(b.section);
-          
+
           // Handle cases where section names might not be in our desired order
           if (indexA === -1) return 1;  // Move unknown sections to end
           if (indexB === -1) return -1; // Move unknown sections to end
-          
+
           return indexA - indexB;
-      });
-      
-      sortedResponse.splice(2, 0, newSection);
-        
+        });
+
+        sortedResponse.splice(2, 0, newSection);
+
         const updatedTools = sortedResponse.map(section => {
           if (section.section === "Wall") {
             return {
@@ -261,7 +352,7 @@ const CanvasApp = ({ data }) => {
               }))
             };
           }
-          if (section.section === 'Floor Lamps'){
+          if (section.section === 'Floor Lamps') {
             return {
               ...section,
               items: section.items.map(item => ({
@@ -291,7 +382,8 @@ const CanvasApp = ({ data }) => {
 
       const fullSrc = src.startsWith('http')
         ? src
-        : `https://roomapi.myfurnituremecca.com${src}`;
+        : `https://roomapidev.myfurnituremecca.com${src}`
+      // :`https://roomapi.myfurnituremecca.com${src}`
 
       const img = await FabricImage.fromURL(fullSrc);
       const canvasWidth = activeCanvas.getWidth();
@@ -475,36 +567,36 @@ const CanvasApp = ({ data }) => {
     //   targetWidthRatio: 0.93,
     //   targetHeightRatio: 0.32,
     // }, null, 'rug'),
-   
-addRugImage: async (src) => {
-  const canvasWidth = canvas?.getWidth() ?? 1000;
-  const canvasHeight = canvas?.getHeight() ?? 600;
 
-  let style = {
-    left: canvasWidth * 0.03,
-    top: reclining ? canvasHeight * 0.65 : canvasHeight * 0.65,
-    targetWidthRatio: 0.93,
-    targetHeightRatio: 0.32,
-  };
+    addRugImage: async (src) => {
+      const canvasWidth = canvas?.getWidth() ?? 1000;
+      const canvasHeight = canvas?.getHeight() ?? 600;
 
-  // Store current sofa reference
-  const sofa = canvasElements.sofa;
+      let style = {
+        left: canvasWidth * 0.03,
+        top: reclining ? canvasHeight * 0.65 : canvasHeight * 0.65,
+        targetWidthRatio: 0.93,
+        targetHeightRatio: 0.32,
+      };
 
-  // Temporarily remove sofa if it exists
-  if (sofa) canvas.remove(sofa);
+      // Store current sofa reference
+      const sofa = canvasElements.sofa;
 
-  // Add rug (will be at bottom without sofa)
-  const rug = await addImageToCanvas(src, style, null, 'rug');
+      // Temporarily remove sofa if it exists
+      if (sofa) canvas.remove(sofa);
 
-  // Re-add sofa (will automatically go on top)
-  if (sofa) {
-    canvas.add(sofa);
-    sofa.moveTo(Infinity); // Ensure it stays on top
-  }
+      // Add rug (will be at bottom without sofa)
+      const rug = await addImageToCanvas(src, style, null, 'rug');
 
-  canvas.requestRenderAll();
-  return rug;
-},
+      // Re-add sofa (will automatically go on top)
+      if (sofa) {
+        canvas.add(sofa);
+        sofa.moveTo(Infinity); // Ensure it stays on top
+      }
+
+      canvas.requestRenderAll();
+      return rug;
+    },
     addLampImage: (src) => {
       const canvasWidth = canvas?.getWidth() ?? 1000;
       const canvasHeight = canvas?.getHeight() ?? 600;
@@ -628,7 +720,7 @@ addRugImage: async (src) => {
   };
 
   const handleCheckout = (items) => {
-    console.log("non transform",items);
+    closeFn();
 
 
     const transformedItems = items.map((item) => ({
@@ -654,24 +746,25 @@ addRugImage: async (src) => {
       is_protected: item.is_protected || 0
     }));
 
-    console.log("Transformed checkout items:", transformedItems);
 
     addToCartListSimple(transformedItems);
-  };``
+   
+  };
 
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="editor-container" 
-      style={{ 
+      className="editor-container"
+      style={{
         display: 'flex',
-        alignSelf:'center',
+        alignSelf: 'center',
         flexDirection: 'row',
         height: '90vh',
         width: '95vw',
         overflow: 'hidden',
-        backgroundColor:'#fff'
+        backgroundColor: '#fff',
+        zIndex: 9999
         // position: 'fixed',
         // top: 0,
         // left: 0
@@ -686,113 +779,160 @@ addRugImage: async (src) => {
         borderRight: '1px solid #e0e0e0',
         overflowY: 'auto',
         height: '100%',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        zIndex: 999999
       }}>
-<h1 style={{
-            fontSize: '1.2rem',
-            marginBottom: '10px',
-            color: '#000',
-            fontWeight: '600'
-          }}>Choose Your Product</h1>
-<div style={{  display: 'grid', borderTop: '1px solid #eee',paddingTop:'10px',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '8px',
-  marginBottom: '12px' }}>
-  {tools?.map((toolSection) => {
-    return(
-    <button
-      key={toolSection.section}
-      onClick={() => {
-        setActiveCategory(toolSection.section);
-        
-        // Clear canvas based on selected section
-        if (canvas) {
-          // Get all objects from canvas
-          const objects = canvas.getObjects();
-          
-          // Filter objects to keep based on section
-          const objectsToRemove = objects.filter(obj => {
-            // Always keep walls
-            if (obj === canvasElements.wall) return false;
+        <h1 style={{
+          fontSize: '1.2rem',
+          marginBottom: '10px',
+          color: '#000',
+          fontWeight: '600'
+        }}>Choose Your Product</h1>
+        <div style={{
+          display: 'grid', borderTop: '1px solid #eee', paddingTop: '10px',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '8px',
+          marginBottom: '12px'
+        }}>
+          {tools?.map((toolSection) => {
+            return (
+              <button
+                key={toolSection.section}
 
-            switch (toolSection.section) {
-              case 'Wall':
-                // Keep only wall and wall art
-                return obj !== canvasElements.wall
-              
-              case 'Floor':
-                // Keep wall, floor, and wall art
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor;
-              
-              case 'Rugs':
-                // Keep wall, floor, wall art, and rug
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug &&
-                       obj !== canvasElements.sofa;
-              
-              case 'Product':
-                // Keep wall, floor, wall art, rug, and product (sofa)
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa;
-              
-              case 'Coffee Tables':
-                // Keep wall, floor, wall art, rug, product, and coffee tables
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa &&
-                       obj !== canvasElements.centerTable;
-              
-              case 'End Tables':
-                // Keep wall, floor, wall art, rug, product, coffee tables, and end tables
-                return obj !== canvasElements.wall && 
-                       obj !== canvasElements.floor && 
-                       obj !== canvasElements.wallArt &&
-                       obj !== canvasElements.rug && 
-                       obj !== canvasElements.sofa &&
-                       obj !== canvasElements.centerTable &&
-                       obj !== canvasElements.endTable;
-              
-              default:
-                // For other sections, keep everything
-                return false;
-            }
-          });
 
-          // Remove filtered objects
-          objectsToRemove.forEach(obj => canvas.remove(obj));
-          canvas.renderAll();
-        }
-      }}
-      style={{
-        padding: '8px 12px',
-        fontSize: '0.85rem',
-        borderRadius: '6px',
-        border: `1px solid ${activeCategory === toolSection.section ? '#FF8415' : '#FF6B00'}`,
-        outline: 'none',
-        width: '100%',
-        textAlign: 'center',
-        backgroundColor: activeCategory === toolSection.section ? '#FF8415' : 'white',
-        color: activeCategory === toolSection.section ? 'white' : '#000',
-        cursor: 'pointer',
-        fontWeight: 'normal',
-        transition: 'all 0.2s ease',
-        ':hover': {
-          backgroundColor: activeCategory === toolSection.section ? '#FF6B00' : '#FFF4EB'
-        }
-      }}
-    >
-      {toolSection.section == 'Coffee Tables' ? 'Coffee Table' : toolSection.section == 'Lamps & Lighting' ? 'Tbl Lamps' : toolSection.section == 'End Tables' ?'End Table' : toolSection.section == 'Table Lamps' ?'Table Lamp':toolSection.section == 'End Tables' ?'End Table' : toolSection.section == 'Floor Lamps' ?'Floor Lamp': toolSection.section}
-    </button>
-  )})}
-</div>
+                // updated
+                onClick={async () => {
+                  const currentCategory = toolSection.section;
+                  const currentIndex = CATEGORY_ORDER.indexOf(currentCategory);
+                  const lastIndex = lastSelectedCategory
+                    ? CATEGORY_ORDER.indexOf(lastSelectedCategory)
+                    : -1;
+
+                  // ✅ 1. Wrong sequence (skipping forward)
+                  if (currentIndex !== lastIndex + 1 && currentIndex > lastIndex) {
+                    await Swal.fire({
+                      title: 'Invalid Selection',
+                      text: `Please select ${CATEGORY_ORDER[lastIndex + 1]} first.`,
+                      icon: 'error',
+                      confirmButtonColor: '#3085d6'
+                    });
+                    return;
+                  }
+
+                  // ✅ 2. Going backward (reverting to an earlier step)
+                  if (currentIndex < lastIndex) {
+                    const confirmBack = await Swal.fire({
+                      title: 'Revert Design?',
+                      text: `Going back to ${currentCategory} will remove items added in later steps.`,
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: 'Proceed',
+                      cancelButtonText: 'Cancel',
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33'
+                    });
+
+                    if (!confirmBack.isConfirmed) return;
+
+                    // Remove all categories after current
+                    const updatedCategories = selectedCategories.filter(
+                      cat => CATEGORY_ORDER.indexOf(cat) <= currentIndex
+                    );
+
+                    // Remove objects for removed categories
+                    if (canvas) {
+                      const removedCategories = selectedCategories.filter(
+                        cat => CATEGORY_ORDER.indexOf(cat) > currentIndex
+                      );
+
+                      const objects = canvas.getObjects();
+                      const objectsToRemove = objects.filter(obj =>
+                        removedCategories.some(cat => {
+                          switch (cat) {
+                            case 'Floor': return obj === canvasElements.floor;
+                            case 'Product': return obj === canvasElements.sofa;
+                            case 'Rugs': return obj === canvasElements.rug;
+                            case 'Coffee Tables': return obj === canvasElements.centerTable;
+                            case 'End Tables': return obj === canvasElements.endTable;
+                            case 'Table Lamps': return obj === canvasElements.tableLamp;
+                            case 'Floor Lamps': return obj === canvasElements.floorLamp;
+                            case 'Wall Art': return obj === canvasElements.wallArt;
+                            default: return false;
+                          }
+                        })
+                      );
+
+                      objectsToRemove.forEach(obj => canvas.remove(obj));
+                      canvas.renderAll();
+                    }
+
+                    setSelectedCategories(updatedCategories);
+                    setLastSelectedCategory(currentCategory);
+                    setActiveCategory(currentCategory);
+                    return;
+                  }
+
+                  // ✅ 3. Forward selection (valid) → No alert
+                  setSelectedCategories(prev => [...prev, currentCategory]);
+                  setLastSelectedCategory(currentCategory);
+                  setActiveCategory(currentCategory);
+
+                  // Remove objects for this category (only when required)
+                  if (canvas) {
+                    const objects = canvas.getObjects();
+                    const objectsToRemove = objects.filter(obj => {
+                      if (obj === canvasElements.wall) return false;
+
+                      switch (currentCategory) {
+                        case 'Wall':
+                          return obj !== canvasElements.wall;
+                        case 'Floor':
+                          return obj !== canvasElements.wall && obj !== canvasElements.floor;
+                        case 'Product':
+                          return obj !== canvasElements.wall && obj !== canvasElements.floor && obj !== canvasElements.sofa;
+                        case 'Rugs':
+                          return obj !== canvasElements.wall && obj !== canvasElements.floor && obj !== canvasElements.wallArt && obj !== canvasElements.rug && obj !== canvasElements.sofa;
+                        case 'Coffee Tables':
+                          return obj !== canvasElements.wall && obj !== canvasElements.floor && obj !== canvasElements.wallArt && obj !== canvasElements.rug && obj !== canvasElements.sofa && obj !== canvasElements.centerTable;
+                        case 'End Tables':
+                          return obj !== canvasElements.wall && obj !== canvasElements.floor && obj !== canvasElements.wallArt && obj !== canvasElements.rug && obj !== canvasElements.sofa && obj !== canvasElements.centerTable && obj !== canvasElements.endTable;
+                        case 'Table Lamps':
+                        case 'Floor Lamps':
+                        case 'Wall Art':
+                          return false; // Lamps & Wall Art do not remove previous items
+                        default:
+                          return false;
+                      }
+                    });
+
+                    objectsToRemove.forEach(obj => canvas.remove(obj));
+                    canvas.renderAll();
+                  }
+                }}
+
+                style={{
+                  padding: '8px 1px',
+                  fontSize: '0.85rem',
+                  borderRadius: '6px',
+                  border: `1px solid ${activeCategory === toolSection.section ? '#FF8415' : '#963A0B'}`,
+                  outline: 'none',
+                  width: '100%',
+                  textAlign: 'center',
+                  backgroundColor: activeCategory === toolSection.section ? '#FF8415' : 'white',
+                  color: activeCategory === toolSection.section ? 'white' : '#000',
+                  cursor: 'pointer',
+                  fontWeight: 'normal',
+                  transition: 'all 0.2s ease',
+                  ':hover': {
+                    backgroundColor: activeCategory === toolSection.section ? '#FF6B00' : '#FFF4EB'
+                  }
+                }}
+              >
+                {toolSection.section == 'Coffee Tables' ? 'Coffee Table' : toolSection.section == 'Lamps & Lighting' ? 'Tbl Lamps' : toolSection.section == 'End Tables' ? 'End Table' : toolSection.section == 'Table Lamps' ? 'Table Lamp' : toolSection.section == 'End Tables' ? 'End Table' : toolSection.section == 'Floor Lamps' ? 'Floor Lamp' : toolSection.section}
+              </button>
+            )
+          })}
+        </div>
         {/* Items grid */}
         <div style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '12px' }}>
           <h4 style={{
@@ -916,7 +1056,7 @@ addRugImage: async (src) => {
           }}
         />
       </div>
-      
+
       <input
         type="color"
         id="wallColorPickerHidden"
@@ -928,8 +1068,8 @@ addRugImage: async (src) => {
           handlers.addPaintedWall();
         }}
       />
-      
-      <LayerList canvas={canvas} tools={tools} onCheckout={handleCheckout} selectedSofa={selectedSofa}/>
+
+      <LayerList canvas={canvas} tools={tools} onCheckout={handleCheckout} selectedSofa={selectedSofa} />
     </div>
   );
 };

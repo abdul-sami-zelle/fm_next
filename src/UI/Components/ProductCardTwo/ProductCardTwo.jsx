@@ -13,6 +13,7 @@ import { FaEye } from "react-icons/fa";
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css'; // important!
+import Link from 'next/link';
 
 const ProductCardTwo = ({
     productCardContainerClass,
@@ -38,9 +39,9 @@ const ProductCardTwo = ({
     const [isImageLoaded, setImageLoaded] = useState(false);
 
     const getPriorityAttribute = (attributes) => {
-        return attributes && attributes.find(attr => attr.type === "image") ||
-            attributes && attributes.find(attr => attr.type === "color") ||
-            attributes && attributes.find(attr => attr.type === "select");
+        return attributes && attributes?.find(attr => attr.type === "image") ||
+            attributes && attributes?.find(attr => attr.type === "color") ||
+            attributes && attributes?.find(attr => attr.type === "select");
     };
 
 
@@ -49,7 +50,7 @@ const ProductCardTwo = ({
 
     const [hoveredImage, setHoveredImage] = useState()
     const [selectedColor, setSelectedColor] = useState();
-    const [selectedColorImage, setSelectedColorImage] = useState();
+    const [selectedColorImage, setSelectedColorImage] = useState({});
 
     const [isHovered, setIsHovered] = useState(false);
     // const [selectedVariation, setSelectedVariation] = useState({})
@@ -64,7 +65,8 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
-            setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
+            // console.log("matching attributes", matchingAttribute)
+            setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
 
@@ -74,8 +76,10 @@ const ProductCardTwo = ({
                 attribute?.type === "color"
             );
 
+            // console.log("simple attribute", simpleAttribute)
+
             if (simpleAttribute) {
-                setSelectedColorImage(singleProductData?.images[0]?.image_url);
+                setSelectedColorImage(singleProductData?.image?.image_url);
                 setHoveredImage(singleProductData?.images[1]?.image_url);
             }
             return simpleAttribute;
@@ -94,33 +98,35 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === image)
                 )
             );
-            setSelectedColorImage(matchingAttribute?.images[0]?.image_url)
+            setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
         } else if (singleProductData?.type === "simple") {
             const simpleAttribute = singleProductData?.attributes?.find(attribute =>
                 attribute?.type === "image"
             );
-            setSelectedColorImage(singleProductData?.images[0]?.image_url);
+            setSelectedColorImage(singleProductData?.image?.image_url);
             setHoveredImage(singleProductData?.images[1]?.image_url);
             return simpleAttribute;
         }
     }
 
     const moveToFirst = (array, defValue) => {
-        const index = array.findIndex(item => item === defValue);
+        const index = array?.findIndex(item => item === defValue);
         if (index > 0) {
-            const [priorityItem] = array.splice(index, 1);
+            const [priorityItem] = array?.splice(index, 1);
             array.unshift(priorityItem)
         }
         return array;
     }
 
+    // console.log("single product data on card", singleProductData)
+
     useEffect(() => {
         if (singleProductData?.type === "variable") {
             // Find the default variation
             const defAttImage = singleProductData?.variations?.find(attr =>
-                attr?.uid === singleProductData.default_variation
+                attr?.uid === singleProductData?.default_variation
             );
 
             // Get the default color
@@ -190,71 +196,75 @@ const ProductCardTwo = ({
         || singleProductData?.manage_stock?.stock_status === 'outStock'
         || singleProductData?.manage_stock?.stock_status === 'outOfStock';
 
-        
+
 
 
     return (
         <>
-            {/* {!isImageLoaded && <ProductCardShimmer width={'100%'} /> } */}
-            <div
+            <Link href={`/product/${singleProductData?.slug}`}
                 className={`${productCardContainerClass} ${borderLeft ? 'hide-after' : ''} `}
                 style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
 
             >
                 <div className='product-card-data'
-
-                    onClick={() => handleCardClick(singleProductData)}
+                    // onClick={(e) => {
+                    //     e.stopPropagation();      // stop event bubbling to <Link>
+                    //     e.preventDefault();       // stop navigation
+                    // }}
+                // onClick={() => handleCardClick(singleProductData)}
                 >
-                    <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`} onClick={(e) => e.stopPropagation()}>
+                    <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`} >
                         {/* <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}> */}
 
-                            {
-                                stockCheck ? (
-                                    <span
-                                        data-tooltip-id="my-tooltip"
-                                        data-tooltip-content="Available in 7 to 8 weeks"
-                                        className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>Out Of Stock</span>
+                        {
+                            stockCheck ? (
+                                <span
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="Available in 7 to 8 weeks"
+                                    className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>Out Of Stock</span>
 
-                                ) : (
-                                    <div className={`product-tagging`}>
-                                        
-                                                <div className='text-tag' style={{ backgroundColor: tags.bg_color, color: tags.text_color }} >
-                                                    {tags.name}
-                                                </div>
+                            ) : (
+                                <div className={`product-tagging`}>
 
+                                    <div className='text-tag' style={{ backgroundColor: tags?.bg_color, color: tags?.text_color }} >
+                                        {tags?.name}
                                     </div>
 
-                                )
+                                </div>
+
+                            )
+                        }
+
+
+
+                        <div className={`product-wishlist-icon-container`}>
+
+                            {
+                                isInWishList(singleProductData?._id) ?
+                                    <VscHeartFilled
+                                        // size={25}
+                                        className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
+                                        style={{ color: 'var(--orange-fill)' }}
+                                        stroke='var(--orange-outline)'
+                                        onClick={(e) => {
+                                            e.stopPropagation();      // stop event bubbling to <Link>
+                                            e.preventDefault();
+                                            handleWishListclick(singleProductData)
+                                        }}
+                                    />
+                                    :
+                                    <VscHeart
+                                        // size={25}
+                                        className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
+                                        style={{ float: 'right', color: 'var(--orange-fill)' }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();      // stop event bubbling to <Link>
+                                            e.preventDefault();
+                                            handleWishListclick(singleProductData)
+                                        }}
+                                    />
                             }
-
-
-
-                            <div className={`product-wishlist-icon-container`}>
-
-                                {
-                                    isInWishList(singleProductData._id) ?
-                                        <VscHeartFilled
-                                            // size={25}
-                                            className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
-                                            style={{ color: 'var(--orange-fill)' }}
-                                            stroke='var(--orange-outline)'
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleWishListclick(singleProductData)
-                                            }}
-                                        />
-                                        :
-                                        <VscHeart
-                                            // size={25}
-                                            className={`wishlist-heart ${colTwo ? 'small-heart' : ''}`}
-                                            style={{ float: 'right', color: 'var(--orange-fill)' }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleWishListclick(singleProductData)
-                                            }}
-                                        />
-                                }
-                            </div>
+                        </div>
                         {/* </div> */}
                     </div>
 
@@ -265,6 +275,8 @@ const ProductCardTwo = ({
                             onMouseEnter={() => { setIsHovered(true) }}
                             onMouseLeave={() => { setIsHovered(false) }}
                         >
+
+
 
                             {/* <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
                                 {
@@ -337,12 +349,16 @@ const ProductCardTwo = ({
 
                             {priorityAttribute && (
                                 <div className={`product-card-attr ${colTwo ? 'hide-squire-attribute' : ''}`} >
-                                    {priorityAttribute.type === "image" && (
+                                    {priorityAttribute?.type === "image" && (
                                         <div className="image-variation">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <img
                                                     key={index}
-                                                    onClick={(e) => { e.stopPropagation(); handleImageSelect(item.value) }}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                                        e.preventDefault();
+                                                        handleImageSelect(item.value)
+                                                    }}
                                                     src={url + item.value}
                                                     alt=""
                                                 />
@@ -350,13 +366,17 @@ const ProductCardTwo = ({
                                         </div>
                                     )}
 
-                                    {priorityAttribute.type === "color" && (
+                                    {priorityAttribute?.type === "color" && (
                                         <div className="color-variation-div">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <span
                                                     key={index}
                                                     className={`color-variation ${selectedColor === item.value ? 'show-tick-mark' : ''}`}
-                                                    onClick={(e) => { e.stopPropagation(); handleColorSelect(item.value) }}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                                        e.preventDefault();
+                                                        handleColorSelect(item.value)
+                                                    }}
                                                     style={{
                                                         backgroundColor: item.value,
                                                         border: selectedColor === item.value ? `1px solid ${item.value}` : 'none',
@@ -369,9 +389,9 @@ const ProductCardTwo = ({
                                         </div>
                                     )}
 
-                                    {priorityAttribute.type === "select" && (
+                                    {priorityAttribute?.type === "select" && (
                                         <div className="text-variation">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <p key={index} className="attr-var">{item.value}</p>
                                             ))}
                                         </div>
@@ -381,12 +401,16 @@ const ProductCardTwo = ({
 
                             {priorityAttribute && (
                                 <div className={`mobile-product-card-attr ${colTwo ? 'show-rounded-attributes' : ''}`} >
-                                    {priorityAttribute.type === "image" && (
+                                    {priorityAttribute?.type === "image" && (
                                         <div className="mobile-image-variation">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <img
                                                     key={index}
-                                                    onClick={(e) => { e.stopPropagation(); handleImageSelect(item.value) }}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                                        e.preventDefault();
+                                                        handleImageSelect(item.value)
+                                                    }}
                                                     src={url + item.value}
                                                     alt=""
                                                 />
@@ -394,13 +418,17 @@ const ProductCardTwo = ({
                                         </div>
                                     )}
 
-                                    {priorityAttribute.type === "color" && (
+                                    {priorityAttribute?.type === "color" && (
                                         <div className="mobile-color-variation-div">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <span
                                                     key={index}
                                                     className={`mobile-color-variation ${selectedColor === item.value ? 'show-tick-mark' : ''}`}
-                                                    onClick={(e) => { e.stopPropagation(); handleColorSelect(item.value) }}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                                        e.preventDefault();
+                                                        handleColorSelect(item.value)
+                                                    }}
                                                     style={{
                                                         backgroundColor: item.value,
                                                         border: selectedColor === item.value ? `1px solid ${item.value}` : 'none',
@@ -413,7 +441,7 @@ const ProductCardTwo = ({
 
                                     {priorityAttribute.type === "select" && (
                                         <div className="mobile-text-variation">
-                                            {priorityAttribute.options.map((item, index) => (
+                                            {priorityAttribute?.options?.map((item, index) => (
                                                 <p key={index} className="mobile-attr-var">{item.value}</p>
                                             ))}
                                         </div>
@@ -456,7 +484,11 @@ const ProductCardTwo = ({
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
                                         <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week for 12 months</p>
-                                        <GoInfo onClick={(e) => { e.stopPropagation(); handleInfoModal() }}
+                                        <GoInfo onClick={(e) => {
+                                            e.stopPropagation();      // stop event bubbling to <Link>
+                                            e.preventDefault();
+                                            handleInfoModal()
+                                        }}
                                         />
                                     </span>
                                     <span className={`product-card-get-it-by ${showExtraLines ? 'show-set-it-by' : 'hide-get-it-by'}`}>
@@ -480,7 +512,8 @@ const ProductCardTwo = ({
 
                                 <button className={`card-two-quick-view-button ${colTwo ? 'apply-col-two-styling' : ''}`}
                                     onClick={(e) => {
-                                        e.stopPropagation();
+                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                        e.preventDefault();
                                         handleQuickView()
                                     }}
                                 >
@@ -491,7 +524,8 @@ const ProductCardTwo = ({
                                     size={20}
                                     className='quick-view-eye-icon'
                                     onClick={(e) => {
-                                        e.stopPropagation();
+                                        e.stopPropagation();      // stop event bubbling to <Link>
+                                        e.preventDefault();
                                         handleQuickView()
                                     }}
                                 />
@@ -501,7 +535,7 @@ const ProductCardTwo = ({
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
 
             <Tooltip id="my-tooltip" className="custom-tooltip" />
         </>
