@@ -66,8 +66,8 @@ const TrendingNow = ({ data }) => {
                                     />
                                     <div className='small-tranding-cart-overlay-main-container'>
                                         <div className='small-tranding-card-bag-container'>
-                                            <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
-                                            <BiSolidShoppingBag size={20} className='tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={15} className='mobile-tranding-now-cart-bag' />
+                                            <BiSolidShoppingBag size={15} className='tranding-now-cart-bag' />
                                         </div>
                                     </div>
                                 </Link>

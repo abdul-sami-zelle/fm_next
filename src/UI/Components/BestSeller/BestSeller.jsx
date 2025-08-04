@@ -145,7 +145,7 @@ const BestSeller = () => {
         }
     }
     const handleCloseSnakeBar = () => {
-      setShowSnakeBar(false)
+        setShowSnakeBar(false)
     }
 
 
@@ -228,6 +228,12 @@ const BestSeller = () => {
                     </div>
 
                     <div className='mobile-view-cards-main-container'>
+                        <div className='mobile-best-seller-cart-container'>
+                            <div className='mobile-best-sseller-card-bag-container'>
+                                <BiSolidShoppingBag size={20} className='best-seller-cart-icon' />
+                            </div>
+                        </div>
+
                         {categorySellerLoading ? (
                             <BestSellerMobileShimmer width={'85%'} />
                         ) : (
@@ -278,11 +284,11 @@ const BestSeller = () => {
                                                 {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
                                             </div>
                                         </div>
-                                        <div className='mobile-best-seller-cart-container'>
+                                        {/* <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
                                                 <BiSolidShoppingBag size={25} className='best-seller-cart-icon' />
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                     </Link>
                                 )}

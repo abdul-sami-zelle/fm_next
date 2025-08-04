@@ -575,7 +575,7 @@ p.footer-nav-items > a{
     flex-direction: column;
     width: 40%;
     padding-left: 40px;
-    height: 120px;
+    /* height: 120px; */
 }
 
 .footer-right-get-scoop{

@@ -148,7 +148,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 0;
+    max-height: 0;
     visibility: hidden;
     opacity: 0;
     overflow-y: auto;
@@ -159,7 +159,8 @@
 
 .mobile-single-type-filters.show-filter-type{
     visibility: visible;
-    height: 150px;
+    /* height: 150px; */
+    max-height: 150px;
     opacity: 1;
     padding: 10px;
 }

@@ -67,7 +67,10 @@
     right: 20px;
 }
 
-
+/* .swiper-slide {
+    height: auto;
+    po
+} */
 
 .custom-pagination-dots {
     display: flex;

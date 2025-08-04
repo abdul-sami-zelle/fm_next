@@ -11,7 +11,7 @@ const MobileFinancingSlider = ({ images }) => {
             <SwiperSlider
                 slidesData={images?.mobile}
                 renderSlide={(image, index) => (
-                    <div className="carousel-slide" key={index}>
+                    <div className="mobile-carousel-slide" key={index}>
                         <Image
                             src={`${url}${image.image_url}`}
                             alt={`slide ${index + 1}`}

@@ -532,6 +532,8 @@
 
     .mobile-view-scop-main-container{
         display: flex;
+        margin-top: 0px;
+        margin-bottom: 10px;
     }
     .done_message{
         font-weight: bold !important;

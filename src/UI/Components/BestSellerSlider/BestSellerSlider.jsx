@@ -149,7 +149,7 @@ const BestSellerSlider = (
 
         } else {
             addToList(item._id)
-            
+
             setSnakeBarMessage('added to wish list')
         }
 
@@ -345,6 +345,12 @@ const BestSellerSlider = (
                     </div>
 
                     <div className='mobile-view-cards-main-container'>
+                        <div className='mobile-best-seller-cart-container'>
+                            <div className='mobile-best-sseller-card-bag-container'>
+                                <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
+                            </div>
+                        </div>
+
                         {bestSellerProductLoading ? (
                             <BestSellerMobileShimmer width={'85%'} />
                         ) : (
@@ -390,11 +396,11 @@ const BestSellerSlider = (
                                                 {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
                                             </div>
                                         </div>
-                                        <div className='mobile-best-seller-cart-container'>
+                                        {/* <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
                                                 <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </Link>
                                     // </div>
                                 )}

@@ -523,6 +523,7 @@
     backdrop-filter: blur(4px);
     z-index: 999999999999999;
 }
+
 /* 
 .nearby-store-set-location-modal {
     position: absolute;
@@ -1293,9 +1294,43 @@
         display: flex;
         width: 15%;
     }
+
     .nearby-store-set-location-modal {
         top: 80%;
         left: 50%;
+    }
+
+
+    .shimmer-near-store-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--secondary-background);
+        /* margin-right: 10px; */
+    }
+
+    .shimmer-near-store-city-and-timing-main {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0px 15px;
+        border-right: 1px solid var(--border-color);
+    }
+
+    .shimmer-near-store-heading {
+        width: 60px;
+    }
+
+    .shimmer-state-and-timing {
+        width: 80px;
+    }
+
+    .shimmer-delivery-heading {
+        width: 65px;
+    }
+
+    .shimmer-zip-heading {
+        width: 50px;
     }
 }
 

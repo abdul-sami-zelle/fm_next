@@ -264,7 +264,7 @@ const Cart = () => {
                 <span className='cart-order-summary-zip-code-heading'>
                   {/* <p>Calculated for:</p> */}
                   {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
-                  <h3 onClick={handleZipInput}>ZipCode <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
+                  <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                 </span>
                 <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
                   <div className='cart-order-summary-zip-code-input-and-button'>
@@ -466,7 +466,7 @@ const Cart = () => {
           <p className='mobile-you-save-text'>{formatedPrice(savings)}</p>
         </div>
         <button onClick={navigateToCheckout} disabled={cartProducts.products?.length === 0} className={`mobile-proceed-to-checkout-button ${cartProducts.products?.length === 0 ? 'disable-checkout-button' : ''}`}>
-          Proceed to checkout
+          Proceed to Checkout
         </button>
       </div>
       <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />

@@ -381,8 +381,8 @@ const Header = ({ checkoutPage }) => {
   }
 
   const moveToLoginDash = async (clickType) => {
-    setSigninClicked(clickType === 'login' ? true : false);
     await checkToken(clickType);
+    // setSigninClicked(clickType === 'login' ? true : false);
   }
 
 
@@ -602,7 +602,7 @@ const Header = ({ checkoutPage }) => {
         </div>
 
         <div className='header-icons-container'>
-          <div style={{ paddingTop: '4px' }} onClick={() => moveToLoginDash('login')}>
+          <div style={{ paddingTop: '4px' }} onClick={moveToLoginDash}>
             <Image src={'/Assets/icon/user-outlined.svg'} width={23} height={23} alt="profile" />
           </div>
 
@@ -674,7 +674,7 @@ const Header = ({ checkoutPage }) => {
             // onChange={handleMobileSearchValue}
             />
           </div>
-          <div onClick={() => {() => moveToLoginDash('login') }}>
+          <div onClick={() => {moveToLoginDash }}>
             <CiUser strokeWidth={0.8} className='mobile-user-icon' />
           </div>
         </div>

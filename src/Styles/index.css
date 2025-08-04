@@ -316,6 +316,8 @@ input:-webkit-autofill {
 .swiper-slide {
   display: flex;
   justify-content: center;
+  height: auto !important;
+  position: relative !important;
 }
 
 

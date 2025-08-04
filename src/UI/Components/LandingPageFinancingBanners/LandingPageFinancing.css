@@ -216,7 +216,8 @@
     .mobile-view-banners-container {
         display: flex;
         gap: 5px;
-        padding: 5px 10px;
+        margin-top: 0;
+        padding: 0 10px 10px 10px;
     }
 
     .hide-gif-banner-on-phone {

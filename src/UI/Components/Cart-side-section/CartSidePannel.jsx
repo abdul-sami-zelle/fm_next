@@ -114,13 +114,13 @@ const CartSidePannel = (
                     checked={isProfessionalAssembly}
                     onChange={() => handleCartAssembly()}
                   />
-                  Professional Assembly
+                  Professional Assembly (+ ${totalProtectionValue})
                 </label>
-                {isProfessionalAssembly ? (
+                {/* {isProfessionalAssembly ? ( */}
                   <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
-                ) : (
+                {/* ) : (
                   <p className='cart-protection-plan-cart-desc'>({formatedPrice(totalProtectionValue)})</p>
-                )}
+                )} */}
               </div>
             ) : (<></>)}
 

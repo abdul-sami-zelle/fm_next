@@ -237,6 +237,7 @@
     .blog-arther-details h3 {
         font-size: 14px;
         line-height: 1.2;
+        height: 35px;
     }
 
     .blog-created-by-and-comments p {

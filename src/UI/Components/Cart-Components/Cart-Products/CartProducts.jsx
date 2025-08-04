@@ -30,6 +30,7 @@ const CartProducts = ({ handleLocationModal }) => {
         isProfessionalAssembly,
         handleCartProtected,
         handleCartAssembly,
+        handleCartAssemblyFalse,
         isCartLoading
     } = useCart()
 
@@ -87,6 +88,8 @@ const CartProducts = ({ handleLocationModal }) => {
         setShowSnakeBar(false)
     }
 
+    console.log("selected option ", selectedOption)
+
 
     return (
         <>
@@ -141,7 +144,10 @@ const CartProducts = ({ handleLocationModal }) => {
                                     </div>
                                 </div>
 
-                                <div className='cart-protect-card' onClick={handleCartAssembly}>
+
+
+                                <div className='cart-protect-card' onClick={selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse}>
+                                    {selectedOption?.id === 'METHOD-3' && <div className='professional-assembly-disable'></div>}
                                     <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
 
                                     <div className='cart-protection-plan-details-container'>
@@ -175,7 +181,7 @@ const CartProducts = ({ handleLocationModal }) => {
 
                                 {selectedShippingMethods &&
                                     selectedShippingMethods?.map((option, index) => (
-                                        <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
+                                        <div className='cart-delivary-card' onClick={() => {handleChange(null, option); handleCartAssemblyFalse()}}>
                                             {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                             {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 

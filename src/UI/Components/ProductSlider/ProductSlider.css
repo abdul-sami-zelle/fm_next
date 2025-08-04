@@ -76,8 +76,8 @@
     .products-slider-main-container{
         display: flex;
         width: 100%;
-        padding: 15px 10px;
-        gap: 15px;
+        padding: 10px;
+        gap: 5px;
     }
 
     .feature-product-heading{

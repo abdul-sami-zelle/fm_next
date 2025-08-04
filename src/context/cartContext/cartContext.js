@@ -3,10 +3,13 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { url } from "../../utils/api";
+import { useGlobalContext } from "../GlobalContext/globalContext";
 
 export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
+
+    // const { selectedOption } = useGlobalContext()
 
     const [eachProtectionValue, setEachProtectionValue] = useState(149); // 99 was old single protection price
     const [eachProtectionValue2, setEachProtectionValue2] = useState(199); // 99 was old single protection price
@@ -211,6 +214,8 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+    
+
     const handleCartAssembly = async () => {
         setIsCartLoading(true);
         try {
@@ -222,7 +227,35 @@ export const CartProvider = ({ children }) => {
             setCartProducts((prevCart) => {
                 newCart = {
                     ...prevCart,
-                    is_professional_assembly: prevCart.is_professional_assembly === 0 ? 1 : 0, // Toggle between 0 and 1
+                    is_professional_assembly: prevCart.is_professional_assembly === 0 ? 1 : 0 // Toggle between 0 and 1
+                };
+                return newCart;
+            });
+
+            // Ensure state is updated
+            await new Promise((resolve) => setTimeout(resolve, 0));
+
+            // Pass the computed object to updateCartDB
+            return await updateCartDB(newCart);
+        } catch (error) {
+            console.error("Error updating cart:", error);
+            setIsCartLoading(false);
+            throw error;
+        }
+    };
+
+    const handleCartAssemblyFalse = async () => {
+        setIsCartLoading(true);
+        try {
+            // Toggle assembly state
+            setIsProfessionalAssembly(false);
+
+            // Compute updated cart state
+            let newCart;
+            setCartProducts((prevCart) => {
+                newCart = {
+                    ...prevCart,
+                    is_professional_assembly: 0 // Toggle between 0 and 1
                 };
                 return newCart;
             });
@@ -399,7 +432,7 @@ export const CartProvider = ({ children }) => {
             return { products: updatedProducts };
         });
 
-         setIsCartLoading(false);
+        setIsCartLoading(false);
         return { products: transformedList }; // Optionally return what was added
     };
 
@@ -628,6 +661,7 @@ export const CartProvider = ({ children }) => {
                 isProfessionalAssembly,
                 handleCartProtected,
                 handleCartAssembly,
+                handleCartAssemblyFalse,
                 addToCart0,
                 cartUid,
                 setCartUid,

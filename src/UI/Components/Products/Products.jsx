@@ -849,7 +849,8 @@ const Products = ({ navigationType }) => {
     useDisableBodyScroll(
         isInfoOpen,
         quickViewClicked,
-        showSortModal
+        showSortModal,
+        mobileFilters
     )
 
 

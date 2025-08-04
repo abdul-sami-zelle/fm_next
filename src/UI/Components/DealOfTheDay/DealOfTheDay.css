@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     position: relative;
-    padding: 55px 60px 35px 60px;
+    padding: 35px 60px 35px 60px;
     overflow: hidden;
 }
 
@@ -11,7 +11,8 @@
     display: flex;
     align-items: center;
     position: absolute;
-    top: 30px;
+    /* top: 30px; */
+    top: 10px;
     left: 90px;
     background-color: #fff;
     z-index: 99;
@@ -172,7 +173,7 @@
 
 @media only screen and (max-width: 480px) {
     .deal-of-the-day-main-container {
-        padding: 15px 10px 0px 10px;
+        padding: 10px 10px 0px 10px;
     }
 
     .deal-of-the-day-end-time {
@@ -183,7 +184,7 @@
         display: flex;
         align-items: center;
         position: absolute;
-        top: 7px;
+        top: 2px;
         left: 40px;
         padding: 5px;
     }

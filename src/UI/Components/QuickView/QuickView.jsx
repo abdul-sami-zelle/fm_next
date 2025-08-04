@@ -247,7 +247,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 <div className='quick-view-add-item-or-cart-btn'>
                     <div className='quick-view-add-or-minus-item'>
                         <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={decreaseLocalQuantity}>
-                            <FaMinus className='quick0view-minus' size={15} />
+                            <FaMinus className='quick0view-minus' size={12} color='#595959' />
                         </button>
                         <input
                             type='number'
@@ -264,7 +264,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                             
                         />
                         <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={increaseLocalQuantity}>
-                            <FaPlus className='quick-view-plus' size={15} />
+                            <FaPlus className='quick-view-plus' size={12} color='#595959' />
                         </button>
                     </div>
                     <div className='quick-view-wish-list-container'>
