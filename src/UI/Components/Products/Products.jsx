@@ -5,6 +5,7 @@ import './Products.css';
 
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { FaPlus, FaTruck, FaLocationDot, FaMinus } from "react-icons/fa6";
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 // Components
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
@@ -68,7 +69,7 @@ const Products = ({ navigationType }) => {
         setBrandValue,
         isFeatured,
         setIsFeatured,
-        isStock, 
+        isStock,
         setIsStock,
     } = useProductArchive()
 
@@ -76,7 +77,7 @@ const Products = ({ navigationType }) => {
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
 
-  
+
 
     // const location = useLocation();
     const location = useSearchParams();
@@ -93,7 +94,7 @@ const Products = ({ navigationType }) => {
 
     const searchParams = useSearchParams()
     const query = searchParams.get('query');
-    
+
 
 
     const [hideFilters, setHideFilters] = useState(false);
@@ -265,7 +266,7 @@ const Products = ({ navigationType }) => {
 
         setCollectionValue(updatedCollectionValue);
 
-        if(updatedCollectionValue.length > 0 ){
+        if (updatedCollectionValue.length > 0) {
             params.set('collectionId', value.uid)
         } else {
             params.delete('collectionId')
@@ -293,7 +294,7 @@ const Products = ({ navigationType }) => {
 
         setBrandValue(updatedBrandName);
 
-        if(updatedBrandName.length > 0) {
+        if (updatedBrandName.length > 0) {
             params.set('brand', value.name)
         } else {
             params.delete('brand')
@@ -357,7 +358,7 @@ const Products = ({ navigationType }) => {
 
         setIsStock(updatedStock);
 
-        if(updatedStock.length > 0) {
+        if (updatedStock.length > 0) {
             params.set('stockStatus', value.code === 'inStock' ? 1 : 0)
         } else {
             params.delete('stockStatus')
@@ -393,8 +394,8 @@ const Products = ({ navigationType }) => {
         setActivePage(1);
         setActivePageIndex(1);
         setTrigerProdutCall(prev => !prev)
-        
-        
+
+
         const pathname = window.location.pathname;
         router.replace(pathname, { shallow: true });
 
@@ -402,7 +403,7 @@ const Products = ({ navigationType }) => {
         filterProducts('')
     }
 
-    
+
 
     const filterProducts = async (filter) => {
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
@@ -761,6 +762,89 @@ const Products = ({ navigationType }) => {
 
     }, [location.search]);
 
+
+
+    //     const scrollRef = useRef(null);
+    // const [isDragging, setIsDragging] = useState(false);
+    // const [startX, setStartX] = useState(0);
+    // const [scrollLeftStart, setScrollLeftStart] = useState(0);
+
+    // const handleMouseDown = (e) => {
+    //   setIsDragging(true);
+    //   setStartX(e.pageX - scrollRef.current.offsetLeft);
+    //   setScrollLeftStart(scrollRef.current.scrollLeft);
+    // };
+
+    // const handleMouseMove = (e) => {
+    //   if (!isDragging || e.buttons !== 1) return; // only drag while mouse is held
+    //   e.preventDefault();
+    //   const x = e.pageX - scrollRef.current.offsetLeft;
+    //   const walk = (x - startX) * 1.5; // adjust sensitivity
+    //   scrollRef.current.scrollLeft = scrollLeftStart - walk;
+    // };
+
+    // const stopDragging = () => {
+    //   setIsDragging(false);
+    // };
+
+    // useEffect(() => {
+    //   const container = scrollRef.current;
+
+    //   // Attach global events to track mouse movement
+    //   window.addEventListener("mousemove", handleMouseMove);
+    //   window.addEventListener("mouseup", stopDragging);
+
+    //   return () => {
+    //     window.removeEventListener("mousemove", handleMouseMove);
+    //     window.removeEventListener("mouseup", stopDragging);
+    //   };
+    // }, [isDragging, startX, scrollLeftStart]);
+
+
+    const scrollRef = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeftStart, setScrollLeftStart] = useState(0);
+
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setStartX(e.pageX - scrollRef.current.offsetLeft);
+        setScrollLeftStart(scrollRef.current.scrollLeft);
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging || e.buttons !== 1) return; // Only drag if mouse is down
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        scrollRef.current.scrollLeft = scrollLeftStart - walk;
+    };
+
+    const stopDragging = () => {
+        setIsDragging(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mouseup", stopDragging);
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mouseup", stopDragging);
+        };
+    }, [isDragging, startX, scrollLeftStart]);
+
+    const scrollLeft = () => {
+        scrollRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        scrollRef.current?.scrollBy({ left: 150, behavior: 'smooth' });
+    };
+
+
+
+
     // Disable Scroll on Modal Open
     useDisableBodyScroll(
         isInfoOpen,
@@ -769,7 +853,7 @@ const Products = ({ navigationType }) => {
     )
 
 
-    
+
 
     return (
         <div className='products-main-container'>
@@ -779,13 +863,26 @@ const Products = ({ navigationType }) => {
                 Select Your{" "}
                 {formatted}
             </h3>
-            <div className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}>
-                {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
-                    <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>
-                        {item.filterImage !== "" ? <img src={` ${url}${item.filterImage}`} alt='sub category' /> : <img src={` ${url}${item.image2}`} alt='sub category' />}
-                    </Link>
-                ))}
+            <div className="product-archive-category-wrapper">
+                <button className='category-scroll-button category-left' onClick={() => scrollLeft()}>
+                    <IoIosArrowBack size={15} color='var(--orange-outline)' />
+                </button>
+                <div
+                    ref={scrollRef}
+                    className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}
+                    onMouseDown={handleMouseDown}
+                >
+                    {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
+                        <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>
+                            {item.filterImage !== "" ? <img src={` ${url}${item.filterImage}`} alt='sub category' /> : <img src={` ${url}${item.image2}`} alt='sub category' />}
+                        </Link>
+                    ))}
+                </div>
+                <button className='category-scroll-button category-right' onClick={() => scrollRight()}>
+                    <IoIosArrowForward size={15} color='var(--orange-outline)' />
+                </button>
             </div>
+
 
             <h3 className={`searched-products-heading ${currentRoute !== 'searched-products' ? 'hide-searched-heading' : ''}`}>Searched Products for: {query}</h3>
 
@@ -1190,61 +1287,61 @@ const Products = ({ navigationType }) => {
 
                     filtereState ? (
                         <div className='product-not-found-container' >
-                                <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='empty' />
-                                <h3>No Products Found</h3>
-                                <p>
-                                    We didn’t find any products that match all your selections. <br />Try Adjusting Your Filters for More Results.
-                                </p>
-                            </div>
+                            <Image src={'/Assets/icon/product-empty.png'} width={120} height={120} alt='empty' />
+                            <h3>No Products Found</h3>
+                            <p>
+                                We didn’t find any products that match all your selections. <br />Try Adjusting Your Filters for More Results.
+                            </p>
+                        </div>
                     ) : (
                         <div className={`${selectedGrid === 'single-col' ? 'mobile-view-product-single-column' : 'mobile-view-products-main-container'} `}>
-                        {products.length === 0 ? (
-                            selectedGrid === 'single-col' ?
-                                Array.from({ length: 1 }).map((_, index) => (
-                                    <ProductCardShimmer width={'100%'} key={index} />
-                                )) : Array.from({ length: 2 }).map((_, index) => (
-                                    <ProductCardShimmer width={'100%'} key={index} />
-                                ))
-                        ) : (
-                            products.map((item, index) => {
-                                return <ProductCardTwo
-                                    key={item.slug}
-                                    slug={item.slug}
-                                    singleProductData={item}
-                                    maxWidthAccordingToComp={"100%"}
-                                    justWidth={'100%'}
-                                    showOnPage={true}
-                                    showExtraLines={true}
-                                    percent={'12%'}
-                                    colTwo={selectedGrid === 'single-col' ? false : true}
-                                    tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
-                                    tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                                    mainImage={`${item?.image?.image_url}`}
-                                    productCardContainerClass="product-card"
-                                    ProductSku={item.sku}
-                                    tags={item.product_tag}
-                                    allow_back_order={item?.allow_back_order}
-                                    ProductTitle={item.name}
-                                    reviewCount={item.average_rating}
-                                    lowPriceAddvertisement={item.lowPriceAddvertisement}
-                                    priceTag={item.regular_price}
-                                    sale_price={item.sale_price}
-                                    financingAdd={item.financingAdd}
-                                    learnMore={item.learnMore}
-                                    mainIndex={index}
-                                    deliveryTime={item.deliveryTime}
-                                    stock={item.manage_stock}
-                                    attributes={item.attributes}
-                                    handleCardClick={() => handleProductClick(item)}
-                                    handleQuickView={() => handleQuickViewOpen(item)}
-                                    handleWishListclick={() => handleWishList(item)}
-                                    handleInfoModal={handleOpennfoModal}
-                                />
-                            })
-                        )}
-                    </div>
+                            {products.length === 0 ? (
+                                selectedGrid === 'single-col' ?
+                                    Array.from({ length: 1 }).map((_, index) => (
+                                        <ProductCardShimmer width={'100%'} key={index} />
+                                    )) : Array.from({ length: 2 }).map((_, index) => (
+                                        <ProductCardShimmer width={'100%'} key={index} />
+                                    ))
+                            ) : (
+                                products.map((item, index) => {
+                                    return <ProductCardTwo
+                                        key={item.slug}
+                                        slug={item.slug}
+                                        singleProductData={item}
+                                        maxWidthAccordingToComp={"100%"}
+                                        justWidth={'100%'}
+                                        showOnPage={true}
+                                        showExtraLines={true}
+                                        percent={'12%'}
+                                        colTwo={selectedGrid === 'single-col' ? false : true}
+                                        tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
+                                        tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                                        mainImage={`${item?.image?.image_url}`}
+                                        productCardContainerClass="product-card"
+                                        ProductSku={item.sku}
+                                        tags={item.product_tag}
+                                        allow_back_order={item?.allow_back_order}
+                                        ProductTitle={item.name}
+                                        reviewCount={item.average_rating}
+                                        lowPriceAddvertisement={item.lowPriceAddvertisement}
+                                        priceTag={item.regular_price}
+                                        sale_price={item.sale_price}
+                                        financingAdd={item.financingAdd}
+                                        learnMore={item.learnMore}
+                                        mainIndex={index}
+                                        deliveryTime={item.deliveryTime}
+                                        stock={item.manage_stock}
+                                        attributes={item.attributes}
+                                        handleCardClick={() => handleProductClick(item)}
+                                        handleQuickView={() => handleQuickViewOpen(item)}
+                                        handleWishListclick={() => handleWishList(item)}
+                                        handleInfoModal={handleOpennfoModal}
+                                    />
+                                })
+                            )}
+                        </div>
                     )
-                    
+
                 )}
                 {!noProducts && (
                     <ElipticalPagenation

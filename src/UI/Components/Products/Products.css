@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 15px 30px 35px 30px; 
+    padding: 15px 30px 35px 30px;
     gap: 5px;
 }
 
@@ -26,6 +26,35 @@
     display: none;
 }
 
+.product-archive-category-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.category-scroll-button {
+    position: relative;
+    z-index: 9999;
+    border: 1px solid var(--orange-outline);
+    background: transparent;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-scroll-button.category-left{
+    left: 5px;
+}
+
+.category-scroll-button.category-right {
+    right: 5px;
+}
+
 .product-archive-sub-categories-container {
     display: flex;
     align-items: center;
@@ -36,6 +65,12 @@
     overflow-x: auto;
     padding: 10px;
     background-color: transparent;
+    cursor: grab;
+    scroll-behavior: smooth;
+}
+
+.product-archive-sub-categories-container:active {
+    cursor: grabbing;
 }
 
 .product-archive-sub-categories-container.hide-category-images-container {
@@ -82,9 +117,10 @@
         max-width: 220px;
     }
 }
+
 @media only screen and (max-width: 1200px) {
     .product-archive-single-sub-category {
-        max-width: 90px;
+        max-width: 105px;
     }
 }
 
@@ -199,8 +235,8 @@
 
 .checkbox-wrapper-1 .tgl-one::selection,
 .checkbox-wrapper-1 .tgl-one *::selection,
-.checkbox-wrapper-1 .tgl-one + .tgl-btn::selection {
-  background: none;
+.checkbox-wrapper-1 .tgl-one+.tgl-btn::selection {
+    background: none;
 }
 
 .checkbox-wrapper-1 .tgl-one+.tgl-btn {
@@ -312,8 +348,8 @@
 } */
 .checkbox-wrapper-2 .tgl-two::selection,
 .checkbox-wrapper-2 .tgl-two *::selection,
-.checkbox-wrapper-2 .tgl-two + .tgl-btn::selection {
-  background: none;
+.checkbox-wrapper-2 .tgl-two+.tgl-btn::selection {
+    background: none;
 }
 
 .checkbox-wrapper-2 .tgl-two+.tgl-btn {
@@ -415,7 +451,7 @@
     gap: 30px;
 }
 
-.product-not-found-container > h3 {
+.product-not-found-container>h3 {
     font-size: 32px;
     line-height: 1.2;
     font-weight: 600;
@@ -423,7 +459,7 @@
     margin-top: 20px;
 }
 
-.product-not-found-container > p {
+.product-not-found-container>p {
     font-size: 22px;
     line-height: 1.2;
     font-weight: 400;
@@ -442,7 +478,7 @@
     min-height: 80vh;
 }
 
-.mobile-product-not-found-container > h3 {
+.mobile-product-not-found-container>h3 {
     font-size: 25px;
     line-height: 1.2;
     font-weight: 600;
@@ -450,7 +486,7 @@
     margin-top: 20px;
 }
 
-.mobile-product-not-found-container > p {
+.mobile-product-not-found-container>p {
     font-size: 12px;
     line-height: 1.2;
     font-weight: 400;
@@ -1512,6 +1548,7 @@ label {
     /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
     /* border-radius: 2px; */
 }
+
 /* Single Col Box */
 .mobile-view-toggler-single-box {
     display: flex;
@@ -1768,6 +1805,7 @@ label {
     .product-main {
         grid-template-columns: repeat(4, 1fr);
     }
+
     .product-main.increase-columns {
         grid-template-columns: repeat(5, 1fr);
     }
@@ -1783,6 +1821,7 @@ label {
     .product-main {
         grid-template-columns: repeat(3, 1fr);
     }
+
     .product-main.increase-columns {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -1805,27 +1844,34 @@ label {
         grid-template-columns: repeat(1, 1fr);
     }
 }
+
 @media (max-width: 480px) {
     .product-main {
         grid-template-columns: repeat(1, 1fr);
     }
+
     .product-not-found-container {
         /* display: none; */
         gap: 15px;
     }
-    .product-not-found-container > h3 {
+
+    .product-not-found-container>h3 {
         font-size: 22px;
     }
-    .product-not-found-container > p {
+
+    .product-not-found-container>p {
         font-size: 12px;
     }
+
     .mobile-product-not-found-container {
         display: flex;
     }
+
     .select-your-category-products-heading {
         font-size: 15px !important;
         margin: 15px 0 0 10px;
     }
+
     .searched-products-heading {
         font-size: 15px;
         margin: 15px 0 0 10px;

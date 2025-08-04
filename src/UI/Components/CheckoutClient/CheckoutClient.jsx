@@ -22,6 +22,7 @@ const CheckoutClient = () => {
 
   const {
     orderPayload,
+    setOrderPayload,
     handlePaymentInfo,
     sendProducts,
     selectedTab,
@@ -327,7 +328,7 @@ const CheckoutClient = () => {
                 <span className='cart-order-summary-zip-code-heading'>
                   {/* <p>Calculated for:</p> */}
                   {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
-                  <h3 onClick={handleZipInput}>ZipCode <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3>
+                  <h3 onClick={handleZipInput}>ZipCode <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                 </span>
                 <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
                   <div className='cart-order-summary-zip-code-input-and-button'>
@@ -354,8 +355,15 @@ const CheckoutClient = () => {
                     <input
                       type="checkbox"
                       className='checkout-email-blast-checkbox'
-                      checked={emailBlast}
-                      onChange={(e) => setEmailBlast(e.target.checked)}
+                      checked={orderPayload.email_blast}
+                      value={orderPayload.emailBlast}
+                      // onChange={(e) => setEmailBlast(e.target.checked)}
+                      onChange={(e) =>
+                        setOrderPayload(prev => ({
+                          ...prev,
+                          email_blast: e.target.checked
+                        }))
+                      }
                       required
                     />
                     Opt into Receive Text and Emails Blasts.

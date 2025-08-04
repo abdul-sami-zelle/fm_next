@@ -156,10 +156,10 @@
     align-items: center;
     justify-content: start;
     gap: 5px;
-    font-weight: var(--section-weight);
-    font-size: var(--sub-section-size);
-    line-height: var(--sub-section-height);
-    color: var(--tertiary-color);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--orange-fill);
     cursor: pointer;
 }
 

@@ -27,6 +27,10 @@
     color: var(--text-primary);
 }
 
+.paypal-button-container {
+    width: 50%;
+}
+
 /* .paypal-button-container {
     background-color: orange !important;
     padding: 50px !important;

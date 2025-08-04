@@ -141,20 +141,22 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         {
             heading: 'Customer Care', navLinks: [
                 { name: 'Contact Us', link: '/contact-us' },
-                { name: 'Financing', link: '/financing' },
+                
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Return Policy', link: '/return-policy' },
-                { name: 'Protection Plan', link: '/premium-bed-care' },
+                
                 { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
             ]
         },
         {
             heading: 'About Furniture Mecca', navLinks: [
                 { name: 'About Us', link: '/about-us' },
-                { name: 'Design your Room', link: 'https://room.myfurnituremecca.com/' },
+                { name: 'Financing', link: '/financing' },
+                // { name: 'Design your Room', link: 'https://room.myfurnituremecca.com/' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },
+                { name: 'Protection Plan', link: '/premium-bed-care' },
                 { name: 'My Account', link: '/user-dashboard/:id' },
                 { name: 'Blogs', link: '/blogs' },
             ]

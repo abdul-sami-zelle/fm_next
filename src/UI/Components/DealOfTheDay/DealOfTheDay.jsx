@@ -232,6 +232,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               showDots={true}
               showArrows={true}
               arrowLeftPosition={true}
+              eachSlide={true}
               spaceBetween={20}
               breakpoints={{
                 0: { slidesPerView: 1 },

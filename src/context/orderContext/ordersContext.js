@@ -99,6 +99,7 @@ export const MyOrdersProvider = ({ children }) => {
         cart_protected: cartProducts?.is_all_protected,
         is_shipping: 1,
         shipping_cost: 10,
+        email_blast: true,
         professional_assembled: cartProducts?.is_professional_assembly
     })
 
@@ -468,6 +469,8 @@ export const MyOrdersProvider = ({ children }) => {
             localStorage.setItem('myOrders', JSON.stringify(orderPayload)); // Save as a JSON string
         }
     }, [orderPayload]);
+
+    useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
     return (
         <MyOrderContext.Provider value={{

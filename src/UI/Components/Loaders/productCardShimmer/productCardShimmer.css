@@ -21,6 +21,7 @@
     border-radius: 5px;
     overflow: hidden;
     position: relative;
+    overflow: hidden;
 }
 
 .shimmer_product_tag{

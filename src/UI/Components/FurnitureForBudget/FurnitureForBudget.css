@@ -42,6 +42,10 @@
 
 }
 
+.furniture-for-budget-card::-webkit-scrollbar {
+    display: none;
+}
+
 .budget-furniturre-card{
     display: flex;
     flex-direction: column;

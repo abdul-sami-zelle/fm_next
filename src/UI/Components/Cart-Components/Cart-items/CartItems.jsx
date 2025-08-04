@@ -182,11 +182,11 @@ const CartItems = ({
 
                             <div className='desktop-quantity'>
                                 <button className='cart-minus-button' onClick={handleDecreament}>
-                                    <FaMinus className='cart-minus-icon' size={15} />
+                                    <FaMinus className='cart-minus-icon' size={15} color='#595959' />
                                 </button>
                                 <p className='cart-product-quantity'>{quantity}</p>
                                 <button className='cart-plus-button' onClick={handleIncreament}>
-                                    <FaPlus className='cart-plus-icon' size={15} />
+                                    <FaPlus className='cart-plus-icon' size={15} color='#595959' />
                                 </button>
                             </div>
 
@@ -204,11 +204,11 @@ const CartItems = ({
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
                             <div className='desktop-quantity'>
                                 <button className='cart-minus-button' onClick={handleDecreament}>
-                                    <FaMinus className='cart-minus-icon' size={15} />
+                                    <FaMinus className='cart-minus-icon' size={15} color='#595959' />
                                 </button>
                                 <p>{quantity}</p>
                                 <button className='cart-plus-button' onClick={handleIncreament}>
-                                    <FaPlus className='cart-plus-icon' size={15} />
+                                    <FaPlus className='cart-plus-icon' size={15} color='#595959' />
                                 </button>
                             </div>
                             <p className='cart-open-total-price'>{formatedTotalPrice}</p>

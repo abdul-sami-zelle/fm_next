@@ -329,11 +329,12 @@ const Header = ({ checkoutPage }) => {
   }, [stores])
 
   const { mainLoader, setMainLoader } = useGlobalContext();
-  const { setUserToken, userUid } = useUserDashboardContext();
+  const { setUserToken, userUid, setSigninClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
 
-  const checkToken = async () => {
+  const checkToken = async (type) => {
+    console.log("type", type)
     const token = localStorage.getItem('userToken');
     const uid = localStorage.getItem('uuid');
     if (token) {
@@ -356,7 +357,7 @@ const Header = ({ checkoutPage }) => {
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
-          // navigate("/my-account", { state: { message: "decided" } })
+          
           router.push(`/my-account`)
         }
       } catch (error) {
@@ -369,6 +370,7 @@ const Header = ({ checkoutPage }) => {
       setMainLoader(false);
     }
     else if (token === undefined) {
+      
       // navigate.push("/my-account", { state: { message: "decided" } });
       router.push(`/my-account`)
     }
@@ -378,9 +380,9 @@ const Header = ({ checkoutPage }) => {
     }
   }
 
-  const moveToLoginDash = async (event) => {
-    // event.preventDefault();
-    await checkToken();
+  const moveToLoginDash = async (clickType) => {
+    setSigninClicked(clickType === 'login' ? true : false);
+    await checkToken(clickType);
   }
 
 
@@ -600,7 +602,7 @@ const Header = ({ checkoutPage }) => {
         </div>
 
         <div className='header-icons-container'>
-          <div style={{ paddingTop: '4px' }} onClick={(event) => moveToLoginDash(event)}>
+          <div style={{ paddingTop: '4px' }} onClick={() => moveToLoginDash('login')}>
             <Image src={'/Assets/icon/user-outlined.svg'} width={23} height={23} alt="profile" />
           </div>
 
@@ -672,8 +674,7 @@ const Header = ({ checkoutPage }) => {
             // onChange={handleMobileSearchValue}
             />
           </div>
-          <div onClick={() => { moveToLoginDash() }}>
-            {/* <img className='mobile-user-icon' src={mobileUserIcon} alt='user-icon' /> */}
+          <div onClick={() => {() => moveToLoginDash('login') }}>
             <CiUser strokeWidth={0.8} className='mobile-user-icon' />
           </div>
         </div>

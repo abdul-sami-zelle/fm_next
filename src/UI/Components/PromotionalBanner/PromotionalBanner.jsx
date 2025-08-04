@@ -101,7 +101,8 @@ const PromotionalBanner = (
     setIsTokenValid(false)
   }
 
-  const handleNavigateToLogin = () => {
+  const handleNavigateToLogin = (type) => {
+    setSigninClicked(type === 'login' ? true : false);
     router.push('/my-account')
     setIsTokenValid(false)
   }
@@ -136,7 +137,7 @@ const PromotionalBanner = (
           <span>
             <p onClick={() => handleUserLogin('login')}>Log In</p> | <p onClick={() => handleUserLogin('signup')}>Sign up</p>
           </span>
-          <Link href={'https://room.myfurnituremecca.com/'} target='_blank'>Free Design Consultation</Link>
+          {/* <Link href={'https://room.myfurnituremecca.com/'} target='_blank'>Free Design Consultation</Link> */}
           <Link href={'/store-locator'}>Stores</Link>
           <p onClick={handleClickOnOrders}>Orders</p>
           <Link href={'/financing'}>Financing</Link>
@@ -175,7 +176,7 @@ const PromotionalBanner = (
             <p>Login Required</p>
             <p>To access your orders dashboard, please log in.</p>
             <div className='navigate-to-login-btn-container'>
-              <button className='navigate-to-login-btn' onClick={handleNavigateToLogin}>
+              <button className='navigate-to-login-btn' onClick={() => handleNavigateToLogin('login')}>
                 Login
               </button>
             </div>

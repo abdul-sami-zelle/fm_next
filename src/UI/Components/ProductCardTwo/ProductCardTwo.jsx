@@ -208,15 +208,8 @@ const ProductCardTwo = ({
                 style={{ maxWidth: maxWidthAccordingToComp, width: justWidth }}
 
             >
-                <div className='product-card-data'
-                    // onClick={(e) => {
-                    //     e.stopPropagation();      // stop event bubbling to <Link>
-                    //     e.preventDefault();       // stop navigation
-                    // }}
-                // onClick={() => handleCardClick(singleProductData)}
-                >
+                <div className='product-card-data'>
                     <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`} >
-                        {/* <div className='tag-and-heart' onClick={(e) => e.stopPropagation()}> */}
 
                         {
                             stockCheck ? (
@@ -267,7 +260,6 @@ const ProductCardTwo = ({
                                     />
                             }
                         </div>
-                        {/* </div> */}
                     </div>
 
                     <div className='product-main-image-container'>
@@ -335,7 +327,7 @@ const ProductCardTwo = ({
                             )}
 
                             {
-                                !isImageLoaded && <div className="image_shimmer_loader">
+                                !isImageLoaded && <div className={`image_shimmer_loader ${colTwo ? 'image-shimmer-loader-dual-col' : ''}`}>
                                     <ProductCardImageShimmer />
                                 </div>
                             }
@@ -486,7 +478,9 @@ const ProductCardTwo = ({
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
                                         <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week for 12 months</p>
-                                        <GoInfo onClick={(e) => {
+                                        <GoInfo 
+                                            color='#595959'
+                                            onClick={(e) => {
                                             e.stopPropagation();      // stop event bubbling to <Link>
                                             e.preventDefault();
                                             handleInfoModal()

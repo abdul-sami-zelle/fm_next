@@ -217,7 +217,7 @@ const Cart = () => {
 
   return (
     <div className='cart-main-container'>
-      <CartMainImage />
+      {/* <CartMainImage /> */}
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
           <CartProducts handleLocationModal={handleLocationModal} />
@@ -264,7 +264,7 @@ const Cart = () => {
                 <span className='cart-order-summary-zip-code-heading'>
                   {/* <p>Calculated for:</p> */}
                   {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
-                  <h3 onClick={handleZipInput}>ZipCode <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3>
+                  <h3 onClick={handleZipInput}>ZipCode <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                 </span>
                 <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
                   <div className='cart-order-summary-zip-code-input-and-button'>
@@ -287,7 +287,7 @@ const Cart = () => {
               </div>
             </div>
             <div className='order-summary-coupon-div'>
-              <p onClick={handleCouponInput}>Add Coupon Code <IoIosArrowDown className={`cart-order-summary-coupon-arrow ${isCouponOpen ? 'cart-order-summary-coupon-arrow-rotate' : ''}`} size={20} /></p>
+              <p onClick={handleCouponInput}>Add Coupon Code <IoIosArrowDown className={`cart-order-summary-coupon-arrow ${isCouponOpen ? 'cart-order-summary-coupon-arrow-rotate' : ''}`} size={15} /></p>
               <div className={`cart-order-summary-coupon-input-div ${isCouponOpen ? 'show-coupon-update-input' : ''}`}>
                 <div className='cart-order-summary-coupon-input-and-button'>
                   <input type='text' placeholder='Coupon Code' className='cart-summary-update-coupon-input' />
