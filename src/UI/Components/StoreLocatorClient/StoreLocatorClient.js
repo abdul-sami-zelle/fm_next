@@ -28,7 +28,11 @@ import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 import SectionLoader from '../../Components/Loader/SectionLoader';
 import Image from 'next/image';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
-import MapComp from '../MapComp/MapComp';
+// import MapComp from '../MapComp/MapComp';
+
+import dynamic from "next/dynamic";
+
+const MapComp = dynamic(() => import("./StoreLocationMap"), { ssr: false });
 
 const StoreLocatorClient = () => {
   const API_KEY = `AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU&amp;libraries=maps,marker,places,geometry`
@@ -200,7 +204,6 @@ const StoreLocatorClient = () => {
 
   const [steperValue, setSteperValue] = useState('images')
 
-  console.log("show Location Details", showLocationDetails)
 
   const handleSteperValue = (value) => {
     setSteperValue(value);
@@ -209,21 +212,15 @@ const StoreLocatorClient = () => {
 
   // Open Streat Map
 
-  const stores = [
-    { name: "Franchise 1", lat: 24.8607, lng: 67.0011 },
-    { name: "Franchise 2", lat: 25.3960, lng: 68.3578 },
-    // more...
-  ];
+  // useEffect(() => {
+  //   const handler = (e) => {
+  //     setSelectedStore(e.detail);
+  //   };
 
-  useEffect(() => {
-    const handler = (e) => {
-      setSelectedStore(e.detail);
-    };
-    window.addEventListener("selectStore", handler);
-    return () => window.removeEventListener("selectStore", handler);
-  }, []);
+  //   window.addEventListener("selectStore", handler);
+  //   return () => window.removeEventListener("selectStore", handler);
+  // }, []);
 
-  console.log("api store data", storesApiData)
 
 
   return (
@@ -366,10 +363,6 @@ const StoreLocatorClient = () => {
                 lng: selectedLongitude ? parseFloat(selectedLongitude) : null,
               }}
             />
-            // <StoreLocationMap
-            //   storesData={storesApiData}
-            //   selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
-            // />
           ) : (
             <div className="loading-map-container">
               <div className='loading-map-shimmer'></div>
@@ -423,7 +416,7 @@ const StoreLocatorClient = () => {
                     <p>{item.timings[0].time}</p>
                     <div className='mobile-view-single-card-days'>
                       {item.timings?.map((day, dayIndex) => (
-                        <p>{day.day},</p>
+                        <p key={dayIndex}>{day.day},</p>
                       ))}
                     </div>
                   </div>

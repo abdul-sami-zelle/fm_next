@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import './MapComp.css'
+import dynamic from 'next/dynamic';
 
 // Fix for marker icons
 delete L.Icon.Default.prototype._getIconUrl;
@@ -29,12 +30,12 @@ const containerStyle = {
 export default function StoreLocationMap({ storesData, selectedLocation }) {
   const defaultCenter = [39.9526, -75.1652]; // Philadelphia
 
-  const sourceIcon = L.divIcon({
-    className: "loader-icon",
-    html: '<div class="loader"></div>',
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
-  });
+//   const sourceIcon = L.divIcon({
+//     className: "loader-icon",
+//     html: '<div class="loader"></div>',
+//     iconSize: [20, 20],
+//     iconAnchor: [10, 10],
+//   });
 
   const destinationIcon = L.divIcon({
     className: "loader-icon",
