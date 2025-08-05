@@ -47,8 +47,8 @@ const CanvasApp = ({ data, closeFn }) => {
   const containerRef = useRef(null);
   const sofaRef = useRef(null);
   let lastSofaSrc = null;
-  // const baseURL = "https://roomapi.myfurnituremecca.com";
-  const baseURL = "https://roomapidev.myfurnituremecca.com/"
+  const baseURL = "https://roomapi.myfurnituremecca.com";
+  // const baseURL = "https://roomapidev.myfurnituremecca.com/"
 
   // Handle container resize
   useEffect(() => {
@@ -141,6 +141,7 @@ const CanvasApp = ({ data, closeFn }) => {
       const heading = new Text('Design Your Home with Furniture Mecca', {
         fontSize: 28,
         fill: 'white',
+        fontFamily: 'Poppins',
         fontWeight: 'bold',
         originX: 'center',
         textAlign: 'center',
@@ -153,6 +154,7 @@ const CanvasApp = ({ data, closeFn }) => {
         fill: '#ccc',
         originX: 'center',
         textAlign: 'center',
+        fontFamily: 'Poppins',
         top: -20,
         left: 0
       });
@@ -168,6 +170,7 @@ const CanvasApp = ({ data, closeFn }) => {
         // left: -90, // half of width to center
         originX: 'center',
         hoverCursor: 'pointer',
+        fontFamily: 'Poppins',
       });
 
       const buttonText = new Text('Select Wall', {
@@ -176,6 +179,7 @@ const CanvasApp = ({ data, closeFn }) => {
         fontWeight: 'bold',
         originX: 'center',
         // originY: 'center',
+        fontFamily: 'Poppins',
         top: 44,
         left: 0,
         hoverCursor: 'pointer',
@@ -239,6 +243,7 @@ const CanvasApp = ({ data, closeFn }) => {
           "Wall Art"  // Added Wall Art as the 8th item as per your request
         ];
 
+        console.log("arr sort before", arr)
         // Sort the response array
         const sortedResponse = arr.sort((a, b) => {
           const indexA = desiredOrder.indexOf(a.section);
@@ -250,7 +255,7 @@ const CanvasApp = ({ data, closeFn }) => {
 
           return indexA - indexB;
         });
-
+        console.log("sorted response", sortedResponse)
         sortedResponse.splice(2, 0, newSection);
 
         const updatedTools = sortedResponse.map(section => {
@@ -777,7 +782,7 @@ const CanvasApp = ({ data, closeFn }) => {
         padding: '12px',
         backgroundColor: '#fff',
         borderRight: '1px solid #e0e0e0',
-        overflowY: 'auto',
+        // overflowY: 'auto',
         height: '100%',
         boxSizing: 'border-box',
         zIndex: 999999
@@ -792,7 +797,10 @@ const CanvasApp = ({ data, closeFn }) => {
           display: 'grid', borderTop: '1px solid #eee', paddingTop: '10px',
           gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '8px',
-          marginBottom: '12px'
+          marginBottom: '12px',
+          height: 'max-contain',
+          flexShrink: 0,
+
         }}>
           {tools?.map((toolSection) => {
             return (
@@ -934,7 +942,14 @@ const CanvasApp = ({ data, closeFn }) => {
           })}
         </div>
         {/* Items grid */}
-        <div style={{ marginTop: '12px', borderTop: '1px solid #eee', paddingTop: '12px' }}>
+        <div 
+          style={{ 
+            marginTop: '12px', 
+            borderTop: '1px solid #eee', 
+            paddingTop: '12px' ,
+            overflowY: 'auto',
+            height: '100%'
+          }}>
           <h4 style={{
             fontSize: '0.9rem',
             marginBottom: '10px',

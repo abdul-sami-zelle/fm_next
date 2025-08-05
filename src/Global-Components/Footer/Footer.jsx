@@ -140,19 +140,20 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
     const footerCustomerCareAndAbout = [
         {
             heading: 'Customer Care', navLinks: [
-                { name: 'Contact Us', link: '/contact-us' },
-                
+                { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
+                { name: 'Financing', link: '/financing' },
                 { name: 'Shipping & Delivery', link: '/shipping-and-delivery' },
                 { name: 'Terms & Conditions', link: '/terms-and-conditions' },
                 { name: 'Return Policy', link: '/return-policy' },
+                { name: 'Contact Us', link: '/contact-us' },
                 
-                { name: 'Track Your Order', link: 'https://track.myfurnituremecca.com/' },
+                
             ]
         },
         {
             heading: 'About Furniture Mecca', navLinks: [
                 { name: 'About Us', link: '/about-us' },
-                { name: 'Financing', link: '/financing' },
+                
                 // { name: 'Design your Room', link: 'https://room.myfurnituremecca.com/' },
                 { name: 'Career', link: '/careers' },
                 { name: 'Store Locations', link: '/store-locator' },

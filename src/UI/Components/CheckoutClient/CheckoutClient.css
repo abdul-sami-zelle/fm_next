@@ -755,6 +755,28 @@
     gap: 10px;
 }
 
+.mob-terms-condition-and-procced-button-container > span {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 0;
+    width: 100%;
+}
+
+.mob-terms-condition-and-procced-button-container > span > p {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.mob-terms-condition-and-procced-button-container > span > i {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
 .terms-and-condition-agree {
     font-size: 12px;
     line-height: 1.5;

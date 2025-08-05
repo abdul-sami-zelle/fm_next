@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { url } from "../../utils/api";
 import { useGlobalContext } from "../GlobalContext/globalContext";
@@ -377,7 +377,6 @@ export const CartProvider = ({ children }) => {
                         ],
                 };
 
-
                 resolve(updatedCart);
                 return updatedCart;
             });
@@ -400,10 +399,10 @@ export const CartProvider = ({ children }) => {
 
         const isUserAnonymous = !localStorage.getItem('uuid') || !localStorage.getItem('userToken');
 
-
-        // return updateCartAPI(apiUrl, newCart, method);
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
+
+    
 
     const addToCartListSimple = async (transformedList) => {
         setIsCartLoading(true);

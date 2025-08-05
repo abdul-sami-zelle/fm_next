@@ -73,6 +73,7 @@ const Sliderr = ({ images, height, autoSlideSpeed = 5000 }) => {
                     showArrows={true}
                     spaceBetween={20}
                     delayTime={5000}
+                    progressBarShow={true}
                     autoplay={true}
                     slidesPerView={1}
                     arrowSlide={true}

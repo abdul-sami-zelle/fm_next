@@ -470,7 +470,6 @@ export const MyOrdersProvider = ({ children }) => {
         }
     }, [orderPayload]);
 
-    useEffect(() => {console.log("order payload", orderPayload)}, [orderPayload])
 
     return (
         <MyOrderContext.Provider value={{

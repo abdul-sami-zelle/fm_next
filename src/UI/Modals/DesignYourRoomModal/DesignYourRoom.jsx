@@ -18,6 +18,8 @@ function DesignRoomMain({closeFn,product, data, }) {
         closeFn()
         addToCart0(product,selectedVariationData,0,1);
     }
+
+    
   return(
     <div className="design_room_popup">
         {/* <DesignRoom name={product?.name} wasPrice={"$"+product?.regular_price} nowPrice={"$"+product?.sale_price} image={url+product?.image?.image_url} setAddToCart={setAddToCart} /> */}

@@ -28,6 +28,7 @@ import loader from "../../../Assets/Loader-animations/loader-check-two.gif"
 import SectionLoader from '../../Components/Loader/SectionLoader';
 import Image from 'next/image';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import MapComp from '../MapComp/MapComp';
 
 const StoreLocatorClient = () => {
   const API_KEY = `AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU&amp;libraries=maps,marker,places,geometry`
@@ -199,9 +200,30 @@ const StoreLocatorClient = () => {
 
   const [steperValue, setSteperValue] = useState('images')
 
+  console.log("show Location Details", showLocationDetails)
+
   const handleSteperValue = (value) => {
     setSteperValue(value);
   }
+
+
+  // Open Streat Map
+
+  const stores = [
+    { name: "Franchise 1", lat: 24.8607, lng: 67.0011 },
+    { name: "Franchise 2", lat: 25.3960, lng: 68.3578 },
+    // more...
+  ];
+
+  useEffect(() => {
+    const handler = (e) => {
+      setSelectedStore(e.detail);
+    };
+    window.addEventListener("selectStore", handler);
+    return () => window.removeEventListener("selectStore", handler);
+  }, []);
+
+  console.log("api store data", storesApiData)
 
 
   return (
@@ -273,34 +295,33 @@ const StoreLocatorClient = () => {
 
             <div className='single-location-details-bar-slider'>
               <div className="single-location-slider">
-                <div className="single-location-slider-wrapper">
-                  <div
-                    className="slider-track"
-                    style={{ transform: `translateX(-${sliderIndex * 100}%)` }}
-                  >
-                    {showLocationDetails?.images?.map((image, index) => (
-                      <div className="single-location-slide" key={index}>
-                        <img src={url + image?.image_url} alt="stores" />
+                <SwiperSlider
+                  slidesData={showLocationDetails?.images}
+                  renderSlide={(img, index) => (
 
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="slider-dots">
-                  {showLocationDetails?.images?.map((_, index) => (
-                    <button
-                      key={index}
-                      className={`dot ${sliderIndex === index ? "active" : ""}`}
-                      onClick={() => handleDotClick(index)}
-                    ></button>
-                  ))}
-                </div>
+                    <Image
+                      src={`${url}${img.image_url}`}
+                      alt={`slide ${index + 1}`}
+                      width={480}
+                      height={190}
+                      className='store-locator-mobile-image'
+                    />
+                  )}
+                  showDots={true}
+                  showArrows={false}
+                  spaceBetween={10}
+                  delayTime={5000}
+                  autoplay={true}
+                  slidesPerView={1}
+                  arrowSlide={true}
+                  isPadding={false}
+                />
               </div>
 
             </div>
 
 
-            <div className={`single-location-details-bar-heading-and-direction-button ${showModal === currentIndex ? 'show-detail-heading-and-direction-button' : ''}`}>
+            <div className={`single-location-details-bar-heading-and-direction-button `}>
               <div className='single-store-bar-heading-and-rating'>
                 <h3>{showLocationDetails?.name}</h3>
                 {/* <RatingReview rating={googleReviewDetails?.data?.rating} disabled={true} size={"20px"} /> */}
@@ -338,10 +359,17 @@ const StoreLocatorClient = () => {
         </div >
         <div className="all-store-map">
           {isLoaded ? (
-            <StoreLocationMap
+            <MapComp
               storesData={storesApiData}
-              selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
+              selectedLocation={{
+                lat: selectedLatitude ? parseFloat(selectedLatitude) : null,
+                lng: selectedLongitude ? parseFloat(selectedLongitude) : null,
+              }}
             />
+            // <StoreLocationMap
+            //   storesData={storesApiData}
+            //   selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
+            // />
           ) : (
             <div className="loading-map-container">
               <div className='loading-map-shimmer'></div>
@@ -409,7 +437,7 @@ const StoreLocatorClient = () => {
         )}
       </div>
 
-
+      {/* Mobile view Bottom Modal */}
       <div className={`mobile-view-bottom-modal ${showBottomModal ? 'show-bottom-modal' : ''}`} onClick={handleCloseBottomModal}>
         <div className={`mobile-view-bottom-modal-inner-container ${showBottomModal ? 'drag-store-detail-modal' : ''}`} onClick={(e) => e.stopPropagation()}>
           <div className='mobile-view-store-locator-modal-stepper-container'>

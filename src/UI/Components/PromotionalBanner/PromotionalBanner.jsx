@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useState, useEffect, useRef } from 'react'
 import './PromotionalBanner.css';
 // import { Link, useNavigate } from 'react-router-dom';
 import Link from 'next/link'
@@ -69,6 +69,8 @@ const PromotionalBanner = (
     }
   }
 
+
+
   const handleUserLogin = async (clickType) => {
     // if(typeof window !== 'undefined') {
     const token = localStorage.getItem('userToken');
@@ -107,6 +109,95 @@ const PromotionalBanner = (
     setIsTokenValid(false)
   }
 
+
+  // Indicator
+  const bannerLinks = [
+    { label: 'Blogs', link: '/blogs' },
+    { label: 'Log In', link: '' },
+    { label: 'Sign up', link: '' },
+    { label: 'Stores', link: '/store-locator' },
+    { label: 'Track Order', link: 'https://track.myfurnituremecca.com/' },
+    { label: 'Financing', link: '/financing' },
+    { label: 'Help', link: '/contact-us' },
+  ]
+  const indicatorRef = useRef(null);
+  const linksRef = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(4);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const lastMovedIndex = useRef(null);// hovered
+  const activeIndexRef = useRef(activeIndex);
+  const hoverIndexRef = useRef(null);
+
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
+
+
+  const moveIndicator = () => {
+    const index = hoverIndexRef.current != null ? hoverIndexRef.current : activeIndexRef.current;
+    if (lastMovedIndex.current === index) return;
+    const link = linksRef.current[index];
+    const indicator = indicatorRef.current;
+    if (link && indicator) {
+      indicator.style.width = `${link.offsetWidth}px`;
+      indicator.style.left = `${link.offsetLeft}px`;
+      indicator.style.opacity = '1';
+      lastMovedIndex.current = index;
+    }
+  };
+
+  const handleHover = (index) => {
+    hoverIndexRef.current = index;
+    moveIndicator();
+  };
+
+  const handleLeave = () => {
+    hoverIndexRef.current = null;
+    moveIndicator();
+  };
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+    activeIndexRef.current = index;
+  };
+
+  useEffect(() => {
+    moveIndicator();
+  }, [activeIndex, hoveredIndex]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      lastMovedIndex.current = null; // ✅ Force recalc
+      moveIndicator();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+  const currentIndex = bannerLinks.findIndex(
+    item => item.link && pathname.startsWith(item.link)
+  );
+
+  let indexToUse = currentIndex;
+
+  // Fallback to "Track Order" if nothing matches
+  if (indexToUse === -1) {
+    indexToUse = bannerLinks.findIndex(item => item.label === 'Track Order');
+  }
+
+  if (indexToUse !== -1) {
+    setActiveIndex(indexToUse);
+    activeIndexRef.current = indexToUse; // ✅ Sync ref
+    lastMovedIndex.current = null; // ✅ Force indicator to recalculate
+    moveIndicator();
+  }
+}, [pathname]);
+
   useDisableBodyScroll(isTokenValid)
 
   return (
@@ -133,15 +224,93 @@ const PromotionalBanner = (
 
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
-          <Link href={'/blogs'}>Blogs</Link>
-          <span>
-            <p onClick={() => handleUserLogin('login')}>Log In</p> | <p onClick={() => handleUserLogin('signup')}>Sign up</p>
-          </span>
-          {/* <Link href={'https://room.myfurnituremecca.com/'} target='_blank'>Free Design Consultation</Link> */}
-          <Link href={'/store-locator'}>Stores</Link>
-          <p onClick={handleClickOnOrders}>Orders</p>
-          <Link href={'/financing'}>Financing</Link>
-          <Link href={'/contact-us'}>Help</Link>
+
+          {
+            bannerLinks.map((item, index) => {
+              const isExternal = item.link.startsWith('http');
+              const isActive =
+                index === activeIndex &&
+                (pathname === item.link || item.label === 'Track Order');
+
+              if (item.label === 'Log In' || item.label === 'Sign up') {
+                return (
+                  <p
+                    key={`link-${index}`}
+                    onClick={() => {
+                      handleUserLogin(item.label === 'Log In' ? 'login' : 'signup');
+                      setActiveIndex(index);
+                      handleHover(index);
+                    }}
+                    ref={(el) => (linksRef.current[index] = el)}
+                    onMouseEnter={() => handleHover(index)}
+                    onMouseLeave={handleLeave}
+                    className={isActive ? 'active' : ''}
+                  >
+                    {item.label}
+                  </p>
+                );
+              }
+
+              return (
+                <Link
+                  key={`link-${index}`}
+                  href={item.link}
+                  target={isExternal ? '_blank' : '_self'}
+                  ref={(el) => (linksRef.current[index] = el)}
+                  onClick={() => setActiveIndex(index)}
+                  onMouseEnter={() => handleHover(index)}
+                  onMouseLeave={handleLeave}
+                  className={isActive ? 'active' : ''}
+                >
+                  {item.label}
+                </Link>
+              );
+            })
+          }
+
+
+          {/* {
+            bannerLinks.map((item, index) => {
+
+              const isExternal = item.link.startsWith('http');
+    const isActive =
+      index === activeIndex &&
+      (pathname === item.link || item.label === 'Track Order');
+              return item.label === 'Log In' || item.label === 'Sign up' ? (
+                // <span key={`span-${index}`}>
+                  <p
+                    key={`link-${index}`}
+                    onClick={() => {
+                      handleUserLogin(item.label === 'Log In' ? 'login' : 'signup');
+                      handleClick(index); // Make 'Log In' active
+                    }}
+                    ref={(el) => (linksRef.current[index] = el)}
+                    className={pathname === item.link ? "active" : ""}
+                    onMouseEnter={() => handleHover(index)}
+                    onMouseLeave={handleLeave}
+                  >
+                    {item.label}
+                  </p>
+                // </span>
+              ) : (
+                <Link
+                  href={item.link}
+                  key={`link-${index}`}
+                  target={item.link.startsWith('http') ? '_blank' : '_self'}
+                  ref={(el) => (linksRef.current[index] = el)}
+                  className={activeIndex === index ? "active" : ""}
+                  onMouseEnter={() => handleHover(index)}
+                  onMouseLeave={handleLeave}
+                  onClick={() => handleClick(index)}
+                >
+                  {item.label}
+                </Link>
+              )
+            })
+          } */}
+
+          <span className="indicator" ref={indicatorRef}></span>
+
         </div>
         <div className='header-main-banner-language-div'>
           <button onClick={handleLanguageModal}>

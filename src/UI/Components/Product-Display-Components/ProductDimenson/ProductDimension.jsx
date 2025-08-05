@@ -60,11 +60,11 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
   const handleDimensionSelect = (item, index) => {
     setDimensionIndex((prevIndex) => prevIndex === index ? null : index)
 
-    if (item.title === 'Dimensions') {
+    if (item === 'Dimensions') {
       handleGalleryModal('image-clicked', 'dimenssion-show')
-    } else if (item.title === 'Zoom') {
+    } else if (item === 'Zoom') {
       handleZoom()
-    } else if (item.title === 'Design Your Room') {
+    } else if (item === 'Design Your Room') {
       showDrm()
     }
   }
@@ -90,7 +90,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
           <div
             key={index}
             className={`dimension-card ${dimensionIndex === index ? 'active-dimension' : ''}`}
-            onClick={() => handleDimensionSelect(item, index)}
+            onClick={() => handleDimensionSelect(item.title, index)}
           >
             {item.icon}
             <p>{item.title}</p>
@@ -100,14 +100,14 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
         <div className='mobile-viw-dimension-main-contianer'>
           <div className='mobile-view-dimension-row-contianer'>
 
-            <div className='mobile-view-dimension-main' onClick={() => handleGalleryModal('image-clicked', 'dimenssion-show')}>
+            <div className='mobile-view-dimension-main' onClick={() => handleDimensionSelect('Dimensions', null)}>
               <RxDimensions size={20} color='var(--secondary-color)' />
               <p className='dimensions-detail-button-title'>Dimensions</p>
             </div>
 
 
 
-            <div className='mobile-view-dimension-main' onClick={handleZoom}>
+            <div className='mobile-view-dimension-main' onClick={() => handleDimensionSelect('Zoom', null)}>
               {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
               <p className='dimensions-detail-button-title'>Zoom</p>
             </div>

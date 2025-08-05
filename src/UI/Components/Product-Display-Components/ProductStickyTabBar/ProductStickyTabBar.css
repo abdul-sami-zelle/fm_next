@@ -283,9 +283,9 @@
         /* flex-shrink: 0; */
     }
 
-    /* .product-sticky-tab-bar-item-container.display-hide {
+    .product-sticky-tab-bar-item-container.display-hide {
         display: none !important;
-    } */
+    }
 
     .product-sticky-tab-bar-item-container>p {
         font-size: 10px;

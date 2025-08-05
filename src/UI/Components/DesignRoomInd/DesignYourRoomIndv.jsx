@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./DesignYourRoomIndv.css";
-import { url } from "@/utils/api";
+import { url, useDisableBodyScroll } from "@/utils/api";
 import Image from "next/image";
 
 export default function DesignYourRoomIndv({ image, openFN, designRef, productUid }) {
 
   const [showIframe, setShowIframe] = useState(false);
-  console.log("product uid", productUid)
+
+  useDisableBodyScroll(showIframe)
   return (
     <div className="design_room_indv" id={'DesignYourRoom'} ref={designRef}>
 

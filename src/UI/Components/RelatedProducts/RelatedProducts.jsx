@@ -56,7 +56,6 @@ const RelatedProducts = ({ data }) => {
           slidesData={data}
           renderSlide={(item, index) => (
             <div key={index} className='cart-latest-product-cards-container'>
-              {console.log("related products", item)}
               <ProductCardTwo
                 key={index}
                 slug={item.slug}
@@ -75,7 +74,7 @@ const RelatedProducts = ({ data }) => {
                 tags={item.product_tag}
                 allow_back_order={item?.allow_back_order}
                 ProductTitle={item.name}
-
+                
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}
@@ -95,6 +94,7 @@ const RelatedProducts = ({ data }) => {
           showDots={true}
           showArrows={true}
           spaceBetween={10}
+          loop={false}
           isPadding={true}
           breakpoints={{
             0: { slidesPerView: 1 },

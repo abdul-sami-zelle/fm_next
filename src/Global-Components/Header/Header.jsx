@@ -260,6 +260,11 @@ const Header = ({ checkoutPage }) => {
     setSearchedProducts([]);
   }
 
+  const handleClearSearch = () => {
+    setMobileSearchProduct('')
+    setSearchedProducts([])
+  }
+
   const closeSearchModal = () => {
     setSearchQuery('');
     setIsSearchInputFocused(false);
@@ -334,7 +339,6 @@ const Header = ({ checkoutPage }) => {
   const [isTokenValid, setIsTokenValid] = useState(false);
 
   const checkToken = async (type) => {
-    console.log("type", type)
     const token = localStorage.getItem('userToken');
     const uid = localStorage.getItem('uuid');
     if (token) {
@@ -410,10 +414,6 @@ const Header = ({ checkoutPage }) => {
     setShowLocationSetStarter(false)
   }
 
-  // useEffect(() => {
-  //   document.documentElement.style.overflow = showLocationSetStarter ? "hidden" : "auto";
-  //   document.body.style.overflow = showLocationSetStarter ? "hidden" : "auto";
-  // }, [showLocationSetStarter]);
 
   useDisableBodyScroll(isSearchInputFocused, nearStorePopUp, changeLanguage, searchLocation, showCart, mobileNavVisible, showLocationSetStarter)
 
@@ -432,7 +432,7 @@ const Header = ({ checkoutPage }) => {
       <div className='header'>
         <div className='logo-container'>
           <Link href={'/'}>
-            <img src={'/Assets/Logo/new-main-logo.png'} alt="logo" />
+            <img src={'/Assets/Logo/fm-new-logo.png'} alt="logo" />
           </Link>
         </div>
 
@@ -648,7 +648,7 @@ const Header = ({ checkoutPage }) => {
           </div>
           {/* <img className='nav-toggler' src={navToggler} alt="togle button" onClick={showMobileNav} /> */}
           <Link className='center_section_logo' href='/'>
-            <Image className='mobile-logo' src={'/Assets/Logo/new-main-logo.png'} width={120} height={32} alt='mobile-logo' />
+            <Image className='mobile-logo' src={'/Assets/Logo/fm-new-logo.png'} width={120} height={32} alt='mobile-logo' />
           </Link>
           <div className='mobile-view-cart-and-location'>
             {/* <img src={locationIcon} alt='location' onClick={handleNearStorePopUp} /> */}
@@ -668,6 +668,7 @@ const Header = ({ checkoutPage }) => {
             <Image src={searchIcon} width={32} height={32} alt='search-icon' />
             <input
               type='text'
+              readOnly
               placeholder='Search Furniture Mecca'
               // value={mobileProductSearch}
               onFocus={handleMobileSearchModal}
@@ -720,6 +721,7 @@ const Header = ({ checkoutPage }) => {
       <div className={`mobile-view-search-products-modal ${searchedProducts.length > 0 || isMobileSearched ? 'mobile-view-search-products-modal-visible' : ''}`}>
 
         <div className={`mobile-view-search-products-modal-header ${isMobileSearched ? 'add-border-bottom' : ''}`}>
+          
           <button className='mobile-view-search-products-modal-back-btn'>
             <FaArrowLeftLong size={15} onClick={handleCloseMobileSearchProductModal} />
           </button>
@@ -733,9 +735,11 @@ const Header = ({ checkoutPage }) => {
 
           {isLoading ? <div className='input-loader'></div> : <></>}
 
-          <button className='mobile-view-search-products-modal-close-btn'>
-            <Image src={'/Assets/icons/close-btn.png'} width={20} height={20} alt='close' onClick={handleCloseMobileSearchProductModal} />
-          </button>
+          {mobileProductSearch.length > 0 && (
+            <button className='mobile-view-search-products-modal-close-btn'>
+              <Image src={'/Assets/icons/close-btn.png'} width={20} height={20} alt='close' onClick={handleClearSearch} />
+            </button>
+          )}
 
         </div>
 

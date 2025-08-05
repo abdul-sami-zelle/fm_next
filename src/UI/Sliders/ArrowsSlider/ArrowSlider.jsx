@@ -20,7 +20,7 @@ const ArrowSlider = ({
     externalActiveIndex,
     onSlideChangeIndex,
     autoplay = false,
-    arrowLeftPosition= false,
+    arrowLeftPosition = false,
     loop = false,
     eachSlide = false,
     delayTime = 0,
@@ -32,8 +32,10 @@ const ArrowSlider = ({
     const [isMobile, setIsMobile] = useState(false);
     const [resolvedSlidesPerView, setResolvedSlidesPerView] = useState(1);
 
+    const [isAtStart, setIsAtStart] = useState(true);
+    const [isAtEnd, setIsAtEnd] = useState(false);
+
     const pathname = usePathname();
-    console.log("path name deal", pathname)
 
     useEffect(() => {
         const handleResize = () => {
@@ -70,10 +72,29 @@ const ArrowSlider = ({
         swiperRef.current?.slideNext();
     };
 
+    const getResolvedSlidesPerView = (swiper) => {
+        if (typeof swiper.params.slidesPerView === "number") {
+            return swiper.params.slidesPerView;
+        } else {
+            // If slidesPerView is responsive, find the closest breakpoint
+            const width = window.innerWidth;
+            const breakpoints = swiper.params.breakpoints;
+            const sortedBreakpoints = Object.keys(breakpoints).sort((a, b) => b - a);
+
+            for (let bp of sortedBreakpoints) {
+                if (width >= bp) {
+                    return breakpoints[bp].slidesPerView || 1;
+                }
+            }
+
+            return 1; // fallback
+        }
+    };
+
 
     return (
         <div className={`arrow-slider-container ${eachSlide ? 'apply-side-padding' : ''}`}>
-            {!isMobile && showArrows && slidesData.length > 4 && (
+            {!isMobile && showArrows && slidesData.length > 4 && !isAtStart && (
                 <button className={`slider-arrow slider-left ${arrowLeftPosition ? 'arrow-stick-to-start' : ''} ${eachSlide ? 'left-arrow-in-start' : ''}`} onClick={handlePrev}>
                     <IoIosArrowBack color='var(--orange-outline)' size={20} />
                 </button>
@@ -82,16 +103,41 @@ const ArrowSlider = ({
             <Swiper
                 className={isPadding ? 'swiper-padding' : 'swiper'}
                 loop={loop}
+                // onSwiper={(swiper) => {
+                //     swiperRef.current = swiper;
+                //     onSwiper(swiper); // ✅ Expose swiper to parent
+                // }}
+                // onSlideChange={(swiper) => {
+                //     const newIndex = swiper.activeIndex;
+                //     setActiveIndex(newIndex); // ✅ internal dot management
+                //     if (onSlideChangeIndex) {
+                //         onSlideChangeIndex(newIndex); // ✅ notify parent for sync
+                //     }
+                // }}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;
-                    onSwiper(swiper); // ✅ Expose swiper to parent
+                    onSwiper(swiper);
+
+                    // Initial check
+                    const totalSlides = slidesData.length;
+                    const visibleSlides = getResolvedSlidesPerView(swiper);
+
+                    setIsAtStart(swiper.isBeginning);
+                    setIsAtEnd(swiper.activeIndex >= totalSlides - visibleSlides);
                 }}
                 onSlideChange={(swiper) => {
                     const newIndex = swiper.activeIndex;
-                    setActiveIndex(newIndex); // ✅ internal dot management
+                    setActiveIndex(newIndex);
+
                     if (onSlideChangeIndex) {
-                        onSlideChangeIndex(newIndex); // ✅ notify parent for sync
+                        onSlideChangeIndex(newIndex);
                     }
+
+                    const totalSlides = slidesData.length;
+                    const visibleSlides = getResolvedSlidesPerView(swiper);
+
+                    setIsAtStart(swiper.isBeginning);
+                    setIsAtEnd(newIndex >= totalSlides - visibleSlides);
                 }}
                 autoplay={
                     autoplay
@@ -114,7 +160,7 @@ const ArrowSlider = ({
                 ))}
             </Swiper>
 
-            {!isMobile && showArrows && slidesData.length > 4 && (
+            {!isMobile && showArrows && slidesData.length > 4 && !isAtEnd && (
                 <button className={`slider-arrow slider-right ${arrowLeftPosition ? 'arrow-right-to-start' : ''} ${eachSlide ? 'right-arrow-in-start' : ''}`} onClick={handleNext}>
                     <IoIosArrowForward size={20} color='var(--orange-outline)' />
                 </button>

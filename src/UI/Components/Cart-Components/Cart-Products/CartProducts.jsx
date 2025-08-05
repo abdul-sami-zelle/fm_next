@@ -88,7 +88,6 @@ const CartProducts = ({ handleLocationModal }) => {
         setShowSnakeBar(false)
     }
 
-    console.log("selected option ", selectedOption)
 
 
     return (

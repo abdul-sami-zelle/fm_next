@@ -199,7 +199,6 @@ const ProductStickyTabBar = (
                     </div> */}
                 </div>}
 
-
                 <div className='product-sticky-tab-bar'>
                     {tabBarItems.map((item, index) => (
                         <div

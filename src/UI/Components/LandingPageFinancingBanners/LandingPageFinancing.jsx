@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const LandingPageFinancing = () => {
   const bannersData = [
-    '/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg',
+    '/mix-images/mob-banner-1.jpg',
     '/mix-images/option-2.gif',
     '/mix-images/larg-banner.jpg',
   ]
@@ -48,7 +48,7 @@ const LandingPageFinancing = () => {
           <div className='landing-page-financing-left'>
 
             <div onClick={navigateTofinancing}>
-              <Image src={'/Assets/Furniture Mecca/Landing Page/financing/banner-1.jpg'} width={900} height={350} alt='banner one' />
+              <Image src={'/mix-images/desktop-banner-1.jpg'} width={900} height={350} alt='banner one' />
             </div>
 
             <div onClick={navigateTofinancing}>

@@ -413,8 +413,8 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    visibility: hidden;
-    opacity: 0;
+    visibility: visible;
+    opacity: 1;
 }
 
 .single-store-bar-heading-and-rating {

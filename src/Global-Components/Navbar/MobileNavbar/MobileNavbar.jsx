@@ -52,7 +52,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
           <div className='mobile-nav-head-container'>
             <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' onClick={handleNavbarClose} />
             <Link href={'/'} className='mobile-nav-header-image-contianer' onClick={handleNavbarClose}>
-              <Image src={'/Assets/Logo/new-main-logo.png'} width={180} height={40} alt='main-logo' />
+              <Image src={'/Assets/Logo/fm-new-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
             <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={handleNAvigateToLogin} />
           </div>

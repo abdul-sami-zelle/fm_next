@@ -805,6 +805,16 @@ const Products = ({ navigationType }) => {
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeftStart, setScrollLeftStart] = useState(0);
+    const [atStart, setAtStart] = useState(true);
+    const [atEnd, setAtEnd] = useState(false);
+
+    const handleScroll = () => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        setAtStart(el.scrollLeft === 0);
+        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+    };
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
@@ -833,6 +843,17 @@ const Products = ({ navigationType }) => {
             window.removeEventListener("mouseup", stopDragging);
         };
     }, [isDragging, startX, scrollLeftStart]);
+
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        el.addEventListener("scroll", handleScroll);
+        handleScroll(); // Check initially
+
+        return () => el.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const scrollLeft = () => {
         scrollRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
@@ -865,7 +886,11 @@ const Products = ({ navigationType }) => {
                 {formatted}
             </h3>
             <div className="product-archive-category-wrapper">
-                <button className='category-scroll-button category-left' onClick={() => scrollLeft()}>
+                <button 
+                    className='category-scroll-button category-left' 
+                    onClick={() => scrollLeft()}
+                    style={{ visibility: atStart ? 'hidden' : 'visible' }}
+                >
                     <IoIosArrowBack size={15} color='var(--orange-outline)' />
                 </button>
                 <div
@@ -879,7 +904,11 @@ const Products = ({ navigationType }) => {
                         </Link>
                     ))}
                 </div>
-                <button className='category-scroll-button category-right' onClick={() => scrollRight()}>
+                <button 
+                    className='category-scroll-button category-right' 
+                    onClick={() => scrollRight()}
+                    style={{ visibility: atEnd ? 'hidden' : 'visible' }}
+                >
                     <IoIosArrowForward size={15} color='var(--orange-outline)' />
                 </button>
             </div>

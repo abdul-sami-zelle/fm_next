@@ -33,10 +33,32 @@
 .banner-link-container{
     display: flex;
     width: max-content;
-    height: 25px;
     align-items: center;
+    position: relative;
     gap: 30px;
-    /* border-right: 1px solid var(--secondary-color); */
+}
+
+.banner-link-container .active {
+   color: white;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  padding: 5px 10px;
+}
+
+.banner-link-container .indicator {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: black; /* ✅ Real black */
+  width: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 0;
+  will-change: width, left;
 }
 
 .banner-link-container > span {
@@ -44,8 +66,11 @@
     align-items: center;
     justify-content: center;
     width: max-content;
+    position: relative;
     height: 100%;
     gap: 15px;
+    
+    pointer-events: none;
     color: var(--text-oposite);
 }
 
@@ -54,29 +79,51 @@
     font-weight: 500;
     line-height: 14px;
     text-decoration: none;
+    pointer-events: auto;
+    position: relative;
     color: var(--text-oposite);
     cursor: pointer;
     flex-shrink: 0;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
 .banner-link-container a{
     font-size: 12px;
     font-weight: 500;
     line-height: 14px;
+    position: relative;
     text-decoration: none;
     color: var(--text-oposite);
     cursor: pointer;
+    z-index: 1;
+    padding: 5px 15px;
+    transition: color 0.3s ease;
+
 }
 
 .banner-link-container p{
     font-size: 12px;
     font-weight: 500;
     line-height: 14px;
+    padding: 5px 10px;
+    position: relative;
     text-decoration: none;
     color: var(--text-oposite);
     cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
+
+.divider {
+  margin: 0 6px;
+  color: #FFF;
+}
+
+.divider:nth-last-of-type() {
+    display: none;
+}
 
 
 .header-main-banner-language-div{
@@ -91,7 +138,7 @@
     background-color: transparent;
     border: none;
     outline: none;
-    gap: 15px;
+    gap: 5px;
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;

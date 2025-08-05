@@ -99,6 +99,37 @@
     /* transform: scale(1.2); */
 }
 
+
+
+
+.custom-slide-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 7px;
+  background-color: var(--orange-fill); /* or your desired color */
+  width: 0%;
+}
+
+.progress-bar.animate {
+  animation: fillBar linear forwards;
+}
+
+@keyframes fillBar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 480px) {
     .custom-pagination-dots {
         margin-top: 5px;

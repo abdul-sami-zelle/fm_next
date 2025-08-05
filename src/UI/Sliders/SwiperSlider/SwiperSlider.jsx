@@ -19,6 +19,7 @@ const SwiperSlider = ({
     autoplay = false,
     loop = false,
     delayTime = 0,
+    progressBarShow = false,
     height = '100%',
     arrowSlide = false,
     isPadding = false,
@@ -27,6 +28,7 @@ const SwiperSlider = ({
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [resolvedSlidesPerView, setResolvedSlidesPerView] = useState(1);
+    const {lineIndex, setLLineIndex} = useState(0)
 
     useEffect(() => {
         const handleResize = () => {
@@ -72,41 +74,55 @@ const SwiperSlider = ({
             )}
 
             <Swiper
-            className={isPadding ? 'swiper-padding' : 'swiper'}
-            loop={loop}
+                className={isPadding ? 'swiper-padding' : 'swiper'}
+                loop={loop}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                     onSwiper(swiper); // ✅ Expose swiper to parent
                 }}
                 onSlideChange={(swiper) => {
-                    const newIndex = swiper.activeIndex;
+                    // const newIndex = swiper.activeIndex;
+                    const newIndex = swiper.realIndex;
                     setActiveIndex(newIndex); // ✅ internal dot management
                     if (onSlideChangeIndex) {
                         onSlideChangeIndex(newIndex); // ✅ notify parent for sync
+                    }
+                    if(onSlideChangeIndex) {
+                        
                     }
                 }}
                 autoplay={
                     autoplay
                         ? {
-                              delay: delayTime, // ✅ 5 seconds delay
-                              disableOnInteraction: false,
-                          }
+                            delay: delayTime, // ✅ 5 seconds delay
+                            disableOnInteraction: false,
+                        }
                         : false
                 }
                 modules={autoplay ? [Autoplay] : []}
                 slidesPerView={slidesPerView}
                 spaceBetween={spaceBetween}
-                speed={600}
+                speed={500}
                 breakpoints={breakpoints}
             >
                 {slidesData.map((item, index) => (
                     <SwiperSlide key={index}>
-                        {renderSlide(item, index)}
+                        {progressBarShow ? (
+                            <div className="custom-slide-wrapper">
+                                {renderSlide(item, index)}
+                                <div
+                                    className={`progress-bar ${activeIndex === index ? 'animate' : ''}`}
+                                    style={{ animationDuration: `${delayTime}ms` }}
+                                />
+                            </div>
+                        ) : (
+                            renderSlide(item, index)
+                        )}
                     </SwiperSlide>
                 ))}
             </Swiper>
 
-            {showArrows  && (
+            {showArrows && (
                 <button className={`arrow right`} onClick={handleNext}>
                     <IoIosArrowForward size={20} color='var(--orange-outline)' />
                 </button>

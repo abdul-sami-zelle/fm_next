@@ -65,7 +65,6 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
-            // console.log("matching attributes", matchingAttribute)
             setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
@@ -76,7 +75,6 @@ const ProductCardTwo = ({
                 attribute?.type === "color"
             );
 
-            // console.log("simple attribute", simpleAttribute)
 
             if (simpleAttribute) {
                 setSelectedColorImage(singleProductData?.image?.image_url);
@@ -88,7 +86,6 @@ const ProductCardTwo = ({
     }
 
 
-    // console.log("single product data", singleProductData)
 
 
 

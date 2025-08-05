@@ -384,7 +384,11 @@ const CheckoutClient = () => {
               </div>
 
               <div className='mob-terms-condition-and-procced-button-container'>
-                <p className='terms-and-condition-agree'>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p>
+                <span>
+                  <p>By placing this order I agree to the Furniture Mecca</p>
+                  <i onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</i>
+                </span>
+                {/* <p className='terms-and-condition-agree'>By placing this order I agree to the Furniture Mecca <span onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</span></p> */}
                 {
                   selectedTab === 0 ? <button onClick={handleContinueToPayment} className='right-section-place-order-button'>Continue</button>
                     : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
