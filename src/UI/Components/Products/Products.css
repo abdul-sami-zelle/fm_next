@@ -30,18 +30,18 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .category-scroll-button {
-    position: relative;
+    position: absolute;
     z-index: 9999;
     border: 1px solid var(--orange-outline);
-    background: transparent;
+    background: #FFFFFF;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 30px;
     height: 30px;
-    flex-shrink: 0;
+    top: 40%;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -50,11 +50,11 @@
 }
 
 .category-scroll-button.category-left{
-    left: 5px;
+    left: 10px;
 }
 
 .category-scroll-button.category-right {
-    right: 5px;
+    right: 10px;
 }
 
 .product-archive-sub-categories-container {

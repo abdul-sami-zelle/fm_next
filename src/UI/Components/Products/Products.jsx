@@ -889,7 +889,7 @@ const Products = ({ navigationType }) => {
                 <button 
                     className='category-scroll-button category-left' 
                     onClick={() => scrollLeft()}
-                    style={{ visibility: atStart ? 'hidden' : 'visible' }}
+                    // style={{ visibility: atStart ? 'hidden' : 'visible' }}
                 >
                     <IoIosArrowBack size={15} color='var(--orange-outline)' />
                 </button>
@@ -907,7 +907,7 @@ const Products = ({ navigationType }) => {
                 <button 
                     className='category-scroll-button category-right' 
                     onClick={() => scrollRight()}
-                    style={{ visibility: atEnd ? 'hidden' : 'visible' }}
+                    // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
                 >
                     <IoIosArrowForward size={15} color='var(--orange-outline)' />
                 </button>

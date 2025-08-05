@@ -52,6 +52,7 @@
     }
     .finance_banner_2_mobile{
         display: flex;
+        margin: 10px 0;
     }
     
 }

@@ -114,7 +114,7 @@ const PromotionalBanner = (
   const bannerLinks = [
     { label: 'Blogs', link: '/blogs' },
     { label: 'Log In', link: '' },
-    { label: 'Sign up', link: '' },
+    // { label: 'Sign up', link: '' },
     { label: 'Stores', link: '/store-locator' },
     { label: 'Track Order', link: 'https://track.myfurnituremecca.com/' },
     { label: 'Financing', link: '/financing' },
@@ -232,12 +232,12 @@ const PromotionalBanner = (
                 index === activeIndex &&
                 (pathname === item.link || item.label === 'Track Order');
 
-              if (item.label === 'Log In' || item.label === 'Sign up') {
+              if (item.label === 'Log In') {
                 return (
                   <p
                     key={`link-${index}`}
                     onClick={() => {
-                      handleUserLogin(item.label === 'Log In' ? 'login' : 'signup');
+                      handleUserLogin('Log In');
                       setActiveIndex(index);
                       handleHover(index);
                     }}

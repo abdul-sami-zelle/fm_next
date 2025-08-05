@@ -32,7 +32,7 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
 import dynamic from "next/dynamic";
 
-const MapComp = dynamic(() => import("./StoreLocationMap"), { ssr: false });
+const MapComp = dynamic(() => import("../MapComp/MapComp"), { ssr: false });
 
 const StoreLocatorClient = () => {
   const API_KEY = `AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU&amp;libraries=maps,marker,places,geometry`

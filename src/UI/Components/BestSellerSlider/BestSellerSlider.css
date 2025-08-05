@@ -755,7 +755,7 @@
 
 @media only screen and (max-width: 480px) {
     .best-seller-slider-container {
-        padding: 0px;
+        padding: 10px 0;
     }
 
     .best-seller-imaage-and-cards {
