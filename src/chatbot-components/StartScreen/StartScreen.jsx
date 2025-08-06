@@ -1,41 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { useChatOpenContext } from "@/context/ChatbotContext/ChatbotContext";
 
 
 
 const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
   const [isGifLoaded, setIsGifLoaded] = useState(true);
-  const [isMuted, setISMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef(null);
+
+  const {setIsOpen} = useChatOpenContext()
+
+  const handleVideoCanPlay = () => {
+    setVideoLoaded(true);
+    videoRef.current?.play();
+  };
+
+  const handleVideoEnded = () => {
+    videoRef.current?.pause();
+    onStartScreenClose()
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   return (
     <div className="chatbot-wrapper">
       <div className="chatbot-frame">
         <div className="animated-border">
           <div className="chatbot-inner">
 
-
-            {!isGifLoaded && (
+            {!videoLoaded && (
               <img
-                className="chatbot-video"
-                src="/Assets/chat/images/Chat-Placeholder-1.jpg" // Replace with your placeholder image path
-                alt="Loading..."
-                onClick={onOpen}
+                className="background-placeholder"
+                src="/Assets/chat/images/Chat-Placeholder.jpg"
+                alt="AI Chatbot Placeholder"
               />
             )}
 
-            <img
-              className="chatbot-video"
-              src={source}
-              alt="AI Chatbot animation"
-              onClick={onOpen}
-              onLoad={() => setIsGifLoaded(true)}
-              style={{ display: isGifLoaded ? "block" : "none" }}
-            />
+            <video
+              className={`background-video ${videoLoaded ? 'visible' : 'hidden'}`}
+              ref={videoRef}
+              autoPlay
+              muted={isMuted}
+              playsInline
+              onCanPlayThrough={handleVideoCanPlay}
+              onEnded={handleVideoEnded}
+            >
+              <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
 
-            <div className="ai-label" onClick={() => setISMuted(!isMuted)}>
-              {isMuted ? <HiSpeakerWave size={15} color="#6658f1" /> : <HiSpeakerXMark size={15} color="#6658f1" />}
+            <div className="ai-label" onClick={toggleMute}>
+              {!isMuted ? <HiSpeakerWave size={15} color="#6658f1" /> : <HiSpeakerXMark size={15} color="#6658f1" />}
             </div>
             <RxCross2
               className="RxCross2"

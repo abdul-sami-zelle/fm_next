@@ -76,6 +76,14 @@ const Header = ({ checkoutPage }) => {
     cartProducts
   } = useCart()
 
+  const [cartTotalProducts, setCartTotalProducts] = useState(0);
+  useEffect(() => {
+    if(cartProducts?.products?.length <= 9) {
+      setCartTotalProducts(`0${cartProducts?.products?.length}`)
+    } else {
+      setCartTotalProducts(cartProducts?.products?.length)
+    }
+  }, [cartProducts])
   const cartItemCount = cartProducts?.products?.length || 0;
   const { info, fetchAllstores } = useGlobalContext();
   const [isMobileSearched, setIsMobileSearched] = useState(false);
@@ -334,11 +342,11 @@ const Header = ({ checkoutPage }) => {
   }, [stores])
 
   const { mainLoader, setMainLoader } = useGlobalContext();
-  const { setUserToken, userUid, setSigninClicked } = useUserDashboardContext();
+  const { setUserToken, userUid, setSigninClicked, setMobileSignupClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
 
-  const checkToken = async (type) => {
+  const checkToken = async () => {
     const token = localStorage.getItem('userToken');
     const uid = localStorage.getItem('uuid');
     if (token) {
@@ -361,7 +369,6 @@ const Header = ({ checkoutPage }) => {
           setUserToken(null);
           setIsTokenValid(false);
           setMainLoader(false);
-          setSigninClicked(true);
           router.push(`/my-account`)
         }
       } catch (error) {
@@ -384,9 +391,10 @@ const Header = ({ checkoutPage }) => {
     }
   }
 
-  const moveToLoginDash = async (type) => {
-    
-    await checkToken(type);
+  const moveToLoginDash = async () => {
+    setSigninClicked(true)
+    setMobileSignupClicked(false)
+    await checkToken();
   }
 
 
@@ -602,7 +610,7 @@ const Header = ({ checkoutPage }) => {
         </div>
 
         <div className='header-icons-container'>
-          <div style={{ paddingTop: '4px' }} onClick={() => moveToLoginDash('login')}>
+          <div style={{ paddingTop: '4px' }} onClick={moveToLoginDash}>
             <Image src={'/Assets/icon/user-outlined.svg'} width={23} height={23} alt="profile" />
           </div>
 
@@ -612,7 +620,7 @@ const Header = ({ checkoutPage }) => {
           <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>
             {/* <HiOutlineShoppingBag className='cartIcon' strokeWidth={1} /> */}
             <Image src={'/Assets/icon/cart-outlined.svg'} width={31} height={27} alt="heart" />
-            {hasMounted && (<p className='header-cart-products-count'>{cartItemCount}</p>)}
+            {hasMounted && (<p className='header-cart-products-count'>{cartTotalProducts}</p>)}
           </button>
         </div>
       </div>
@@ -658,7 +666,7 @@ const Header = ({ checkoutPage }) => {
               {/* <img src={cartIcon} alt="cart" /> */}
               <HiOutlineShoppingBag className='cartIcon' strokeWidth={1.5} />
               {/* <p className='header-cart-products-count'>{cartItemCount}</p> */}
-              {hasMounted && (<p className='header-cart-products-count'>{cartItemCount}</p>)}
+              {hasMounted && (<p className='header-cart-products-count'>{cartTotalProducts}</p>)}
             </button>
           </div>
         </div>
@@ -675,7 +683,7 @@ const Header = ({ checkoutPage }) => {
             // onChange={handleMobileSearchValue}
             />
           </div>
-          <div onClick={() => moveToLoginDash('login')}>
+          <div onClick={moveToLoginDash}>
             <CiUser strokeWidth={0.8} className='mobile-user-icon' />
           </div>
         </div>

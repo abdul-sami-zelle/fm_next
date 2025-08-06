@@ -112,7 +112,11 @@ const CartProducts = ({ handleLocationModal }) => {
                             <IoLocationOutline size={20} color='var(--secondary-color)' />
                             <p>Product availability and delivery options for </p>
                         </span>
-                        <p onClick={handleLocationModal}> {info.locationData.zipCode} {info.locationData.stateCode} Change Location </p>
+                        <i>
+                            {info.locationData.zipCode} {info.locationData.stateCode}
+                            <p onClick={handleLocationModal}> Change Location </p>
+                        </i>
+                        
                     </div>
 
                     <div className='cart-protection-plan-container'>

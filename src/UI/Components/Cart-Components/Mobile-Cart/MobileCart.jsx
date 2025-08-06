@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './MobileCart.css';
 import deleteIcon from '../../../../Assets/icons/delete-red.png';
 import plusBtn from '../../../../Assets/icons/plus.png';
@@ -7,6 +7,11 @@ import { formatedPrice, url } from '../../../../utils/api';
 import { MdDelete } from "react-icons/md";
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { IoIosClose } from "react-icons/io";
+import ToggleSwitch from '@/Global-Components/ToggleSwitch/ToggleSwitch';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCart } from '@/context/cartContext/cartContext';
+import SlimToggler from '@/Global-Components/ToggleSwitch/SlimTogler';
 
 const MobileCart = (
     {
@@ -18,8 +23,23 @@ const MobileCart = (
         handleDecreament,
         cartIndex,
         quantity,
-        productData
+        productData,
+        isProtected,
+        removeProtection,
+        addProtection,
     }) => {
+
+    const {
+        eachProtectionValue,
+        eachProtectionValue2,
+        isCartProtected,
+        cartProducts,
+    } = useCart()
+
+    const [isProtectionClicked, setIsProtectionClicked] = useState(isProtected === 0 ? "no-thanks" : "yes-protect");
+    const handleProtectOrNotButtonClicked = (value) => {
+        setIsProtectionClicked((prevValue) => prevValue === value ? null : value)
+    }
 
     const productTotalPrice = productData.regular_price * quantity;
 
@@ -51,6 +71,64 @@ const MobileCart = (
                         <p> {formatedPrice(productTotalPrice)}</p>
                     </div>
                 </div>
+            </div>
+
+            <div className='desktop-card-protection-div'>
+                <div className='guard-and-heading'>
+                    <div className='mobile-guard-title-and-details'>
+                            <span>
+                                <h3 className='protection-guard-title'>Protection Plan</h3>
+                                <p>5 Years Protection $149</p>
+                            </span>
+
+                        {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
+                            <Image src={'/Assets/check.png'} width={50} height={50} alt="" srcset="" />
+                            <p>Protection Applied</p>
+                        </div>
+                            : <div className='mobile-protection-btns-accept-and-cancel'>
+
+                                <SlimToggler
+                                    id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
+                                    checked={isProtectionClicked === 'yes-protect'}
+                                    onChange={() => {
+                                        if (isProtectionClicked === 'yes-protect') {
+                                            handleProtectOrNotButtonClicked('no-thanks');
+                                            removeProtection();
+                                        } else {
+                                            handleProtectOrNotButtonClicked('yes-protect');
+                                            addProtection();
+                                        }
+                                    }}
+                                />
+                            </div>}
+                        {/* <span className='protection-details-and-message'>
+                                <p className='protection-price-message'>
+                                    Protection Plan
+                                </p>
+                            </span> */}
+                    </div>
+                </div>
+
+                {/* {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
+                        <Image src={'/Assets/check.png'} width={50} height={50} alt="" srcset="" />
+                        <p>Protection Applied</p>
+                    </div>
+                        : <div className='protection-btns-accept-and-cancel'>
+
+                            <SlimToggler
+                                id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
+                                checked={isProtectionClicked === 'yes-protect'}
+                                onChange={() => {
+                                    if (isProtectionClicked === 'yes-protect') {
+                                        handleProtectOrNotButtonClicked('no-thanks');
+                                        removeProtection();
+                                    } else {
+                                        handleProtectOrNotButtonClicked('yes-protect');
+                                        addProtection();
+                                    }
+                                }}
+                            />
+                        </div>} */}
             </div>
 
         </div>

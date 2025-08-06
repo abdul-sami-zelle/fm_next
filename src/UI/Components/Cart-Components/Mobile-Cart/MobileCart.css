@@ -108,6 +108,43 @@
     color: var(--text-gray);
 }
 
+.desktop-card-protection-div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+}
+
+.mobile-guard-title-and-details{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.mobile-guard-title-and-details > span{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: max-content;
+    flex-shrink: 0;
+}
+
+.mobile-guard-title-and-details > span > p {
+    font-size: 9px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.mobile-protection-btns-accept-and-cancel{
+    display: flex;
+    width: max-content;
+    gap: 10px;
+    align-items: center;
+}
+
 @media only screen and (max-width: 480px){
     .mobile-cart{
         display: flex;

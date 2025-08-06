@@ -18,10 +18,10 @@ const LoginRegisterClient = () => {
   // const navigate = useNavigate();
   const router = useRouter()
   // const [signinClicked, setSigninClicked] = useState(false)
-  const [mobileSignupClicked, setMobileSignupClicked] = useState(true)
+  // const [mobileSignupClicked, setMobileSignupClicked] = useState(true)
 
   const { setMainLoader } = useGlobalContext();
-  const { setUserToken, signinClicked, setSigninClicked } = useUserDashboardContext();
+  const { setUserToken, signinClicked, setSigninClicked, mobileSignupClicked, setMobileSignupClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
 
@@ -109,6 +109,8 @@ const LoginRegisterClient = () => {
     const handleCloseSnakeBar = () => {
         setShowSnakeBar(false)
     }
+
+   
 
   return (
     <>

@@ -109,7 +109,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
     const handleFindStores = () => {
         router.push(`/store-locator`)
-        setIsOpen(false)
+        handleCloseNearBy()
     }
 
 

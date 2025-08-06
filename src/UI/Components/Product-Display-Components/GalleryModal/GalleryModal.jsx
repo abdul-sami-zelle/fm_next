@@ -51,10 +51,40 @@ const GalleryModal = ({
     ? [...productData?.images, { image_url: productData?.dimension_image?.image_url }]
     : productData?.images;
 
+  const mobileUpdatedImages = hasDimensionImage ? [
+    { image_url: productData?.dimension_image?.image_url }, 
+    ...productData?.images
+  ] 
+  : productData?.images;
+
+  const updatedVariationImagesForMobile = hasDimensionImage
+    ? [
+      {
+        alt_text: "",
+        description: "",
+        image_url: productData?.dimension_image?.image_url,
+        link_url: "",
+        title: "",
+      },
+      ...(variationData?.images || []),
+      
+    ]
+    : variationData?.images || [];
+
   const withDimensionImages = productData?.type === 'variable' ? updatedVariationImages : updatedSimpleImages;
   const withoutDimensionImages = productData.type === 'variable' ? variationImagesWithoutDimenssion : simpleImagesWithoutDimenssion
 
   const images = clickedType === 'dimenssion-show' ? withDimensionImages : withoutDimensionImages
+
+
+  const mobileWithDimenssion = productData?.type === 'variable' ? updatedVariationImagesForMobile : mobileUpdatedImages
+
+  const mobileImages = clickedType === 'dimenssion-show' ? mobileWithDimenssion : withoutDimensionImages
+
+  console.log("dimention images", mobileWithDimenssion )
+  console.log("other then dimension images", withoutDimensionImages )
+
+  console.log("mobile images", mobileImages)
 
   const onThumbnailClick = (index) => {
     swiperRef.current?.slideTo(index);
@@ -232,8 +262,9 @@ const GalleryModal = ({
         <Lightbox
           open={dimensionModal}
           close={() => setDimensionModal(false)}
-          slides={images?.map((img) => ({ src: `${url}${img.image_url}` }))}
+          slides={mobileImages?.map((img) => ({ src: `${url}${img.image_url}` }))}
           plugins={[Zoom]}
+          carousel={{ finite: false }}
         />
       )}
     </>

@@ -73,14 +73,6 @@ const Home = () => {
               onStartScreenClose={handleStartScreenClose}
             />
           ) 
-          // : (
-          //   <StartScreen
-          //     onOpen={handleOpen}
-          //     source={"/Assets/chat/Images/Chat-Placeholder.jpg"}
-          //     onChatUsClick={handleOpenChatUsOnly}
-          //     onStartScreenClose={handleStartScreenClose}
-          //   />
-          // ) 
           }
 
         {startScreenClosed &&

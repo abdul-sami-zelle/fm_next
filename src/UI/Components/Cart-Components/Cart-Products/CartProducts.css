@@ -712,13 +712,26 @@ input[type="radio"] {
     color: var(--text-primary);
 }
 
-.mobile-view-update-zip-on-cart-page>p {
+.mobile-view-update-zip-on-cart-page > i {
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: max-content;
+    gap: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.mobile-view-update-zip-on-cart-page> i > p {
     font-size: 12px;
     line-height: 1.2;
     font-weight: 500;
     color: var(--tertiary-color);
     text-decoration: underline;
-    margin-left: 30px;
+    /* margin-left: 30px; */
 }
 
 /* Media Queries */

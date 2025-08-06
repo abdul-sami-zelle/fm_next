@@ -168,7 +168,7 @@
 
 
 /* Check Box 1 */
-/* .checkbox-wrapper-3 input[type="checkbox"] {
+.checkbox-wrapper-3 input[type="checkbox"] {
   display: none;
 }
 
@@ -202,7 +202,7 @@
   height: 20px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(255, 132, 22, 0.5);
+  box-shadow: 0 0 8px rgba(255, 132, 22, 0.5);
   transition: all 0.2s ease;
   z-index: 1;
 }
@@ -238,7 +238,7 @@
 
 .checkbox-wrapper-3 .toggle input:checked ~ .toggle:before {
   background: var(--orange-fill);
-} */
+}
 
 
 

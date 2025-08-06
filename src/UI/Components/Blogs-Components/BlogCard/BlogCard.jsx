@@ -4,6 +4,7 @@ import axios from 'axios'
 import { url ,formatDate} from '../../../../utils/api'
 import Link from 'next/link'
 import Image from 'next/image'
+import { FaRegClock, FaEye } from "react-icons/fa";
 
 const BlogCard = ({
   blogMainImage,
@@ -12,9 +13,9 @@ const BlogCard = ({
   blogTitle,
   blogPostDate,
   ind,
-  keyind
+  keyind,
+  singleBlog
 }) => {
-
   const [animButton, setAnimButton] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false); // state to track image load
 
@@ -70,10 +71,18 @@ const BlogCard = ({
         <Link className='blog-card-category' href={'#'}>{blogCategory}</Link>
         <h3 className='blog-card-main-title'>{blogTitle}</h3>
         <div className={`blog-card-footer-buttons ${animButton === ind ? 'increase-padding-anim' : ''}`}>
-          <button className='blog-card-read-more-btn'>
+          {/* <button className='blog-card-read-more-btn'>
             Read more
             <Image src={'/Assets/icons/blog-btn-arrow.png'} width={20} height={20} alt='arrow' className='blog-card-btn-arrow' />
-          </button>
+          </button> */}
+          <span>
+            <FaRegClock size={10} color='#595959' />
+            {singleBlog.readTime}min
+          </span>
+          <span>
+            <FaEye size={10} color='#595959' />
+            {singleBlog.totalViews}
+          </span>
           <p className='blog-card-post-date'>{formatDate(blogPostDate)}</p>
         </div>
       </div>

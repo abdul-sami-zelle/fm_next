@@ -23,8 +23,13 @@ const ProductStickyTabBar = (
         selectedVariationData,
     }) => {
 
+
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
     // const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
+
+
     const tabBarItems = [
         // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
         ...(productData?.type === 'variable'
@@ -37,6 +42,10 @@ const ProductStickyTabBar = (
         'Description',
         'Details'
     ];
+
+    const filteredTabItems = isMobile
+        ? tabBarItems.filter(item => item !== 'DesignYourRoom')
+        : tabBarItems;
 
     const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
@@ -200,7 +209,7 @@ const ProductStickyTabBar = (
                 </div>}
 
                 <div className='product-sticky-tab-bar'>
-                    {tabBarItems.map((item, index) => (
+                    {filteredTabItems.map((item, index) => (
                         <div
                             key={index}
                             // className={`product-sticky-tab-bar-item-container ${activeTab === item ? 'active-tab' : ''}`}

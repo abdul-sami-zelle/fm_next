@@ -181,7 +181,7 @@ export default function LastCallClient({ slug }) {
                             })
                         ) : (
                             Array.from({ length: 12 }).map((_, index) => (
-                                <ProductCardShimmer key={index} />
+                                <ProductCardShimmer width={'100%'} key={index} />
                             ))
                         )}
 

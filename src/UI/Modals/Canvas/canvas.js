@@ -243,7 +243,6 @@ const CanvasApp = ({ data, closeFn }) => {
           "Wall Art"  // Added Wall Art as the 8th item as per your request
         ];
 
-        console.log("arr sort before", arr)
         // Sort the response array
         const sortedResponse = arr.sort((a, b) => {
           const indexA = desiredOrder.indexOf(a.section);
@@ -255,7 +254,6 @@ const CanvasApp = ({ data, closeFn }) => {
 
           return indexA - indexB;
         });
-        console.log("sorted response", sortedResponse)
         sortedResponse.splice(2, 0, newSection);
 
         const updatedTools = sortedResponse.map(section => {

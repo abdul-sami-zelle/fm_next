@@ -219,7 +219,7 @@ const ProductCardTwo = ({
                                 <div className={`product-tagging`}>
 
                                     <div className='text-tag' style={{ backgroundColor: tags?.bg_color, color: tags?.text_color }} >
-                                        {tags?.name}
+                                        {tags?.text}
                                     </div>
 
                                 </div>

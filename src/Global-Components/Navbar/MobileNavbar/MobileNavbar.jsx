@@ -35,12 +35,65 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
     handleNavbarClose()
   }
 
-  const { setSigninClicked } = useUserDashboardContext()
-  const handleNAvigateToLogin = () => {
-    router.push('/user-dashboard/:id');
-    setSigninClicked(true);
-    handleNavbarClose()
-  }
+
+  const { setSigninClicked, setMobileSignupClicked } = useUserDashboardContext()
+  // const handleNAvigateToLogin = () => {
+  //   const uid = localStorage.getItem('uuid')
+  //   const userToken = localStorage.getItem('userToken')
+
+  //   if(uid && userToken) {
+  //     router.push(`/user-dashboard/${id}`);
+  //   }
+
+  //   setSigninClicked(true);
+  //   handleNavbarClose()
+  // }
+
+  const checkToken = async () => {
+      const token = localStorage.getItem('userToken');
+      const uid = localStorage.getItem('uuid');
+      if (token) {
+        try {
+          const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+            method: "GET",
+            headers: {
+              authorization: `${token}`,
+            },
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setUserToken(token);
+            setIsTokenValid(true);
+            setMainLoader(false);
+            router.push(`/user-dashboard/${uid}`)
+          } else {
+            localStorage.removeItem('userToken');
+            setUserToken(null);
+            setIsTokenValid(false);
+            setMainLoader(false);
+            setSigninClicked(true);
+            setMobileSignupClicked(false)
+            router.push(`/my-account`)
+          }
+        } catch (error) {
+          localStorage.removeItem('userToken');
+          setUserToken(null);
+          setIsTokenValid(false);
+          setMainLoader(false);
+        }
+  
+      }
+      else if (token === undefined) {
+        setSigninClicked(true);
+        setMobileSignupClicked(false)
+        router.push(`/my-account`)
+      }
+      else {
+        setSigninClicked(true);
+        setMobileSignupClicked(false)
+        router.push("/my-account")
+      }
+    }
 
   useDisableBodyScroll(isTokenValid)
 
@@ -54,7 +107,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             <Link href={'/'} className='mobile-nav-header-image-contianer' onClick={handleNavbarClose}>
               <Image src={'/Assets/Logo/fm-new-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
-            <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={handleNAvigateToLogin} />
+            <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={checkToken} />
           </div>
 
           <div className='mobile-nav-cart-container' onClick={handleNAvigateToCart}>

@@ -337,7 +337,7 @@ export const CartProvider = ({ children }) => {
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
 
         setIsCartLoading(true);
-        setCartSection(true);
+        
         const isSimple = product.type === "simple";
         const productUid = isSimple ? product.uid : variationData?.uid;
 
@@ -398,9 +398,13 @@ export const CartProvider = ({ children }) => {
         const method = isCartUidInvalid ? "post" : "put";
 
         const isUserAnonymous = !localStorage.getItem('uuid') || !localStorage.getItem('userToken');
-
+        setTimeout(() => {
+            setCartSection(true)
+        }, 500)
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
+
+    
 
     
 

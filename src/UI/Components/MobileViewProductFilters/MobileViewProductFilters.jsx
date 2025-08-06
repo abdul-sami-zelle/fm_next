@@ -72,7 +72,7 @@ const MobileViewProductFilters = (
             </button>
             <div className='mobile-view-filters-head'>
                 <a href='/'>
-                    <Image src={'/Assets/Logo/main-logo.png'} width={200} height={35} alt='logo' />
+                    <Image src={'/Assets/Logo/fm-new-logo.png'} width={200} height={35} alt='logo' />
                 </a>
             </div>
 

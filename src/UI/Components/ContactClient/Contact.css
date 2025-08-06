@@ -205,26 +205,26 @@ input {
     justify-content: start;
     gap: 10px;
     width: max-content;
-    background-color: #ffff;
-    border: 1px solid var(--secondary-color);
-    color: var(--text-primary);
+    background-color: #FFF;
+    border: 1px solid var(--orange-outline);
+    color: var(--orange-outline);
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
 
 .send-file-icon{
-    color: var(--text-primary);
+    color: var(--orange-outline);
     transition: all 0.3s ease-in-out;
 }
 
 .form-submit-button-div > button:hover{
-    background-color: var(--secondary-color);
+    background-color: var(--orange-fill);
     color: #fff;
 }
 
 .form-submit-button-div > button:hover .send-file-icon{
-    color: #ffff;
+    color: #FFF;
 }
 
 /* contact form payment and faq */

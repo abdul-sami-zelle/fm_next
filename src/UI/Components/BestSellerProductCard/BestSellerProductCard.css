@@ -301,6 +301,7 @@
     border-radius: 10px;
     position: relative;
     overflow: hidden;
+    z-index: 999999999;
 }
 
 .best-seller-mobile-card-shimmer::before {

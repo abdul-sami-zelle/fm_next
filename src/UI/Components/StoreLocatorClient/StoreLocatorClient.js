@@ -16,7 +16,7 @@ import StoreLocationMap from './StoreLocationMap';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { LiaSearchLocationSolid } from "react-icons/lia";
 import { SlLocationPin } from "react-icons/sl";
-import { getGoogleStoreDetails } from '../../../utils/api';
+import { getGoogleStoreDetails, useDisableBodyScroll } from '../../../utils/api';
 import RatingReview from '../../Components/starRating/starRating';
 import { url } from '../../../utils/api';
 import { MdOutlineDirections } from "react-icons/md";
@@ -54,9 +54,10 @@ const StoreLocatorClient = () => {
   const [selectedLongitude, setSelectedLongitude] = useState(null);
   const [showLocationDetails, setShowLocationDetails] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [selectedStore, setSelectedStore] = useState();
+  const [selectedStore, setSelectedStore] = useState([]);
   const [zipCode, setZipCode] = useState('');
   const [selectedStoreData, setSelectedStoreData] = useState([])
+
 
   const [showModal, setShowModal] = useState(null)
 
@@ -77,9 +78,10 @@ const StoreLocatorClient = () => {
     // setGoogleReviewDetails(null)
     setCurrentIndex((prevIndex) => prevIndex === index ? null : index);
     setShowLocationDetails(item);
-    setSelectedStore(item)
+    // setSelectedStore(item)
     // setGoogleReviewDetails(await getGoogleStoreDetails(item.placeId))
   }
+
 
   const [sliderIndex, setSliderIndex] = useState(0);
 
@@ -222,6 +224,9 @@ const StoreLocatorClient = () => {
   // }, []);
 
 
+  useDisableBodyScroll(showBottomModal)
+
+
 
   return (
     <div className='store-locator-main-container'>
@@ -231,6 +236,8 @@ const StoreLocatorClient = () => {
       <div className='all-stores-side-section-and-map'>
         <div className='all-stores-side-section'>
           {isFetching && <SectionLoader />}
+
+
           <div className='all-stores-search-and-location-bar'>
             <div className='all-store-search-bar-container'>
               <form className='all-store-search-bar' onSubmit={fetchStoreUsingZipCode}>
@@ -323,10 +330,14 @@ const StoreLocatorClient = () => {
                 <h3>{showLocationDetails?.name}</h3>
                 {/* <RatingReview rating={googleReviewDetails?.data?.rating} disabled={true} size={"20px"} /> */}
               </div>
-              <button className='single-location-direction-button' onClick={() => {
-                setSelectedLatitude(showStore?.length > 0 ? showStore?.latitude : showLocationDetails?.latitude);
-                setSelectedLongitude(showStore?.length > 0 ? showStore?.longitude : showLocationDetails?.longitude);
-              }}>
+              <button
+                className='single-location-direction-button'
+                onClick={() => {setSelectedStore([showLocationDetails]); setCurrentIndex(null)}}
+                // onClick={() => {
+                //   setSelectedLatitude(showStore?.length > 0 ? showStore?.latitude : showLocationDetails?.latitude);
+                //   setSelectedLongitude(showStore?.length > 0 ? showStore?.longitude : showLocationDetails?.longitude);
+                // }}
+              >
                 <MdOutlineDirections />
               </button>
             </div>
@@ -357,7 +368,12 @@ const StoreLocatorClient = () => {
         <div className="all-store-map">
           {isLoaded ? (
             <MapComp
-              storesData={storesApiData}
+              // storesData={storesApiData}
+              storesData={
+                  Object.keys(selectedStore).length === 0
+                    ? storesApiData
+                    : selectedStore
+                }
               selectedLocation={{
                 lat: selectedLatitude ? parseFloat(selectedLatitude) : null,
                 lng: selectedLongitude ? parseFloat(selectedLongitude) : null,
@@ -382,16 +398,28 @@ const StoreLocatorClient = () => {
           <div className='mobile-view-single-store-map'>
             {isLoaded ? (
 
-              <DeliveryLocationMap
-                mapWidth={'320px'}
-                address_info={``}
+              <MapComp
                 storesData={
                   Object.keys(selectedStoreData).length === 0
                     ? storesApiData
                     : selectedStoreData
                 }
-                selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
+                selectedLocation={{
+                  lat: selectedLatitude ? parseFloat(selectedLatitude) : null,
+                  lng: selectedLongitude ? parseFloat(selectedLongitude) : null,
+                }}
               />
+
+              // <DeliveryLocationMap
+              //   mapWidth={'320px'}
+              //   address_info={``}
+              //   storesData={
+              //     Object.keys(selectedStoreData).length === 0
+              //       ? storesApiData
+              //       : selectedStoreData
+              //   }
+              //   selectedLocation={{ lat: selectedLatitude ? parseFloat(selectedLatitude) : null, lng: selectedLongitude ? parseFloat(selectedLongitude) : null }}
+              // />
             ) : (
               <div className="loading-map-container">
                 <p>Loading map...</p>

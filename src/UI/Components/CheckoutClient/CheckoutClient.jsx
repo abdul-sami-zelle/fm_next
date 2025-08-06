@@ -324,25 +324,25 @@ const CheckoutClient = () => {
                 <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
 
-              <div className='cart-order-summary-zip-code'>
-                <span className='cart-order-summary-zip-code-heading'>
-                  {/* <p>Calculated for:</p> */}
-                  {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
+              {selectedTab !== 1 && (
+                <div className='cart-order-summary-zip-code'>
+                  <span className='cart-order-summary-zip-code-heading'>
                   <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
-                </span>
-                <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
-                  <div className='cart-order-summary-zip-code-input-and-button'>
-                    <input
-                      type='text'
-                      placeholder='Zip Code'
-                      className='cart-summary-update-zip-input'
-                      value={zipCode}
-                      onChange={handleInputChange}
-                    />
-                    <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>Update</button>
+                  </span>
+                  <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
+                    <div className='cart-order-summary-zip-code-input-and-button'>
+                      <input
+                        type='text'
+                        placeholder='Zip Code'
+                        className='cart-summary-update-zip-input'
+                        value={zipCode}
+                        onChange={handleInputChange}
+                      />
+                      <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>Update</button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className='desktop-total-and-continue'>
                 <div className='right-section-total-value'>

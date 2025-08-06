@@ -8,6 +8,7 @@ export const UserDashboardCtxProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(null);
     const [userUid, setUserUid] = useState(null);
     const [signinClicked, setSigninClicked] = useState(false)
+    const [mobileSignupClicked, setMobileSignupClicked] = useState(false)
     const [isTokenValid, setIsTokenValid] = useState(false); // State to track token validity
 
 
@@ -45,6 +46,8 @@ export const UserDashboardCtxProvider = ({ children }) => {
             setUserUid,
             signinClicked,
             setSigninClicked,
+            mobileSignupClicked, 
+            setMobileSignupClicked,
         }}>
             {children}
         </userDashboardContext.Provider>

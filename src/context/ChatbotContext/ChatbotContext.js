@@ -60,29 +60,29 @@ export const ChatOpenProvider = ({children}) => {
           return;
         }
     
-        clearTimers();
-        initialTimerRef.current = setTimeout(() => {
-          setIsTransitioning(true);
-          setTimeout(() => {
-            setStartScreenClosed(false);
-            setIsTransitioning(false);
+        // clearTimers();
+        // initialTimerRef.current = setTimeout(() => {
+        //   setIsTransitioning(true);
+        //   setTimeout(() => {
+        //     setStartScreenClosed(false);
+        //     setIsTransitioning(false);
     
-            autoCloseTimerRef.current = setTimeout(() => {
-              handleStartScreenClose();
-            }, 5000);
-          }, 300);
-        }, 5000);
+        //     autoCloseTimerRef.current = setTimeout(() => {
+        //       handleStartScreenClose();
+        //     }, 5000);
+        //   }, 300);
+        // }, 5000);
     
-        return clearTimers;
+        // return clearTimers;
       }, [isMobile]);
     
       const resetAutoCloseTimer = () => {
         if (!isMobile || startScreenClosed) return;
     
         clearTimeout(autoCloseTimerRef.current);
-        autoCloseTimerRef.current = setTimeout(() => {
-          handleStartScreenClose();
-        }, 5000);
+        // autoCloseTimerRef.current = setTimeout(() => {
+        //   handleStartScreenClose();
+        // }, 5000);
       };
     
       const handleTabClickFromFooter = (tab) => {

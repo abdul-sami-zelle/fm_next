@@ -73,6 +73,17 @@
     padding: 0 10px;
 }
 
+.blog-card-footer-buttons > span {
+  display: flex;
+  align-items:  center;
+  justify-content: start;
+  width: max-content;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 .blog-card-read-more-btn{
     display: flex;
     align-items: center;

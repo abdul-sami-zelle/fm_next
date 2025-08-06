@@ -104,7 +104,6 @@ const PromotionalBanner = (
   }
 
   const handleNavigateToLogin = (type) => {
-    setSigninClicked(type === 'login' ? true : false);
     router.push('/my-account')
     setIsTokenValid(false)
   }
@@ -345,7 +344,7 @@ const PromotionalBanner = (
             <p>Login Required</p>
             <p>To access your orders dashboard, please log in.</p>
             <div className='navigate-to-login-btn-container'>
-              <button className='navigate-to-login-btn' onClick={() => handleNavigateToLogin('login')}>
+              <button className='navigate-to-login-btn' onClick={() => handleUserLogin('Log In')}>
                 Login
               </button>
             </div>

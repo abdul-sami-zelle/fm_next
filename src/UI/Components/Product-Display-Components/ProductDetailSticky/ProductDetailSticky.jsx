@@ -613,7 +613,7 @@ const ProductDetailSticky = (
                     {isCartLoading ? ' Almost there...' : 'Add To Cart'}
                   </button>
                 </div>
-                {stockCheck && <p className='out-of-stoc-message'>This product will be available again in 10 to 12 days</p>}
+                {stockCheck && <p className='out-of-stoc-message'>This product will be available in 5 to 6 weeks</p>}
 
               </div>
 

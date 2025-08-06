@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./style.css";
 import { MdOutlineCalendarToday } from "react-icons/md";
-import { FaRegWindowMinimize} from "react-icons/fa";
+import { FaRegWindowMinimize } from "react-icons/fa";
 import { faqData } from "../../Data/Data";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import Footer from "../Footer/Footer";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { RxCross2 } from "react-icons/rx";
+import { useChatOpenContext } from "@/context/ChatbotContext/ChatbotContext";
 
 const HomeScreen = ({
   onClose,
@@ -21,6 +24,7 @@ const HomeScreen = ({
   // const [visibleCount, setVisibleCount] = useState(5);
   const [allFaqs, setAllFaqs] = useState([]);
   const [expandedCategory, setExpandedCategory] = useState(null);
+
 
   const handleCategoryClick = (category) => {
     setExpandedCategory((prev) => (prev === category ? null : category));
@@ -86,15 +90,74 @@ const HomeScreen = ({
     setIsTeamOnline(online);
   }, []);
 
+
+  // Video
+  const [isMuted, setIsMuted] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef(null);
+
+  const {handleStartScreenClose} = useChatOpenContext()
+
+
+  const handleVideoCanPlay = () => {
+    setVideoLoaded(true);
+    videoRef.current?.play();
+  };
+
+  const handleVideoEnded = () => {
+    videoRef.current?.pause();
+    handleStartScreenClose()
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   return (
     <div className="home-screen-container-main">
       <div className="home-screen-subcontainer">
         <div className="video-section-wrapper">
-          <img
+
+          {!videoLoaded && (
+            <img
+              className="background-placeholder"
+              src="/Assets/chat/images/Chat-Placeholder.jpg"
+              alt="AI Chatbot Placeholder"
+            />
+          )}
+
+          <video
+            className={`background-video ${videoLoaded ? 'visible' : 'hidden'}`}
+            ref={videoRef}
+            autoPlay
+            muted={isMuted}
+            playsInline
+            onCanPlayThrough={handleVideoCanPlay}
+            onEnded={handleVideoEnded}
+          >
+            <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <div className="ai-label" onClick={toggleMute}>
+            {!isMuted ? <HiSpeakerWave size={15} color="#6658f1" /> : <HiSpeakerXMark size={15} color="#6658f1" />}
+          </div>
+          {/* <RxCross2
+            className="RxCross2"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleStartScreenClose();
+            }}
+          /> */}
+
+          {/* <img
             className="background-video"
             src="/Assets/chat/Images/ai-chatbot.gif"
             alt="AI Chatbot animation"
-          />
+          /> */}
           <div className="video-overlay-content">
             <div className="headerssss">
               <FaRegWindowMinimize
@@ -134,7 +197,7 @@ const HomeScreen = ({
         </div>
 
         <div className="home-screen-box">
-          
+
           <div className="meeting-us-btn">
             <p>
               <MdOutlineCalendarToday className="meeting-us-icon" /> Book
@@ -188,9 +251,8 @@ const HomeScreen = ({
                   </div>
 
                   <div
-                    className={`faq-questions-wrapper ${
-                      expandedCategory === category ? "open" : ""
-                    }`}
+                    className={`faq-questions-wrapper ${expandedCategory === category ? "open" : ""
+                      }`}
                   >
                     <div className="faq-questions">
                       {groupedFaqs[category].map((faq) => (

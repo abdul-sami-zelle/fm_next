@@ -218,6 +218,10 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
+    const handleNavigateToProductArchive = (item) => {
+        router.push(`/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
+    }
+
 
     return (
         <>
@@ -236,6 +240,7 @@ const BestSellerSlider = (
                                     key={bestSellerNav1[activeItem].image.image_url}
                                     src={url + bestSellerNav1[activeItem].image.image_url}
                                     alt='main banner'
+                                    onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
                                 />
                             ) : null
 

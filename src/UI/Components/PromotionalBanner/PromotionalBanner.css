@@ -35,7 +35,7 @@
     width: max-content;
     align-items: center;
     position: relative;
-    gap: 30px;
+    /* gap: 30px; */
 }
 
 .banner-link-container .active {
@@ -43,14 +43,14 @@
   font-weight: 600;
   position: relative;
   z-index: 1;
-  padding: 5px;
+  padding: 5px 20px;
 }
 
 .banner-link-container .indicator {
   position: absolute;
   bottom: 0;
   height: 100%;
-  padding: 5px;
+  padding: 5px 20px;
   border-radius: 5px;
   background-color: black; /* ✅ Real black */
   width: 0;
@@ -97,7 +97,7 @@
     color: var(--text-oposite);
     cursor: pointer;
     z-index: 1;
-    padding: 5px;
+    padding: 5px 20px;
     transition: color 0.3s ease;
 
 }
@@ -106,7 +106,7 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 14px;
-    padding: 5px;
+    padding: 5px 20px;
     position: relative;
     text-decoration: none;
     color: var(--text-oposite);

@@ -12,7 +12,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import BestSellerProductCard from '../BestSellerProductCard/BestSellerProductCard';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLPContentContext } from '@/context/LPContentContext/LPContentContext';
 import useSWR, { mutate } from 'swr';
 import { fetcher } from '@/utils/Fetcher';
@@ -148,6 +148,15 @@ const BestSeller = () => {
         setShowSnakeBar(false)
     }
 
+    const pathname = usePathname();
+    const handleNavigateCoverToArchive = (item) => {
+        router.push(`${pathname}${item.cover_img.link_url}`)
+    }
+
+    const handleNavigateToArchive = (item) => {
+        router.push(`${pathname}/${item.categories[activeItem]?.slug}`)
+    }
+
 
     return (
         <>
@@ -205,8 +214,20 @@ const BestSeller = () => {
                     </div>
 
                     <div className='category-best-seller-banners-section'>
-                        <img src={url + bestSelling.cover_img.image_url} key={bestSelling?.cover_img?.image_url} className='banner_one' alt='banner one' />
-                        <img src={mainBanner && (url + mainBanner.image_url)} key={mainBanner?.image_url} alt='banner two' className='banner_two' />
+                        <img 
+                            src={url + bestSelling.cover_img.image_url} 
+                            key={bestSelling?.cover_img?.image_url} 
+                            className='banner_one' 
+                            alt='banner one' 
+                            onClick={() => handleNavigateCoverToArchive(bestSelling)}
+                        />
+                        <img 
+                            src={mainBanner && (url + mainBanner.image_url)} 
+                            key={mainBanner?.image_url} 
+                            alt='banner two' 
+                            className='banner_two' 
+                            onClick={() => handleNavigateToArchive(bestSelling)}
+                        />
                     </div>
 
                 </div>
