@@ -404,6 +404,12 @@ const ProductDetailSticky = (
     setTimeout(() => {setPanelShow(true)}, 500)
   }
 
+  const handleSideCartClose = () => {
+    setPanelShow(false)
+  }
+
+
+
   useDisableBodyScroll(whatIsCoveredModa)
 
   return (
@@ -609,13 +615,13 @@ const ProductDetailSticky = (
                   <button
                     className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
                     disabled={stockCheck}
-                    // onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
-                  onClick={() => {
-                    // handleClick();
-                    handleSidePanelOpen();
-                    addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                  }
-                  }
+                    onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
+                  // onClick={() => {
+                  //   // handleClick();
+                  //   handleSidePanelOpen();
+                  //   addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
+                  // }
+                  // }
                   >
                     {isCartLoading && <div className="loader_2"></div>}
                     {isCartLoading ? ' Almost there...' : 'Add To Cart'}
@@ -795,14 +801,14 @@ const ProductDetailSticky = (
           <button
             className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
             disabled={stockCheck}
-            // onClick={() => addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)}
-          onClick={() => {
-            addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity);
-            handleSidePanelOpen();
-            // handleAddToCartProduct(productData);
-            // handleSubmitProduct(productData)
-          }
-          }
+            onClick={() => addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)}
+          // onClick={() => {
+          //   addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity);
+          //   handleSidePanelOpen();
+          //   // handleAddToCartProduct(productData);
+          //   // handleSubmitProduct(productData)
+          // }
+          // }
           >
             Add To Cart
           </button>
@@ -823,9 +829,9 @@ const ProductDetailSticky = (
 
       <CartSidePannel
         cartData={cartProducts}
-        addToCartClicked={panelShow}
-        setAddToCartClick={setPanelShow}
-        handleCartSectionClose={handleCartClose}
+        addToCartClicked={cartSection}
+        setAddToCartClick={setCartSection}
+        handleCartSectionClose={handleSideCartClose}
         removeFromCart={removeFromCart}
         decreamentQuantity={decreamentQuantity}
         increamentQuantity={increamentQuantity}

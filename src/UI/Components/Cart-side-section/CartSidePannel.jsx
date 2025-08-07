@@ -51,12 +51,27 @@ const CartSidePannel = (
     navigate.push("/check-out");
   }
 
-  const [delayProducts, setDelayProducts] = useState(true)
-  useEffect(() => {
-    setTimeout(() => {
-      setDelayProducts(false)
-    }, 3000)
-  }, [addToCartClicked])
+  // useEffect(() => {
+  //   if (!isCartLoading && addToCartClicked) {
+  //     // Force a reflow to ensure scrolling works after update
+  //     const scrollableContainer = document.querySelector('.cart-section-products');
+  //     const scrollinnerContainer = document.querySelector('.cart-section-product-cards-contianer');
+  //     if (scrollableContainer) {
+  //       scrollableContainer.style.overflowY = 'auto';
+  //       scrollinnerContainer.style.overflowY = 'auto';
+  //     }
+  //   }
+  // }, [isCartLoading, addToCartClicked]);
+
+  setTimeout(() => {
+    const el = document.querySelector('.cart-section-product-cards-contianer');
+    if (el) {
+      el.scrollTop = el.scrollHeight; // scrolls to bottom
+      el.style.overflowY = 'auto';
+    }
+  }, 200);
+
+
 
 
 
@@ -81,75 +96,74 @@ const CartSidePannel = (
           </div>
           <p>Your Cart </p>
         </div>
-        {!delayProducts && (
-          <div className='cart-section-products'>
-            <div className='cart-section-product-cards-contianer'>
-              {cartProducts?.products?.length <= 0 && <EmptyCart />}
-              {cartProducts && cartProducts?.products?.map((items, index) => {
-                return <CartSideSection
-                  // key={items.product_uid ?? index}
-                  key={index}
-                  attributes={items.attributes}
-                  handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-                  closeBtn={'/Assets/icons/close-btn.png'}
-                  sku={items.sku}
-                  productTitle={items.name}
-                  mainImage={items.image}
-                  priceTag={items.regular_price}
-                  decreamentQuantity={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-                  minusBtn={'/Assets/icons/minus-white.png'}
-                  quantity={items.quantity}
-                  increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
 
-                  plusBtn={'/Assets/icons/plus-white.png'}
-                  sale_price={items.sale_price}
-                  regular_price={items.regular_price}
-                  type={items.type}
-                  isProtected={items.is_protected}
-                />
-              })}
-            </div>
+        <div className='cart-section-products'>
+          <div className='cart-section-product-cards-contianer'>
+            {cartProducts?.products?.length <= 0 && <EmptyCart />}
+            {cartProducts && cartProducts?.products?.map((items, index) => {
+              return <CartSideSection
+                // key={items.product_uid ?? index}
+                key={index}
+                attributes={items.attributes}
+                handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                closeBtn={'/Assets/icons/close-btn.png'}
+                sku={items.sku}
+                productTitle={items.name}
+                mainImage={items.image}
+                priceTag={items.regular_price}
+                decreamentQuantity={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                minusBtn={'/Assets/icons/minus-white.png'}
+                quantity={items.quantity}
+                increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
 
-            <div className='mobile-professional-assembly-and-protection'>
+                plusBtn={'/Assets/icons/plus-white.png'}
+                sale_price={items.sale_price}
+                regular_price={items.regular_price}
+                type={items.type}
+                isProtected={items.is_protected}
+              />
+            })}
+          </div>
 
-              {cartProducts?.products?.length > 0 ? (
-                <div className='proffesional-assembly-check-sec'>
-                  <label className='order-summary-proffesional-check-item-label-one'>
-                    <input
-                      type="checkbox"
-                      className='order-summary-checkbox'
-                      checked={isProfessionalAssembly}
-                      onChange={() => handleCartAssembly()}
-                    />
-                    Professional Assembly (+ ${totalProtectionValue})
-                  </label>
-                  {/* {isProfessionalAssembly ? ( */}
-                    <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
-                  {/* ) : (
+          <div className='mobile-professional-assembly-and-protection'>
+
+            {cartProducts?.products?.length > 0 ? (
+              <div className='proffesional-assembly-check-sec'>
+                <label className='order-summary-proffesional-check-item-label-one'>
+                  <input
+                    type="checkbox"
+                    className='order-summary-checkbox'
+                    checked={isProfessionalAssembly}
+                    onChange={() => handleCartAssembly()}
+                  />
+                  Professional Assembly (+ ${totalProtectionValue})
+                </label>
+                {/* {isProfessionalAssembly ? ( */}
+                <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
+                {/* ) : (
                     <p className='cart-protection-plan-cart-desc'>({formatedPrice(totalProtectionValue)})</p>
                   )} */}
-                </div>
-              ) : (<></>)}
+              </div>
+            ) : (<></>)}
 
-              {cartProducts?.products?.length > 1 ? (
-                <div className='proffesional-assembly-check-sec'>
-                  <label className='order-summary-proffesional-check-item-label'>
-                    <input
-                      type="checkbox"
-                      className='order-summary-checkbox'
-                      checked={isCartProtected}
-                      onChange={() => handleCartProtected()}
-                    />
-                    Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
-                  </label>
-                  <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
-                </div>
-              ) : (<></>)}
-            </div>
-
-
+            {cartProducts?.products?.length > 1 ? (
+              <div className='proffesional-assembly-check-sec'>
+                <label className='order-summary-proffesional-check-item-label'>
+                  <input
+                    type="checkbox"
+                    className='order-summary-checkbox'
+                    checked={isCartProtected}
+                    onChange={() => handleCartProtected()}
+                  />
+                  Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
+                </label>
+                <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
+              </div>
+            ) : (<></>)}
           </div>
-        )}
+
+
+        </div>
 
         <div className='cart-side-section-buttons'>
 
