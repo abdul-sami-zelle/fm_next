@@ -78,6 +78,7 @@ export default function OrderConfirmationPage() {
         return <div>No order found</div>; // Show message if no order found
     }
 
+    console.log("ordr", order)
 
 
     return (
@@ -86,7 +87,7 @@ export default function OrderConfirmationPage() {
             <div className="order_description">
 
                 <Link href={'/'} className="header_order_description">
-                    <Image src={'/Assets/Logo/main-logo.png'} width={200} height={45} alt="" />
+                    <Image src={'/Assets/Logo/fm-new-logo.png'} width={200} height={45} alt="" />
                 </Link>
 
                 <div className="order_description_1">
@@ -130,7 +131,18 @@ export default function OrderConfirmationPage() {
                 </div>
 
                 <div className="order_description_1_1">
-                    <DeliveryLocationMap
+                    {/* <MapComp
+                        storesData={
+                            Object.keys(selectedStore).length === 0
+                                ? storesApiData
+                                : selectedStore
+                        }
+                        selectedLocation={{
+                            lat: selectedLatitude ? parseFloat(selectedLatitude) : null,
+                            lng: selectedLongitude ? parseFloat(selectedLongitude) : null,
+                        }}
+                    /> */}
+                    {/* <DeliveryLocationMap
                         address_info={`${order.shipping.address_1 === "" ?
                             order.billing.address_1 : order.shipping.address_1}, 
                         ${order.shipping.city === "" ? order.billing.city : order.shipping.city} 
@@ -138,7 +150,7 @@ export default function OrderConfirmationPage() {
                         US`}
                         width={'580px'}
                         height={'220px'}
-                    />
+                    /> */}
                     <p style={{ marginTop: "5px" }} className="heading2">Your Order is Confirmed</p>
                     <p style={{ marginBottom: "15px" }} className="para1">We’ve accepted your order, we are getting it ready. Come back to this page for updates on your shipment.</p>
                     <span style={{ marginBottom: "10px" }} className="separator"></span>
@@ -181,7 +193,7 @@ export default function OrderConfirmationPage() {
                             </p>
                             <span className="sub_content">
                                 {/* <img src={card} alt="" /> */}
-                                <p>{order?.payment_method}</p>
+                                <p>{order?.payment_method === 'cybersource_credit_card' ? 'Credit Card' : ''}</p>
                                 <svg width="25" height="25" viewBox="0 0 91 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0.183594 9H90.0453V15.5L86.5 17L84.5 18L82.6836 19H0.183594V9Z" fill="var(--secondary-color)" />
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4C0 1.79086 1.79086 0 4 0H86C88.2091 0 90 1.79086 90 4V9H0V4ZM82.6853 19H0V56C0 58.2091 1.79086 60 4 60H86C88.2091 60 90 58.2091 90 56V50.554C81.984 48.7351 76 41.5663 76 33C76 27.3455 78.6073 22.2999 82.6853 19Z" fill="#FDFDFD" />

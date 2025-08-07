@@ -368,7 +368,6 @@ const StoreLocatorClient = () => {
         <div className="all-store-map">
           {isLoaded ? (
             <MapComp
-              // storesData={storesApiData}
               storesData={
                   Object.keys(selectedStore).length === 0
                     ? storesApiData

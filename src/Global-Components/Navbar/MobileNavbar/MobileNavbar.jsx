@@ -107,7 +107,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             <Link href={'/'} className='mobile-nav-header-image-contianer' onClick={handleNavbarClose}>
               <Image src={'/Assets/Logo/fm-new-logo.png'} width={180} height={40} alt='main-logo' />
             </Link>
-            <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={checkToken} />
+            <CiUser strokeWidth={0.8} className='mobile-user-icon' onClick={() => {checkToken(); handleNavbarClose()}} />
           </div>
 
           <div className='mobile-nav-cart-container' onClick={handleNAvigateToCart}>
@@ -128,8 +128,8 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
         <div className='mobile-nav-links-container'>
           {headerData.map((items, index) => (
-            <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} >
-              <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+            <Link href={`/${items.category_slug}`} className='mobile-nav-single-link-container' key={index} onClick={handleNavbarClose} >
+              <div className='mobile-nav-single-item-name-anchor' >
                 {items.mob_img === '' ? (
                   <Image src={`/Assets/mobile-nav-assets/living-room-set.png`} width={70} height={60} alt='nav-icon' />
                 ) : (
@@ -144,8 +144,8 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             </Link>
           ))}
 
-          <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container'>
-            <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+          <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container' onClick={handleNavbarClose}>
+            <div className='mobile-nav-single-item-name-anchor' >
               {/* {headerOffer.mob_img === '' ? (
               <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
               ) : (
@@ -176,8 +176,8 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             </span>
           </Link>
 
-          <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' >
-            <div className='mobile-nav-single-item-name-anchor' onClick={handleNavbarClose}>
+          <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' onClick={handleNavbarClose}>
+            <div className='mobile-nav-single-item-name-anchor' >
               {/* {sale_data && sale_data?.mob_img === '' ? (
                   <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
                   ) : (

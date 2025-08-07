@@ -64,35 +64,35 @@ const Cart = () => {
   const [latestProducts, setLatestProducts] = useState([]);
   const [noProduct, setNoProduct] = useState(false);
 
-  useEffect(() => {
-    const getLatestProducts = async () => {
-      const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
-      const payload = {
-        cart: cartProducts?.products?.map(item => item._id) || []
-      };
-      try {
-        const response = await axios.post(api, payload);
-        setLatestProducts(response.data.recommendations);
-        if (response.data.recommendations.length === 0) {
-          setNoProduct(true)
-        } else {
-          setNoProduct(false)
-        }
-      } catch (error) {
-        console.error("error", error);
-      }
-    };
-    if (cartProducts?.products?.length > 0) {
-      getLatestProducts();
-    }
-  }, [cartProducts]);
+  // useEffect(() => {
+  //   const getLatestProducts = async () => {
+  //     const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
+  //     const payload = {
+  //       cart: cartProducts?.products?.map(item => item._id) || []
+  //     };
+  //     try {
+  //       const response = await axios.post(api, payload);
+  //       setLatestProducts(response.data.recommendations);
+  //       if (response.data.recommendations.length === 0) {
+  //         setNoProduct(true)
+  //       } else {
+  //         setNoProduct(false)
+  //       }
+  //     } catch (error) {
+  //       console.error("error", error);
+  //     }
+  //   };
+  //   if (cartProducts?.products?.length > 0) {
+  //     getLatestProducts();
+  //   }
+  // }, [cartProducts]);
 
 
   useEffect(() => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  }, []); 
 
   useEffect(() => {
     if (shippingMethods) {

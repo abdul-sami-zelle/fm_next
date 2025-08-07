@@ -128,7 +128,8 @@ const ProductDisplay = ({ params }) => {
   };
 
   const handleAddToCartProduct = (product) => {
-    setCartSection(true);
+
+    // setCartSection(true);
   }
 
   const handleCartClose = () => {
@@ -258,24 +259,24 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal])
 
-  const recomandationApi = product._id ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
-  const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    dedupingInterval: 1000 * 60 * 60 * 24 * 365
-  })
+  // const recomandationApi = product._id ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
+  // const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
+  //   revalidateOnFocus: false,
+  //   revalidateOnReconnect: false,
+  //   dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  // })
 
-  if (recomandationError && recomandationCount < 3) {
-    setTimeout(() => {
-      setRecomandationCount(recomandationCount + 1);
-    }, 1000)
-  }
+  // if (recomandationError && recomandationCount < 3) {
+  //   setTimeout(() => {
+  //     setRecomandationCount(recomandationCount + 1);
+  //   }, 1000)
+  // }
 
-  useEffect(() => {
-    if (recomandationData) {
-      setRecomandedProducts(recomandationData.recommendations)
-    }
-  }, [recomandationData])
+  // useEffect(() => {
+  //   if (recomandationData) {
+  //     setRecomandedProducts(recomandationData.recommendations)
+  //   }
+  // }, [recomandationData])
 
   useEffect(() => {
     if (showDesignRoomModal) {

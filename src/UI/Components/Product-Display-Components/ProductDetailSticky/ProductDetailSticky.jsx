@@ -824,7 +824,7 @@ const ProductDetailSticky = (
             disabled={stockCheck}
             onClick={() => {
               addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)
-              handleAddToCartProduct(productData);
+              // handleAddToCartProduct(productData);
 
               // handleSubmitProduct(productData)
             }

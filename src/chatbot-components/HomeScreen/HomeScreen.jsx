@@ -124,7 +124,7 @@ const HomeScreen = ({
           {!videoLoaded && (
             <img
               className="background-placeholder"
-              src="/Assets/chat/images/Chat-Placeholder.jpg"
+              src="https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg"
               alt="AI Chatbot Placeholder"
             />
           )}
@@ -138,7 +138,8 @@ const HomeScreen = ({
             onCanPlayThrough={handleVideoCanPlay}
             onEnded={handleVideoEnded}
           >
-            <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" />
+            <source src="https://devapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4" />
+            {/* <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" /> */}
             Your browser does not support the video tag.
           </video>
 
