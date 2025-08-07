@@ -830,12 +830,12 @@ const Products = ({ navigationType }) => {
     };
 
     // Disable Scroll on Modal Open
-    useDisableBodyScroll(
-        isInfoOpen,
-        quickViewClicked,
-        showSortModal,
-        mobileFilters
-    )
+    // useDisableBodyScroll(
+    //     isInfoOpen,
+    //     quickViewClicked,
+    //     showSortModal,
+    //     mobileFilters
+    // )
 
     return (
         <div className='products-main-container'>
@@ -1361,7 +1361,7 @@ const Products = ({ navigationType }) => {
                 decreamentQuantity={decreamentQuantity}
                 increamentQuantity={increamentQuantity}
             />
-            
+
             <MobileViewProductFilters
                 showMobileFilters={mobileFilters}
                 setMobileFilters={setMobileFilters}

@@ -100,12 +100,11 @@ const ProductDisplay = ({ params }) => {
     removeFromCart,
     addToCart0,
     cartProducts,
-    // cartSection,
-    // setCartSection,
+    cartSection,
+    setCartSection,
     isCartLoading,
   } = useCart();
 
-  const [cartSection, setCartSection] = useState(false);
 
   const decreaseLocalQuantity = () => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity - 1));
@@ -311,7 +310,7 @@ const ProductDisplay = ({ params }) => {
       product?.dyrc?.active === 1 ? true : false;
 
 
-  useDisableBodyScroll(cartSection)
+  // useDisableBodyScroll(cartSection)
 
 
   return (
