@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './CartSidePannel.css';
 import CartSideSection from './CartSideSection';
 // import { useNavigate } from 'react-router-dom';
@@ -73,6 +73,22 @@ const CartSidePannel = (
 
 
 
+  //  const scrollRef = useRef();
+  // useEffect(() => {
+  //   if (!isCartLoading && addToCartClicked) {
+  //     // Delay scroll slightly to ensure layout is fully rendered
+  //     setTimeout(() => {
+  //       const container = scrollRef.current;
+  //       if (container) {
+  //         container.scrollTop = container.scrollHeight; // scroll to bottom
+  //         container.style.overflowY = 'auto';
+  //       }
+  //     }, 150); // slight delay to ensure DOM updated
+  //   }
+  // }, [addToCartClicked, isCartLoading, cartProducts?.products?.length]);
+
+
+
 
 
   return (
@@ -98,7 +114,7 @@ const CartSidePannel = (
         </div>
 
         <div className='cart-section-products'>
-          <div className='cart-section-product-cards-contianer'>
+          <div className='cart-section-product-cards-contianer' >
             {cartProducts?.products?.length <= 0 && <EmptyCart />}
             {cartProducts && cartProducts?.products?.map((items, index) => {
               return <CartSideSection

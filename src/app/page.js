@@ -128,8 +128,8 @@ const Home = () => {
       />
       
 
-      <InstaGallery />
-      <InstaTwoImageGallery />
+      {/* <InstaGallery />
+      <InstaTwoImageGallery /> */}
 
       <SnakBar
         message={snakeBarMessage}

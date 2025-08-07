@@ -561,6 +561,10 @@ const Products = ({ navigationType }) => {
         setAddToCartClicked(false)
     }
 
+
+
+
+
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
         setQuickViewProduct(item)
@@ -763,44 +767,6 @@ const Products = ({ navigationType }) => {
     }, [location.search]);
 
 
-
-    //     const scrollRef = useRef(null);
-    // const [isDragging, setIsDragging] = useState(false);
-    // const [startX, setStartX] = useState(0);
-    // const [scrollLeftStart, setScrollLeftStart] = useState(0);
-
-    // const handleMouseDown = (e) => {
-    //   setIsDragging(true);
-    //   setStartX(e.pageX - scrollRef.current.offsetLeft);
-    //   setScrollLeftStart(scrollRef.current.scrollLeft);
-    // };
-
-    // const handleMouseMove = (e) => {
-    //   if (!isDragging || e.buttons !== 1) return; // only drag while mouse is held
-    //   e.preventDefault();
-    //   const x = e.pageX - scrollRef.current.offsetLeft;
-    //   const walk = (x - startX) * 1.5; // adjust sensitivity
-    //   scrollRef.current.scrollLeft = scrollLeftStart - walk;
-    // };
-
-    // const stopDragging = () => {
-    //   setIsDragging(false);
-    // };
-
-    // useEffect(() => {
-    //   const container = scrollRef.current;
-
-    //   // Attach global events to track mouse movement
-    //   window.addEventListener("mousemove", handleMouseMove);
-    //   window.addEventListener("mouseup", stopDragging);
-
-    //   return () => {
-    //     window.removeEventListener("mousemove", handleMouseMove);
-    //     window.removeEventListener("mouseup", stopDragging);
-    //   };
-    // }, [isDragging, startX, scrollLeftStart]);
-
-
     const scrollRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
@@ -863,9 +829,6 @@ const Products = ({ navigationType }) => {
         scrollRef.current?.scrollBy({ left: 150, behavior: 'smooth' });
     };
 
-
-
-
     // Disable Scroll on Modal Open
     useDisableBodyScroll(
         isInfoOpen,
@@ -873,9 +836,6 @@ const Products = ({ navigationType }) => {
         showSortModal,
         mobileFilters
     )
-
-
-
 
     return (
         <div className='products-main-container'>
@@ -1386,6 +1346,13 @@ const Products = ({ navigationType }) => {
 
 
             </div>
+            
+            <QuickView
+                setQuickViewProduct={quickViewProduct}
+                quickViewShow={quickViewClicked}
+                quickViewClose={handleQuickViewClose}
+            />
+
             <CartSidePannel
                 cartData={cartProducts}
                 addToCartClicked={addToCartClicked}
@@ -1394,11 +1361,7 @@ const Products = ({ navigationType }) => {
                 decreamentQuantity={decreamentQuantity}
                 increamentQuantity={increamentQuantity}
             />
-            <QuickView
-                setQuickViewProduct={quickViewProduct}
-                quickViewShow={quickViewClicked}
-                quickViewClose={handleQuickViewClose}
-            />
+            
             <MobileViewProductFilters
                 showMobileFilters={mobileFilters}
                 setMobileFilters={setMobileFilters}
