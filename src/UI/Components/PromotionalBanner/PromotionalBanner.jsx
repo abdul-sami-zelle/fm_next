@@ -201,6 +201,7 @@ const PromotionalBanner = (
 
   return (
     <div className='furniture-mecca-promotional-banner'>
+
       <div className='rotating-message'>
         {currentIndex === 1 ? (
           <span>
@@ -220,6 +221,8 @@ const PromotionalBanner = (
           <span>Shop everyday low prices!</span>
         )}
       </div>
+
+      <Link href={'https://track.myfurnituremecca.com/'} target='_blank' className='promotion-banner-track-order'>Track Your Order</Link>
 
       <div className='header-links-and-select-language'>
         <div className='banner-link-container'>
@@ -268,45 +271,7 @@ const PromotionalBanner = (
           }
 
 
-          {/* {
-            bannerLinks.map((item, index) => {
-
-              const isExternal = item.link.startsWith('http');
-    const isActive =
-      index === activeIndex &&
-      (pathname === item.link || item.label === 'Track Order');
-              return item.label === 'Log In' || item.label === 'Sign up' ? (
-                // <span key={`span-${index}`}>
-                  <p
-                    key={`link-${index}`}
-                    onClick={() => {
-                      handleUserLogin(item.label === 'Log In' ? 'login' : 'signup');
-                      handleClick(index); // Make 'Log In' active
-                    }}
-                    ref={(el) => (linksRef.current[index] = el)}
-                    className={pathname === item.link ? "active" : ""}
-                    onMouseEnter={() => handleHover(index)}
-                    onMouseLeave={handleLeave}
-                  >
-                    {item.label}
-                  </p>
-                // </span>
-              ) : (
-                <Link
-                  href={item.link}
-                  key={`link-${index}`}
-                  target={item.link.startsWith('http') ? '_blank' : '_self'}
-                  ref={(el) => (linksRef.current[index] = el)}
-                  className={activeIndex === index ? "active" : ""}
-                  onMouseEnter={() => handleHover(index)}
-                  onMouseLeave={handleLeave}
-                  onClick={() => handleClick(index)}
-                >
-                  {item.label}
-                </Link>
-              )
-            })
-          } */}
+          
 
           <span className="indicator" ref={indicatorRef}></span>
 

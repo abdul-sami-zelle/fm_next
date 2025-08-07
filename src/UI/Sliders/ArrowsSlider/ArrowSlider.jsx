@@ -101,7 +101,7 @@ const ArrowSlider = ({
             )}
 
             <Swiper
-                className={isPadding ? 'swiper-padding' : 'swiper'}
+                className={isPadding ? 'swiper-padding' : arrowLeftPosition ? 'deal-day-position' : 'swiper'}
                 loop={loop}
                 // onSwiper={(swiper) => {
                 //     swiperRef.current = swiper;

@@ -234,7 +234,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               showArrows={true}
               arrowLeftPosition={true}
               eachSlide={true}
-              spaceBetween={20}
+              // loop={true}
+              spaceBetween={35}
               breakpoints={{
                 0: { slidesPerView: 1 },
                 768: { slidesPerView: 4 },

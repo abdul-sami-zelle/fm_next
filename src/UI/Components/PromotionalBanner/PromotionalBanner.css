@@ -24,6 +24,17 @@
     color: var(--text-oposite);
 }
 
+
+
+.promotion-banner-track-order {
+    display: none;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #FFFFFF;
+    /* text-decoration: none; */
+}
+
 .header-links-and-select-language{
     display: flex;
     gap: 20px;
@@ -307,10 +318,15 @@
         padding: 8px 10px;
     }
 
+    .promotion-banner-track-order {
+        display: flex;
+    }
+
     .rotating-message{
-        font-size: 8px;
+        display: none;
+        /* font-size: 8px;
         line-height: 12px;
-        font-weight: 400;
+        font-weight: 400; */
     }
     .on-tab-deliver-to{
         display: flex;

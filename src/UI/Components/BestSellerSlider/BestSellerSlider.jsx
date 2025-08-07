@@ -218,9 +218,13 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
-    const handleNavigateToProductArchive = (item) => {
-        router.push(`/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
-    }
+    // const handleNavigateToProductArchive = (item) => {
+    //     router.push(`/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
+    // }
+
+    console.log("banner link", `/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
+    console.log("banner link object", bestSellerNav1)
+
 
 
     return (
@@ -229,7 +233,10 @@ const BestSellerSlider = (
 
                 <div className='best-seller-imaage-and-cards'>
 
-                    <div className='best-seller-slider-main-banner'>
+                    <Link 
+                        className='best-seller-slider-main-banner'
+                        href={`${bestSellerNav1[activeItem]?.slug}${bestSellerNav1[activeItem]?.image?.link_url}`}
+                    >
                         {bestSellerLoading ? (
                             <div className='best-seller-main-cover-shimmer'></div>
                         ) : (
@@ -240,12 +247,12 @@ const BestSellerSlider = (
                                     key={bestSellerNav1[activeItem].image.image_url}
                                     src={url + bestSellerNav1[activeItem].image.image_url}
                                     alt='main banner'
-                                    onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
+                                    // onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
                                 />
                             ) : null
 
                         )}
-                    </div>
+                    </Link>
 
 
                     <div className='best-seller-slider-div'>

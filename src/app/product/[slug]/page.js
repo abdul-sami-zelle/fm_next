@@ -18,6 +18,7 @@ import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
 import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
+import { useIsMobile } from '@/utils/isMobile';
 
 const ProductDisplay = ({ params }) => {
 
@@ -43,6 +44,32 @@ const ProductDisplay = ({ params }) => {
   const [steperIndex, setSteperIndex] = useState(0);
   const [recomandedProducts, setRecomandedProducts] = useState([])
   const [recomandationCount, setRecomandationCount] = useState(0)
+
+  // const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+  const isMobile = useIsMobile()
+  // const [isMobile, setIsMobille] = useState(browserWidth)
+  // useEffect(() => {
+  //   setIsMobille(browserWidth)
+  // }, [browserWidth])
+  
+
+  const tabBarItems = [
+        // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
+        ...(product?.type === 'variable'
+            ? selectedVariationData?.dyrc?.active === 1
+                ? ['DesignYourRoom']
+                : []
+            : product?.dyrc?.active === 1
+                ? ['DesignYourRoom']
+                : []),
+        'Description',
+        'Details'
+    ];
+
+    const filteredTabItems = isMobile
+        ? tabBarItems.filter(item => item !== 'DesignYourRoom')
+        : tabBarItems;
 
 
   const showDRM = () => {
@@ -136,7 +163,6 @@ const ProductDisplay = ({ params }) => {
   const handleCartClose = () => {
     setCartSection(false)
     setQuantity(1)
-
   }
 
 
@@ -310,7 +336,11 @@ const ProductDisplay = ({ params }) => {
       product?.dyrc?.active === 1 ? true : false;
 
 
-  // useDisableBodyScroll(cartSection)
+  
+
+  console.log("steper index", steperIndex)
+  console.log("is mobile", isMobile)
+  useDisableBodyScroll(cartSection)
 
 
   return (
@@ -363,13 +393,66 @@ const ProductDisplay = ({ params }) => {
           quantity={quantity}
           steperIndex={steperIndex}
           setSteperIndex={setSteperIndex}
+          tabBarItems={tabBarItems}
+          filteredTabItems={filteredTabItems}
           stockCheck={stockCheck}
         />
 
         <div className='sticky-section-steper-main-container'>
 
 
-          {isDesignRoomActive && steperIndex === 0 ? (
+
+          {(isMobile && steperIndex === 0) || (!isMobile && isDesignRoomActive && steperIndex === 0) ? (
+            // Design Room or Description (index 0 logic)
+            isMobile ? (
+              <div className="steper-description-tranition show-description-transition">
+                <ProductDescriptionTab
+                  descriptionRef={sectionRefs.Description}
+                  productData={product}
+                  addMarginTop={isSticky}
+                />
+              </div>
+            ) : (
+              <div className="design-room-transition">
+                <DesignYourRoomIndv
+                  designRef={sectionRefs.DesignYourRoom}
+                  openFN={showDRM}
+                  productUid={product?.uid}
+                  image={
+                    isVariableOrNot
+                      ? selectedVariationData.images.length > 1
+                        ? selectedVariationData?.images[1]?.image_url
+                        : selectedVariationData.image.image_url
+                      : product.images.length > 1
+                        ? product.images[1].image_url
+                        : product.image.image_url
+                  }
+                />
+              </div>
+            )
+          ) : (
+            // Now handle Description (if it's index 1) or Details (index 2)
+            (steperIndex === 1 && (!isMobile || (isMobile && filteredTabItems[1] === 'Description'))) ? (
+              <div className="steper-description-tranition show-description-transition">
+                <ProductDescriptionTab
+                  descriptionRef={sectionRefs.Description}
+                  productData={product}
+                  addMarginTop={isSticky}
+                />
+              </div>
+            ) : (
+              <div className="steper-details-tranition show-details-transition">
+                <ProductDetailTab
+                  detailsRef={sectionRefs.Details}
+                  productData={product}
+                  productDetails={productDetails}
+                />
+              </div>
+            )
+          )}
+
+
+          {/* {isDesignRoomActive && steperIndex === 0 ? (
             // Design Your Room at index 0
             <div className="design-room-transition">
               <DesignYourRoomIndv
@@ -383,8 +466,10 @@ const ProductDisplay = ({ params }) => {
               // image={product.images[1].image_url}
               />
             </div>
-          ) : (!isDesignRoomActive && steperIndex === 0) || (isDesignRoomActive && steperIndex === 1) ? (
+          ) : (!isDesignRoomActive && steperIndex === 0) ||  (isDesignRoomActive && steperIndex === 1) || (isMobile && steperIndex === 1)  ? (
             // Description becomes index 0 if DesignRoom is inactive, otherwise index 1
+
+
             <div className="steper-description-tranition show-description-transition">
               <ProductDescriptionTab
                 descriptionRef={sectionRefs.Description}
@@ -401,7 +486,7 @@ const ProductDisplay = ({ params }) => {
                 productDetails={productDetails}
               />
             </div>
-          )}
+          )} */}
 
 
 

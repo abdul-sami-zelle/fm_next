@@ -148,6 +148,12 @@ const ProductStickyTabBar = (
         setSteperIndex(index);
     }
 
+    useEffect(() => {
+        if (isMobile) {
+            handleStepperIndex(0); // force show Description on mobile
+        }
+    }, [isMobile]);
+
     return (
         <>
             <div className={`product-sticky-tab-bar-main-container ${isSticky ? 'add-margin' : ''}`}>

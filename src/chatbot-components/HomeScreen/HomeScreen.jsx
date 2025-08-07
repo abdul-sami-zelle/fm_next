@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 import { useChatOpenContext } from "@/context/ChatbotContext/ChatbotContext";
+import Link from "next/link";
 
 const HomeScreen = ({
   onClose,
@@ -199,12 +200,12 @@ const HomeScreen = ({
 
         <div className="home-screen-box">
 
-          <div className="meeting-us-btn">
-            <p>
+          <Link className="meeting-us-btn" href={'/book-an-appointment'}>
+            <p >
               <MdOutlineCalendarToday className="meeting-us-icon" /> Book
               Meeting
             </p>
-          </div>
+          </Link>
 
           {/* <div className="support-people-list">
             {conversations.length > 0 && (

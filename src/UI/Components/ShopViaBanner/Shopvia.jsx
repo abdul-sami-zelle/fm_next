@@ -45,7 +45,13 @@ const Shopvia = () => {
           ))}
         </div>
         {swipeContent ? (
-          <p className='rotate-message-maintanance'>Website is being upgraded, Sorry for the inconvenience you might face while exploring it!</p>
+          <span className='webiste-update-main-contianer'>
+            <p className='rotate-message-maintanance'>Website is being upgraded, Sorry for the inconvenience you might face while exploring it!</p>
+            <i className='mobile-message'>
+              <p>Website is being upgraded,</p>
+              <p>Sorry for the inconvenience you might face while exploring it!</p>
+            </i>
+          </span>
         ) : (
           <span> <FaPhone size={20} color='var(--text-oposite)' style={{ marginRight: '5px' }} /> Get Help Call <a href='tel:2153521600'>215 352 1600</a> or <a href="mailto:meccacustomercare@gmail.com">Email</a> </span>
         )}

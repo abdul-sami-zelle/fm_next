@@ -23,8 +23,6 @@ import { useProductPage } from '@/context/ProductPageContext/productPageContext'
 import Image from 'next/image';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
-
-
     const {
         increamentQuantity,
         decreamentQuantity,

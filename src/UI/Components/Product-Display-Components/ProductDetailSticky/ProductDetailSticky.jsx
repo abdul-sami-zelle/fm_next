@@ -47,12 +47,12 @@ const ProductDetailSticky = (
     increaseLocalQuantity,
     isLoading,
     handleClick,
-    addToCart0,
+    // addToCart0,
     handleAddToCartProduct,
     cartProducts,
-    cartSection,
+    // cartSection,
     handleCartClose,
-    setCartSection,
+    // setCartSection,
     removeFromCart,
     decreamentQuantity,
     increamentQuantity,
@@ -70,6 +70,13 @@ const ProductDetailSticky = (
     setZoomIn,
     stockCheck,
   }) => {
+
+
+    const {
+        addToCart0,
+        cartSection,
+        setCartSection,
+      } = useCart();
 
 
   const router = useRouter()
@@ -216,6 +223,7 @@ const ProductDetailSticky = (
   //   router.push('/contact-us')
   // }
 
+  
 
 
 
@@ -408,6 +416,22 @@ const ProductDetailSticky = (
   const handleSideCartClose = () => {
     setPanelShow(false)
   }
+
+
+  const [showSideCart, setShowSideCart] = useState(false);
+  const handleCloseSideCart = () => {
+    setShowSideCart(false);
+  }
+
+  const handleAddProductIntoCart = (product) => {
+      addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity);
+      setTimeout(() => {
+        
+        setShowSideCart(true)
+      }, 500)
+  }
+
+  useEffect(() => {console.log("show side cart", showSideCart)}, [showSideCart])
 
 
 
@@ -616,6 +640,7 @@ const ProductDetailSticky = (
                   <button
                     className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
                     disabled={stockCheck}
+                    // onClick={() => handleAddProductIntoCart(product)}
                     onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
                   // onClick={() => {
                   //   // handleClick();
@@ -832,7 +857,7 @@ const ProductDetailSticky = (
         cartData={cartProducts}
         addToCartClicked={cartSection}
         setAddToCartClick={setCartSection}
-        handleCartSectionClose={handleSideCartClose}
+        handleCartSectionClose={handleCartClose}
         removeFromCart={removeFromCart}
         decreamentQuantity={decreamentQuantity}
         increamentQuantity={increamentQuantity}

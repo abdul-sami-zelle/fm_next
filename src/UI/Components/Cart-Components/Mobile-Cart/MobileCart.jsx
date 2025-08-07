@@ -41,6 +41,16 @@ const MobileCart = (
         setIsProtectionClicked((prevValue) => prevValue === value ? null : value)
     }
 
+    const handleSingleProtection = (value) => {
+        if (isProtectionClicked === 'yes-protect') {
+            handleProtectOrNotButtonClicked('no-thanks');
+            removeProtection();
+        } else {
+            handleProtectOrNotButtonClicked('yes-protect');
+            addProtection();
+        }
+    }
+
     const productTotalPrice = productData.regular_price * quantity;
 
     return (
@@ -73,13 +83,13 @@ const MobileCart = (
                 </div>
             </div>
 
-            <div className='desktop-card-protection-div'>
+            <div className='desktop-card-protection-div' onClick={handleSingleProtection}>
                 <div className='guard-and-heading'>
                     <div className='mobile-guard-title-and-details'>
-                            <span>
-                                <h3 className='protection-guard-title'>Protection Plan</h3>
-                                <p>5 Years Protection $149</p>
-                            </span>
+                        <span>
+                            <h3 className='protection-guard-title'>Protection Plan</h3>
+                            <p>5 Years Protection $149</p>
+                        </span>
 
                         {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
                             <Image src={'/Assets/check.png'} width={50} height={50} alt="" srcset="" />

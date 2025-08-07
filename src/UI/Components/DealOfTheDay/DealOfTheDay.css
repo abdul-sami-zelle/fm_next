@@ -202,7 +202,7 @@
         gap: 10px;
     }
 
-    .slider-main-container .slick-arrow.slick-next {
+    /* .slider-main-container .slick-arrow.slick-next {
         top: 35%;
     }
 
@@ -216,7 +216,7 @@
 
     .slick-arrow.slick-next {
         right: -12px;
-    }
+    } */
 
     .mobile-view-timer {
         display: flex;

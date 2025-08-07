@@ -214,20 +214,22 @@ const BestSeller = () => {
                     </div>
 
                     <div className='category-best-seller-banners-section'>
-                        <img 
-                            src={url + bestSelling.cover_img.image_url} 
-                            key={bestSelling?.cover_img?.image_url} 
-                            className='banner_one' 
-                            alt='banner one' 
-                            onClick={() => handleNavigateCoverToArchive(bestSelling)}
-                        />
-                        <img 
-                            src={mainBanner && (url + mainBanner.image_url)} 
-                            key={mainBanner?.image_url} 
-                            alt='banner two' 
-                            className='banner_two' 
-                            onClick={() => handleNavigateToArchive(bestSelling)}
-                        />
+                        <Link href={`${pathname}${bestSelling.cover_img.link_url}`}>
+                            <img 
+                                src={url + bestSelling.cover_img.image_url} 
+                                key={bestSelling?.cover_img?.image_url} 
+                                className='banner_one' 
+                                alt='banner one' 
+                            />
+                        </Link>
+                        <Link href={`${pathname}/${bestSelling.categories[activeItem]?.slug}`}>
+                            <img 
+                                src={mainBanner && (url + mainBanner.image_url)} 
+                                key={mainBanner?.image_url} 
+                                alt='banner two' 
+                                className='banner_two' 
+                            />
+                        </Link>
                     </div>
 
                 </div>

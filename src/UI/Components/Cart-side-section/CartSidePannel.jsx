@@ -20,7 +20,6 @@ const CartSidePannel = (
     removeFromCart,
     decreamentQuantity,
     increamentQuantity,
-
   }) => {
 
 
@@ -32,7 +31,9 @@ const CartSidePannel = (
     handleCartProtected,
     handleCartAssembly,
     cartProducts,
-    isCartLoading, totalProtectionValue, professionalAssemblyValue
+    isCartLoading, 
+    totalProtectionValue, 
+    professionalAssemblyValue
   } = useCart()
 
 
@@ -51,15 +52,8 @@ const CartSidePannel = (
     navigate.push("/check-out");
   }
 
-  const productListRef = useRef(null);
 
-useEffect(() => {
-  if (addToCartClicked && productListRef.current) {
-    setTimeout(() => {
-      productListRef.current.scrollTop = 0;
-    }, 100); // scroll to top after render
-  }
-}, [addToCartClicked]);
+
 
   return (
     <div
@@ -83,10 +77,10 @@ useEffect(() => {
           <p>Your Cart </p>
         </div>
 
-        <div className='cart-section-products' ref={productListRef}>
-          <div className='cart-section-product-cards-contianer' ref={productListRef}>
-            {cartProducts?.products?.length <= 0 && <EmptyCart />}
-            {addToCartClicked && cartProducts && cartProducts?.products?.map((items, index) => {
+        <div className='cart-section-products'>
+          {/* <div className='cart-section-product-cards-contianer'> */}
+            {cartData?.products?.length <= 0 && <EmptyCart />}
+            {cartData?.products?.map((items, index) => {
               return <CartSideSection
                 // key={items.product_uid ?? index}
                 key={index}
@@ -109,11 +103,11 @@ useEffect(() => {
                 isProtected={items.is_protected}
               />
             })}
-          </div>
+          {/* </div> */}
 
           <div className='mobile-professional-assembly-and-protection'>
 
-            {cartProducts?.products?.length > 0 ? (
+            {cartData?.products?.length > 0 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label-one'>
                   <input
@@ -132,7 +126,7 @@ useEffect(() => {
               </div>
             ) : (<></>)}
 
-            {cartProducts?.products?.length > 1 ? (
+            {cartData?.products?.length > 1 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label'>
                   <input
@@ -154,7 +148,7 @@ useEffect(() => {
         <div className='cart-side-section-buttons'>
 
           <div className='desktop-protextion-and-assembily-contianer'>
-            {cartProducts?.products?.length > 0 ? (
+            {cartData?.products?.length > 0 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label-one'>
                   <input
@@ -169,7 +163,7 @@ useEffect(() => {
               </div>
             ) : (<></>)}
 
-            {cartProducts?.products?.length > 1 ? (
+            {cartData?.products?.length > 1 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label'>
                   <input

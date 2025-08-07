@@ -8,9 +8,9 @@
 
 }
 
-.arrow-slider-container.apply-side-padding {
+/* .arrow-slider-container.apply-side-padding {
     padding: 5px 40px;
-}
+} */
 
 .swiper {
     margin-right: 0px !important;
@@ -19,6 +19,10 @@
 
 .swiper-padding {
     padding: 2px !important;
+}
+
+.deal-day-position {
+    padding: 0 35px !important;
 }
 
 .slide {
@@ -83,10 +87,10 @@
     top: 65%;
 }
 
-.each-slide {
+/* .each-slide {
     width: 255px !important;
     margin-right: 0px !important;
-}
+} */
 
 
 
@@ -131,10 +135,10 @@
         width: 18px;
     }
 
-    .each-slide {
+    /* .each-slide {
         width: 100% !important;
         margin-right: 20px !important;
-    }
+    } */
 
     .arrow-slider-container.apply-side-padding {
         padding: 0;

@@ -4,6 +4,7 @@ import { Canvas, FabricImage, Rect, Text } from 'fabric';
 import LayerList from './layerlist';
 import Swal from 'sweetalert2';
 import { useCart } from '@/context/cartContext/cartContext';
+import { roomApi } from '@/utils/api';
 
 const CanvasApp = ({ data, closeFn }) => {
 
@@ -47,7 +48,8 @@ const CanvasApp = ({ data, closeFn }) => {
   const containerRef = useRef(null);
   const sofaRef = useRef(null);
   let lastSofaSrc = null;
-  const baseURL = "https://roomapi.myfurnituremecca.com";
+  const baseURL = roomApi;
+  // const baseURL = "https://roomapi.myfurnituremecca.com";
   // const baseURL = "https://roomapidev.myfurnituremecca.com/"
 
   // Handle container resize
