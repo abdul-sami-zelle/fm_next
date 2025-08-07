@@ -182,7 +182,7 @@ const HomeScreen = ({
                     <div className="avatar-image-inner">
                       <img
                         // src="https://cdn.servicebell.com/assets/bella-idle-default.c62aea33..jpeg"
-                        src="/Assets/chat/images/Chat-Placeholder.jpg"
+                        src="https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg"
                         alt="AI Avatar"
                         className="avatar-image"
                       />

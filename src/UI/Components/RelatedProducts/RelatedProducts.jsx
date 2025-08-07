@@ -8,6 +8,7 @@ import QuickView from '../QuickView/QuickView'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 import { useList } from '@/context/wishListContext/wishListContext'
 import { useRouter } from 'next/navigation'
+import { useDisableBodyScroll } from '@/utils/api'
 
 const RelatedProducts = ({ data }) => {
 
@@ -44,6 +45,8 @@ const RelatedProducts = ({ data }) => {
   const handleProductClick = (item) => {
     router.push(`/product/${item.slug}`, { state: item });
   };
+
+  useDisableBodyScroll(quickViewProduct)
 
 
 

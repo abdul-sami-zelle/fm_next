@@ -106,7 +106,7 @@ const ConversationList = ({
         </div>
 
         <div className="conversation-list-body">
-          {filteredConversations.map((conv) => (
+          {/* {filteredConversations.map((conv) => (
             <div className="conversation-card" key={conv.id}>
               <img src={conv.img} alt={conv.name} className="conv-avatar" />
               <div className="conv-info">
@@ -117,11 +117,11 @@ const ConversationList = ({
                 <div className="conv-msg">{conv.message}</div>
               </div>
             </div>
-          ))}
+          ))} */}
 
-          {filteredConversations.length === 0 && (
+          {/* {filteredConversations.length !== 0 && ( */}
             <p className="no-results">No conversations found.</p>
-          )}
+          {/* )} */}
         </div>
       </div>
 

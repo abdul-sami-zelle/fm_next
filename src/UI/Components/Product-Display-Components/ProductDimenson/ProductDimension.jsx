@@ -107,7 +107,7 @@ const ProductDimension = ({ productData, variationData, slideIndex, zoomIn, show
 
 
 
-            <div className='mobile-view-dimension-main' onClick={() => handleDimensionSelect('Zoom', null)}>
+            <div className='mobile-view-dimension-main' onClick={() => handleGalleryModal('image-clicked')}>
               {zoomIn ? <AiOutlineZoomOut size={20} color='var(--secondary-color)' /> : <AiOutlineZoomIn size={20} color='var(--secondary-color)' />}
               <p className='dimensions-detail-button-title'>Zoom</p>
             </div>

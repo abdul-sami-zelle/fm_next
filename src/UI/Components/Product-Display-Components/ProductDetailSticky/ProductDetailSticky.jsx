@@ -604,11 +604,13 @@ const ProductDetailSticky = (
                   <button
                     className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
                     disabled={stockCheck}
-                    onClick={() => {
-                      handleClick();
-                      addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                    }
-                    }>
+                    onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
+                    // onClick={() => {
+                    //   handleClick();
+                    //   addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
+                    // }
+                    // }
+                    >
                     {isCartLoading && <div className="loader_2"></div>}
                     {isCartLoading ? ' Almost there...' : 'Add To Cart'}
                   </button>

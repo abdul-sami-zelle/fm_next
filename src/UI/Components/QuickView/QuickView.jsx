@@ -66,7 +66,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         })
     }, [setQuickViewProduct])
 
-
     const quickViewData = [
         {
             name: "Dimensions",

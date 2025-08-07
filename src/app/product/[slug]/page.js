@@ -9,7 +9,7 @@ import ProductDetailTab from '@/UI/Components/Product-Display-Components/Product
 import ProductRecommendationTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductRecommendationTab/ProductRecommendationTab';
 import ProductReviewTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
 
-import { url } from '../../../utils/api';
+import { url, useDisableBodyScroll } from '../../../utils/api';
 import { useCart } from '@/context/cartContext/cartContext';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
@@ -120,11 +120,11 @@ const ProductDisplay = ({ params }) => {
 
   const handleClick = () => {
 
-    setCartSection(true);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    // setCartSection(true);
+    // setIsLoading(true);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 1000);
   };
 
   const handleAddToCartProduct = (product) => {
@@ -307,6 +307,9 @@ const ProductDisplay = ({ params }) => {
     product?.type === 'variable' ? (
       selectedVariationData?.dyrc?.active === 1 ? true : false) :
       product?.dyrc?.active === 1 ? true : false;
+
+
+  useDisableBodyScroll(cartSection)
 
 
   return (

@@ -411,7 +411,7 @@ export const CartProvider = ({ children }) => {
 
     const addToCartListSimple = async (transformedList) => {
         setIsCartLoading(true);
-        setTimeout(() => {setCartSection(true)}, 500)
+        
 
         setCartProducts((prevCart) => {
             let updatedProducts = [...prevCart.products];
@@ -437,6 +437,7 @@ export const CartProvider = ({ children }) => {
         });
 
         setIsCartLoading(false);
+        setTimeout(() => {setCartSection(true)}, 500)
         return { products: transformedList }; // Optionally return what was added
     };
 
