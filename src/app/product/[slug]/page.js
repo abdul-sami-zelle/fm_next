@@ -314,7 +314,7 @@ const ProductDisplay = ({ params }) => {
 
 
   return (
-    <div>
+    <>
       <div className='product-display-page-main-container'>
         <ProductDetailSticky
           productData={product}
@@ -441,6 +441,9 @@ const ProductDisplay = ({ params }) => {
           productData={product}
           productDetails={productDetails}
         /> */}
+
+
+
         <ProductRecommendationTab
           recommendationRef={sectionRefs.Recommendations}
           product={product}
@@ -532,7 +535,7 @@ const ProductDisplay = ({ params }) => {
         galleryModalWidth={galleryModalWidth}
       />
 
-    </div>
+    </>
   )
 }
 

@@ -1,3 +1,10 @@
+.top-upper-sec-of-product-page {
+    display: flex;
+    width: 100%;
+    height: 1px;
+    background-color: transparent;
+}
+
 .product-display-page-main-container{
     display: flex;
     width: 80%;

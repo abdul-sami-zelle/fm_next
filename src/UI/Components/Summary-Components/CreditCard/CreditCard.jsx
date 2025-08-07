@@ -188,8 +188,8 @@ const CreditCard = () => {
                             onChange={(e) => {
                                 let { value } = e.target;
                                 value = value.replace(/\D/g, '');
-                                if (value.length > 3) {
-                                    value = value.slice(0, 3);  // Keep only the first 16 digits
+                                if (value.length > 4) {
+                                    value = value.slice(0, 4);  // Keep only the first 16 digits
                                 }
                                 const formattedValue = value
                                     .replace(/(\d{4})(?=\d)/g, '$1-')

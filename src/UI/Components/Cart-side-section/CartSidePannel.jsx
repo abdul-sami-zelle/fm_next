@@ -51,45 +51,15 @@ const CartSidePannel = (
     navigate.push("/check-out");
   }
 
-  // useEffect(() => {
-  //   if (!isCartLoading && addToCartClicked) {
-  //     // Force a reflow to ensure scrolling works after update
-  //     const scrollableContainer = document.querySelector('.cart-section-products');
-  //     const scrollinnerContainer = document.querySelector('.cart-section-product-cards-contianer');
-  //     if (scrollableContainer) {
-  //       scrollableContainer.style.overflowY = 'auto';
-  //       scrollinnerContainer.style.overflowY = 'auto';
-  //     }
-  //   }
-  // }, [isCartLoading, addToCartClicked]);
+  const productListRef = useRef(null);
 
-  // setTimeout(() => {
-  //   const el = document.querySelector('.cart-section-product-cards-contianer');
-  //   if (el) {
-  //     el.scrollTop = el.scrollHeight; // scrolls to bottom
-  //     el.style.overflowY = 'auto';
-  //   }
-  // }, 200);
-
-
-
-  //  const scrollRef = useRef();
-  // useEffect(() => {
-  //   if (!isCartLoading && addToCartClicked) {
-  //     // Delay scroll slightly to ensure layout is fully rendered
-  //     setTimeout(() => {
-  //       const container = scrollRef.current;
-  //       if (container) {
-  //         container.scrollTop = container.scrollHeight; // scroll to bottom
-  //         container.style.overflowY = 'auto';
-  //       }
-  //     }, 150); // slight delay to ensure DOM updated
-  //   }
-  // }, [addToCartClicked, isCartLoading, cartProducts?.products?.length]);
-
-
-
-
+useEffect(() => {
+  if (addToCartClicked && productListRef.current) {
+    setTimeout(() => {
+      productListRef.current.scrollTop = 0;
+    }, 100); // scroll to top after render
+  }
+}, [addToCartClicked]);
 
   return (
     <div
@@ -113,10 +83,10 @@ const CartSidePannel = (
           <p>Your Cart </p>
         </div>
 
-        <div className='cart-section-products'>
-          <div className='cart-section-product-cards-contianer' >
+        <div className='cart-section-products' ref={productListRef}>
+          <div className='cart-section-product-cards-contianer' ref={productListRef}>
             {cartProducts?.products?.length <= 0 && <EmptyCart />}
-            {cartProducts && cartProducts?.products?.map((items, index) => {
+            {addToCartClicked && cartProducts && cartProducts?.products?.map((items, index) => {
               return <CartSideSection
                 // key={items.product_uid ?? index}
                 key={index}
