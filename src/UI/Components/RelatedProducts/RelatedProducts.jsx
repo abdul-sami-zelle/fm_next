@@ -46,7 +46,7 @@ const RelatedProducts = ({ data }) => {
     router.push(`/product/${item.slug}`, { state: item });
   };
 
-  useDisableBodyScroll(quickViewProduct)
+  // useDisableBodyScroll(quickViewProduct)
 
 
 

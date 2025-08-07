@@ -79,6 +79,7 @@ const ProductDetailSticky = (
 
   const { info, fetchAllstores } = useGlobalContext();
   const { handleOpenChatUsOnly } = useChatOpenContext()
+  const [panelShow, setPanelShow] = useState(false)
 
   // Get Product Data from previous route or api
   const {
@@ -399,6 +400,10 @@ const ProductDetailSticky = (
     window.open(whatsappURL, '_blank');
   };
 
+  const handleSidePanelOpen = () => {
+    setTimeout(() => {setPanelShow(true)}, 500)
+  }
+
   useDisableBodyScroll(whatIsCoveredModa)
 
   return (
@@ -604,13 +609,14 @@ const ProductDetailSticky = (
                   <button
                     className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
                     disabled={stockCheck}
-                    onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
-                    // onClick={() => {
-                    //   handleClick();
-                    //   addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                    // }
-                    // }
-                    >
+                    // onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
+                  onClick={() => {
+                    // handleClick();
+                    handleSidePanelOpen();
+                    addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
+                  }
+                  }
+                  >
                     {isCartLoading && <div className="loader_2"></div>}
                     {isCartLoading ? ' Almost there...' : 'Add To Cart'}
                   </button>
@@ -771,21 +777,67 @@ const ProductDetailSticky = (
 
 
 
+
+
+
+      <div
+        className={`add-to-cart-sticky-section ${addCartSticky ? 'show-sticky-add-to-cart' : ''}`}
+        style={{ boxShadow: !isSticky ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }}
+      >
+        <div className='mobile-product-sticky-fixed-add-to-cart'>
+          <div className='mobile-sticky-product-sale-and-price'>
+            <h3 className='sticky-section-product-name'>{productData?.name ? truncateTitle(productData?.name, 23) : ''}</h3>
+            <span>
+              <h3>Sale</h3>
+              <p>{formatedPrice(productData?.sale_price)}</p>
+            </span>
+          </div>
+          <button
+            className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
+            disabled={stockCheck}
+            // onClick={() => addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)}
+          onClick={() => {
+            addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity);
+            handleSidePanelOpen();
+            // handleAddToCartProduct(productData);
+            // handleSubmitProduct(productData)
+          }
+          }
+          >
+            Add To Cart
+          </button>
+        </div>
+      </div>
+
+      <WhatIsCovered
+        showCoveredModal={whatIsCoveredModa}
+        handleCloseCoveredModal={handleCloseWhatIsCoveredModal}
+      />
+
+      <SnakBar
+        message={snakeBarMessage}
+        openSnakeBarProp={showSnakeBar}
+        setOpenSnakeBar={setShowSnakeBar}
+        onClick={handleCloseSnakeBar}
+      />
+
+      <CartSidePannel
+        cartData={cartProducts}
+        addToCartClicked={panelShow}
+        setAddToCartClick={setPanelShow}
+        handleCartSectionClose={handleCartClose}
+        removeFromCart={removeFromCart}
+        decreamentQuantity={decreamentQuantity}
+        increamentQuantity={increamentQuantity}
+      />
+
       <ShareProduct
         isSharePopup={isSharePopup}
         setIsSharePopup={setIsSharePopup}
         selectedProduct={selectedProduct}
       />
 
-      <CartSidePannel
-        cartData={cartProducts}
-        addToCartClicked={cartSection}
-        handleCartSectionClose={handleCartClose}
-        setAddToCartClick={setCartSection}
-        removeFromCart={removeFromCart}
-        decreamentQuantity={decreamentQuantity}
-        increamentQuantity={increamentQuantity}
-      />
+
 
       <AppointmentModal
         showAppointMentModal={appointmentModal}
@@ -806,47 +858,6 @@ const ProductDetailSticky = (
         handleCloseSearch={handleCloseLocationModal}
         locationDetails={locationData}
         setLocationDetails={setLocationData}
-      />
-
-
-      <div
-        className={`add-to-cart-sticky-section ${addCartSticky ? 'show-sticky-add-to-cart' : ''}`}
-        style={{ boxShadow: !isSticky ? 'rgba(0, 0, 0, 0.24) 0px 3px 8px' : 'none' }}
-      >
-        <div className='mobile-product-sticky-fixed-add-to-cart'>
-          <div className='mobile-sticky-product-sale-and-price'>
-            <h3 className='sticky-section-product-name'>{productData?.name ? truncateTitle(productData?.name, 23) : ''}</h3>
-            <span>
-              <h3>Sale</h3>
-              <p>{formatedPrice(productData?.sale_price)}</p>
-            </span>
-          </div>
-          <button
-            className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
-            disabled={stockCheck}
-            onClick={() => {
-              addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)
-              // handleAddToCartProduct(productData);
-
-              // handleSubmitProduct(productData)
-            }
-            }
-          >
-            Add To Cart
-          </button>
-        </div>
-      </div>
-
-      <WhatIsCovered
-        showCoveredModal={whatIsCoveredModa}
-        handleCloseCoveredModal={handleCloseWhatIsCoveredModal}
-      />
-
-      <SnakBar
-        message={snakeBarMessage}
-        openSnakeBarProp={showSnakeBar}
-        setOpenSnakeBar={setShowSnakeBar}
-        onClick={handleCloseSnakeBar}
       />
 
     </div>
