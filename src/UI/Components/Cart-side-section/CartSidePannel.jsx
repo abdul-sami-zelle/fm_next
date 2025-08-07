@@ -63,13 +63,13 @@ const CartSidePannel = (
   //   }
   // }, [isCartLoading, addToCartClicked]);
 
-  setTimeout(() => {
-    const el = document.querySelector('.cart-section-product-cards-contianer');
-    if (el) {
-      el.scrollTop = el.scrollHeight; // scrolls to bottom
-      el.style.overflowY = 'auto';
-    }
-  }, 200);
+  // setTimeout(() => {
+  //   const el = document.querySelector('.cart-section-product-cards-contianer');
+  //   if (el) {
+  //     el.scrollTop = el.scrollHeight; // scrolls to bottom
+  //     el.style.overflowY = 'auto';
+  //   }
+  // }, 200);
 
 
 

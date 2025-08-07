@@ -305,11 +305,13 @@ export const CartProvider = ({ children }) => {
     const updateCartAPI = async (url, newCart, method) => {
         try {
             const response = method === "post" ? await axios.post(url, { cart: newCart }) : await axios.put(url, { cart: newCart });
-            setTimeout(() => {setCartSection(true)}, 500)
+            // setTimeout(() => {setCartSection(true)}, 500)
+            setCartSection(true)
             
             setIsCartLoading(false);
             method === "post" && setCartUid(response?.data?.data?._id);
-            setTimeout(() => {setCartSection(true)}, 500)
+            // setTimeout(() => {setCartSection(true)}, 500)
+            setCartSection(true);
             return response.data;
         } catch (error) {
             console.error("Error updating cart:", error);
@@ -324,13 +326,15 @@ export const CartProvider = ({ children }) => {
                 await axios.post(url0, { cart: newCart, userId: userId }, { headers: { authorization: `${custToken}`, "Content-Type": "application/json" } }) :
                 await axios.put(url0, { cart: newCart, userId: userId }, { headers: { authorization: `${custToken}`, "Content-Type": "application/json" } });
             method === "post" && setCartUid(response?.data?.data?._id);
-            setTimeout(() => {setCartSection(true)}, 500)
+            // setTimeout(() => {setCartSection(true)}, 500)
+            setCartSection(true);
             setIsCartLoading(false);
             return response.data;
         } catch (error) {
             console.error("Error updating cart:", error);
             setIsCartLoading(false);
-            setTimeout(() => {setCartSection(true)}, 500)
+            // setTimeout(() => {setCartSection(true)}, 500)
+            setCartSection(true)
             throw error;
         }
     };
@@ -401,7 +405,7 @@ export const CartProvider = ({ children }) => {
         const isUserAnonymous = !localStorage.getItem('uuid') || !localStorage.getItem('userToken');
         setTimeout(() => {
             setCartSection(true)
-        }, 100)
+        }, 500)
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
 
@@ -437,7 +441,8 @@ export const CartProvider = ({ children }) => {
         });
 
         setIsCartLoading(false);
-        setTimeout(() => {setCartSection(true)}, 500)
+        // setTimeout(() => {setCartSection(true)}, 500)
+        setCartSection(true);
         return { products: transformedList }; // Optionally return what was added
     };
 

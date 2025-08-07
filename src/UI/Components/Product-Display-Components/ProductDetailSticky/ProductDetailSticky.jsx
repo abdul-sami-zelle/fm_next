@@ -76,6 +76,7 @@ const ProductDetailSticky = (
   const { setAppointmentPayload } = useAppointment()
   const [selectedTab, setSelectedTab] = useState(1);
   const [slideIndex, setSlideIndex] = useState(null)
+  
 
   const { info, fetchAllstores } = useGlobalContext();
   const { handleOpenChatUsOnly } = useChatOpenContext()
