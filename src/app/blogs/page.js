@@ -6,6 +6,7 @@ import BlogHead from '@/UI/Components/Blogs-Components/BlogsHead/BlogHead';
 import AllBlogs from '@/UI/Components/Blogs-Components/AllBlogs/AllBlogs';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
 import Pagination from '@/Global-Components/Pagination/Pagination';
+import ElipticalPagenation from '@/UI/Components/Products/ElepticalPagination';
 
 const BlogPage = () => {
 
@@ -14,21 +15,16 @@ const BlogPage = () => {
     blogCategories,
     fetchBlogs,
     activeCategory,
+    totalPages, 
+    setTotalPages,
+    currentPage, 
+    setCurrentPage,
   } = useBlog()
 
-  useEffect(() => {
-    fetchBlogs(blogCategories?.[activeCategory]?._id)
-  }, [activeCategory])
 
-  useEffect(() => {  }, [blogCategories])
-  const blogsPerPage = 9; // Number of blogs to show per page
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalBlogs = blogs?.length || 0;
-  const totalPages = Math.ceil(totalBlogs / blogsPerPage);
-  // Calculate the blogs to show for the current page
-  const startIndex = (currentPage - 1) * blogsPerPage;
-  const endIndex = startIndex + blogsPerPage;
-  const blogsToShow = blogs.slice(startIndex, endIndex);
+  useEffect(() => {
+    fetchBlogs(blogCategories?.[activeCategory]?._id, currentPage);
+}, [activeCategory, currentPage, blogCategories]);
 
   const handleActivePage = (page) => {
     setCurrentPage(page);
@@ -64,13 +60,13 @@ const BlogPage = () => {
         <h3 className='mobile-view-blog-page-main-heading'>Exciting Blogs</h3>
       </div>
       <BlogHead  blogCategories={blogCategories} />
-      <AllBlogs blogData={blogsToShow} />
-      <Pagination 
-        activePageIndex={currentPage} 
-        totalPages={totalPages} 
-        handleActivePage={handleActivePage} 
-        handlePrevPage={handlePrevPage} 
-        handleNextPage={handleNextPage}
+      <AllBlogs blogData={blogs} />
+      <ElipticalPagenation 
+        activePageIndex={currentPage}
+        totalPages={totalPages}
+        onPrevPage={handlePrevPage}
+        onPageChange={handleActivePage}
+        onNextPage={handleNextPage}
       />
     </div>
   )

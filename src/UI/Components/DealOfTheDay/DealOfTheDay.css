@@ -3,7 +3,7 @@
     width: 100%;
     height: auto;
     position: relative;
-    padding: 35px 60px 35px 60px;
+    padding: 45px 60px 35px 60px;
     overflow: hidden;
 }
 
@@ -12,7 +12,7 @@
     align-items: center;
     position: absolute;
     /* top: 30px; */
-    top: 10px;
+    top: 20px;
     left: 90px;
     background-color: #fff;
     z-index: 99;
@@ -28,8 +28,7 @@
     background-color: #FFF;
     border: 2px solid var(--orange-outline);
     height: 43px;
-    /* width: 370px; */
-    width: 340px;
+    width: 370px;
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;

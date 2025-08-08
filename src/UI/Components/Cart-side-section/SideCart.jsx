@@ -58,6 +58,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                                 <p className='cart-bag-couter'>0{cartProducts?.products?.length}</p>
                             )}
                         </div>
+                        <h3 className='side-cart-your-cart-heading'>Your Cart</h3>
                     </span>
                     <button className='side-cart-close-btn' onClick={handleCloseSideCart}>
                         <IoIosClose size={30} color='#595959' />

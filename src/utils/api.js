@@ -13,7 +13,7 @@ export const roomApi = `https://roomapi.myfurnituremecca.com`
 
 // export const roomApi = `https://roomapidev.myfurnituremecca.com`
 
-// Live
+// Livenpm 
 export const url = `https://fmapi.myfurnituremecca.com`;
 
 

@@ -7,6 +7,9 @@ const BlogHead = ({ blogCategories }) => {
     activeCategory,
     setActiveCategory,
     isBlogCatLoading,
+    fetchBlogs,
+    currentPage,
+    
   } = useBlog();
 
   const [sliderStyle, setSliderStyle] = useState({ width: '0px', left: '0px' });
@@ -22,9 +25,15 @@ const BlogHead = ({ blogCategories }) => {
     }
   }, [activeCategory, blogCategories]);
 
+
   const handleSelectedCategory = (index) => {
     setActiveCategory(index);
   };
+
+
+  useEffect(() => {
+      fetchBlogs(blogCategories?.[activeCategory]?._id, currentPage);
+  }, [activeCategory,]);
 
   return (
     <>
@@ -54,7 +63,11 @@ const BlogHead = ({ blogCategories }) => {
               <div key={index} className='mobile-blog-category-shimmer shimmer'></div>
             ))
           : blogCategories.slice(0, 6).map((item, index) => (
-              <p key={index} className='mobile-view-blog-head-category-type'>
+              <p 
+                ref={(el) => (categoryRefs.current[index] = el)}
+                key={index} className={`mobile-view-blog-head-category-type ${activeCategory === index ? 'active-blog-category' : ''}`}
+                onClick={() => handleSelectedCategory(index)}
+              >
                 {item.name}
               </p>
             ))}

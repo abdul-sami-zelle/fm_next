@@ -5,6 +5,7 @@ import BlogCardShimmer from '../../Loaders/blogCardShimmer/BlogCardShimmer';
 import { url } from '../../../../utils/api';
 import { useRouter } from 'next/navigation';
 import { useBlog } from '@/context/BlogsContext/blogsContext';
+import Loader from '../../Loader/Loader';
 
 const AllBlogs = ({blogData}) => {
 
@@ -24,7 +25,8 @@ const AllBlogs = ({blogData}) => {
 
   return (
     <div className='blog-page-blog-cards-main-container'>
-      {!isBlogLoading && blogData?.length > 0  ? (
+      {isBlogLoading && <Loader />}
+      {blogData?.length > 0  ? (
         blogData?.map((item, index) => (
         <div key={index} className='blog-cards-col'>
           <BlogCard

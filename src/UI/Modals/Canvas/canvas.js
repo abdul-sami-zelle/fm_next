@@ -387,7 +387,7 @@ const CanvasApp = ({ data, closeFn }) => {
 
       const fullSrc = src.startsWith('http')
         ? src
-        : `https://roomapidev.myfurnituremecca.com${src}`
+        : `${baseURL}${src}`
       // :`https://roomapi.myfurnituremecca.com${src}`
 
       const img = await FabricImage.fromURL(fullSrc);

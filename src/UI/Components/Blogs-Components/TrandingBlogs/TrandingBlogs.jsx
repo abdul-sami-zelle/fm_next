@@ -17,7 +17,7 @@ const TrandingBlogs = ({blogs}) => {
             <h3>Trending</h3>
             <div className='tranding-blogs-cards'>
                 {blogs?.map((item, index) => (
-                    <div className='tranding-single-blog-card' onClick={() => navigateToSingleBlog(item)}>
+                    <div key={index} className='tranding-single-blog-card' onClick={() => navigateToSingleBlog(item)}>
                         <img src={`${url}${item.image.image_url}`} alt='imm' className='tranding-blog-man-image' />
                         <div className='tranding-blog-content'>
                             <h3 className='tranding-blog-name'>{item.title}</h3>

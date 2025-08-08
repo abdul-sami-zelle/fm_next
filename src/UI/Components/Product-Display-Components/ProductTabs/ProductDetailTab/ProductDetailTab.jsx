@@ -13,11 +13,12 @@ const ProductDetailTab = ({id, detailsRef, productData, productDetails}) => {
       <h3>Product Details</h3>
       <div className="product-details-sub-section">
       <div className='product-detail-left-section'>
-        {productData?.dimension_image?.image_url ? (
+        {productData?.dimension_image?.image_url && (
           <img src={`${url}${productData?.dimension_image?.image_url}`} alt='dimension' />
-        ) : (
-            <img src={`${url}${productData?.image?.image_url}`} alt='detail' />
-        )}
+        ) }
+        {/* // : (
+        //     <img src={`${url}${productData?.image?.image_url}`} alt='detail' />
+        // )} */}
         
       </div>
       <div className='product-detail-right-section'>
