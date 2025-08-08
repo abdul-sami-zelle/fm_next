@@ -37,7 +37,7 @@ export const WishListProvider = ({ children }) => {
     // };
 
     const addToList = (productId) => {
-        if (!wishList.includes(productId)) {
+        if (!wishList?.includes(productId)) {
             setWishList((prevList) => [...prevList, productId]);
         }
     };
@@ -60,7 +60,7 @@ export const WishListProvider = ({ children }) => {
     };
 
     const isInWishList = (productId) => {
-        return wishList.includes(productId);
+        return wishList?.includes(productId);
     };
 
     return (
