@@ -78,7 +78,6 @@ export default function OrderConfirmationPage() {
         return <div>No order found</div>; // Show message if no order found
     }
 
-    console.log("ordr", order)
 
 
     return (

@@ -431,8 +431,6 @@ const ProductDetailSticky = (
       }, 500)
   }
 
-  useEffect(() => {console.log("show side cart", showSideCart)}, [showSideCart])
-
 
 
   useDisableBodyScroll(whatIsCoveredModa)

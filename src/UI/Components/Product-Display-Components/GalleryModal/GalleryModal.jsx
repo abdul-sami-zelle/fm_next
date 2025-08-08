@@ -81,10 +81,6 @@ const GalleryModal = ({
 
   const mobileImages = clickedType === 'dimenssion-show' ? mobileWithDimenssion : withoutDimensionImages
 
-  console.log("dimention images", mobileWithDimenssion )
-  console.log("other then dimension images", withoutDimensionImages )
-
-  console.log("mobile images", mobileImages)
 
   const onThumbnailClick = (index) => {
     swiperRef.current?.slideTo(index);

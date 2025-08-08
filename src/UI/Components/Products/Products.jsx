@@ -575,7 +575,6 @@ const Products = ({ navigationType }) => {
 
     const handleWishList = async (item) => {
 
-        console.log("clicked product wishlist", item)
 
         setOpenSnakeBar(true)
         if (isInWishList(item._id)) {

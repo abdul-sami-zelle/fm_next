@@ -222,9 +222,6 @@ const BestSellerSlider = (
     //     router.push(`/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
     // }
 
-    console.log("banner link", `/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
-    console.log("banner link object", bestSellerNav1)
-
 
 
     return (

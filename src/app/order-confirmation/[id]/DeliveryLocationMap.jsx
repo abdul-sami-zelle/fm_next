@@ -34,20 +34,16 @@ function DeliveryLocationMap({ address_info }) {
       .trim();
   };
   const fetchLatLngFromAddress = async (address) => {
-    console.log("raw Address", address)
     // const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
     //   address
     // )}&key=AIzaSyBhUqdMX-GUuJUlMuEj7oggAkLuDkVdjbU`;
     const cleanedAddress = cleanAddress(address);
-    // console.log("cleaned address", cleanedAddress)
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cleanedAddress)}`;
 
     try {
       const response = await fetch(url);
       const data = await response.json();
 
-      // console.log("fetch response", response)
-      // console.log("fetch response data", data)
 
       if (data.length > 0) {
         const { lat, lon } = data[0];
@@ -82,7 +78,6 @@ function DeliveryLocationMap({ address_info }) {
     const fetchLocation = async () => {
       if (address_info) {
         const result = await fetchLatLngFromAddress(address_info);
-        console.log("response", result)
         setLocation(result);
       }
     };
@@ -90,7 +85,6 @@ function DeliveryLocationMap({ address_info }) {
     fetchLocation();
   }, [address_info]);
 
-  useEffect(() => { console.log("result ", location); }, [location])
 
 
   if (!isLoaded) return <Loader />;

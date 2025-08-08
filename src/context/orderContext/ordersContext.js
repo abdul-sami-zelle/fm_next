@@ -299,7 +299,6 @@ export const MyOrdersProvider = ({ children }) => {
     }
 
     const handleTabOpen = (tabId, scrollTop) => {
-        console.log("tab id", tabId)
         setSelectedTab(tabId);
 
         if (scrollTop) {
