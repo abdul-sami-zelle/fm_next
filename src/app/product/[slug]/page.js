@@ -43,16 +43,9 @@ const ProductDisplay = ({ params }) => {
   const [clickedType, setClickedType] = useState('')
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
   const [steperIndex, setSteperIndex] = useState(0);
-  const [recomandedProducts, setRecomandedProducts] = useState([])
-  const [recomandationCount, setRecomandationCount] = useState(0)
 
-  // const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
   const isMobile = useIsMobile()
-  // const [isMobile, setIsMobille] = useState(browserWidth)
-  // useEffect(() => {
-  //   setIsMobille(browserWidth)
-  // }, [browserWidth])
   
 
   const tabBarItems = [
@@ -149,11 +142,6 @@ const ProductDisplay = ({ params }) => {
 
   const handleClick = () => {
 
-    // setCartSection(true);
-    // setIsLoading(true);
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 1000);
   };
 
   const handleAddToCartProduct = (product) => {
@@ -287,24 +275,6 @@ const ProductDisplay = ({ params }) => {
     }
   }, [dimensionModal])
 
-  // const recomandationApi = product._id ? `https://recommendations.myfurnituremecca.com/recommended-products?page=1&_id=${product?._id}` : null;
-  // const { data: recomandationData, error: recomandationError, isLoading: recomandationLoading } = useSWR(recomandationApi, fetcher, {
-  //   revalidateOnFocus: false,
-  //   revalidateOnReconnect: false,
-  //   dedupingInterval: 1000 * 60 * 60 * 24 * 365
-  // })
-
-  // if (recomandationError && recomandationCount < 3) {
-  //   setTimeout(() => {
-  //     setRecomandationCount(recomandationCount + 1);
-  //   }, 1000)
-  // }
-
-  // useEffect(() => {
-  //   if (recomandationData) {
-  //     setRecomandedProducts(recomandationData.recommendations)
-  //   }
-  // }, [recomandationData])
 
   useEffect(() => {
     if (showDesignRoomModal) {
@@ -336,11 +306,6 @@ const ProductDisplay = ({ params }) => {
       selectedVariationData?.dyrc?.active === 1 ? true : false) :
       product?.dyrc?.active === 1 ? true : false;
 
-
-  
-    const [isCartOpen, setIsCartOpen] = useState(true);
-  
-  useDisableBodyScroll(cartSection, isCartOpen)
 
 
   return (
@@ -513,28 +478,11 @@ const ProductDisplay = ({ params }) => {
           )} */}
         </div>
 
-        {/* {product && <DesignYourRoomIndv designRef={sectionRefs.DesignYourRoom} openFN={showDRM} image={product?.images?.length > 1 ? product?.images[1]?.image_url : product?.image?.image_url} />} */}
-
-        {/* <ProductDescriptionTab
-          descriptionRef={sectionRefs.Description}
-          productData={product}
-          addMarginTop={isSticky}
-        /> */}
-
-        {/* <ProductDetailTab
-          detailsRef={sectionRefs.Details}
-          productData={product}
-          productDetails={productDetails}
-        /> */}
-
-
-
         <ProductRecommendationTab
           recommendationRef={sectionRefs.Recommendations}
           product={product}
         />
 
-        {/* <DesignYourRoom data={recomandedProducts} firstChild={product} /> */}
       </div>
 
       <ProductReviewTab
@@ -620,11 +568,10 @@ const ProductDisplay = ({ params }) => {
         galleryModalWidth={galleryModalWidth}
       />
 
-
-      {/* <SideCart 
-        isCartOpen={isCartOpen}
-        handleCloseSideCart={() => setIsCartOpen(false)}
-      /> */}
+      <SideCart 
+        isCartOpen={cartSection}
+        handleCloseSideCart={handleCartClose}
+      />
 
     </>
   )

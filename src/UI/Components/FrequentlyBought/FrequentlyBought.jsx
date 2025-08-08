@@ -8,10 +8,9 @@ import ProductCardTwo from '../ProductCardTwo/ProductCardTwo';
 import QuickView from '../QuickView/QuickView';
 import { useRouter } from 'next/navigation';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
+import { useDisableBodyScroll } from '@/utils/api';
 
 const FrequentlyBought = ({ isPadding, product }) => {
-
-    // const products = relatedProducts;
 
     const [data, setData] = useState()
 
@@ -44,9 +43,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
 
     const router = useRouter();
 
-
     // wish list
-
     const { addToList, removeFromList, isInWishList } = useList()
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState();
@@ -97,8 +94,13 @@ const FrequentlyBought = ({ isPadding, product }) => {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const handleProductClick = (item) => {
+        setQuickView(false)
         router.push(`/product/${item.slug}`, { state: item });
     };
+
+    useDisableBodyScroll(quickViewClicked)
+
+
 
 
     return (

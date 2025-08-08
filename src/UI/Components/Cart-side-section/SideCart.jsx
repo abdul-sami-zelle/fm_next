@@ -8,7 +8,6 @@ import EmptyCart from '../Cart-Components/Empty-Cart/EmptyCart';
 import { useRouter } from 'next/navigation';
 import { IoIosClose } from 'react-icons/io';
 import Image from 'next/image';
-import CloseButton from '@/Global-Components/CloseButton/CloseButton';
 
 
 const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
@@ -31,9 +30,22 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
         setCartSection,
     } = useCart()
 
+    const router = useRouter()
+
+    const handleCLoseCartPanel = () => {
+        setCartSection(false)
+        router.push(`/cart`)
+
+    }
+
+    const navigateToCheckout = () => {
+        setCartSection(false)
+        router.push("/check-out");
+    }
+
     return (
-        <div className={`side-cart-main-contianer ${isCartOpen ? 'open-side-cart-overlay' : ''}`}>
-            <div className={`side-cart-inner-container ${isCartOpen ? 'show-cart-inner-contianer' : ''}`}>
+        <div className={`side-cart-main-contianer ${isCartOpen ? 'open-side-cart-overlay' : ''}`} onClick={handleCloseSideCart}>
+            <div className={`side-cart-inner-container ${isCartOpen ? 'show-cart-inner-contianer' : ''}`} onClick={(e) => e.stopPropagation()}>
 
 
                 <div className='side-cart-head'>
@@ -47,39 +59,42 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                             )}
                         </div>
                     </span>
-                    <button className='side-cart-close-btn'>
+                    <button className='side-cart-close-btn' onClick={handleCloseSideCart}>
                         <IoIosClose size={30} color='#595959' />
                     </button>
                 </div>
 
 
                 <div className='side-cart-products-container'>
-                    {cartProducts?.products?.length === 0 ? (
-                        <EmptyCart />
-                    ) : (
-                        cartProducts?.products?.map((items, index) => {
-                            return <CartSideSection
-                                key={index}
-                                attributes={items.attributes}
-                                handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-                                closeBtn={'/Assets/icons/close-btn.png'}
-                                sku={items.sku}
-                                productTitle={items.name}
-                                mainImage={items.image}
-                                priceTag={items.regular_price}
-                                decreamentQuantity={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
-                                minusBtn={'/Assets/icons/minus-white.png'}
-                                quantity={items.quantity}
-                                increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                    <div className='side-cart-products-inner-contianer'>
+                        {cartProducts?.products?.length === 0 ? (
+                            <EmptyCart />
+                        ) : (
+                            cartProducts?.products?.map((items, index) => {
+                                return <CartSideSection
+                                    key={index}
+                                    attributes={items.attributes}
+                                    handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                                    closeBtn={'/Assets/icons/close-btn.png'}
+                                    sku={items.sku}
+                                    productTitle={items.name}
+                                    mainImage={items.image}
+                                    priceTag={items.regular_price}
+                                    decreamentQuantity={() => decreamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
+                                    minusBtn={'/Assets/icons/minus-white.png'}
+                                    quantity={items.quantity}
+                                    increamentQuantity={() => increamentQuantity(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
 
-                                plusBtn={'/Assets/icons/plus-white.png'}
-                                sale_price={items.sale_price}
-                                regular_price={items.regular_price}
-                                type={items.type}
-                                isProtected={items.is_protected}
-                            />
-                        })
-                    )}
+                                    plusBtn={'/Assets/icons/plus-white.png'}
+                                    sale_price={items.sale_price}
+                                    regular_price={items.regular_price}
+                                    type={items.type}
+                                    isProtected={items.is_protected}
+                                />
+                            })
+                        )}
+
+                    </div>
                 </div>
 
 
@@ -156,15 +171,21 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     </div>
 
                     <div className='side-cart-navigation-buttons-contianer'>
-                        <button className='side-cart-navigate-to-cart'>
+                        <button className='side-cart-navigate-to-cart' onClick={handleCLoseCartPanel}>
                             Cart
                         </button>
-                        <button className='side-cart-navigate-to-checkout'>
+                        <button className='side-cart-navigate-to-checkout' onClick={navigateToCheckout}>
                             Checkout
                         </button>
                     </div>
 
                 </div>
+
+                {isCartLoading && <div className="side-cart-loader_overlay">
+                    <div className="loader">
+
+                    </div>
+                </div>}
             </div>
         </div>
     )

@@ -822,8 +822,8 @@
 .header-cart-products-count {
     position: absolute;
     top: 15%;
-    left: 30%;
-    font-size: 10px;
+    left: 35%;
+    font-size: 13px;
     line-height: 14px;
     font-weight: 400;
     color: var(--orange-outline);
@@ -1361,8 +1361,8 @@
     .header-cart-products-count {
         position: absolute;
         top: 38%;
-        left: 30%;
-        font-size: 10px;
+        left: 37%;
+        font-size: 13px;
         line-height: 14px;
         font-weight: 400;
         color: var(--text-gray);

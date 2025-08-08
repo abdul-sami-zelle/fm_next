@@ -32,6 +32,7 @@ import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigat
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import ElipticalPagenation from './ElepticalPagination';
+import SideCart from '../Cart-side-section/SideCart';
 
 const Products = ({ navigationType }) => {
 
@@ -41,6 +42,8 @@ const Products = ({ navigationType }) => {
         increamentQuantity,
         decreamentQuantity,
         removeFromCart,
+        cartSection, 
+        setCartSection,
     } = useCart();
 
     const {
@@ -557,13 +560,7 @@ const Products = ({ navigationType }) => {
         }
     };
 
-    const handleCartSectionClose = () => {
-        setAddToCartClicked(false)
-    }
-
-
-
-
+    
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -577,6 +574,8 @@ const Products = ({ navigationType }) => {
     };
 
     const handleWishList = async (item) => {
+
+        console.log("clicked product wishlist", item)
 
         setOpenSnakeBar(true)
         if (isInWishList(item._id)) {
@@ -834,7 +833,8 @@ const Products = ({ navigationType }) => {
         isInfoOpen,
         quickViewClicked,
         showSortModal,
-        mobileFilters
+        mobileFilters,
+        cartSection
     )
 
     return (
@@ -845,33 +845,35 @@ const Products = ({ navigationType }) => {
                 Select Your{" "}
                 {formatted}
             </h3>
-            <div className={`product-archive-category-wrapper  ${currentRoute === 'searched-products' ? 'hide-category-images-main-contianer' : ''}`}>
-                <button 
-                    className='category-scroll-button category-left' 
-                    onClick={() => scrollLeft()}
-                    // style={{ visibility: atStart ? 'hidden' : 'visible' }}
-                >
-                    <IoIosArrowBack size={15} color='var(--orange-outline)' />
-                </button>
-                <div
-                    ref={scrollRef}
-                    className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}
-                    onMouseDown={handleMouseDown}
-                >
-                    {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
-                        <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>
-                            {item.filterImage !== "" ? <img src={` ${url}${item.filterImage}`} alt='sub category' /> : <img src={` ${url}${item.image2}`} alt='sub category' />}
-                        </Link>
-                    ))}
+            {products?.length > 0 && (
+                <div className={`product-archive-category-wrapper  ${currentRoute === 'searched-products' ? 'hide-category-images-main-contianer' : ''}`}>
+                    <button 
+                        className='category-scroll-button category-left' 
+                        onClick={() => scrollLeft()}
+                        // style={{ visibility: atStart ? 'hidden' : 'visible' }}
+                    >
+                        <IoIosArrowBack size={15} color='var(--orange-outline)' />
+                    </button>
+                    <div
+                        ref={scrollRef}
+                        className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}
+                        onMouseDown={handleMouseDown}
+                    >
+                        {subCategories.filter((item) => item.slug !== subCategorySlug).map((item, index) => (
+                            <Link href={`/${parentCategory}/${item.slug}`} key={index} className='product-archive-single-sub-category'>
+                                {item.filterImage !== "" ? <img src={` ${url}${item.filterImage}`} alt='sub category' /> : <img src={` ${url}${item.image2}`} alt='sub category' />}
+                            </Link>
+                        ))}
+                    </div>
+                    <button 
+                        className='category-scroll-button category-right' 
+                        onClick={() => scrollRight()}
+                        // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
+                    >
+                        <IoIosArrowForward size={15} color='var(--orange-outline)' />
+                    </button>
                 </div>
-                <button 
-                    className='category-scroll-button category-right' 
-                    onClick={() => scrollRight()}
-                    // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
-                >
-                    <IoIosArrowForward size={15} color='var(--orange-outline)' />
-                </button>
-            </div>
+            )}
 
 
             <h3 className={`searched-products-heading ${currentRoute !== 'searched-products' ? 'hide-searched-heading' : ''}`}>Searched Products for: {query}</h3>
@@ -1353,14 +1355,16 @@ const Products = ({ navigationType }) => {
                 quickViewClose={handleQuickViewClose}
             />
 
-            <CartSidePannel
+            
+
+            {/* <CartSidePannel
                 cartData={cartProducts}
                 addToCartClicked={addToCartClicked}
                 handleCartSectionClose={handleCartSectionClose}
                 removeFromCart={removeFromCart}
                 decreamentQuantity={decreamentQuantity}
                 increamentQuantity={increamentQuantity}
-            />
+            /> */}
 
             <MobileViewProductFilters
                 showMobileFilters={mobileFilters}

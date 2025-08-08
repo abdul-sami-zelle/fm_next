@@ -21,17 +21,13 @@ import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
 import Image from 'next/image';
+import SideCart from '../Cart-side-section/SideCart';
 
 const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const {
-        increamentQuantity,
-        decreamentQuantity,
-        removeFromCart,
         addToCart0,
-        cartProducts,
         isCartLoading,
         cartSection,
-        setCartSection
     } = useCart();
 
     const [viewDetails, setViewDetails] = useState(null)
@@ -39,16 +35,9 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
     const [variableProductData, setVariableData] = useState();
     const { selectedVariationData } = useProductPage()
 
-
-    const handleCartSectionClose = () => {
-        setCartSection(false)
-        setQuantity(1)
-    }
-
     const handleViewDetails = (index) => {
         setViewDetails(prevIndex => (prevIndex === index ? null : index));
     }
-
 
     const [productDetails, setProductDetails] = useState({})
     useEffect(() => {
@@ -87,17 +76,15 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         },
     ]
 
-    // const startFrom = setQuickViewProduct?.dimension_image !== null ? 0 : 1
-
-
     const handleAddToCartProduct = (product) => {
         addToCart0(product, variableProductData, 0, quantity)
-
     }
 
-    // const imagesLenght = setQuickViewProduct.images && setQuickViewProduct.images.length;
     const [quantity, setQuantity] = useState(1)
-
+    useEffect(() => {
+        quickViewClose();
+        setQuantity(1)
+    }, [cartSection])
 
 
     const increaseLocalQuantity = () => {
@@ -143,8 +130,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         setShowSnakeBar(false)
     }
 
-    // const stockCheck = setQuickViewProduct?.type === 'variable' ?  '' : setQuickViewProduct?.manage_stock?.stock_status === 'inStock' && setQuickViewProduct?.manage_stock?.quantity === 0 || setQuickViewProduct?.manage_stock?.stock_status === 'outStock';
-
     const stockCheck = setQuickViewProduct?.type === 'variable' ?
         selectedVariationData?.manage_stock?.stock_status === 'inStock'
         && selectedVariationData?.manage_stock?.quantity === 0
@@ -164,8 +149,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 <button className='quick-view-close-modal-button' onClick={quickViewClose}>
                     <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                 </button>
-
-                {/* <IoIosClose size={25} color='#595959' className='quick-view-close-modal-button' onClick={quickViewClose} /> */}
 
                 <div className='quick-view-heading-and-rating'>
                     <h3>{setQuickViewProduct.name}</h3>
@@ -258,7 +241,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     setQuantity(value);
                                 }
                             }}
-                            
+
                         />
                         <button disabled={stockCheck} className={stockCheck ? 'disable-quick-view-quantity' : ''} onClick={increaseLocalQuantity}>
                             <FaPlus className='quick-view-plus' size={12} color='#595959' />
@@ -348,15 +331,6 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                 </div>
 
             </div>
-            <CartSidePannel
-                cartData={cartProducts}
-                addToCartClicked={cartSection}
-                handleCartSectionClose={handleCartSectionClose}
-                setAddToCartClick={setCartSection}
-                removeFromCart={removeFromCart}
-                decreamentQuantity={decreamentQuantity}
-                increamentQuantity={increamentQuantity}
-            />
 
             <SnakBar
                 message={snakeBarMessage}

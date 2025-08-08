@@ -16,6 +16,8 @@ import { url } from '@/utils/api';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import Image from 'next/image';
 import ProductInfoModal from '@/Global-Components/ProductInfoModal/ProductInfoModal';
+import { useCart } from '@/context/cartContext/cartContext';
+import SideCart from '../Cart-side-section/SideCart';
 
 
 const WishListClient = () => {
@@ -28,6 +30,7 @@ const WishListClient = () => {
     isInWishList
   } = useList();
 
+  const {cartSection, setCartSection} = useCart()
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -39,45 +42,78 @@ const WishListClient = () => {
 
   const [wishlistMessage, setWishlistMessage] = useState('')
   const [openSnakeBar, setOpenSnakeBar] = useState(false);
+  const [updateProducts, setUpdateProducts] = useState(false)
 
   const handleWishListProducts = async () => {
-    const wishlistItem = JSON.parse(localStorage.getItem('wishList'));
-    const productIds = wishlistItem.map(item => item._id)
+    const wishlistItem = JSON.parse(localStorage.getItem('wishList')) || [];
+    const productIds = wishlistItem.map(id => id); // assuming IDs stored in localStorage
     const userId = localStorage.getItem('uuid');
     const userToken = localStorage.getItem('userToken');
-    const userApi = `${url}/api/v1/web-users/wishlist/${userId}`
-    const guestApi = `https://fmapi.myfurnituremecca.com/api/v1/products/get-by-ids`
-    let response;
-    try {
-      setLoading(true);
-      if (userToken && userId) {
-        response = await axios.get(userApi,
-          {
-            headers: {
-              Authorization: userToken, // Replace with your actual token variable
-              'Content-Type': 'application/json', // Optional but good practice
-            }
-          })
-        if (response.status === 200) {
-          setWishlistProducts(response.data.wishlist)
-          setLoading(false)
-        }
-      } else {
-        response = await axios.post(guestApi, { ids: productIds });
 
-        // if(response.status === 200) {
-        setWishlistProducts(response.data.products)
-        // }
+    setLoading(true);
+    setWishlistProducts([]);
+
+    try {
+      let response;
+
+      if (userId && userToken) {
+        // Sync localStorage wishlist with server
+        if (productIds.length > 0) {
+          await axios.put(`${url}/api/v1/web-users/wishlist/${userId}`,
+            { productIds },
+            {
+              headers: {
+                Authorization: userToken,
+                'Content-Type': 'application/json',
+              }
+            }
+          );
+        }
+
+        // Fetch wishlist products from server
+        response = await axios.get(`${url}/api/v1/web-users/wishlist/${userId}`, {
+          headers: {
+            Authorization: userToken,
+            'Content-Type': 'application/json',
+          }
+        });
+
+        if (response.status === 200) {
+          setWishlistProducts(response.data.wishlist || []);
+        }
+
+      } else {
+        // Guest mode
+        if (productIds.length === 0) {
+          setWishlistProducts([]);
+          setLoading(false);
+          return;
+        }
+
+        response = await axios.post(
+          `https://fmapi.myfurnituremecca.com/api/v1/products/get-by-ids`,
+          { ids: productIds }
+        );
+
+        setWishlistProducts(response.data.products || []);
       }
     } catch (error) {
+      console.error("Unexpected Server Error", error);
+    } finally {
       setLoading(false);
-      console.error("UnExpected Server Error", error);
-    } finally { setLoading(false) }
-  }
+    }
+  };
 
   useEffect(() => {
     handleWishListProducts()
   }, [])
+
+  useEffect(() => {
+    if (updateProducts === true) {
+      handleWishListProducts()
+      setUpdateProducts(false)
+    }
+  }, [updateProducts])
 
   // Simulate data loading
   React.useEffect(() => {
@@ -102,34 +138,52 @@ const WishListClient = () => {
   };
 
   const handleWishList = async (item) => {
-
     const userId = localStorage.getItem('uuid');
     const userToken = localStorage.getItem('userToken');
-    setOpenSnakeBar(true)
-    if (isInWishList(item._id)) {
-      removeFromList(item._id);
-      setWishlistMessage('Removed from wish list')
 
+    setOpenSnakeBar(true);
+
+    if (isInWishList(item._id)) {
+      // Remove from local storage
+      removeFromList(item._id);
+
+      // Remove from UI instantly
+      setWishlistProducts(prev => prev.filter(p => p._id !== item._id));
+
+      setWishlistMessage('Removed from wish list');
     } else {
-      addToList(item._id)
-      setWishlistMessage('added to wish list')
+      addToList(item._id);
+      setWishlistMessage('Added to wish list');
+
+      // Optional: instantly add product for guest mode
+      if (!userId || !userToken) {
+        setWishlistProducts(prev => [...prev, item]);
+      }
     }
 
+    // Sync with backend if user logged in
     if (userId && userToken) {
       const api = `${url}/api/v1/web-users/wishlist/${userId}`;
-
       try {
-        const response = await axios.put(api, { productId: item._id }, {
+        await axios.put(api, { productId: item._id }, {
           headers: {
             Authorization: userToken,
             'Content-Type': 'application/json',
           }
         });
+
+        // Fetch fresh list from server to ensure it's synced
+        const response = await axios.get(api, {
+          headers: { Authorization: userToken }
+        });
+        if (response.status === 200) {
+          setWishlistProducts(response.data.wishlist);
+        }
       } catch (error) {
-        console.error("UnExpected Server Error", error);
+        console.error("Unexpected Server Error", error);
       }
     }
-  }
+  };
 
   const handleCloseSnakeBar = () => {
     setOpenSnakeBar(false)
@@ -140,12 +194,16 @@ const WishListClient = () => {
   }
 
   const handleOpennfoModal = () => {
-        setIsInfoOpen(true);
-    }
+    setIsInfoOpen(true);
+  }
 
-    const handleCloseInfoModal = () => {
-        setIsInfoOpen(false);
-    }
+  const handleCloseInfoModal = () => {
+    setIsInfoOpen(false);
+  }
+
+  const handleSideCartClose = () => {
+    setCartSection(false)
+  }
 
 
   return (
@@ -219,7 +277,53 @@ const WishListClient = () => {
       </div>
 
       <div className={`wishlist-mobile-cards ${activeGrid === 'single-col' ? 'single-col' : 'two-col'}`}>
-        {wishlistProducts && wishlistProducts?.length > 0 ? (
+        {loading ? (
+          <ProductCardShimmer width={'100%'} />
+        ) : wishlistProducts?.length === 0 ? (
+          <div className='empty-wishlist'>
+            <Image src={'/icons/wishlist.svg'} width={60} height={60} alt='no items' />
+            <h3>No items in your wishlist</h3>
+          </div>
+        ) : (
+          wishlistProducts.map((item, index) => {
+            return (
+              <ProductCardTwo
+                key={index}
+                slug={item.slug}
+                singleProductData={item}
+                maxWidthAccordingToComp={"100%"}
+                justWidth={'100%'}
+                showOnPage={true}
+                showExtraLines={true}
+                percent={'12%'}
+                colTwo={activeGrid === 'single-col'}
+                tagIcon={item.productTag ? item.productTag : heart}
+                tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                mainImage={`${item?.image?.image_url}`}
+                productCardContainerClass="product-card"
+                ProductSku={item.sku}
+                tags={item.product_tag}
+                ProductTitle={truncateTitle(item.name, maxLength)}
+                allow_back_order={item?.allow_back_order}
+                reviewCount={item.reviewCount}
+                lowPriceAddvertisement={item.lowPriceAddvertisement}
+                priceTag={item.regular_price}
+                sale_price={item.sale_price}
+                financingAdd={item.financingAdd}
+                learnMore={item.learnMore}
+                mainIndex={index}
+                deliveryTime={item.deliveryTime}
+                stock={item.manage_stock}
+                attributes={item.attributes}
+                handleCardClick={() => handleProductClick(item)}
+                handleQuickView={() => handleQuickViewOpen(item)}
+                handleWishListclick={() => handleWishList(item)}
+                handleInfoModal={handleOpennfoModal}
+              />
+            );
+          })
+        )}
+        {/* {wishlistProducts && wishlistProducts?.length > 0 ? (
           wishlistProducts.map((item, index) => {
             return <ProductCardTwo
               key={index}
@@ -255,12 +359,17 @@ const WishListClient = () => {
           Array.from({ length: 1 }).map((_, index) => (
             <ProductCardShimmer key={index} width={'100%'} />
           ))
-        )}
+        )} */}
       </div>
       <QuickView
         setQuickViewProduct={quickViewProduct}
         quickViewShow={quickViewClicked}
         quickViewClose={handleQuickViewClose}
+      />
+
+      <SideCart 
+        isCartOpen={cartSection}
+        handleCloseSideCart={handleSideCartClose}
       />
 
       <SnakBar

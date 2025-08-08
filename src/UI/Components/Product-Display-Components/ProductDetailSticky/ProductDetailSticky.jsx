@@ -853,7 +853,7 @@ const ProductDetailSticky = (
         onClick={handleCloseSnakeBar}
       />
 
-      <CartSidePannel
+      {/* <CartSidePannel
         cartData={cartProducts}
         addToCartClicked={cartSection}
         setAddToCartClick={setCartSection}
@@ -861,7 +861,7 @@ const ProductDetailSticky = (
         removeFromCart={removeFromCart}
         decreamentQuantity={decreamentQuantity}
         increamentQuantity={increamentQuantity}
-      />
+      /> */}
 
       <ShareProduct
         isSharePopup={isSharePopup}

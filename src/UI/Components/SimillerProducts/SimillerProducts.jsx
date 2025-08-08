@@ -4,41 +4,18 @@ import axios from 'axios'
 import heart from '../../../Assets/icons/heart-vector.png'
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer'
 import { useList } from '../../../context/wishListContext/wishListContext'
-// import Slider from 'react-slick'
-// import leftArrow from '../../../Assets/icons/arrow-left-charcol.png'
-// import rightArrow from '../../../Assets/icons/arrow-right-charcol.png'
 import ProductCardTwo from '../ProductCardTwo/ProductCardTwo'
 import QuickView from '../QuickView/QuickView'
 import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
-// import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
+import { useDisableBodyScroll } from '@/utils/api'
 
-
-// const SamplePrevArrow = (props) => {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-left ${className}`} >
-//       {/* <img src={leftArrow} alt='arrow' /> */}
-//       <MdKeyboardArrowLeft size={25} color='#FFF' />
-//     </div>
-//   )
-// }
-// function SampleNextArrow(props) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div onClick={onClick} className={`cart-latest-products-slider-arrow cart-latest-products-slider-arrow-right ${className}`} >
-//       {/* <img src={rightArrow} alt='arrow' /> */}
-//       <MdKeyboardArrowRight size={25} color='#FFF' />
-//     </div>
-//   )
-// }
 
 const SimillerProducts = ({ isPadding, productId }) => {
 
   const [data, setData] = useState()
-
 
   const fetchCollections = async () => {
     const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-collection-products/${productId}`
@@ -65,7 +42,6 @@ const SimillerProducts = ({ isPadding, productId }) => {
     setQuickViewProduct(item)
 
   }
-
 
   const handleQuickViewClose = () => { setQuickView(false) }
 
@@ -113,105 +89,12 @@ const SimillerProducts = ({ isPadding, productId }) => {
     setShowSnakeBar(false)
   }
 
-  // const [activeIndex, setActiveIndex] = useState(0);
-  // const totalSlides = data?.length;
-
-  // const scrollDotsToCenter = (index) => {
-  //   const container = dotsRef.current;
-  //   if (!container) return;
-
-  //   const dots = container.querySelectorAll('li');
-  //   const activeDot = dots[index];
-
-  //   if (activeDot && container) {
-  //     const containerWidth = container.offsetWidth;
-  //     const dotOffsetLeft = activeDot.offsetLeft;
-  //     const dotWidth = activeDot.offsetWidth;
-  //     const scrollPosition = dotOffsetLeft - (containerWidth / 2) + (dotWidth / 2);
-  //     container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const interval = setTimeout(() => {
-  //     scrollDotsToCenter(activeSlide);
-  //   }, 100); // wait for DOM update
-
-  //   return () => clearTimeout(interval);
-  // }, [activeSlide]);
-
-  // Slick
-  // let settings = {
-  //   dots: false,
-  //   infinite: false,
-  //   speed: 500,
-  //   slidesToShow: 4,
-  //   slidesToScroll: 1,
-  //   initialSlide: 0,
-  //   arrows: true,
-  //   nextArrow:
-  //     data && data.length > 4 ? <SampleNextArrow to="next" /> : null,
-  //   prevArrow:
-  //     data && data.length > 4 ? <SamplePrevArrow to="prev" /> : null,
-  //   afterChange: (index) => setActiveIndex(index),
-  //   responsive: [
-  //     {
-  //       breakpoint: 1024,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 1,
-  //         infinite: false,
-  //         dots: false,
-  //         arrows: data && data.length > 2 ? true : false,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 600,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 1,
-  //         initialSlide: 2,
-  //         arrows: data && data.length > 2 ? true : false,
-
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 480,
-  //       settings: {
-  //         slidesToShow: 1,
-  //         slidesToScroll: 1,
-  //         arrows: false,
-  //         dots: false // still false, we're using custom
-  //       }
-  //     }
-  //   ]
-  // };
-
-  // const renderCustomDots = () => {
-  //   if (window.innerWidth > 480) return null; // only mobile
-
-  //   const visibleDots = [];
-
-  //   // Determine start index to always show 3 dots
-  //   let start = Math.max(0, activeIndex - 1);
-  //   if (activeIndex === totalSlides - 1) start = totalSlides - 3;
-  //   if (activeIndex === 0) start = 0;
-
-  //   for (let i = start; i < start + 3 && i < totalSlides; i++) {
-  //     visibleDots.push(
-  //       <div
-  //         key={i}
-  //         className={`custom-dot ${i === activeIndex ? 'active' : ''}`}
-  //       />
-  //     );
-  //   }
-
-  //   return <div className="custom-dots-wrapper">{visibleDots}</div>;
-  // };
-
   const handleProductClick = (item) => {
+    setQuickView(false)
     router.push(`/product/${item.slug}`, { state: item });
   };
+
+  useDisableBodyScroll(quickViewClicked)
 
   return (
     data?.length > 0 && (
@@ -243,7 +126,6 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     tags={item.product_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
-
                     reviewCount={item.reviewCount}
                     lowPriceAddvertisement={item.lowPriceAddvertisement}
                     priceTag={item.regular_price}

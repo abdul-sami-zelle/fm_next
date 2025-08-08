@@ -11,7 +11,9 @@ import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiv
 import { usePathname } from 'next/navigation';
 import axios from 'axios';
 import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
-import { url } from '@/utils/api';
+import { url, useDisableBodyScroll } from '@/utils/api';
+import SideCart from '@/UI/Components/Cart-side-section/SideCart';
+import { useCart } from '@/context/cartContext/cartContext';
 
 const ProductArchive = () => {
 
@@ -22,14 +24,15 @@ const ProductArchive = () => {
   const childSlug = pathname.split('/').filter(Boolean).pop();
   const [relatedProducts, setRelatedProducts] = useState([])
   const [hasProducts, setHasProducts] = useState(false)
+
   const findRelatedProducts = async () => {
     const api = `${url}/api/v1/products/get-best-selling/${childSlug}`;
     try {
       const response = await axios.get(api);
-      if(response.status === 200) {
+      if (response.status === 200) {
         setRelatedProducts(response.data.products);
       }
-      if(response.data.products.length > 0 ) {
+      if (response.data.products.length > 0) {
         setHasProducts(true);
       } else {
         setHasProducts(false);
@@ -39,7 +42,7 @@ const ProductArchive = () => {
     }
   }
 
-  useEffect(() => {findRelatedProducts()}, [childSlug])
+  useEffect(() => { findRelatedProducts() }, [childSlug])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.performance) {
@@ -58,6 +61,13 @@ const ProductArchive = () => {
     }
   }, [navigationType]);
 
+  const {cartSection, setCartSection} = useCart()
+
+  const handleCartSectionClose = () => {
+        setCartSection(false)
+    }
+
+
   return (
     <div>
       <Products
@@ -65,18 +75,23 @@ const ProductArchive = () => {
       />
 
       {hasProducts && <RelatedProducts data={relatedProducts} />}
-      
+
       {!hideSection && (
         <RelatedCategories
           navigationType={navigationType}
         />
       )}
 
-      
+
 
       {!hideSection && (
         <FAQ />
       )}
+
+      <SideCart
+        isCartOpen={cartSection}
+        handleCloseSideCart={handleCartSectionClose}
+      />
     </div>
   )
 }

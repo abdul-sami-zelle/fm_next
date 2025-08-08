@@ -19,6 +19,7 @@ import { useAppointment } from '@/context/AppointmentContext/AppointmentContext'
 import { useRouter } from 'next/navigation';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
+import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 
 
 
@@ -51,6 +52,8 @@ const Cart = () => {
     isCartProtected,
     cartProducts,
     isProfessionalAssembly,
+    cartSection, 
+    setCartSection,
   } = useCart();
 
   const handleZipInput = () => {
@@ -64,28 +67,6 @@ const Cart = () => {
   const [latestProducts, setLatestProducts] = useState([]);
   const [noProduct, setNoProduct] = useState(false);
 
-  // useEffect(() => {
-  //   const getLatestProducts = async () => {
-  //     const api = `https://recommendations.myfurnituremecca.com/cart-recommendations`;
-  //     const payload = {
-  //       cart: cartProducts?.products?.map(item => item._id) || []
-  //     };
-  //     try {
-  //       const response = await axios.post(api, payload);
-  //       setLatestProducts(response.data.recommendations);
-  //       if (response.data.recommendations.length === 0) {
-  //         setNoProduct(true)
-  //       } else {
-  //         setNoProduct(false)
-  //       }
-  //     } catch (error) {
-  //       console.error("error", error);
-  //     }
-  //   };
-  //   if (cartProducts?.products?.length > 0) {
-  //     getLatestProducts();
-  //   }
-  // }, [cartProducts]);
 
 
   useEffect(() => {
@@ -212,6 +193,10 @@ const Cart = () => {
     state: '',
     country: ''
   });
+
+  const handleCloseSideCart = () => {
+    setCartSection(false)
+  }
 
 
 
@@ -484,6 +469,11 @@ const Cart = () => {
         handleOpenSnakeBar={handleOpenSnakeBar}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
+      />
+
+      <SideCart 
+        isCartOpen={cartSection}
+        handleCloseSideCart={handleCloseSideCart}
       />
 
       <LocationPopUp

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./ActiveCategoryPage.css"
-import { url } from "../../../utils/api";
+import { url, useDisableBodyScroll } from "../../../utils/api";
 import { useActiveSalePage } from "../../../context/ActiveSalePageContext/ActiveSalePageContext";
 import Sliderr from "../../../Global-Components/Slider/Slider";
 // import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import { usePathname, useRouter } from "next/navigation";
 import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 import ProductInfoModal from "@/Global-Components/ProductInfoModal/ProductInfoModal";
+import SideCart from "../Cart-side-section/SideCart";
 
 export default function SaleClient({ slug }) {
     const router = useRouter();
@@ -84,12 +85,14 @@ export default function SaleClient({ slug }) {
         cartProducts,
         increamentQuantity,
         decreamentQuantity,
-        removeFromCart
+        removeFromCart,
+        cartSection,
+        setCartSection
     } = useCart();
 
 
     const handleCartSectionClose = () => {
-        setAddToCartClicked(false)
+        setCartSection(false)
     }
     const handleQuickViewClose = () => { setQuickView(false) }
 
@@ -114,7 +117,8 @@ export default function SaleClient({ slug }) {
         setActiveGrid(grid)
     }
 
-
+    useDisableBodyScroll(cartSection, quickViewClicked)
+    
     return (
         <>
             <div className="activeCategoryPage">
@@ -204,19 +208,24 @@ export default function SaleClient({ slug }) {
 
                 <Sliderr height={"auto"} images={salesData ? salesData?.data?.banner3 : []} />
                 <div className="section_3_ASP" dangerouslySetInnerHTML={{ __html: salesData?.data?.content2 || "" }} />
-                <CartSidePannel
+                {/* <CartSidePannel
                     cartData={cartProducts}
                     addToCartClicked={addToCartClicked}
                     handleCartSectionClose={handleCartSectionClose}
                     removeFromCart={removeFromCart}
                     decreamentQuantity={decreamentQuantity}
                     increamentQuantity={increamentQuantity}
-                />
+                /> */}
 
                 <QuickView
                     setQuickViewProduct={quickViewProduct}
                     quickViewShow={quickViewClicked}
                     quickViewClose={handleQuickViewClose}
+                />
+
+                <SideCart
+                    isCartOpen={cartSection}
+                    handleCloseSideCart={handleCartSectionClose}
                 />
 
                 <SnakBar

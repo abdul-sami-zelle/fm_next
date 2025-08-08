@@ -46,6 +46,7 @@ import Image from 'next/image';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import ZipCodeModal from '@/UI/Modals/ZipCodeModal/ZipCodeModal';
+import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 
 const Header = ({ checkoutPage }) => {
 
@@ -813,7 +814,7 @@ const Header = ({ checkoutPage }) => {
         locationDetails={locationDetails}
       />
 
-      <CartSidePannel
+      {/* <CartSidePannel
         cartData={cartProducts}
         addToCartClicked={showCart}
         setAddToCartClick={setShowCart}
@@ -821,6 +822,11 @@ const Header = ({ checkoutPage }) => {
         increamentQuantity={increamentQuantity}
         decreamentQuantity={decreamentQuantity}
         removeFromCart={removeFromCart}
+      /> */}
+
+      <SideCart 
+        isCartOpen={showCart}
+        handleCloseSideCart={handleCartSectionClose}
       />
 
       <MobileNavbar
