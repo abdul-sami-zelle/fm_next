@@ -8,13 +8,15 @@ import { useEffect } from "react";
 // export const url = `https://fm.zellehost.com`
 
 
-// Live
-// export const url = `https://fmapi.myfurnituremecca.com`;
-
 export const roomApi = `https://roomapidev.myfurnituremecca.com`
 
+// Live
+export const url = `https://fmapi.myfurnituremecca.com`;
+
+
+
 //  Development
-export const url = `https://devapi.myfurnituremecca.com`;
+// export const url = `https://devapi.myfurnituremecca.com`;
 
 
 

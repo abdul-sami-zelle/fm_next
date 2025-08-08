@@ -28,7 +28,8 @@
     background-color: #FFF;
     border: 2px solid var(--orange-outline);
     height: 43px;
-    width: 370px;
+    /* width: 370px; */
+    width: 340px;
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;

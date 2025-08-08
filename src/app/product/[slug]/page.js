@@ -19,6 +19,7 @@ import { fetcher } from '@/utils/Fetcher';
 import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
 import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 import { useIsMobile } from '@/utils/isMobile';
+import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 
 const ProductDisplay = ({ params }) => {
 
@@ -337,10 +338,9 @@ const ProductDisplay = ({ params }) => {
 
 
   
-
-  console.log("steper index", steperIndex)
-  console.log("is mobile", isMobile)
-  useDisableBodyScroll(cartSection)
+    const [isCartOpen, setIsCartOpen] = useState(true);
+  
+  useDisableBodyScroll(cartSection, isCartOpen)
 
 
   return (
@@ -619,6 +619,12 @@ const ProductDisplay = ({ params }) => {
         handleDotClick={handleDotClick}
         galleryModalWidth={galleryModalWidth}
       />
+
+
+      {/* <SideCart 
+        isCartOpen={isCartOpen}
+        handleCloseSideCart={() => setIsCartOpen(false)}
+      /> */}
 
     </>
   )

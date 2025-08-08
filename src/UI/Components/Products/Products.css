@@ -33,6 +33,10 @@
     /* gap: 10px; */
 }
 
+.product-archive-category-wrapper.hide-category-images-main-contianer {
+    display: none;
+}
+
 .category-scroll-button {
     position: absolute;
     z-index: 9999;

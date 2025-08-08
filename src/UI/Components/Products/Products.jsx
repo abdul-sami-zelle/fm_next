@@ -845,7 +845,7 @@ const Products = ({ navigationType }) => {
                 Select Your{" "}
                 {formatted}
             </h3>
-            <div className="product-archive-category-wrapper">
+            <div className={`product-archive-category-wrapper  ${currentRoute === 'searched-products' ? 'hide-category-images-main-contianer' : ''}`}>
                 <button 
                     className='category-scroll-button category-left' 
                     onClick={() => scrollLeft()}
