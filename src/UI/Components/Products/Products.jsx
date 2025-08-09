@@ -42,7 +42,7 @@ const Products = ({ navigationType }) => {
         increamentQuantity,
         decreamentQuantity,
         removeFromCart,
-        cartSection, 
+        cartSection,
         setCartSection,
     } = useCart();
 
@@ -132,6 +132,9 @@ const Products = ({ navigationType }) => {
     const [showSortModal, setShowSortModal] = useState(false);
     const [selectedOption, setSelectedOption] = useState('')
     const [isInfoOpen, setIsInfoOpen] = useState(false);
+    const [salePrice, setSalePrice] = useState("");
+    const [regPrice, setRegPrice] = useState("");
+
 
 
     const router = useRouter()
@@ -560,7 +563,7 @@ const Products = ({ navigationType }) => {
         }
     };
 
-    
+
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -709,14 +712,18 @@ const Products = ({ navigationType }) => {
         sortProducts(name)
         setShowSortModal(false);
     }
-
-    const handleOpennfoModal = () => {
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice("")
+        setRegPrice("")
     }
+
 
     useEffect(() => { getSubCategories() }, [])
     useEffect(() => {
@@ -846,10 +853,10 @@ const Products = ({ navigationType }) => {
             </h3>
             {products?.length > 0 && (
                 <div className={`product-archive-category-wrapper  ${currentRoute === 'searched-products' ? 'hide-category-images-main-contianer' : ''}`}>
-                    <button 
-                        className='category-scroll-button category-left' 
+                    <button
+                        className='category-scroll-button category-left'
                         onClick={() => scrollLeft()}
-                        // style={{ visibility: atStart ? 'hidden' : 'visible' }}
+                    // style={{ visibility: atStart ? 'hidden' : 'visible' }}
                     >
                         <IoIosArrowBack size={15} color='var(--orange-outline)' />
                     </button>
@@ -864,10 +871,10 @@ const Products = ({ navigationType }) => {
                             </Link>
                         ))}
                     </div>
-                    <button 
-                        className='category-scroll-button category-right' 
+                    <button
+                        className='category-scroll-button category-right'
                         onClick={() => scrollRight()}
-                        // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
+                    // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
                     >
                         <IoIosArrowForward size={15} color='var(--orange-outline)' />
                     </button>
@@ -1211,7 +1218,7 @@ const Products = ({ navigationType }) => {
                                                 handleCardClick={() => handleProductClick(item)}
                                                 handleQuickView={() => handleQuickViewOpen(item)}
                                                 handleWishListclick={() => handleWishList(item)}
-                                                handleInfoModal={handleOpennfoModal}
+                                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                             />
                                         })
                                     ) : (
@@ -1326,7 +1333,7 @@ const Products = ({ navigationType }) => {
                                         handleCardClick={() => handleProductClick(item)}
                                         handleQuickView={() => handleQuickViewOpen(item)}
                                         handleWishListclick={() => handleWishList(item)}
-                                        handleInfoModal={handleOpennfoModal}
+                                        handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                     />
                                 })
                             )}
@@ -1347,14 +1354,14 @@ const Products = ({ navigationType }) => {
 
 
             </div>
-            
+
             <QuickView
                 setQuickViewProduct={quickViewProduct}
                 quickViewShow={quickViewClicked}
                 quickViewClose={handleQuickViewClose}
             />
 
-            
+
 
             {/* <CartSidePannel
                 cartData={cartProducts}
@@ -1406,6 +1413,8 @@ const Products = ({ navigationType }) => {
             <ProductInfoModal
                 openModal={isInfoOpen}
                 closeModal={handleCloseInfoModal}
+                 salePrice={salePrice}
+                    regPrice={regPrice}
             />
         </div>
     )

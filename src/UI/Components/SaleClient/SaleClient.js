@@ -97,12 +97,18 @@ export default function SaleClient({ slug }) {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const handleOpennfoModal = () => {
+    const [salePrice, setSalePrice] = useState("");
+    const [regPrice, setRegPrice] = useState("");
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice("")
+        setRegPrice("")
     }
 
 
@@ -176,7 +182,7 @@ export default function SaleClient({ slug }) {
                                     showExtraLines={true}
                                     titleHeight={true}
                                     allow_back_order={item?.allow_back_order}
-                                    handleInfoModal={handleOpennfoModal}
+                                     handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                 />
                             })
                         ) : (
@@ -238,6 +244,8 @@ export default function SaleClient({ slug }) {
                 <ProductInfoModal
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
+                     salePrice={salePrice}
+                    regPrice={regPrice}
                 />
 
             </div>

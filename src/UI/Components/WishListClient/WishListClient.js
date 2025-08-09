@@ -30,7 +30,7 @@ const WishListClient = () => {
     isInWishList
   } = useList();
 
-  const {cartSection, setCartSection} = useCart()
+  const { cartSection, setCartSection } = useCart()
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -193,12 +193,18 @@ const WishListClient = () => {
     setActiveGrid(grid)
   }
 
-  const handleOpennfoModal = () => {
+  const [salePrice, setSalePrice] = useState("");
+  const [regPrice, setRegPrice] = useState("");
+  const handleOpennfoModal = (salePrice, regPrice) => {
     setIsInfoOpen(true);
+    setSalePrice(salePrice)
+    setRegPrice(regPrice)
   }
 
   const handleCloseInfoModal = () => {
     setIsInfoOpen(false);
+    setSalePrice("")
+    setRegPrice("")
   }
 
   const handleSideCartClose = () => {
@@ -269,7 +275,7 @@ const WishListClient = () => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
-                handleInfoModal={handleOpennfoModal}
+                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
               />
             );
           })
@@ -318,7 +324,7 @@ const WishListClient = () => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
-                handleInfoModal={handleOpennfoModal}
+                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
               />
             );
           })
@@ -367,7 +373,7 @@ const WishListClient = () => {
         quickViewClose={handleQuickViewClose}
       />
 
-      <SideCart 
+      <SideCart
         isCartOpen={cartSection}
         handleCloseSideCart={handleSideCartClose}
       />
@@ -381,6 +387,8 @@ const WishListClient = () => {
       <ProductInfoModal
         openModal={isInfoOpen}
         closeModal={handleCloseInfoModal}
+        salePrice={salePrice}
+        regPrice={regPrice}
       />
     </div>
   )

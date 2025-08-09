@@ -172,7 +172,7 @@ const generateInvoicePDF = (data) => {
     doc.text(data.professional_assembled === 1 ? formatedPrice(data.professional_assembled_price).toString() : '0', 180, totalContainerY + 11)
     doc.text(data.cart_protected === 1 ? formatedPrice(data.cart_protection_price).toString() : '0', 180, totalContainerY + 18)
 
-    doc.text(data.shipping_cost === 0 ? 'Free' : formatedPrice(data.shipping_cost).toString(), 180, totalContainerY + 24)       
+      doc.text(data?.shipping_lines?.method_id === "METHOD-3" ? 'Store Pick up' : formatedPrice(data.shipping_cost).toString(), 180, totalContainerY + 24)       
 
     doc.text(formatedPrice(data.tax).toString(), 180, totalContainerY + 31)
 
