@@ -37,6 +37,8 @@ export default function LastCallClient({ slug }) {
     const [quickViewClicked, setQuickView] = useState(false);
     const [addToCartClicked, setAddToCartClicked] = useState(false)
     const [activeGrid, setActiveGrid] = useState('single-col')
+    const [salePrice, setSalePrice] = useState("");
+        const [regPrice, setRegPrice] = useState("");
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -101,12 +103,16 @@ export default function LastCallClient({ slug }) {
     const handleQuickViewClose = () => { setQuickView(false) }
 
     const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const handleOpennfoModal = () => {
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice('')
+        setRegPrice('')
     }
 
 
@@ -181,7 +187,7 @@ export default function LastCallClient({ slug }) {
                                     showExtraLines={true}
                                     titleHeight={true}
                                     allow_back_order={item?.allow_back_order}
-                                    handleInfoModal={handleOpennfoModal}
+                                    handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                 />
                             })
                         ) : (
@@ -244,6 +250,8 @@ export default function LastCallClient({ slug }) {
                 <ProductInfoModal
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
+                    salePrice={salePrice}
+                    regPrice={regPrice}
                 />
             </div>
 

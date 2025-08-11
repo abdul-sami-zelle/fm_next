@@ -33,13 +33,15 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
     const router = useRouter()
 
     const handleCLoseCartPanel = () => {
-        setCartSection(false)
+        // setCartSection(false)
+        handleCloseSideCart()
         router.push(`/cart`)
 
     }
 
     const navigateToCheckout = () => {
-        setCartSection(false)
+        // setCartSection(false)
+        handleCloseSideCart()
         router.push("/check-out");
     }
 

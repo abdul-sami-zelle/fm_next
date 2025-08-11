@@ -24,6 +24,7 @@ export default function SaleClient({ slug }) {
     const router = useRouter();
     const { salesData, products, totalProducts } = useActiveSalePage();
 
+    console.log("total products", totalProducts)
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`)
     };
@@ -96,13 +97,19 @@ export default function SaleClient({ slug }) {
     }
     const handleQuickViewClose = () => { setQuickView(false) }
 
+    const [salePrice, setSalePrice] = useState("");
+            const [regPrice, setRegPrice] = useState("");
     const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const handleOpennfoModal = () => {
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice('');
+        setRegPrice('')
     }
 
 
@@ -176,7 +183,7 @@ export default function SaleClient({ slug }) {
                                     showExtraLines={true}
                                     titleHeight={true}
                                     allow_back_order={item?.allow_back_order}
-                                    handleInfoModal={handleOpennfoModal}
+                                    handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                 />
                             })
                         ) : (
@@ -186,9 +193,10 @@ export default function SaleClient({ slug }) {
                         )}
 
                     </div>
+
                     {totalProducts > 16 && (
                         <div className="active-sale-view-more-button-contianer">
-                            <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More</button>
+                            <button className="active-sale-view-more-button" onClick={handleNavigateToOutlate}>View More Products</button>
                         </div>
                     )}
                 </div>
@@ -238,6 +246,8 @@ export default function SaleClient({ slug }) {
                 <ProductInfoModal
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
+                    salePrice={salePrice}
+                    regPrice={regPrice}
                 />
 
             </div>

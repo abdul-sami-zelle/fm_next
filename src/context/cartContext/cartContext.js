@@ -437,12 +437,13 @@ export const CartProvider = ({ children }) => {
                 }
             });
 
-            return { products: updatedProducts };
+            return { ...prevCart, products: updatedProducts };
         });
 
         setIsCartLoading(false);
         // setTimeout(() => {setCartSection(true)}, 500)
         setCartSection(true);
+        console.log("transformed list", transformedList)
         return { products: transformedList }; // Optionally return what was added
     };
 

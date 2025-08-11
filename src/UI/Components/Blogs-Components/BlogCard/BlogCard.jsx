@@ -71,18 +71,16 @@ const BlogCard = ({
         <Link className='blog-card-category' href={'#'}>{blogCategory}</Link>
         <h3 className='blog-card-main-title'>{blogTitle}</h3>
         <div className={`blog-card-footer-buttons ${animButton === ind ? 'increase-padding-anim' : ''}`}>
-          {/* <button className='blog-card-read-more-btn'>
-            Read more
-            <Image src={'/Assets/icons/blog-btn-arrow.png'} width={20} height={20} alt='arrow' className='blog-card-btn-arrow' />
-          </button> */}
-          <span>
-            <FaRegClock size={10} color='#595959' />
-            {singleBlog.readTime}min
-          </span>
-          <span>
-            <FaEye size={10} color='#595959' />
-            {singleBlog.totalViews}
-          </span>
+          <div className='blog-view-and-read-container'>
+            <span>
+              <FaRegClock size={10} color='#595959' />
+              {singleBlog.readTime}min
+            </span>
+            <span>
+              <FaEye size={10} color='#595959' />
+              {singleBlog.totalViews}
+            </span>
+          </div>
           <p className='blog-card-post-date'>{formatDate(blogPostDate)}</p>
         </div>
       </div>

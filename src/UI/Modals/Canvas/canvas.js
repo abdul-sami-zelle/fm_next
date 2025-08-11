@@ -726,14 +726,14 @@ const CanvasApp = ({ data, closeFn }) => {
 
   const handleCheckout = (items) => {
     closeFn();
-
+    console.log("canva item", items)
 
     const transformedItems = items.map((item) => ({
-      product_uid: item.parent !== 0 ? item.parent : item.uid ,
-      variation_uid: item.type !== 0 ? item.uid || item.product_uid : 0,
+      product_uid: item.parent !== 0 ? item.parent : (item.product_uid || item.uid),
+      variation_uid: item.parent !== 0 ? (item.uid || item.product_uid) : 0,
       _id: item._id,
       name: item.name,
-      isVariable: item.type !== 0 ? 1 : 0,
+      isVariable: item.parent !== 0 ? 1 : 0,
       image: {
         image_url: item.image || "",
         alt_text: "",
@@ -752,6 +752,7 @@ const CanvasApp = ({ data, closeFn }) => {
     }));
 
 
+    console.log("checkout funct transformed", transformedItems)
     addToCartListSimple(transformedItems);
    
   };

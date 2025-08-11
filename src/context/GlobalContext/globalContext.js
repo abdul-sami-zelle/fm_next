@@ -107,7 +107,8 @@ export const GlobalContextProvider = ({ children }) => {
 
   //   setZipCode(e.target.value);
   // };
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
+
     const input = e.target.value;
 
     // Only allow up to 5 digits (0-9 only)
@@ -128,9 +129,12 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      return data.places[0]; // You can return the data for further processing
+      console.log("zip codes find", data)
+      // return data.places[0]; // You can return the data for further processing
+      return data; // You can return the data for further processing
     } catch (error) {
       console.error("Error fetching data:", error);
+      // alert("zip does not found")
       return []; // Return null or handle the error accordingly
     }
   }
@@ -375,93 +379,115 @@ export const GlobalContextProvider = ({ children }) => {
     return input.replace(/\D/g, '');
   }
 
+  const [wrongZip, setWrongZip] = useState(false);
+  const [wrongZipMessage, setWrongZipMessage] = useState({title: '', message: ''})
+
   const handleButtonClick = async () => {
-    const data = await getStateByPostalCode(extractZipCode(zipCode));
-    if (data) {
+    let data;
+    if (extractZipCode(zipCode).length === 5) {
+      data = await getStateByPostalCode(extractZipCode(zipCode));
+      console.log("extracted data", data)
+    }
+    if (Object.keys(data).length > 1) {
+      // if (data) {
       updateLocationData({
         zipCode: extractZipCode(zipCode),
-        stateCode: data['state abbreviation'],
-        city: data['place name'],
-        state: data['state'],
+        // zipCode: data?.["post code"],
+        stateCode: data?.places[0]?.['state abbreviation'],
+        city: data?.places[0]?.['place name'],
+        state: data?.places[0]?.['state'],
         country: 'US',
-        longitude: data['longitude'],
-        latitude: data['latitude'],
-      })
-    }
-
-
+        longitude: data?.places[0]?.['longitude'],
+        latitude: data?.places[0]?.['latitude'],
+          })
+        // }
+      } else {
+        setWrongZip(true);
+        setWrongZipMessage({
+          title: 'Invalid Zip Code',
+          message: 'We couldn’t find that ZIP code. Please check and try again.'
+        })
+      }
   };
 
-  function getShippingInfo(option) {
-    let result = "";
-    let taxIncluded = "";
-    let cost = option?.cost || 0; // Default to 0 if cost is not defined
+  const handleZipWarningClose = () => {
+    setWrongZip(false)
+  }
 
-    if (option?.id === "METHOD-2") {
-      result = option.cost ? `${option.cost} (Standard Shipping)` : "Standard Shipping";
-      taxIncluded = option.tax !== 0 ? "Tax Included" : "No Tax";
-    } else if (option?.id === "METHOD-1") {
-      result = "Free Shipping";
-      taxIncluded = "No Tax";
-      cost = 0;
-    } else if (option?.id === "METHOD-3") {
-      result = "Local Pickup";
-      taxIncluded = "No Tax";
-      cost = option?.cost || 0; // Local pickup might still have a cost
-    } else {
-      result = "Identifying";
-      taxIncluded = "";
+    function getShippingInfo(option) {
+      let result = "";
+      let taxIncluded = "";
+      let cost = option?.cost || 0; // Default to 0 if cost is not defined
+
+      if (option?.id === "METHOD-2") {
+        result = option.cost ? `${option.cost} (Standard Shipping)` : "Standard Shipping";
+        taxIncluded = option.tax !== 0 ? "Tax Included" : "No Tax";
+      } else if (option?.id === "METHOD-1") {
+        result = "Free Shipping";
+        taxIncluded = "No Tax";
+        cost = 0;
+      } else if (option?.id === "METHOD-3") {
+        result = "Local Pickup";
+        taxIncluded = "No Tax";
+        cost = option?.cost || 0; // Local pickup might still have a cost
+      } else {
+        result = "Identifying";
+        taxIncluded = "";
+      }
+
+      return { result, taxIncluded, cost };
     }
 
-    return { result, taxIncluded, cost };
+    const [grandTotal, setGrandTotal] = useState(0);
+
+    function CalculateGrandTotal() {
+      const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
+      const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
+      return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
+    }
+
+
+
+    return (
+      <GlobalContext.Provider value={{
+        info,
+        setInfo,
+        updateLocationData,
+        zipCode,
+        setZipCode,
+        handleInputChange,
+        handleButtonClick,
+        fetchAllstores,
+        stores,
+        setStores,
+        setAllShippingMethods,
+        shippingMethods,
+        setShippingMethods,
+        shippingLoader,
+        setShippingLoader,
+        totalTax,
+        calculateTotalTax,
+        getShippingInfo,
+        setTaxValues,
+        selectedOption,
+        setSelectedOption,
+        handleChange,
+        getShippingMethods,
+        selectedShippingMethods,
+        setSelectedShippingMethods,
+        grandTotal,
+        CalculateGrandTotal,
+        mainLoader, setMainLoader,
+        isWarrantyModalOpen,
+        setWarrantyModalState,
+        wrongZip, 
+        setWrongZip,
+        wrongZipMessage,
+        handleZipWarningClose,
+      }}>
+        {children}
+      </GlobalContext.Provider>
+    );
   }
 
-  const [grandTotal, setGrandTotal] = useState(0);
-
-  function CalculateGrandTotal() {
-    const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
-    const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
-    return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
-  }
-
-
-
-  return (
-    <GlobalContext.Provider value={{
-      info,
-      setInfo,
-      updateLocationData,
-      zipCode,
-      setZipCode,
-      handleInputChange,
-      handleButtonClick,
-      fetchAllstores,
-      stores,
-      setStores,
-      setAllShippingMethods,
-      shippingMethods,
-      setShippingMethods,
-      shippingLoader,
-      setShippingLoader,
-      totalTax,
-      calculateTotalTax,
-      getShippingInfo,
-      setTaxValues,
-      selectedOption,
-      setSelectedOption,
-      handleChange,
-      getShippingMethods,
-      selectedShippingMethods,
-      setSelectedShippingMethods,
-      grandTotal,
-      CalculateGrandTotal,
-      mainLoader, setMainLoader,
-      isWarrantyModalOpen,
-      setWarrantyModalState,
-    }}>
-      {children}
-    </GlobalContext.Provider>
-  );
-}
-
-export const useGlobalContext = () => useContext(GlobalContext);
+  export const useGlobalContext = () => useContext(GlobalContext);

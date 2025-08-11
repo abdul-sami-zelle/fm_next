@@ -16,6 +16,7 @@ import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/terms
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 import { useRouter } from 'next/navigation';
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const CheckoutClient = () => {

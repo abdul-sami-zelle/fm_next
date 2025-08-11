@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './ZipCodeModal.css'
 import { FaTruck } from 'react-icons/fa'
 import Image from 'next/image'
 import { useGlobalContext } from '@/context/GlobalContext/globalContext'
+import ZipModal from '../ZipModal/ZipModal'
 
 const ZipCodeModal = ({handleINitialLocationSetModal}) => {
   const {
@@ -10,6 +11,8 @@ const ZipCodeModal = ({handleINitialLocationSetModal}) => {
       handleInputChange,
       handleButtonClick,
     } = useGlobalContext();
+
+
   return (
     <div className='nearby-store-set-location-modal'>
       <div className='nearby-store-set-location-modal-head'>
@@ -35,6 +38,13 @@ const ZipCodeModal = ({handleINitialLocationSetModal}) => {
           <button onClick={async () => { await handleButtonClick(); handleINitialLocationSetModal() }}>Update Zip Code</button>
         </div>
       </div>
+
+      {/* <ZipModal
+                showMessage={wrongZip}
+                errorDetail={wrongZipMessage}
+                footerMessage={'Wrong Zip Code'}
+                closeModal={handleZipWarningClose}
+            /> */}
     </div>
   )
 }

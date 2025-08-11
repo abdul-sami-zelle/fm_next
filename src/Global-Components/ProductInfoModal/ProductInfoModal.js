@@ -3,8 +3,9 @@ import './ProductInfoModal.css'
 import Link from 'next/link';
 import { IoIosClose } from "react-icons/io";
 import Image from 'next/image';
+import { getAdjustedPrice } from '@/utils/api';
 
-const ProductInfoModal = ({openModal, closeModal}) => {
+const ProductInfoModal = ({openModal, closeModal, salePrice, regPrice}) => {
   return (
     <div className={`info-modal-main-container ${openModal ? 'show-info-modal' : ''}`} onClick={(e) => {e.stopPropagation(); closeModal()}}>
       <div className='info-modal-inner-container' onClick={(e) => e.stopPropagation()}>
@@ -17,13 +18,30 @@ const ProductInfoModal = ({openModal, closeModal}) => {
           <div className='info-modal-head'>
             <h3>Enjoy Time To Pay</h3>
           </div>
-    
+
           <div className='info-modal-center-body-container'>
-            <h3>48 months 0% APR with Equal Payments of $41/mo.</h3>
-            <h3>Based on reg. price of $1,949.95</h3>
+            <h3>12 Months With Equal Payments of ${getAdjustedPrice(
+              Number(salePrice && salePrice !== "" ? salePrice : regPrice)
+            )}/mo.</h3>
+            <h3>Based on Regular Price of ${salePrice && salePrice !== "" ? salePrice : regPrice}</h3>
           </div>
 
           <div className='info-modal-eligibility-check-container'>
+            <button
+              onClick={() => window.open('https://apply.acima.com/lease/select-location?app_id=lo&merchant_guid=merc-3bd04932-d6a0-4848-8a30-af0a9d935f25&utm_campaign=merchant&utm_source=web&lang=en', '_blank')}
+            >
+              Check Eligibility
+            </button>
+
+            <a target='_blank' href={'https://apply.acima.com/lease/select-location?app_id=lo&merchant_guid=merc-3bd04932-d6a0-4848-8a30-af0a9d935f25&utm_campaign=merchant&utm_source=web&lang=en'}>View  Pricing & Terms</a>
+          </div>
+    
+          {/* <div className='info-modal-center-body-container'>
+            <h3>48 months 0% APR with Equal Payments of $41/mo.</h3>
+            <h3>Based on reg. price of $1,949.95</h3>
+          </div> */}
+
+          {/* <div className='info-modal-eligibility-check-container'>
             <button>Check Eligibility</button>
             <Link href={'#'}>View  Pricing & Terms</Link>
             <p>
@@ -38,7 +56,7 @@ const ProductInfoModal = ({openModal, closeModal}) => {
                financing account issued by TD Bank, N.A.
             </p>
 
-          </div>
+          </div> */}
 
         </div>
       </div>

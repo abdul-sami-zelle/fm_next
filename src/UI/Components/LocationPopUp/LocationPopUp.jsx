@@ -8,6 +8,8 @@ import { CiLocationOn } from "react-icons/ci";
 import Image from 'next/image';
 import { IoIosClose } from "react-icons/io";
 import CloseButton from '@/Global-Components/CloseButton/CloseButton';
+import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
@@ -17,7 +19,10 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
     zipCode,
     handleInputChange,
     handleButtonClick,
-    info
+    info,
+    // wrongZip, setWrongZip,
+    // wrongZipMessage,
+    // handleZipWarningClose,
   } = useGlobalContext();
 
 
@@ -116,7 +121,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
                 onChange={handleInputChange} // Update state on input change
                 placeholder="Enter zip code"
               />
-              <button className="update-zip-btn" onClick={async () => { await handleButtonClick(); handleCloseSearch() }}>
+              <button className="update-zip-btn" onClick={async () => { await handleButtonClick() }}>
                 Update Zip Code
               </button>
             </div>
@@ -134,6 +139,13 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
           </p>
         </div>
       </div>
+
+      {/* <ZipModal
+        showMessage={wrongZip}
+        errorDetail={wrongZipMessage}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={handleZipWarningClose}
+      /> */}
     </div>
   )
 }

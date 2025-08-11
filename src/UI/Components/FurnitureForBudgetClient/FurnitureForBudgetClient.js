@@ -221,12 +221,20 @@ export default function FurnitureAtEveryBudgetClient() {
 
 
     const [isInfoOpen, setIsInfoOpen] = useState(false);
-    const handleOpennfoModal = () => {
+    const [salePrice, setSalePrice] = useState("");
+        const [regPrice, setRegPrice] = useState("");
+
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
+
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice('')
+        setRegPrice('')
     }
 
 
@@ -377,7 +385,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleCardClick={() => handleProductClick(item)}
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
-                                handleInfoModal={handleOpennfoModal}
+                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                             />
                         ))
                     ) : (
@@ -422,7 +430,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleCardClick={() => handleProductClick(item)}
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
-                                handleInfoModal={handleOpennfoModal}
+                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                             />
                         ))
                     ) : (
@@ -453,6 +461,8 @@ export default function FurnitureAtEveryBudgetClient() {
                 <ProductInfoModal
                     openModal={isInfoOpen}
                     closeModal={handleCloseInfoModal}
+                    salePrice={salePrice}
+                    regPrice={regPrice}
                 />
 
                 {loading && <SectionLoader />}

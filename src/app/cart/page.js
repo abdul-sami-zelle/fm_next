@@ -20,6 +20,8 @@ import { useRouter } from 'next/navigation';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
+import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 
@@ -42,6 +44,9 @@ const Cart = () => {
     CalculateGrandTotal,
     handleChange,
     selectedShippingMethods,
+    wrongZip, setWrongZip,
+    wrongZipMessage,
+    handleZipWarningClose,
   } = useGlobalContext();
 
 
@@ -276,7 +281,7 @@ const Cart = () => {
               <div className={`cart-order-summary-coupon-input-div ${isCouponOpen ? 'show-coupon-update-input' : ''}`}>
                 <div className='cart-order-summary-coupon-input-and-button'>
                   <input type='text' placeholder='Coupon Code' className='cart-summary-update-coupon-input' />
-                  <button className='cart-summary-update-coupon-btn'>Update</button>
+                  <button className='cart-summary-update-coupon-btn'>Apply</button>
                 </div>
               </div>
             </div>
@@ -481,6 +486,13 @@ const Cart = () => {
         handleCloseSearch={handleCloseSearch}
         setLocationDetails={setLocationDetails}
         locationDetails={locationDetails}
+      />
+
+      <ZipModal
+        showMessage={wrongZip}
+        errorDetail={wrongZipMessage}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={handleZipWarningClose}
       />
     </div>
   )

@@ -10,19 +10,24 @@ import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import CloseButton from '@/Global-Components/CloseButton/CloseButton';
+import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
     const router = useRouter()
-    const { savedInfo, fetchAllstores, stores, } = useGlobalContext();
     const [currentIndex, setCurrentIndex] = useState(0)
     const {
+        savedInfo, fetchAllstores, stores,
         zipCode,
         setZipCode,
         handleInputChange,
         handleButtonClick,
         info,
+        // wrongZip, setWrongZip,
+        // wrongZipMessage,
+        // handleZipWarningClose,
     } = useGlobalContext();
 
     const [storeOpenIndex, setOpenStoreIndex] = useState(-1);
@@ -91,9 +96,9 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
     const [currentStoreId, setCurrentStoreId] = useState(stores[0]?._id);
     const fetchData = async () => {
-            await handleButtonClick();
-        };
-        
+        await handleButtonClick();
+    };
+
     const handleCurrentStore = (item, index) => {
         setCurrentStoreId(item._id)
         setCurrentIndex(index)
@@ -103,9 +108,13 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
 
     useEffect(() => {
-    
+
         fetchData();
-    }, [zipCode]);
+    }, []);
+    // useEffect(() => {
+
+    //     fetchData();
+    // }, [zipCode]);
 
     const handleFindStores = () => {
         router.push(`/store-locator`)
@@ -127,8 +136,8 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
             >
 
                 <div className='pop-up-header'>
-                    
-                    <CloseButton 
+
+                    <CloseButton
                         handleClose={handleCloseNearBy}
                         position={'absolute'}
                         top={15}
@@ -168,7 +177,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                         </button>
                     </div>
                 </div>
-                
+
                 <div className='pop-up-single-city-card'>
 
                     <div className='pop-up-single-city-cart'>
@@ -221,6 +230,12 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
 
                 </div>
             </div>
+            {/* <ZipModal
+                showMessage={wrongZip}
+                errorDetail={wrongZipMessage}
+                footerMessage={'Wrong Zip Code'}
+                closeModal={handleZipWarningClose}
+            /> */}
         </div>
     )
 }

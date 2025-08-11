@@ -132,6 +132,8 @@ const Products = ({ navigationType }) => {
     const [showSortModal, setShowSortModal] = useState(false);
     const [selectedOption, setSelectedOption] = useState('')
     const [isInfoOpen, setIsInfoOpen] = useState(false);
+    const [salePrice, setSalePrice] = useState("");
+    const [regPrice, setRegPrice] = useState("");
 
 
     const router = useRouter()
@@ -710,12 +712,16 @@ const Products = ({ navigationType }) => {
         setShowSortModal(false);
     }
 
-    const handleOpennfoModal = () => {
+    const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
+        setSalePrice(salePrice)
+        setRegPrice(regPrice)
     }
 
     const handleCloseInfoModal = () => {
         setIsInfoOpen(false);
+        setSalePrice("")
+        setRegPrice("")
     }
 
     useEffect(() => { getSubCategories() }, [])
@@ -1211,7 +1217,7 @@ const Products = ({ navigationType }) => {
                                                 handleCardClick={() => handleProductClick(item)}
                                                 handleQuickView={() => handleQuickViewOpen(item)}
                                                 handleWishListclick={() => handleWishList(item)}
-                                                handleInfoModal={handleOpennfoModal}
+                                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                             />
                                         })
                                     ) : (
@@ -1326,7 +1332,7 @@ const Products = ({ navigationType }) => {
                                         handleCardClick={() => handleProductClick(item)}
                                         handleQuickView={() => handleQuickViewOpen(item)}
                                         handleWishListclick={() => handleWishList(item)}
-                                        handleInfoModal={handleOpennfoModal}
+                                        handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
                                     />
                                 })
                             )}
@@ -1406,6 +1412,8 @@ const Products = ({ navigationType }) => {
             <ProductInfoModal
                 openModal={isInfoOpen}
                 closeModal={handleCloseInfoModal}
+                salePrice={salePrice}
+                    regPrice={regPrice}
             />
         </div>
     )

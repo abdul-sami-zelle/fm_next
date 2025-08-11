@@ -41,7 +41,7 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
             {!videoLoaded && (
               <img
                 className="background-placeholder"
-                src="https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg"
+                src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
                 alt="AI Chatbot Placeholder"
               />
             )}
@@ -55,7 +55,7 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
               onCanPlayThrough={handleVideoCanPlay}
               onEnded={handleVideoEnded}
             >
-              <source src="https://devapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4" />
+              <source src={`https://devapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4`} />
               {/* <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" /> */}
               Your browser does not support the video tag.
             </video>

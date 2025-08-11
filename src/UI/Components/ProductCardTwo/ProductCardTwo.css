@@ -326,7 +326,7 @@
 }
 
 .product-title.heighted {
-    height: 50px;
+    height: 45px !important;
     display: -webkit-box;
     font-size: 16px !important;
     line-height: 1.2 !important;
@@ -1012,7 +1012,7 @@
     }
 
     .product-main-img.set-static-height {
-        height: 114px !important;
+        height: auto !important;
     }
 
     .product-rating-stars-div img {

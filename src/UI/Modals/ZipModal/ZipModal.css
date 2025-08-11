@@ -1,4 +1,4 @@
-.warning-modal-main-container {
+.zip-warning-warning-modal-main-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,13 +15,12 @@
     transition: all 0.3s ease-in-out;
 }
 
-.warning-modal-main-container.show-warining-modal {
-    visibility: visible;
+.zip-warning-warning-modal-main-container.zip-warning-show-warining-modal {
+     visibility: visible;
     opacity: 1;
 }
 
-
-.warning-modal-body {
+.zip-warning-warning-modal-body {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -38,11 +37,11 @@
     transition: all 0.5s ease-in-out;
 }
 
-.warning-modal-body.show-modal-body {
+.zip-warning-warning-modal-body.zip-warning-show-modal-body {
     transform: translate(-0%, -0%);
 }
 
-.warning-moda-head {
+.zip-warning-warning-moda-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -52,14 +51,14 @@
      padding: 10px 10px 5px 15px;
 }
 
-.warning-moda-head > h3 {
+.zip-warning-warning-moda-head > h3 {
     font-size: 18px;
     line-height: 1.2;
     font-weight: 500;
     color: #595959;
 }
 
-.warning-moda-head > button {
+.zip-warning-warning-moda-head > button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +70,7 @@
     cursor: pointer;
 }
 
-.warning-modal-message-container {
+.zip-warning-modal-message-container {
     display: flex;
     align-items: start;
     justify-content: start;
@@ -80,7 +79,7 @@
     padding: 6px 10px 8px 10px;
 }
 
-.warning-modal-message-container > p {
+.zip-warning-modal-message-container > p {
     font-size: 12px;
     line-height: 1.5;
     font-weight: 400;
@@ -88,7 +87,7 @@
     text-align: start;
 }
 
-.warning-modal-footer {
+.zip-warning-modal-footer {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -99,7 +98,7 @@
     background-color: var(--orange-fill);
 }
 
-.warning-modal-footer > p {
+.zip-warning-modal-footer > p {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -111,19 +110,18 @@
     color: #FFF;
 }
 
-.warning-modal-footer > p > a {
+.zip-warning-modal-footer > p > a {
     color: #FFF;
     font-weight: 500;
     
 }
 
 @media only screen and (max-width: 480px) {
-    .warning-modal-main-container {
+    .zip-warning-warning-modal-main-container {
         padding: 20px;
     }
 
-    .warning-modal-body {
+    .zip-warning-warning-modal-body {
         width: 100%;
     }
 }
-

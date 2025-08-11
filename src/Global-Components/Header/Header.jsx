@@ -47,6 +47,7 @@ import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import ZipCodeModal from '@/UI/Modals/ZipCodeModal/ZipCodeModal';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 const Header = ({ checkoutPage }) => {
 
@@ -77,6 +78,17 @@ const Header = ({ checkoutPage }) => {
     cartProducts
   } = useCart()
 
+
+  const { 
+    mainLoader, 
+    setMainLoader,
+    info, fetchAllstores,
+    stores,
+    wrongZip, setWrongZip,
+        wrongZipMessage,
+        handleZipWarningClose,
+  } = useGlobalContext();
+
   const [cartTotalProducts, setCartTotalProducts] = useState(0);
   useEffect(() => {
     if(cartProducts?.products?.length <= 9) {
@@ -86,7 +98,7 @@ const Header = ({ checkoutPage }) => {
     }
   }, [cartProducts])
   const cartItemCount = cartProducts?.products?.length || 0;
-  const { info, fetchAllstores } = useGlobalContext();
+  
   const [isMobileSearched, setIsMobileSearched] = useState(false);
   const { singleProductData, setSingleProductData } = useProductPage();
 
@@ -108,6 +120,7 @@ const Header = ({ checkoutPage }) => {
   const handleCartSectionOpen = () => {
     setShowCart(true)
   }
+
 
   const handleCartSectionClose = () => {
     setShowCart(false)
@@ -320,7 +333,6 @@ const Header = ({ checkoutPage }) => {
   }
 
   // Nearest Stores
-  const { stores } = useGlobalContext();
 
   const currentDay = getCurrentDay(getCurrentTimeForNewYork(), 'en-us')
 
@@ -342,7 +354,7 @@ const Header = ({ checkoutPage }) => {
     setTimings(matchedTime || { day: currentDay, time: 'close' })
   }, [stores])
 
-  const { mainLoader, setMainLoader } = useGlobalContext();
+  
   const { setUserToken, userUid, setSigninClicked, setMobileSignupClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
@@ -780,13 +792,13 @@ const Header = ({ checkoutPage }) => {
               </div>
             })
           }
+        </div>
           <button
             className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
             onClick={handleNavigateToMobileViewSearchedProducts}
           >
-            See All Products
+            See All Products ({searchedProducts.length})
           </button>
-        </div>
       </div>
 
       {
@@ -836,6 +848,13 @@ const Header = ({ checkoutPage }) => {
         headerOffer={headerOffer}
         sale_data={headerSale && headerSale}
       />
+
+      <ZipModal
+                showMessage={wrongZip}
+                errorDetail={wrongZipMessage}
+                footerMessage={'Wrong Zip Code'}
+                closeModal={handleZipWarningClose}
+            />
 
     </div>
   )

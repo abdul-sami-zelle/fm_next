@@ -73,7 +73,15 @@
     padding: 0 10px;
 }
 
-.blog-card-footer-buttons > span {
+.blog-view-and-read-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-items: start;
+  width: max-content;
+}
+
+.blog-view-and-read-container > span {
   display: flex;
   align-items:  center;
   justify-content: start;

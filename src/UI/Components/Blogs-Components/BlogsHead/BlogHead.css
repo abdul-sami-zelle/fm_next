@@ -25,6 +25,7 @@
     flex-shrink: 0;
     position: relative;
     padding: 5px 20px;
+    border-radius: 5px;
     cursor: pointer;
     transition: color 0.3s ease;
     z-index: 1;
@@ -32,6 +33,7 @@
 
 .blog-head-category-type.active-category{
     color: #fff;
+    background-color: var(--orange-fill);
     
 }
 
