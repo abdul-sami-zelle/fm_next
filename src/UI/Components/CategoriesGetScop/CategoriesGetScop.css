@@ -107,11 +107,11 @@
 
 .scop-input-email button:hover {
     background-color: transparent;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--orange-fill);
 }
 
 .scop-input-email button:hover a {
-    color: var(--primary-color);
+    color: var(--orange-fill);
     font-weight: 500;
 }
 
@@ -413,7 +413,7 @@
 
 @media only screen and (max-width: 480px) {
     .scop-main-container {
-        padding: 15px 10px;
+        padding: 10px;
     }
 
     .product-text-details.show {

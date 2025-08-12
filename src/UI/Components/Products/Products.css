@@ -1662,10 +1662,10 @@ label {
 }
 
 .mobile-view-product-single-column {
-    padding: 15px;
+    padding: 10px 15px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
     align-items: center;
     justify-content: center;

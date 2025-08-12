@@ -115,8 +115,8 @@
 }
 
 .mobile-logn-sec-login-btn-div button{
-    background-color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background-color: var(--orange-fill);
+    border: 1px solid var(--orange-fill);
     outline: none;
     color: #fff;
     font-size: 15px;

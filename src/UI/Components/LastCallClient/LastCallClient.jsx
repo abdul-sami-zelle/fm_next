@@ -59,12 +59,12 @@ export default function LastCallClient({ slug }) {
         setShowSnakeBar(true)
         if (isInWishList(item._id)) {
             removeFromList(item._id);
-            setSnakeBarMessage('Removed from wish list')
+            setSnakeBarMessage('Removed from wishlist')
 
         } else {
             addToList(item._id)
 
-            setSnakeBarMessage('added to wish list')
+            setSnakeBarMessage('added to wishlist')
         }
 
         if (userId && getToken) {

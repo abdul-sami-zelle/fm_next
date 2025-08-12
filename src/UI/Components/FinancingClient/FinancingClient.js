@@ -6,6 +6,7 @@ import LatestModulerBanner from '../../Components/LatestModuler/LatestModulerBan
 import { url } from '../../../utils/api'
 import axios from 'axios'
 import Image from 'next/image'
+import Link from 'next/link'
 
 
 
@@ -28,6 +29,9 @@ const FinancingClient = () => {
             getFinancingPageData();
         }
     }, [financingPageData]);
+
+
+    useEffect(() => {console.log("financing data", financingPageData)}, [financingPageData])
 
 
     return (
@@ -53,12 +57,12 @@ const FinancingClient = () => {
             <div className='payment-solutions desktopview' style={{ flexDirection: "column" }}>
                 {financingPageData ? (
                     financingPageData && financingPageData?.slides?.desktop?.map((items, index) => (
-                        <a
+                        <Link
                             key={index}
                             className="payment-solution-single-card"
                             href={items?.link_url} target='_blank' >
                             <img className='' src={url + items?.image_url} alt="" srcset="" />
-                        </a>
+                        </Link>
 
                     ))
                 ) : (
@@ -69,11 +73,12 @@ const FinancingClient = () => {
             <div className='payment-solutions mobileview' style={{ flexDirection: "column" }}>
                 {financingPageData  ? (
                     financingPageData && financingPageData?.slides?.mobile?.map((items, index) => (
-                    <a
+                    <Link
                         className="payment-solution-single-card"
+                        key={index}
                         href={items?.link_url} target='_blank' >
                         <img className='' src={url + items?.image_url} alt="" srcset="" />
-                    </a>
+                    </Link>
 
                 ))
                 ) : (

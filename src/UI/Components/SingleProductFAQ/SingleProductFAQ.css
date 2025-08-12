@@ -82,7 +82,7 @@
 .show-more-btn{
     background-color: transparent;
     width: 120px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     border: none;
     outline: none;
     display: flex;

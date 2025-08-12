@@ -102,7 +102,7 @@
     border: none;
     outline: none;
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     display: flex;
@@ -148,7 +148,7 @@
 }
 
 .all-store-location-button:hover {
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     color: #fff;
 }
 
@@ -437,7 +437,7 @@
     justify-content: center;
     padding: 5px;
     background-color: var(--tertiary-color);
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-fill);
     border-radius: 5px;
     cursor: pointer;
 }
@@ -583,7 +583,7 @@
 }
 
 .selected-store-list-map-button.selected-store-list-map-button {
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     color: #fff;
 }
 
@@ -593,7 +593,7 @@
 }
 
 .mobile-view-map-button.selected-store-map {
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     color: #fff;
 }
 

@@ -49,11 +49,12 @@ const BlogCard = ({
 
 
   return (
-    <div
+    <Link
+      href={`/single-blog/${singleBlog.slug}`}
       className='blog-card-main-container'
       onMouseEnter={() => handleButtonsAnimation(ind)}
       onMouseLeave={handleButtonAnimEnd}
-      onClick={navigateToSinglePage}
+      // onClick={navigateToSinglePage}
       key={keyind}
     >
       <div className='blog-card-main-image-div'>
@@ -84,7 +85,7 @@ const BlogCard = ({
           <p className='blog-card-post-date'>{formatDate(blogPostDate)}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

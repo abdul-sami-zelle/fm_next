@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ToggleSwitch.css';
 
 const SlimToggler = ({ id, checked, onChange }) => {
+
+  useEffect(() => {
+    console.log("checked value", checked)
+
+  }, [checked])
   return (
 
     // Check Box 1
@@ -11,26 +16,6 @@ const SlimToggler = ({ id, checked, onChange }) => {
         <span></span>
       </label>
     </div>
-
-    // Checkbox 2
-    // <div className="checkbox-wrapper-7" >
-    //   <input className="tgl tgl-ios" type="checkbox" id={id} checked={checked} onChange={onChange} />
-    //   <label className="tgl-btn" for={id}></label>
-    // </div>
-
-
-    // <div className="checkbox-wrapper-7">
-    //   <input 
-    //     className="tgl tgl-ios" 
-    //     id={id} 
-    //     type="checkbox" 
-    //     checked={checked} 
-    //     onChange={onChange} 
-    //   />
-    //   <label className="tgl-btn" htmlFor={id}>
-    //   <span className="toggle-text">{checked ? 'Yes Protect it' : 'No Thanks'}</span>
-    //   </label>
-    // </div>
   );
 };
 

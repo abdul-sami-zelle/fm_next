@@ -124,11 +124,11 @@
 }
 
 .budget-furniture-card-details button:hover{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .budget-furniture-card-details button:hover::after{
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     width: 50%;
     left: 25%;
 }

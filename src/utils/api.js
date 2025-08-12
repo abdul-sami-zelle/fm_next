@@ -8,18 +8,18 @@ import { useEffect } from "react";
 // export const url = `https://fm.zellehost.com`
 
 
-export const roomApi = `https://roomapi.myfurnituremecca.com`
+// export const roomApi = `https://roomapi.myfurnituremecca.com`
 
 
-// export const roomApi = `https://roomapidev.myfurnituremecca.com`
+export const roomApi = `https://roomapidev.myfurnituremecca.com`
 
 // Live
-export const url = `https://fmapi.myfurnituremecca.com`;
+// export const url = `https://fmapi.myfurnituremecca.com`;
 
 
 
 //  Development
-// export const url = `https://devapi.myfurnituremecca.com`;
+export const url = `https://devapi.myfurnituremecca.com`;
 
 
 
@@ -28,7 +28,8 @@ export const url = `https://fmapi.myfurnituremecca.com`;
 
 // export const url = `http://fm_api.myfurnituremecca.com`;
 // export const url = `http://localhost:8080`
-export const siteUrl = `https://myfurnituremecca.com`
+// export const siteUrl = `https://myfurnituremecca.com`
+export const siteUrl = `https://fmnext.myfurnituremecca.com`
 // export const url = `https://furniture-mecca-apis.vercel.app`
 
 export function formatTime(stateName, timestamp) {

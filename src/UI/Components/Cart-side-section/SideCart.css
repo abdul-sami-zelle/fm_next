@@ -232,8 +232,8 @@
 }
 
 .side-cart-navigate-to-checkout:hover {
-    background-color: #FFF;
-    color: var(--orange-fill);
+    background-color: #595959;
+    color: #FFF;
 }
 
 .side-cart-loader_overlay {

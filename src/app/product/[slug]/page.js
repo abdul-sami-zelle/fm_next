@@ -202,7 +202,7 @@ const ProductDisplay = ({ params }) => {
 
       const newIndex = prevIndex - 1;
       setThumbActiveIndex(newIndex); // Update active thumbnail index
-      // setZoomIn(false);
+     
       setCurrentIndex(newIndex)
 
       // Scroll thumbnail container
@@ -318,20 +318,11 @@ const ProductDisplay = ({ params }) => {
           handleQuantityChange={handleQuantityChange}
           increaseLocalQuantity={increaseLocalQuantity}
           isLoading={isLoading}
-          handleClick={handleClick}
-          addToCart0={addToCart0}
           stockCheck={stockCheck}
           isProtectionCheck={isProtectionCheck}
-          handleAddToCartProduct={handleAddToCartProduct}
-          cartProducts={cartProducts}
           cartSection={cartSection}
           variationData={variationData}
           setVariationData={setVariationData}
-          handleCartClose={handleCartClose}
-          setCartSection={setCartSection}
-          removeFromCart={removeFromCart}
-          decreamentQuantity={decreamentQuantity}
-          increamentQuantity={increamentQuantity}
           isSticky={isSticky}
           handleGalleryModal={handleOpenModal}
           isCartLoading={isCartLoading}

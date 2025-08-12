@@ -46,16 +46,16 @@
 
 .nav-link:hover {
     color: var(--text-red);
-    /* border-bottom: 2px solid var(--primary-color); */
+    /* border-bottom: 2px solid var(--orange-fill); */
 }
 
 .nav-link.active-nav-link {
     color: var(--text-red) !important;
-    /* border-bottom: 2px solid var(--primary-color) !important; */
+    /* border-bottom: 2px solid var(--orange-fill) !important; */
 }
 
 /* .nav-item:nth-child(8) .nav-link {
-    color: var(--primary-color);
+    color: var(--orange-fill);
 } */
 
 /* .nav-item:nth-child(9) .nav-link {
@@ -76,7 +76,7 @@
 
 .nav-item.active .nav-link {
     color: var(--text-red);
-    /* border-bottom: 2px solid var(--primary-color); */
+    /* border-bottom: 2px solid var(--orange-fill); */
 }
 
 

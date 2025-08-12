@@ -30,7 +30,7 @@ const WishListClient = () => {
     isInWishList
   } = useList();
 
-  const {cartSection, setCartSection} = useCart()
+  const { cartSection, setCartSection } = useCart()
   const [loading, setLoading] = useState(true)
   const [quickViewClicked, setQuickView] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState({})
@@ -150,10 +150,10 @@ const WishListClient = () => {
       // Remove from UI instantly
       setWishlistProducts(prev => prev.filter(p => p._id !== item._id));
 
-      setWishlistMessage('Removed from wish list');
+      setWishlistMessage('Removed from wishlist');
     } else {
       addToList(item._id);
-      setWishlistMessage('Added to wish list');
+      setWishlistMessage('Added to wishlist');
 
       // Optional: instantly add product for guest mode
       if (!userId || !userToken) {
@@ -193,18 +193,18 @@ const WishListClient = () => {
     setActiveGrid(grid)
   }
 
-         const [regPrice, setRegPrice] = useState("");
-         const [salePrice, setSalePrice] = useState("");
-      const handleOpennfoModal = (salePrice, regPrice) => {
-          setIsInfoOpen(true);
-          setSalePrice(salePrice)
-          setRegPrice(regPrice)
-      }
+  const [regPrice, setRegPrice] = useState("");
+  const [salePrice, setSalePrice] = useState("");
+  const handleOpennfoModal = (salePrice, regPrice) => {
+    setIsInfoOpen(true);
+    setSalePrice(salePrice)
+    setRegPrice(regPrice)
+  }
 
   const handleCloseInfoModal = () => {
     setIsInfoOpen(false);
     setSalePrice('')
-          setRegPrice('')
+    setRegPrice('')
   }
 
   const handleSideCartClose = () => {
@@ -275,7 +275,8 @@ const WishListClient = () => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
-                handleInfoModal={handleOpennfoModal}
+                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                productUid={item.uid}
               />
             );
           })
@@ -302,7 +303,6 @@ const WishListClient = () => {
                 showOnPage={true}
                 showExtraLines={true}
                 percent={'12%'}
-                colTwo={activeGrid === 'single-col'}
                 tagIcon={item.productTag ? item.productTag : heart}
                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                 mainImage={`${item?.image?.image_url}`}
@@ -324,48 +324,14 @@ const WishListClient = () => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
-                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                colTwo={activeGrid === 'single-col' ? false : true}
+                
               />
             );
           })
         )}
-        {/* {wishlistProducts && wishlistProducts?.length > 0 ? (
-          wishlistProducts.map((item, index) => {
-            return <ProductCardTwo
-              key={index}
-              slug={item.slug}
-              singleProductData={item}
-              maxWidthAccordingToComp={"100%"}
-              colTwo={activeGrid === 'single-col' ? false : true}
-              // justWidth={'100%'}
-              tagIcon={item.productTag ? item.productTag : heart}
-              tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-              mainImage={`${item.image.image_url}`}
-              productCardContainerClass="product-card"
-              ProductSku={item.sku}
-              tags={item.product_tag}
-              ProductTitle={truncateTitle(item.name, maxLength)}
-
-              reviewCount={item.reviewCount}
-              lowPriceAddvertisement={item.lowPriceAddvertisement}
-              priceTag={item.regular_price}
-              sale_price={item.sale_price}
-              financingAdd={item.financingAdd}
-              learnMore={item.learnMore}
-              mainIndex={index}
-              deliveryTime={item.deliveryTime}
-              stock={item.manage_stock}
-              attributes={item.attributes}
-              handleCardClick={() => handleProductClick(item)}
-              handleQuickView={() => handleQuickViewOpen(item)}
-              handleWishListclick={() => handleWishList(item)}
-            />
-          })
-        ) : (
-          Array.from({ length: 1 }).map((_, index) => (
-            <ProductCardShimmer key={index} width={'100%'} />
-          ))
-        )} */}
+        
       </div>
       <QuickView
         setQuickViewProduct={quickViewProduct}
@@ -373,7 +339,7 @@ const WishListClient = () => {
         quickViewClose={handleQuickViewClose}
       />
 
-      <SideCart 
+      <SideCart
         isCartOpen={cartSection}
         handleCloseSideCart={handleSideCartClose}
       />
@@ -388,7 +354,7 @@ const WishListClient = () => {
         openModal={isInfoOpen}
         closeModal={handleCloseInfoModal}
         salePrice={salePrice}
-                    regPrice={regPrice}
+        regPrice={regPrice}
       />
     </div>
   )

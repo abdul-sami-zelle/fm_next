@@ -47,6 +47,7 @@ const Cart = () => {
     wrongZip, setWrongZip,
     wrongZipMessage,
     handleZipWarningClose,
+    zipLoading,
   } = useGlobalContext();
 
 
@@ -265,7 +266,10 @@ const Cart = () => {
                       value={zipCode}
                       onChange={handleInputChange}
                     />
-                    <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>Update</button>
+                    <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>
+                      {zipLoading && <div className='loader_2' style={{background: '#FFF'}}></div>}
+                      {zipLoading ? 'Wait..' : 'Update'}
+                    </button>
                   </div>
                 </div>
               </div>

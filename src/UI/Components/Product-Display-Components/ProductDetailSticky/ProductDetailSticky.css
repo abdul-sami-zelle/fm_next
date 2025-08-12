@@ -955,6 +955,8 @@
 
     .product-detail-other-info{
         margin-bottom: 10px;
+        margin-top: 10px;
+        gap: 10px;
     }
 
 }

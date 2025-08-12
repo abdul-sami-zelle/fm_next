@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './MobileCart.css';
 import deleteIcon from '../../../../Assets/icons/delete-red.png';
 import plusBtn from '../../../../Assets/icons/plus.png';
@@ -41,15 +41,7 @@ const MobileCart = (
         setIsProtectionClicked((prevValue) => prevValue === value ? null : value)
     }
 
-    const handleSingleProtection = (value) => {
-        if (isProtectionClicked === 'yes-protect') {
-            handleProtectOrNotButtonClicked('no-thanks');
-            removeProtection();
-        } else {
-            handleProtectOrNotButtonClicked('yes-protect');
-            addProtection();
-        }
-    }
+    
 
     const productTotalPrice = productData.regular_price * quantity;
 
@@ -83,7 +75,7 @@ const MobileCart = (
                 </div>
             </div>
 
-            <div className='desktop-card-protection-div' onClick={handleSingleProtection}>
+            <div className='mobile-card-protection-div' >
                 <div className='guard-and-heading'>
                     <div className='mobile-guard-title-and-details'>
                         <span>
@@ -98,47 +90,25 @@ const MobileCart = (
                             : <div className='mobile-protection-btns-accept-and-cancel'>
 
                                 <SlimToggler
-                                    id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
+                                    id={`mobile-protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
                                     checked={isProtectionClicked === 'yes-protect'}
-                                    onChange={() => {
+                                    onChange={(e) => {
                                         if (isProtectionClicked === 'yes-protect') {
+                                            e.stopPropagation();
                                             handleProtectOrNotButtonClicked('no-thanks');
                                             removeProtection();
                                         } else {
+                                            e.stopPropagation();
                                             handleProtectOrNotButtonClicked('yes-protect');
                                             addProtection();
                                         }
                                     }}
                                 />
                             </div>}
-                        {/* <span className='protection-details-and-message'>
-                                <p className='protection-price-message'>
-                                    Protection Plan
-                                </p>
-                            </span> */}
                     </div>
                 </div>
 
-                {/* {cartProducts.is_all_protected === 1 ? <div className="protection-all-protected">
-                        <Image src={'/Assets/check.png'} width={50} height={50} alt="" srcset="" />
-                        <p>Protection Applied</p>
-                    </div>
-                        : <div className='protection-btns-accept-and-cancel'>
-
-                            <SlimToggler
-                                id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
-                                checked={isProtectionClicked === 'yes-protect'}
-                                onChange={() => {
-                                    if (isProtectionClicked === 'yes-protect') {
-                                        handleProtectOrNotButtonClicked('no-thanks');
-                                        removeProtection();
-                                    } else {
-                                        handleProtectOrNotButtonClicked('yes-protect');
-                                        addProtection();
-                                    }
-                                }}
-                            />
-                        </div>} */}
+                
             </div>
 
         </div>

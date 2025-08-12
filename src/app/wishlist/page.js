@@ -2,7 +2,7 @@ import WishListClient from "@/UI/Components/WishListClient/WishListClient";
 
 export async function generateMetadata() {
     return {
-      title: `Wish List - Furniture Mecca`,
+      title: `WishList - Furniture Mecca`,
       description: `Browse our collection`,
     };
   }

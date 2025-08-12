@@ -354,10 +354,10 @@
     align-items: center;
     justify-content: center;
     background-color: #fff;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-fill);
     height: 50px;
     border-radius: 3px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     font-size: 15px;
     line-height: 23px;
     font-weight: 600;

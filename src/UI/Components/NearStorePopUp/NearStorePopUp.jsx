@@ -25,9 +25,7 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
         handleInputChange,
         handleButtonClick,
         info,
-        // wrongZip, setWrongZip,
-        // wrongZipMessage,
-        // handleZipWarningClose,
+        zipLoading,
     } = useGlobalContext();
 
     const [storeOpenIndex, setOpenStoreIndex] = useState(-1);
@@ -164,7 +162,11 @@ const NearStorePopUp = ({ isOpen, setIsOpen, handleCloseNearBy }) => {
                             onChange={handleInputChange} // Update state on input change
                         />
                         <button className='header-search-button' onClick={() => handleButtonClick()}>
-                            <IoIosSearch size={22} height={22} color='var(--text-oposite)' />
+                            {zipLoading ? (
+                                <div className='loader_2' style={{background: '#FFF'}}></div>
+                            ) : (
+                                <IoIosSearch size={22} height={22} color='var(--text-oposite)' />
+                            )}
                         </button>
                     </div>
                     <div className='pop-up-header-location'>

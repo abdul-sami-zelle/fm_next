@@ -124,8 +124,8 @@
 
 .furniture-details-container button:hover{
     background-color: transparent;
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
+    border: 2px solid var(--orange-fill);
+    color: var(--orange-fill);
     font-weight: 500;
 }
 
@@ -151,7 +151,7 @@
 }
 
 .product-arrow:hover{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .arrow-left {

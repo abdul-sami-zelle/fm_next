@@ -121,12 +121,12 @@ const BestSeller = () => {
         setShowSnakeBar(true)
         if (isInWishList(item._id)) {
             removeFromList(item._id);
-            setSnakeBarMessage('Removed from wish list')
+            setSnakeBarMessage('Removed from wishlist')
 
         } else {
             addToList(item._id)
 
-            setSnakeBarMessage('added to wish list')
+            setSnakeBarMessage('added to wishlist')
         }
 
         if (userId && getToken) {
@@ -271,7 +271,7 @@ const BestSeller = () => {
                                                     <VscHeartFilled
                                                         size={25}
                                                         style={{
-                                                            color: 'var(--primary-color)',
+                                                            color: 'var(--orange-fill)',
 
                                                         }}
                                                         onClick={(e) => {
@@ -284,7 +284,7 @@ const BestSeller = () => {
                                                     <VscHeart
                                                         size={25}
                                                         style={{
-                                                            color: 'var(--primary-color)',
+                                                            color: 'var(--orange-fill)',
 
                                                         }}
                                                         onClick={(e) => {

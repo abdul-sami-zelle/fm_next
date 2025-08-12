@@ -164,7 +164,7 @@
 
 .checkout-pages-toggle-nav span.active-checkout-toggle p:nth-child(2) {
     color: var(--text-primary);
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--orange-fill);
 }
 
 .shipping-details-and-coupen-show {

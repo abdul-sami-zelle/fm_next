@@ -110,7 +110,7 @@ const CategoriesClient = ({ category }) => {
         mainImage={location.state ? location.state?.bannerImage : categoryData?.bannerImage}
       />
 
-      <Category title={location.state ? location.state?.name : categoryData?.name} categorySlug={category} categoryData={categoryPageData} handleNavigate={handleNavigate} />
+      <Category marginTop='15px' title={location.state ? location.state?.name : categoryData?.name} categorySlug={category} categoryData={categoryPageData} handleNavigate={handleNavigate} />
       {bestSelling && (<BestSeller />)}
       {allProducts && (
         <DealOfTheDay

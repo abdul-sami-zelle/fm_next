@@ -215,7 +215,7 @@
     font-size: 18px;
     line-height: 27px;
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .price-and-heart img {
@@ -308,7 +308,7 @@
 }
 
 .mobile-best-seller-nav-item.mobile-seller-nav-active {
-    /* border-bottom: 2px solid var(--primary-color); */
+    /* border-bottom: 2px solid var(--orange-fill); */
     border-bottom: 2px solid var(--orange-outline);
     color: var(--text-gray);
     font-weight: 600;
@@ -501,7 +501,7 @@
 }
 
 .best-seller-cart-icon {
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .mobile-best-seller-cart-wishlist-container {
@@ -546,7 +546,7 @@
 }
 
 .highlighted-dot {
-    /* background-color: var(--primary-color); */
+    /* background-color: var(--orange-fill); */
     background-color: var(--orange-outline);
 }
 
@@ -639,7 +639,7 @@
     }
 
     .best-seller-menu-bar p.active {
-        border-bottom: 3px solid var(--primary-color);
+        border-bottom: 3px solid var(--orange-fill);
         font-size: 10px;
         font-weight: 600;
     }
@@ -709,7 +709,7 @@
         font-size: 15px;
         line-height: 23px;
         font-weight: 600;
-        color: var(--primary-color);
+        color: var(--orange-fill);
     }
 
     .price-and-heart img {

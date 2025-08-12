@@ -54,8 +54,8 @@
 
 /* Style for checked state */
 .select-payment-method input[type='radio']:checked + .radio-label:before {
-    background-color: var(--primary-color); /* Background for checked state */
-    border-color: var(--primary-color); /* Border color for checked state */
+    background-color: var(--orange-fill); /* Background for checked state */
+    border-color: var(--orange-fill); /* Border color for checked state */
     box-shadow: inset 0 0 0 1px white;
     
 }

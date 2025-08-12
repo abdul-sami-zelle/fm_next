@@ -175,7 +175,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
 
                     <div className='side-cart-navigation-buttons-contianer'>
                         <button className='side-cart-navigate-to-cart' onClick={handleCLoseCartPanel}>
-                            Cart
+                            View Cart
                         </button>
                         <button className='side-cart-navigate-to-checkout' onClick={navigateToCheckout}>
                             Checkout

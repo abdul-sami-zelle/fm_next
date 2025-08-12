@@ -10,7 +10,6 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 // Components
 import ProductCardShimmer from '../Loaders/productCardShimmer/productCardShimmer';
 import QuickView from '../QuickView/QuickView';
-import CartSidePannel from '../Cart-side-section/CartSidePannel';
 import MobileViewProductFilters from '../MobileViewProductFilters/MobileViewProductFilters';
 
 // Functions and Context
@@ -32,18 +31,12 @@ import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigat
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import ElipticalPagenation from './ElepticalPagination';
-import SideCart from '../Cart-side-section/SideCart';
 
 const Products = ({ navigationType }) => {
 
     // All Contexts
     const {
-        cartProducts,
-        increamentQuantity,
-        decreamentQuantity,
-        removeFromCart,
-        cartSection, 
-        setCartSection,
+        cartSection,
     } = useCart();
 
     const {
@@ -76,20 +69,12 @@ const Products = ({ navigationType }) => {
         setIsStock,
     } = useProductArchive()
 
-
     const slug = useParams();
     const subCategorySlug = slug['product-archive'];
 
-
-
-    // const location = useLocation();
     const location = useSearchParams();
-    // const params = new URLSearchParams(location.search);
-
     const pathname = usePathname()
-
     const firstSegment = pathname.split('/')[1]; // "accent-furniture"
-
     const formatted = firstSegment
         .split('-')                          // ['accent', 'furniture']
         .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each
@@ -98,12 +83,8 @@ const Products = ({ navigationType }) => {
     const searchParams = useSearchParams()
     const query = searchParams.get('query');
 
-
-
     const [hideFilters, setHideFilters] = useState(false);
     const [relevanceTrue, setRelevanceTrue] = useState(false)
-    // const router = useRouter();
-    const [addToCartClicked, setAddToCartClicked] = useState(false);
     const [quickViewClicked, setQuickView] = useState(false);
     const [quickViewProduct, setQuickViewProduct] = useState({})
     const [colors, setColors] = useState([]);
@@ -135,13 +116,11 @@ const Products = ({ navigationType }) => {
     const [salePrice, setSalePrice] = useState("");
     const [regPrice, setRegPrice] = useState("");
 
-
     const router = useRouter()
 
     // Sub Categories show
     const categorySlug = useParams();
     const parentCategory = categorySlug.category
-
 
     const getSubCategories = async () => {
 
@@ -408,8 +387,6 @@ const Products = ({ navigationType }) => {
         filterProducts('')
     }
 
-
-
     const filterProducts = async (filter) => {
         const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
         try {
@@ -561,8 +538,6 @@ const Products = ({ navigationType }) => {
             setClearFilters(false)
         }
     };
-
-    
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -777,12 +752,24 @@ const Products = ({ navigationType }) => {
     const [scrollLeftStart, setScrollLeftStart] = useState(0);
     const [atStart, setAtStart] = useState(true);
     const [atEnd, setAtEnd] = useState(false);
+    const [showArrows, setShowArrows] = useState(false);
 
     const handleScroll = () => {
         const el = scrollRef.current;
         if (!el) return;
 
-        setAtStart(el.scrollLeft === 0);
+        const isOverflowing = el.scrollWidth > el.clientWidth + 1;
+
+        if (!isOverflowing) {
+            setShowArrows(false);
+            setAtStart(true);
+            setAtEnd(true);
+            return;
+        }
+
+        setShowArrows(true)
+
+        setAtStart(el.scrollLeft <= 0);
         setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
     };
 
@@ -795,9 +782,12 @@ const Products = ({ navigationType }) => {
     const handleMouseMove = (e) => {
         if (!isDragging || e.buttons !== 1) return; // Only drag if mouse is down
         e.preventDefault();
+
         const x = e.pageX - scrollRef.current.offsetLeft;
         const walk = (x - startX) * 1.5;
         scrollRef.current.scrollLeft = scrollLeftStart - walk;
+
+        handleScroll()
     };
 
     const stopDragging = () => {
@@ -814,16 +804,52 @@ const Products = ({ navigationType }) => {
         };
     }, [isDragging, startX, scrollLeftStart]);
 
-
     useEffect(() => {
-        const el = scrollRef.current;
-        if (!el) return;
+    const el = scrollRef.current;
+    if (!el) return;
 
-        el.addEventListener("scroll", handleScroll);
-        handleScroll(); // Check initially
+    // Run scroll check
+    const runCheck = () => {
+        const isOverflowing = el.scrollWidth > el.clientWidth + 1;
+        if (!isOverflowing) {
+            setShowArrows(false);
+            setAtStart(true);
+            setAtEnd(true);
+            return;
+        }
+        setShowArrows(true);
+        setAtStart(el.scrollLeft <= 0);
+        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+    };
 
-        return () => el.removeEventListener("scroll", handleScroll);
-    }, []);
+    // Listen to events
+    el.addEventListener("scroll", runCheck);
+    window.addEventListener("resize", runCheck);
+
+    // Also check when images load
+    const imgs = el.querySelectorAll("img");
+    let loadedCount = 0;
+    imgs.forEach(img => {
+        if (img.complete) {
+            loadedCount++;
+        } else {
+            img.addEventListener("load", () => {
+                loadedCount++;
+                if (loadedCount === imgs.length) {
+                    runCheck();
+                }
+            });
+        }
+    });
+
+    // Initial check after paint
+    requestAnimationFrame(runCheck);
+
+    return () => {
+        el.removeEventListener("scroll", runCheck);
+        window.removeEventListener("resize", runCheck);
+    };
+}, [subCategories]);
 
     const scrollLeft = () => {
         scrollRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
@@ -844,7 +870,6 @@ const Products = ({ navigationType }) => {
 
     return (
         <div className='products-main-container'>
-            {/* <Breadcrumb category={products.categories} /> */}
             {loader && <Loader />}
             <h3 className={`select-your-category-products-heading ${currentRoute === 'searched-products' ? 'hide-category-heading' : ''}`}>
                 Select Your{" "}
@@ -852,13 +877,15 @@ const Products = ({ navigationType }) => {
             </h3>
             {products?.length > 0 && (
                 <div className={`product-archive-category-wrapper  ${currentRoute === 'searched-products' ? 'hide-category-images-main-contianer' : ''}`}>
-                    <button 
-                        className='category-scroll-button category-left' 
-                        onClick={() => scrollLeft()}
-                        // style={{ visibility: atStart ? 'hidden' : 'visible' }}
-                    >
-                        <IoIosArrowBack size={15} color='var(--orange-outline)' />
-                    </button>
+                    {showArrows && (
+                        <button
+                            className='category-scroll-button category-left'
+                            onClick={() => scrollLeft()}
+                            style={{ visibility: atStart ? 'hidden' : 'visible' }}
+                        >
+                            <IoIosArrowBack size={15} color='var(--orange-outline)' />
+                        </button>
+                    )}
                     <div
                         ref={scrollRef}
                         className={`product-archive-sub-categories-container ${currentRoute === 'searched-products' ? 'hide-category-images-container' : ''}`}
@@ -870,13 +897,15 @@ const Products = ({ navigationType }) => {
                             </Link>
                         ))}
                     </div>
-                    <button 
-                        className='category-scroll-button category-right' 
-                        onClick={() => scrollRight()}
-                        // style={{ visibility: atEnd ? 'hidden' : 'visible' }}
-                    >
-                        <IoIosArrowForward size={15} color='var(--orange-outline)' />
-                    </button>
+                    {showArrows && (
+                        <button
+                            className='category-scroll-button category-right'
+                            onClick={() => scrollRight()}
+                            style={{ visibility: atEnd ? 'hidden' : 'visible' }}
+                        >
+                            <IoIosArrowForward size={15} color='var(--orange-outline)' />
+                        </button>
+                    )}
                 </div>
             )}
 
@@ -1217,7 +1246,7 @@ const Products = ({ navigationType }) => {
                                                 handleCardClick={() => handleProductClick(item)}
                                                 handleQuickView={() => handleQuickViewOpen(item)}
                                                 handleWishListclick={() => handleWishList(item)}
-                                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                                             />
                                         })
                                     ) : (
@@ -1235,6 +1264,7 @@ const Products = ({ navigationType }) => {
                                     onPrevPage={handlePrevPage}
                                     onNextPage={handleNextPage}
                                     onPageChange={handleActivePage}
+                                    marginTop={'0px !important'}
                                 />
                             </div>
                         )}
@@ -1332,7 +1362,7 @@ const Products = ({ navigationType }) => {
                                         handleCardClick={() => handleProductClick(item)}
                                         handleQuickView={() => handleQuickViewOpen(item)}
                                         handleWishListclick={() => handleWishList(item)}
-                                        handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                        handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                                     />
                                 })
                             )}
@@ -1353,23 +1383,12 @@ const Products = ({ navigationType }) => {
 
 
             </div>
-            
+
             <QuickView
                 setQuickViewProduct={quickViewProduct}
                 quickViewShow={quickViewClicked}
                 quickViewClose={handleQuickViewClose}
             />
-
-            
-
-            {/* <CartSidePannel
-                cartData={cartProducts}
-                addToCartClicked={addToCartClicked}
-                handleCartSectionClose={handleCartSectionClose}
-                removeFromCart={removeFromCart}
-                decreamentQuantity={decreamentQuantity}
-                increamentQuantity={increamentQuantity}
-            /> */}
 
             <MobileViewProductFilters
                 showMobileFilters={mobileFilters}
@@ -1413,7 +1432,7 @@ const Products = ({ navigationType }) => {
                 openModal={isInfoOpen}
                 closeModal={handleCloseInfoModal}
                 salePrice={salePrice}
-                    regPrice={regPrice}
+                regPrice={regPrice}
             />
         </div>
     )

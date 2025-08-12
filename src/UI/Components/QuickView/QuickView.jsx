@@ -115,13 +115,13 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
         if (isInWishList(item.uid)) {
             removeFromList(item.uid);
             setShowSnakeBar(true);
-            setSnakBarMessage("Product Removed From Wish List");
+            setSnakBarMessage("Product Removed From Wishlist");
 
 
         } else {
             addToList(item)
             setShowSnakeBar(true);
-            setSnakBarMessage("Product Added To Wish List");
+            setSnakBarMessage("Product Added To Wishlist");
 
         }
     }

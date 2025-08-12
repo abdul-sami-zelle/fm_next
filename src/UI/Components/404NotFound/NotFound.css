@@ -34,7 +34,7 @@
     font-size: 30px;
     font-weight: 700;
     line-height: 45px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .error-response-div{

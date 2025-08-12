@@ -83,7 +83,7 @@ const BestSellerProductCard = (
                     {/* {
                         isInWishList(productData.uid) ? <VscHeartFilled
                             size={25}
-                            style={{ color: 'var(--primary-color)' }}
+                            style={{ color: 'var(--orange-fill)' }}
                             onClick={(e) => { e.stopPropagation(); handleWishListClicked(productData) }} />
                             : <img src={'/Assets/icons/like.png'}
                                 alt='heart'

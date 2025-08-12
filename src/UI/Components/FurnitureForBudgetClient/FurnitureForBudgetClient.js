@@ -19,6 +19,7 @@ import Image from "next/image";
 import Pagination from "../Pagination/PaginationRashid";
 import SectionLoader from "../Loader/SectionLoader";
 import ElipticalPagenation from "../Products/ElepticalPagination";
+import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 
 export default function FurnitureAtEveryBudgetClient() {
 
@@ -201,28 +202,46 @@ export default function FurnitureAtEveryBudgetClient() {
 
     // wish list
     const { addToList, removeFromList, isInWishList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
-    const handleWishList = (item) => {
-        if (isInWishList(item.uid)) {
-            removeFromList(item.uid);
-            notifyRemove('Removed from wish list', {
-                autoClose: 10000,
-                className: "toast-message",
-            })
+    const [openSnakeBar, setOpenSnakeBar] = useState(false);
+    const [wishlistMessage, setWishlistMessage] = useState('')
+
+    const handleWishList = async (item) => {
+
+
+        setOpenSnakeBar(true)
+        if (isInWishList(item._id)) {
+            removeFromList(item._id);
+            setWishlistMessage('Removed from wishlist')
 
         } else {
-            addToList(item)
-            notify("added to wish list", {
-                autoClose: 10000,
-            })
+            addToList(item._id)
+            setWishlistMessage('added to wishlist')
         }
+
+        if (userId && userToken) {
+            const api = `${url}/api/v1/web-users/wishlist/${userId}`;
+
+            try {
+                const response = await axios.put(api, { productId: item._id }, {
+                    headers: {
+                        Authorization: userToken,
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.error("UnExpected Server Error", error);
+            }
+        }
+    }
+
+    const handleCloseSnakeBar = () => {
+        setOpenSnakeBar(false)
     }
 
 
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [salePrice, setSalePrice] = useState("");
-        const [regPrice, setRegPrice] = useState("");
+    const [regPrice, setRegPrice] = useState("");
 
     const handleOpennfoModal = (salePrice, regPrice) => {
         setIsInfoOpen(true);
@@ -298,6 +317,11 @@ export default function FurnitureAtEveryBudgetClient() {
     const [activeGrid, setActiveGrid] = useState('single-col')
     const [selectedGrid, setSelectedGrid] = useState('single-col');
 
+    const handleActiveGrid = (grid) => {
+        setActiveGrid(grid);
+        setSelectedGrid(grid)
+    }
+
 
     const [imagePreloader, setImagePreloader] = useState(false);
     const handlePageChange = (pageNumber) => {
@@ -347,8 +371,23 @@ export default function FurnitureAtEveryBudgetClient() {
             </div>
             <div className="furniture_at_every_budget">
 
+                <div className="mobile-furniture-heading-and-column-contianer">
+                    <h3 className="furniture-for-every-budget-main-heading">Furniture Under ${max_price}</h3>
 
-                <h3 className="furniture-for-every-budget-main-heading">Furniture Under ${max_price}</h3>
+                    <div className='mobile-view-product-card-grid-select'>
+                        <div className={`mobile-view-toggler-single-box ${activeGrid === 'single-col' ? 'active-toggler-single-box' : ''}`}>
+                            <div className={`mobile-view-card-grid-single-col ${activeGrid === 'single-col' ? 'grid-active' : ''}`} onClick={() => handleActiveGrid('single-col')}></div>
+                        </div>
+
+                        <div className={`mobile-view-toggler-double-box ${activeGrid === 'dual-col' ? 'active-toggler-dual-col' : ''}`}>
+                            <div className='mobile-view-card-grid-dual-col' onClick={() => handleActiveGrid('dual-col')}>
+                                <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+                                <div className={`mobile-view-card-grid-dual-col-inner ${activeGrid !== 'single-col' ? 'active-dual-col' : ''}`}></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div className="product-grid">
                     {!isInitialLoad ? (
@@ -385,7 +424,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleCardClick={() => handleProductClick(item)}
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
-                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                             />
                         ))
                     ) : (
@@ -430,7 +469,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleCardClick={() => handleProductClick(item)}
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
-                                handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                             />
                         ))
                     ) : (
@@ -441,13 +480,16 @@ export default function FurnitureAtEveryBudgetClient() {
                 </div>
 
                 {/* {!noProducts && ( */}
-                    <ElipticalPagenation
-                        activePageIndex={currentPage}
-                        totalPages={pagination?.totalPages}
-                        onPrevPage={handlePrevPage}
-                        onNextPage={handleNextPage}
-                        onPageChange={handlePageChange}
-                    />
+                <ElipticalPagenation
+                    activePageIndex={currentPage}
+                    totalPages={pagination?.totalPages}
+                    onPrevPage={handlePrevPage}
+                    onNextPage={handleNextPage}
+                    onPageChange={handlePageChange}
+                    marginTop={'0px'}
+                    innerTop="0px"
+                    innerBottom="0px"
+                />
 
                 {/* )} */}
 
@@ -463,6 +505,13 @@ export default function FurnitureAtEveryBudgetClient() {
                     closeModal={handleCloseInfoModal}
                     salePrice={salePrice}
                     regPrice={regPrice}
+                />
+
+                <SnakBar
+                    message={wishlistMessage}
+                    openSnakeBarProp={openSnakeBar}
+                    setOpenSnakeBar={setOpenSnakeBar}
+                    onClick={handleCloseSnakeBar}
                 />
 
                 {loading && <SectionLoader />}

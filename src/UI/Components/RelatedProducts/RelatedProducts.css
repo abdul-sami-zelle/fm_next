@@ -24,8 +24,8 @@
 
 @media only screen and (max-width: 480px) {
     .related-products-main-container {
-        padding: 15px;
-        gap: 0;
+        padding: 10px 15px 10px 15px;
+        gap: 5px;
     }
 
     .related-products-main-container>h3 {

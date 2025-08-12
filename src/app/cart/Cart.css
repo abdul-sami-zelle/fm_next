@@ -11,7 +11,7 @@
     display: flex;
     width: 100%;
     max-width: 2000px;
-    padding: 0px 120px;
+    padding: 0px 120px 35px 120px;
     gap: 10px;
     min-height: 60vh;
     position: relative;
@@ -20,7 +20,7 @@
 .cart-products-section {
     display: flex;
     width: 70%;
-    padding: 25px 20px 25px 0;
+    padding: 25px 20px 0px 0;
 }
 
 .cart-products-section.cart-products-section-full-width {
@@ -207,6 +207,7 @@
 
 .cart-summary-update-zip-btn {
     height: 40px;
+    width: 80px !important;
     padding: 11px 15px;
     border: none;
     background-color: var(--orange-fill);
@@ -762,7 +763,7 @@
 
 @media only screen and (max-width: 1300px) {
     .cart-body {
-        padding: 0 60px;
+        padding: 0 60px 35px 60px;
     }
 
     .cart-products-section {

@@ -18,14 +18,14 @@ const RelatedProducts = ({ data }) => {
 
   const { addToList, removeFromList, isInWishList } = useList()
   const handleWishList = (item) => {
-    if (isInWishList(item.uid)) {
-      removeFromList(item.uid);
+    if (isInWishList(item._id)) {
+      removeFromList(item._id);
       setShowSnakeBar(true)
       setSnakBarMessage("Product Removed Successfully")
 
     } else {
-      addToList(item)
-      setSnakBarMessage("Product Added To Wish List");
+      addToList(item._id)
+      setSnakBarMessage("Product Added To Wishlist");
       setShowSnakeBar(true)
 
     }
@@ -68,7 +68,6 @@ const RelatedProducts = ({ data }) => {
                 showOnPage={true}
                 percent={'12%'}
                 showExtraLines={false}
-                titleHeight={true}
                 tagIcon={item.productTag ? item.productTag : heart}
                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                 mainImage={`${item.image.image_url}`}
@@ -77,7 +76,6 @@ const RelatedProducts = ({ data }) => {
                 tags={item.product_tag}
                 allow_back_order={item?.allow_back_order}
                 ProductTitle={item.name}
-                
                 reviewCount={item.reviewCount}
                 lowPriceAddvertisement={item.lowPriceAddvertisement}
                 priceTag={item.regular_price}
@@ -91,6 +89,8 @@ const RelatedProducts = ({ data }) => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
+                productUid={item.uid}
+                handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
               />
             </div>
           )}
@@ -101,10 +101,10 @@ const RelatedProducts = ({ data }) => {
           isPadding={true}
           breakpoints={{
             0: { slidesPerView: 1 },
-            481: {slidesPerView: 2},
+            481: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
-            1000: {slidesPerView: 4},
-            1200: {slidesPerView: 5},
+            1000: { slidesPerView: 4 },
+            1200: { slidesPerView: 5 },
           }}
         />
 

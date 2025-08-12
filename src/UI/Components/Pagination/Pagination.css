@@ -45,7 +45,7 @@
 }
 
 .pagination-btn:hover:not(:disabled) {
-  color: var(--primary-color);
+  color: var(--orange-fill);
 }
 
 .pagination-icon {

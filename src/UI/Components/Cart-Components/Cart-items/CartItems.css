@@ -339,7 +339,7 @@
 
 }
 .eye_icon.active{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 .guard-title-and-details-head{
     width: 100%;
@@ -433,7 +433,7 @@
     font-size: 18px;
     font-weight: 600;
     line-height: 18px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .protect-product-tag{
@@ -633,7 +633,7 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 27px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     margin-right: 20px;
 }
 

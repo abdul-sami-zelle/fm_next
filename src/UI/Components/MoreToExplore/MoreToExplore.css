@@ -45,7 +45,7 @@
     font-size: 25px;
     line-height: 20px;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -67,7 +67,7 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     cursor: pointer;
 }
 

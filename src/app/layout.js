@@ -9,11 +9,11 @@ export const metadata = {
     title: "Luxurious Furniture, Rugs and Mattress Online Store Philadelphia - Furniture Mecca",
     description:
       "Furniture Mecca has the largest selection of quality furniture, rugs, mattresses and other stylish furnishings items for great prices.",
-    url: "https://fmnext.myfurnituremecca.com/home-furniture-mecca",
+    url: "https://myfurnituremecca.com/home-furniture-mecca",
     siteName: "Furniture Mecca",
     images: [
       {
-        url: "https://fmnext.myfurnituremecca.com/images/og-image.jpg",
+        url: "https://myfurnituremecca.com/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Furniture Mecca",

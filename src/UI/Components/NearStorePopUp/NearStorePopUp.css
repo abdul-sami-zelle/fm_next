@@ -221,7 +221,7 @@
 /* .pop-up-header-location p{
     font-size: 14px;
     line-height: 24px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -230,14 +230,14 @@
 } */
 
 /* .pop-up-header-location p a{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 } */
 
 @media only screen and (max-width: 1200px){
     .pop-up-header-location p{
         font-size: 12px;
         line-height: 16px;
-        color: var(--primary-color);
+        color: var(--orange-fill);
         display: flex;
         align-items: center;
         gap: 5px;
@@ -245,7 +245,7 @@
     }
     
     .pop-up-header-location p a{
-        color: var(--primary-color);
+        color: var(--orange-fill);
     }
 }
 
@@ -386,7 +386,7 @@
 }
 
 .pop-up-store-open-time span{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .pop-up-complete-address{

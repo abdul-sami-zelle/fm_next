@@ -11,7 +11,7 @@ import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiv
 import { usePathname } from 'next/navigation';
 import axios from 'axios';
 import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
-import { url, useDisableBodyScroll } from '@/utils/api';
+import { url } from '@/utils/api';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 import { useCart } from '@/context/cartContext/cartContext';
 
@@ -61,11 +61,11 @@ const ProductArchive = () => {
     }
   }, [navigationType]);
 
-  const {cartSection, setCartSection} = useCart()
+  const { cartSection, setCartSection } = useCart()
 
   const handleCartSectionClose = () => {
-        setCartSection(false)
-    }
+    setCartSection(false)
+  }
 
 
   return (

@@ -72,7 +72,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                 <h3 className='mobile-register-heading'>Register</h3>
                 <form className="signup-form" onSubmit={handleSubmit}>
                     <label className="mobile-login-input-label">
-                        <p>First Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                        <p>First Name<span style={{ color: "var(--orange-fill)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
                             type="text"
@@ -83,7 +83,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                         />
                     </label>
                     <label className="mobile-login-input-label">
-                        <p>Last Name<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                        <p>Last Name<span style={{ color: "var(--orange-fill)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
                             type="text"
@@ -94,7 +94,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                         />
                     </label>
                     <label className="mobile-login-input-label">
-                        <p>Email<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                        <p>Email<span style={{ color: "var(--orange-fill)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
                             type="email"
@@ -105,7 +105,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                         />
                     </label>
                     <label className="mobile-login-input-label">
-                        <p>Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                        <p>Password<span style={{ color: "var(--orange-fill)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
                             type="password"
@@ -116,7 +116,7 @@ const RegisterMobileView = ({ mobileSignupClicked, handleRegisterView, setSnakeB
                         />
                     </label>
                     <label className="mobile-login-input-label">
-                        <p>Confirm Password<span style={{ color: "var(--primary-color)" }} >*</span></p>
+                        <p>Confirm Password<span style={{ color: "var(--orange-fill)" }} >*</span></p>
                         <input
                             className="login-and-register-input"
                             type="password"

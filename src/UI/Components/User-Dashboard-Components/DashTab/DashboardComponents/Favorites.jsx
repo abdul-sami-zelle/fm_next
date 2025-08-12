@@ -66,11 +66,11 @@ const Favorites = ({ data, setloader }) => {
     setOpenSnakeBar(true)
     if (isInWishList(item._id)) {
       removeFromList(item._id);
-      setWishlistMessage('Removed from wish list')
+      setWishlistMessage('Removed from wishlist')
 
     } else {
       addToList(item._id)
-      setWishlistMessage('added to wish list')
+      setWishlistMessage('added to wishlist')
     }
 
     const api = `${url}/api/v1/web-users/wishlist/${id}`;

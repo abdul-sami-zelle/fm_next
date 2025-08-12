@@ -381,14 +381,17 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [wrongZip, setWrongZip] = useState(false);
   const [wrongZipMessage, setWrongZipMessage] = useState({title: '', message: ''})
+  const [zipLoading, setZipLoading] = useState(false);
 
   const handleButtonClick = async () => {
     let data;
+    setZipLoading(true)
     if (extractZipCode(zipCode).length === 5) {
       data = await getStateByPostalCode(extractZipCode(zipCode));
       console.log("extracted data", data)
     }
     if (Object.keys(data).length > 1) {
+      setZipLoading(false);
       // if (data) {
       updateLocationData({
         zipCode: extractZipCode(zipCode),
@@ -402,11 +405,17 @@ export const GlobalContextProvider = ({ children }) => {
           })
         // }
       } else {
+        const prevZip = JSON.parse(localStorage.getItem('other_info'))
+        
+        setZipCode(prevZip?.locationData?.zipCode)
         setWrongZip(true);
+        // setZipCode()
         setWrongZipMessage({
           title: 'Invalid Zip Code',
           message: 'We couldn’t find that ZIP code. Please check and try again.'
         })
+
+        setZipLoading(false)
       }
   };
 
@@ -484,6 +493,7 @@ export const GlobalContextProvider = ({ children }) => {
         setWrongZip,
         wrongZipMessage,
         handleZipWarningClose,
+        zipLoading,
       }}>
         {children}
       </GlobalContext.Provider>

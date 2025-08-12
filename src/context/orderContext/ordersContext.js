@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { formatPhoneNumber, url } from "../../utils/api";
+import { formatPhoneNumber, siteUrl, url } from "../../utils/api";
 import axios from "axios";
 import { useCart } from "../cartContext/cartContext";
 import { useGlobalContext } from "../GlobalContext/globalContext";
@@ -377,7 +377,7 @@ export const MyOrdersProvider = ({ children }) => {
                     },
                 }));
 
-                openLink(`https://fmnext.myfurnituremecca.com/order-confirmation/${response.data.order._id}`)
+                openLink(`${siteUrl}/order-confirmation/${response.data.order._id}`)
             }
 
         } catch (error) {

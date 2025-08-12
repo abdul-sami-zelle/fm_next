@@ -6,12 +6,9 @@ import './PromotionalBanner.css';
 // import { Link, useNavigate } from 'react-router-dom';
 import Link from 'next/link'
 
-// import deliverTo from '../../../Assets/icons/delivery.png'
-import deliverTo from '../../../Assets/icons/delivery.png'
 import { useUserDashboardContext } from '../../../context/userDashboardContext/userDashboard';
 import { url, useDisableBodyScroll } from '../../../utils/api';
 // import crossButton from '../../../Assets/icons/close-btn.png'
-import crossButton from '../../../Assets/icons/close-btn.png'
 import Image from 'next/image';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
@@ -42,32 +39,32 @@ const PromotionalBanner = (
   const [isTokenValid, setIsTokenValid] = useState(false);
   const { info } = useGlobalContext()
 
-  const handleClickOnOrders = async () => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem('userToken');
-      const id = localStorage.getItem('uuid');
+  // const handleClickOnOrders = async () => {
+  //   if (typeof window !== "undefined") {
+  //     const token = localStorage.getItem('userToken');
+  //     const id = localStorage.getItem('uuid');
 
-      try {
-        if (token) {
-          const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
-            method: "GET",
-            headers: {
-              authorization: `${token}`,
-            },
-          });
-          if (response.ok) {
-            router.push(`/user-dashboard/${id}`);
-          }
-        } else {
-          localStorage.removeItem('userToken');
-          setUserToken(null);
-          setIsTokenValid(true);
-        }
-      } catch (error) {
-        console.error("Unexpected Error", error)
-      }
-    }
-  }
+  //     try {
+  //       if (token) {
+  //         const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
+  //           method: "GET",
+  //           headers: {
+  //             authorization: `${token}`,
+  //           },
+  //         });
+  //         if (response.ok) {
+  //           router.push(`/user-dashboard/${id}`);
+  //         }
+  //       } else {
+  //         localStorage.removeItem('userToken');
+  //         setUserToken(null);
+  //         setIsTokenValid(true);
+  //       }
+  //     } catch (error) {
+  //       console.error("Unexpected Error", error)
+  //     }
+  //   }
+  // }
 
 
 
@@ -103,10 +100,10 @@ const PromotionalBanner = (
     setIsTokenValid(false)
   }
 
-  const handleNavigateToLogin = (type) => {
-    router.push('/my-account')
-    setIsTokenValid(false)
-  }
+  // const handleNavigateToLogin = (type) => {
+  //   router.push('/my-account')
+  //   setIsTokenValid(false)
+  // }
 
 
   // Indicator

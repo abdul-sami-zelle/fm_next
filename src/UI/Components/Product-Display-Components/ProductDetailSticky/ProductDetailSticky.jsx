@@ -46,16 +46,6 @@ const ProductDetailSticky = (
     handleQuantityChange,
     increaseLocalQuantity,
     isLoading,
-    handleClick,
-    // addToCart0,
-    handleAddToCartProduct,
-    cartProducts,
-    // cartSection,
-    handleCartClose,
-    // setCartSection,
-    removeFromCart,
-    decreamentQuantity,
-    increamentQuantity,
     variationData,
     setVariationData,
     handleGalleryModal,
@@ -211,11 +201,11 @@ const ProductDetailSticky = (
   // const handleWishList = (item) => {
   //   if (isInWishList(item?.uid)) {
   //     removeFromList(item?.uid)
-  //     handleShowSnakeToust("Product Removed From Wish List")
+  //     handleShowSnakeToust("Product Removed From WishList")
 
   //   } else {
   //     addToList(item)
-  //     handleShowSnakeToust("Product Added Wish List")
+  //     handleShowSnakeToust("Product Added WishList")
   //   }
   // }
 
@@ -359,12 +349,12 @@ const ProductDetailSticky = (
     setShowSnakeBar(true)
     if (isInWishList(item._id)) {
       removeFromList(item._id);
-      setSnakeBarMessage('Removed from wish list')
+      setSnakeBarMessage('Removed from wishlist')
 
     } else {
       addToList(item._id)
 
-      setSnakeBarMessage('added to wish list')
+      setSnakeBarMessage('added to wishlist')
     }
 
     if (userId && getToken) {
@@ -402,7 +392,7 @@ const ProductDetailSticky = (
   const pathname = usePathname()
   const handleWhatsAppClick = () => {
     const phoneNumber = '15402927702';
-    const message = `Hello, I am interested in this product! https://fmnext.myfurnituremecca.com${pathname}`;
+    const message = `Hello, I am interested in this product! https://myfurnituremecca.com${pathname}`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './ProductStickyTabBar.css'
-import { CiDeliveryTruck, CiLocationOn } from "react-icons/ci";
+import {  CiLocationOn } from "react-icons/ci";
 import { formatedPrice } from '../../../../utils/api';
 import LocationPopUp from '../../LocationPopUp/LocationPopUp';
 import { useGlobalContext } from '../../../../context/GlobalContext/globalContext';
@@ -26,8 +26,6 @@ const ProductStickyTabBar = (
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
 
-    // const tabBarItems = ['DesignYourRoom', 'Description', 'Details', 'Recommendations'];
-    // const tabBarItems = ['DesignYourRoom', 'Description', 'Details'];
 
 
     const tabBarItems = [
@@ -49,9 +47,8 @@ const ProductStickyTabBar = (
 
     const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
-    // const [isSticky, setIsSticky] = useState(false);
 
-    const { info, fetchAllstores } = useGlobalContext();
+    const { info } = useGlobalContext();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -77,7 +74,6 @@ const ProductStickyTabBar = (
                 }
             })
             setIsActiveTab(currentTab)
-            // setPrevScrollY(currentScrollY);
 
             // ✅ NEW: If "Reviews" tab is reached via scrolling, scroll the tab container to the last position
             const tabContainer = document.querySelector('.product-sticky-fixed-tabs-container');
@@ -94,30 +90,30 @@ const ProductStickyTabBar = (
         return () => window.removeEventListener('scroll', handleScroll)
     }, [sectionRefs]);
 
-    const handleTabClick = (tab) => {
-        const section = sectionRefs[tab]?.current;
-        const stickyBarHeight = document.querySelector('.product-sticky-fixed-tabs-container')?.offsetHeight || 0;
-        const offset = 0;
+    // const handleTabClick = (tab) => {
+    //     const section = sectionRefs[tab]?.current;
+    //     const stickyBarHeight = document.querySelector('.product-sticky-fixed-tabs-container')?.offsetHeight || 0;
+    //     const offset = 0;
 
 
-        if (section) {
-            const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({
-                top: sectionTop - stickyBarHeight - offset, // Scroll with offset
-                behavior: 'smooth',
-            });
-        }
+    //     if (section) {
+    //         const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    //         window.scrollTo({
+    //             top: sectionTop - stickyBarHeight - offset, // Scroll with offset
+    //             behavior: 'smooth',
+    //         });
+    //     }
 
-        // ✅ NEW: Scroll the tab container to the last position if "Reviews" is clicked
-        const tabContainer = document.querySelector('.product-sticky-fixed-tabs-container');
-        if (tabContainer) {
-            if (tab === 'Reviews') {
-                tabContainer.scrollLeft = tabContainer.scrollWidth; // ✅ Moves to the last tab when "Reviews" is clicked
-            } else if (tab === 'DesignYourRoom') {
-                tabContainer.scrollLeft = 0; // ✅ Moves to the first tab when "Description" is clicked
-            }
-        }
-    }
+    //     // ✅ NEW: Scroll the tab container to the last position if "Reviews" is clicked
+    //     const tabContainer = document.querySelector('.product-sticky-fixed-tabs-container');
+    //     if (tabContainer) {
+    //         if (tab === 'Reviews') {
+    //             tabContainer.scrollLeft = tabContainer.scrollWidth; // ✅ Moves to the last tab when "Reviews" is clicked
+    //         } else if (tab === 'DesignYourRoom') {
+    //             tabContainer.scrollLeft = 0; // ✅ Moves to the first tab when "Description" is clicked
+    //         }
+    //     }
+    // }
 
     const [locationDetails, setLocationDetails] = useState({
         zipCode: '',
@@ -162,7 +158,6 @@ const ProductStickyTabBar = (
                         <div className='product-sticky-fixed-details'>
                             <h3>{productData?.name}</h3>
                             <span className='product-sticky-fixed-delivery-detail'>
-                                {/* <CiDeliveryTruck size={20} color='var(--secondary-color)' /> */}
                                 <BsTruck size={20} color='var(--secondary-color)' />
                                 <p>Get it by</p>
                                 <strong>{getDeliveryDate()}</strong>

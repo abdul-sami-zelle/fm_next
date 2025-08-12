@@ -90,8 +90,8 @@
 }
 
 .terms-agree input[type='checkbox']:checked{
-    background-color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    background-color: var(--orange-fill);
+    border: 2px solid var(--orange-fill);
 }
 
 .terms-agree input[type='checkbox']:checked::after {

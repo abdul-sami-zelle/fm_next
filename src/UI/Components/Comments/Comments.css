@@ -96,7 +96,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     text-decoration: underline;
 }
 
@@ -215,7 +215,7 @@
     font-size: 10px;
     line-height: 15px;
     font-weight: 400;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .mobile-comment-images-and-feedback{

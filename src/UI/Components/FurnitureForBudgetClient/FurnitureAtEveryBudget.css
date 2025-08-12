@@ -16,11 +16,18 @@
     position: relative;
 }
 
+.mobile-furniture-heading-and-column-contianer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .furniture-for-every-budget-main-heading {
     font-size: 20px;
     line-height: 24px;
     font-weight: 600;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 .product-grid {
@@ -125,12 +132,12 @@
     .mobile-view-furniture-for-every-budget.single-col {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 10px;
     }
 
     .mobile-view-furniture-for-every-budget.two-col {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 10px;
     }
 }

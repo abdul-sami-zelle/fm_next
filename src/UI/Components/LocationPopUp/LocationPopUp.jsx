@@ -20,9 +20,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
     handleInputChange,
     handleButtonClick,
     info,
-    // wrongZip, setWrongZip,
-    // wrongZipMessage,
-    // handleZipWarningClose,
+    zipLoading,
   } = useGlobalContext();
 
 
@@ -122,7 +120,8 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
                 placeholder="Enter zip code"
               />
               <button className="update-zip-btn" onClick={async () => { await handleButtonClick() }}>
-                Update Zip Code
+                {zipLoading && <div className="loader_2" style={{background: '#FFF'}}></div>}
+                {zipLoading ? ' Updating...' : 'Update Zip Code'}
               </button>
             </div>
             <div className='use-current-location' onClick={getCurrentLocation}>

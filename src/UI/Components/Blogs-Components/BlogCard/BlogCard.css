@@ -7,6 +7,7 @@
     justify-self: center;
     cursor: pointer;
     position: relative;
+    text-decoration: none;
 }
 
 .blog-card-main-image-div{
@@ -38,14 +39,14 @@
     font-size: 12px;
     line-height: 18px;
     font-weight: 500;
-    color: var(--primary-color);
+    color: var(--orange-fill);
     text-decoration: none;
     cursor: pointer;
 }
 
 .blog-card-main-title {
   font-size: 20px;
-  line-height: 21px;
+  line-height: 1.2;
   font-weight: 500;
   text-align: center;
   color: #000;
@@ -56,7 +57,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  height: 42px;                     /* 21px line-height × 2 lines */
+  height: 50px;                     /* 21px line-height × 2 lines */
 }
 
 
@@ -90,6 +91,7 @@
   font-size: 12px;
   line-height: 1.5;
   font-weight: 400;
+  color: #595959;
 }
 
 .blog-card-read-more-btn{
@@ -118,6 +120,7 @@
     font-size: 12px;
     line-height: 18px;
     font-weight: 400;
+    color: #595959;
 }
 
 .blog-image-shimmer {

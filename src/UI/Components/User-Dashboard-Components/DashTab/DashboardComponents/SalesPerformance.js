@@ -81,7 +81,7 @@ const SalesPerformance = ({ data }) => {
             },
             stroke: {
                 dashArray: 10,
-                // color: ['var(--primary-color)'] // Stroke color set to #C611B1A
+                // color: ['var(--orange-fill)'] // Stroke color set to #C611B1A
             },
             labels: ['Average Results'],
         },
@@ -157,7 +157,7 @@ const SalesPerformance = ({ data }) => {
 
             stroke: {
                 dashArray: 10,
-                // color: ['var(--primary-color)'] // Stroke color set to #C611B1A
+                // color: ['var(--orange-fill)'] // Stroke color set to #C611B1A
             },
 
             labels: ['Out of 100 points'],

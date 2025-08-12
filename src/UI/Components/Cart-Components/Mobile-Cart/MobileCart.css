@@ -108,7 +108,7 @@
     color: var(--text-gray);
 }
 
-.desktop-card-protection-div {
+.mobile-card-protection-div {
     display: flex;
     width: 100%;
     align-items: center;

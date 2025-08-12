@@ -19,7 +19,7 @@
 
 .required-field::after{
     content: '*';
-    color: var(--primary-color);
+    color: var(--orange-fill);
     margin-left: 4px;
 }
 

@@ -61,12 +61,12 @@ const SimillerProducts = ({ isPadding, productId }) => {
     setShowSnakeBar(true)
     if (isInWishList(item._id)) {
       removeFromList(item._id);
-      setSnakeBarMessage('Removed from wish list')
+      setSnakeBarMessage('Removed from wishlist')
 
     } else {
       addToList(item._id)
 
-      setSnakeBarMessage('added to wish list')
+      setSnakeBarMessage('added to wishlist')
     }
 
     if (userId && getToken) {
@@ -109,24 +109,24 @@ const SimillerProducts = ({ isPadding, productId }) => {
               renderSlide={(item, index) => (
                 <div key={index} className='cart-latest-product-cards-container'>
                   <ProductCardTwo
-                    key={index}
+                    key={item.slug}
                     slug={item.slug}
                     singleProductData={item}
+                    showOnPage={true}
+                    showExtraLines={true}
+                    titleHeight={true}
+                    productUid={item.uid}
                     maxWidthAccordingToComp={"100%"}
                     justWidth={'100%'}
-                    showOnPage={true}
-                    percent={'12%'}
-                    showExtraLines={false}
-                    titleHeight={true}
-                    tagIcon={item.productTag ? item.productTag : heart}
+                    tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                     tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                    mainImage={`${item.image.image_url}`}
+                    mainImage={`${item?.image?.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
                     tags={item.product_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
-                    reviewCount={item.reviewCount}
+                    reviewCount={item.average_rating}
                     lowPriceAddvertisement={item.lowPriceAddvertisement}
                     priceTag={item.regular_price}
                     sale_price={item.sale_price}
@@ -139,6 +139,8 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleQuickViewOpen(item)}
                     handleWishListclick={() => handleWishList(item)}
+                    handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                    
                   />
                 </div>
               )}
@@ -173,7 +175,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     showOnPage={true}
                     percent={'12%'}
                     showExtraLines={false}
-                    titleHeight={true}
+                    // titleHeight={true}
                     tagIcon={item.productTag ? item.productTag : heart}
                     tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                     mainImage={`${item.image.image_url}`}
@@ -196,6 +198,8 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleQuickViewOpen(item)}
                     handleWishListclick={() => handleWishList(item)}
+                    productUid={item.uid}
+                    handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                   />
                 </div>
               )}

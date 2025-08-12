@@ -103,7 +103,7 @@
 }
 
 .attribute-color-variation-box.selected{
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-fill);
     padding: 5px;
     box-shadow: rgb(255, 255, 255) 0px 0px 0px 2px inset;
 }
@@ -202,7 +202,7 @@
 }
 
 .variation-image-div.active-selected-image-variation{
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-fill);
     /* padding: 2px; */
     border-radius: 10px;
 }
@@ -262,8 +262,8 @@
 }
 
 .size-variant-button.set-selected-size{
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     color: #FFF;
     font-weight: 700;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--orange-fill);
 }

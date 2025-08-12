@@ -79,7 +79,7 @@
     font-size: 12px;
     font-weight: 500;
     line-height: 18px;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .blog-arther-details h3 {
@@ -136,7 +136,7 @@
 
 
 .blog-created-by-and-comments p span {
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .blog-created-by-and-comments p {
@@ -215,7 +215,7 @@
 
 .mobile-view-blog-card-author p {
     font-weight: 500;
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 @media only screen and (max-width: 1250px) {

@@ -141,7 +141,7 @@ p.footer-nav-items > a{
 }
 
 .icon-and-name a:hover{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .footer-customer-care-and-about-furniture-mecca{
@@ -276,8 +276,8 @@ p.footer-nav-items > a{
     align-items: center;
     justify-content: center;
     padding: 14px 32px;
-    border: 1px solid var(--primary-color);
-    background-color: var(--primary-color);
+    border: 1px solid var(--orange-fill);
+    background-color: var(--orange-fill);
     color: var(--text-white);
     font-size: 15px;
     font-weight: 500;
@@ -322,7 +322,7 @@ p.footer-nav-items > a{
 }
 
 .footer-care-and-about-links:hover{
-    color: var(--primary-color);
+    color: var(--orange-fill);
 }
 
 .footer-rights-reserved-container{
@@ -627,7 +627,7 @@ p.footer-nav-items > a{
 }
 
 .footer-get-scoop-input-search button{
-    background-color: var(--primary-color);
+    background-color: var(--orange-fill);
     color: var(--text-white);
     height: 40px;
     width: 135px;
