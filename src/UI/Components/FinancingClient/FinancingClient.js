@@ -31,7 +31,6 @@ const FinancingClient = () => {
     }, [financingPageData]);
 
 
-    useEffect(() => {console.log("financing data", financingPageData)}, [financingPageData])
 
 
     return (

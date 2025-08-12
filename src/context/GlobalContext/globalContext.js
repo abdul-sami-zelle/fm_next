@@ -129,7 +129,6 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log("zip codes find", data)
       // return data.places[0]; // You can return the data for further processing
       return data; // You can return the data for further processing
     } catch (error) {
@@ -388,7 +387,6 @@ export const GlobalContextProvider = ({ children }) => {
     setZipLoading(true)
     if (extractZipCode(zipCode).length === 5) {
       data = await getStateByPostalCode(extractZipCode(zipCode));
-      console.log("extracted data", data)
     }
     if (Object.keys(data).length > 1) {
       setZipLoading(false);

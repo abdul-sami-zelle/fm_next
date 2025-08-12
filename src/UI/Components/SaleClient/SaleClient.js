@@ -24,7 +24,6 @@ export default function SaleClient({ slug }) {
     const router = useRouter();
     const { salesData, products, totalProducts } = useActiveSalePage();
 
-    console.log("total products", totalProducts)
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`)
     };

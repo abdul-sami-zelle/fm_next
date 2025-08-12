@@ -181,7 +181,7 @@ const ProductDisplay = ({ params }) => {
     // Prevent page scroll
     if (thumbnailContainerRef.current) {
       const thumbnailElement = thumbnailContainerRef.current.children[index];
-
+      
       if (window.innerWidth < 480) {
         thumbnailContainerRef.current.scrollTo({
           left: thumbnailElement.offsetLeft - (thumbnailContainerRef.current.clientWidth / 2) + (thumbnailElement.clientWidth / 2),

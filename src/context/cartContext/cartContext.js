@@ -443,7 +443,6 @@ export const CartProvider = ({ children }) => {
         setIsCartLoading(false);
         // setTimeout(() => {setCartSection(true)}, 500)
         setCartSection(true);
-        console.log("transformed list", transformedList)
         return { products: transformedList }; // Optionally return what was added
     };
 

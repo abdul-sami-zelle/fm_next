@@ -3,10 +3,6 @@ import './ToggleSwitch.css';
 
 const SlimToggler = ({ id, checked, onChange }) => {
 
-  useEffect(() => {
-    console.log("checked value", checked)
-
-  }, [checked])
   return (
 
     // Check Box 1

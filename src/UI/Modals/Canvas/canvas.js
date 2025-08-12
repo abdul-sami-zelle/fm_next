@@ -726,7 +726,6 @@ const CanvasApp = ({ data, closeFn }) => {
 
   const handleCheckout = (items) => {
     closeFn();
-    console.log("canva item", items)
 
     const transformedItems = items.map((item) => ({
       product_uid: item.parent !== 0 ? item.parent : (item.product_uid || item.uid),
@@ -751,8 +750,6 @@ const CanvasApp = ({ data, closeFn }) => {
       is_protected: item.is_protected || 0
     }));
 
-
-    console.log("checkout funct transformed", transformedItems)
     addToCartListSimple(transformedItems);
    
   };
