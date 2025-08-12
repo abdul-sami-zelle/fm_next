@@ -1,12 +1,11 @@
 import CategoriesClient from "@/UI/Components/CategoryClient/CategoryClient";
-import { url } from "@/utils/api";
 
 export async function generateMetadata({ params }) {
   const { category } = params;
 
   try {
     const res = await fetch(
-      `${url}/api/v1/productCategory/get-seo?slug=${category}`,
+      `https://devapi.myfurnituremecca.com/api/v1/productCategory/get-seo?slug=${category}`,
       { cache: "no-store" }
     );
 
