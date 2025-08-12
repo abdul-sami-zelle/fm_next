@@ -44,22 +44,6 @@ export default function RootLayout({ children }) {
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
       </head>
       <body>
-        {/* ✅ Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-GQL4WY726N"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-GQL4WY726N', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
-
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
