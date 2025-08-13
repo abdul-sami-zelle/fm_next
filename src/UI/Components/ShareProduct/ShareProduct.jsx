@@ -3,7 +3,7 @@ import './ShareProduct.css';
 import closeBtn from '../../../Assets/icons/cancel.png';
 import copyCharcol from '../../../Assets/icons/copy-charcol.png'
 import copySuccess from '../../../Assets/icons/copy-success.png'
-import { formatedPrice, url } from '../../../utils/api';
+import { formatedPrice, siteUrl, url } from '../../../utils/api';
 import copy from 'copy-to-clipboard';
 import RatingReview from '../starRating/starRating';
 
@@ -19,10 +19,10 @@ const ShareProduct = ({ isSharePopup, setIsSharePopup, selectedUid, selectedProd
 
     const path = useSearchParams();
     const copyRef = useRef()
-    let generatedLink;
-    if (window !== 'undefined') {
-        generatedLink = `${window.location.origin}/product/${selectedProduct?.slug}`
-    }
+    let generatedLink = `${siteUrl}/product/${selectedProduct?.slug}`;
+    // if (window !== 'undefined') {
+    //     generatedLink = `${window.location.origin}/product/${selectedProduct?.slug}`
+    // }
 
     const handleCloseShareProductPopup = () => {
         setIsSharePopup(null)

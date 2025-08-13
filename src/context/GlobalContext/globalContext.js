@@ -387,6 +387,13 @@ export const GlobalContextProvider = ({ children }) => {
     setZipLoading(true)
     if (extractZipCode(zipCode).length === 5) {
       data = await getStateByPostalCode(extractZipCode(zipCode));
+    } else {
+      setWrongZip(true);
+      setWrongZipMessage({
+          title: 'Invalid Zip Code',
+          message: 'We couldn’t find that ZIP code. Please check and try again.'
+        })
+      setZipLoading(false)
     }
     if (Object.keys(data).length > 1) {
       setZipLoading(false);
