@@ -385,6 +385,12 @@
   transform: scale(1) !important;
 } */
 
+@media only screen and (min-width: 845px) and (max-width: 1023px) {
+    .product-thumbnail-single-image-div {
+        max-width: 100px !important;
+    }
+}
+
 @media only screen and (min-width: 481px) {
     /* .dot {
         width: 10px;

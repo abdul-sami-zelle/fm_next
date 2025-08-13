@@ -103,17 +103,6 @@ const ArrowSlider = ({
             <Swiper
                 className={isPadding ? 'swiper-padding' : arrowLeftPosition ? 'deal-day-position' : 'swiper'}
                 loop={loop}
-                // onSwiper={(swiper) => {
-                //     swiperRef.current = swiper;
-                //     onSwiper(swiper); // ✅ Expose swiper to parent
-                // }}
-                // onSlideChange={(swiper) => {
-                //     const newIndex = swiper.activeIndex;
-                //     setActiveIndex(newIndex); // ✅ internal dot management
-                //     if (onSlideChangeIndex) {
-                //         onSlideChangeIndex(newIndex); // ✅ notify parent for sync
-                //     }
-                // }}
                 onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                     onSwiper(swiper);

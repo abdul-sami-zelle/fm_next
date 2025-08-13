@@ -63,6 +63,12 @@
     transform: translateX(-0%);
 }
 
+@media only screen and (min-width: 845px) and (max-width: 1023px) {
+    .product-display-page-main-container {
+        width: 95%;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .product-display-page-main-container{
 

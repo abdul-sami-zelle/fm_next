@@ -121,6 +121,23 @@
     /* transform: scale(1.2); */
 }
 
+/* @media only screen and (min-width: 1024px) {
+    .deal-day-position {
+        padding: 35px !important;
+    }
+} */
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .deal-day-position {
+        padding: 0 10px !important;
+    }
+
+    .slider-arrow {
+        width: 25px;
+        height: 25px;
+    }
+}
+
 @media only screen and (max-width: 480px) {
     .custom-pagination-dots {
         margin-top: 5px;
@@ -135,10 +152,6 @@
         width: 18px;
     }
 
-    /* .each-slide {
-        width: 100% !important;
-        margin-right: 20px !important;
-    } */
 
     .arrow-slider-container.apply-side-padding {
         padding: 0;
@@ -148,10 +161,4 @@
         padding: 0 !important;
     }
 
-    /* .swiper-backface-hidden .swiper-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px 0;
-    } */
 }

@@ -171,6 +171,29 @@
     color: var(--text-gray);
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .deal-of-the-day-main-container {
+        padding: 45px 30px 0px 30px;
+    }
+    .deal-of-the-day-outer-container {
+        padding: 25px 10px 15px 10px
+    }
+    .deal-of-the-day-border-heading {
+        gap: 10px;
+        top: 25px;
+    }
+    .deal-of-the-day-border-heading p {
+        font-size: 18px;
+    }
+    .deal-of-the-day-end-time{
+        width: 280px;
+        height: 35px;
+    }
+    .deal-of-the-day-end-time p {
+        font-size: 12px !important;
+    }
+}
+
 @media only screen and (max-width: 480px) {
     .deal-of-the-day-main-container {
         padding: 15px 10px 10px 10px;

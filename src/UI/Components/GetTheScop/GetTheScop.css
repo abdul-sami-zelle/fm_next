@@ -516,13 +516,13 @@
     line-height: 21px;
 }
 
-@media only screen and (max-width: 1300px){
-    .get-the-scop-banner{
-        width: 50%;
-        display: flex;
-        padding: 20px;
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .get-the-scoop-form-input-and-button {
+        width: 70%;
     }
-   
+    .get-the-scop-main-container {
+        margin-bottom: 20px;
+    }
 }
 
 @media only screen and (max-width: 480px){

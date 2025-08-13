@@ -497,7 +497,33 @@
 }
 
 
-
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .category-besst-seller-main-container {
+        padding: 20px 30px 0px 30px;
+    }
+    .category-best-seller-and-banner-container {
+        gap: 0;
+    }
+    .category-best-seller-cards-section {
+        width: 100% !important;
+        gap: 15px;
+    }
+    .category-best-seller-menu h3 {
+        font-size: 20px;
+    }
+    .category-best-seller-menu-items {
+        gap: 15px;
+    }
+    .category-best-seller-menu-items p {
+        font-size: 12px;
+    }
+    .category-best-seller-menu-items p.active {
+        font-size: 12px;
+    }
+    .category-best-seller-banners-section {
+        display: none;
+    }
+}
 
 @media only screen and (max-width: 480px){
     .category-besst-seller-main-container{

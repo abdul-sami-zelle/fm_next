@@ -31,6 +31,7 @@ import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigat
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import ElipticalPagenation from './ElepticalPagination';
+import { useIsTab } from '@/utils/isMobile';
 
 const Products = ({ navigationType }) => {
 
@@ -1133,8 +1134,12 @@ const Products = ({ navigationType }) => {
                                 <div className={`products-heading ${query ? 'query-hide-search-heading' : ''}`}>
 
                                     <div className='show-filter-btn-and-product-count'>
+                                        <button className={`tab-show-filter-btn`} onClick={handleMobileFilters}>
+                                            <Image src={'/icons/filter.svg'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
+                                            Show Filters
+                                        </button>
                                         <button className={`show-filter-btn ${hideFilters ? 'hide-show-filter-btn' : ''}`} onClick={handleFilterSection}>
-                                            <Image src={'/Assets/icons/hide-arrow-black.png'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
+                                            <Image src={'/icons/filter.svg'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
                                             Show Filters
                                         </button>
                                         {products && products?.length > 0 ? (
@@ -1223,7 +1228,8 @@ const Products = ({ navigationType }) => {
                                                 showExtraLines={true}
                                                 titleHeight={true}
                                                 productUid={item.uid}
-                                                maxWidthAccordingToComp={"100%"}
+                                                // maxWidthAccordingToComp={useIsTab ? '380px' : '100%'}
+                                                maxWidthAccordingToComp={'100%'}
                                                 justWidth={hideFilters ? '100%' : '100%'}
                                                 tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}

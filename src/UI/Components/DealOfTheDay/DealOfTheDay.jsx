@@ -13,6 +13,7 @@ import { fetcher } from '@/utils/Fetcher';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider';
+import { useIsTab } from '@/utils/isMobile';
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, }) => {
 
@@ -235,10 +236,12 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               arrowLeftPosition={true}
               eachSlide={true}
               // loop={true}
-              spaceBetween={35}
+              spaceBetween={useIsTab ? 10 : 35}
+              // spaceBetween={35}
               breakpoints={{
                 0: { slidesPerView: 1 },
-                768: { slidesPerView: 4 },
+                768: {slidesPerView: 3},
+                1024: { slidesPerView: 4 },
               }}
             />
           )}

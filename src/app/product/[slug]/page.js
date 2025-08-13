@@ -9,11 +9,10 @@ import ProductDetailTab from '@/UI/Components/Product-Display-Components/Product
 import ProductRecommendationTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductRecommendationTab/ProductRecommendationTab';
 import ProductReviewTab from '@/UI/Components/Product-Display-Components/ProductTabs/ProductReviewTab/ProductReviewTab';
 
-import { url, useDisableBodyScroll } from '../../../utils/api';
+import { url } from '../../../utils/api';
 import { useCart } from '@/context/cartContext/cartContext';
 import GalleryModal from '@/UI/Components/Product-Display-Components/GalleryModal/GalleryModal';
 import { useProductPage } from '@/context/ProductPageContext/productPageContext';
-import DesignYourRoom from '@/UI/Components/DesignYourRoom/DesignYourRoom';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
 import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv';
@@ -116,11 +115,7 @@ const ProductDisplay = ({ params }) => {
 
   // Add To Cart Functionality
   const {
-    decreamentQuantity,
-    increamentQuantity,
-    removeFromCart,
     addToCart0,
-    cartProducts,
     cartSection,
     setCartSection,
     isCartLoading,
@@ -139,10 +134,6 @@ const ProductDisplay = ({ params }) => {
     const { value } = e.target;
     setQuantity(value)
   }
-
-  const handleClick = () => {
-
-  };
 
   const handleAddToCartProduct = (product) => {
 

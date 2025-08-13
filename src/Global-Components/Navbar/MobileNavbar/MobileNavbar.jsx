@@ -99,7 +99,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
 
   return (
     <div className={`mobile-menu-overlay ${showMobileNav ? 'show-mobile-nav' : ''}`} onClick={handleNavbarClose}>
-      <div className={`mobile-nav-main-container`} onClick={(e) => e.stopPropagation()}>
+      <div className={`mobile-nav-main-container ${showMobileNav ? 'slide-drower' : ''}`} onClick={(e) => e.stopPropagation()}>
 
         <div className='mobile-nav-head'>
           <div className='mobile-nav-head-container'>

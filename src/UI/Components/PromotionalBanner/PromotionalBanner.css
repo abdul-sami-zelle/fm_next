@@ -307,6 +307,21 @@
     border: 1px solid var(--text-gray);
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .rotating-message {
+        display: none;
+    }
+    .furniture-mecca-promotional-banner {
+        justify-content: center;
+        padding: 10px 20px;
+    }
+    .header-links-and-select-language {
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .banner-link-container{
         display: none;

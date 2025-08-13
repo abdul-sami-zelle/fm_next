@@ -6,7 +6,10 @@
     height: 100%;
     position: fixed;
     top: 0;
-    left: -480px;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    /* left: -480px; */
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     z-index: 99999999999;
@@ -23,9 +26,13 @@
 .mobile-nav-main-container {
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 90%;
     height: 100%;
+    max-width: 320px;
+    
     /* padding: 10px 0; */
     background-color: #fff;
     border-top-right-radius: 25px;
@@ -35,6 +42,10 @@
     transition: all 0.3s ease;
     align-items: start;
     justify-content: start;
+}
+
+.mobile-nav-main-container.slide-drower {
+    left: 0;
 }
 
 
@@ -430,7 +441,7 @@
     object-fit: contain;
 } */
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 1024px) {
     .mobile-menu-overlay {
         display: none;
     }

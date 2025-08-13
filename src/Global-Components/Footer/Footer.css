@@ -709,6 +709,25 @@ p.footer-nav-items > a{
     color: #fff;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .footer-left-section {
+        width: 50%;
+    }
+    .left-section-contact {
+        width: 100%;
+    }
+    .left-section-location-section {
+        display: none !important;
+    }
+    .footer-right-section {
+        width: 50%;
+        padding-left: 0;
+    }
+    .footer-rights-reserved-container p {
+        font-size: 12px;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .footer-main-container{
         display: none;

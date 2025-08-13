@@ -172,6 +172,41 @@
     line-height: 21px;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .f-a-q-main-container {
+        padding: 20px 30px;
+    }
+    .faq-details {
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .faq-details p:nth-child(1) {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+
+    .faq-details p:nth-child(2) {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .faq-heading {
+        padding-bottom: 10px;
+        font-size: 20px;
+        line-height: 1.2;
+    }
+    .question-section {
+        padding: 15px 0;
+    }
+
+    .question-section p {
+        font-size: 14px;
+    }
+    .answere-section p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .f-a-q-main-container{
         padding: 10px;

@@ -224,6 +224,34 @@
     animation: shimmer 1.5s infinite;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .navbar {
+        height: 40px;
+        padding: 0 5px;
+    }
+    .navar-links-container {
+        overflow-y: hidden;
+        overflow-x: auto;
+        gap: 10px;
+    }
+    .navar-links-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-item {
+        display: flex;
+        padding: 0 10px !important;
+        
+        background-color: #EEEEEE ; 
+        border-radius: 4px !important;
+    }
+    .nav-link {
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        font-weight: 500 !important;
+    }
+}
+
 
 @media only screen and (max-width: 480px) {
     .navbar {

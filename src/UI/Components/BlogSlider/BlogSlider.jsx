@@ -51,7 +51,8 @@ const BlogSlider = () => {
             spaceBetween={0}
             breakpoints={{
               0: { slidesPerView: 1 },
-              768: { slidesPerView: 4 },
+              768: {slidesPerView: 3},
+              1024: { slidesPerView: 4 },
             }}
           />
         ) : (
