@@ -28,7 +28,7 @@ export const url = `https://devapi.myfurnituremecca.com`;
 
 // export const url = `http://fm_api.myfurnituremecca.com`;
 // export const url = `http://localhost:8080`
-export const siteUrl = `https://myfurnituremecca.com`
+export const siteUrl = `https://fmcpanel.myfurnituremecca.com`
 // export const url = `https://furniture-mecca-apis.vercel.app`
 
 export function formatTime(stateName, timestamp) {

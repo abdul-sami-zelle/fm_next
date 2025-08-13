@@ -1,99 +1,77 @@
-'use client'
+import ProductArchive from './productArchive';
 
-import React, { useEffect, useState } from 'react';
-import './ProductArchive.css';
+export async function generateMetadata({ params }) {
+  const subcategorySlug = params['product-archive'];
 
-// Components
-import FAQ from '@/UI/Components/FAQ/FAQ';
-import Products from '@/UI/Components/Products/Products';
-import RelatedCategories from '@/UI/Components/Related-categories-Tags/RelatedCategories';
-import { useProductArchive } from '@/context/ActiveSalePageContext/productArchiveContext';
-import { usePathname } from 'next/navigation';
-import axios from 'axios';
-import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
-import { url, useDisableBodyScroll } from '@/utils/api';
-import SideCart from '@/UI/Components/Cart-side-section/SideCart';
-import { useCart } from '@/context/cartContext/cartContext';
+  try {
+    const res = await fetch(
+      `https://devapi.myfurnituremecca.com/api/v1/productCategory/get-seo?slug=${subcategorySlug}`,
+      { cache: "no-store" }
+    );
 
-const ProductArchive = () => {
+    console.log("category here", params)
 
-  const [navigationType, setNavigationType] = useState(null);
-  const { activePage, setActivePage, setActivePageIndex, setColorValue } = useProductArchive()
-  const pathname = usePathname();
-  const hideSection = pathname.startsWith('/searched-products');
-  const childSlug = pathname.split('/').filter(Boolean).pop();
-  const [relatedProducts, setRelatedProducts] = useState([])
-  const [hasProducts, setHasProducts] = useState(false)
-
-  const findRelatedProducts = async () => {
-    const api = `${url}/api/v1/products/get-best-selling/${childSlug}`;
-    try {
-      const response = await axios.get(api);
-      if (response.status === 200) {
-        setRelatedProducts(response.data.products);
-      }
-      if (response.data.products.length > 0) {
-        setHasProducts(true);
-      } else {
-        setHasProducts(false);
-      }
-    } catch (error) {
-      console.error("UnExpected Server Error", error);
+    if (!res.ok) {
+      return {
+        title: "Category - Furniture Mecca",
+        description: "Explore our products collection.",
+      };
     }
+
+    const { seoData } = await res.json();
+
+    if (!seoData || seoData.length === 0) {
+      return {
+        title: "Category - Furniture Mecca",
+        description: "Explore our Categories collection.",
+      };
+    }
+
+    const meta = seoData[0].meta;
+    const slug = seoData[0].slug;
+
+    const imageUrl = meta.og_image?.startsWith("http")
+      ? meta.og_image
+      : `https://devapi.myfurnituremecca.com${meta.og_image.startsWith("/") ? meta.og_image : `/${meta.og_image}`}`;
+
+    return {
+      title: `${meta.title} - Furniture Mecca` || `${seoData[0].name} - Furniture Mecca`,
+      description: meta.description || "Explore our category collection.",
+      keywords: meta.keywords || undefined,
+      alternates: {
+        canonical: meta.canonical_url || `https://myfurnituremecca.com/${slug}`,
+      },
+      openGraph: {
+        title: `${meta.og_title} - Furniture Mecca` || meta.title,
+        description: meta.og_description || meta.description,
+        url: `https://myfurnituremecca.com/${slug}`,
+        siteName: "Furniture Mecca",
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: seoData[0].name,
+          },
+        ],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${meta.x_title} - Furniture Mecca` || meta.title,
+        description: meta.x_description || meta.description,
+        images: [imageUrl],
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching SEO data:", error);
+    return {
+      title: "Category - Furniture Mecca",
+      description: "Explore our Category collection.",
+    };
   }
-
-  useEffect(() => { findRelatedProducts() }, [childSlug])
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.performance) {
-      const [navigation] = window.performance.getEntriesByType('navigation');
-      if (navigation) {
-        setNavigationType(navigation.type);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (navigationType && navigationType !== 'back_forward') {
-      setActivePage(1);
-      setActivePageIndex(activePage);
-      setColorValue([]);
-    }
-  }, [navigationType]);
-
-  const {cartSection, setCartSection} = useCart()
-
-  const handleCartSectionClose = () => {
-        setCartSection(false)
-    }
-
-
-  return (
-    <div>
-      <Products
-        navigationType={navigationType}
-      />
-
-      {hasProducts && <RelatedProducts data={relatedProducts} />}
-
-      {!hideSection && (
-        <RelatedCategories
-          navigationType={navigationType}
-        />
-      )}
-
-
-
-      {!hideSection && (
-        <FAQ />
-      )}
-
-      <SideCart
-        isCartOpen={cartSection}
-        handleCloseSideCart={handleCartSectionClose}
-      />
-    </div>
-  )
 }
 
-export default ProductArchive
+export default function ProductArchivePage({ params }) {
+  return <ProductArchive />;
+}

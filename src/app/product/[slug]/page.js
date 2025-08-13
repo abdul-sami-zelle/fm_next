@@ -80,6 +80,7 @@
 
 
 // Server Component - can use generateMetadata
+import { siteUrl } from '@/utils/api';
 import ProductDisplayWrapper from './productDisplayWrapper'; // This is still a server import
 
 export async function generateMetadata({ params }) {
@@ -119,21 +120,28 @@ export async function generateMetadata({ params }) {
       description: meta.description || "Browse our collection of quality furniture.",
       keywords: meta.keywords || undefined,
       alternates: {
-        canonical: meta.canonical_url || `https://myfurnituremecca.com/${productSlug}`,
+        canonical: meta.canonical_url || `${siteUrl}/product/${productSlug}`,
       },
       openGraph: {
         title: meta.og_title || meta.title,
         description: meta.og_description || meta.description,
-        url: `https://myfurnituremecca.com/${productSlug}`,
+        url: `${siteUrl}/product/${productSlug}`,
         siteName: "Furniture Mecca",
-        images: [{ url: imageUrl, width: 1200, height: 630, alt: seoData[0].name }],
+        images: [
+          {
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+            alt: seoData[0].name,
+          },
+        ],
         type: "website",
       },
       twitter: {
         card: "summary_large_image",
         title: meta.x_title || meta.title,
         description: meta.x_description || meta.description,
-        images: [imageUrl],
+        images: [imageUrl], // ✅ Match OG image for consistency
       },
     };
   } catch (error) {
