@@ -613,6 +613,7 @@ const Products = ({ navigationType }) => {
         }
     };
 
+
     const handlePrevPage = () => {
         if (activePage > 1) {
             const newPage = activePage - 1;
@@ -805,51 +806,51 @@ const Products = ({ navigationType }) => {
     }, [isDragging, startX, scrollLeftStart]);
 
     useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
+        const el = scrollRef.current;
+        if (!el) return;
 
-    // Run scroll check
-    const runCheck = () => {
-        const isOverflowing = el.scrollWidth > el.clientWidth + 1;
-        if (!isOverflowing) {
-            setShowArrows(false);
-            setAtStart(true);
-            setAtEnd(true);
-            return;
-        }
-        setShowArrows(true);
-        setAtStart(el.scrollLeft <= 0);
-        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
-    };
+        // Run scroll check
+        const runCheck = () => {
+            const isOverflowing = el.scrollWidth > el.clientWidth + 1;
+            if (!isOverflowing) {
+                setShowArrows(false);
+                setAtStart(true);
+                setAtEnd(true);
+                return;
+            }
+            setShowArrows(true);
+            setAtStart(el.scrollLeft <= 0);
+            setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+        };
 
-    // Listen to events
-    el.addEventListener("scroll", runCheck);
-    window.addEventListener("resize", runCheck);
+        // Listen to events
+        el.addEventListener("scroll", runCheck);
+        window.addEventListener("resize", runCheck);
 
-    // Also check when images load
-    const imgs = el.querySelectorAll("img");
-    let loadedCount = 0;
-    imgs.forEach(img => {
-        if (img.complete) {
-            loadedCount++;
-        } else {
-            img.addEventListener("load", () => {
+        // Also check when images load
+        const imgs = el.querySelectorAll("img");
+        let loadedCount = 0;
+        imgs.forEach(img => {
+            if (img.complete) {
                 loadedCount++;
-                if (loadedCount === imgs.length) {
-                    runCheck();
-                }
-            });
-        }
-    });
+            } else {
+                img.addEventListener("load", () => {
+                    loadedCount++;
+                    if (loadedCount === imgs.length) {
+                        runCheck();
+                    }
+                });
+            }
+        });
 
-    // Initial check after paint
-    requestAnimationFrame(runCheck);
+        // Initial check after paint
+        requestAnimationFrame(runCheck);
 
-    return () => {
-        el.removeEventListener("scroll", runCheck);
-        window.removeEventListener("resize", runCheck);
-    };
-}, [subCategories]);
+        return () => {
+            el.removeEventListener("scroll", runCheck);
+            window.removeEventListener("resize", runCheck);
+        };
+    }, [subCategories]);
 
     const scrollLeft = () => {
         scrollRef.current?.scrollBy({ left: -150, behavior: 'smooth' });

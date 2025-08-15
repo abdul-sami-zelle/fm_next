@@ -160,6 +160,7 @@ const ProductDetailSticky = (
 
   const [selectedUid, setSelectedUid] = useState(null);
   const handleSelectedVariationData = (value) => {
+    console.log("variation value", value)
     if (selectedUid === value) {
       return;
     }

@@ -11,6 +11,7 @@ import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
 import { useDisableBodyScroll } from '@/utils/api'
+import { useCart } from '@/context/cartContext/cartContext'
 
 
 const SimillerProducts = ({ isPadding, productId }) => {
@@ -30,13 +31,28 @@ const SimillerProducts = ({ isPadding, productId }) => {
     }
   }
 
+  const {addToCart0} = useCart()
+
+  
+
   useEffect(() => {
     if (!productId) return
     fetchCollections()
   }, [productId])
 
+  const handleAddToCart = (item) => {
+    console.log("add to cart item", item)
+    const defaultVariation = item.variations.find((itm) => itm.is_default_variation === 1 )
+    addToCart0(item, defaultVariation, 0, 1)
+
+    console.log("def variation", defaultVariation)
+  }
+
+
   const [quickViewProduct, setQuickViewProduct] = useState({})
   const [quickViewClicked, setQuickView] = useState(false);
+
+
   const handleQuickViewOpen = (item) => {
     setQuickView(true);
     setQuickViewProduct(item)
@@ -109,6 +125,39 @@ const SimillerProducts = ({ isPadding, productId }) => {
               renderSlide={(item, index) => (
                 <div key={index} className='cart-latest-product-cards-container'>
                   <ProductCardTwo
+                    key={index}
+                    slug={item.slug}
+                    singleProductData={item}
+                    maxWidthAccordingToComp={"98%"}
+                    justWidth={'100%'}
+                    showOnPage={true}
+                    percent={'12%'}
+                    titleHeight={true}
+                    tagIcon={item.productTag ? item.productTag : heart}
+                    tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
+                    mainImage={`${item.image.image_url}`}
+                    productCardContainerClass="product-card"
+                    ProductSku={item.sku}
+                    tags={item.product_tag}
+                    allow_back_order={item?.allow_back_order}
+                    ProductTitle={item.name}
+                    colTwo={true}
+                    reviewCount={item.reviewCount}
+                    lowPriceAddvertisement={item.lowPriceAddvertisement}
+                    priceTag={item.regular_price}
+                    sale_price={item.sale_price}
+                    financingAdd={item.financingAdd}
+                    learnMore={item.learnMore}
+                    mainIndex={index}
+                    deliveryTime={item.deliveryTime}
+                    stock={item.manage_stock}
+                    attributes={item.attributes}
+                    btnText='Add To Cart'
+                    handleCardClick={() => handleProductClick(item)}
+                    handleQuickView={() => handleAddToCart(item)}
+                    handleWishListclick={() => handleWishList(item)}
+                  />
+                  {/* <ProductCardTwo
                     key={item.slug}
                     slug={item.slug}
                     singleProductData={item}
@@ -141,7 +190,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleWishListclick={() => handleWishList(item)}
                     handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                     
-                  />
+                  /> */}
                 </div>
               )}
               showDots={false}
@@ -199,6 +248,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleQuickView={() => handleQuickViewOpen(item)}
                     handleWishListclick={() => handleWishList(item)}
                     productUid={item.uid}
+                    btnText='Add To Cart'
                     handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                   />
                 </div>

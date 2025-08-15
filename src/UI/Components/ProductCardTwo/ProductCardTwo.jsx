@@ -35,6 +35,7 @@ const ProductCardTwo = ({
     handleInfoModal,
     showExtraLines,
     titleHeight,
+    btnText = 'Quick View'
 }) => {
     const [isImageLoaded, setImageLoaded] = useState(false);
 
@@ -269,30 +270,7 @@ const ProductCardTwo = ({
 
 
 
-                            {/* <div className={`product-image-wishlist-icon-container ${!showOnPage ? 'show-product-wishlist-icon' : ''}`}>
-                                {
-                                    isInWishList(singleProductData._id) ?
-                                        <VscHeartFilled
-                                            size={25}
-                                            className='wishlist-heart'
-                                            style={{ color: 'var(--orange-fill)' }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleWishListclick(singleProductData)
-                                            }}
-                                        />
-                                        :
-                                        <VscHeart
-                                            size={25}
-                                            className='wishlist-heart'
-                                            style={{ float: 'right', color: 'var(--orange-outline)' }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleWishListclick(singleProductData)
-                                            }}
-                                        />
-                                }
-                            </div> */}
+                            
 
                             {selectedColorImage && (
                                 <img
@@ -304,14 +282,6 @@ const ProductCardTwo = ({
                                 />
                             )}
 
-                            {/* <img
-                                src={`${url}${selectedColorImage
-                                    }`}
-                                alt='product img'
-                                className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
-                                effect='blur'
-                                onLoad={() => { setImageLoaded(true) }}
-                            /> */}
                             {hoveredImage && (
                                 <img
                                     src={`${url}${hoveredImage
@@ -510,7 +480,7 @@ const ProductCardTwo = ({
                                         handleQuickView()
                                     }}
                                 >
-                                    Quick View
+                                    {btnText}
                                 </button>
 
                                 <FaEye

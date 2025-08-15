@@ -44,6 +44,8 @@ const ProductDisplay = ({ params }) => {
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
   const [steperIndex, setSteperIndex] = useState(0);
 
+  console.log("def variation data", variationData)
+
 
   const isMobile = useIsMobile()
   
