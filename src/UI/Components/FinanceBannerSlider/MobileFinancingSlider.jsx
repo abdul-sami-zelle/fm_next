@@ -4,10 +4,10 @@ import { url } from '../../../utils/api';
 import Image from 'next/image';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 
-const MobileFinancingSlider = ({ images }) => {
+const MobileFinancingSlider = ({ images, marginTop = '0px' }) => {
 
     return (
-        <div className="mobile-carousel-container">
+        <div className="mobile-carousel-container" style={{marginTop: marginTop}}>
             <SwiperSlider
                 slidesData={images?.mobile}
                 renderSlide={(image, index) => (
