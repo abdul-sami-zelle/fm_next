@@ -8,7 +8,7 @@ import Image from "next/image";
 import SwiperSlider from "@/UI/Sliders/SwiperSlider/SwiperSlider";
 
 
-function FinanceBannerSlider({ images, marginTop = '0px' }) {
+function FinanceBannerSlider({ images, borderTop = '0px', }) {
 
     // const settings = {
     //     dots: false,
@@ -24,7 +24,7 @@ function FinanceBannerSlider({ images, marginTop = '0px' }) {
     // };
 
     return (
-        <div className="carousel-container" style={{marginTop: marginTop}} >
+        <div className="carousel-container" style={{borderTop: borderTop}} >
 
             <SwiperSlider
                 slidesData={images?.desktop}

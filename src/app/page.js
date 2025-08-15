@@ -72,8 +72,8 @@ const Home = () => {
     <div className='home-page-main-container'>
       <NearStorePopUp />
       <Sliderr images={slides ? slides : []} />
-      <FinanceBannerSlider images={financingBanners} marginTop={'10px'} />
-      <MobileFinancingSlider images={financingBanners} marginTop={'5px'} />
+      <FinanceBannerSlider images={financingBanners} borderTop={'2px solid #595959'} />
+      <MobileFinancingSlider images={financingBanners} borderTop={'2px solid #595959'}  />
       <Category title={'Shop by Category'} categoryData={landingPageCategories} handleNavigate={handleNavigate} />
 
       <LandingPageFinancing />
