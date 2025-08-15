@@ -245,7 +245,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     stock={item.manage_stock}
                     attributes={item.attributes}
                     handleCardClick={() => handleProductClick(item)}
-                    handleQuickView={() => handleQuickViewOpen(item)}
+                    handleQuickView={() => handleAddToCart(item)}
                     handleWishListclick={() => handleWishList(item)}
                     productUid={item.uid}
                     btnText='Add To Cart'
