@@ -10,7 +10,7 @@ import mobileViewFullBed from '../../../Assets/images/Rectangle 703.png'
 import { url } from '../../../utils/api';
 import Image from 'next/image';
 
-const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, mainImgShow, showBanners, paddingTop }) => {
+const LatestModulerBanner = ({ images, mobileMainImage, customWidth, mainImage, width= '100%', mainImgShow, showBanners, paddingTop }) => {
   const [imagePreloader, setImagePreloader] = useState(false);
 
   return (

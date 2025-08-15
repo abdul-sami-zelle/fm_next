@@ -13,7 +13,7 @@ import { useEffect } from "react";
 // export const url = `https://devapi.myfurnituremecca.com`;
 // export const siteUrl = `https://fmnext.myfurnituremecca.com`
 
-// Producttion Apis
+// Production Apis
 export const roomApi = `https://roomapi.myfurnituremecca.com`
 export const url = `https://fmapi.myfurnituremecca.com`;
 export const siteUrl = `https://myfurnituremecca.com`
