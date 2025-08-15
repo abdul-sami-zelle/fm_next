@@ -726,12 +726,32 @@ p.footer-nav-items > a{
     .footer-rights-reserved-container p {
         font-size: 12px;
     }
+    .left-section-social-icons-div {
+        gap: 15px;
+    }
+    .footer-left-contact-section {
+        gap: 15px;
+    }
+    .footer-costumer-care-and-about h3 {
+        margin-bottom: 15px;
+    }
+    .footer-costumer-care-and-about .about-and-care-link {
+        margin-bottom: 5px;
+    }
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 844px) {
+    .footer-main-container.hide-footer-on-cart {
+        display: none;
+    } 
+}
+
+@media only screen and (max-width: 767px){
     .footer-main-container{
         display: none;
     }
+
+    
 
     .mobile-view-footer-main-div{
         display: flex;

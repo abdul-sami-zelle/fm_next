@@ -5,21 +5,10 @@ import Link from 'next/link';
 import { useCart } from '@/context/cartContext/cartContext';
 
 // Assets
-// import minusBtn from '../../../../Assets/icons/minus-white.png';
-// import plusBtn from '../../../../Assets/icons/plus-white.png';
-// import closeBtn from '../../../../Assets/icons/close-btn.png';
-// import plusCharcol from '../../../../Assets/icons/plus.png';
-// import minusCharcol from '../../../../Assets/icons/minus.png'
-// import crossBtn from '../../../../Assets/icons/Mask group (1).png'
-// import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
-// import guardIcon from '../../../../Assets/icons/guard-icon.png';
-// import { IoInformationCircle } from "react-icons/io5";
-// import check from "../../../../Assets/check.png";
 import { useList } from '@/context/wishListContext/wishListContext';
 import { FaArrowsRotate } from "react-icons/fa6";
 import ToggleSwitch from '../../../../Global-Components/ToggleSwitch/ToggleSwitch';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { IoIosClose } from "react-icons/io";
 import Image from 'next/image';
 
 const CartItems = ({
@@ -52,7 +41,6 @@ const CartItems = ({
         cartProducts,
     } = useCart()
 
-    const [saveForLeter, setSaveForLeter] = useState(false)
 
     const formatedSalePrice = Intl.NumberFormat('en-us', {
         style: 'currency',
@@ -94,45 +82,6 @@ const CartItems = ({
 
     return (
         <>
-
-            {/* <div className='cart-product'>
-
-                <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
-                    <IoIosClose color='var(--text-rgay)' size={20} />
-                </button>
-
-                <div className='cart-item-name'>
-                    <h3>{cartProductName}</h3>
-                </div>
-
-                <div className='cart-product-containt'>
-
-                    <div className='cart-item-image'>
-                        <img src={`${url}${cartPRoductImage}`} alt='product image' />
-                    </div>
-
-                    <div className='cart-product-details'>
-                        <p>SKU: {productData?.sku}</p>
-                        <p>{cartProductColor}</p>
-                        <p>{cartProductTitle}</p>
-                        <div className='price-and-count'>
-                            <div className='product-count'>
-                                <button onClick={handleDecreament}>
-                                    <img src={'/Assets/icons/minus-white.png'} alt='minus' />
-                                </button>
-                                <p>{quantity}</p>
-                                <button onClick={handleIncreament}>
-                                    <img src={'/Assets/icons/plus-white.png'} alt='plus' />
-                                </button>
-                            </div>
-                        </div>
-                        <div className='cart-item-actual-price'>
-                            <p>{productTotalPrice}</p>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
-
             {/* Desktop view Card */}
             <div className={`desktop-cart-product`} style={{ borderBottom: totalProducts > 1 ? '1px solid #d7d7d7' : 'none' }} >
 
@@ -143,7 +92,6 @@ const CartItems = ({
                 <div className='desktop-cart-containt-section'>
                     <div className='desktop-cart-content-section-one'>
                         <button className={`cross-btn ${isCartOpen ? 'hide-cross-btn' : ''}`} onClick={handleRomoveProduct}>
-                            {/* <IoIosClose color='var(--text-gray)' size={30} /> */}
                             <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='close' />
                         </button>
                         <button className='save-for-leter' onClick={(e) => { e.stopPropagation(); handleWishList(productData) }}>
@@ -169,14 +117,8 @@ const CartItems = ({
                                 ) : (
                                     <p>{formatedRegularPrice}</p>
                                 )}
-
-
                             </div>
-
-
-
                         </div>
-
 
                         <div className={`desktop-total-price-and-remove-item ${isCartOpen ? 'hide-total-and-remove-item' : ''}`}>
 
@@ -225,7 +167,6 @@ const CartItems = ({
                                     <span className='protection-details-and-message'>
                                         <p className='protection-price-message'>
                                             Protection Plan
-                                            {/* {(cartProducts.is_all_protected === 1 || isProtected === 1) ? "Price shown in summary" : "$149"} */}
                                         </p>
                                         <div className={`detail-container ${isOpen ? 'open' : ''}`}>
                                             <p className='protection-price-message detail'>

@@ -119,7 +119,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                                 justWidth={'100%'}
                                 showOnPage={true}
                                 percent={'12%'}
-                                titleHeight={true}
+                                // titleHeight={true}
                                 tagIcon={item.productTag ? item.productTag : heart}
                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                                 mainImage={`${item.image.image_url}`}

@@ -311,7 +311,7 @@
     width: 100%;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 767px) {
     .write_review_main {
         padding: 20px;
         align-items: center;
@@ -693,7 +693,7 @@
     color: var(--text-primary);
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 767px) {
     .write-review-inner-section {
         width: 100%;
         padding: 10px;

@@ -24,7 +24,6 @@ const Shopvia = () => {
   useEffect(() => {
     const intervelId = setInterval(() => {
       setSwipeContent(!swipeContent)
-      // setCurrentIndex((prevIndex) => (prevIndex + 1) % dynamicHeading.length)
     }, 5000)
     return () => clearInterval(intervelId);
   }, [swipeContent])

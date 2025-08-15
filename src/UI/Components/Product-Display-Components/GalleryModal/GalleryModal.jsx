@@ -101,7 +101,7 @@ const GalleryModal = ({
   }, [dimensionModal, clickedType])
 
 
-  function setupMobileState(setIsMobile, breakpoint = 768) {
+  function setupMobileState(setIsMobile, breakpoint = 767) {
     const updateState = () => {
       setIsMobile(window.innerWidth <= breakpoint);
     };

@@ -111,7 +111,16 @@
     height: 15px;
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .text-div {
+        align-items: center;
+    }
+    .rotate-message-maintanance {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 767px){
     .social-icons-container {
         display: none;
     }

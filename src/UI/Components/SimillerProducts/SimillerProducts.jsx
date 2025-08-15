@@ -11,6 +11,7 @@ import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
 import { useDisableBodyScroll } from '@/utils/api'
+import { useIsTab } from '@/utils/isMobile'
 
 
 const SimillerProducts = ({ isPadding, productId }) => {
@@ -150,11 +151,13 @@ const SimillerProducts = ({ isPadding, productId }) => {
               isPadding={true}
               breakpoints={{
                 0: { slidesPerView: 1 },
-                768: { slidesPerView: 4 },
+                481: {slidesPerView: 2},
+                768: {slidesPerView: 3},
+                1024: { slidesPerView: 4 },
               }}
             />
           ) : (
-            Array.from({ length: 4 }).map((_, index) => (
+            Array.from({ length: useIsTab ? 3 : 4 }).map((_, index) => (
               <ProductCardShimmer />
             ))
           )}

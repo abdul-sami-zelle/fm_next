@@ -176,6 +176,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedUid(items.uid);
   }
 
+  const isTab = useIsTab()
+
 
 
   if (!allProducts.length > 0) {
@@ -236,10 +238,11 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               arrowLeftPosition={true}
               eachSlide={true}
               // loop={true}
-              spaceBetween={useIsTab ? 10 : 35}
+              spaceBetween={isTab ? 10 : 35}
               // spaceBetween={35}
               breakpoints={{
                 0: { slidesPerView: 1 },
+                600: {slidesPerView: 2},
                 768: {slidesPerView: 3},
                 1024: { slidesPerView: 4 },
               }}

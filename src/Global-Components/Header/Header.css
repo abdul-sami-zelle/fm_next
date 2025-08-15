@@ -659,7 +659,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(85%, 40%);
+    transform: translate(60%, 40%);
     font-size: 10px;
     line-height: 14px;
     font-weight: 400;
@@ -1227,7 +1227,7 @@
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 767px) {
     .header {
         display: none !important;
     }
@@ -1241,7 +1241,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translate(100%, 95%);
+        transform: translate(85%, 100%);
         font-size: 10px;
         line-height: 14px;
         font-weight: 400;

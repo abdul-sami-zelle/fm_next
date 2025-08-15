@@ -125,6 +125,62 @@
     display: none;
 }
 
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .similler-products-main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        /* padding: var(--global-padding); */
+    }
+
+    .similler-products-main-container.add-padding {
+        padding: 20px 10px;
+    }
+
+    .similler-products-main-container h3 {
+        /* font-size: var(--sub-section-size);
+        line-height: var(--sub-section-height); */
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .similler-products-cards {
+        grid-template-columns: repeat(2, 1fr);
+        overflow-x: hidden;
+        white-space: nowrap;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .scroll-button img {
+        width: auto;
+        height: 30px;
+        object-fit: contain;
+    }
+
+    .cart-latest-product-cards-container {
+        width: 98% !important;
+    }
+
+    .cart-latest-products-slider-arrow-left {
+        left: 0px;
+    }
+
+    .cart-latest-products-slider-arrow-right {
+        right: 0px;
+    }
+
+    .cart-related-products-slider-main-div {
+        display: none;
+    }
+    .related-products-mobile-view-container {
+        display: flex;
+    }
+}
+
 @media only screen and (max-width: 480px) {
     .similler-products-main-container {
         display: flex;

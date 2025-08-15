@@ -40,6 +40,12 @@
     display: none;
 }
 
+@media only screen and (min-width:481px) and (max-width: 767px) {
+    .finance_banner_2 {
+        margin: 10px 0;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .carousel-slide{
         height: auto;

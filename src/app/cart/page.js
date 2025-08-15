@@ -2,15 +2,13 @@
 
 import React, { useEffect, useState } from 'react'
 import './Cart.css'
-import CartMainImage from '@/UI/Components/Cart-Components/CartMainImage/CartMainImage';
 import CartProducts from '@/UI/Components/Cart-Components/Cart-Products/CartProducts';
 import { IoIosArrowDown } from "react-icons/io";
-import axios from 'axios'
 import { useCart } from '@/context/cartContext/cartContext';
 import ProductCardShimmer from '@/UI/Components/Loaders/productCardShimmer/productCardShimmer';
 import { useList } from '@/context/wishListContext/wishListContext';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
-import { formatedPrice, getAdjustedPrice, url } from '../../utils/api';
+import { formatedPrice, getAdjustedPrice } from '../../utils/api';
 import QuickView from '@/UI/Components/QuickView/QuickView';
 import FinancingModal from '@/UI/Modals/FinancingModal/FinancingModal';
 import AppointmentModal from '@/Global-Components/AppointmentModal/AppointmentModal';
@@ -20,7 +18,6 @@ import { useRouter } from 'next/navigation';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
-import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
@@ -42,9 +39,7 @@ const Cart = () => {
     getShippingMethods,
     setSelectedShippingMethods,
     CalculateGrandTotal,
-    handleChange,
-    selectedShippingMethods,
-    wrongZip, setWrongZip,
+    wrongZip,
     wrongZipMessage,
     handleZipWarningClose,
     zipLoading,
@@ -208,7 +203,6 @@ const Cart = () => {
 
   return (
     <div className='cart-main-container'>
-      {/* <CartMainImage /> */}
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
           <CartProducts handleLocationModal={handleLocationModal} />
@@ -253,8 +247,6 @@ const Cart = () => {
               </div>
               <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
-                  {/* <p>Calculated for:</p> */}
-                  {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
                   <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                 </span>
                 <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
@@ -384,67 +376,7 @@ const Cart = () => {
 
               )
             )}
-            {/* {latestProducts && latestProducts?.length > 0 ? (
-              <SwiperSlider
-                slidesData={latestProducts}
-                renderSlide={(item, index) => (
-                  <div key={index} className='cart-latest-product-cards-container'>
-                    <ProductCardTwo
-                      key={index}
-                      slug={item.slug}
-                      singleProductData={item}
-                      maxWidthAccordingToComp={"100%"}
-                      justWidth={'100%'}
-                      percent={'12%'}
-                      showOnPage={true}
-                      tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
-                      tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
-                      mainImage={`${item.image.image_url}`}
-                      productCardContainerClass="product-card"
-                      ProductSku={item.sku}
-                      tags={item.tags}
-                      allow_back_order={item?.allow_back_order}
-                      ProductTitle={item.name}
-                      reviewCount={item.reviewCount}
-                      lowPriceAddvertisement={item.lowPriceAddvertisement}
-                      priceTag={item.regular_price}
-                      sale_price={item.sale_price}
-                      financingAdd={item.financingAdd}
-                      learnMore={item.learnMore}
-                      mainIndex={index}
-                      deliveryTime={item.deliveryTime}
-                      stock={item.manage_stock}
-                      attributes={item.attributes}
-                      handleCardClick={() => handleProductClick(item)}
-                      handleQuickView={() => handleQuickViewOpen(item)}
-                      handleWishListclick={() => handleWishList(item)}
-                    />
-                  </div>
-                )}
-                showDots={true}
-                showArrows={false}
-                spaceBetween={15}
-                breakpoints={{
-                  0: { slidesPerView: 1 },
-                  768: { slidesPerView: 4 },
-                }}
-              />
-            ) : (
-              <div className='cart-page-also-like-cards-shimmer-contianer'>
-                <div className='cart-page-also-like-desktop-shimmer'>
-                  {Array.from({ length: 4 }).map((_, index) => (
-                    <ProductCardShimmer width={'100%'} />
-                  ))}
-                </div>
-
-                <div className='cart-page-also-like-mobile-shimmer'>
-                  {Array.from({ length: 1 }).map((_, index) => (
-                    <ProductCardShimmer width={'100%'} />
-                  ))}
-                </div>
-              </div>
-
-            )} */}
+            
           </div>
         </div>
       )}

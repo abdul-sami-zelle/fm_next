@@ -194,7 +194,7 @@
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 767px) {
     .deal-of-the-day-main-container {
         padding: 15px 10px 10px 10px;
     }

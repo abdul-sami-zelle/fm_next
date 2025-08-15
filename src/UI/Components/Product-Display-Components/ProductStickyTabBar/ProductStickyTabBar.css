@@ -244,7 +244,7 @@
     display: flex !important;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 844px) {
     .product-description-main-container {
         padding: 0 !important;
         gap: 5px;
