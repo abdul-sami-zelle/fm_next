@@ -613,10 +613,9 @@ const Products = ({ navigationType }) => {
         }
     };
 
-
     const handlePrevPage = () => {
-        if (activePage > 1) {
-            const newPage = activePage - 1;
+        if (activePageIndex > 1) {
+            const newPage = activePageIndex - 1;
 
             const params = new URLSearchParams(window.location.search);
             params.set('page', newPage);
@@ -641,8 +640,8 @@ const Products = ({ navigationType }) => {
     };
 
     const handleNextPage = () => {
-        if (activePage < totalPages?.totalPages) {
-            const newPage = activePage + 1;
+        if (activePageIndex < totalPages?.totalPages) {
+            const newPage = activePageIndex + 1;
 
             const params = new URLSearchParams(window.location.search);
             params.set('page', newPage);
@@ -665,6 +664,60 @@ const Products = ({ navigationType }) => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
+
+
+
+    // const handlePrevPage = () => {
+    //     if (activePage > 1) {
+    //         const newPage = activePage - 1;
+
+    //         const params = new URLSearchParams(window.location.search);
+    //         params.set('page', newPage);
+
+    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+    //         const pathname = window.location.pathname;
+
+    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+    //         setActivePage(newPage);
+    //         setActivePageIndex(newPage);
+
+    //         if (pageCache.current[newPage]) {
+    //             setProducts(pageCache.current[newPage]);
+    //         } else {
+    //             sortProducts(selectedRelevanceValue);
+    //             filterProducts(queryString);
+    //         }
+
+    //         window.scrollTo({ top: 0, behavior: 'smooth' });
+    //     }
+    // };
+
+    // const handleNextPage = () => {
+    //     if (activePage < totalPages?.totalPages) {
+    //         const newPage = activePage + 1;
+
+    //         const params = new URLSearchParams(window.location.search);
+    //         params.set('page', newPage);
+
+    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
+    //         const pathname = window.location.pathname;
+
+    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
+
+    //         setActivePage(newPage);
+    //         setActivePageIndex(newPage);
+
+    //         if (pageCache.current[newPage]) {
+    //             setProducts(pageCache.current[newPage]);
+    //         } else {
+    //             sortProducts(selectedRelevanceValue);
+    //             filterProducts(queryString);
+    //         }
+
+    //         window.scrollTo({ top: 0, behavior: 'smooth' });
+    //     }
+    // };
 
     const handleActiveGrid = (grid) => {
         setActiveGrid(grid);

@@ -6,6 +6,7 @@ import './FinanceBannerSlider.css';
 import { url } from "../../../utils/api";
 import Image from "next/image";
 import SwiperSlider from "@/UI/Sliders/SwiperSlider/SwiperSlider";
+import Link from "next/link";
 
 
 function FinanceBannerSlider({ images, borderTop = '0px', }) {
@@ -29,7 +30,7 @@ function FinanceBannerSlider({ images, borderTop = '0px', }) {
             <SwiperSlider
                 slidesData={images?.desktop}
                 renderSlide={(image, index) => (
-                    <div className="carousel-slide" key={index}>
+                    <Link href={'./financing'} className="carousel-slide" key={index}>
                         <Image
                             src={`${url}${image.image_url}`}
                             width={1599}
@@ -37,7 +38,7 @@ function FinanceBannerSlider({ images, borderTop = '0px', }) {
                             alt={`slide ${index + 1}`}
                             layout="responsive"
                         />
-                    </div>
+                    </Link>
                 )}
                 showDots={true}
                 showArrows={false}

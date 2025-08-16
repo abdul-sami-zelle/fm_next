@@ -3,6 +3,7 @@ import './MobileFinancingSlider.css'
 import { url } from '../../../utils/api';
 import Image from 'next/image';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
+import Link from 'next/link';
 
 const MobileFinancingSlider = ({ images, borderTop = '0px' }) => {
 
@@ -11,14 +12,14 @@ const MobileFinancingSlider = ({ images, borderTop = '0px' }) => {
             <SwiperSlider
                 slidesData={images?.mobile}
                 renderSlide={(image, index) => (
-                    <div className="mobile-carousel-slide" key={index}>
+                    <Link href={'./financing'} className="mobile-carousel-slide" key={index}>
                         <Image
                             src={`${url}${image.image_url}`}
                             alt={`slide ${index + 1}`}
                             width={480}
                             height={220}
                         />
-                    </div>
+                    </Link>
                 )}
                 showDots={false}
                 showArrows={false}

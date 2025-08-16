@@ -9,12 +9,10 @@ import { formatedPrice, url } from '../../../utils/api';
 import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
 import { useCart } from '../../../context/AddToCart/addToCart';
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
 import BestSellerProductCardShimmer from '../BestSellerProductCard/BestSellerProductCardShimmer';
 import RatingReview from '../starRating/starRating';
 import { VscHeartFilled, VscHeart } from "react-icons/vsc";
 
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import useSWR, { mutate } from 'swr';
@@ -23,7 +21,20 @@ import { fetcher } from '@/utils/Fetcher';
 import BestSellerMobileShimmer from '../BestSellerProductCard/BestSellerMobileShimmer';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { BiSolidShoppingBag } from 'react-icons/bi';
-import generateInvoicePDF from '../User-Dashboard-Components/OrderInvoice/OrderInvoice';
+
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/grid';
+import 'swiper/css/pagination';
+
+
+// import required modules
+import { Grid, Pagination } from 'swiper/modules';
+import GridSlider from '@/UI/Sliders/GridSlider/Gridslider';
 
 
 const BestSellerSlider = (
@@ -98,10 +109,7 @@ const BestSellerSlider = (
     const { addSingleProduct } = useSingleProductContext();
     const { addToCart } = useCart()
     const { addToList, isInWishList, removeFromList } = useList()
-    const notify = (str) => toast.success(str);
-    const notifyRemove = (str) => toast.error(str)
     const [listed, setListed] = useState(false);
-    const [currentPage, setCurrentPage] = useState(0);
 
     // Functions
     const handleActiveItem = (index) => {
@@ -230,7 +238,7 @@ const BestSellerSlider = (
 
                 <div className='best-seller-imaage-and-cards'>
 
-                    <Link 
+                    <Link
                         className='best-seller-slider-main-banner'
                         href={`${bestSellerNav1[activeItem]?.slug}${bestSellerNav1[activeItem]?.image?.link_url}`}
                     >
@@ -244,7 +252,7 @@ const BestSellerSlider = (
                                     key={bestSellerNav1[activeItem].image.image_url}
                                     src={url + bestSellerNav1[activeItem].image.image_url}
                                     alt='main banner'
-                                    // onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
+                                // onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
                                 />
                             ) : null
 
@@ -285,6 +293,27 @@ const BestSellerSlider = (
                         </div>
 
                         <div className='products-slider-container'>
+
+                            {/* <GridSlider
+                                slidesData={allProducts.filter(product => product.status === 'published')}
+                                renderSlide={(item) => (
+                                    <BestSellerProductCard
+                                        productData={item}
+                                        isDiscountable={item.discount.is_discountable === 1 ? true : false}
+                                        key={item._id}
+                                        productMainImage={item.images?.[0]?.image_url}
+                                        starIcon={ratingStars}
+                                        reviews={'200'}
+                                        productName={item.name}
+                                        oldPrice={item.regular_price}
+                                        newPrice={item.newPrice}
+                                        listed={listed}
+                                        handleCardClicked={() => handleCardClicked(item)}
+                                        handleWishListClicked={() => handleWishList(item)}
+                                    />
+                                )}
+                            /> */}
+
 
                             <div className='best-seller-slider-wrapper' style={{ overflow: 'hidden' }}>
                                 <div

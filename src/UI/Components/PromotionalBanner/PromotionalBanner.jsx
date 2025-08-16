@@ -39,37 +39,11 @@ const PromotionalBanner = (
   const [isTokenValid, setIsTokenValid] = useState(false);
   const { info } = useGlobalContext()
 
-  // const handleClickOnOrders = async () => {
-  //   if (typeof window !== "undefined") {
-  //     const token = localStorage.getItem('userToken');
-  //     const id = localStorage.getItem('uuid');
 
-  //     try {
-  //       if (token) {
-  //         const response = await fetch(`${url}/api/v1/web-users/verify-token`, {
-  //           method: "GET",
-  //           headers: {
-  //             authorization: `${token}`,
-  //           },
-  //         });
-  //         if (response.ok) {
-  //           router.push(`/user-dashboard/${id}`);
-  //         }
-  //       } else {
-  //         localStorage.removeItem('userToken');
-  //         setUserToken(null);
-  //         setIsTokenValid(true);
-  //       }
-  //     } catch (error) {
-  //       console.error("Unexpected Error", error)
-  //     }
-  //   }
-  // }
 
 
 
   const handleUserLogin = async (clickType) => {
-    // if(typeof window !== 'undefined') {
     const token = localStorage.getItem('userToken');
     const id = localStorage.getItem('uuid');
 
@@ -93,17 +67,11 @@ const PromotionalBanner = (
     } catch (error) {
       console.error("UnExpected Server Error", error);
     }
-    // }
   }
 
   const handleCloseLoginMessageModal = () => {
     setIsTokenValid(false)
   }
-
-  // const handleNavigateToLogin = (type) => {
-  //   router.push('/my-account')
-  //   setIsTokenValid(false)
-  // }
 
 
   // Indicator
@@ -123,26 +91,61 @@ const PromotionalBanner = (
   const lastMovedIndex = useRef(null);// hovered
   const activeIndexRef = useRef(activeIndex);
   const hoverIndexRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
 
-  const [indicatorStyle, setIndicatorStyle] = useState({
-    left: 0,
-    width: 0,
-    opacity: 0,
-  });
 
+  // Find the initial active index
+  const getInitialIndex = () => {
+    let idx = bannerLinks.findIndex(item => item.link && pathname.startsWith(item.link));
+    if (idx === -1) {
+      idx = bannerLinks.findIndex(item => item.label === 'Track Order');
+    }
+    return idx !== -1 ? idx : 0;
+  };
+
+  // const moveIndicator = () => {
+  //   const index = hoverIndexRef.current != null ? hoverIndexRef.current : activeIndexRef.current;
+  //   if (lastMovedIndex.current === index) return;
+  //   const link = linksRef.current[index];
+  //   const indicator = indicatorRef.current;
+  //   if (link && indicator) {
+  //     indicator.style.width = `${link.offsetWidth}px`;
+  //     indicator.style.left = `${link.offsetLeft}px`;
+  //     indicator.style.opacity = '1';
+  //     lastMovedIndex.current = index;
+  //   }
+  // };
 
   const moveIndicator = () => {
-    const index = hoverIndexRef.current != null ? hoverIndexRef.current : activeIndexRef.current;
+    const index = hoverIndexRef.current != null
+      ? hoverIndexRef.current
+      : activeIndexRef.current;
+
     if (lastMovedIndex.current === index) return;
+
     const link = linksRef.current[index];
     const indicator = indicatorRef.current;
+
     if (link && indicator) {
+      // disable transition only for first paint
+      if (!mounted) {
+        indicator.style.transition = "none";
+      } else {
+        indicator.style.transition = "all 0.3s ease"; // normal smooth slide
+      }
+
       indicator.style.width = `${link.offsetWidth}px`;
       indicator.style.left = `${link.offsetLeft}px`;
-      indicator.style.opacity = '1';
+      indicator.style.opacity = "1";
       lastMovedIndex.current = index;
     }
   };
+
+  useEffect(() => {
+    moveIndicator();
+    // after first paint, enable transitions
+    requestAnimationFrame(() => setMounted(true));
+  }, []);
 
   const handleHover = (index) => {
     hoverIndexRef.current = index;
@@ -175,24 +178,24 @@ const PromotionalBanner = (
   const pathname = usePathname();
 
   useEffect(() => {
-  const currentIndex = bannerLinks.findIndex(
-    item => item.link && pathname.startsWith(item.link)
-  );
+    const currentIndex = bannerLinks.findIndex(
+      item => item.link && pathname.startsWith(item.link)
+    );
 
-  let indexToUse = currentIndex;
+    let indexToUse = currentIndex;
 
-  // Fallback to "Track Order" if nothing matches
-  if (indexToUse === -1) {
-    indexToUse = bannerLinks.findIndex(item => item.label === 'Track Order');
-  }
+    // Fallback to "Track Order" if nothing matches
+    if (indexToUse === -1) {
+      indexToUse = bannerLinks.findIndex(item => item.label === 'Track Order');
+    }
 
-  if (indexToUse !== -1) {
-    setActiveIndex(indexToUse);
-    activeIndexRef.current = indexToUse; // ✅ Sync ref
-    lastMovedIndex.current = null; // ✅ Force indicator to recalculate
-    moveIndicator();
-  }
-}, [pathname]);
+    if (indexToUse !== -1) {
+      setActiveIndex(indexToUse);
+      activeIndexRef.current = indexToUse; // ✅ Sync ref
+      lastMovedIndex.current = null; // ✅ Force indicator to recalculate
+      moveIndicator();
+    }
+  }, [pathname]);
 
   useDisableBodyScroll(isTokenValid)
 
@@ -268,7 +271,7 @@ const PromotionalBanner = (
           }
 
 
-          
+
 
           <span className="indicator" ref={indicatorRef}></span>
 

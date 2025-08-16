@@ -13,6 +13,18 @@ const BlogSlider = () => {
     blogs,
   } = useBlog()
 
+  console.log("blog data", blogs);
+
+  function extractDay(dateString) {
+    const date = new Date(dateString);
+    return date.getDate(); // returns day number
+  }
+
+  function extractMonth(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', { month: 'short' }); // e.g. "Mar"
+  }
+
 
   const handleNavigateToSingleBlog = (item) => {
     router.push(`/single-blog/${item.slug}`, { state: item })
@@ -41,8 +53,8 @@ const BlogSlider = () => {
                 readTime={item.readTime}
                 totalViews={item.totalViews}
                 comments="4 comments"
-                date={26}
-                month="FEB"
+                date={extractDay(item.createdAt)}
+                month={extractMonth(item.createdAt)}
                 start="this is short description section of blogs"
               />
             )}

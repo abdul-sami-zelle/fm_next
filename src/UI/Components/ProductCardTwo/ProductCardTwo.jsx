@@ -181,6 +181,8 @@ const ProductCardTwo = ({
         return today.toLocaleDateString("en-us", optionWithTimeZone);
     }
 
+    // console.log("priority attributes", priorityAttribute)
+
 
     const { selectedVariationData } = useProductPage()
 
