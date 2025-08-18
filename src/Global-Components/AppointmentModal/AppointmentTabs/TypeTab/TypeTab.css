@@ -128,7 +128,7 @@
 
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 767px){
     .type-tab-main-container {
         gap: 15px !important;
     }

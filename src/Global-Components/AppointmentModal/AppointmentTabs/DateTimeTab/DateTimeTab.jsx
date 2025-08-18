@@ -64,6 +64,12 @@ const DateTimeTab = ({ selectedTab, setSelectedTab }) => {
       ...prev,
       selectedSlot: item,
     }))
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 
 
@@ -77,6 +83,16 @@ const DateTimeTab = ({ selectedTab, setSelectedTab }) => {
       date1.getDate() === date2.getDate()
     );
   };
+
+  const handlePrevTab = () => {
+    setSelectedTab(selectedTab - 1);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+  }
 
 
   return (
@@ -115,7 +131,7 @@ const DateTimeTab = ({ selectedTab, setSelectedTab }) => {
       </div>
 
       <div className='location-tab-buttons-container'>
-        <button onClick={() => setSelectedTab(selectedTab - 1)}>Previous</button>
+        <button onClick={handlePrevTab}>Previous</button>
       </div>
     </div>
 

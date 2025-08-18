@@ -41,6 +41,16 @@ const LocationTab = ({ selectedTab, setSelectedTab, handleSelectStore }) => {
     setShowLocationDetails((prevIndex) => prevIndex === index ? null : index)
   }
 
+  const handlePrevTab = () => {
+    setSelectedTab(selectedTab - 1);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <div className='location-tab-main-container'>
       {loading && <Loader />}
@@ -116,7 +126,7 @@ const LocationTab = ({ selectedTab, setSelectedTab, handleSelectStore }) => {
         </div>
 
         <div className='location-tab-buttons-container'>
-          <button onClick={() => setSelectedTab(selectedTab - 1)}>Previous</button>
+          <button onClick={handlePrevTab}>Previous</button>
         </div>
       </div>
     </div>

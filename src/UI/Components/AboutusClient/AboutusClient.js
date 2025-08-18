@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { url } from '../../../utils/api';
+import StatickShimmer from '@/Global-Components/StaticPagesShimmer/StaticShimmer';
 
 const AboutUsClient = () => {
     const [aboutusData, setAboutusData] = useState();
+    const [loadData, setLoadData] = useState(true);
     const fetchAboutUs = async () => {
         const api = `/api/v1/pages/about-us/get`;
         try {
@@ -16,8 +18,12 @@ const AboutUsClient = () => {
             });
             const result = await response.json();
             setAboutusData(result.aboutUs.content)
+
         } catch (error) {
+          setLoadData(false)
             console.error("UnExpected Server Error", error);
+        } finally {
+          setLoadData(false)
         }
     }
 
@@ -26,7 +32,11 @@ const AboutUsClient = () => {
     <div 
       className='shipping-and-delivery-main-container'
     >
-      <div dangerouslySetInnerHTML={{ __html: aboutusData }} ></div>
+      {loadData ? (
+        <StatickShimmer />
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: aboutusData }} ></div>
+      )}
     </div>
   )
 }

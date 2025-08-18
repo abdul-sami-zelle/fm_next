@@ -9,7 +9,7 @@ const AppointmentContext = createContext();
 export const AppointmentProvider = ({ children }) => {
 
   const [appointmentPayload, setAppointmentPayload] = useState({
-    serviceType: '',
+    serviceType: 'in-store',
     selectedCategories: [],
     selectedStore: {},
     otherDetails: 'Customer has sensitive skin',

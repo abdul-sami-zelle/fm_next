@@ -21,6 +21,17 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
       }
     }))
   }
+
+  const handlePrevTab = () => {
+    setSelectedTab(selectedTab - 1);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+  }
+  
   return (
     <div className='review-tab-main-container'>
       <h3>Please provide your details to be added to our appointment book</h3>
@@ -69,7 +80,7 @@ const ReviewTab = ({ handleSubmitAppointment, selectedTab, setSelectedTab }) => 
         )}
         
         <div className='type-selected-button'>
-          <button onClick={() => setSelectedTab(selectedTab - 1)}>Previous</button>
+          <button onClick={handlePrevTab}>Previous</button>
           <button onClick={handleSubmitAppointment}>
             Book Consultant
           </button>

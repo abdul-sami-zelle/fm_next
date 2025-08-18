@@ -128,11 +128,6 @@ const FinancingClient = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
-
-
-    useEffect(() => { console.log("financing categories", financingPageData) }, [financingPageData])
-
     return (
         <div className='financing-main-container'>
             <div className='financing-top-head-contianer'>

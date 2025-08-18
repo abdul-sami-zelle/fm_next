@@ -22,26 +22,30 @@ const ContactClient = () => {
         {
             img: '/Assets/icons/costumer-care.png',
             name: 'Customer Care',
-            slogan: 'Our customer care team is available to assist your needs',
-            timing: 'Monday - Sunday: 8am - 6pm'
+            slogan: 'Our customer care team is available to assist your needs. You can reach us',
+            timing: 'Monday to Saturday  between 9:30 AM - 7:30 PM',
+            sundayTime: 'Sunday between 10:00 AM - 6:00 PM.'
         },
         {
             img: '/Assets/icons/online-support.png',
             name: 'Online Shopping Assistance',
-            slogan: 'Need help with online shopping? Our phones now open until Midnight',
-            timng: 'Monday – Sunday: 8am – Midnight',
+            slogan: 'Need help with online shopping? Our phones are open to assist you during the working hours.',
+            timing: 'Monday to Saturday  between 9:30 AM - 7:30 PM',
+            sundayTime: 'Sunday between 10:00 AM - 6:00 PM.'
         },
         {
             img: '/Assets/icons/billing-queries.png',
             name: 'Billing Questions',
-            slogan: 'Have questions about financing or paying bills? We are here to help via phone or web page Pay your bills',
-            timing: 'Monday – Sunday: 8am – 6pm',
+            slogan: 'Have questions about financing or paying bills? We are here to help you find the best financing or payment solution via phone or our website. Assistance is available',
+            timing: 'Monday to Saturday  between 9:30 AM - 7:30 PM',
+            sundayTime: 'Sunday between 10:00 AM - 6:00 PM.'
         },
         {
             img: '/Assets/icons/warranty-assurance.png',
             name: 'Warranty Assistance',
-            slogan: 'Have questions about financing or paying bills? We are here to help via phone or web page Pay your bills',
-            timing: 'Monday – Sunday: 8am – 6pm'
+            slogan: 'Need help with warranties or product concerns? Our support team is available to provide you the assistance you need.',
+            // timing: 'Monday to Saturday  between 9:30 AM - 7:30 PM',
+            // sundayTime: 'Sunday between 10:00 AM - 6:00 PM.'
         }
     ]
 
@@ -220,12 +224,13 @@ const ContactClient = () => {
 
                 <div className='contact-us-services'>
                     {servicesDetail.map((item, index) => (
-                        <div className='contact-us-service-card'>
+                        <div key={index} className='contact-us-service-card'>
                             <img src={item.img} alt='costumer-care' className='costumer-care-service-icon' />
                             <div className='costumer-care-service-details'>
                                 <h3>{item.name}</h3>
                                 <p>{item.slogan}</p>
                                 <p>{item.timing}</p>
+                                <p>{item.sundayTime}</p>
                             </div>
                         </div>
                     ))}
@@ -267,7 +272,7 @@ const ContactClient = () => {
                             Email
                             <input
                                 type='text'
-                                placeholder={error.email ? 'Email is required' : 'example@gmail.com'}
+                                placeholder={error.email ? 'Email is required' : 'Alex.john@gmail.com'}
                                 name='email'
                                 value={contactForm.email}
                                 onChange={handleContactValue}
@@ -279,7 +284,7 @@ const ContactClient = () => {
                                 Zip Code
                                 <input
                                     type='text'
-                                    placeholder={error.zipcode ? 'Zip Code is required' : '10001'}
+                                    placeholder={error.zipcode ? 'Zip Code is required' : '19134'}
                                     name='zipcode'
                                     value={contactForm.zipcode}
                                     onChange={handleZipCode}
@@ -290,7 +295,7 @@ const ContactClient = () => {
                                 State
                                 <input
                                     type='text'
-                                    placeholder={error.state ? 'State is required' : 'New York'}
+                                    placeholder={error.state ? 'State is required' : 'Pennsylvania'}
                                     name='state'
                                     value={contactForm.state}
                                     onChange={handleContactValue}

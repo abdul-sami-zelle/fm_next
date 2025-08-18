@@ -20,9 +20,9 @@ const BookAppointmentClient = ({ params }) => {
     const [selectedTab, setSelectedTab] = useState(1);
     const [loading, setLoading] = useState(false);
     const [serviceIndex, setServiceTypeIndex] = useState(0)
-     const [showSnakeBar, setShowSnakeBar] = useState(false);
-      const [snakeBarMessage, setSnakeBarMessage] = useState()
-      
+    const [showSnakeBar, setShowSnakeBar] = useState(false);
+    const [snakeBarMessage, setSnakeBarMessage] = useState()
+
     const tabs = [
         { id: 1, title: 'Type' },
         { id: 2, title: 'Location' },
@@ -77,8 +77,17 @@ const BookAppointmentClient = ({ params }) => {
             }
         }))
 
+
+
         if (Object.keys(store).length > 0) {
             setSelectedTab(selectedTab + 1)
+        }
+
+        if (typeof window !== 'undefined') {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
         }
     }
 
@@ -126,7 +135,7 @@ const BookAppointmentClient = ({ params }) => {
     const handleOpenSnakeBar = (message) => {
         setShowSnakeBar(true)
         setSnakeBarMessage(message)
-      }
+    }
 
     const handleAppointmentModal = (type) => {
         setConfirmAppointment(true);
@@ -152,6 +161,8 @@ const BookAppointmentClient = ({ params }) => {
             }
         })
     }
+
+    useEffect(() => {console.log("service type" , appointmentPayload)}, [appointmentPayload])
 
 
     return (
@@ -201,6 +212,8 @@ const BookAppointmentClient = ({ params }) => {
                                         />
                                             : <ReviewTab
                                                 handleSubmitAppointment={handleSubmitAppointment}
+                                                selectedTab={selectedTab}
+                                                setSelectedTab={setSelectedTab}
                                             />
                             }
                         </div>

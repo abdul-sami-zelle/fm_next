@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import './CheckoutClient.css';
 import PaymentMethod from '@/UI/Components/Summary-Components/PaymentMethod/PaymentMethod';
 import { useMyOrders } from '@/context/orderContext/ordersContext';
@@ -9,14 +9,12 @@ import { useCart } from '@/context/cartContext/cartContext';
 import { formatedPrice, truncateTitle, url, useDisableBodyScroll } from '../../../utils/api';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import { IoIosArrowDown } from "react-icons/io";
-import Link from 'next/link';
 import DeliveryInfo from '@/UI/Components/DeliveryInfo/DeliveryInfo';
 import axios from 'axios';
 import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/termsConditionModal';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 import { useRouter } from 'next/navigation';
-import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const CheckoutClient = () => {
@@ -36,10 +34,7 @@ const CheckoutClient = () => {
     errorDetails,
   } = useMyOrders();
 
-  // const [isStarted, setIsStarted] = useState(false);
-
   const {
-    info,
     zipCode,
     handleInputChange,
     handleButtonClick,
@@ -58,7 +53,6 @@ const CheckoutClient = () => {
     subTotal0,
     isCartProtected,
     isProfessionalAssembly
-
   } = useCart();
 
   const router = useRouter()
@@ -89,15 +83,6 @@ const CheckoutClient = () => {
   ]
 
   const [currentId, setCurrentId] = useState(0)
-
-
-  const [isCheck, setIsCheck] = useState({});
-
-  const [emailBlast, setEmailBlast] = useState(true);
-
-
-
-
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -122,14 +107,24 @@ const CheckoutClient = () => {
       setIsLoading(true)
       const isValid = deliveryInfoRef.current.validateAndSubmit();
 
-      if (!isValid) {
-        setIsLoading(false)
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-        return; // Stop here if validation fails
+      // if (!isValid) {
+      //   setIsLoading(false)
+      //   window.scrollTo({
+      //     top: 0,
+      //     behavior: 'smooth',
+      //   });
+      //   return; // Stop here if validation fails
+      // }
+
+
+      // setIsLoading(false)
+      if(typeof window !== 'undefined') {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
       }
+
       handleTabOpen(1);
       try {
         const response = await axios.put(`${url}/api/v1/unused-cart/edit/${cartUid}`, { cart: cartProducts, checkout: orderPayload.billing });
@@ -156,8 +151,6 @@ const CheckoutClient = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
   }
 
-
-
   const isPaymentMethodFilled = () => orderPayload?.payment_method?.trim() !== "";
   const [showSnakeBar, setShowSnakeBar] = useState(false);
   const [snakeBarMessage, setSnakeBarMessage] = useState()
@@ -169,7 +162,6 @@ const CheckoutClient = () => {
   const handleCloseSnakeBar = () => {
     setShowSnakeBar(false)
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault();

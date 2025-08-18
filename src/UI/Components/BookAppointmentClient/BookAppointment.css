@@ -43,7 +43,18 @@
     overflow: hidden;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    /* .book-an-appointment-main-container {
+        padding: 25px 30px;
+    } */
+
+    .appointment-page-inner-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
     .book-an-appointment-main-container {
         padding: 15px;
         gap: 15px;

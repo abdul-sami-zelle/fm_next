@@ -1,11 +1,23 @@
 import LoginRegisterClient from "@/UI/Components/LoginRegisterClient/LoginRegisterClient";
 
 export async function generateMetadata() {
-    return {
-      title: `Login & Reister - Furniture Mecca`,
-      description: `Browse our Furniture Mecca collection`,
-    };
-  }
+  return {
+    title: "Login & Register - Furniture Mecca",
+    description: "Login & Register - Furniture Mecca",
+    openGraph: {
+      title: "Login & Register - Furniture Mecca",
+      description: "Login & Register - Furniture Mecca",
+      url: "https://myfurnituremecca.com/my-account",
+      images: [
+        {
+          url: "/favicon.png", // ✅ static fallback image
+          width: 1200,
+          height: 630
+        }
+      ]
+    }
+  };
+}
   
   
   
