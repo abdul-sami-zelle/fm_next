@@ -965,6 +965,9 @@
     .product-title {
         font-size: 14px !important;
     }
+    .product-card-get-it-by>h3 {
+        font-size: 10px !important;
+    }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 767px) {
