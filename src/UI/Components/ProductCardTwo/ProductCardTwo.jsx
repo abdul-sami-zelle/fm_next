@@ -14,6 +14,7 @@ import { useProductPage } from '@/context/ProductPageContext/productPageContext'
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css'; // important!
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const ProductCardTwo = ({
     productCardContainerClass,
@@ -182,22 +183,59 @@ const ProductCardTwo = ({
     }
 
 
-    const { selectedVariationData } = useProductPage()
+    const { selectedVariationData, setSingleProductData, setSelectedVariationUid, setSelectedVariationData, findObjectByUID } = useProductPage()
+
+    useEffect(() => {
+        setSingleProductData(singleProductData)
+        setSelectedVariationUid(singleProductData?.default_variation)
+        setSelectedVariationData(findObjectByUID(singleProductData?.default_variation, singleProductData?.variations));
+      }, []);
+
+
+    // const [isOutOfStock, setIsOutOfStock] = useState(false);
+    // const pathname = usePathname()
+
+    // useEffect(() => {
+    //     if (!singleProductData) return;
+
+    //     const outOfStockCheck =
+    //         singleProductData?.type === "variable"
+    //             ? (
+    //                 (selectedVariationData?.manage_stock?.stock_status === "inStock" &&
+    //                     selectedVariationData?.manage_stock?.quantity === 0) ||
+    //                 selectedVariationData?.manage_stock?.stock_status === "outStock" ||
+    //                 selectedVariationData?.manage_stock?.stock_status === "outOfStock"
+    //             )
+    //             : (
+    //                 (singleProductData?.manage_stock?.stock_status === "inStock" &&
+    //                     singleProductData?.manage_stock?.quantity === 0) ||
+    //                 singleProductData?.manage_stock?.stock_status === "outStock" ||
+    //                 singleProductData?.manage_stock?.stock_status === "outOfStock"
+    //             );
+
+    //     setIsOutOfStock(outOfStockCheck);
+    // }, [singleProductData, selectedVariationData, singleProductData?.id, pathname, isOutOfStock]);
 
 
 
-    const stockCheck = singleProductData?.type === 'variable' ?
-        selectedVariationData?.manage_stock?.stock_status === 'inStock'
-        && selectedVariationData?.manage_stock?.quantity === 0
-        || selectedVariationData?.manage_stock?.stock_status === 'outStock'
-        || selectedVariationData?.manage_stock?.stock_status === 'outOfStock'
-        : singleProductData?.manage_stock?.stock_status === 'inStock'
-        && singleProductData?.manage_stock?.quantity === 0
-        || singleProductData?.manage_stock?.stock_status === 'outStock'
-        || singleProductData?.manage_stock?.stock_status === 'outOfStock';
+    const isOutOfStock =
+        singleProductData?.type === "variable"
+            ? (
+                (selectedVariationData?.manage_stock?.stock_status === "inStock" &&
+                    selectedVariationData?.manage_stock?.quantity === 0) ||
+                selectedVariationData?.manage_stock?.stock_status === "outStock" ||
+                selectedVariationData?.manage_stock?.stock_status === "outOfStock"
+            )
+            : (
+                (singleProductData?.manage_stock?.stock_status === "inStock" &&
+                    singleProductData?.manage_stock?.quantity === 0) ||
+                singleProductData?.manage_stock?.stock_status === "outStock" ||
+                singleProductData?.manage_stock?.stock_status === "outOfStock"
+            );
 
 
 
+    console.log("stock check", isOutOfStock)
 
     return (
         <>
@@ -210,7 +248,7 @@ const ProductCardTwo = ({
                     <div className={`product-cart-top-tags-container ${showOnPage ? 'show-product-cart-top-tags' : ''}`} >
 
                         {
-                            stockCheck ? (
+                            isOutOfStock ? (
                                 <span
                                     data-tooltip-id="my-tooltip"
                                     data-tooltip-content="Available in 7 to 8 weeks"
@@ -476,13 +514,13 @@ const ProductCardTwo = ({
 
                                     <span className={`product-card-installment-plan ${showExtraLines ? 'show-installment-plan' : ''}`}>
                                         <p className={`installment-plan-detail ${colTwo ? 'apply-col-two-styling' : ''}`}>or ${sale_price === "" ? getAdjustedPrice(priceTag) : getAdjustedPrice(sale_price)}/week for 12 months</p>
-                                        <GoInfo 
+                                        <GoInfo
                                             color='#595959'
                                             onClick={(e) => {
-                                            e.stopPropagation();      // stop event bubbling to <Link>
-                                            e.preventDefault();
-                                            handleInfoModal()
-                                        }}
+                                                e.stopPropagation();      // stop event bubbling to <Link>
+                                                e.preventDefault();
+                                                handleInfoModal()
+                                            }}
                                         />
                                     </span>
                                     <span className={`product-card-get-it-by ${showExtraLines ? 'show-set-it-by' : 'hide-get-it-by'}`}>

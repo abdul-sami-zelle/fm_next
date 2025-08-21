@@ -422,7 +422,7 @@ const ProductDetailSticky = (
               {
                 product?.tags?.length > 0 && <div className="product-tagging">
                   {
-                    product?.tags[0] && product?.tags[0].type.toLowerCase() === "text" ?
+                    product?.tags[0] && product?.tags[0]?.type?.toLowerCase() === "text" ?
                       <div className='text-tag' style={{ backgroundColor: product?.tags[0].bg_color, color: product?.tags[0].text_color }} >
                         {product?.tags[0].text}
                       </div> :
@@ -501,7 +501,7 @@ const ProductDetailSticky = (
                 {
                   product?.tags?.length > 0 && <div className="product-tagging">
                     {
-                      product?.tags[0] && product?.tags[0].type.toLowerCase() === "text" ?
+                      product?.tags[0] && product?.tags[0]?.type?.toLowerCase() === "text" ?
                         <div className='text-tag' style={{ backgroundColor: product?.tags[0].bg_color, color: product?.tags[0].text_color }} >
                           {product?.tags[0].text}
                         </div> :
