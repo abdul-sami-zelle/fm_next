@@ -183,7 +183,7 @@
 
 .active-sale-cards {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     /* display: flex;
     flex-wrap: wrap;
     justify-content: flex-start; */
@@ -218,15 +218,39 @@
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1230px) {
     .active-sale-cards {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
     .active-sale-cards {
         grid-template-columns: repeat(2, 1fr);
+    }
+} */
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .section_1_ASP {
+        margin: 25px 30px !important;
+        gap: 15px !important;
+    }
+
+    .active-sale-cards {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 5px !important;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .section_1_ASP {
+        margin: 15px !important;
+        gap: 10px !important;
+    }
+
+    .active-sale-cards {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 5px !important;
     }
 }
 

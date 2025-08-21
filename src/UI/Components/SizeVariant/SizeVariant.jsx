@@ -11,6 +11,7 @@ const SizeVariant = ({
     handleSelectVariation,
     handleSelectedVariationData,
 }) => {
+
     const { selectedVariationData, setSelectedVariationData } = useProductPage();
     // const [colorVariation, setColorVariation] = useState();
     const [imageVariation, setImageVariation] = useState(0);
@@ -46,7 +47,8 @@ const SizeVariant = ({
                 handleSelectedVariationData(defaultVariation.uid);
             }
         } else {
-            const initialVariation = selectedVariationData || productData[0];
+            // const initialVariation = selectedVariationData || productData[0];
+            const initialVariation = selectedVariationData || (Array.isArray(productData) && productData.length > 0 ? productData[0] : null);
             if (initialVariation) {
                 initialVariation.attributes.forEach(attr => {
                     defaultSelections[attr.name] = attr.options?.[0]?.value;

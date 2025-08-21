@@ -23,20 +23,6 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import { BiSolidShoppingBag } from 'react-icons/bi';
 
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/grid';
-import 'swiper/css/pagination';
-
-
-// import required modules
-import { Grid, Pagination } from 'swiper/modules';
-import GridSlider from '@/UI/Sliders/GridSlider/Gridslider';
-
-
 const BestSellerSlider = (
     {
         allProducts,
@@ -226,10 +212,6 @@ const BestSellerSlider = (
     useEffect(() => {
     }, [MobileActiveIndex])
 
-    // const handleNavigateToProductArchive = (item) => {
-    //     router.push(`/${bestSellerNav1[activeItem]?.slug}/${bestSellerNav1[activeItem]?.image?.link_url}`)
-    // }
-
 
 
     return (
@@ -252,7 +234,6 @@ const BestSellerSlider = (
                                     key={bestSellerNav1[activeItem].image.image_url}
                                     src={url + bestSellerNav1[activeItem].image.image_url}
                                     alt='main banner'
-                                // onClick={() => handleNavigateToProductArchive(bestSellerNav1)}
                                 />
                             ) : null
 
@@ -383,11 +364,11 @@ const BestSellerSlider = (
                     </div>
 
                     <div className='mobile-view-cards-main-container'>
-                        <div className='mobile-best-seller-cart-container'>
+                        {/* <div className='mobile-best-seller-cart-container'>
                             <div className='mobile-best-sseller-card-bag-container'>
                                 <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
                             </div>
-                        </div>
+                        </div> */}
 
                         {bestSellerProductLoading ? (
                             <BestSellerMobileShimmer width={'85%'} />
@@ -434,11 +415,13 @@ const BestSellerSlider = (
                                                 {item?.sale_price === '' ? <p className='mobile-best-seller-sale-price'>{formatedPrice(item?.sale_price)}</p> : <del className='mobile-best-seller-regular-price'>{formatedPrice(allProducts?.[0]?.regular_price)}</del>}
                                             </div>
                                         </div>
-                                        {/* <div className='mobile-best-seller-cart-container'>
+                                        <div className='mobile-best-seller-cart-container'>
                                             <div className='mobile-best-sseller-card-bag-container'>
                                                 <BiSolidShoppingBag size={20} className='mobile-tranding-now-cart-bag' />
                                             </div>
-                                        </div> */}
+                                        </div>
+
+                                        
                                     </Link>
                                     // </div>
                                 )}

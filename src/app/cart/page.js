@@ -20,7 +20,6 @@ import { useRouter } from 'next/navigation';
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
-import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
@@ -42,8 +41,6 @@ const Cart = () => {
     getShippingMethods,
     setSelectedShippingMethods,
     CalculateGrandTotal,
-    handleChange,
-    selectedShippingMethods,
     wrongZip, setWrongZip,
     wrongZipMessage,
     handleZipWarningClose,

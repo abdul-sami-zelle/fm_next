@@ -52,7 +52,18 @@
     overflow-x: auto;   
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .blogs-main-container {
+        padding: 20px 30px 20px 30px;
+        gap: 15px;
+    }
+    .blogs-main-container h3 {
+        font-size: 20px;
+    }
+}
+
+
+@media only screen and (max-width: 767px){
     .blogs-main-container{
         padding: 10px 10px 20px 10px;
         gap: 10px;

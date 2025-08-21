@@ -72,33 +72,30 @@ const Header = ({ checkoutPage }) => {
   const router = useRouter()
 
   const {
-    increamentQuantity,
-    decreamentQuantity,
-    removeFromCart,
     cartProducts
   } = useCart()
 
 
-  const { 
-    mainLoader, 
+  const {
     setMainLoader,
     info, fetchAllstores,
     stores,
-    wrongZip, setWrongZip,
-        wrongZipMessage,
-        handleZipWarningClose,
+    wrongZip,
+    wrongZipMessage,
+    handleZipWarningClose,
   } = useGlobalContext();
 
   const [cartTotalProducts, setCartTotalProducts] = useState(0);
   useEffect(() => {
-    if(cartProducts?.products?.length <= 9) {
+    if (cartProducts?.products?.length <= 9) {
       setCartTotalProducts(`0${cartProducts?.products?.length}`)
     } else {
       setCartTotalProducts(cartProducts?.products?.length)
     }
   }, [cartProducts])
+
   const cartItemCount = cartProducts?.products?.length || 0;
-  
+
   const [isMobileSearched, setIsMobileSearched] = useState(false);
   const { singleProductData, setSingleProductData } = useProductPage();
 
@@ -354,7 +351,7 @@ const Header = ({ checkoutPage }) => {
     setTimings(matchedTime || { day: currentDay, time: 'close' })
   }, [stores])
 
-  
+
   const { setUserToken, userUid, setSigninClicked, setMobileSignupClicked } = useUserDashboardContext();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
@@ -394,7 +391,7 @@ const Header = ({ checkoutPage }) => {
       setMainLoader(false);
     }
     else if (token === undefined) {
-      
+
       // navigate.push("/my-account", { state: { message: "decided" } });
       router.push(`/my-account`)
     }
@@ -425,7 +422,7 @@ const Header = ({ checkoutPage }) => {
   useEffect(() => {
     const hasVisited = sessionStorage.getItem('hasVisited');
 
-    if(!hasVisited) {
+    if (!hasVisited) {
       setShowLocationSetStarter(true);
       sessionStorage.setItem('hasVisited', "true");
     }
@@ -451,6 +448,9 @@ const Header = ({ checkoutPage }) => {
       />
       {/* Desktop view header */}
       <div className='header'>
+        {/* <div className="tab-view-menu-togller-contianer">
+          <GiHamburgerMenu strokeWidth={1.3} onClick={showMobileNav} className='tab-nav-toggler' />
+        </div> */}
         <div className='logo-container'>
           <Link href={'/'}>
             <img src={'/Assets/Logo/fm-new-logo.png'} alt="logo" />
@@ -590,44 +590,19 @@ const Header = ({ checkoutPage }) => {
           )}
           {stores && stores.length > 0 && showLocationSetStarter && <div className='nearby-store-set-location-modal-overlay'></div>}
           {stores && stores.length > 0 && showLocationSetStarter && (
-            <ZipCodeModal 
+            <ZipCodeModal
               handleINitialLocationSetModal={handleINitialLocationSetModal}
             />
-            // <div className='nearby-store-set-location-modal'>
-            //   <div className='nearby-store-set-location-modal-head'>
-            //     <span>
-            //       <FaTruck size={20} color='#595959' />
-                  
-            //       Delivery Zip Zode
-            //     </span>
-
-            //     <button className='nearby-store-set-location-close-button' onClick={handleINitialLocationSetModal}>
-            //       <Image src={'/icons/close-charcoal.svg'} width={15} height={15} alt='img' />
-            //     </button>
-            //   </div>
-
-            //   <div className='nearby-store-set-location-modal-body'>
-            //     <p>Update your zip code for products availability pricing, and delivery in your area</p>
-
-            //     <div className='nearby-store-set-location-input-and-submit-button'>
-            //       <label>
-            //         ENTER YOUR ZIP CODE
-            //         <input type='text' />
-            //       </label>
-            //       <button>Update Zip Code</button>
-            //     </div>
-            //   </div>
-            // </div>
           )}
 
         </div>
 
         <div className='header-icons-container'>
-          <div style={{ paddingTop: '4px' }} onClick={moveToLoginDash}>
+          <div style={{ paddingTop: '4px' }} onClick={moveToLoginDash} className='header-login'>
             <Image src={'/Assets/icon/user-outlined.svg'} width={23} height={23} alt="profile" />
           </div>
 
-          <Link href={'/wishlist'}>
+          <Link href={'/wishlist'} className='header-wishlist'>
             <Image src={'/Assets/icon/heart-outlined.svg'} width={31} height={27} alt="heart" />
           </Link>
           <button className='header-cart-icon-count' onClick={handleCartSectionOpen}>
@@ -701,11 +676,11 @@ const Header = ({ checkoutPage }) => {
           </div>
         </div>
 
-          {stores && stores.length > 0 && showLocationSetStarter && (
-            <div className='mobile-view-set-location-modal'>
-              <ZipCodeModal 
-                handleINitialLocationSetModal={handleINitialLocationSetModal}
-              />
+        {stores && stores.length > 0 && showLocationSetStarter && (
+          <div className='mobile-view-set-location-modal'>
+            <ZipCodeModal
+              handleINitialLocationSetModal={handleINitialLocationSetModal}
+            />
 
             {/* <div className='nearby-store-set-location-modal'>
               <div className='nearby-store-set-location-modal-head'>
@@ -733,8 +708,8 @@ const Header = ({ checkoutPage }) => {
               </div>
             </div> */}
           </div>
-          )}
-          
+        )}
+
 
 
       </div>
@@ -742,7 +717,7 @@ const Header = ({ checkoutPage }) => {
       <div className={`mobile-view-search-products-modal ${searchedProducts.length > 0 || isMobileSearched ? 'mobile-view-search-products-modal-visible' : ''}`}>
 
         <div className={`mobile-view-search-products-modal-header ${isMobileSearched ? 'add-border-bottom' : ''}`}>
-          
+
           <button className='mobile-view-search-products-modal-back-btn'>
             <FaArrowLeftLong size={15} onClick={handleCloseMobileSearchProductModal} />
           </button>
@@ -793,12 +768,12 @@ const Header = ({ checkoutPage }) => {
             })
           }
         </div>
-          <button
-            className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
-            onClick={handleNavigateToMobileViewSearchedProducts}
-          >
-            See All Products ({searchedProducts.length})
-          </button>
+        <button
+          className={`mobile-view-see-all-products ${searchedProducts.length === 0 ? 'hide-see-all-product-button' : ''}`}
+          onClick={handleNavigateToMobileViewSearchedProducts}
+        >
+          See All Products ({searchedProducts.length})
+        </button>
       </div>
 
       {
@@ -836,7 +811,7 @@ const Header = ({ checkoutPage }) => {
         removeFromCart={removeFromCart}
       /> */}
 
-      <SideCart 
+      <SideCart
         isCartOpen={showCart}
         handleCloseSideCart={handleCartSectionClose}
       />
@@ -850,11 +825,11 @@ const Header = ({ checkoutPage }) => {
       />
 
       <ZipModal
-                showMessage={wrongZip}
-                errorDetail={wrongZipMessage}
-                footerMessage={'Wrong Zip Code'}
-                closeModal={handleZipWarningClose}
-            />
+        showMessage={wrongZip}
+        errorDetail={wrongZipMessage}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={handleZipWarningClose}
+      />
 
     </div>
   )

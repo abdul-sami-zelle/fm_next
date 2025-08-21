@@ -221,7 +221,13 @@
     border: 1px solid var(--orange-fill);
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .select-type-attribute p {
+        font-size: 8px !important;
+    }
+}
+
+@media only screen and (max-width: 767px){
     .size-variant-main-container{
         gap: 10px;
         padding: 15px 0 25px 0;

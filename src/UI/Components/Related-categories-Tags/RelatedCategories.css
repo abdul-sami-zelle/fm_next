@@ -38,3 +38,14 @@
     text-decoration: none;
     border-radius: 4px;
 }
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .related-categories-main-div {
+        padding: 20px 30px;
+        gap: 15px;
+    }
+    .related-categories-main-div h3 {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+}

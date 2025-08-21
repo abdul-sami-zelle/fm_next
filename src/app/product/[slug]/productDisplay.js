@@ -20,6 +20,7 @@ import DesignYourRoomIndv from '@/UI/Components/DesignRoomInd/DesignYourRoomIndv
 import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 import { useIsMobile } from '@/utils/isMobile';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
+import axios from 'axios';
 
 const ProductDisplay = ({ params }) => {
 
@@ -43,9 +44,6 @@ const ProductDisplay = ({ params }) => {
   const [clickedType, setClickedType] = useState('')
   const [galleryModalWidth, setGalleryModalWidth] = useState(false);
   const [steperIndex, setSteperIndex] = useState(0);
-
-  console.log("def variation data", variationData)
-
 
   const isMobile = useIsMobile()
   
@@ -107,6 +105,20 @@ const ProductDisplay = ({ params }) => {
       setProduct(singleProductContent.products[0])
     }
   }, [singleProductContent])
+
+  // const handleProductData = async () => {
+  //   const api = `${url}/api/v1/products/get-by-slug/${slug}`;
+  //   try {
+  //     const response = await axios.get(api);
+  //     setProduct(response.data.products[0])
+  //     console.log("axios response", response.data.products[0])
+  //   } catch (error) {
+  //     console.error("UnExpected  Server Error", error);
+  //   }
+  // }
+
+
+  // useEffect(() => {handleProductData()}, [])
 
   const sectionRefs = {
     DesignYourRoom: useRef(null),
@@ -314,6 +326,8 @@ const ProductDisplay = ({ params }) => {
       product?.dyrc?.active === 1 ? true : false;
 
 
+
+      console.log("product main page data", product)
 
   return (
     <>

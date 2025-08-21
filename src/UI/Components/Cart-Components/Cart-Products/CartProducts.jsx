@@ -27,12 +27,18 @@ const CartProducts = ({ handleLocationModal }) => {
         removeProtection,
         addSingleProtection,
         isCartProtected,
+        setIsCartProtected,
         isProfessionalAssembly,
         handleCartProtected,
         handleCartAssembly,
         handleCartAssemblyFalse,
         isCartLoading
     } = useCart()
+
+
+    
+
+    console.log("isCheck", isCartProtected)
 
     const {
         selectedOption,
@@ -88,14 +94,11 @@ const CartProducts = ({ handleLocationModal }) => {
         setShowSnakeBar(false)
     }
 
-
-
     return (
         <>
             <div className='cart-products-main-container'>
 
                 <div className='cart-products-heading'>
-                    {/* <Breadcrumb /> */}
                     <h3>Cart ({cartProducts.products?.length} Items)</h3>
                 </div>
 
@@ -116,7 +119,7 @@ const CartProducts = ({ handleLocationModal }) => {
                             {info.locationData.zipCode} {info.locationData.stateCode}
                             <p onClick={handleLocationModal}> Change Location </p>
                         </i>
-                        
+
                     </div>
 
                     <div className='cart-protection-plan-container'>
@@ -128,7 +131,7 @@ const CartProducts = ({ handleLocationModal }) => {
 
                         {cartProducts.products?.length > 0 && (
                             <div className='cart-protect-or-not-container'>
-                                
+
                                 <div className='cart-protect-card' onClick={cartProducts?.products?.length > 1 ? handleCartProtected : undefined}>
                                     {cartProducts?.products?.length === 1 && <div className='protect-entire-cart-disable-overlay'></div>}
                                     <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
@@ -147,8 +150,6 @@ const CartProducts = ({ handleLocationModal }) => {
                                     </div>
                                 </div>
 
-
-
                                 <div className='cart-protect-card' onClick={selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse}>
                                     {selectedOption?.id === 'METHOD-3' && <div className='professional-assembly-disable'></div>}
                                     <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
@@ -166,12 +167,8 @@ const CartProducts = ({ handleLocationModal }) => {
                                         />
                                     </div>
                                 </div>
-
                             </div>
                         )}
-
-
-
                     </div>
                 </div>
 
@@ -184,7 +181,7 @@ const CartProducts = ({ handleLocationModal }) => {
 
                                 {selectedShippingMethods &&
                                     selectedShippingMethods?.map((option, index) => (
-                                        <div className='cart-delivary-card' onClick={() => {handleChange(null, option); handleCartAssemblyFalse()}}>
+                                        <div className='cart-delivary-card' onClick={() => { handleChange(null, option); handleCartAssemblyFalse() }}>
                                             {/* <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' /> */}
                                             {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
 
@@ -240,6 +237,7 @@ const CartProducts = ({ handleLocationModal }) => {
                             handleRomoveProduct={() => {
                                 handleShowSnakeToust(items.name);
                                 removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)
+
                             }}
                             cartProductName={items.name}
                             cartPRoductImage={items.image?.image_url}

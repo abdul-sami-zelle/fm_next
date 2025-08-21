@@ -63,6 +63,24 @@
     transform: translateX(-0%);
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .product-display-page-main-container {
+        width: 95%;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .product-display-page-main-container{
+
+        width: 100%;
+        padding: 15px 10px;
+        gap: 0;
+    }
+    .design-room-transition {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 480px){
     .product-display-page-main-container{
 
@@ -74,6 +92,8 @@
         display: none;
     }
 }
+
+
 
 .design_room_main_modal{
     height: 100%;

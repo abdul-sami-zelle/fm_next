@@ -896,6 +896,12 @@
     }
 }
 
+@media (min-width: 1471px) and (max-width: 1510px) {
+    .card-two-quick-view-button {
+        padding: 3px 5px !important;
+    }
+}
+
 @media (min-width: 1000px) and (max-width: 1470px) {
 
     .installment-plan-detail {
@@ -925,9 +931,9 @@
 }
 
 
-@media (min-width: 1000px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
     .card-two-quick-view-button {
-        font-size: 8px !important;
+        font-size: 9px !important;
     }
 
     .get-it-by {
@@ -942,6 +948,50 @@
 
     .installment-plan-detail {
         font-size: 10px !important;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .installment-plan-detail {
+        font-size: 8px;
+    }
+    .card-two-quick-view-button {
+        padding: 3px 5px;
+        font-size: 10px;
+    }
+    .product-title.heighted {
+        font-size: 14px !important;
+    }
+    .product-title {
+        font-size: 14px !important;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .stock-label {
+        display: none;
+    }
+
+    .percent-label {
+        display: flex;
+    }
+
+    .overlay-buttons {
+        display: none;
+    }
+
+    .product-card-data:hover {
+        transform: translate(0);
+        visibility: visible;
+    }
+
+    .lazy-load {
+        width: 100%;
+        /* Adjust based on the parent container */
+        height: 100%;
+        /* Adjust based on the parent container */
+        object-fit: cover;
+        /* Ensures the image will cover the area without distorting the aspect ratio */
     }
 }
 
@@ -974,7 +1024,7 @@
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 767px) {
 
     .product-card {
         max-width: 100% !important;

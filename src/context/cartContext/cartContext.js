@@ -214,7 +214,17 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    
+    useEffect(() => {
+        if (cartProducts?.products?.length === 1 && isCartProtected) {
+            setIsCartProtected(false);
+            setCartProducts((prevCart) => ({
+                ...prevCart,
+                is_all_protected: 0, // reset protection in cart state too
+            }));
+        }
+    }, [cartProducts?.products?.length, isCartProtected]);
+
+
 
     const handleCartAssembly = async () => {
         setIsCartLoading(true);
@@ -307,7 +317,7 @@ export const CartProvider = ({ children }) => {
             const response = method === "post" ? await axios.post(url, { cart: newCart }) : await axios.put(url, { cart: newCart });
             // setTimeout(() => {setCartSection(true)}, 500)
             setCartSection(true)
-            
+
             setIsCartLoading(false);
             method === "post" && setCartUid(response?.data?.data?._id);
             // setTimeout(() => {setCartSection(true)}, 500)
@@ -342,7 +352,7 @@ export const CartProvider = ({ children }) => {
     const addToCart0 = async (product, variationData, isProtected, quantity) => {
 
         setIsCartLoading(true);
-        
+
         const isSimple = product.type === "simple";
         const productUid = isSimple ? product.uid : variationData?.uid;
 
@@ -409,13 +419,13 @@ export const CartProvider = ({ children }) => {
         return isUserAnonymous ? updateCartAPI(apiUrl0, newCart, method) : updateCartAPI2(apiUrl1, newCart, method, localStorage.getItem('userToken'), localStorage.getItem('uuid'));
     };
 
-    
 
-    
+
+
 
     const addToCartListSimple = async (transformedList) => {
         setIsCartLoading(true);
-        
+
 
         setCartProducts((prevCart) => {
             let updatedProducts = [...prevCart.products];
@@ -647,6 +657,18 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         calculateTotalPrice();
     }, [cartProducts]);
+
+    useEffect(() => {
+        setIsCartProtected(false);
+        setIsProfessionalAssembly(false);
+
+        // also reset in cart state if needed
+        setCartProducts((prev) => ({
+            ...prev,
+            is_all_protected: 0,
+            is_professional_assembly: 0, // only if you're storing it
+        }));
+    }, []);
 
     return (
         <CartContext.Provider value={

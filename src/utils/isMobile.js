@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(
-    typeof window !== 'undefined' ? window.innerWidth <= 768 : false
+    typeof window !== 'undefined' ? window.innerWidth <= 767 : false
   );
 
   useEffect(() => {
@@ -22,3 +22,27 @@ export const useIsMobile = () => {
 
   return isMobile;
 };
+
+export const useIsTab = () => {
+  const [isTab, setIsTab] = useState(
+    typeof window !== 'undefined' && window.innerWidth >= 768 && window.innerWidth <= 1023
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsTab(window.innerWidth >= 768 && window.innerWidth <= 1023);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Run immediately to ensure correct state
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return isTab;
+};
+

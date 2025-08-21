@@ -411,7 +411,24 @@
     border-radius: 10px;
 } */
 
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .scop-main-container {
+        padding: 20px 30px;
+    }
+    .product-text-details {
+        flex-direction: column;
+    }
+    .product-text {
+        width: 100%;
+    }
+    .image-gallery-slider {
+        width: 100%;
+        overflow: hidden;
+        height: 50vh;
+    }
+}
+
+@media only screen and (max-width: 767px) {
     .scop-main-container {
         padding: 10px;
     }
@@ -427,8 +444,4 @@
     .product-text {
         width: 100%;
     }
-
-    /* .mobile-view-get-scoop-text-and-slider {
-        display: flex;
-    } */
 }

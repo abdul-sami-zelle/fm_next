@@ -25,6 +25,7 @@ const Nav = ({ navLinks, sale_data, headerOffer }) => {
     }, [path]);
 
 
+
     return (
         <div className='navbar'>
             {navLinks?.length > 0 ? (

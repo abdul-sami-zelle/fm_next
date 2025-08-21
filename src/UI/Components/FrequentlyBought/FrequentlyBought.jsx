@@ -9,6 +9,7 @@ import QuickView from '../QuickView/QuickView';
 import { useRouter } from 'next/navigation';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import { useDisableBodyScroll } from '@/utils/api';
+import { useIsTab } from '@/utils/isMobile';
 
 const FrequentlyBought = ({ isPadding, product }) => {
 
@@ -109,7 +110,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                 <h3>You May Also Like</h3>
                 <div className='frequently-bought-card'>
                     {data ? (
-                        data && data?.slice(0, 5).map((item, index) => (
+                        data && data?.slice(0, 4).map((item, index) => (
                             <ProductCardTwo
                                 key={index}
                                 slug={item.slug}
@@ -118,7 +119,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                                 justWidth={'100%'}
                                 showOnPage={true}
                                 percent={'12%'}
-                                titleHeight={true}
+                                // titleHeight={true}
                                 tagIcon={item.productTag ? item.productTag : heart}
                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}
                                 mainImage={`${item.image.image_url}`}

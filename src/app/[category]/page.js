@@ -4,6 +4,8 @@ import CategoriesClient from "@/UI/Components/CategoryClient/CategoryClient";
 export async function generateMetadata({ params }) {
   const { category } = params;
 
+  console.log("cat param", category)
+
   try {
     const res = await fetch(
       `https://fmapi.myfurnituremecca.com/api/v1/productCategory/get-seo?slug=${category}`,

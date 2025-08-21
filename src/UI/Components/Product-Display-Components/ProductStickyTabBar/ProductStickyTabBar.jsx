@@ -5,6 +5,7 @@ import { formatedPrice } from '../../../../utils/api';
 import LocationPopUp from '../../LocationPopUp/LocationPopUp';
 import { useGlobalContext } from '../../../../context/GlobalContext/globalContext';
 import { BsTruck } from "react-icons/bs";
+import { useIsMobile } from '@/utils/isMobile';
 
 const ProductStickyTabBar = (
     {
@@ -24,7 +25,9 @@ const ProductStickyTabBar = (
     }) => {
 
 
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    // const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+    const isMobile = useIsMobile()
 
 
 

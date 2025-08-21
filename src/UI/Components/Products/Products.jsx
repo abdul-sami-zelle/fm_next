@@ -31,6 +31,7 @@ import { useRouter, useSearchParams, useParams, usePathname } from 'next/navigat
 import Link from 'next/link';
 import Loader from '../Loader/Loader';
 import ElipticalPagenation from './ElepticalPagination';
+import { useIsTab } from '@/utils/isMobile';
 
 const Products = ({ navigationType }) => {
 
@@ -614,8 +615,8 @@ const Products = ({ navigationType }) => {
     };
 
     const handlePrevPage = () => {
-        if (activePageIndex > 1) {
-            const newPage = activePageIndex - 1;
+        if (activePage > 1) {
+            const newPage = activePage - 1;
 
             const params = new URLSearchParams(window.location.search);
             params.set('page', newPage);
@@ -640,8 +641,8 @@ const Products = ({ navigationType }) => {
     };
 
     const handleNextPage = () => {
-        if (activePageIndex < totalPages?.totalPages) {
-            const newPage = activePageIndex + 1;
+        if (activePage < totalPages?.totalPages) {
+            const newPage = activePage + 1;
 
             const params = new URLSearchParams(window.location.search);
             params.set('page', newPage);
@@ -664,60 +665,6 @@ const Products = ({ navigationType }) => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
-
-
-
-    // const handlePrevPage = () => {
-    //     if (activePage > 1) {
-    //         const newPage = activePage - 1;
-
-    //         const params = new URLSearchParams(window.location.search);
-    //         params.set('page', newPage);
-
-    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-    //         const pathname = window.location.pathname;
-
-    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
-
-    //         setActivePage(newPage);
-    //         setActivePageIndex(newPage);
-
-    //         if (pageCache.current[newPage]) {
-    //             setProducts(pageCache.current[newPage]);
-    //         } else {
-    //             sortProducts(selectedRelevanceValue);
-    //             filterProducts(queryString);
-    //         }
-
-    //         window.scrollTo({ top: 0, behavior: 'smooth' });
-    //     }
-    // };
-
-    // const handleNextPage = () => {
-    //     if (activePage < totalPages?.totalPages) {
-    //         const newPage = activePage + 1;
-
-    //         const params = new URLSearchParams(window.location.search);
-    //         params.set('page', newPage);
-
-    //         const queryString = params.toString().replace(/%2C/g, ',').replace(/\+/g, ' ');
-    //         const pathname = window.location.pathname;
-
-    //         router.replace(`${pathname}?${queryString}`, { shallow: true });
-
-    //         setActivePage(newPage);
-    //         setActivePageIndex(newPage);
-
-    //         if (pageCache.current[newPage]) {
-    //             setProducts(pageCache.current[newPage]);
-    //         } else {
-    //             sortProducts(selectedRelevanceValue);
-    //             filterProducts(queryString);
-    //         }
-
-    //         window.scrollTo({ top: 0, behavior: 'smooth' });
-    //     }
-    // };
 
     const handleActiveGrid = (grid) => {
         setActiveGrid(grid);
@@ -859,51 +806,51 @@ const Products = ({ navigationType }) => {
     }, [isDragging, startX, scrollLeftStart]);
 
     useEffect(() => {
-        const el = scrollRef.current;
-        if (!el) return;
+    const el = scrollRef.current;
+    if (!el) return;
 
-        // Run scroll check
-        const runCheck = () => {
-            const isOverflowing = el.scrollWidth > el.clientWidth + 1;
-            if (!isOverflowing) {
-                setShowArrows(false);
-                setAtStart(true);
-                setAtEnd(true);
-                return;
-            }
-            setShowArrows(true);
-            setAtStart(el.scrollLeft <= 0);
-            setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
-        };
+    // Run scroll check
+    const runCheck = () => {
+        const isOverflowing = el.scrollWidth > el.clientWidth + 1;
+        if (!isOverflowing) {
+            setShowArrows(false);
+            setAtStart(true);
+            setAtEnd(true);
+            return;
+        }
+        setShowArrows(true);
+        setAtStart(el.scrollLeft <= 0);
+        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+    };
 
-        // Listen to events
-        el.addEventListener("scroll", runCheck);
-        window.addEventListener("resize", runCheck);
+    // Listen to events
+    el.addEventListener("scroll", runCheck);
+    window.addEventListener("resize", runCheck);
 
-        // Also check when images load
-        const imgs = el.querySelectorAll("img");
-        let loadedCount = 0;
-        imgs.forEach(img => {
-            if (img.complete) {
+    // Also check when images load
+    const imgs = el.querySelectorAll("img");
+    let loadedCount = 0;
+    imgs.forEach(img => {
+        if (img.complete) {
+            loadedCount++;
+        } else {
+            img.addEventListener("load", () => {
                 loadedCount++;
-            } else {
-                img.addEventListener("load", () => {
-                    loadedCount++;
-                    if (loadedCount === imgs.length) {
-                        runCheck();
-                    }
-                });
-            }
-        });
+                if (loadedCount === imgs.length) {
+                    runCheck();
+                }
+            });
+        }
+    });
 
-        // Initial check after paint
-        requestAnimationFrame(runCheck);
+    // Initial check after paint
+    requestAnimationFrame(runCheck);
 
-        return () => {
-            el.removeEventListener("scroll", runCheck);
-            window.removeEventListener("resize", runCheck);
-        };
-    }, [subCategories]);
+    return () => {
+        el.removeEventListener("scroll", runCheck);
+        window.removeEventListener("resize", runCheck);
+    };
+}, [subCategories]);
 
     const scrollLeft = () => {
         scrollRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
@@ -1187,8 +1134,12 @@ const Products = ({ navigationType }) => {
                                 <div className={`products-heading ${query ? 'query-hide-search-heading' : ''}`}>
 
                                     <div className='show-filter-btn-and-product-count'>
+                                        <button className={`tab-show-filter-btn`} onClick={handleMobileFilters}>
+                                            <Image src={'/icons/filter.svg'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
+                                            Show Filters
+                                        </button>
                                         <button className={`show-filter-btn ${hideFilters ? 'hide-show-filter-btn' : ''}`} onClick={handleFilterSection}>
-                                            <Image src={'/Assets/icons/hide-arrow-black.png'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
+                                            <Image src={'/icons/filter.svg'} width={15} height={15} alt='arrow black' className={`show-filter-btn-arrow ${hideFilters ? 'rotate-show-filter-arrow-icon' : ''}`} />
                                             Show Filters
                                         </button>
                                         {products && products?.length > 0 ? (
@@ -1277,7 +1228,8 @@ const Products = ({ navigationType }) => {
                                                 showExtraLines={true}
                                                 titleHeight={true}
                                                 productUid={item.uid}
-                                                maxWidthAccordingToComp={"100%"}
+                                                // maxWidthAccordingToComp={useIsTab ? '380px' : '100%'}
+                                                maxWidthAccordingToComp={'100%'}
                                                 justWidth={hideFilters ? '100%' : '100%'}
                                                 tagIcon={item.productTag ? item.productTag : '/Assets/icons/heart-vector.png'}
                                                 tagClass={item.productTag ? 'tag-img' : 'heart-icon'}

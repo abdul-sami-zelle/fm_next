@@ -141,7 +141,24 @@
     padding: 0 60px;
 }
 
-@media only screen and (max-width: 480px){
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .furniture-for-budget-main-secton {
+        padding: 20px 30px 0 30px;
+        gap: 15px;
+    }
+    .furniture-for-budget-heading-section h3 {
+        font-size: 20px;
+    }
+    .furniture-for-budget-card {
+        gap: 10px !important;
+    }
+    .budget-furniture-card-details p{
+        font-size: 14px;
+    }
+}
+
+
+@media only screen and (max-width: 767px){
     .furniture-for-budget-main-secton{
         padding: 10px 10px 10px 10px;
         gap: 10px;

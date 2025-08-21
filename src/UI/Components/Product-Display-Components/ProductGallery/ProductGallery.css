@@ -385,29 +385,30 @@
   transform: scale(1) !important;
 } */
 
-@media only screen and (min-width: 481px) {
-    /* .dot {
-        width: 10px;
-        height: 10px;
-        margin: 0 5px;
-        background-color: #ccc;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    } */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .product-thumbnail-single-image-div {
+        max-width: 100px !important;
+    }
+}
 
-    /* Active Dot */
-    /* .dot.active {
-        width: 30px;
-        height: 10px;
-        background-color: var(--text-charcol) !important;
-        border-radius: 20px;
-    } */
+@media only screen and (min-width: 481px) and (max-width: 844px) {
+    .product-gallery-main-container {
+        gap: 0;
+    }
+
+    .product-gallery-thumbnail-section {
+        display: none;
+    }
+}
+
+
+
+/* @media only screen and (min-width: 481px) {
 
     .product-gallery-main-slider-single-image-container {
         margin-bottom: 30px;
     }
-}
+} */
 
 
 @media only screen and (max-width: 480px) {

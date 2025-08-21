@@ -199,7 +199,9 @@ const SimillerProducts = ({ isPadding, productId }) => {
               isPadding={true}
               breakpoints={{
                 0: { slidesPerView: 1 },
-                768: { slidesPerView: 4 },
+                481: {slidesPerView: 2},
+                768: {slidesPerView: 3},
+                1024: { slidesPerView: 4 },
               }}
             />
           ) : (

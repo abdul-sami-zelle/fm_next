@@ -62,6 +62,9 @@ const ProductDetailSticky = (
   }) => {
 
 
+    console.log("productData", productData)
+
+
     const {
         addToCart0,
         cartSection,
@@ -177,6 +180,7 @@ const ProductDetailSticky = (
       color: variationData?.attributes?.find(item => item.type === 'color').options[0]?.name
     }))
   }, [])
+
   useEffect(() => {
     setProductDetails((prev) => ({
       ...prev,
@@ -199,28 +203,7 @@ const ProductDetailSticky = (
   };
 
   const { addToList, removeFromList, isInWishList } = useList()
-  // const handleWishList = (item) => {
-  //   if (isInWishList(item?.uid)) {
-  //     removeFromList(item?.uid)
-  //     handleShowSnakeToust("Product Removed From WishList")
-
-  //   } else {
-  //     addToList(item)
-  //     handleShowSnakeToust("Product Added WishList")
-  //   }
-  // }
-
-  // const handleNavigate = () => {
-  //   router.push('/contact-us')
-  // }
-
   
-
-
-
-
-
-
   // const [zoomIn, setZoomIn] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });

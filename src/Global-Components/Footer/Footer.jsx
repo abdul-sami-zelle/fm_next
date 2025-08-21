@@ -18,7 +18,7 @@ import FooterNav from './FooterNav/FooterNav';
 import axios from 'axios';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 import SnakBar from '../SnakeBar/SnakBar';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useUserDashboardContext } from '@/context/userDashboardContext/userDashboard';
 
 const Footer = ({ notLandingPage, checkoutPage }) => {
@@ -223,11 +223,13 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
         }
     };
 
+    const pathname = usePathname()
+
     const [imageLoad, setImageLoad] = useState(false);
 
     return (
         <>
-            <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : ''}`}>
+            <div className={`footer-main-container ${checkoutPage ? 'hide-whole-footer' : pathname === '/cart' ? 'hide-footer-on-cart' : ''}`}>
                 {/* <div className='footer-nav'>
                     {headerData && headerData?.map((items, index) => {
                         return <div key={index} className='footer-nav-links'>
