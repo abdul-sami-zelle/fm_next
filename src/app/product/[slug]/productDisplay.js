@@ -46,24 +46,24 @@ const ProductDisplay = ({ params }) => {
   const [steperIndex, setSteperIndex] = useState(0);
 
   const isMobile = useIsMobile()
-  
+
 
   const tabBarItems = [
-        // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
-        ...(product?.type === 'variable'
-            ? selectedVariationData?.dyrc?.active === 1
-                ? ['DesignYourRoom']
-                : []
-            : product?.dyrc?.active === 1
-                ? ['DesignYourRoom']
-                : []),
-        'Description',
-        'Details'
-    ];
+    // ...(productData?.dyrc?.active === 1  ? ['DesignYourRoom'] : []),
+    ...(product?.type === 'variable'
+      ? selectedVariationData?.dyrc?.active === 1
+        ? ['DesignYourRoom']
+        : []
+      : product?.dyrc?.active === 1
+        ? ['DesignYourRoom']
+        : []),
+    'Description',
+    'Details'
+  ];
 
-    const filteredTabItems = isMobile
-        ? tabBarItems.filter(item => item !== 'DesignYourRoom')
-        : tabBarItems;
+  const filteredTabItems = isMobile
+    ? tabBarItems.filter(item => item !== 'DesignYourRoom')
+    : tabBarItems;
 
 
   const showDRM = () => {
@@ -195,19 +195,19 @@ const ProductDisplay = ({ params }) => {
     // Prevent page scroll
     if (thumbnailContainerRef.current) {
       const thumbnailElement = thumbnailContainerRef.current.children[index];
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 480) {
-        thumbnailContainerRef.current.scrollTo({
-          left: thumbnailElement.offsetLeft - (thumbnailContainerRef.current.clientWidth / 2) + (thumbnailElement.clientWidth / 2),
-          behavior: 'smooth',
-        });
-      } else {
-        thumbnailContainerRef.current.scrollTo({
-          top: thumbnailElement.offsetTop - (thumbnailContainerRef.current.clientHeight / 2) + (thumbnailElement.clientHeight / 2),
-          behavior: 'smooth',
-      });
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth < 480) {
+          thumbnailContainerRef.current.scrollTo({
+            left: thumbnailElement.offsetLeft - (thumbnailContainerRef.current.clientWidth / 2) + (thumbnailElement.clientWidth / 2),
+            behavior: 'smooth',
+          });
+        } else {
+          thumbnailContainerRef.current.scrollTo({
+            top: thumbnailElement.offsetTop - (thumbnailContainerRef.current.clientHeight / 2) + (thumbnailElement.clientHeight / 2),
+            behavior: 'smooth',
+          });
+        }
       }
-    }
     }
   };
 
@@ -217,25 +217,25 @@ const ProductDisplay = ({ params }) => {
 
       const newIndex = prevIndex - 1;
       setThumbActiveIndex(newIndex); // Update active thumbnail index
-     
+
       setCurrentIndex(newIndex)
 
       // Scroll thumbnail container
       if (thumbnailContainerRef.current) {
         if (typeof window !== 'undefined') {
-        if (window.innerWidth < 480) {
-          // Scroll left for mobile screens
-          thumbnailContainerRef.current.scrollBy({
-            left: -80, // Adjust scroll step based on your layout
-            behavior: 'smooth',
-          });
-        } else {
-          // Scroll up for larger screens
-          thumbnailContainerRef.current.scrollBy({
-            top: -80,
-            behavior: 'smooth',
-          });
-        }
+          if (window.innerWidth < 480) {
+            // Scroll left for mobile screens
+            thumbnailContainerRef.current.scrollBy({
+              left: -80, // Adjust scroll step based on your layout
+              behavior: 'smooth',
+            });
+          } else {
+            // Scroll up for larger screens
+            thumbnailContainerRef.current.scrollBy({
+              top: -80,
+              behavior: 'smooth',
+            });
+          }
         }
       }
 
@@ -260,20 +260,20 @@ const ProductDisplay = ({ params }) => {
       // Scroll thumbnail container
       if (thumbnailContainerRef.current) {
         if (typeof window !== 'undefined') {
-        if (window.innerWidth < 480) {
-          // Scroll right for mobile screens
-          thumbnailContainerRef.current.scrollBy({
-            left: 80, // Adjust scroll step based on your layout
-            behavior: 'smooth',
-          });
-        } else {
-          // Scroll down for larger screens
-          thumbnailContainerRef.current.scrollBy({
-            top: 80,
-            behavior: 'smooth',
-          });
+          if (window.innerWidth < 480) {
+            // Scroll right for mobile screens
+            thumbnailContainerRef.current.scrollBy({
+              left: 80, // Adjust scroll step based on your layout
+              behavior: 'smooth',
+            });
+          } else {
+            // Scroll down for larger screens
+            thumbnailContainerRef.current.scrollBy({
+              top: 80,
+              behavior: 'smooth',
+            });
+          }
         }
-    }
       }
 
       return newIndex;
@@ -327,7 +327,7 @@ const ProductDisplay = ({ params }) => {
 
 
 
-      console.log("product main page data", product)
+  console.log("product main page data", product)
 
   return (
     <>
@@ -378,8 +378,99 @@ const ProductDisplay = ({ params }) => {
         <div className='sticky-section-steper-main-container'>
 
 
+          {(() => {
+            // Handle first index
+            if (steperIndex === 0) {
+              if (isMobile) {
+                return (
+                  <div className="steper-description-tranition show-description-transition">
+                    <ProductDescriptionTab
+                      descriptionRef={sectionRefs.Description}
+                      productData={product}
+                      addMarginTop={isSticky}
+                    />
+                  </div>
+                );
+              } else if (isDesignRoomActive) {
+                return (
+                  <div className="design-room-transition">
+                    <DesignYourRoomIndv
+                      designRef={sectionRefs.DesignYourRoom}
+                      openFN={showDRM}
+                      productUid={product?.uid}
+                      image={
+                        isVariableOrNot
+                          ? selectedVariationData.images.length > 1
+                            ? selectedVariationData?.images[1]?.image_url
+                            : selectedVariationData.image.image_url
+                          : product.images.length > 1
+                            ? product.images[1].image_url
+                            : product.image.image_url
+                      }
+                    />
+                  </div>
+                );
+              } else {
+                // If DesignRoom is NOT active, index 0 is Description
+                return (
+                  <div className="steper-description-tranition show-description-transition">
+                    <ProductDescriptionTab
+                      descriptionRef={sectionRefs.Description}
+                      productData={product}
+                      addMarginTop={isSticky}
+                    />
+                  </div>
+                );
+              }
+            }
 
-          {(isMobile && steperIndex === 0) || (!isMobile && isDesignRoomActive && steperIndex === 0) ? (
+            // Handle second index
+            if (steperIndex === 1) {
+              if (isDesignRoomActive) {
+                // In 3-step flow → index 1 = Description
+                return (
+                  <div className="steper-description-tranition show-description-transition">
+                    <ProductDescriptionTab
+                      descriptionRef={sectionRefs.Description}
+                      productData={product}
+                      addMarginTop={isSticky}
+                    />
+                  </div>
+                );
+              } else {
+                // In 2-step flow → index 1 = Details
+                return (
+                  <div className="steper-details-tranition show-details-transition">
+                    <ProductDetailTab
+                      detailsRef={sectionRefs.Details}
+                      productData={product}
+                      productDetails={productDetails}
+                    />
+                  </div>
+                );
+              }
+            }
+
+            // Handle third index (only valid if DesignRoom is active)
+            if (steperIndex === 2 && isDesignRoomActive) {
+              return (
+                <div className="steper-details-tranition show-details-transition">
+                  <ProductDetailTab
+                    detailsRef={sectionRefs.Details}
+                    productData={product}
+                    productDetails={productDetails}
+                  />
+                </div>
+              );
+            }
+
+            return null;
+          })()}
+
+
+
+
+          {/* {(isMobile && steperIndex === 0) || (!isMobile && isDesignRoomActive && steperIndex === 0) ? (
             // Design Room or Description (index 0 logic)
             isMobile ? (
               <div className="steper-description-tranition show-description-transition">
@@ -426,7 +517,7 @@ const ProductDisplay = ({ params }) => {
                 />
               </div>
             )
-          )}
+          )} */}
 
 
           {/* {isDesignRoomActive && steperIndex === 0 ? (
@@ -580,7 +671,7 @@ const ProductDisplay = ({ params }) => {
         galleryModalWidth={galleryModalWidth}
       />
 
-      <SideCart 
+      <SideCart
         isCartOpen={cartSection}
         handleCloseSideCart={handleCartClose}
       />
