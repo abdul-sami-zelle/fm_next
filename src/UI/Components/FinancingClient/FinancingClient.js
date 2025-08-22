@@ -144,12 +144,12 @@ const FinancingClient = () => {
                 <div className='financing-page-main-banner-shimmer'></div>
             )}
 
-            <div className='mobile-finance-secondBanner'>
+            {/* <div className='mobile-finance-secondBanner'>
                 <Image src={'/Assets/Furniture Mecca/Financing/download 146.png'} width={480} height={155} alt='mobile-second-banner' />
             </div>
             <div className='desktop-finance-secondBanner'>
                 <Image src={url + "/uploads/media/Pages/home/financeSlider/1737797410760_405_Finance-Page-Points-2.jpg"} width={2200} height={100} alt='desktop-second-banner' />
-            </div>
+            </div> */}
             {/* <LeaseToOwn /> */}
 
             <div className='financing-categories-main-container'>
