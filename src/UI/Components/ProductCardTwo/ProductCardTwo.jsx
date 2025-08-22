@@ -58,6 +58,7 @@ const ProductCardTwo = ({
     // const [selectedVariation, setSelectedVariation] = useState({})
 
 
+    const [productVariationData, setProductVariationData] = useState();
     const handleColorSelect = (color) => {
         setSelectedColor(color)
         if (singleProductData?.type === "variable") {
@@ -67,6 +68,8 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
+            // console.log("matching attributes", matchingAttribute)
+            setProductVariationData(matchingAttribute)
             setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
@@ -183,59 +186,63 @@ const ProductCardTwo = ({
     }
 
 
-    const { selectedVariationData, setSingleProductData, setSelectedVariationUid, setSelectedVariationData, findObjectByUID } = useProductPage()
-
-    useEffect(() => {
-        setSingleProductData(singleProductData)
-        setSelectedVariationUid(singleProductData?.default_variation)
-        setSelectedVariationData(findObjectByUID(singleProductData?.default_variation, singleProductData?.variations));
-      }, []);
-
-
-    // const [isOutOfStock, setIsOutOfStock] = useState(false);
-    // const pathname = usePathname()
+    // const { selectedVariationData, setSingleProductData, setSelectedVariationUid, setSelectedVariationData, findObjectByUID } = useProductPage()
 
     // useEffect(() => {
-    //     if (!singleProductData) return;
-
-    //     const outOfStockCheck =
-    //         singleProductData?.type === "variable"
-    //             ? (
-    //                 (selectedVariationData?.manage_stock?.stock_status === "inStock" &&
-    //                     selectedVariationData?.manage_stock?.quantity === 0) ||
-    //                 selectedVariationData?.manage_stock?.stock_status === "outStock" ||
-    //                 selectedVariationData?.manage_stock?.stock_status === "outOfStock"
-    //             )
-    //             : (
-    //                 (singleProductData?.manage_stock?.stock_status === "inStock" &&
-    //                     singleProductData?.manage_stock?.quantity === 0) ||
-    //                 singleProductData?.manage_stock?.stock_status === "outStock" ||
-    //                 singleProductData?.manage_stock?.stock_status === "outOfStock"
-    //             );
-
-    //     setIsOutOfStock(outOfStockCheck);
-    // }, [singleProductData, selectedVariationData, singleProductData?.id, pathname, isOutOfStock]);
+    //     setSingleProductData(singleProductData)
+    //     setSelectedVariationUid(singleProductData?.default_variation)
+    //     setSelectedVariationData(findObjectByUID(singleProductData?.default_variation, singleProductData?.variations));
+    //   }, []);
 
 
+    const [isOutOfStock, setIsOutOfStock] = useState(false);
+    // const pathname = usePathname()
 
-    const isOutOfStock =
-        singleProductData?.type === "variable"
-            ? (
-                (selectedVariationData?.manage_stock?.stock_status === "inStock" &&
-                    selectedVariationData?.manage_stock?.quantity === 0) ||
-                selectedVariationData?.manage_stock?.stock_status === "outStock" ||
-                selectedVariationData?.manage_stock?.stock_status === "outOfStock"
-            )
-            : (
-                (singleProductData?.manage_stock?.stock_status === "inStock" &&
-                    singleProductData?.manage_stock?.quantity === 0) ||
-                singleProductData?.manage_stock?.stock_status === "outStock" ||
-                singleProductData?.manage_stock?.stock_status === "outOfStock"
-            );
+    
+
+    useEffect(() => {
+        if (!singleProductData) return;
+
+        const outOfStockCheck =
+            singleProductData?.type === "variable"
+                ? (
+                    (productVariationData?.manage_stock?.stock_status === "inStock" &&
+                        productVariationData?.manage_stock?.quantity === 0) ||
+                    productVariationData?.manage_stock?.stock_status === "outStock" ||
+                    productVariationData?.manage_stock?.stock_status === "outOfStock"
+                )
+                : (
+                    (singleProductData?.manage_stock?.stock_status === "inStock" &&
+                        singleProductData?.manage_stock?.quantity === 0) ||
+                    singleProductData?.manage_stock?.stock_status === "outStock" ||
+                    singleProductData?.manage_stock?.stock_status === "outOfStock"
+                );
+
+        setIsOutOfStock(outOfStockCheck);
+    }, [singleProductData, productVariationData]);
 
 
 
-    console.log("stock check", isOutOfStock)
+    // const isOutOfStock =
+    //     singleProductData?.type === "variable"
+    //         ? (
+    //             (selectedVariationData?.manage_stock?.stock_status === "inStock" &&
+    //                 selectedVariationData?.manage_stock?.quantity === 0) ||
+    //             selectedVariationData?.manage_stock?.stock_status === "outStock" ||
+    //             selectedVariationData?.manage_stock?.stock_status === "outOfStock"
+    //         )
+    //         : (
+    //             (singleProductData?.manage_stock?.stock_status === "inStock" &&
+    //                 singleProductData?.manage_stock?.quantity === 0) ||
+    //             singleProductData?.manage_stock?.stock_status === "outStock" ||
+    //             singleProductData?.manage_stock?.stock_status === "outOfStock"
+    //         );
+
+    // console.log("product data", singleProductData)
+
+
+
+    // console.log("stock check", isOutOfStock)
 
     return (
         <>
