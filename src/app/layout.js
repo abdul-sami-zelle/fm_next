@@ -44,7 +44,24 @@ export default function RootLayout({ children }) {
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
       </head>
       <body>
-        {/* ✅ Google Analytics */}
+        {/*  Meta Pixel */}
+        <Script id="facebook-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1187186698819806');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+
+
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GQL4WY726N"
           strategy="afterInteractive"
@@ -59,6 +76,18 @@ export default function RootLayout({ children }) {
             });
           `}
         </Script>
+
+
+
+        {/* NoScript fallback */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1187186698819806&ev=PageView&noscript=1"
+          />
+        </noscript>
 
         <ClientLayout>{children}</ClientLayout>
       </body>

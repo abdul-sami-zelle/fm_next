@@ -162,7 +162,7 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   async function getShippingMethodss() {
-    const apiUrl = `${url}/api/v1/shipping/get?stateCode=${info.locationData.stateCode}`;
+    const apiUrl = `${url}/api/v1/shipping/get?stateCode=${info.locationData.stateCode}&zipCode=${info.locationData.zipCode}`;
 
     try {
       setShippingLoader(true)
@@ -185,7 +185,7 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   async function getTotalTax() {
-    const apiUrl = `${url}/api/v1/tax/get?stateCode=${info.locationData.stateCode}`;
+    const apiUrl = `${url}/api/v1/tax/get?stateCode=${info.locationData.stateCode}&zipCode=${info.locationData.zipCode}`;
 
     try {
       setTaxLoader(true)
