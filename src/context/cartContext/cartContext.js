@@ -387,6 +387,7 @@ export const CartProvider = ({ children }) => {
                                 quantity: parseInt(quantity),
                                 sku: isSimple ? product.sku : variationData?.sku,
                                 slug: product?.slug,
+                                outSource: product?.outSource ? product.outSource : false,
                                 is_protected: isProtected,
                             },
                         ],

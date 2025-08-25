@@ -26,6 +26,11 @@ const nextConfig = {
         hostname: 'devapi.myfurnituremecca.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ashleyfurniture.scene7.com',
+        pathname: '/**',
+      },
     ],
   },
 };

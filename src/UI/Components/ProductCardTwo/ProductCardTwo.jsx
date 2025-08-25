@@ -76,6 +76,7 @@ const ProductCardTwo = ({
 
         } else if (singleProductData?.type === "simple") {
             // Handle simple product logic
+
             const simpleAttribute = singleProductData?.attributes?.find(attribute =>
                 attribute?.type === "color"
             );
@@ -94,6 +95,7 @@ const ProductCardTwo = ({
 
 
 
+    console.log("single product data", singleProductData)
 
     const handleImageSelect = (image) => {
         if (singleProductData?.type === "variable") {
@@ -198,7 +200,7 @@ const ProductCardTwo = ({
     const [isOutOfStock, setIsOutOfStock] = useState(false);
     // const pathname = usePathname()
 
-    
+
 
     useEffect(() => {
         if (!singleProductData) return;
@@ -342,7 +344,7 @@ const ProductCardTwo = ({
 
                             {selectedColorImage && (
                                 <img
-                                    src={`${url}${selectedColorImage}`}
+                                    src={singleProductData.outSource === true ? singleProductData.image.image_url : `${url}${selectedColorImage}`}
                                     alt='product img'
                                     className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
                                     effect='blur'
@@ -396,7 +398,7 @@ const ProductCardTwo = ({
                                                         e.preventDefault();
                                                         handleImageSelect(item.value)
                                                     }}
-                                                    src={url + item.value}
+                                                    src={singleProductData.outSource === true ? item.value : url + item.value}
                                                     alt=""
                                                 />
                                             ))}
@@ -509,8 +511,8 @@ const ProductCardTwo = ({
                                             <div className={colTwo ? 'price-and-rating-column-direction' : 'price-and-rating-container'}>
                                                 <h3 className={`product-price-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
-                                                    ${sale_price}
-                                                    <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</del>
+                                                    {formatedPrice(sale_price)}
+                                                    <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>{formatedPrice(priceTag)}</del>
 
                                                 </h3>
                                                 <div className={`mobile-view-rating-stars ${colTwo ? 'apply-two-col-styling' : ''}`}>

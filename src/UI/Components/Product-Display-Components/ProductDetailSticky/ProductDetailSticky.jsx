@@ -555,6 +555,7 @@ const ProductDetailSticky = (
               <div className='single-product-frame-color'>
                 <SizeVariant
                   productType={product.type}
+                  product={product}
                   productData={product.variations}
                   attributes={product.attributes}
                   selectedColor={selectedColor}

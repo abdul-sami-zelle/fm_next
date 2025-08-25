@@ -10,6 +10,7 @@ import Image from 'next/image';
 const CartSideSection = (
     {
         attributes,
+        productData,
         handleItemRemove,
         closeBtn,
         productTitle,
@@ -29,6 +30,7 @@ const CartSideSection = (
     const productTotalPrice = sale_price !== "" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
 
 
+    console.log("product data side cart", productData)
     return (
         <div className='cart-side-section-product'>
             <button className='cart-side-section-remove-btn' onClick={handleItemRemove}>
@@ -40,7 +42,7 @@ const CartSideSection = (
             </div>
             <div className='cart-side-section-product-containt'>
                 <div className='cart-side-section-item-image'>
-                    <img src={`${url}${mainImage?.image_url}`} alt='product image' />
+                    <img src={productData.outSource === true ? mainImage?.image_url : `${url}${mainImage?.image_url}`} alt='product image' />
                 </div>
                 <div className='cart-side-section-product-details'>
                     <div className="attributes_list">

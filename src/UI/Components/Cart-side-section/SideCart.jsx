@@ -45,6 +45,8 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
         router.push("/check-out");
     }
 
+    console.log("cart products" ,cartProducts)
+
     return (
         <div className={`side-cart-main-contianer ${isCartOpen ? 'open-side-cart-overlay' : ''}`} onClick={handleCloseSideCart}>
             <div className={`side-cart-inner-container ${isCartOpen ? 'show-cart-inner-contianer' : ''}`} onClick={(e) => e.stopPropagation()}>
@@ -76,6 +78,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                             cartProducts?.products?.map((items, index) => {
                                 return <CartSideSection
                                     key={index}
+                                    productData={items}
                                     attributes={items.attributes}
                                     handleItemRemove={() => removeFromCart(items.isVariable === 1 ? items.variation_uid : items.product_uid, items.isVariable === 1)}
                                     closeBtn={'/Assets/icons/close-btn.png'}

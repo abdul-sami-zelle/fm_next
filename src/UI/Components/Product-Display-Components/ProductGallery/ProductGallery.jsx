@@ -161,8 +161,8 @@ const ProductGallery = ({
                                 color='var(--tertiary-color)'
                                 className={`arrow-pointer ${index === thumbActiveIndex ? 'show-pointer-arrow' : ''}`}
                             />
-                            <img src={`${url}${thumbItem.image_url}`} alt="thumb" className="product-thumbnail-single-image" />
-                        </div>
+                            <img src={productData.outSource === true ? thumbItem.image_url : `${url}${thumbItem.image_url}`} alt="thumb" className="product-thumbnail-single-image" />
+                        </div> 
                     ))}
                 </div>
 
@@ -199,10 +199,10 @@ const ProductGallery = ({
                                 onClick={() => handleGalleryModal('image-clicked', 'dimenssion-hide')}
                             >
                                 {zoomIn ? (
-                                    <ImageZoomOnHover src={`${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
+                                    <ImageZoomOnHover src={productData.outSource === true ? imgItem.image_url : `${url}${imgItem.image_url}`} zoom={2.5} zoomActive={true} />
                                 ) : (
                                     <img
-                                        src={`${url}${imgItem.image_url}`}
+                                        src={productData.outSource === true ? imgItem.image_url : `${url}${imgItem.image_url}`}
                                         alt="Main"
                                         className="product-gallery-main-slider-image"
                                         style={{ width: '100%', cursor: 'pointer' }}

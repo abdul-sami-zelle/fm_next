@@ -78,6 +78,7 @@ const WishListClient = () => {
           }
         });
 
+        console.log("user wish list", response)
         if (response.status === 200) {
           setWishlistProducts(response.data.wishlist || []);
         }
@@ -95,6 +96,7 @@ const WishListClient = () => {
           { ids: productIds }
         );
 
+        consolle.log("wish list products", response)
         setWishlistProducts(response.data.products || []);
       }
     } catch (error) {

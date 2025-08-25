@@ -53,7 +53,7 @@ const MobileCart = (
             </button>
             <h3 className='mobile-priduct-name'>{productData.name}</h3>
             <div className='mobile-cart-product-image-and-containt'>
-                <img src={`${url}${productData.image.image_url}`} alt='product-image' className='mobile-cart-product-main-image' />
+                <img src={productData.outSource === true ? productData.image.image_url : `${url}${productData.image.image_url}`} alt='product-image' className='mobile-cart-product-main-image' />
                 <div className='mobile-cart-product-containt'>
                     <p>{productColor}</p>
                     <p>{productAccesories}</p>

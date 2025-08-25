@@ -135,7 +135,7 @@ const QuickViewVariations = ({ default_uid, attributes, productData, variations,
                                                 : ''
                                         }`}
                                     >
-                                        <img src={`${url}${option.value}`} alt={option.name} />
+                                        <img src={productData.outSource  === true ? option.value : `${url}${option.value}`} alt={option.name} />
                                     </div>
                                     {/* Option name will show on hover */}
                                     <p className='quick-view-atribute-option-name'>{option.name}</p>

@@ -242,7 +242,7 @@ const CheckoutClient = () => {
               {cartProducts?.products?.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
                 <div key={items.uid} className='selected-products'>
                   <div className='selected-single-product'>
-                    <img src={`${url}${items.image.image_url}`} alt='img' />
+                    <img src={ items?.outSource === true ? items.image.image_url : `${url}${items.image.image_url}`} alt='img' />
                     <div className='selected-product-containt'>
                       <span className='selected-product-name-and-price'>
                         <h3>{truncateTitle(items.name, 35)}</h3>

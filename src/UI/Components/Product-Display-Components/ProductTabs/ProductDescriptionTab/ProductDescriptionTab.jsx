@@ -16,7 +16,7 @@ const ProductDescriptionTab = ({ id, descriptionRef, productData, addMarginTop ,
       <div className='product-description-section'>
         <div className='product-description-image-container'>
           {productData?.image?.image_url && (
-            <Image src={`${url}${productData?.image?.image_url}`} width={320} height={160} alt='product' />
+            <Image src={productData.outSource === true ? productData.image.image_url : `${url}${productData?.image?.image_url}`} width={320} height={160} alt='product' />
           )}
         </div>
         <div className='product-description'>

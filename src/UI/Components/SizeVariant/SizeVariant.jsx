@@ -7,6 +7,7 @@ const SizeVariant = ({
     productType,
     attributes,
     productData,
+    product,
     handleSelectColor,
     handleSelectVariation,
     handleSelectedVariationData,
@@ -294,7 +295,7 @@ const SizeVariant = ({
                                                 : ''
                                                 }`}
                                         >
-                                            <img src={`${url}${option.value}`} alt={option.name} />
+                                            <img src={product.outSource === true ? option.value : `${url}${option.value}`} alt={option.name} />
                                         </div>
                                         <p>{option.name}</p>
                                     </div>

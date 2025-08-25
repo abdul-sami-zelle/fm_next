@@ -137,7 +137,7 @@ const CartItems = ({
             <div className={`desktop-cart-product`} style={{ borderBottom: totalProducts > 1 ? '1px solid #d7d7d7' : 'none' }} >
 
                 <div className='desktop-cart-product-image'>
-                    <Image src={`${url}${cartPRoductImage}`} width={200} height={125} alt='product image' />
+                    <Image src={productData.outSource === true ? cartPRoductImage : `${url}${cartPRoductImage}`} width={200} height={125} alt='product image' />
                 </div>
 
                 <div className='desktop-cart-containt-section'>

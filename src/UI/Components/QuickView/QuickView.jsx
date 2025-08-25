@@ -176,7 +176,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                     <SwiperSlider
                                         slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
                                         renderSlide={(image, index) => (
-                                            <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                            <img key={index} src={setQuickViewProduct.outSource === true ? image.image_url : `${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
                                         )}
                                         showDots={true}
                                         showArrows={false}
@@ -193,7 +193,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
                                         slidesData={setQuickViewProduct.images && setQuickViewProduct.images}
                                         renderSlide={(image, index) => (
 
-                                            <img key={index} src={`${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
+                                            <img key={index} src={setQuickViewProduct.outSource === true ? image.image_url : `${url}${image.image_url}`} alt={`Slide ${index + 1}`} />
                                         )}
                                         showDots={true}
                                         showArrows={false}
