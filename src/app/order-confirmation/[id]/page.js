@@ -295,7 +295,7 @@ export default function OrderConfirmationPage() {
                         <p className="value">{formatedPrice(order.sub_total)}</p> {/* Use order data */}
                     </div>
                     {order.professional_assembled === 1 && <div className="row">
-                        <p className="label">Professional Assembly</p>
+                        <p className="label">White Glove</p>
                         <p className="value">{formatedPrice(order.professional_assembled_price)}</p> {/* Use order data */}
                     </div>}
                     {order.cart_protected === 1 && <div className="row">

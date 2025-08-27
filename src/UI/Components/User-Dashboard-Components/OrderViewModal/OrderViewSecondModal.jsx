@@ -143,7 +143,7 @@ const OrderViewSecondModal = ({ viewModal, setViewModal, orderId }) => {
                                 </span>
                                 {
                                     orderData?.professional_assembled === 1 && <span>
-                                        <p>Professional Assembly</p>
+                                        <p>White Glove</p>
                                         <p>{formatedPrice(orderData?.professional_assembled_price)}</p>
                                     </span>
                                 }

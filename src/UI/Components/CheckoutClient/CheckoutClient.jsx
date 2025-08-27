@@ -15,6 +15,9 @@ import TermsConditionsModal from '@/Global-Components/TermsConditionsModal/terms
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
 import { useRouter } from 'next/navigation';
+import MiniToggleSwitch from '@/Global-Components/MiniToggler/miniToggler';
+import { BsInfoCircle } from "react-icons/bs";
+import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const CheckoutClient = () => {
@@ -43,6 +46,14 @@ const CheckoutClient = () => {
     selectedOption,
     CalculateGrandTotal,
     zipLoading,
+    showWhiteGlove,
+    setShowWhiteGlove,
+    whiteGloveValue,
+    setWhiteGloveValue,
+    showFAssembly,
+    setShowFAssembly,
+    fAssemblyValue,
+    setFAssemblyValue
   } = useGlobalContext();
 
   const {
@@ -52,7 +63,10 @@ const CheckoutClient = () => {
     cartUid,
     subTotal0,
     isCartProtected,
-    isProfessionalAssembly
+    isProfessionalAssembly,
+    shippingHandlingValue,
+    furnitureAssemblyValue,
+    handleCartProtected
   } = useCart();
 
   const router = useRouter()
@@ -118,11 +132,11 @@ const CheckoutClient = () => {
 
 
       // setIsLoading(false)
-      if(typeof window !== 'undefined') {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
+      if (typeof window !== 'undefined') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
       }
 
       handleTabOpen(1);
@@ -242,7 +256,7 @@ const CheckoutClient = () => {
               {cartProducts?.products?.slice(0, showAll ? cartProducts?.products?.length : 2).map((items, index) => (
                 <div key={items.uid} className='selected-products'>
                   <div className='selected-single-product'>
-                    <img src={ items?.outSource === true ? items.image.image_url : `${url}${items.image.image_url}`} alt='img' />
+                    <img src={items?.outSource === true ? items.image.image_url : `${url}${items.image.image_url}`} alt='img' />
                     <div className='selected-product-containt'>
                       <span className='selected-product-name-and-price'>
                         <h3>{truncateTitle(items.name, 35)}</h3>
@@ -291,37 +305,78 @@ const CheckoutClient = () => {
                 </div>
               )}
 
-              {isCartProtected ? (
-                <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title'>Protect Entire Order</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(200)}</p>
-                </div>
-              ) : (
+              {/* {isCartProtected ? ( */}
+              {cartProducts?.products?.length > 1 && <div className='cart-order-summary-price-detail-single-item'>
+                <p className='cart-order-summary-price-detail-single-item-title' style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}>
+                  {/* Protect Entire Order */}
+                  Premium Protection Plan
+                  <span>
+                    <MiniToggleSwitch checked={isCartProtected}
+                      onChange={cartProducts?.products?.length > 1 ? handleCartProtected : undefined} />
+                  </span>
+                </p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{isCartProtected ? formatedPrice(199) : "$0.00"}</p>
+              </div>}
+              {/* ) : (
                 <></>
-              )}
+              )} */}
               {isProfessionalAssembly ? (
                 <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title'>Professional Assembly</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(210)}</p>
+                  <p className='cart-order-summary-price-detail-single-item-title ' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>White Glove <BsInfoCircle className='info_icon_cart' onClick={() => { setShowWhiteGlove(true) }} /></p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
                 </div>
               ) : (
                 <></>
               )}
+
+              {!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? (
+                <div className='cart-order-summary-price-detail-single-item'>
+                  <p className='cart-order-summary-price-detail-single-item-title' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>Furniture Assembly <BsInfoCircle className='info_icon_cart' onClick={() => { setShowFAssembly(true) }} /></p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(furnitureAssemblyValue)}</p>
+                </div>
+              ) : (
+                <></>
+              )}
+
 
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : formatedPrice(selectedOption?.cost)}</p>
+                <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
+                  {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
+                    <del style={{ fontSize: "10px" }}>${selectedOption?.sale_cost}</del> FREE
+                    <br />
+                    <span style={{
+                      lineHeight: "8px",
+                      fontSize: "8px",
+                      fontStyle: "italic",
+                      margin: "0",
+                      padding: "0",
+                      color: "var(--orange-outline)"
+                    }}>Free Delivery Promotion Applied</span>
+                  </> :
+                    (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
+                      formatedPrice(selectedOption?.cost)}
+                </p>
               </div>
+
+              {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-price-detail-single-item'>
+                <p className='cart-order-summary-price-detail-single-item-title'>Shipping & Handling</p>
+                <p className='cart-order-summary-price-detail-single-item-price'><del style={{ fontSize: "10px" }}>{formatedPrice(shippingHandlingValue)}</del> $0.00</p>
+              </div>}
 
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal+(!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ?furnitureAssemblyValue:0)), parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
 
               {selectedTab !== 1 && (
                 <div className='cart-order-summary-zip-code'>
                   <span className='cart-order-summary-zip-code-heading'>
-                  <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
+                    <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                   </span>
                   <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
                     <div className='cart-order-summary-zip-code-input-and-button'>
@@ -333,9 +388,9 @@ const CheckoutClient = () => {
                         onChange={handleInputChange}
                       />
                       <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>
-                        {zipLoading && <div className='loader_2' style={{background: '#FFF'}}></div>}
-                      {zipLoading ? 'Wait..' : 'Update'}
-                        </button>
+                        {zipLoading && <div className='loader_2' style={{ background: '#FFF' }}></div>}
+                        {zipLoading ? 'Wait..' : 'Update'}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -416,6 +471,24 @@ const CheckoutClient = () => {
         errorDetail={errorDetails}
         footerMessage={'This is Footer'}
         closeModal={handleCloseWarningModal}
+      />
+
+      <ZipModal
+        showMessage={showWhiteGlove}
+        errorDetail={whiteGloveValue}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={() => {
+          setShowWhiteGlove(false)
+        }}
+      />
+
+      <ZipModal
+        showMessage={showFAssembly}
+        errorDetail={fAssemblyValue}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={() => {
+          setShowFAssembly(false)
+        }}
       />
 
     </div>

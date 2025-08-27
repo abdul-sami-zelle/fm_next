@@ -1020,3 +1020,9 @@
 
     
 }
+
+.info_icon_cart{
+    font-size: 14px;
+    line-height: 14px;
+    cursor: pointer;
+}

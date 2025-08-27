@@ -15,6 +15,8 @@ export const CartProvider = ({ children }) => {
     const [eachProtectionValue2, setEachProtectionValue2] = useState(199); // 99 was old single protection price
     const [totalProtectionValue, setTotalProtectionValue] = useState(199);
     const [professionalAssemblyValue, setProfessionalAssemblyValue] = useState(199); // 199 was old all protection price
+    const [furnitureAssemblyValue, setFurnitureAssemblyValue] = useState(75); 
+    const [shippingHandlingValue, setShippingHandlingValue] = useState(25);
 
     const [cartUid, setCartUid] = useState(() => {
         if (typeof window !== "undefined") {
@@ -708,6 +710,10 @@ export const CartProvider = ({ children }) => {
                 setTotalProtectionValue,
                 professionalAssemblyValue,
                 setProfessionalAssemblyValue,
+                furnitureAssemblyValue, 
+                setFurnitureAssemblyValue,
+                shippingHandlingValue, 
+                setShippingHandlingValue,
                 cartSection,
                 setCartSection,
                 isCartLoading, setIsCartLoading,

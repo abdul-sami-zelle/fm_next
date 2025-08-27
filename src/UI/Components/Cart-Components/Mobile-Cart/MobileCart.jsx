@@ -43,7 +43,7 @@ const MobileCart = (
 
     
 
-    const productTotalPrice = productData.regular_price * quantity;
+    const productTotalPrice = productData?.sale_price !=="" ?  (productData.sale_price * quantity) :  (productData.regular_price * quantity);
 
     return (
         <div className='mobile-cart'>
@@ -57,7 +57,7 @@ const MobileCart = (
                 <div className='mobile-cart-product-containt'>
                     <p>{productColor}</p>
                     <p>{productAccesories}</p>
-                    <p>{formatedPrice(productData.regular_price)}</p>
+                    <p>{productData?.sale_price !=="" ? formatedPrice(productData.sale_price) : formatedPrice(productData.regular_price)}</p>
                     <div className='mobile-cart-product-count-and-total-price'>
                         <div className='mobile-cart-product-count'>
                             <button onClick={handleDecreament}>

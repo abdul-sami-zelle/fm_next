@@ -21,6 +21,11 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import LocationPopUp from '@/UI/Components/LocationPopUp/LocationPopUp';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
+import MiniToggleSwitch from '@/Global-Components/MiniToggler/miniToggler';
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { BsInfoCircle } from "react-icons/bs";
+
+
 
 
 
@@ -45,6 +50,14 @@ const Cart = () => {
     wrongZipMessage,
     handleZipWarningClose,
     zipLoading,
+    showWhiteGlove,
+    setShowWhiteGlove,
+    whiteGloveValue,
+    setWhiteGloveValue,
+    showFAssembly,
+    setShowFAssembly,
+    fAssemblyValue,
+    setFAssemblyValue
   } = useGlobalContext();
 
 
@@ -55,9 +68,17 @@ const Cart = () => {
     isCartProtected,
     cartProducts,
     isProfessionalAssembly,
-    cartSection, 
+    cartSection,
     setCartSection,
+    shippingHandlingValue,
+    furnitureAssemblyValue,
+    handleCartProtected,
+
   } = useCart();
+
+  const [isChecked, setIsChecked] = useState(false);
+
+
 
   const handleZipInput = () => {
     setIsZipUpdateOpen(!isZipUpdateOpen)
@@ -76,7 +97,7 @@ const Cart = () => {
     if (shippingMethods) {
       getShippingMethods(subTotal, shippingMethods['shippingMethods']);
     }
-  }, []); 
+  }, []);
 
   useEffect(() => {
     if (shippingMethods) {
@@ -224,29 +245,73 @@ const Cart = () => {
                   <p style={{ color: "var(--tertiary-color)" }} >-{formatedPrice(savings)}</p>
                 </div>
               )}
-              {isCartProtected ? (
-                <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title'>Protect Entire Order</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
-                </div>
-              ) : (
+              {/* {isCartProtected ? ( */}
+             {cartProducts?.products?.length > 1 && <div className='cart-order-summary-price-detail-single-item'>
+                <p className='cart-order-summary-price-detail-single-item-title' style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}>
+                  {/* Protect Entire Order */}
+                  Premium Protection Plan
+                  <span>
+                    <MiniToggleSwitch checked={isCartProtected}
+                      onChange={cartProducts?.products?.length > 1 ? handleCartProtected : undefined} />
+                  </span>
+                </p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{isCartProtected ? formatedPrice(199) : "$0.00"}</p>
+              </div>}
+              {/* ) : (
                 <></>
-              )}
+              )} */}
               {isProfessionalAssembly ? (
                 <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title'>Professional Assembly</p>
+                  <p className='cart-order-summary-price-detail-single-item-title ' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>White Glove <BsInfoCircle className='info_icon_cart' onClick={()=>{setShowWhiteGlove(true)}} /></p>
                   <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
                 </div>
               ) : (
                 <></>
               )}
+
+              {!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? (
+                <div className='cart-order-summary-price-detail-single-item'>
+                  <p className='cart-order-summary-price-detail-single-item-title' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>Furniture Assembly <BsInfoCircle className='info_icon_cart' onClick={()=>{setShowFAssembly(true)}} /></p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(furnitureAssemblyValue)}</p>
+                </div>
+              ) : (
+                <></>
+              )}
+
+
+              {
+
+              }
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{selectedOption?.cost === 0 ? '' : formatedPrice(selectedOption?.cost)}</p>
+                <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
+                  {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
+                    <del style={{ fontSize: "10px" }}>${selectedOption?.sale_cost}</del> FREE
+                    <br />
+                    <span style={{
+                      lineHeight: "8px",
+                      fontSize: "8px",
+                      fontStyle: "italic",
+                      margin: "0",
+                      padding: "0",
+                      color: "var(--orange-outline)"
+                    }}>Free Delivery Promotion Applied</span>
+                  </> :
+                    (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
+                      formatedPrice(selectedOption?.cost)}
+                </p>
               </div>
+              {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-price-detail-single-item'>
+                <p className='cart-order-summary-price-detail-single-item-title'>Shipping & Handling</p>
+                <p className='cart-order-summary-price-detail-single-item-price'><del style={{ fontSize: "10px" }}>{formatedPrice(shippingHandlingValue)}</del> $0.00</p>
+              </div>}
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value))) : 0}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal+(!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ?furnitureAssemblyValue:0)), parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
               <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
@@ -264,7 +329,7 @@ const Cart = () => {
                       onChange={handleInputChange}
                     />
                     <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>
-                      {zipLoading && <div className='loader_2' style={{background: '#FFF'}}></div>}
+                      {zipLoading && <div className='loader_2' style={{ background: '#FFF' }}></div>}
                       {zipLoading ? 'Wait..' : 'Update'}
                     </button>
                   </div>
@@ -477,7 +542,7 @@ const Cart = () => {
         setSelectedTab={setSelectedTab}
       />
 
-      <SideCart 
+      <SideCart
         isCartOpen={cartSection}
         handleCloseSideCart={handleCloseSideCart}
       />
@@ -494,6 +559,24 @@ const Cart = () => {
         errorDetail={wrongZipMessage}
         footerMessage={'Wrong Zip Code'}
         closeModal={handleZipWarningClose}
+      />
+
+      <ZipModal
+        showMessage={showWhiteGlove}
+        errorDetail={whiteGloveValue}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={()=>{
+          setShowWhiteGlove(false)
+        }}
+      />
+
+      <ZipModal
+        showMessage={showFAssembly}
+        errorDetail={fAssemblyValue}
+        footerMessage={'Wrong Zip Code'}
+        closeModal={()=>{
+          setShowFAssembly(false)
+        }}
       />
     </div>
   )

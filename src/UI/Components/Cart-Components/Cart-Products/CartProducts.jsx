@@ -136,7 +136,7 @@ const CartProducts = ({ handleLocationModal }) => {
                                     {cartProducts?.products?.length === 1 && <div className='protect-entire-cart-disable-overlay'></div>}
                                     <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
                                     <div className='cart-protection-plan-details-container'>
-                                        <p className='cart-protection-plan-card-header'>Protect Entire Order</p>
+                                        <p className='cart-protection-plan-card-header'>Add Premium Protection to Cart</p>
                                         <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
                                     </div>
                                     <div className='cart-protection-checkbox-container'>
@@ -155,7 +155,7 @@ const CartProducts = ({ handleLocationModal }) => {
                                     <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
 
                                     <div className='cart-protection-plan-details-container'>
-                                        <p className='cart-protection-plan-card-header'>Professional Assembly</p>
+                                        <p className='cart-protection-plan-card-header'>White Glove</p>
                                         <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
                                     </div>
                                     <div className='cart-protection-checkbox-container'>
@@ -217,7 +217,7 @@ const CartProducts = ({ handleLocationModal }) => {
                                         </div>
                                     ))}
                             </div>
-                            {isProfessionalAssembly ? <p className='delivery-promotion'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
+                            {isProfessionalAssembly ? <p className='delivery-promotion'></p> : selectedOption?.cost > 0 && <p className='delivery-promotion'>Delivery right inside the front door of your home. You do the unpacking and assembly.</p>}
                         </div>
                     )}
 

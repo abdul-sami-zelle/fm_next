@@ -379,7 +379,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         <input
                             type="text"
                             ref={postalCodeRef}
-                            className="input-field-email"
+                            className="input-field-email cursor"
                             onFocus={() => setFocusedField('postal_code')}
                             onBlur={() => setFocusedField("")}
                             name='postal_code'
@@ -407,7 +407,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         <input
                             type="text"
                             ref={stateRef}
-                            className="input-field-email"
+                            className="input-field-email cursor"
                             onFocus={() => setFocusedField("state")}
                             onBlur={() => setFocusedField("")}
                             name='state'
@@ -431,7 +431,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         <input
                             type="text"
                             ref={cityRef}
-                            className="input-field-email"
+                            className="input-field-email cursor"
                             onFocus={() => setFocusedField('city')}
                             onBlur={() => setFocusedField("")}
                             name='city'
@@ -448,7 +448,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 </div>
 
-                <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true : false)}>Edit Zipcode?</button>
+                <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true : false)}>Change Zipcode?</button>
 
 
             </div>

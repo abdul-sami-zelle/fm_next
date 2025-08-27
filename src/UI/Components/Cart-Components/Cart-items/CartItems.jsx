@@ -229,7 +229,7 @@ const CartItems = ({
                                         </p>
                                         <div className={`detail-container ${isOpen ? 'open' : ''}`}>
                                             <p className='protection-price-message detail'>
-                                                Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.
+                                                Our Premium Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.
                                             </p>
                                             <Link href={'#'}>Details</Link>
                                         </div>

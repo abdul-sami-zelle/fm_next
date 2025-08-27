@@ -77,10 +77,10 @@ import Image from "next/image";
 import SwiperSlider from "@/UI/Sliders/SwiperSlider/SwiperSlider";
 
 
-function FinanceBannerSlider({ images }) {
+function FinanceBannerSlider({ images, borderTop = '0px'  }) {
 
     return (
-        <div className="carousel-container">
+        <div className="carousel-container" style={{borderTop: borderTop}}>
 
             <SwiperSlider
                 slidesData={images?.desktop}

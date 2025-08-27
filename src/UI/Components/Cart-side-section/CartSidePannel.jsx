@@ -116,7 +116,7 @@ const CartSidePannel = (
                     checked={isProfessionalAssembly}
                     onChange={() => handleCartAssembly()}
                   />
-                  Professional Assembly (+ ${totalProtectionValue})
+                 White Glove (+ ${totalProtectionValue})
                 </label>
                 {/* {isProfessionalAssembly ? ( */}
                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
@@ -135,9 +135,9 @@ const CartSidePannel = (
                     checked={isCartProtected}
                     onChange={() => handleCartProtected()}
                   />
-                  Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
+                  Platinum Furniture Protection(+ ${professionalAssemblyValue})
                 </label>
-                <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
+                <p className='order-summary-proffesional-check-item-detail'>Our Premium Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
               </div>
             ) : (<></>)}
           </div>
@@ -157,7 +157,7 @@ const CartSidePannel = (
                     checked={isProfessionalAssembly}
                     onChange={() => handleCartAssembly()}
                   />
-                  Professional Assembly (+ ${totalProtectionValue})
+                  White Glove (+ ${totalProtectionValue})
                 </label>
                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
               </div>
@@ -172,9 +172,9 @@ const CartSidePannel = (
                     checked={isCartProtected}
                     onChange={() => handleCartProtected()}
                   />
-                  Elite Platinum Furniture Protection(+ ${professionalAssemblyValue})
+                  Premium Platinum Furniture Protection(+ ${professionalAssemblyValue})
                 </label>
-                <p className='order-summary-proffesional-check-item-detail'>Our Elite Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
+                <p className='order-summary-proffesional-check-item-detail'>Our Premium Furniture Protection Plan covers accidental stains and damage to your new fabric, leather, and wood (and other hard surfaces) furniture.</p>
               </div>
             ) : (<></>)}
           </div>

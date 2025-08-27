@@ -327,6 +327,10 @@
     transition: border-color 0.3s ease;
 }
 
+.input-field-email.cursor{
+    cursor: pointer;
+}
+
 .floating-label {
     position: absolute;
     left: 10px;

@@ -12,9 +12,10 @@ export const GlobalContextProvider = ({ children }) => {
   const [stores, setStores] = useState([]);
   const [shippingMethods, setShippingMethods] = useState(null);
   const [totalTax, setTotalTax] = useState(null);
+  const [shippingHandlingApplied, setShippingHandlingApplied] = useState(false);
   const [shippingLoader, setShippingLoader] = useState(false);
   const [taxLoader, setTaxLoader] = useState(false);
-  const { subTotal, cartProducts } = useCart();
+  const { subTotal, cartProducts,isProfessionalAssembly ,furnitureAssemblyValue} = useCart();
   const [mainLoader, setMainLoader] = useState(false);
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
@@ -382,6 +383,18 @@ export const GlobalContextProvider = ({ children }) => {
   const [wrongZipMessage, setWrongZipMessage] = useState({title: '', message: ''})
   const [zipLoading, setZipLoading] = useState(false);
 
+  const [showWhiteGlove, setShowWhiteGlove] = useState(false);
+  const [whiteGloveValue,setWhiteGloveValue] = useState({
+    title:"White Glove",
+    message:"Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!"
+  })
+
+  const [showFAssembly, setShowFAssembly] = useState(false);
+  const [fAssemblyValue,setFAssemblyValue] = useState({
+    title:"Furniture Assembly",
+    message:"In Furniture Assembly, Please note we do not set-up bunkbeds, TV stands, and fireplaces."
+  })
+
   const handleButtonClick = async () => {
     let data;
     setZipLoading(true)
@@ -457,7 +470,8 @@ export const GlobalContextProvider = ({ children }) => {
     function CalculateGrandTotal() {
       const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
       const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
-      return subTotal + calculateTotalTax(subTotal1, taxValue) + getShippingInfo(selectedOption)?.cost;
+      const deliveySetup = (selectedOption?.id !== "METHOD-3" && !isProfessionalAssembly ) ? furnitureAssemblyValue : 0;
+      return subTotal + calculateTotalTax((subTotal1+deliveySetup), taxValue) + getShippingInfo(selectedOption)?.cost  + deliveySetup;
     }
 
 
@@ -499,6 +513,14 @@ export const GlobalContextProvider = ({ children }) => {
         wrongZipMessage,
         handleZipWarningClose,
         zipLoading,
+        showWhiteGlove, 
+        setShowWhiteGlove,
+        whiteGloveValue,
+        setWhiteGloveValue,
+        showFAssembly, 
+        setShowFAssembly,
+        fAssemblyValue,
+        setFAssemblyValue
       }}>
         {children}
       </GlobalContext.Provider>
