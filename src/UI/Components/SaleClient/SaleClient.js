@@ -162,7 +162,7 @@ export default function SaleClient({ slug }) {
                                     mainImage={`${item.image.image_url}`}
                                     productCardContainerClass="product-card"
                                     ProductSku={item.sku}
-                                    tags={item.product_tag}
+                                    tags={item.sale_tag}
                                     ProductTitle={item.name}
                                     reviewCount={item.reviewCount}
                                     lowPriceAddvertisement={item.lowPriceAddvertisement}
@@ -183,6 +183,7 @@ export default function SaleClient({ slug }) {
                                     titleHeight={true}
                                     allow_back_order={item?.allow_back_order}
                                     handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                    productTag={item.product_tag}
                                 />
                             })
                         ) : (

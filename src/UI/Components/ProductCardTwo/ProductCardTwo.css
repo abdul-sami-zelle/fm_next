@@ -285,6 +285,7 @@
     margin-top: 0px !important;
     flex-shrink: 0;
     height: max-content;
+    gap: 5px;
 }
 
 /* .product-tagging.show-product-tag {
@@ -509,7 +510,7 @@
     gap: 5px;
     width: max-content;
     flex-shrink: 0;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 
@@ -570,7 +571,8 @@
 }
 
 .text-tag {
-    /* padding: 5px 15px; */
+    padding: 4px 10px;
+    
     font-size: var(--attribute-size);
     font-weight: var(--attribute-weight);
     line-height: var(--attribute-height);
@@ -1185,7 +1187,7 @@
     .product-price-starting-at.apply-two-col-styling {
         /* font-size: clamp(10px, calc(1vw + 0.2rem), 13px); */
         font-size: 8px;
-        line-height: 10px;
+        line-height: 8px;
         font-weight: 400;
     }
 
@@ -1224,4 +1226,45 @@
         height: 40px !important;
     }
 
+}
+
+.free_del_tag{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.free_del_main_con{
+    font-size: 1.2rem;
+    color: #a40b0b;
+    line-height: 1.2rem;
+
+}
+
+.free_del_icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.free_del_icon_1{
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #a40b0b;
+}
+
+.free_del_icon_2{
+    line-height: 10px;
+    font-size: 8px;
+    font-weight: 500;
+    color: #a40b0b;
+    border-top: 1px solid #a40b0b;
+}
+
+
+.hide-stars-marg{
+    margin: 0 !important;
 }

@@ -43,7 +43,8 @@ export const ActiveSalePageProvider = ({ children }) => {
         try {
             setLoading(true);
             const data = await fetchWithRetry(api, options);
-           await fetchProductsByCategory(data?.data?.subCategory)
+            console.log(data?.data?.categoryData?.slug,"here is datra")
+           await fetchProductsByCategory(data?.data?.categoryData?.slug)
             setSalesData(data); // Store the fetched data in state
         } catch (error) {
             setError(error.message);
@@ -60,7 +61,7 @@ export const ActiveSalePageProvider = ({ children }) => {
             return;
         }
 
-        const api = `${url}/api/v1/products/by-category?categorySlug=tax-refund-sale&per_page=16`;
+        const api = `${url}/api/v1/products/by-category?categorySlug=${categoryUid}&per_page=60`;
         const options = {
             method: 'GET',
             headers: {

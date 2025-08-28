@@ -62,21 +62,21 @@ const ProductDetailSticky = (
   }) => {
 
 
-    console.log("productData", productData)
+  console.log("productData", productData)
 
 
-    const {
-        addToCart0,
-        cartSection,
-        setCartSection,
-      } = useCart();
+  const {
+    addToCart0,
+    cartSection,
+    setCartSection,
+  } = useCart();
 
 
   const router = useRouter()
   const { setAppointmentPayload } = useAppointment()
   const [selectedTab, setSelectedTab] = useState(1);
   const [slideIndex, setSlideIndex] = useState(null)
-  
+
 
   const { info, fetchAllstores } = useGlobalContext();
   const { handleOpenChatUsOnly } = useChatOpenContext()
@@ -203,7 +203,7 @@ const ProductDetailSticky = (
   };
 
   const { addToList, removeFromList, isInWishList } = useList()
-  
+
   // const [zoomIn, setZoomIn] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -384,7 +384,7 @@ const ProductDetailSticky = (
   };
 
   const handleSidePanelOpen = () => {
-    setTimeout(() => {setPanelShow(true)}, 500)
+    setTimeout(() => { setPanelShow(true) }, 500)
   }
 
   const handleSideCartClose = () => {
@@ -398,11 +398,11 @@ const ProductDetailSticky = (
   }
 
   const handleAddProductIntoCart = (product) => {
-      addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity);
-      setTimeout(() => {
-        
-        setShowSideCart(true)
-      }, 500)
+    addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity);
+    setTimeout(() => {
+
+      setShowSideCart(true)
+    }, 500)
   }
 
 
@@ -419,7 +419,7 @@ const ProductDetailSticky = (
           <div className='product-detail-product-gallery-section'>
 
             <div className='mobile-view-slider-top-details'>
-              {
+              {/* {
                 product?.tags?.length > 0 && <div className="product-tagging">
                   {
                     product?.tags[0] && product?.tags[0]?.type?.toLowerCase() === "text" ?
@@ -431,7 +431,25 @@ const ProductDetailSticky = (
                       </div>
                   }
                 </div>
-              }
+              } */}
+
+
+              <div className="sale_banner_product_page">
+                <div className="main_sale_name">
+                  LABOR DAY EXCLUSIVE SALE
+                </div>
+
+                <div className="sub_main_sale_name">
+                  FREE DELIVERY ON ORDERS ABOVE $500
+                </div>
+
+                <div className="sale_banner_restr">
+                  MILEAGE RESTRICTIONS MAY APPLY.
+                </div>
+
+              </div>
+
+
 
               <h3>{product?.name}</h3>
               {/* <p>SKU : {product.sku}</p> */}
@@ -498,7 +516,7 @@ const ProductDetailSticky = (
 
             <div className='product-detail-info-sticky'>
               <div className='product-detail-name-and-rating-etc'>
-                {
+                {/* {
                   product?.tags?.length > 0 && <div className="product-tagging">
                     {
                       product?.tags[0] && product?.tags[0]?.type?.toLowerCase() === "text" ?
@@ -510,7 +528,23 @@ const ProductDetailSticky = (
                         </div>
                     }
                   </div>
-                }
+                } */}
+
+                <div className="sale_banner_product_page">
+                  <div className="main_sale_name">
+                    LABOR DAY EXCLUSIVE SALE
+                  </div>
+
+                  <div className="sub_main_sale_name">
+                    FREE DELIVERY ON ORDERS ABOVE $500
+                  </div>
+
+                  <div className="sale_banner_restr">
+                    MILEAGE RESTRICTIONS MAY APPLY.
+                  </div>
+
+                </div>
+
                 <h3>{product?.name}</h3>
                 {/* <p>SKU : {product.sku}</p> */}
                 {product?.type === "simple" ? (

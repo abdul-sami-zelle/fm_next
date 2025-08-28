@@ -15,7 +15,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [shippingHandlingApplied, setShippingHandlingApplied] = useState(false);
   const [shippingLoader, setShippingLoader] = useState(false);
   const [taxLoader, setTaxLoader] = useState(false);
-  const { subTotal, cartProducts,isProfessionalAssembly ,furnitureAssemblyValue} = useCart();
+  const { subTotal, cartProducts,isProfessionalAssembly ,furnitureAssemblyValue,handleCartAssemblyFalse} = useCart();
   const [mainLoader, setMainLoader] = useState(false);
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
@@ -267,6 +267,9 @@ export const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("selected_shipping_option", JSON.stringify(selectedOption));
+    if (selectedOption?.id==='METHOD-3') {
+        handleCartAssemblyFalse()
+    }
   }, [selectedOption])
 
   const handleChange = (e, option) => {

@@ -61,7 +61,7 @@ export const LastCallProvider = ({ children }) => {
             return;
         }
 
-        const finalApi = `${url}/api/v1/products/by-category?categoryUid=${categoryUid}&&per_page=16`;
+        const finalApi = `${url}/api/v1/products/by-category?categoryUid=${categoryUid}&per_page=60`;
         const options = {
             method: 'GET',
             headers: {

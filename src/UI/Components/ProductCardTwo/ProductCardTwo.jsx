@@ -14,6 +14,8 @@ import { useProductPage } from '@/context/ProductPageContext/productPageContext'
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css'; // important!
 import Link from 'next/link';
+import { FaTruckFast } from "react-icons/fa6";
+
 import { usePathname } from 'next/navigation';
 
 const ProductCardTwo = ({
@@ -37,6 +39,7 @@ const ProductCardTwo = ({
     showExtraLines,
     titleHeight,
     btnText = 'Quick View',
+    productTag
 }) => {
     const [isImageLoaded, setImageLoaded] = useState(false);
 
@@ -76,7 +79,6 @@ const ProductCardTwo = ({
 
         } else if (singleProductData?.type === "simple") {
             // Handle simple product logic
-
             const simpleAttribute = singleProductData?.attributes?.find(attribute =>
                 attribute?.type === "color"
             );
@@ -95,7 +97,6 @@ const ProductCardTwo = ({
 
 
 
-    console.log("single product data", singleProductData)
 
     const handleImageSelect = (image) => {
         if (singleProductData?.type === "variable") {
@@ -270,6 +271,19 @@ const ProductCardTwo = ({
                                         {tags?.text}
                                     </div>
 
+                                    {(!colTwo && showExtraLines) && <div className='text-tag' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px"}} >
+                                        {productTag?.text}
+                                    </div>}
+
+
+                                    {/* <div className='free_del_tag'>
+                                        <div className='free_del_icon'>
+                                            <p className='free_del_icon_1'>FREE</p>
+                                            <p className='free_del_icon_2'>Delivery</p>
+                                        </div>
+                                        <FaTruckFast className='free_del_main_con' />
+                                    </div> */}
+
                                 </div>
 
                             )
@@ -344,7 +358,7 @@ const ProductCardTwo = ({
 
                             {selectedColorImage && (
                                 <img
-                                    src={singleProductData.outSource === true ? singleProductData.image.image_url : `${url}${selectedColorImage}`}
+                                    src={`${url}${selectedColorImage}`}
                                     alt='product img'
                                     className={`product-main-img ${colTwo ? 'set-static-height' : ''}`}
                                     effect='blur'
@@ -398,7 +412,7 @@ const ProductCardTwo = ({
                                                         e.preventDefault();
                                                         handleImageSelect(item.value)
                                                     }}
-                                                    src={singleProductData.outSource === true ? item.value : url + item.value}
+                                                    src={url + item.value}
                                                     alt=""
                                                 />
                                             ))}
@@ -494,9 +508,14 @@ const ProductCardTwo = ({
 
                     <div className='product-card-content-bottom-section'>
 
+                            {(colTwo || !showExtraLines) && <div className='text-tag' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px" ,marginTop: showExtraLines?"5px":"10px" }} >
+                                {productTag?.text}
+                            </div>}
 
-                        <div className={`product-card-get-it-by-container ${colTwo ? 'apply-col-two-styling' : ''}`}>
-
+                        <div className={`product-card-get-it-by-container ${colTwo ? 'apply-col-two-styling' : ''}`} style={{
+                            alignItems:!showExtraLines?"start" :"start"
+                        }}>
+                            
                             <div className={`product-get-it-by-left-side ${colTwo ? 'apply-col-two-styling' : ''}`}>
 
                                 <div className='product-card-rating-and-price'>
@@ -505,14 +524,15 @@ const ProductCardTwo = ({
                                     {
                                         sale_price === "" ?
                                             <h3 className={`product-regular-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>
+                                                colTwo &&
                                                 <p className='regular-price-starting-at'>Starting at</p>
                                                 {formatedPrice(priceTag)}
                                             </h3> :
                                             <div className={colTwo ? 'price-and-rating-column-direction' : 'price-and-rating-container'}>
                                                 <h3 className={`product-price-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>
                                                     <p className={`product-price-starting-at ${colTwo ? 'apply-two-col-styling' : ''}`}>Starting at</p>
-                                                    {formatedPrice(sale_price)}
-                                                    <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>{formatedPrice(priceTag)}</del>
+                                                    ${sale_price}
+                                                    <del className={`product-del-price-with-sale-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>${priceTag}</del>
 
                                                 </h3>
                                                 <div className={`mobile-view-rating-stars ${colTwo ? 'apply-two-col-styling' : ''}`}>
@@ -542,7 +562,7 @@ const ProductCardTwo = ({
 
                             <div className={`product-card-quick-view-container ${colTwo ? 'apply-col-two-styling' : ''}`}>
 
-                                <div className={`product-rating-stars-div ${colTwo ? 'apply-col-two-styling' : ''}`}>
+                                <div className={`product-rating-stars-div ${colTwo ? 'apply-col-two-styling' : ''} ${!showExtraLines ? 'hide-stars-marg' : ''}` }>
                                     <RatingReview rating={reviewCount} size={"12px"} disabled={true} />
                                 </div>
 

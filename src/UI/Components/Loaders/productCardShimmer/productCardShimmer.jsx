@@ -7,7 +7,7 @@ export default function ProductCardShimmer({width}) {
             <div className="card_shimmer_image">
 
             </div>
-            <div className="shimmer_product_tag">
+            <div className="shimmer_sale_tag">
 
             </div>
             <div className="shimmer_product_sku">

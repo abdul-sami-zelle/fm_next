@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar'
 import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
-import { useDisableBodyScroll } from '@/utils/api'
+import { url, useDisableBodyScroll } from '@/utils/api'
 import { useCart } from '@/context/cartContext/cartContext'
 
 
@@ -19,7 +19,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
   const [data, setData] = useState()
 
   const fetchCollections = async () => {
-    const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-collection-products/${productId}`
+    const api = `${url}/api/v1/products/get-collection-products/${productId}`
 
     try {
       const response = await axios.get(api)
@@ -138,7 +138,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     mainImage={`${item.image.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
-                    tags={item.product_tag}
+                    tags={item.sale_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
                     colTwo={true}
@@ -156,6 +156,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleAddToCart(item)}
                     handleWishListclick={() => handleWishList(item)}
+                    productTag={item.product_tag}
                   />
                   {/* <ProductCardTwo
                     key={item.slug}
@@ -172,7 +173,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     mainImage={`${item?.image?.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
-                    tags={item.product_tag}
+                    tags={item.sale_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
                     reviewCount={item.average_rating}
@@ -232,7 +233,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     mainImage={`${item.image.image_url}`}
                     productCardContainerClass="product-card"
                     ProductSku={item.sku}
-                    tags={item.product_tag}
+                    tags={item.sale_tag}
                     allow_back_order={item?.allow_back_order}
                     ProductTitle={item.name}
 
@@ -252,6 +253,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     productUid={item.uid}
                     btnText='Add To Cart'
                     handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                    productTag={item.product_tag}
                   />
                 </div>
               )}

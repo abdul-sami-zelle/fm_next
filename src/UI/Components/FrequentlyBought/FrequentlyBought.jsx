@@ -8,7 +8,7 @@ import ProductCardTwo from '../ProductCardTwo/ProductCardTwo';
 import QuickView from '../QuickView/QuickView';
 import { useRouter } from 'next/navigation';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
-import { useDisableBodyScroll } from '@/utils/api';
+import { url, useDisableBodyScroll } from '@/utils/api';
 import { useIsTab } from '@/utils/isMobile';
 
 const FrequentlyBought = ({ isPadding, product }) => {
@@ -21,7 +21,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
             return;
         }
 
-        const api = `https://fmapi.myfurnituremecca.com/api/v1/products/get-related-products`;
+        const api = `${url}/api/v1/products/get-related-products`;
         const payload = {
             categories: product.categories,
             productName: product.name,
@@ -125,7 +125,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                                 mainImage={`${item.image.image_url}`}
                                 productCardContainerClass="product-card"
                                 ProductSku={item.sku}
-                                tags={item.product_tag}
+                                tags={item.sale_tag}
                                 allow_back_order={item?.allow_back_order}
                                 ProductTitle={item.name}
                                 colTwo={true}
@@ -142,6 +142,7 @@ const FrequentlyBought = ({ isPadding, product }) => {
                                 handleCardClick={() => handleProductClick(item)}
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
+                                productTag={item.product_tag}
                             />
                         ))
                     ) : (

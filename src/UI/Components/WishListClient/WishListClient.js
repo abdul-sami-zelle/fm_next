@@ -261,7 +261,7 @@ const WishListClient = () => {
                 mainImage={`${item?.image?.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.product_tag}
+                tags={item.sale_tag}
                 ProductTitle={truncateTitle(item.name, maxLength)}
                 allow_back_order={item?.allow_back_order}
                 reviewCount={item.reviewCount}
@@ -279,6 +279,7 @@ const WishListClient = () => {
                 handleWishListclick={() => handleWishList(item)}
                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                 productUid={item.uid}
+                productTag={item.product_tag}
               />
             );
           })
@@ -310,7 +311,7 @@ const WishListClient = () => {
                 mainImage={`${item?.image?.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.product_tag}
+                tags={item.sale_tag}
                 ProductTitle={truncateTitle(item.name, maxLength)}
                 allow_back_order={item?.allow_back_order}
                 reviewCount={item.reviewCount}
@@ -328,6 +329,7 @@ const WishListClient = () => {
                 handleWishListclick={() => handleWishList(item)}
                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                 colTwo={activeGrid === 'single-col' ? false : true}
+                productTag={item.product_tag}
                 
               />
             );

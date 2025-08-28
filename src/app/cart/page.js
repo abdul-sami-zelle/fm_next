@@ -30,7 +30,7 @@ import { BsInfoCircle } from "react-icons/bs";
 
 
 const Cart = () => {
-  const [isZipUpdateOpen, setIsZipUpdateOpen] = useState(false)
+  const [isZipUpdateOpen, setIsZipUpdateOpen] = useState(true)
   const [isCouponOpen, setIsCouponOpen] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
 
@@ -235,6 +235,41 @@ const Cart = () => {
           <div className='cart-order-summery-inner-section'>
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
             <div className='cart-order-summary-price-details'>
+
+             {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-zip-code'>
+                <span className='cart-order-summary-zip-code-heading'>
+                  {/* <p>Calculated for:</p> */}
+                  {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
+                  <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
+                </span>
+                <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`} style={{display:"inline-flex",flexDirection:"column",alignItems:"start",justifyContent:"start"}}>
+                  <div className='cart-order-summary-zip-code-input-and-button'>
+                    <input
+                      type='text'
+                      placeholder='Zip Code'
+                      className='cart-summary-update-zip-input'
+                      value={zipCode}
+                      onChange={handleInputChange}
+                    />
+                    <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>
+                      {zipLoading && <div className='loader_2' style={{ background: '#FFF' }}></div>}
+                      {zipLoading ? 'Wait..' : 'Update'}
+                    </button>
+                  </div>
+                  <span style={{
+                    lineHeight: "11px",
+                    fontSize: "11px",
+                    fontStyle: "italic",
+                    margin: "4px 0 0 0",
+                    padding: "0",
+                    color: "var(--orange-outline)"
+                  }}>Delivery is charged as per zipcode.</span>
+                </div>
+              </div>}
+
+
+
+
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Subtotal</p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(subTotal0)}</p>
@@ -246,7 +281,7 @@ const Cart = () => {
                 </div>
               )}
               {/* {isCartProtected ? ( */}
-             {cartProducts?.products?.length > 1 && <div className='cart-order-summary-price-detail-single-item'>
+              {cartProducts?.products?.length > 1 && <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title' style={{
                   display: "flex",
                   alignItems: "center",
@@ -266,7 +301,7 @@ const Cart = () => {
               )} */}
               {isProfessionalAssembly ? (
                 <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title ' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>White Glove <BsInfoCircle className='info_icon_cart' onClick={()=>{setShowWhiteGlove(true)}} /></p>
+                  <p className='cart-order-summary-price-detail-single-item-title ' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>White Glove <BsInfoCircle className='info_icon_cart' onClick={() => { setShowWhiteGlove(true) }} /></p>
                   <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(199)}</p>
                 </div>
               ) : (
@@ -275,7 +310,7 @@ const Cart = () => {
 
               {!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? (
                 <div className='cart-order-summary-price-detail-single-item'>
-                  <p className='cart-order-summary-price-detail-single-item-title' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>Furniture Assembly <BsInfoCircle className='info_icon_cart' onClick={()=>{setShowFAssembly(true)}} /></p>
+                  <p className='cart-order-summary-price-detail-single-item-title' style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>Furniture Assembly <BsInfoCircle className='info_icon_cart' onClick={() => { setShowFAssembly(true) }} /></p>
                   <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(furnitureAssemblyValue)}</p>
                 </div>
               ) : (
@@ -286,20 +321,44 @@ const Cart = () => {
               {
 
               }
+
+
+
+
               <div className='cart-order-summary-price-detail-single-item'>
-                <p className='cart-order-summary-price-detail-single-item-title'>{selectedOption?.name}</p>
+                <p className='cart-order-summary-price-detail-single-item-title' style={{ lineHeight: "13px" }}>
+
+                  {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
+                    Delivery Charged
+                    <br />
+                    {/* <span style={{
+                      lineHeight: "10px",
+                      fontSize: "10px",
+                      fontStyle: "italic",
+                      fontWeight: "500",
+                      margin: "0",
+                      padding: "0",
+                      color: "var(--orange-outline)"
+                    }}>Free Delivery Promotion Applied</span> */}
+                  </> :
+                    (selectedOption?.id === 'METHOD-3') ? `${selectedOption?.name}` :
+                      "Delivery Charged"}
+
+                  {/* {selectedOption?.name} */}
+
+                </p>
                 <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
                   {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
-                    <del style={{ fontSize: "10px" }}>${selectedOption?.sale_cost}</del> FREE
+                    <del style={{ opacity: "0.5" }}>{formatedPrice(selectedOption?.sale_cost)}</del> <span style={{ color: "#7C0000", fontWeight: "bolder" }}>FREE</span>
                     <br />
                     <span style={{
-                      lineHeight: "8px",
-                      fontSize: "8px",
+                      lineHeight: "11px",
+                      fontSize: "11px",
                       fontStyle: "italic",
                       margin: "0",
                       padding: "0",
                       color: "var(--orange-outline)"
-                    }}>Free Delivery Promotion Applied</span>
+                    }}>Free Delivery Promotion Applied. <br />Milleage restrictions may apply.</span>
                   </> :
                     (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
                       formatedPrice(selectedOption?.cost)}
@@ -307,34 +366,13 @@ const Cart = () => {
               </div>
               {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Shipping & Handling</p>
-                <p className='cart-order-summary-price-detail-single-item-price'><del style={{ fontSize: "10px" }}>{formatedPrice(shippingHandlingValue)}</del> $0.00</p>
+                <p className='cart-order-summary-price-detail-single-item-price'><del style={{ opacity: "0.5" }}>{formatedPrice(shippingHandlingValue)}</del> $0.00</p>
               </div>}
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal+(!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ?furnitureAssemblyValue:0)), parseFloat(totalTax?.tax_value))) : 0}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal + (!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? furnitureAssemblyValue : 0)), parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
-              <div className='cart-order-summary-zip-code'>
-                <span className='cart-order-summary-zip-code-heading'>
-                  {/* <p>Calculated for:</p> */}
-                  {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
-                  <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
-                </span>
-                <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`}>
-                  <div className='cart-order-summary-zip-code-input-and-button'>
-                    <input
-                      type='text'
-                      placeholder='Zip Code'
-                      className='cart-summary-update-zip-input'
-                      value={zipCode}
-                      onChange={handleInputChange}
-                    />
-                    <button className='cart-summary-update-zip-btn' onClick={async () => { await handleButtonClick(); }}>
-                      {zipLoading && <div className='loader_2' style={{ background: '#FFF' }}></div>}
-                      {zipLoading ? 'Wait..' : 'Update'}
-                    </button>
-                  </div>
-                </div>
-              </div>
+
             </div>
             <div className='cart-order-summary-total'>
               <div className='cart-order-summary-price-detail-single-item-total-container'>
@@ -402,7 +440,7 @@ const Cart = () => {
                         mainImage={`${item.image.image_url}`}
                         productCardContainerClass="product-card"
                         ProductSku={item.sku}
-                        tags={item.product_tag}
+                        tags={item.sale_tag}
                         allow_back_order={item?.allow_back_order}
                         ProductTitle={item.name}
                         reviewCount={item.reviewCount}
@@ -418,6 +456,7 @@ const Cart = () => {
                         handleCardClick={() => handleProductClick(item)}
                         handleQuickView={() => handleQuickViewOpen(item)}
                         handleWishListclick={() => handleWishList(item)}
+                        productTag={item.product_tag}
                       />
                     </div>
                   )}
@@ -565,7 +604,7 @@ const Cart = () => {
         showMessage={showWhiteGlove}
         errorDetail={whiteGloveValue}
         footerMessage={'Wrong Zip Code'}
-        closeModal={()=>{
+        closeModal={() => {
           setShowWhiteGlove(false)
         }}
       />
@@ -574,7 +613,7 @@ const Cart = () => {
         showMessage={showFAssembly}
         errorDetail={fAssemblyValue}
         footerMessage={'Wrong Zip Code'}
-        closeModal={()=>{
+        closeModal={() => {
           setShowFAssembly(false)
         }}
       />

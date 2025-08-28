@@ -73,7 +73,7 @@ const RelatedProducts = ({ data }) => {
                 mainImage={`${item.image.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.product_tag}
+                tags={item.sale_tag}
                 allow_back_order={item?.allow_back_order}
                 ProductTitle={item.name}
                 reviewCount={item.reviewCount}
@@ -91,6 +91,7 @@ const RelatedProducts = ({ data }) => {
                 handleWishListclick={() => handleWishList(item)}
                 productUid={item.uid}
                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                productTag={item.product_tag}
               />
             </div>
           )}

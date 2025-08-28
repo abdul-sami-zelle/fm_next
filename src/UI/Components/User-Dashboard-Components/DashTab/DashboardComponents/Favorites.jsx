@@ -120,7 +120,7 @@ const Favorites = ({ data, setloader }) => {
                 mainImage={`${item.image.image_url}`}
                 productCardContainerClass="product-card"
                 ProductSku={item.sku}
-                tags={item.product_tag}
+                tags={item.sale_tag}
                 ProductTitle={truncateTitle(item.name, maxLength)}
                 colTwo={true}
                 reviewCount={item.reviewCount}
@@ -136,6 +136,7 @@ const Favorites = ({ data, setloader }) => {
                 handleCardClick={() => handleProductClick(item)}
                 handleQuickView={() => handleQuickViewOpen(item)}
                 handleWishListclick={() => handleWishList(item)}
+                productTag={item.product_tag}
               />
             );
           })}

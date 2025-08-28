@@ -407,7 +407,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 mainImage={`${item.image.image_url}`}
                                 productCardContainerClass="product-card"
                                 ProductSku={item.sku}
-                                tags={item.product_tag}
+                                tags={item.sale_tag}
                                 allow_back_order={item?.allow_back_order}
                                 ProductTitle={item.name}
 
@@ -425,6 +425,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
                                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                                productTag={item.product_tag}
                             />
                         ))
                     ) : (
@@ -452,7 +453,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 mainImage={`${item.image.image_url}`}
                                 productCardContainerClass="product-card"
                                 ProductSku={item.sku}
-                                tags={item.product_tag}
+                                tags={item.sale_tag}
                                 allow_back_order={item?.allow_back_order}
                                 ProductTitle={item.name}
 
@@ -470,6 +471,7 @@ export default function FurnitureAtEveryBudgetClient() {
                                 handleQuickView={() => handleQuickViewOpen(item)}
                                 handleWishListclick={() => handleWishList(item)}
                                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                                productTag={item.product_tag}
                             />
                         ))
                     ) : (

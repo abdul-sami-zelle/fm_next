@@ -950,8 +950,8 @@
 }
 
 .cart-order-summary-zip-code-input-div.show-zip-code-update-input {
-    height: 55px;
-    padding: 10px 0;
+    height: 60px;
+    padding: 2px 0;
     visibility: visible;
 }
 

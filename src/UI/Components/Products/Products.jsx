@@ -1236,7 +1236,7 @@ const Products = ({ navigationType }) => {
                                                 mainImage={`${item?.image?.image_url}`}
                                                 productCardContainerClass="product-card"
                                                 ProductSku={item.sku}
-                                                tags={item.product_tag}
+                                                tags={item.sale_tag}
                                                 allow_back_order={item?.allow_back_order}
                                                 ProductTitle={item.name}
                                                 reviewCount={item.average_rating}
@@ -1253,6 +1253,7 @@ const Products = ({ navigationType }) => {
                                                 handleQuickView={() => handleQuickViewOpen(item)}
                                                 handleWishListclick={() => handleWishList(item)}
                                                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                                                productTag={item.product_tag}
                                             />
                                         })
                                     ) : (
@@ -1352,7 +1353,7 @@ const Products = ({ navigationType }) => {
                                         mainImage={`${item?.image?.image_url}`}
                                         productCardContainerClass="product-card"
                                         ProductSku={item.sku}
-                                        tags={item.product_tag}
+                                        tags={item.sale_tag}
                                         allow_back_order={item?.allow_back_order}
                                         ProductTitle={item.name}
                                         reviewCount={item.average_rating}
@@ -1369,6 +1370,7 @@ const Products = ({ navigationType }) => {
                                         handleQuickView={() => handleQuickViewOpen(item)}
                                         handleWishListclick={() => handleWishList(item)}
                                         handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
+                                        productTag={item.product_tag}
                                     />
                                 })
                             )}
