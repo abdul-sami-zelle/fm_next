@@ -45,7 +45,6 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
         router.push("/check-out");
     }
 
-    console.log("cart products" ,cartProducts)
 
     return (
         <div className={`side-cart-main-contianer ${isCartOpen ? 'open-side-cart-overlay' : ''}`} onClick={handleCloseSideCart}>

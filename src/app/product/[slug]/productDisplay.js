@@ -111,7 +111,6 @@ const ProductDisplay = ({ params }) => {
   //   try {
   //     const response = await axios.get(api);
   //     setProduct(response.data.products[0])
-  //     console.log("axios response", response.data.products[0])
   //   } catch (error) {
   //     console.error("UnExpected  Server Error", error);
   //   }
@@ -327,7 +326,6 @@ const ProductDisplay = ({ params }) => {
 
 
 
-  console.log("product main page data", product)
 
   return (
     <>

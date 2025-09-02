@@ -30,7 +30,6 @@ const CartSideSection = (
     const productTotalPrice = sale_price !== "" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
 
 
-    console.log("product data side cart", productData)
     return (
         <div className='cart-side-section-product'>
             <button className='cart-side-section-remove-btn' onClick={handleItemRemove}>

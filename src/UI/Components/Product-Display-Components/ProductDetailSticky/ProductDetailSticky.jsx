@@ -62,7 +62,6 @@ const ProductDetailSticky = (
   }) => {
 
 
-  console.log("productData", productData)
 
 
   const {
@@ -436,7 +435,7 @@ const ProductDetailSticky = (
 
               <div className="sale_banner_product_page">
                 <div className="main_sale_name">
-                  LABOR DAY EXCLUSIVE SALE
+                  LABOR DAY SALE EXTENDED
                 </div>
 
                 <div className="sub_main_sale_name">
@@ -532,7 +531,7 @@ const ProductDetailSticky = (
 
                 <div className="sale_banner_product_page">
                   <div className="main_sale_name">
-                    LABOR DAY EXCLUSIVE SALE
+                    LABOR DAY SALE EXTENDED
                   </div>
 
                   <div className="sub_main_sale_name">

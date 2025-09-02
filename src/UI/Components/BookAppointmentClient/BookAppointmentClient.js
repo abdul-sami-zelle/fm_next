@@ -162,7 +162,7 @@ const BookAppointmentClient = ({ params }) => {
         })
     }
 
-    useEffect(() => {console.log("service type" , appointmentPayload)}, [appointmentPayload])
+    // useEffect(() => {console.log("service type" , appointmentPayload)}, [appointmentPayload])
 
 
     return (

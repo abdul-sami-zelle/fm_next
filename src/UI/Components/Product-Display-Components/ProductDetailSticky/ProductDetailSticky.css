@@ -1268,6 +1268,18 @@
     }
 }
 
+@media only screen and (min-width: 1024px) and (max-width: 1140px) {
+    .main_sale_name {
+        font-size: 14px;
+        line-height: 14px;
+    }
+
+    .sub_main_sale_name {
+        font-size: 11px;
+        line-height: 11px;
+    }
+}
+
 
 @media only screen and (max-width: 767px) {
 

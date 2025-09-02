@@ -46,7 +46,6 @@ import SaleClient from "@/UI/Components/SaleClient/SaleClient";
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
-  // console.log("cat param", slug)
 
   try {
     const res = await fetch(
@@ -63,10 +62,8 @@ export async function generateMetadata({ params }) {
       };
     }
 
-    console.log("res data", res);
 
     const { seoData } = await res.json();
-    console.log("seo data", seoData)
 
     if (!seoData || seoData.length === 0) {
       return {
@@ -128,7 +125,6 @@ export async function generateMetadata({ params }) {
 }
   
   export default function ActiveCategoryPage({ params }) {
-    console.log(" page param", params)
     return <SaleClient slug={params} />
   }
   

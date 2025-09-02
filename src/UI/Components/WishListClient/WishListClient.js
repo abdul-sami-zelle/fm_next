@@ -78,7 +78,6 @@ const WishListClient = () => {
           }
         });
 
-        console.log("user wish list", response)
         if (response.status === 200) {
           setWishlistProducts(response.data.wishlist || []);
         }

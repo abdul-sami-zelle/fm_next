@@ -38,7 +38,6 @@ const CartProducts = ({ handleLocationModal }) => {
 
     
 
-    console.log("isCheck", isCartProtected)
 
     const {
         selectedOption,

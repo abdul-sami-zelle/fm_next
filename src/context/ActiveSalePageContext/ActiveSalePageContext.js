@@ -43,7 +43,6 @@ export const ActiveSalePageProvider = ({ children }) => {
         try {
             setLoading(true);
             const data = await fetchWithRetry(api, options);
-            console.log(data?.data?.categoryData?.slug,"here is datra")
            await fetchProductsByCategory(data?.data?.categoryData?.slug)
             setSalesData(data); // Store the fetched data in state
         } catch (error) {

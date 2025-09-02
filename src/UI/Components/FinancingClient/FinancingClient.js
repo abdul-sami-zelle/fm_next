@@ -25,7 +25,6 @@ const FinancingClient = () => {
         try {
             const response = await axios.get(`${url}/api/v1/pages/financing/get`);
             setFinancingPageData(response.data.financingPage || []);
-            console.log("financing banner", response);
             const uniqueByCategory = (arr) => {
                 const seen = new Set();
                 return arr.filter((item) => {

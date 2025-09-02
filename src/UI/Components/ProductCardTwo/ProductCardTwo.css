@@ -572,7 +572,6 @@
 
 .text-tag {
     padding: 4px 10px;
-    
     font-size: var(--attribute-size);
     font-weight: var(--attribute-weight);
     line-height: var(--attribute-height);
@@ -956,6 +955,10 @@
     .installment-plan-detail {
         font-size: 10px !important;
     }
+
+    /* .text-tag {
+        font-size: 8px;
+    } */
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

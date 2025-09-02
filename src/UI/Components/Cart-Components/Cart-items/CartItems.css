@@ -877,7 +877,7 @@
 
 .desktop-cart-product-image{
     display: flex;
-    width: auto;
+    width: 25%;
     max-width: 200px;
     /* height: 133px; */
     height: 100%;
@@ -891,7 +891,7 @@
 .desktop-cart-containt-section{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 75%;
     align-items: center;
     gap: 15px;
     padding-top: 15px;

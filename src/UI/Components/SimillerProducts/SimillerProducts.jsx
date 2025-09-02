@@ -41,11 +41,9 @@ const SimillerProducts = ({ isPadding, productId }) => {
   }, [productId])
 
   const handleAddToCart = (item) => {
-    // console.log("add to cart item", item)
     const defaultVariation = item.variations.find((itm) => itm.is_default_variation === 1 )
     addToCart0(item, defaultVariation, 0, 1)
 
-    // console.log("def variation", defaultVariation)
   }
 
 
