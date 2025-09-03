@@ -358,7 +358,7 @@ const Cart = () => {
                       margin: "0",
                       padding: "0",
                       color: "var(--orange-outline)"
-                    }}>Free Delivery Promotion Applied. <br />Milleage restrictions may apply.</span>
+                    }}>Free Delivery Promotion Applied. <br />Mileage restrictions may apply.</span>
                   </> :
                     (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
                       formatedPrice(selectedOption?.cost)}

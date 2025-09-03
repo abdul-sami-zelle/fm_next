@@ -145,7 +145,9 @@ const ProductDisplay = ({ params }) => {
   }
 
   const increaseLocalQuantity = () => {
-    setQuantity(quantity + 1);
+    if(quantity < 10) {
+      setQuantity(quantity + 1);
+    }
   }
 
   const handleQuantityChange = (e) => {

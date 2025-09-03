@@ -88,7 +88,9 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
 
 
     const increaseLocalQuantity = () => {
-        setQuantity(quantity + 1);
+        if(quantity < 10) {
+            setQuantity(quantity + 1);
+        }
     }
     const decreaseLocalQuantity = () => {
         if (quantity > 1) {

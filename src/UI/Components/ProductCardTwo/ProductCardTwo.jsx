@@ -476,7 +476,6 @@ const ProductCardTwo = ({
                                         // If No Sale Price
                                         sale_price === "" ?
                                             <h3 className={`product-regular-price  ${colTwo ? 'apply-col-two-styling' : ''}`}>
-                                                colTwo &&
                                                 <p className='regular-price-starting-at'>Starting at</p>
                                                 {formatedPrice(priceTag)}
                                             </h3> :

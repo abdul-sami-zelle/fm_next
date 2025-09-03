@@ -610,7 +610,8 @@ const ProductDetailSticky = (
                     <input
                       type='number'
                       value={quantity}
-                      readOnly={stockCheck}
+                      // readOnly={stockCheck}
+                      readOnly
                       onChange={handleQuantityChange}
                       className={stockCheck ? 'disable-quantity' : ''}
                     />
