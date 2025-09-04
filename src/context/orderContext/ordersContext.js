@@ -364,7 +364,7 @@ export const MyOrdersProvider = ({ children }) => {
             };
 
             const api = `/api/v1/orders/add`;
-            const response = await axios.post(`http://localhost:3010${api}`, updatedPayload);
+            const response = await axios.post(`${url}${api}`, updatedPayload);
 
             if (response.status === 201) {
                 localStorage.removeItem('cart2')
