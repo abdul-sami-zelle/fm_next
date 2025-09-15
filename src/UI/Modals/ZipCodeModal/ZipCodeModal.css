@@ -117,11 +117,13 @@
     border-radius: 4px;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1024px) {
     .nearby-store-set-location-modal {
-        top: 80%;
-        left: 50%;
+        position: fixed;
+        top: 35%;
+        left: 35%;
     }
+    
 }
 
 @media only screen and (max-width: 480px) {
@@ -139,5 +141,7 @@
         height: auto;
         border: 1px solid var(--orange-outline);
         z-index: 9999999999999;
+        top: 80%;
+        left: 50%;
     }
 }

@@ -38,15 +38,15 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
         <div className="animated-border">
           <div className="chatbot-inner">
 
-            {!videoLoaded && (
+            {/* {!videoLoaded && ( */}
               <img
                 className="background-placeholder"
                 src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
                 alt="AI Chatbot Placeholder"
               />
-            )}
+            {/* // )} */}
 
-            <video
+            {/* <video
               className={`background-video ${videoLoaded ? 'visible' : 'hidden'}`}
               ref={videoRef}
               autoPlay
@@ -56,9 +56,8 @@ const StartScreen = ({ onOpen, onChatUsClick, onStartScreenClose, source }) => {
               onEnded={handleVideoEnded}
             >
               <source src={`https://devapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4`} />
-              {/* <source src="/Assets/chat/images/FM-Video-Chat.mp4" type="video/mp4" /> */}
               Your browser does not support the video tag.
-            </video>
+            </video> */}
 
             <div className="ai-label" onClick={toggleMute}>
               {!isMuted ? <HiSpeakerWave size={15} color="#6658f1" /> : <HiSpeakerXMark size={15} color="#6658f1" />}

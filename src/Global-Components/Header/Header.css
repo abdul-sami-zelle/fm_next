@@ -1396,6 +1396,22 @@
     .header-wishlist {
         display: none;
     }
+
+    .nearby-store-set-location-modal {
+        position: unset;
+        width: 280px;
+        background-color: #FFF;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        /* height: 300px; */
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        border: 1px solid var(--orange-outline);
+        z-index: 9999999999999;
+    }
 }
 
 @media only screen and (max-width: 767px) {

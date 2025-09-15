@@ -242,7 +242,15 @@ const ProductCardTwo = ({
                             ) : (
                                 // Other Tags
                                 <div className={`product-tagging`}>
-
+                                    {/* {tags.text === 'FREE DELIVERY' ? (
+                                        <div className='text-tag-free-delivery' style={{ backgroundColor: tags?.bg_color, color: tags?.text_color }} >
+                                        {tags?.text}
+                                    </div>
+                                    ) : (
+                                       <div className='text-tag' style={{ backgroundColor: tags?.bg_color, color: tags?.text_color }} >
+                                        {tags?.text}
+                                    </div> 
+                                    )} */}
                                     <div className='text-tag' style={{ backgroundColor: tags?.bg_color, color: tags?.text_color }} >
                                         {tags?.text}
                                     </div>
@@ -457,7 +465,7 @@ const ProductCardTwo = ({
                     <div className='product-card-content-bottom-section'>
 
                         {/* Monbile View Tag */}
-                        {(colTwo || !showExtraLines) && <div className='text-tag' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px", marginTop: showExtraLines ? "5px" : "10px" }} >
+                        {(colTwo || !showExtraLines) && <div className='text-tag-free-delivery' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px", marginTop: showExtraLines ? "5px" : "10px" }} >
                             {productTag?.text}
                         </div>}
 

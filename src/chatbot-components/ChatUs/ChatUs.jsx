@@ -349,7 +349,15 @@ const ChatUs = ({ onBack, onClose }) => {
       },
       {
         id: prev.length + 2,
-        text: "Thank you for contacting Furniture Mecca. We are currently closed. Please contact us during our normal business hours of Monday-Sunday 8am-6pm. For immediate assistance, please contact your local Furniture Mecca showroom.",
+        text: (<>
+            I’m sorry, I don’t have the information you’re looking for right now. 
+      Please reach out to our Customer Care team at{" "}
+      <a href="mailto:meccacustomercare@gmail.com">
+        meccacustomercare@gmail.com
+      </a>
+      , and they’ll be happy to assist you further.
+        </>),
+        // `I’m sorry, I don’t have the information you’re looking for right now. Please reach out to our Customer Care team at ${<a href="mailto:meccacustomercare@gmail.com">meccacustomercare@gmail.com</a>} , and they’ll be happy to assist you further.`,
         sender: "bot",
         timestamp: new Date(),
       },

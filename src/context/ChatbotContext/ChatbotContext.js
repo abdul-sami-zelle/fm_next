@@ -55,10 +55,10 @@ export const ChatOpenProvider = ({children}) => {
       };
     
       useEffect(() => {
-        if (!isMobile) {
-          setStartScreenClosed(false);
-          return;
-        }
+        // if (!isMobile) {
+        //   setStartScreenClosed(false);
+        //   return;
+        // }
     
         // clearTimers();
         // initialTimerRef.current = setTimeout(() => {
@@ -102,8 +102,8 @@ export const ChatOpenProvider = ({children}) => {
         clearTimers();
         setIsTransitioning(true);
         setTimeout(() => {
-          setStartScreenClosed(true);
-          setIsTransitioning(false);
+          // setStartScreenClosed(true);
+          // setIsTransitioning(false);
         }, 300);
       };
     

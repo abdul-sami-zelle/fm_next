@@ -435,12 +435,12 @@ const ProductDetailSticky = (
 
               <div className="sale_banner_product_page">
                 <div className="main_sale_name">
-                  LABOR DAY SALE EXTENDED
-                </div>
-
-                <div className="sub_main_sale_name">
                   FREE DELIVERY ON ORDERS ABOVE $500
                 </div>
+
+                {/* <div className="sub_main_sale_name">
+                  FREE DELIVERY ON ORDERS ABOVE $500
+                </div> */}
 
                 <div className="sale_banner_restr">
                   MILEAGE RESTRICTIONS MAY APPLY.
@@ -531,12 +531,12 @@ const ProductDetailSticky = (
 
                 <div className="sale_banner_product_page">
                   <div className="main_sale_name">
-                    LABOR DAY SALE EXTENDED
-                  </div>
-
-                  <div className="sub_main_sale_name">
                     FREE DELIVERY ON ORDERS ABOVE $500
                   </div>
+
+                  {/* <div className="sub_main_sale_name">
+                    FREE DELIVERY ON ORDERS ABOVE $500
+                  </div> */}
 
                   <div className="sale_banner_restr">
                     MILEAGE RESTRICTIONS MAY APPLY.

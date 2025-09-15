@@ -1206,9 +1206,12 @@
     background-color: #ca0810;
     color: white;
     padding: 7px 9px;
-    font-size: 21px;
-    font-weight: bolder;
-    line-height: 21px;
+    /* font-size: 21px; */
+    /* font-weight: bolder; */
+    /* line-height: 21px; */
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
     border-radius: 3px;
     display: flex;
     align-items: center;
@@ -1225,7 +1228,7 @@
 }
 
 .sale_banner_restr {
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
     line-height: 14px;
     font-weight: 500;

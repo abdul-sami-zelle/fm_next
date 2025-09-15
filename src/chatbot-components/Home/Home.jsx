@@ -61,7 +61,7 @@ const Home = () => {
             : "fade-in"
           }`}
       >
-        {!startScreenClosed &&
+        {/* {!startScreenClosed &&
           !isOpen &&
           !showChatUsOnly &&
           !showOfflineScreen &&
@@ -73,7 +73,7 @@ const Home = () => {
               onStartScreenClose={handleStartScreenClose}
             />
           ) 
-          }
+          } */}
 
         {startScreenClosed &&
           !isOpen &&

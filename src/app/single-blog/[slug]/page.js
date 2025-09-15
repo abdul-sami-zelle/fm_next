@@ -96,7 +96,7 @@ const SingleBlog = () => {
                 <h3 className='single-blog-main-heading'>Exciting Blogs Created by <span> Furniture Mecca </span></h3>
                 <h3 className='mobile-view-single-blog-main-heading'>Exciting Blogs</h3>
             </div>
-            <BlogHead blogCategories={blogCategories} />
+            {/* <BlogHead blogCategories={blogCategories} /> */}
 
             <div className='single-blog-content-section'>
 
