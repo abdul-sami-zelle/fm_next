@@ -1,7 +1,7 @@
 'use client'
 
 // export default Categories
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css';
 import './CategoryClient.css';
@@ -17,6 +17,8 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { fetcher } from '@/utils/Fetcher';
 import useSWR, { mutate } from 'swr';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
 
 const CategoriesClient = ({ category }) => {
 
@@ -99,9 +101,11 @@ const CategoriesClient = ({ category }) => {
   };
 
 
+  const {showDeliveryMessage} = useGlobalContext();
+  const categoryRef = useRef()
 
   return (
-    <React.Fragment>
+    <div ref={categoryRef}>
       <LatestModulerBanner
         customWidth={false}
         showBanners={false}
@@ -124,7 +128,11 @@ const CategoriesClient = ({ category }) => {
       )}
 
       <CategoriesGetScop text={paragraph} contentImages={contentImages} isTrue={true} />
-    </React.Fragment>
+
+      {showDeliveryMessage && (
+        <DisableDelivery parentRef={categoryRef} />
+      )}
+    </div>
   )
 }
 

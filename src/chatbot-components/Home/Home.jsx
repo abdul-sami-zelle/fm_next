@@ -9,6 +9,7 @@ import OnlineChatUs from "../OnlineChatUs/OnlineChatUs";
 import ConversationList from "../ConversationList/ConversationList";
 import { useChatOpenContext } from "@/context/ChatbotContext/ChatbotContext";
 import { usePathname } from "next/navigation";
+import { useGlobalContext } from "@/context/GlobalContext/globalContext";
 
 const Home = () => {
 
@@ -49,10 +50,11 @@ const Home = () => {
 
   const pathname = usePathname();
   const confirmationOrderPage = pathname.startsWith('/order-confirmation')
+  const {showDeliveryMessage} = useGlobalContext()
 
 
   return (
-    <div className={`home-container ${isBottom && !confirmationOrderPage ? 'take-chat-home-to-up' : ''}`}>
+    <div className={`home-container ${isBottom && !confirmationOrderPage ? 'take-chat-home-to-up' : showDeliveryMessage ? 'take-chat-home-top-on-message-contianer' : ''}`}>
       <div
         className={`fade-wrapper ${isTransitioning
           ? "fade-out slide-down"

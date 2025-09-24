@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useImperativeHandle, ref, forwardRef, useRef } from 'react'
 import './CreditCard.css'
 import { useMyOrders } from '@/context/orderContext/ordersContext';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 // import masterCard from '../../../../Assets/icons/mastercard-1.png';
 // import visaCard from '../../../../Assets/icons/visa-1.png'
@@ -50,14 +51,7 @@ const CreditCard = () => {
 
     }, [activePaymentMethods])
 
-
-
-    // const [error, setError] = useState({
-    //     card_holder_name: '',
-    //     card_number: '',
-    //     expiry_date: '',
-    //     sec_code: '',
-    // })
+    const {isDeliveryAllowed} = useGlobalContext();
 
     return (
         <div className='credit-card-type-main-container'>
@@ -70,7 +64,8 @@ const CreditCard = () => {
             <div className='credit-card-type-body'>
                 <div className='credit-card-inputs'>
 
-                    <div onClick={() => nameRef.current?.focus()} className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""} ${error.card_holder_name ? "error-border" : ""}`}>
+                    <div onClick={() => {isDeliveryAllowed ? undefined : nameRef.current?.focus()}} className={`delivery-input-container ${focusedField === 'card_holder_name' || creditCardData.card_holder_name ? "focused" : ""} ${error.card_holder_name ? "error-border" : ""}`}>
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label className="floating-label">
                             {error.card_holder_name ? <span className='error-message'>{error.card_holder_name}</span> : 'Card holder Name'}
                         </label>
@@ -80,8 +75,10 @@ const CreditCard = () => {
                             onFocus={() => setFocusedField("card_holder_name")}
                             onBlur={() => setFocusedField("")}
                             name='card_holder_name'
+                            readOnly={isDeliveryAllowed}
                             value={creditCardData.card_holder_name}
                             onChange={(e) => {
+                                if(isDeliveryAllowed) return
                                 const { value } = e.target;
                                 setCreditCardData((prevData) => ({
                                     ...prevData,
@@ -93,6 +90,7 @@ const CreditCard = () => {
                     </div>
 
                     <div className={`delivery-input-container ${focusedField === 'card_number' || creditCardData.card_number ? "focused" : ""} ${error.card_number ? "error-border" : ""}`}>
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label className="floating-label">
                             {error.card_number ? <span className='error-message'>{error.card_number}</span> : 'Card Number'}
                         </label>
@@ -101,11 +99,13 @@ const CreditCard = () => {
                             className="input-field-email"
                             onFocus={() => setFocusedField("card_number")}
                             onBlur={() => setFocusedField("")}
+                            readOnly={isDeliveryAllowed}
                             // onChange={handleDeliveryInfo}
                             name='card_number'
                             value={creditCardData.card_number}
 
                             onChange={(e) => {
+                                if(isDeliveryAllowed) return
                                 let { value } = e.target;
                                 value = value.replace(/\D/g, ''); // Remove all non-digit characters
                                 if (value.length > 16) {
@@ -136,6 +136,7 @@ const CreditCard = () => {
                 <div className='credit-card-expiry-and-code-inputs'>
 
                     <div className={`delivery-input-container ${focusedField === 'expiry_date' || creditCardData.expiry_date ? "focused" : ""} ${error.expiry_date ? "error-border" : ""}`}>
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label className="floating-label">
                             {error.expiry_date ? <span className='error-message'>{error.expiry_date}</span> : 'Expiry Date'}
                         </label>
@@ -146,9 +147,11 @@ const CreditCard = () => {
                             onBlur={() => setFocusedField("")}
                             // onChange={handleDeliveryInfo}
                             name='expiry_date'
+                            readOnly={isDeliveryAllowed}
                             value={creditCardData.expiry_date}
 
                             onChange={(e) => {
+                                if(isDeliveryAllowed) return
                                 let { value } = e.target;
                                 value = value.replace(/[^0-9/]/g, '');
                                 if (value.length === 2 && !value.includes('/')) {
@@ -173,6 +176,7 @@ const CreditCard = () => {
                     </div>
 
                     <div className={`delivery-input-container ${focusedField === 'sec_code' || creditCardData.sec_code ? "focused" : ""} ${error.sec_code? "error-border" : ""}`}>
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label className="floating-label">
                             {error.sec_code ? <span className='error-message'>{error.sec_code}</span> : 'CVV'}
                         </label>
@@ -183,9 +187,11 @@ const CreditCard = () => {
                             onBlur={() => setFocusedField("")}
                             // onChange={handleDeliveryInfo}
                             name='sec_code'
+                            readOnly={isDeliveryAllowed}
                             value={creditCardData.sec_code}
 
                             onChange={(e) => {
+                                if(isDeliveryAllowed) return
                                 let { value } = e.target;
                                 value = value.replace(/\D/g, '');
                                 if (value.length > 4) {

@@ -29,6 +29,8 @@ const ProductStickyTabBar = (
 
     const isMobile = useIsMobile()
 
+    const {isDeliveryAllowed, info} = useGlobalContext()
+
 
 
     const tabBarItems = [
@@ -51,7 +53,7 @@ const ProductStickyTabBar = (
     const [activeTab, setIsActiveTab] = useState('DesignYourRoom');
     const [searchLocation, setSearchLocation] = useState(false);
 
-    const { info } = useGlobalContext();
+    // const { info } = useGlobalContext();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -183,8 +185,8 @@ const ProductStickyTabBar = (
                                 )}
                             </div>
                             <button
-                                disabled={stockCheck}
-                                className={stockCheck ? 'disable-sticky-add-to-cart' : ''}
+                                disabled={stockCheck || isDeliveryAllowed}
+                                className={stockCheck || isDeliveryAllowed ? 'disable-sticky-add-to-cart' : ''}
                                 onClick={() => {
                                     addToCart0(productData, variationData, !isProtectionCheck ? 1 : 0, quantity)
                                     handleAddToCartProduct(productData);

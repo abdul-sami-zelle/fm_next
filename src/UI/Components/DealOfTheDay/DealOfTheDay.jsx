@@ -14,6 +14,7 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider';
 import { useIsTab } from '@/utils/isMobile';
+import { useCart } from '@/context/cartContext/cartContext';
 
 const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, }) => {
 
@@ -176,6 +177,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedUid(items.uid);
   }
 
+  const {addToCart0} = useCart()
+
   const isTab = useIsTab()
 
 
@@ -227,6 +230,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
                   price={items.regular_price}
                   newPrice={items.newPrice}
                   descount={items.disc}
+                  // handleCartSection={addToCart0(items, 0, 1)}
                   dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
                   handleDealCardClick={() => handleDealCardClick(items)}
                   handleWishListClick={() => handleWishList(items)}

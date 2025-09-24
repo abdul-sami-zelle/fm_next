@@ -5,22 +5,13 @@ import Link from 'next/link';
 import { useCart } from '@/context/cartContext/cartContext';
 
 // Assets
-// import minusBtn from '../../../../Assets/icons/minus-white.png';
-// import plusBtn from '../../../../Assets/icons/plus-white.png';
-// import closeBtn from '../../../../Assets/icons/close-btn.png';
-// import plusCharcol from '../../../../Assets/icons/plus.png';
-// import minusCharcol from '../../../../Assets/icons/minus.png'
-// import crossBtn from '../../../../Assets/icons/Mask group (1).png'
-// import rotatedArrow from '../../../../Assets/icons/arrow-rotate-white.png';
-// import guardIcon from '../../../../Assets/icons/guard-icon.png';
-// import { IoInformationCircle } from "react-icons/io5";
-// import check from "../../../../Assets/check.png";
 import { useList } from '@/context/wishListContext/wishListContext';
 import { FaArrowsRotate } from "react-icons/fa6";
 import ToggleSwitch from '../../../../Global-Components/ToggleSwitch/ToggleSwitch';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { IoIosClose } from "react-icons/io";
 import Image from 'next/image';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const CartItems = ({
     cartProductName,
@@ -51,6 +42,8 @@ const CartItems = ({
         isCartProtected,
         cartProducts,
     } = useCart()
+
+    const {isDeliveryAllowed} = useGlobalContext()
 
     const [saveForLeter, setSaveForLeter] = useState(false)
 
@@ -95,43 +88,7 @@ const CartItems = ({
     return (
         <>
 
-            {/* <div className='cart-product'>
-
-                <button className='mobile-cart-remove-btn' onClick={() => handleRomoveProduct(cartIndex)}>
-                    <IoIosClose color='var(--text-rgay)' size={20} />
-                </button>
-
-                <div className='cart-item-name'>
-                    <h3>{cartProductName}</h3>
-                </div>
-
-                <div className='cart-product-containt'>
-
-                    <div className='cart-item-image'>
-                        <img src={`${url}${cartPRoductImage}`} alt='product image' />
-                    </div>
-
-                    <div className='cart-product-details'>
-                        <p>SKU: {productData?.sku}</p>
-                        <p>{cartProductColor}</p>
-                        <p>{cartProductTitle}</p>
-                        <div className='price-and-count'>
-                            <div className='product-count'>
-                                <button onClick={handleDecreament}>
-                                    <img src={'/Assets/icons/minus-white.png'} alt='minus' />
-                                </button>
-                                <p>{quantity}</p>
-                                <button onClick={handleIncreament}>
-                                    <img src={'/Assets/icons/plus-white.png'} alt='plus' />
-                                </button>
-                            </div>
-                        </div>
-                        <div className='cart-item-actual-price'>
-                            <p>{productTotalPrice}</p>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
+            
 
             {/* Desktop view Card */}
             <div className={`desktop-cart-product`} style={{ borderBottom: totalProducts > 1 ? '1px solid #d7d7d7' : 'none' }} >
@@ -181,11 +138,11 @@ const CartItems = ({
                         <div className={`desktop-total-price-and-remove-item ${isCartOpen ? 'hide-total-and-remove-item' : ''}`}>
 
                             <div className='desktop-quantity'>
-                                <button className='cart-minus-button' onClick={handleDecreament}>
+                                <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1 , cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}} className='cart-minus-button' onClick={handleDecreament}>
                                     <FaMinus className='cart-minus-icon' size={15} color='#595959' />
                                 </button>
                                 <p className='cart-product-quantity'>{quantity}</p>
-                                <button className='cart-plus-button' onClick={handleIncreament}>
+                                <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1 , cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}} className='cart-plus-button' onClick={handleIncreament}>
                                     <FaPlus className='cart-plus-icon' size={15} color='#595959' />
                                 </button>
                             </div>
@@ -203,11 +160,11 @@ const CartItems = ({
 
                         <div className={isCartOpen ? 'cart-open-quantity-and-total-price' : 'cart-close-quantity-and-total-price'}>
                             <div className='desktop-quantity'>
-                                <button className='cart-minus-button' onClick={handleDecreament}>
+                                <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1 , cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}} className='cart-minus-button' onClick={handleDecreament}>
                                     <FaMinus className='cart-minus-icon' size={15} color='#595959' />
                                 </button>
                                 <p>{quantity}</p>
-                                <button className='cart-plus-button' onClick={handleIncreament}>
+                                <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1 , cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}} className='cart-plus-button' onClick={handleIncreament}>
                                     <FaPlus className='cart-plus-icon' size={15} color='#595959' />
                                 </button>
                             </div>
@@ -216,6 +173,7 @@ const CartItems = ({
                     </div>
                     <div className='desktop-cart-product-content-section-two'>
                         <div className='desktop-card-protection-div'>
+                            {isDeliveryAllowed && <div className='protect-single-product-overlay'></div>}
                             <div className='guard-and-heading'>
                                 <Image effect='blur' src={'/Assets/icons/guard-icon.png'} width={50} height={50} alt='guard' className='protection-guard-icon' />
                                 <div className='guard-title-and-details'>
@@ -243,10 +201,14 @@ const CartItems = ({
                             </div>
                                 : <div className='protection-btns-accept-and-cancel'>
 
+                                    
+
                                     <ToggleSwitch
                                         id={`protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
                                         checked={isProtectionClicked === 'yes-protect'}
+                                        disabled={isDeliveryAllowed}
                                         onChange={() => {
+                                            if(isDeliveryAllowed) return;
                                             if (isProtectionClicked === 'yes-protect') {
                                                 handleProtectOrNotButtonClicked('no-thanks');
                                                 removeProtection();

@@ -10,6 +10,10 @@
   bottom: 6%;
 }
 
+.home-container.take-chat-home-top-on-message-contianer {
+  bottom: 8%;
+}
+
 .fade-wrapper {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }

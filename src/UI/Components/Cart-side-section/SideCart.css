@@ -163,6 +163,15 @@
     gap: 10px;
 }
 
+.proffesional-assembly-disable-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: not-allowed;
+    z-index: 999;
+}
+
 .side-cart-sub-total-contianer {
     display: flex;
     width: 100%;
@@ -214,6 +223,11 @@
     color: #FFF;
 }
 
+.side-cart-navigate-to-cart.disable-cart-button {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .side-cart-navigate-to-checkout {
     display: flex;
     align-items: center;
@@ -234,6 +248,11 @@
 .side-cart-navigate-to-checkout:hover {
     background-color: #595959;
     color: #FFF;
+}
+
+.side-cart-navigate-to-checkout.disable-checkout-button {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .side-cart-loader_overlay {

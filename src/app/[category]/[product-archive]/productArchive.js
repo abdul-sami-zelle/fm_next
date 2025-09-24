@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './ProductArchive.css';
 
 // Components
@@ -14,6 +14,8 @@ import RelatedProducts from '@/UI/Components/RelatedProducts/RelatedProducts';
 import { url } from '@/utils/api';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 import { useCart } from '@/context/cartContext/cartContext';
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const ProductArchive = () => {
 
@@ -67,9 +69,12 @@ const ProductArchive = () => {
     setCartSection(false)
   }
 
+  const {showDeliveryMessage} = useGlobalContext();
+  const productArchiveRef = useRef()
+
 
   return (
-    <div>
+    <div ref={productArchiveRef}>
       <Products
         navigationType={navigationType}
       />
@@ -92,6 +97,10 @@ const ProductArchive = () => {
         isCartOpen={cartSection}
         handleCloseSideCart={handleCartSectionClose}
       />
+
+      {showDeliveryMessage && (
+        <DisableDelivery parentRef={productArchiveRef} />
+      )}
     </div>
   )
 }

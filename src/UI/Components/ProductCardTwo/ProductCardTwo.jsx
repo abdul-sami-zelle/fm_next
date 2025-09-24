@@ -21,6 +21,7 @@ import Link from 'next/link';
 // Api's And Context
 import { formatedPrice, getAdjustedPrice, url } from '../../../utils/api';
 import { useList } from '../../../context/wishListContext/wishListContext';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 
 const ProductCardTwo = ({
@@ -43,12 +44,14 @@ const ProductCardTwo = ({
     showExtraLines,
     titleHeight,
     btnText = 'Quick View',
+    isQuickView = false,
     productTag
 }) => {
 
 
 
     const [isImageLoaded, setImageLoaded] = useState(false);
+    const {isDeliveryAllowed} = useGlobalContext();
 
     // Product Main Image Show And Hover Image Show states
     const [hoveredImage, setHoveredImage] = useState()
@@ -535,7 +538,7 @@ const ProductCardTwo = ({
                                     <h3 className={`get-by-delivery ${colTwo ? 'apply-col-two-styling' : ''}`}>{getDeliveryDate()}</h3>
                                 </span>
 
-                                <button className={`card-two-quick-view-button ${colTwo ? 'apply-col-two-styling' : ''}`}
+                                <button disabled={isQuickView} style={{opacity: isQuickView ? 0.4 : 1 , cursor: isQuickView ? 'not-allowed' : 'pointer'}} className={`card-two-quick-view-button ${colTwo ? 'apply-col-two-styling' : ''}`}
                                     onClick={(e) => {
                                         e.stopPropagation();      // stop event bubbling to <Link>
                                         e.preventDefault();

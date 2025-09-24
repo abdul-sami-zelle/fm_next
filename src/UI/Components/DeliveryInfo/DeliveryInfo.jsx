@@ -15,6 +15,7 @@ import LocationPopUp from '../LocationPopUp/LocationPopUp';
 const DeliveryInfo = forwardRef((props, ref) => {
 
 
+    const {isDeliveryAllowed} = useGlobalContext();
     const navigate = useRouter()
     const signupEmailRef = useRef(null)
     const firstNameRef = useRef(null)
@@ -138,50 +139,53 @@ const DeliveryInfo = forwardRef((props, ref) => {
         <div className='delivery-form-main-container'>
 
 
-            <div className='shipping-methods-checkout-main-contianer'>
+            {selectedShippingMethods && (
+                <div className='shipping-methods-checkout-main-contianer'>
 
-                <h3 className='choose-delivery-checkout-heading'>Choose Delivery Options</h3>
-                <div className='checkout-page-shipping-method-inner-container'>
+                    <h3 className='choose-delivery-checkout-heading'>Choose Delivery Options</h3>
+                    <div className='checkout-page-shipping-method-inner-container'>
 
-                    {selectedShippingMethods &&
-                        selectedShippingMethods?.map((option, index) => (
-                            <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
-                                {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+                        {selectedShippingMethods &&
+                            selectedShippingMethods?.map((option, index) => (
+                                <div className='cart-delivary-card' onClick={() => handleChange(null, option)}>
 
-                                <div className='cart-protection-plan-details-container'>
-                                    <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                    {index === 0 ? <LiaShippingFastSolid color='var(--text-charcol)' className='cart-protection-card-icon' /> : <BsShop color='var(--text-charcol)' className='cart-protection-card-icon' />}
+
+                                    <div className='cart-protection-plan-details-container'>
+                                        <p className='cart-protection-plan-card-header'>{option.name}</p>
+                                    </div>
+                                    <div className='cart-protection-radio-container'>
+                                        <label
+                                            key={option.id}
+                                            className="custom-radio"
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "flex-start",
+                                                flexDirection: "row",
+                                                justifyContent: "flex-start",
+                                                // margin: "5px 0",
+                                                gap: "10px",
+                                            }}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="options"
+                                                value={option.id}
+                                                checked={selectedOption?.id === option.id}
+                                                readOnly
+                                                onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+
+                                            />
+                                            <span className="radio-mark" />
+                                        </label>
+
+                                    </div>
                                 </div>
-                                <div className='cart-protection-radio-container'>
-                                    <label
-                                        key={option.id}
-                                        className="custom-radio"
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "flex-start",
-                                            flexDirection: "row",
-                                            justifyContent: "flex-start",
-                                            // margin: "5px 0",
-                                            gap: "10px",
-                                        }}
-                                    >
-                                        <input
-                                            type="radio"
-                                            name="options"
-                                            value={option.id}
-                                            checked={selectedOption?.id === option.id}
-                                            readOnly
-                                            onChange={(e) => handleChange(e, option, index)} // Pass the `option` object
+                            ))}
+                    </div>
 
-                                        />
-                                        <span className="radio-mark" />
-                                    </label>
-
-                                </div>
-                            </div>
-                        ))}
                 </div>
-
-            </div>
+            )}
 
 
 
@@ -193,10 +197,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 <h3>Your Information</h3>
 
                 <div
-                    onClick={() => emailRef.current?.focus()}
+                    onClick={() => {isDeliveryAllowed ? undefined : emailRef.current?.focus()}}
                     style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
                     className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
                 >
+                    {isDeliveryAllowed && <div className='input-overlay'></div>}
                     <label
                         className="floating-label"
                     >
@@ -205,6 +210,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     <input
                         type="text"
                         ref={emailRef}
+                        readOnly={isDeliveryAllowed}
                         className="input-field-email"
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField("")}
@@ -229,8 +235,9 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     <div
                         className={`delivery-input-container ${focusedField === 'first_name' || orderPayload.billing?.first_name ? "focused" : ""}`}
                         style={{ border: error.first_name ? '1px solid var(--orange-outline)' : '' }}
-                        onClick={() => firstNameRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : firstNameRef.current?.focus()}}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -250,10 +257,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     </div>
 
                     <div
-                        onClick={() => lastNameRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : lastNameRef.current?.focus()}}
                         style={{ border: error.last_name ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'last_name' || orderPayload.billing?.last_name ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -277,10 +285,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                     <div
-                        onClick={() => phoneRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : phoneRef.current?.focus()}}
                         style={{ border: error.phone ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-phone ${focusedField === 'phone' || orderPayload.billing?.phone ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -301,10 +310,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                     <div
-                        onClick={() => altPhoneRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : altPhoneRef.current?.focus()}}
                         style={{ border: error.alt_phone ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-phone ${focusedField === 'alt_phone' || orderPayload.billing?.alt_phone ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -327,10 +337,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                 <div
-                    onClick={() => addressOneRef.current?.focus()}
+                    onClick={() => {isDeliveryAllowed ? undefined : addressOneRef.current?.focus()}}
                     style={{ border: error.address_1 ? '1px solid var(--orange-outline)' : '' }}
                     className={`delivery-input-container ${focusedField === 'address_1' || orderPayload.billing?.address_1 ? "focused" : ""}`}
                 >
+                    {isDeliveryAllowed && <div className='input-overlay'></div>}
                     <label
                         className="floating-label"
                     >
@@ -349,9 +360,10 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 </div>
 
                 <div
-                    onClick={() => addressTwoRef.current?.focus()}
+                    onClick={() => {isDeliveryAllowed ? undefined : addressTwoRef.current?.focus()}}
                     className={`delivery-input-container ${focusedField === 'address2' || orderPayload.billing?.address2 ? "focused" : ""}`}
                 >
+                    {isDeliveryAllowed && <div className='input-overlay'></div>}
                     <label className="floating-label">Apt, Suite, Building, (Optional)</label>
                     <input
                         type="text"
@@ -367,10 +379,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div className='delivery-options-city-and-state'>
                     <div
-                        onClick={() => postalCodeRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : postalCodeRef.current?.focus()}}
                         style={{ border: error.postal_code ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-postal-code ${focusedField === 'postal_code' || orderPayload.billing?.postal_code ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -395,10 +408,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                     <div
-                        onClick={() => stateRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : stateRef.current?.focus()}}
                         style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'state' || orderPayload.billing?.state ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >
@@ -419,10 +433,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
 
                     <div
-                        onClick={() => cityRef.current?.focus()}
+                        onClick={() => {isDeliveryAllowed ? undefined : cityRef.current?.focus()}}
                         style={{ border: error.city ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'city' || orderPayload.billing?.city ? "focused" : ""}`}
                     >
+                        {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
                             className="floating-label"
                         >

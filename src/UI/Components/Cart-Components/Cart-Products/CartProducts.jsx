@@ -43,7 +43,8 @@ const CartProducts = ({ handleLocationModal }) => {
         selectedOption,
         handleChange,
         selectedShippingMethods,
-        info
+        info,
+        isDeliveryAllowed,
     } = useGlobalContext();
 
 
@@ -131,8 +132,8 @@ const CartProducts = ({ handleLocationModal }) => {
                         {cartProducts.products?.length > 0 && (
                             <div className='cart-protect-or-not-container'>
 
-                                <div className='cart-protect-card' onClick={cartProducts?.products?.length > 1 ? handleCartProtected : undefined}>
-                                    {cartProducts?.products?.length === 1 && <div className='protect-entire-cart-disable-overlay'></div>}
+                                <div className='cart-protect-card' onClick={isDeliveryAllowed ? undefined : cartProducts?.products?.length > 1 ? handleCartProtected : undefined}>
+                                    {cartProducts?.products?.length === 1 || isDeliveryAllowed && <div className='protect-entire-cart-disable-overlay'></div>}
                                     <img src={'/Assets/icons/guard-icon.png'} alt='guard icon' className='cart-protection-card-icon' />
                                     <div className='cart-protection-plan-details-container'>
                                         <p className='cart-protection-plan-card-header'>Add Premium Protection to Cart</p>
@@ -149,8 +150,8 @@ const CartProducts = ({ handleLocationModal }) => {
                                     </div>
                                 </div>
 
-                                <div className='cart-protect-card' onClick={selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse}>
-                                    {selectedOption?.id === 'METHOD-3' && <div className='professional-assembly-disable'></div>}
+                                <div className='cart-protect-card' onClick={isDeliveryAllowed ? undefined : selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse}>
+                                    {selectedOption?.id === 'METHOD-3' || isDeliveryAllowed && <div className='professional-assembly-disable'></div>}
                                     <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
 
                                     <div className='cart-protection-plan-details-container'>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Cart.css'
 import CartMainImage from '@/UI/Components/Cart-Components/CartMainImage/CartMainImage';
 import CartProducts from '@/UI/Components/Cart-Components/Cart-Products/CartProducts';
@@ -24,6 +24,7 @@ import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 import MiniToggleSwitch from '@/Global-Components/MiniToggler/miniToggler';
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { BsInfoCircle } from "react-icons/bs";
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
 
 
 
@@ -57,7 +58,8 @@ const Cart = () => {
     showFAssembly,
     setShowFAssembly,
     fAssemblyValue,
-    setFAssemblyValue
+    setFAssemblyValue,
+    isDeliveryAllowed,
   } = useGlobalContext();
 
 
@@ -222,10 +224,13 @@ const Cart = () => {
     setCartSection(false)
   }
 
+  const {showDeliveryMessage} = useGlobalContext()
+  const cartMainRef = useRef(null);
+  
 
 
   return (
-    <div className='cart-main-container'>
+    <div ref={cartMainRef}  className='cart-main-container'>
       {/* <CartMainImage /> */}
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
@@ -236,13 +241,13 @@ const Cart = () => {
             <h3 className='cart-order-summary-heading'>Order Summary</h3>
             <div className='cart-order-summary-price-details'>
 
-             {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-zip-code'>
+              {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-zip-code'>
                 <span className='cart-order-summary-zip-code-heading'>
                   {/* <p>Calculated for:</p> */}
                   {/* <h3 onClick={handleZipInput}>{info?.locationData?.state} {info?.locationData?.stateCode} <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={20} /> </h3> */}
                   <h3 onClick={handleZipInput}>Zip Code <IoIosArrowDown className={`cart-order-summary-zip-arrow ${isZipUpdateOpen ? 'cart-order-summary-zip-arrow-rotate' : ''}`} size={15} /> </h3>
                 </span>
-                <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`} style={{display:"inline-flex",flexDirection:"column",alignItems:"start",justifyContent:"start"}}>
+                <div className={`cart-order-summary-zip-code-input-div ${isZipUpdateOpen ? 'show-zip-code-update-input' : ''}`} style={{ display: "inline-flex", flexDirection: "column", alignItems: "start", justifyContent: "start" }}>
                   <div className='cart-order-summary-zip-code-input-and-button'>
                     <input
                       type='text'
@@ -290,8 +295,8 @@ const Cart = () => {
                   {/* Protect Entire Order */}
                   Premium Protection Plan
                   <span>
-                    <MiniToggleSwitch checked={isCartProtected}
-                      onChange={cartProducts?.products?.length > 1 ? handleCartProtected : undefined} />
+                    <MiniToggleSwitch checked={isDeliveryAllowed ? false : isCartProtected} isDeliveryAllowed={isDeliveryAllowed}
+                      onChange={isDeliveryAllowed ? undefined : cartProducts?.products?.length > 1 ? handleCartProtected : undefined} />
                   </span>
                 </p>
                 <p className='cart-order-summary-price-detail-single-item-price'>{isCartProtected ? formatedPrice(199) : "$0.00"}</p>
@@ -391,6 +396,8 @@ const Cart = () => {
             </div>
             <button
               onClick={navigateToCheckout}
+              disabled={isDeliveryAllowed}
+              style={{ opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer' }}
               className='cart-summary-proceed-btn'>
               Proceed to Checkout
             </button>
@@ -404,7 +411,7 @@ const Cart = () => {
             </div>
             <div className='financing-months-range-container'>
               <h3 className='financing-month-range-heading'>${getAdjustedPrice(subTotal0)}/week for 12 months</h3>
-              <button className='financing-month-range-apply-button' onClick={handleOpenFinancingModal}>
+              <button disabled={isDeliveryAllowed} style={{ opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer' }} className='financing-month-range-apply-button' onClick={handleOpenFinancingModal}>
                 Apply for Financing
               </button>
               <h3 className='financing-month-range-heading'>Cart will be shared with our home furnishing consultant.</h3>
@@ -560,10 +567,29 @@ const Cart = () => {
           <p className='mobile-you-save-text'>You Saved</p>
           <p className='mobile-you-save-text'>{formatedPrice(savings)}</p>
         </div>
-        <button onClick={navigateToCheckout} disabled={cartProducts.products?.length === 0} className={`mobile-proceed-to-checkout-button ${cartProducts.products?.length === 0 ? 'disable-checkout-button' : ''}`}>
+        <button onClick={navigateToCheckout} disabled={cartProducts.products?.length === 0 || isDeliveryAllowed} className={`mobile-proceed-to-checkout-button ${cartProducts.products?.length === 0 || isDeliveryAllowed ? 'disable-checkout-button' : ''}`}>
           Proceed to Checkout
         </button>
       </div>
+
+      {/* {isDeliveryAllowed && (
+        <div ref={notDeliveryMessageRef} className={`zip-not-under-delivery-area-message-contianer ${isFixed ? 'make-sticky' : ''}`}>
+          <span className='zip-not-underdelivery-message'>
+            <h3>Sorry for Inconvenience </h3>
+            <p>We're currently not offering shipping to Arizona State</p>
+          </span>
+
+          <button className='bottom-zip-update-button'>Change Zip Code</button>
+        </div>
+      )} */}
+
+      {showDeliveryMessage && (
+        <DisableDelivery parentRef={cartMainRef} />
+      )}
+
+
+
+
       <QuickView setQuickViewProduct={quickViewProduct} quickViewShow={quickViewClicked} quickViewClose={handleQuickViewClose} />
       <FinancingModal
         applyFinancing={applyFinancing}

@@ -6,6 +6,7 @@ import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import { IoIosClose } from 'react-icons/io';
 import Image from 'next/image';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const CartSideSection = (
     {
@@ -26,6 +27,7 @@ const CartSideSection = (
         isProtected
     }) => {
     const { eachProtectionValue, isCartProtected } = useCart();
+    const {isDeliveryAllowed} = useGlobalContext()
 
     const productTotalPrice = sale_price !== "" ? (sale_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0)) : (regular_price * quantity) + (isCartProtected ? 0 : (isProtected === 1 ? eachProtectionValue : 0));
 
@@ -77,13 +79,13 @@ const CartSideSection = (
 
                     <div className='cart-side-section--item-actual-price'>
                         <div className='cart-side-section-product-count'>
-                            <button onClick={quantity === 1 ? handleItemRemove : decreamentQuantity}>
+                            <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed': 'pointer'}} onClick={quantity === 1 ? handleItemRemove : decreamentQuantity}>
                                 {/* <img src={minusBtn} alt='minus' /> */}
                                 <FaMinus size={15} />
                             </button>
                             {/* <input type='number' value={quantity} /> */}
                             <p>{quantity}</p>
-                            <button onClick={increamentQuantity}>
+                            <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed': 'pointer'}}  onClick={increamentQuantity}>
                                 {/* <img src={plusBtn} alt='plus' /> */}
                                 <FaPlus size={15} />
                             </button>

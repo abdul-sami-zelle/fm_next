@@ -95,7 +95,7 @@ const WishListClient = () => {
           { ids: productIds }
         );
 
-        consolle.log("wish list products", response)
+        console.log("wish list products", response)
         setWishlistProducts(response.data.products || []);
       }
     } catch (error) {

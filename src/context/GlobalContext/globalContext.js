@@ -17,6 +17,10 @@ export const GlobalContextProvider = ({ children }) => {
   const [taxLoader, setTaxLoader] = useState(false);
   const { subTotal, cartProducts,isProfessionalAssembly ,furnitureAssemblyValue,handleCartAssemblyFalse} = useCart();
   const [mainLoader, setMainLoader] = useState(false);
+  const [searchLocation, setSearchLocation] = useState(false);
+
+  const [isDeliveryAllowed, setIsDeliveryAllowed] = useState(false);
+  const [showDeliveryMessage, setShowDeliveryMessage] = useState(false);
 
   const [isWarrantyModalOpen, setWarrantyModalState] = useState(false);
 
@@ -162,12 +166,21 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
+  // shipping methods
   async function getShippingMethodss() {
     const apiUrl = `${url}/api/v1/shipping/get?stateCode=${info.locationData.stateCode}&zipCode=${info.locationData.zipCode}`;
 
     try {
       setShippingLoader(true)
       const response = await fetch(apiUrl);
+
+      if(response.status === 404) {
+        setIsDeliveryAllowed(true)
+        setShowDeliveryMessage(true)
+      } else {
+        setIsDeliveryAllowed(false);
+        setShowDeliveryMessage(false)
+      }
 
       if (!response.ok) {
         setShippingLoader(false)
@@ -176,6 +189,7 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       const data = await response.json();
+      
       setShippingLoader(false)
       return data; // You can return the data for further processing
     } catch (error) {
@@ -184,6 +198,7 @@ export const GlobalContextProvider = ({ children }) => {
       return null; // Return null or handle the error accordingly
     }
   }
+
 
   async function getTotalTax() {
     const apiUrl = `${url}/api/v1/tax/get?stateCode=${info.locationData.stateCode}&zipCode=${info.locationData.zipCode}`;
@@ -523,7 +538,13 @@ export const GlobalContextProvider = ({ children }) => {
         showFAssembly, 
         setShowFAssembly,
         fAssemblyValue,
-        setFAssemblyValue
+        setFAssemblyValue,
+        isDeliveryAllowed, 
+        setIsDeliveryAllowed,
+        showDeliveryMessage, 
+        setShowDeliveryMessage,
+        searchLocation, 
+        setSearchLocation,
       }}>
         {children}
       </GlobalContext.Provider>

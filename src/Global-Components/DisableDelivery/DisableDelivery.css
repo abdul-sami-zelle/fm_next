@@ -1,0 +1,71 @@
+.zip-not-under-delivery-area-message-contianer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: start;
+    height: 65px;
+    padding: 10px 20px;
+    background-color: #D22B2B;
+    position: static;
+    z-index: 999999;
+}
+
+.zip-not-under-delivery-area-message-contianer.make-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .zip-not-under-delivery-area-message-contianer {
+        display: none;
+    }
+}
+
+.zip-not-underdelivery-message {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+    /* gap: 5px; */
+}
+
+.zip-not-underdelivery-message > h3 {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #FFF;
+}
+
+.zip-not-underdelivery-message > p {
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #FFF;
+}
+
+.bottom-zip-update-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    height: 40px;
+    border: 2px solid #FFF;
+    color: #D22B2B;
+    background-color: #FFF;
+    cursor: pointer;
+    border-radius: 5px;
+    flex-shrink:  0;
+    padding: 5px 15px;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.bottom-zip-update-button:hover {
+    background-color: #FFF;
+    color: #D22B2B;
+}

@@ -1,17 +1,7 @@
 import React, {useState} from 'react';
 import './DealOfTheDayCard.css';
-// import testImage from '../../../../Assets/Furniture Mecca/product page/frequently bought/MN600__04-300x200 1.png'
-// import star from '../../../../Assets/icons/Star 19.png'
-// import cartIcon from '../../../../Assets/icons/cart-bag-charcol.png';
-// import cartWhite from '../../../../Assets/icons/cart-bag-white.png'
 import heartIcon from '../../../../Assets/icons/heart-charcol.png';
-// import heartWhite from '../../../../Assets/icons/heart-white.png'
-// import combinedArrows from '../../../../Assets/icons/multi-arrow-charcol.png'
-// import multiArrowWhite from '../../../../Assets/icons/multi-arrow-white.png'
-// import leftArrow from '../../../../Assets/icons/arrow-left-white.png';
-// import rightArrow from '../../../../Assets/icons/right-arrow-white.png';
 import { url } from '../../../../utils/api';
-// import { img } from 'react-lazy-load-image-component';
 import { useList } from '../../../../context/wishListContext/wishListContext';
 import RatingReview from '../../starRating/starRating';
 import { LiaShoppingBagSolid } from "react-icons/lia";
@@ -83,7 +73,7 @@ const DealOfTheDayCard = ({
           <div className='deal-of-the-day-card-icons-div'>
               <button 
                   className={`deal-of-the-day-icon-one`}
-                  onClick={() => handleCartSection(dealDayData)} 
+                  onClick={(e) => {e.stopPropagation(); handleCartSection(dealDayData)}} 
               > 
                 <LiaShoppingBagSolid className='deal-of-month-cart-icon' color='var(--text-gray)' size={20}/>
               </button>

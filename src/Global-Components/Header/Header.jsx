@@ -61,7 +61,7 @@ const Header = ({ checkoutPage }) => {
   const [changeLanguage, setChangeLanguage] = useState(false)
   const [currentSelectedCountry, setCurrentSelectedCountry] = useState('');
   const [currentSelectedCountryFlag, setCurrentSelectedCountryFlag] = useState();
-  const [searchLocation, setSearchLocation] = useState(false);
+  // const [searchLocation, setSearchLocation] = useState(false);
   const [mobileNavVisible, setMobileNavVisible] = useState(false)
   const [isSearchInputFocused, setIsSearchInputFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -76,6 +76,8 @@ const Header = ({ checkoutPage }) => {
   } = useCart()
 
 
+
+
   const {
     setMainLoader,
     info, fetchAllstores,
@@ -83,6 +85,8 @@ const Header = ({ checkoutPage }) => {
     wrongZip,
     wrongZipMessage,
     handleZipWarningClose,
+    searchLocation, 
+    setSearchLocation,
   } = useGlobalContext();
 
   const [cartTotalProducts, setCartTotalProducts] = useState(0);

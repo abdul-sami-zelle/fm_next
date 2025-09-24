@@ -21,6 +21,8 @@ import DesignRoomMain from '@/UI/Modals/DesignYourRoomModal/DesignYourRoom';
 import { useIsMobile } from '@/utils/isMobile';
 import SideCart from '@/UI/Components/Cart-side-section/SideCart';
 import axios from 'axios';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
 
 const ProductDisplay = ({ params }) => {
 
@@ -31,7 +33,7 @@ const ProductDisplay = ({ params }) => {
   const [productDetails, setProductDetails] = useState({})
   const [isSticky, setIsSticky] = useState(false)
   const [singleProductCount, setSingleProductCount] = useState(0);
-  const [variationData, setVariationData] = useState([])
+  const [variationData, setVariationData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isProtectionCheck, setIsProtectionCheck] = useState(true)
   const [quantity, setQuantity] = useState(1)
@@ -145,7 +147,7 @@ const ProductDisplay = ({ params }) => {
   }
 
   const increaseLocalQuantity = () => {
-    if(quantity < 10) {
+    if (quantity < 10) {
       setQuantity(quantity + 1);
     }
   }
@@ -327,10 +329,12 @@ const ProductDisplay = ({ params }) => {
       product?.dyrc?.active === 1 ? true : false;
 
 
+  const { showDeliveryMessage } = useGlobalContext();
+  const produtPageRef = useRef()
 
 
   return (
-    <>
+    <div ref={produtPageRef}>
       <div className='product-display-page-main-container'>
         <ProductDetailSticky
           productData={product}
@@ -676,7 +680,11 @@ const ProductDisplay = ({ params }) => {
         handleCloseSideCart={handleCartClose}
       />
 
-    </>
+
+      {showDeliveryMessage && (
+        <DisableDelivery parentRef={produtPageRef} />
+      )}
+    </div>
   )
 }
 

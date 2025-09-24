@@ -8,6 +8,7 @@ import EmptyCart from '../Cart-Components/Empty-Cart/EmptyCart';
 import { useRouter } from 'next/navigation';
 import { IoIosClose } from 'react-icons/io';
 import Image from 'next/image';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 
 const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
@@ -31,6 +32,8 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
     } = useCart()
 
     const router = useRouter()
+
+    const {isDeliveryAllowed} = useGlobalContext()
 
     const handleCLoseCartPanel = () => {
         // setCartSection(false)
@@ -109,11 +112,13 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     <div className='side-cart-mobile-professional-assembly-contianer'>
                         {cartProducts?.products?.length > 0 && (
                             <div className='proffesional-assembly-check-sec'>
+                                {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label-one'>
                                     <input
                                         type="checkbox"
                                         className='order-summary-checkbox'
                                         checked={isProfessionalAssembly}
+                                        disabled={isDeliveryAllowed}
                                         onChange={() => handleCartAssembly()}
                                     />
                                     White Glove (+ ${totalProtectionValue})
@@ -124,11 +129,13 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
 
                         {cartProducts?.products?.length > 1 && (
                             <div className='proffesional-assembly-check-sec'>
+                                {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label'>
                                     <input
                                         type="checkbox"
                                         className='order-summary-checkbox'
                                         checked={isCartProtected}
+                                        disabled={isDeliveryAllowed}
                                         onChange={() => handleCartProtected()}
                                     />
                                     Premium Platinum Furniture Protection(+ ${professionalAssemblyValue})
@@ -141,11 +148,13 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     <div className='side-cart-desktop-professional-assembly'>
                         {cartProducts?.products?.length > 0 && (
                             <div className='proffesional-assembly-check-sec'>
+                                {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label-one'>
                                     <input
                                         type="checkbox"
                                         className='order-summary-checkbox'
                                         checked={isProfessionalAssembly}
+                                        disabled={isDeliveryAllowed}
                                         onChange={() => handleCartAssembly()}
                                     />
                                     White Glove (+ ${totalProtectionValue})
@@ -156,11 +165,13 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
 
                         {cartProducts?.products?.length > 1 && (
                             <div className='proffesional-assembly-check-sec'>
+                                {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label'>
                                     <input
                                         type="checkbox"
                                         className='order-summary-checkbox'
                                         checked={isCartProtected}
+                                        disabled={isDeliveryAllowed}
                                         onChange={() => handleCartProtected()}
                                     />
                                     Premium Platinum Furniture Protection(+ ${professionalAssemblyValue})
@@ -176,10 +187,10 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     </div>
 
                     <div className='side-cart-navigation-buttons-contianer'>
-                        <button className='side-cart-navigate-to-cart' onClick={handleCLoseCartPanel}>
+                        <button disabled={isDeliveryAllowed} className={`side-cart-navigate-to-cart ${isDeliveryAllowed ? 'disable-cart-button' : ''}`} onClick={handleCLoseCartPanel}>
                             View Cart
                         </button>
-                        <button className='side-cart-navigate-to-checkout' onClick={navigateToCheckout}>
+                        <button disabled={isDeliveryAllowed} className={`side-cart-navigate-to-checkout ${isDeliveryAllowed ? 'disable-checkout-button' : ''}`} onClick={navigateToCheckout}>
                             Checkout
                         </button>
                     </div>

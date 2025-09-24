@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -30,6 +30,8 @@ import { url } from '@/utils/api';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import ZipCodeModal from '@/UI/Modals/ZipCodeModal/ZipCodeModal';
 import ExampleButton from '@/utils/exampleBtn';
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const Home = () => {
 
@@ -67,9 +69,12 @@ const Home = () => {
       setShowSnakeBar(false)
     }
 
+    const homePageRef = useRef()
+    const {showDeliveryMessage} = useGlobalContext()
+
 
   return (
-    <div className='home-page-main-container'>
+    <div ref={homePageRef}  className='home-page-main-container'>
       <NearStorePopUp />
       <Sliderr images={slides ? slides : []} />
       <FinanceBannerSlider images={financingBanners} borderTop={'5px solid #963A0B'} />
@@ -142,6 +147,10 @@ const Home = () => {
       {/* <ZipCodeModal 
         showZipModal={true}
       /> */}
+
+        {showDeliveryMessage && (
+          <DisableDelivery parentRef={homePageRef} />
+        )}
       
     </div>
   )

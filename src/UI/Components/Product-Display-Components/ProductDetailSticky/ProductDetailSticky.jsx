@@ -77,7 +77,7 @@ const ProductDetailSticky = (
   const [slideIndex, setSlideIndex] = useState(null)
 
 
-  const { info, fetchAllstores } = useGlobalContext();
+  const { info, fetchAllstores, isDeliveryAllowed } = useGlobalContext();
   const { handleOpenChatUsOnly } = useChatOpenContext()
   const [panelShow, setPanelShow] = useState(false)
 
@@ -162,7 +162,6 @@ const ProductDetailSticky = (
 
   const [selectedUid, setSelectedUid] = useState(null);
   const handleSelectedVariationData = (value) => {
-    console.log("variation value", value)
     if (selectedUid === value) {
       return;
     }
@@ -602,7 +601,7 @@ const ProductDetailSticky = (
               <div className='add-to-cart-and-out-of-stock-message-container'>
                 <div className='add-cart-or-add-items-div' ref={cartDivRef}>
                   <div className='item-count'>
-                    <button className={`minus-btn ${stockCheck ? 'disable-quantity' : ''} ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1 || stockCheck}>
+                    <button className={`minus-btn ${stockCheck || isDeliveryAllowed ? 'disable-quantity' : ''} ${product.quantity === 1 ? 'disabled' : ''}`} onClick={decreaseLocalQuantity} disabled={product.quantity === 1 || stockCheck || isDeliveryAllowed}>
 
                       <FaWindowMinimize size={15} className='minus-icon' />
                     </button>
@@ -615,7 +614,7 @@ const ProductDetailSticky = (
                       onChange={handleQuantityChange}
                       className={stockCheck ? 'disable-quantity' : ''}
                     />
-                    <button disabled={stockCheck} className={`plus-btn ${stockCheck ? 'disable-quantity' : ''}`} onClick={increaseLocalQuantity}>
+                    <button disabled={stockCheck || isDeliveryAllowed} className={`plus-btn ${stockCheck || isDeliveryAllowed ? 'disable-quantity' : ''}`} onClick={increaseLocalQuantity}>
 
                       <FaPlus size={15} className='plus-icon' />
                     </button>
@@ -645,16 +644,10 @@ const ProductDetailSticky = (
 
 
                   <button
-                    className={`add-to-cart-btn ${stockCheck ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
-                    disabled={stockCheck}
-                    // onClick={() => handleAddProductIntoCart(product)}
+                    className={`add-to-cart-btn ${stockCheck || isDeliveryAllowed ? 'disable-add-to-cart' : ''} ${isLoading ? 'loading' : ''}`}
+                    disabled={stockCheck || isDeliveryAllowed}
                     onClick={() => addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)}
-                  // onClick={() => {
-                  //   // handleClick();
-                  //   handleSidePanelOpen();
-                  //   addToCart0(product, selectedVariationData, !isProtected ? 1 : 0, quantity)
-                  // }
-                  // }
+                  
                   >
                     {isCartLoading && <div className="loader_2"></div>}
                     {isCartLoading ? ' Almost there...' : 'Add To Cart'}
@@ -711,6 +704,7 @@ const ProductDetailSticky = (
                     </button>
                   ) : (
                     <button
+                      disabled={isDeliveryAllowed}
                       onClick={() => handleProtection('single-protection', true)}
                       className='product-detail-add-protection-plan-button'>
                       Add

@@ -12,6 +12,7 @@ import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider'
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider'
 import { url, useDisableBodyScroll } from '@/utils/api'
 import { useCart } from '@/context/cartContext/cartContext'
+import { useGlobalContext } from '@/context/GlobalContext/globalContext'
 
 
 const SimillerProducts = ({ isPadding, productId }) => {
@@ -108,6 +109,8 @@ const SimillerProducts = ({ isPadding, productId }) => {
     router.push(`/product/${item.slug}`, { state: item });
   };
 
+  const {isDeliveryAllowed} = useGlobalContext()
+
   useDisableBodyScroll(quickViewClicked)
 
   return (
@@ -151,6 +154,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     stock={item.manage_stock}
                     attributes={item.attributes}
                     btnText='Add To Cart'
+                    isQuickView={isDeliveryAllowed}
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleAddToCart(item)}
                     handleWishListclick={() => handleWishList(item)}
@@ -245,6 +249,7 @@ const SimillerProducts = ({ isPadding, productId }) => {
                     deliveryTime={item.deliveryTime}
                     stock={item.manage_stock}
                     attributes={item.attributes}
+                    isQuickView={isDeliveryAllowed}
                     handleCardClick={() => handleProductClick(item)}
                     handleQuickView={() => handleAddToCart(item)}
                     handleWishListclick={() => handleWishList(item)}
