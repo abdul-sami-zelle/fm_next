@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/cartContext/cartContext';
 import SlimToggler from '@/Global-Components/ToggleSwitch/SlimTogler';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
 const MobileCart = (
     {
@@ -35,6 +36,8 @@ const MobileCart = (
         isCartProtected,
         cartProducts,
     } = useCart()
+
+    const {isDeliveryAllowed} = useGlobalContext()
 
     const [isProtectionClicked, setIsProtectionClicked] = useState(isProtected === 0 ? "no-thanks" : "yes-protect");
     const handleProtectOrNotButtonClicked = (value) => {
@@ -60,12 +63,12 @@ const MobileCart = (
                     <p>{productData?.sale_price !=="" ? formatedPrice(productData.sale_price) : formatedPrice(productData.regular_price)}</p>
                     <div className='mobile-cart-product-count-and-total-price'>
                         <div className='mobile-cart-product-count'>
-                            <button onClick={handleDecreament}>
+                            <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}}  onClick={handleDecreament}>
                                 {/* <img src={'/Assets/icons/minus.png'} alt='minus' /> */}
                                 <FaMinus size={10} color='var(--text-gray)' />
                             </button>
-                            <p>{quantity}</p>
-                            <button onClick={handleIncreament}>
+                            <p style={{opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}}>{quantity}</p>
+                            <button disabled={isDeliveryAllowed} style={{opacity: isDeliveryAllowed ? 0.4 : 1, cursor: isDeliveryAllowed ? 'not-allowed' : 'pointer'}} onClick={handleIncreament}>
                                 {/* <img src={'/Assets/icons/plus.png'} alt='plus-btn' /> */}
                                 <FaPlus size={10} color='var(--text-gray)' />
                             </button>
@@ -77,6 +80,7 @@ const MobileCart = (
 
             <div className='mobile-card-protection-div' >
                 <div className='guard-and-heading'>
+                    {isDeliveryAllowed && <div className='protection-overlay'></div>}
                     <div className='mobile-guard-title-and-details'>
                         <span>
                             <h3 className='protection-guard-title'>Protection Plan</h3>
@@ -88,11 +92,13 @@ const MobileCart = (
                             <p>Protection Applied</p>
                         </div>
                             : <div className='mobile-protection-btns-accept-and-cancel'>
-
+                                {isDeliveryAllowed && <div className='mobile-protection-overlay'></div>}
                                 <SlimToggler
                                     id={`mobile-protection-toggle-${productData.isVariable === 1 ? productData.variation_uid : productData.product_uid}`}
-                                    checked={isProtectionClicked === 'yes-protect'}
+                                    checked={isDeliveryAllowed ? false : isProtectionClicked === 'yes-protect'}
+                                    disabled={isDeliveryAllowed}
                                     onChange={(e) => {
+                                        if(isDeliveryAllowed) return
                                         if (isProtectionClicked === 'yes-protect') {
                                             e.stopPropagation();
                                             handleProtectOrNotButtonClicked('no-thanks');

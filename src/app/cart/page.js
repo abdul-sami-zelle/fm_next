@@ -224,13 +224,13 @@ const Cart = () => {
     setCartSection(false)
   }
 
-  const {showDeliveryMessage} = useGlobalContext()
+  const { showDeliveryMessage } = useGlobalContext()
   const cartMainRef = useRef(null);
-  
+
 
 
   return (
-    <div ref={cartMainRef}  className='cart-main-container'>
+    <div ref={cartMainRef} className='cart-main-container'>
       {/* <CartMainImage /> */}
       <div className='cart-body'>
         <div className={`cart-products-section ${cartProducts?.products?.length === 0 ? 'cart-products-section-full-width' : ''}`}>
@@ -352,7 +352,40 @@ const Cart = () => {
                   {/* {selectedOption?.name} */}
 
                 </p>
-                <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
+
+                <p
+                  className='cart-order-summary-price-detail-single-item-price'
+                  style={{ textAlign: "end", lineHeight: "12px" }}
+                >
+                  {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? (
+                    <>
+                      <del style={{ opacity: "0.5" }}>
+                        {formatedPrice(Number(selectedOption?.sale_cost) || 0)}
+                      </del>{" "}
+                      <span style={{ color: "#7C0000", fontWeight: "bolder" }}>FREE</span>
+                      <br />
+                      <span
+                        style={{
+                          lineHeight: "11px",
+                          fontSize: "11px",
+                          fontStyle: "italic",
+                          margin: "0",
+                          padding: "0",
+                          color: "var(--orange-outline)",
+                        }}
+                      >
+                        Free Delivery Promotion Applied. <br />Mileage restrictions may apply.
+                      </span>
+                    </>
+                  ) : (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? (
+                    ""
+                  ) : (
+                    formatedPrice(Number(selectedOption?.cost) || 0)
+                  )}
+                </p>
+
+
+                {/* <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
                   {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
                     <del style={{ opacity: "0.5" }}>{formatedPrice(selectedOption?.sale_cost)}</del> <span style={{ color: "#7C0000", fontWeight: "bolder" }}>FREE</span>
                     <br />
@@ -367,7 +400,7 @@ const Cart = () => {
                   </> :
                     (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
                       formatedPrice(selectedOption?.cost)}
-                </p>
+                </p> */}
               </div>
               {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>Shipping & Handling</p>
@@ -558,7 +591,7 @@ const Cart = () => {
       )}
 
       <div className='space-between-checkout-and-related-products'></div>
-      <div className='mobile-total-save-and-checkout-button'>
+      <div className={`mobile-total-save-and-checkout-button ${showDeliveryMessage ? 'apply-pading-bottom' : ''}`}>
         <div className='mobile-total-and-save'>
           <p className='mobile-total-text'>Total</p>
           <p className='mobile-total-text-ammount'>{formatedPrice(CalculateGrandTotal())}</p>

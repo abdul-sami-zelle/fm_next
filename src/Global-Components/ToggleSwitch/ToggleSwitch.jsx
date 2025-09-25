@@ -6,7 +6,7 @@ const ToggleSwitch = ({ id, checked, onChange }) => {
     // Checkbox 2
     <div className="checkbox-wrapper-7" >
       <input className="tgl tgl-ios" type="checkbox" id={id} checked={checked} onChange={onChange} />
-      <label className="tgl-btn" for={id}></label>
+      <label className="tgl-btn" htmlFor={id}></label>
     </div>
   );
 };

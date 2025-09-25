@@ -202,6 +202,10 @@ const CheckoutClient = () => {
   const checkoutPageRef = useRef();
   const { showDeliveryMessage, info, setSearchLocation } = useGlobalContext()
 
+  const subTotalValue = Number(subTotal) || 0;
+  const assemblyValue = (!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3') ? Number(furnitureAssemblyValue) || 0 : 0
+  const taxRate = parseFloat(totalTax?.tax_value) || 0
+
 
   useDisableBodyScroll(showWarning)
 
@@ -404,7 +408,41 @@ const CheckoutClient = () => {
                     {/* {selectedOption?.name} */}
 
                   </p>
-                  <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
+
+                  <p
+                    className='cart-order-summary-price-detail-single-item-price'
+                    style={{ textAlign: "end", lineHeight: "12px" }}
+                  >
+                    {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? (
+                      <>
+                        <del style={{ opacity: "0.5" }}>
+                          {formatedPrice(Number(selectedOption?.sale_cost) || 0)}
+                        </del>{" "}
+                        <span style={{ color: "#7C0000", fontWeight: "bolder" }}>FREE</span>
+                        <br />
+                        <span
+                          style={{
+                            lineHeight: "11px",
+                            fontSize: "11px",
+                            fontStyle: "italic",
+                            margin: "0",
+                            padding: "0",
+                            color: "var(--orange-outline)",
+                          }}
+                        >
+                          Free Delivery Promotion Applied. <br />Mileage restrictions may apply.
+                        </span>
+                      </>
+                    ) : (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? (
+                      ""
+                    ) : (
+                      formatedPrice(Number(selectedOption?.cost) || 0)
+                    )}
+                  </p>
+
+
+
+                  {/* <p className='cart-order-summary-price-detail-single-item-price' style={{ textAlign: "end", lineHeight: "12px" }}>
                     {(selectedOption?.cost === 0 && selectedOption?.id === 'METHOD-1') ? <>
                       <del style={{ opacity: "0.5" }}>{formatedPrice(selectedOption?.sale_cost)}</del> <span style={{ color: "#7C0000", fontWeight: "bolder" }}>FREE</span>
                       <br />
@@ -419,7 +457,7 @@ const CheckoutClient = () => {
                     </> :
                       (selectedOption?.cost === 0 && selectedOption?.id !== 'METHOD-1') ? "" :
                         formatedPrice(selectedOption?.cost)}
-                  </p>
+                  </p> */}
                 </div>
 
                 {selectedOption?.id !== 'METHOD-3' && <div className='cart-order-summary-price-detail-single-item'>
@@ -428,9 +466,15 @@ const CheckoutClient = () => {
                 </div>}
 
                 <div className='cart-order-summary-price-detail-single-item'>
+
+                  <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(calculateTotalTax(subTotalValue + assemblyValue, taxRate))}</p>
+                </div>
+                {/* <div className='cart-order-summary-price-detail-single-item'>
+                  
                   <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
                   <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal + (!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? furnitureAssemblyValue : 0)), parseFloat(totalTax?.tax_value))) : 0}</p>
-                </div>
+                </div> */}
 
 
 
@@ -473,7 +517,7 @@ const CheckoutClient = () => {
                   <p className='right-section-total-price-text-and-value'>{formatedPrice(CalculateGrandTotal())}</p>
                 </div>
 
-                <div className='mob-terms-condition-and-procced-button-container'>
+                <div className={`mob-terms-condition-and-procced-button-container ${showDeliveryMessage ? 'apply-margin-bottom' : ''}`}>
                   <span>
                     <p>By placing this order I agree to the Furniture Mecca</p>
                     <i onClick={() => setIsTermsConditionsOpen(true)}>Terms & Conditions</i>
@@ -484,6 +528,14 @@ const CheckoutClient = () => {
                       : <button onClick={handleSubmit} className='right-section-place-order-button'>Place Your Order</button>
                   }
                 </div>
+
+                {showDeliveryMessage && (
+                  <div className='mobile-view-not-delivery-message'>
+                    <p>We're not offering delivery to {info?.locationData?.zipCode}</p>
+                    <button>Change Zip code</button>
+                  </div>
+                )}
+
               </div>
 
             </div>
@@ -533,8 +585,8 @@ const CheckoutClient = () => {
       {showDeliveryMessage && (
         <div className={`zip-not-under-delivery-area-message-contianer`}>
           <span className='zip-not-underdelivery-message'>
-            <h3>Sorry for Inconvenience </h3>
-            <p>We're currently not offering shipping to {info?.locationData?.state} State</p>
+            {/* <h3>Sorry for Inconvenience </h3> */}
+            <p>We're currently not offering shipping to {info?.locationData?.zipCode} State</p>
           </span>
 
           <button className='bottom-zip-update-button' onClick={() => setSearchLocation(true)}>Change Zip Code</button>

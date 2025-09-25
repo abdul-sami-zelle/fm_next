@@ -1,48 +1,5 @@
 import SaleClient from "@/UI/Components/SaleClient/SaleClient";
 
-// export async function generateMetadata({params}) {
-//     return {
-//       title: `Tent Sale - My Furniture Mecca`,
-//       description: `Browse our ${params.sale} collection`,
-//     };
-//   }
-
-
-// export async function generateMetadata(props) {
-//   const params = await props.params; 
-//   const { slug } = params;
-
-//   const res = await fetch(`https://fmapi.myfurnituremecca.com/api/v1/sales-page/get`, { cache: "no-store" });
-
-//   if (!res.ok) {
-//     return {
-//       title: "Labor Day Sale - Furniture Mecca",
-//       description: "Browse our collection of quality furniture."
-//     };
-//   }
-
-//   const { seoData } = await res.json();
-//   const meta = seoData?.[0]?.meta || {};
-
-//   return {
-//     title: meta.title || "Labor Day Sale - Furniture Mecca",
-//     description: meta.description || "Browse our collection of quality furniture.",
-//     openGraph: {
-//       title: meta.og_title || meta.title,
-//       description: meta.og_description || meta.description,
-//       url: `https://fmapi.myfurnituremecca.com/api/v1/sales-page/get`,
-//       images: [
-//         {
-//           url: meta.og_image?.startsWith("http") 
-//             ? meta.og_image 
-//             : `https://fmapi.myfurnituremecca.com/${meta.og_image?.replace(/^\//, '')}`,
-//           width: 1200,
-//           height: 630
-//         }
-//       ]
-//     }
-//   };
-// }
 
 export async function generateMetadata({ params }) {
   const { slug } = params;

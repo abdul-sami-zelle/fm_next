@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
     const [eachProtectionValue2, setEachProtectionValue2] = useState(199); // 99 was old single protection price
     const [totalProtectionValue, setTotalProtectionValue] = useState(199);
     const [professionalAssemblyValue, setProfessionalAssemblyValue] = useState(199); // 199 was old all protection price
-    const [furnitureAssemblyValue, setFurnitureAssemblyValue] = useState(50); 
+    const [furnitureAssemblyValue, setFurnitureAssemblyValue] = useState(50);
     const [shippingHandlingValue, setShippingHandlingValue] = useState(25);
 
     const [cartUid, setCartUid] = useState(() => {
@@ -629,6 +629,34 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+    // const calculateTotalPrice = () => {
+    //     if (!Array.isArray(cartProducts.products)) {
+    //         console.error("Invalid Array", cartProducts);
+    //         return { total: 0, savings: 0 };
+    //     }
+
+    //     let total = 0;
+    //     let savings = 0;
+
+    //     cartProducts.products.forEach(item => {
+    //         const regularPrice = parseFloat(item.regular_price) || 0;
+    //         const salePrice = item.sale_price !== "" ? parseFloat(item.sale_price) : regularPrice;
+    //         const quantity = item.quantity || 1;
+    //         const isProtectedValue = isCartProtected ? 0 : (item.is_protected === 0 ? 0 : item.quantity > 1 ? eachProtectionValue2 : eachProtectionValue);
+
+    //         // Calculate total price
+    //         total += (salePrice * quantity) + isProtectedValue;
+
+    //         // Calculate savings
+    //         savings += (regularPrice - salePrice) * quantity;
+    //     });
+    //     setSubTotal0(total);
+    //     setSubTotal(total + (isCartProtected ? totalProtectionValue : 0) + (isProfessionalAssembly ? professionalAssemblyValue : 0));
+
+    //     // Assuming you have a state or method to update the savings
+    //     setSavings(savings);
+    // };
+
     const calculateTotalPrice = () => {
         if (!Array.isArray(cartProducts.products)) {
             console.error("Invalid Array", cartProducts);
@@ -639,23 +667,34 @@ export const CartProvider = ({ children }) => {
         let savings = 0;
 
         cartProducts.products.forEach(item => {
-            const regularPrice = parseFloat(item.regular_price) || 0;
-            const salePrice = item.sale_price !== "" ? parseFloat(item.sale_price) : regularPrice;
-            const quantity = item.quantity || 1;
-            const isProtectedValue = isCartProtected ? 0 : (item.is_protected === 0 ? 0 : item.quantity > 1 ? eachProtectionValue2 : eachProtectionValue);
+            const regularPrice = parseFloat(item?.regular_price) || 0;
+            const salePrice = (item?.sale_price && item.sale_price !== "")
+                ? parseFloat(item.sale_price) || regularPrice
+                : regularPrice;
+            const quantity = parseInt(item?.quantity) || 1;
+
+            // Clearer protection logic
+            let isProtectedValue = 0;
+            if (!isCartProtected && item?.is_protected !== 0) {
+                isProtectedValue = quantity > 1 ? (eachProtectionValue2 || 0) : (eachProtectionValue || 0);
+            }
 
             // Calculate total price
             total += (salePrice * quantity) + isProtectedValue;
 
-            // Calculate savings
-            savings += (regularPrice - salePrice) * quantity;
+            // Calculate savings (safe fallback)
+            savings += ((regularPrice - salePrice) || 0) * quantity;
         });
-        setSubTotal0(total);
-        setSubTotal(total + (isCartProtected ? totalProtectionValue : 0) + (isProfessionalAssembly ? professionalAssemblyValue : 0));
 
-        // Assuming you have a state or method to update the savings
+        const extraProtection = isCartProtected ? (totalProtectionValue || 0) : 0;
+        const extraAssembly = isProfessionalAssembly ? (professionalAssemblyValue || 0) : 0;
+
+        setSubTotal0(total);
+        setSubTotal(total + extraProtection + extraAssembly);
+
         setSavings(savings);
     };
+
 
     useEffect(() => {
         calculateTotalPrice();
@@ -710,9 +749,9 @@ export const CartProvider = ({ children }) => {
                 setTotalProtectionValue,
                 professionalAssemblyValue,
                 setProfessionalAssemblyValue,
-                furnitureAssemblyValue, 
+                furnitureAssemblyValue,
                 setFurnitureAssemblyValue,
-                shippingHandlingValue, 
+                shippingHandlingValue,
                 setShippingHandlingValue,
                 cartSection,
                 setCartSection,

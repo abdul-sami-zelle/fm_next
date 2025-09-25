@@ -117,53 +117,6 @@
   padding: 0px;
 }
 
-/* @font-face {
-  font-family: "Gotham-Book";
-  src: local("Gotham-Book"),
-   url("./Assets/fonts/Gotham-Book.otf") format("opentype");
-  font-weight: bold;
- } */
-
-/* @font-face {
-  font-family: 'Gotham';
-  src: url('./Assets/fonts/Gotham-Thin.otf') format('opentype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('./Assets/fonts/Gotham-Book.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('./Assets/fonts/Gotham-Medium.otf') format('opentype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('./Assets/fonts/Gotham-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('./Assets/fonts/Gotham-Black.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-} */
-
 body {
   font-family: var(--Poppins-font);
   color: var(--text-primary) !important;

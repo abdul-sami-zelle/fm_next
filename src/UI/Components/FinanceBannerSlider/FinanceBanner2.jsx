@@ -14,10 +14,10 @@ function FinanceBanner2({image,mobileImage}) {
   return (
     <div className="finance_banner_2">
         <Link href={'https://flyer.myfurnituremecca.com/'} target="_blank" className="finance_banner_2_desktop" >
-            <Image src={url+image?.image_url} width={1800} height={350} alt="" srcset="" onClick={handleNavigate}/>
+            <Image src={url+image?.image_url} width={1800} height={350} alt="" srcSet="" onClick={handleNavigate}/>
         </Link>
         <Link href={'https://flyer.myfurnituremecca.com/'} target="_blank" className="finance_banner_2_mobile">
-            <Image src={url+mobileImage?.image_url} width={480} height={320} alt="" srcset="" />
+            <Image src={url+mobileImage?.image_url} width={480} height={320} alt="" srcSet="" />
         </Link>
     </div>
   );

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../SaleClient/ActiveCategoryPage.css"
 import { url, useDisableBodyScroll } from "../../../utils/api";
 import { useActiveSalePage } from "../../../context/ActiveSalePageContext/ActiveSalePageContext";
@@ -21,6 +21,8 @@ import { useLastCallContext } from "@/context/LastCallContext/LastCallContext";
 import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 import ProductInfoModal from "@/Global-Components/ProductInfoModal/ProductInfoModal";
 import SideCart from "../Cart-side-section/SideCart";
+import { useGlobalContext } from "@/context/GlobalContext/globalContext";
+import DisableDelivery from "@/Global-Components/DisableDelivery/DisableDelivery";
 
 export default function LastCallClient({ slug }) {
     const router = useRouter();
@@ -38,7 +40,7 @@ export default function LastCallClient({ slug }) {
     const [addToCartClicked, setAddToCartClicked] = useState(false)
     const [activeGrid, setActiveGrid] = useState('single-col')
     const [salePrice, setSalePrice] = useState("");
-        const [regPrice, setRegPrice] = useState("");
+    const [regPrice, setRegPrice] = useState("");
 
     const handleQuickViewOpen = (item) => {
         setQuickView(true);
@@ -127,12 +129,15 @@ export default function LastCallClient({ slug }) {
         setActiveGrid(grid)
     }
 
+    const { showDeliveryMessage } = useGlobalContext();
+    const lastCalRef = useRef()
+
     useDisableBodyScroll(cartSection, quickViewClicked)
 
 
     return (
         <>
-            <div className="activeCategoryPage">
+            <div ref={lastCalRef} className="activeCategoryPage">
                 {lastCallData && <Sliderr images={lastCallData?.data?.mainSlider} />}
 
                 <div className="section_1_ASP">
@@ -187,7 +192,7 @@ export default function LastCallClient({ slug }) {
                                     showExtraLines={true}
                                     titleHeight={true}
                                     allow_back_order={item?.allow_back_order}
-                                    handleInfoModal={() => handleOpennfoModal(item.sale_price,item.regular_price)}
+                                    handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                                     productTag={item.product_tag}
                                 />
                             })
@@ -221,14 +226,11 @@ export default function LastCallClient({ slug }) {
 
                 <Sliderr height={"auto"} images={lastCallData ? lastCallData?.data?.banner3 : []} />
                 <div className="section_3_ASP" dangerouslySetInnerHTML={{ __html: lastCallData?.data?.content2 || "" }} />
-                {/* <CartSidePannel
-                    cartData={cartProducts}
-                    addToCartClicked={addToCartClicked}
-                    handleCartSectionClose={handleCartSectionClose}
-                    removeFromCart={removeFromCart}
-                    decreamentQuantity={decreamentQuantity}
-                    increamentQuantity={increamentQuantity}
-                /> */}
+
+
+                {showDeliveryMessage && (
+                    <DisableDelivery parentRef={lastCalRef} />
+                )}
 
                 <QuickView
                     setQuickViewProduct={quickViewProduct}

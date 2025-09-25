@@ -733,6 +733,7 @@
     background-color: #FFFFFF;
     padding: 10px 20px;
     display: none;
+    z-index: 999999999;
     flex-direction: column;
 }
 
@@ -744,6 +745,10 @@
     padding: 10px 0;
     width: 100%;
     gap: 10px;
+}
+
+.mob-terms-condition-and-procced-button-container.apply-margin-bottom {
+    margin-bottom: 15px;
 }
 
 .mob-terms-condition-and-procced-button-container > span {
@@ -772,6 +777,43 @@
     font-size: 12px;
     line-height: 1.5;
     font-weight: 400;
+}
+
+.mobile-view-not-delivery-message {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background-color: #D22B2B;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.mobile-view-not-delivery-message > p {
+    font-size: 10px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #fff;
+}
+
+.mobile-view-not-delivery-message > button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #FFF;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 1725px) {
@@ -850,7 +892,7 @@
 
 @media only screen and (max-width: 767px) {
     .zip-not-under-delivery-area-message-contianer {
-        display: none;
+        display: none !important;
     }
 }
 

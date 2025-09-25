@@ -15,7 +15,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [shippingHandlingApplied, setShippingHandlingApplied] = useState(false);
   const [shippingLoader, setShippingLoader] = useState(false);
   const [taxLoader, setTaxLoader] = useState(false);
-  const { subTotal, cartProducts,isProfessionalAssembly ,furnitureAssemblyValue,handleCartAssemblyFalse} = useCart();
+  const { subTotal, cartProducts, isProfessionalAssembly, furnitureAssemblyValue, handleCartAssemblyFalse } = useCart();
   const [mainLoader, setMainLoader] = useState(false);
   const [searchLocation, setSearchLocation] = useState(false);
 
@@ -174,12 +174,14 @@ export const GlobalContextProvider = ({ children }) => {
       setShippingLoader(true)
       const response = await fetch(apiUrl);
 
-      if(response.status === 404) {
+      console.log("unformated response", response)
+
+      if (response.status === 404) {
         setIsDeliveryAllowed(true)
         setShowDeliveryMessage(true)
       } else {
         setIsDeliveryAllowed(false);
-        setShowDeliveryMessage(false)
+        setShowDeliveryMessage(false);
       }
 
       if (!response.ok) {
@@ -189,7 +191,17 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      
+
+      if (data.status === 404) {
+        setIsDeliveryAllowed(true)
+        setShowDeliveryMessage(true)
+      } else {
+        setIsDeliveryAllowed(false);
+        setShowDeliveryMessage(false);
+      }
+
+      console.log("formated data", data)
+
       setShippingLoader(false)
       return data; // You can return the data for further processing
     } catch (error) {
@@ -198,6 +210,11 @@ export const GlobalContextProvider = ({ children }) => {
       return null; // Return null or handle the error accordingly
     }
   }
+
+  useEffect(() => {
+    console.log("is delivery allowed", isDeliveryAllowed);
+    console.log("show delivery Message", showDeliveryMessage);
+  }, [isDeliveryAllowed, showDeliveryMessage])
 
 
   async function getTotalTax() {
@@ -282,8 +299,8 @@ export const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("selected_shipping_option", JSON.stringify(selectedOption));
-    if (selectedOption?.id==='METHOD-3') {
-        handleCartAssemblyFalse()
+    if (selectedOption?.id === 'METHOD-3') {
+      handleCartAssemblyFalse()
     }
   }, [selectedOption])
 
@@ -398,19 +415,19 @@ export const GlobalContextProvider = ({ children }) => {
   }
 
   const [wrongZip, setWrongZip] = useState(false);
-  const [wrongZipMessage, setWrongZipMessage] = useState({title: '', message: ''})
+  const [wrongZipMessage, setWrongZipMessage] = useState({ title: '', message: '' })
   const [zipLoading, setZipLoading] = useState(false);
 
   const [showWhiteGlove, setShowWhiteGlove] = useState(false);
-  const [whiteGloveValue,setWhiteGloveValue] = useState({
-    title:"White Glove",
-    message:"Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!"
+  const [whiteGloveValue, setWhiteGloveValue] = useState({
+    title: "White Glove",
+    message: "Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!"
   })
 
   const [showFAssembly, setShowFAssembly] = useState(false);
-  const [fAssemblyValue,setFAssemblyValue] = useState({
-    title:"Furniture Assembly",
-    message:"In Furniture Assembly, Please note we do not set-up bunkbeds, TV stands, and fireplaces."
+  const [fAssemblyValue, setFAssemblyValue] = useState({
+    title: "Furniture Assembly",
+    message: "In Furniture Assembly, Please note we do not set-up bunkbeds, TV stands, and fireplaces."
   })
 
   const handleButtonClick = async () => {
@@ -421,9 +438,9 @@ export const GlobalContextProvider = ({ children }) => {
     } else {
       setWrongZip(true);
       setWrongZipMessage({
-          title: 'Invalid Zip Code',
-          message: 'We couldn’t find that ZIP code. Please check and try again.'
-        })
+        title: 'Invalid Zip Code',
+        message: 'We couldn’t find that ZIP code. Please check and try again.'
+      })
       setZipLoading(false)
     }
     if (Object.keys(data).length > 1) {
@@ -438,117 +455,135 @@ export const GlobalContextProvider = ({ children }) => {
         country: 'US',
         longitude: data?.places[0]?.['longitude'],
         latitude: data?.places[0]?.['latitude'],
-          })
-        // }
-      } else {
-        const prevZip = JSON.parse(localStorage.getItem('other_info'))
-        
-        setZipCode(prevZip?.locationData?.zipCode)
-        setWrongZip(true);
-        // setZipCode()
-        setWrongZipMessage({
-          title: 'Invalid Zip Code',
-          message: 'We couldn’t find that ZIP code. Please check and try again.'
-        })
+      })
+      // }
+    } else {
+      const prevZip = JSON.parse(localStorage.getItem('other_info'))
 
-        setZipLoading(false)
-      }
+      setZipCode(prevZip?.locationData?.zipCode)
+      setWrongZip(true);
+      // setZipCode()
+      setWrongZipMessage({
+        title: 'Invalid Zip Code',
+        message: 'We couldn’t find that ZIP code. Please check and try again.'
+      })
+
+      setZipLoading(false)
+    }
   };
 
   const handleZipWarningClose = () => {
     setWrongZip(false)
   }
 
-    function getShippingInfo(option) {
-      let result = "";
-      let taxIncluded = "";
-      let cost = option?.cost || 0; // Default to 0 if cost is not defined
+  function getShippingInfo(option) {
+    let result = "";
+    let taxIncluded = "";
+    let cost = option?.cost || 0; // Default to 0 if cost is not defined
 
-      if (option?.id === "METHOD-2") {
-        result = option.cost ? `${option.cost} (Standard Shipping)` : "Standard Shipping";
-        taxIncluded = option.tax !== 0 ? "Tax Included" : "No Tax";
-      } else if (option?.id === "METHOD-1") {
-        result = "Free Shipping";
-        taxIncluded = "No Tax";
-        cost = 0;
-      } else if (option?.id === "METHOD-3") {
-        result = "Local Pickup";
-        taxIncluded = "No Tax";
-        cost = option?.cost || 0; // Local pickup might still have a cost
-      } else {
-        result = "Identifying";
-        taxIncluded = "";
-      }
-
-      return { result, taxIncluded, cost };
+    if (option?.id === "METHOD-2") {
+      result = option.cost ? `${option.cost} (Standard Shipping)` : "Standard Shipping";
+      taxIncluded = option.tax !== 0 ? "Tax Included" : "No Tax";
+    } else if (option?.id === "METHOD-1") {
+      result = "Free Shipping";
+      taxIncluded = "No Tax";
+      cost = 0;
+    } else if (option?.id === "METHOD-3") {
+      result = "Local Pickup";
+      taxIncluded = "No Tax";
+      cost = option?.cost || 0; // Local pickup might still have a cost
+    } else {
+      result = "Identifying";
+      taxIncluded = "";
     }
 
-    const [grandTotal, setGrandTotal] = useState(0);
+    return { result, taxIncluded, cost };
+  }
 
-    function CalculateGrandTotal() {
-      const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
-      const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
-      const deliveySetup = (selectedOption?.id !== "METHOD-3" && !isProfessionalAssembly ) ? furnitureAssemblyValue : 0;
-      return subTotal + calculateTotalTax((subTotal1+deliveySetup), taxValue) + getShippingInfo(selectedOption)?.cost  + deliveySetup;
-    }
+  const [grandTotal, setGrandTotal] = useState(0);
 
+  // function CalculateGrandTotal() {
+  //   const subTotal1 = parseFloat(subTotal || 0); // Ensure subTotal is parsed as a number
+  //   const taxValue = parseFloat(totalTax?.tax_value || 0); // Ensure tax_value is parsed as a number
+  //   const deliveySetup = (selectedOption?.id !== "METHOD-3" && !isProfessionalAssembly ) ? furnitureAssemblyValue : 0;
+  //   return subTotal + calculateTotalTax((subTotal1+deliveySetup), taxValue) + getShippingInfo(selectedOption)?.cost  + deliveySetup;
+  // }
 
+  function CalculateGrandTotal() {
+    const subTotal1 = parseFloat(subTotal) || 0; // safe number
+    const taxValue = parseFloat(totalTax?.tax_value) || 0; // safe number
+    const deliverySetup =
+      (selectedOption?.id !== "METHOD-3" && !isProfessionalAssembly)
+        ? parseFloat(furnitureAssemblyValue) || 0
+        : 0;
+
+    const shippingCost = parseFloat(getShippingInfo(selectedOption)?.cost) || 0;
 
     return (
-      <GlobalContext.Provider value={{
-        info,
-        setInfo,
-        updateLocationData,
-        zipCode,
-        setZipCode,
-        handleInputChange,
-        handleButtonClick,
-        fetchAllstores,
-        stores,
-        setStores,
-        setAllShippingMethods,
-        shippingMethods,
-        setShippingMethods,
-        shippingLoader,
-        setShippingLoader,
-        totalTax,
-        calculateTotalTax,
-        getShippingInfo,
-        setTaxValues,
-        selectedOption,
-        setSelectedOption,
-        handleChange,
-        getShippingMethods,
-        selectedShippingMethods,
-        setSelectedShippingMethods,
-        grandTotal,
-        CalculateGrandTotal,
-        mainLoader, setMainLoader,
-        isWarrantyModalOpen,
-        setWarrantyModalState,
-        wrongZip, 
-        setWrongZip,
-        wrongZipMessage,
-        handleZipWarningClose,
-        zipLoading,
-        showWhiteGlove, 
-        setShowWhiteGlove,
-        whiteGloveValue,
-        setWhiteGloveValue,
-        showFAssembly, 
-        setShowFAssembly,
-        fAssemblyValue,
-        setFAssemblyValue,
-        isDeliveryAllowed, 
-        setIsDeliveryAllowed,
-        showDeliveryMessage, 
-        setShowDeliveryMessage,
-        searchLocation, 
-        setSearchLocation,
-      }}>
-        {children}
-      </GlobalContext.Provider>
+      subTotal1 +
+      calculateTotalTax(subTotal1 + deliverySetup, taxValue) +
+      shippingCost +
+      deliverySetup
     );
   }
 
-  export const useGlobalContext = () => useContext(GlobalContext);
+
+
+  return (
+    <GlobalContext.Provider value={{
+      info,
+      setInfo,
+      updateLocationData,
+      zipCode,
+      setZipCode,
+      handleInputChange,
+      handleButtonClick,
+      fetchAllstores,
+      stores,
+      setStores,
+      setAllShippingMethods,
+      shippingMethods,
+      setShippingMethods,
+      shippingLoader,
+      setShippingLoader,
+      totalTax,
+      calculateTotalTax,
+      getShippingInfo,
+      setTaxValues,
+      selectedOption,
+      setSelectedOption,
+      handleChange,
+      getShippingMethods,
+      selectedShippingMethods,
+      setSelectedShippingMethods,
+      grandTotal,
+      CalculateGrandTotal,
+      mainLoader, setMainLoader,
+      isWarrantyModalOpen,
+      setWarrantyModalState,
+      wrongZip,
+      setWrongZip,
+      wrongZipMessage,
+      handleZipWarningClose,
+      zipLoading,
+      showWhiteGlove,
+      setShowWhiteGlove,
+      whiteGloveValue,
+      setWhiteGloveValue,
+      showFAssembly,
+      setShowFAssembly,
+      fAssemblyValue,
+      setFAssemblyValue,
+      isDeliveryAllowed,
+      setIsDeliveryAllowed,
+      showDeliveryMessage,
+      setShowDeliveryMessage,
+      searchLocation,
+      setSearchLocation,
+    }}>
+      {children}
+    </GlobalContext.Provider>
+  );
+}
+
+export const useGlobalContext = () => useContext(GlobalContext);

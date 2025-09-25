@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
 import './LocationPopUp.css';
-// import deliverTo from '../../../Assets/icons/delivery.png'
-// import closeBtn from '../../../Assets/icons/close-btn-black.png';
-// import locationModalIcon from '../../../Assets/icons/location-charcol-icon.png'
 import { useGlobalContext } from '../../../context/GlobalContext/globalContext';
 import { CiLocationOn } from "react-icons/ci";
 import Image from 'next/image';
-import { IoIosClose } from "react-icons/io";
 import CloseButton from '@/Global-Components/CloseButton/CloseButton';
-import MessageModal from '@/UI/Modals/MessageModal/MessageModal';
-import ZipModal from '@/UI/Modals/ZipModal/ZipModal';
 
 
 const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, locationDetails }) => {
@@ -19,7 +13,6 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
     zipCode,
     handleInputChange,
     handleButtonClick,
-    info,
     zipLoading,
   } = useGlobalContext();
 
@@ -119,7 +112,7 @@ const LocationPopUp = ({ searchLocation, handleCloseSearch, setLocationDetails, 
                 onChange={handleInputChange} // Update state on input change
                 placeholder="Enter zip code"
               />
-              <button className="update-zip-btn" onClick={async () => { await handleButtonClick() }}>
+              <button className="update-zip-btn" onClick={async () => { await handleButtonClick(); handleCloseSearch() }}>
                 {zipLoading && <div className="loader_2" style={{background: '#FFF'}}></div>}
                 {zipLoading ? ' Updating...' : 'Update Zip Code'}
               </button>

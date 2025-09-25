@@ -37,8 +37,9 @@ const DisableDelivery = ({parentRef}) => {
   return (
     <div ref={notDeliveryMessageRef} className={`zip-not-under-delivery-area-message-contianer ${isFixed ? 'make-sticky' : ''}`}>
           <span className='zip-not-underdelivery-message'>
-            <h3>SORRY FOR INCONVENIENCE </h3>
-            <p>We're currently not offering delivery to {info?.locationData?.zipCode}</p>
+            {/* <h3>SORRY FOR INCONVENIENCE </h3> */}
+            <p className='desktop-not-delivery-message'>We're currently not offering delivery to {info?.locationData?.zipCode}</p>
+            <p className='mobile-not-delivery-message'>We're not offering delivery to {info?.locationData?.zipCode}</p>
           </span>
 
           <button className='bottom-zip-update-button' onClick={() => setSearchLocation(true)}>Change Zip Code</button>

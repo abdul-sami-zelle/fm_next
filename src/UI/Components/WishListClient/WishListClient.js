@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './WishList.css';
 // import {  useNavigate } from 'react-router-dom';
 import { useList } from '../../../context/wishListContext/wishListContext';
@@ -18,6 +18,8 @@ import Image from 'next/image';
 import ProductInfoModal from '@/Global-Components/ProductInfoModal/ProductInfoModal';
 import { useCart } from '@/context/cartContext/cartContext';
 import SideCart from '../Cart-side-section/SideCart';
+import { useGlobalContext } from '@/context/GlobalContext/globalContext';
+import DisableDelivery from '@/Global-Components/DisableDelivery/DisableDelivery';
 
 
 const WishListClient = () => {
@@ -212,9 +214,12 @@ const WishListClient = () => {
     setCartSection(false)
   }
 
+  const { showDeliveryMessage } = useGlobalContext();
+  const wishlistRef = useRef()
+
 
   return (
-    <div className='wish-list-main-container'>
+    <div ref={wishlistRef} className='wish-list-main-container'>
 
       <div className='wish-list-heading-container'>
         <h3 className='wish-list-main-heading'>Favorite Products</h3>
@@ -329,13 +334,16 @@ const WishListClient = () => {
                 handleInfoModal={() => handleOpennfoModal(item.sale_price, item.regular_price)}
                 colTwo={activeGrid === 'single-col' ? false : true}
                 productTag={item.product_tag}
-                
+
               />
             );
           })
         )}
-        
+
       </div>
+
+
+
       <QuickView
         setQuickViewProduct={quickViewProduct}
         quickViewShow={quickViewClicked}
@@ -359,6 +367,12 @@ const WishListClient = () => {
         salePrice={salePrice}
         regPrice={regPrice}
       />
+
+
+
+      {showDeliveryMessage && (
+        <DisableDelivery parentRef={wishlistRef} />
+      )}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ActiveCategoryPage.css"
 import { url, useDisableBodyScroll } from "../../../utils/api";
 import { useActiveSalePage } from "../../../context/ActiveSalePageContext/ActiveSalePageContext";
@@ -9,16 +9,15 @@ import Sliderr from "../../../Global-Components/Slider/Slider";
 import { useList } from "../../../context/wishListContext/wishListContext";
 import ProductCardShimmer from "../../Components/Loaders/productCardShimmer/productCardShimmer";
 import heart from "../../../Assets/icons/heart-vector.png"
-import CartSidePannel from "../../Components/Cart-side-section/CartSidePannel";
 import { useCart } from "../../../context/cartContext/cartContext";
 import QuickView from "../../Components/QuickView/QuickView";
-import { IoMdClose } from "react-icons/io";
-import { toast } from "react-toastify";
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
 import { usePathname, useRouter } from "next/navigation";
 import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 import ProductInfoModal from "@/Global-Components/ProductInfoModal/ProductInfoModal";
 import SideCart from "../Cart-side-section/SideCart";
+import { useGlobalContext } from "@/context/GlobalContext/globalContext";
+import DisableDelivery from "@/Global-Components/DisableDelivery/DisableDelivery";
 
 export default function SaleClient({ slug }) {
     const router = useRouter();
@@ -123,11 +122,14 @@ export default function SaleClient({ slug }) {
         setActiveGrid(grid)
     }
 
+    const {showDeliveryMessage} = useGlobalContext();
+    const salePageRef = useRef()
+
     useDisableBodyScroll(cartSection, quickViewClicked)
     
     return (
         <>
-            <div className="activeCategoryPage">
+            <div ref={salePageRef} className="activeCategoryPage">
                 {salesData && <Sliderr images={salesData?.data?.mainSlider} />}
 
                 <div className="section_1_ASP">
@@ -216,14 +218,7 @@ export default function SaleClient({ slug }) {
 
                 <Sliderr height={"auto"} images={salesData ? salesData?.data?.banner3 : []} />
                 <div className="section_3_ASP" dangerouslySetInnerHTML={{ __html: salesData?.data?.content2 || "" }} />
-                {/* <CartSidePannel
-                    cartData={cartProducts}
-                    addToCartClicked={addToCartClicked}
-                    handleCartSectionClose={handleCartSectionClose}
-                    removeFromCart={removeFromCart}
-                    decreamentQuantity={decreamentQuantity}
-                    increamentQuantity={increamentQuantity}
-                /> */}
+                
 
                 <QuickView
                     setQuickViewProduct={quickViewProduct}
@@ -249,6 +244,10 @@ export default function SaleClient({ slug }) {
                     salePrice={salePrice}
                     regPrice={regPrice}
                 />
+
+                {showDeliveryMessage && (
+                    <DisableDelivery parentRef={salePageRef} />
+                )}
 
             </div>
 
