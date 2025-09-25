@@ -9,14 +9,14 @@ import { useEffect } from "react";
 
 
 // Development Apis
-export const roomApi = `https://roomapidev.myfurnituremecca.com`
-export const url = `https://devapi.myfurnituremecca.com`;
-export const siteUrl = `https://fmnext.myfurnituremecca.com`
+// export const roomApi = `https://roomapidev.myfurnituremecca.com`
+// export const url = `https://devapi.myfurnituremecca.com`;
+// export const siteUrl = `https://fmnext.myfurnituremecca.com`
 
 // Production Apis
-// export const roomApi = `https://roomapi.myfurnituremecca.com`
-// export const url = `https://fmapi.myfurnituremecca.com`;
-// export const siteUrl = `https://myfurnituremecca.com`
+export const roomApi = `https://roomapi.myfurnituremecca.com`
+export const url = `https://fmapi.myfurnituremecca.com`;
+export const siteUrl = `https://myfurnituremecca.com`
 
 
 
