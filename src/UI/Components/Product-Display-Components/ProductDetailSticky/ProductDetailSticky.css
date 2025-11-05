@@ -1190,9 +1190,10 @@
 
 .sale_banner_product_page {
     width: 100%;
-    padding: 10px;
-    background-color: #0e275f;
+    /* padding: 10px; */
+    /* background-color: #0e275f; */
     border-radius: 5px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1200,6 +1201,12 @@
     gap: 5px;
     margin-bottom: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.sale_banner_product_page > img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .main_sale_name {
@@ -1288,8 +1295,8 @@
 
     .sale_banner_product_page {
         width: 100%;
-        padding: 10px;
-        background-color: #0e275f;
+        /* padding: 10px; */
+        /* background-color: #0e275f; */
         border-radius: 5px;
         display: flex;
         flex-direction: column;

@@ -35,6 +35,7 @@ import { fetcher } from '@/utils/Fetcher'
 import WhatIsCovered from '@/UI/Modals/WhatIsCovered/WhatIsCovered'
 import { useChatOpenContext } from '@/context/ChatbotContext/ChatbotContext'
 import { VscHeart, VscHeartFilled } from 'react-icons/vsc'
+import Image from 'next/image'
 
 
 
@@ -433,17 +434,17 @@ const ProductDetailSticky = (
 
 
               <div className="sale_banner_product_page">
-                <div className="main_sale_name">
+
+                <Image src={`${url}/uploads/black_friday.jpg`} width={230} height={70} alt='tag-img' />
+                {/* <div className="main_sale_name">
                   FREE DELIVERY ON ORDERS ABOVE $500
                 </div>
 
-                {/* <div className="sub_main_sale_name">
-                  FREE DELIVERY ON ORDERS ABOVE $500
-                </div> */}
+                
 
                 <div className="sale_banner_restr">
                   MILEAGE RESTRICTIONS MAY APPLY.
-                </div>
+                </div> */}
 
               </div>
 
@@ -528,18 +529,18 @@ const ProductDetailSticky = (
                   </div>
                 } */}
 
+
                 <div className="sale_banner_product_page">
-                  <div className="main_sale_name">
+
+                  <Image src={`${url}/uploads/black_friday.jpg`} width={230} height={70} alt='tag-img' />
+
+                  {/* <div className="main_sale_name">
                     FREE DELIVERY ON ORDERS ABOVE $500
                   </div>
-
-                  {/* <div className="sub_main_sale_name">
-                    FREE DELIVERY ON ORDERS ABOVE $500
-                  </div> */}
 
                   <div className="sale_banner_restr">
                     MILEAGE RESTRICTIONS MAY APPLY.
-                  </div>
+                  </div> */}
 
                 </div>
 

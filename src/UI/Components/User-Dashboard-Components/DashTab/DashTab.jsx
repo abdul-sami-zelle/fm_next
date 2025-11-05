@@ -14,7 +14,7 @@ import Loader from '../../Loader/Loader';
 // import { useNavigate } from 'react-router-dom';
 
 
-const DashTab = ({ data }) => {
+const DashCard = ({ data }) => {
   // const navigate = useNavigate();
   const router = useRouter();
   const { setUserToken } = useUserDashboardContext();
@@ -77,4 +77,4 @@ const DashTab = ({ data }) => {
   )
 }
 
-export default DashTab
+export default DashCard

@@ -31,6 +31,11 @@ const nextConfig = {
         hostname: 'ashleyfurniture.scene7.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.crescentcare.co',
+        pathname: '/**',
+      },
     ],
   },
 };
