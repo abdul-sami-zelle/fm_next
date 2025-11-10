@@ -6,10 +6,12 @@ import { FaPlus, FaMinus } from "react-icons/fa6";
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
+import { BsArrowRightShort } from "react-icons/bs";
 
 const FAQ = () => {
 
     const [activeIndex, setActiveIndex] = useState(null)
+    const [seeMore, setSeeMore] = useState(false);
     const answerRef = useRef([]);
     useEffect(() => {
         answerRef.current.forEach(ref => {
@@ -88,9 +90,9 @@ const FAQ = () => {
                     </p>
                 </div>
                 {faqs?.length > 0 && (
-                    <div className='questions-answeres'>
+                    <div className={`questions-answeres ${seeMore ? 'show-all' : ''}`}>
                         <p className='faq-heading'>FAQs</p>
-                        {faqs?.map((item, index) => {
+                        {faqs?.slice(0, seeMore ? faqs.length : 2).map((item, index) => {
                             return <div key={index} className='question-toggler'>
                                 <div className='question-section' onClick={() => handleToggle(index)}>
                                     <p>{item.question}</p>
@@ -108,6 +110,10 @@ const FAQ = () => {
                         })}
                     </div>
                 )}
+
+                <div className='faq-see-more-button-container'>
+                    <button onClick={() => setSeeMore(!seeMore)} className='faq-see-more-button'> {seeMore ? 'See Less' : 'See More'} <BsArrowRightShort className={`rotate-see-more-arrow ${seeMore ? 'active-rotate' : ''}`} size={20} color='var(--color-primary)' /></button>
+                </div>
 
 
             </div>

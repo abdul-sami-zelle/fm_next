@@ -174,7 +174,6 @@ export const GlobalContextProvider = ({ children }) => {
       setShippingLoader(true)
       const response = await fetch(apiUrl);
 
-      console.log("unformated response", response)
 
       if (response.status === 404) {
         setIsDeliveryAllowed(true)
@@ -200,7 +199,6 @@ export const GlobalContextProvider = ({ children }) => {
         setShowDeliveryMessage(false);
       }
 
-      console.log("formated data", data)
 
       setShippingLoader(false)
       return data; // You can return the data for further processing
@@ -211,10 +209,7 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    console.log("is delivery allowed", isDeliveryAllowed);
-    console.log("show delivery Message", showDeliveryMessage);
-  }, [isDeliveryAllowed, showDeliveryMessage])
+  
 
 
   async function getTotalTax() {

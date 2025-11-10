@@ -69,10 +69,109 @@
     font-weight: 700 !important;
 }
 
-.sale-color {
-    color: #000;
+/* animated shadow effect */
+/* .sale-color {
     font-weight: 700 !important;
+    background: linear-gradient(
+        90deg,
+        #595959 10%,
+        #8a8a8a 30%,   
+        #C61B1A 60%,
+        #F26A69 90%    
+
+       
+
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 500% auto;
+    animation: textShine 1.5s ease-in-out infinite alternate;
+} 
+
+@keyframes textShine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+} */
+
+
+/* INstant red and gray color change */
+/* .sale-color {
+    font-weight: 700 !important;
+    color: #595959;
+    animation: colorChange 0.5s ease-in-out infinite;
 }
+
+@keyframes colorChange {
+    0% {
+        color: #595959;
+    }
+    50% {
+        color: #C61B1A;
+    }
+    100% {
+        color: #595959;
+    }
+} */
+
+
+
+
+
+.sale-color {
+    font-weight: 700 !important;
+    background-color: #F9F6EE;
+    border: 1px solid #C61B1A;
+    color: #C61B1A;
+    animation: colorGlow 0.5s steps(1, end) infinite;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+@keyframes colorGlow {
+    0% {
+        background-color: #F9F6EE;
+        color: #C61B1A;
+    }
+    50% {
+        background-color: #C61B1A;
+        color: #F9F6EE;
+    }
+    100% {
+        background-color: #F9F6EE;
+        color: #C61B1A;
+    }
+}
+
+
+/* .sale-color {
+    font-weight: 700 !important;
+    background-color: #F9F6EE;
+    border: 1px solid #C61B1A;
+    color: #C61B1A;
+    animation: colorGlow 0.5s infinite;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+@keyframes colorGlow {
+    0% {
+        background-color: #F9F6EE;
+        color: #C61B1A;
+    }
+    100% {
+        background-color: #C61B1A;
+        color: #F9F6EE;
+    }
+} */
+
+
+
 
 .nav-item.active .nav-link {
     color: var(--text-red);

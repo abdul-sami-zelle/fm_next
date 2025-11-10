@@ -79,6 +79,11 @@
     padding: 0 20px 0 0;
 }
 
+.single-blog-columns > div {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
 .splited-paras {
     text-align: start;
     font-size: 15px;

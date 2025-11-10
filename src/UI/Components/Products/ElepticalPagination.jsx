@@ -59,38 +59,6 @@ const ElipticalPagenation = ({
   };
 
 
-  // const generatePages = () => {
-
-  //   if (totalPages <= 3) {
-  //   return Array.from({ length: totalPages }, (_, i) => i + 1);
-  // }
-
-  //   const uniquePages = new Set();
-
-  //   // Always show first 3 pages
-  // [1, 2, 3].forEach(p => {
-  //   if (p <= totalPages) uniquePages.add(p);
-  // });
-
-  //   uniquePages.add(totalPages);
-
-
-  //   // Convert to sorted array
-  // const sorted = Array.from(uniquePages).sort((a, b) => a - b);
-
-  // // Insert "..." where there are gaps
-  // const finalPages = [];
-  // for (let i = 0; i < sorted.length; i++) {
-  //   finalPages.push(sorted[i]);
-  //   if (i < sorted.length - 1 && sorted[i + 1] - sorted[i] > 1) {
-  //     finalPages.push('...');
-  //   }
-  // }
-
-  // return finalPages;
-  // };
-
-
   const pages = generatePages();
 
   return (

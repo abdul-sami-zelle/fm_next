@@ -489,8 +489,8 @@ const Products = ({ navigationType }) => {
                 response = await axios.get(`${url}${queryApi}=${query}`);
             } else {
                 response = await axios.get(
-                    `${url}/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${pageFromURL}&per_page=12`
-                );
+                    `${url}/api/v1/products/by-category?categorySlug=${subCategorySlug}&page=${pageFromURL}&per_page=18`
+                ); 
             }
 
             const data = response.data.products || [];
@@ -1187,6 +1187,7 @@ const Products = ({ navigationType }) => {
 
                                     <div className='relevance-container'>
                                         <div className='relevance-filters-body'>
+
                                             <div className='relevance-filter-heading' onClick={handleRelevance}>
                                                 <p className='relevance-heading-text'>Sort By</p>
                                                 <div className='selected-relevance-item'>
