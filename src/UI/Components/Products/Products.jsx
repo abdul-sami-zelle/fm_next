@@ -389,7 +389,7 @@ const Products = ({ navigationType }) => {
     }
 
     const filterProducts = async (filter) => {
-        const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=12`;
+        const api = `/api/v1/products/by-category?categorySlug=${subCategorySlug}&${filter}&per_page=18`;
         try {
             setClearFilters(true)
             const response = await axios.get(`${url}${api}`)
