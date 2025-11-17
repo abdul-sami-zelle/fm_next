@@ -62,7 +62,7 @@ export const ActiveSalePageProvider = ({ children }) => {
             return;
         }
 
-        const api = `${url}/api/v1/products/by-category?categorySlug=${categoryUid}&per_page=60`;
+        const api = `${url}/api/v1/products/by-category?categorySlug=${categoryUid}&per_page=60&isSortCatWise=1`;
         const options = {
             method: 'GET',
             headers: {
