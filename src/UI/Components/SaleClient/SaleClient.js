@@ -149,6 +149,7 @@ export default function SaleClient({ slug }) {
     const [startX, setStartX] = useState(0);
     const [scrollLeftStart, setScrollLeftStart] = useState(0);
     const [showArrows, setShowArrows] = useState(false)
+    const [activeCategory, setActiveCategory] = useState(null)
 
 
 
@@ -284,7 +285,8 @@ export default function SaleClient({ slug }) {
     const [showMobileFilters, setShowMobileFilters] = useState(false)
 
 
-    const handleFilterProduct = (item) => {
+    const handleFilterProduct = (item, index) => {
+        setActiveCategory(index)
         const filtered = products.filter((product) => product.categories.some((category) => category.is_main === 1 && category.uid === item.uid))
         setSortedProducts([])
         setTimeout(() => { setSortedProducts(filtered) }, 1000)
@@ -656,7 +658,7 @@ export default function SaleClient({ slug }) {
 
                 <div className="section_1_ASP">
                     <div className="offer-head-and-grid-select">
-                        <h3 className='category-heading'>{salesData ? salesData?.data?.categoryData?.name : ""}</h3>
+                        {/* <h3 className='category-heading'>{salesData ? salesData?.data?.categoryData?.name : ""}</h3> */}
 
                         <div className="offer-grid-main-container">
                             <div className={`offer-single-col-outer-container ${activeGrid === 'single-col' ? 'active-offer-single-col' : ''}`} onClick={() => handleActiveGrid('single-col')}>
@@ -671,7 +673,7 @@ export default function SaleClient({ slug }) {
                         </div>
                     </div>
 
-                    {sortedProducts && sortedProducts?.length > 0 && (
+                    {products && products?.length > 0 && (
                         <div className="offer-head-categories-images-container">
                             {showButtons && (
                                 <button
@@ -688,8 +690,8 @@ export default function SaleClient({ slug }) {
                                 onMouseDown={handleMouseDown}
                             >
                                 {saleCategories.map((item, index) => (
-                                    <div key={index} onClick={() => handleFilterProduct(item)} className="offer-category-image-single-item-container">
-                                        <Image src={url + item.image} width={90} height={90} alt="image" />
+                                    <div key={index} onClick={() => handleFilterProduct(item, index)} className={`offer-category-image-single-item-container ${activeCategory === index ? 'active-selected-category' : ''}`}>
+                                        <Image src={url + item.filterImage} width={90} height={90} alt="image" />
                                     </div>
                                 ))}
                             </div>
