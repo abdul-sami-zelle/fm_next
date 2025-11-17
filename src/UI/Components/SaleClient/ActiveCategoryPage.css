@@ -102,7 +102,7 @@
 .offer-head-and-grid-select {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     width: 100%;
 }
 
