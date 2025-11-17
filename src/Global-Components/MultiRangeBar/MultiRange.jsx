@@ -44,8 +44,8 @@ const DoubleRangeSlider = (
         <h3 className="filters-heading">Price</h3>
       </div>
       <div className="values">
-        <span className='filter-inner-text'>{formatedPrice(initialRange[0])}</span>
-        <span className='filter-inner-text'>{formatedPrice(initialRange[1])}</span>
+        {initialRange && <span className='filter-inner-text'>{formatedPrice(initialRange[0])}</span>}
+        {initialRange && <span className='filter-inner-text'>{formatedPrice(initialRange[1])}</span>}
       </div>
       <div className="range-slider">
         {/* First thumb (Min) */}
