@@ -81,7 +81,6 @@ const ProductCardTwo = ({
                     attribute?.options?.some(option => option?.value === color)
                 )
             );
-            // console.log("matching attributes", matchingAttribute)
             setProductVariationData(matchingAttribute)
             setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
@@ -114,7 +113,6 @@ const ProductCardTwo = ({
             );
             setSelectedColorImage(matchingAttribute?.image?.image_url)
             setHoveredImage(matchingAttribute?.images[1]?.image_url)
-            console.log("matching variablle", matchingAttribute?.images[1]?.image_url)
             return matchingAttribute;
         } else if (singleProductData?.type === "simple") {
             const simpleAttribute = singleProductData?.attributes?.find(attribute =>
@@ -122,7 +120,6 @@ const ProductCardTwo = ({
             );
             setSelectedColorImage(singleProductData?.image?.image_url);
             setHoveredImage(singleProductData?.images[1]?.image_url);
-            console.log("matching simple", matchingAttribute?.images[1]?.image_url)
             return simpleAttribute;
         }
     }

@@ -26,7 +26,7 @@ const MobileViewProductFilters = ({
   brandValue,
   isFeatured,
   isStock,
-  handleColllectionSelect,
+  handleCollectionSelect,
   handleBrandSelect,
   handleFeatured,
   handleStock,
@@ -211,7 +211,7 @@ const MobileViewProductFilters = ({
                     placeholder="checkbox"
                     value={item.uid}
                     checked={collectionValue.includes(item.uid)}
-                    onChange={(e) => handleColllectionSelect(item)}
+                    onChange={(e) => handleCollectionSelect(item)}
                     style={{ border: `1px solid var(--tertiary-color)` }}
                     className="color-custom-checkbox"
                     id={`filter-${index}`}

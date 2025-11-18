@@ -261,7 +261,7 @@ const Products = ({ navigationType }) => {
     filterProducts(ratingString);
   };
 
-  const handleColllectionSelect = (value) => {
+  const handleCollectionSelect = (value) => {
     const params = new URLSearchParams(window.location.search);
     const updatedCollectionValue = collectionValue?.includes(value.uid)
       ? []
@@ -1167,7 +1167,7 @@ const Products = ({ navigationType }) => {
                             placeholder="checkbox"
                             value={item.uid}
                             checked={collectionValue?.includes(item.uid)}
-                            onChange={(e) => handleColllectionSelect(item)}
+                            onChange={(e) => handleCollectionSelect(item)}
                             className="custom-checkbox"
                             id={`collection-${index}`}
                           />
@@ -1786,7 +1786,7 @@ const Products = ({ navigationType }) => {
         handleRating={handleRatingFilter}
         handleCategory={handleCategorySelect}
         handlePriceRange={handleRangeChange}
-        handleColllectionSelect={handleColllectionSelect}
+        handleCollectionSelect={handleCollectionSelect}
         handleBrandSelect={handleBrandSelect}
         handleFeatured={handleFeatured}
         handleStock={handleStock}

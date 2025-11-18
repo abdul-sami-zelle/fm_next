@@ -162,8 +162,6 @@ const BookAppointmentClient = ({ params }) => {
         })
     }
 
-    // useEffect(() => {console.log("service type" , appointmentPayload)}, [appointmentPayload])
-
 
     return (
         <div className='book-an-appointment-main-container'>

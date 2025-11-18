@@ -13,7 +13,7 @@ import heart from "../../../Assets/icons/heart-vector.png"
 import { useCart } from "../../../context/cartContext/cartContext";
 import QuickView from "../../Components/QuickView/QuickView";
 import ProductCardTwo from "../../Components/ProductCardTwo/ProductCardTwo";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import SnakBar from "@/Global-Components/SnakeBar/SnakBar";
 import ProductInfoModal from "@/Global-Components/ProductInfoModal/ProductInfoModal";
 import SideCart from "../Cart-side-section/SideCart";
@@ -35,11 +35,9 @@ export default function SaleClient({ slug }) {
     const [sortedProducts, setSortedProducts] = useState([])
     useEffect(() => { setSortedProducts(products) }, [products])
 
-
     const handleProductClick = (item) => {
         router.push(`/product/${item.slug}`)
     };
-
 
     const [quickViewProduct, setQuickViewProduct] = useState({})
     const [quickViewClicked, setQuickView] = useState(false);
@@ -55,7 +53,6 @@ export default function SaleClient({ slug }) {
     const { addToList, removeFromList, isInWishList } = useList()
     const [showSnakeBar, setShowSnakeBar] = useState(false);
     const [snakeBarMessage, setSnakeBarMessage] = useState();
-
 
     const handleWishList = async (item) => {
 
@@ -102,7 +99,6 @@ export default function SaleClient({ slug }) {
         setCartSection
     } = useCart();
 
-
     const handleCartSectionClose = () => {
         setCartSection(false)
     }
@@ -123,7 +119,6 @@ export default function SaleClient({ slug }) {
         setRegPrice('')
     }
 
-
     const pathname = usePathname();
     const splitedPath = pathname.split('/')
     const childSlug = splitedPath[splitedPath.length - 1];
@@ -138,7 +133,6 @@ export default function SaleClient({ slug }) {
     const { showDeliveryMessage } = useGlobalContext();
     const salePageRef = useRef()
 
-
     const [showButtons, setShowButtons] = useState(true)
     const [saleCategories, setSaleCategories] = useState([])
     const [selectedSaleCategory, setSelectedSaleCategory] = useState('')
@@ -151,8 +145,6 @@ export default function SaleClient({ slug }) {
     const [showArrows, setShowArrows] = useState(false)
     const [activeCategory, setActiveCategory] = useState(null)
 
-
-
     const getSaleCategories = () => {
         const api = `${url}/api/v1/products/main-categories-from-products?categorySlug=${childSlug}`;
         return fetch(api).then(response => {
@@ -163,7 +155,6 @@ export default function SaleClient({ slug }) {
             }
             return response.json()
         }).then(data => {
-            console.log("data", data)
             setSaleCategories(data.categories)
         }).catch(error => console.log("UnExpected Server Error", error))
     }
@@ -280,17 +271,99 @@ export default function SaleClient({ slug }) {
         scrollRef.current?.scrollBy({ left: 150, behavior: "smooth" });
     };
 
-
     const [showFilters, setShowFilters] = useState(true)
     const [showMobileFilters, setShowMobileFilters] = useState(false)
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+    const searchParams = useSearchParams()
+    const selectedCategoryRef = useRef(null);
+    console.log("searc params", searchParams.toString())
+
+    // const handleFilterProduct = (item, index) => {
+    //     const newActiveIndex = activeCategory === index ? null : index;
+    //     const newCategoryId = selectedCategoryId === item.uid ? null : item.uid;
+
+    //     setActiveCategory(newActiveIndex);
+    //     setSelectedCategoryId(newCategoryId);
+
+    //     setSortedProducts([]);
+
+    //     setTimeout(() => {
+    //         // 👉 If category is removed (null) → show all products
+    //         if (newCategoryId === null && searchParams.toString === '') {
+    //             setSortedProducts(products);
+    //             return;
+    //         } else if(searchParams.toString() !== null) {
+    //             filterProducts(searchParams.toString())
+    //             return;
+    //         }
+
+    //         // 👉 Otherwise filter based on selected category
+    //         const filtered = products.filter((product) =>
+    //             product.categories.some(
+    //                 (category) => category.is_main === 1 && category.uid === newCategoryId
+    //             )
+    //         );
+
+    //         if(searchParams.toString() !== '') {
+    //             filterProducts(searchParams.toString())
+    //         } else {
+    //             setSortedProducts(filtered);
+    //         }
+
+    //     }, 1000);
+    // };
 
 
     const handleFilterProduct = (item, index) => {
-        setActiveCategory(index)
-        const filtered = products.filter((product) => product.categories.some((category) => category.is_main === 1 && category.uid === item.uid))
-        setSortedProducts([])
-        setTimeout(() => { setSortedProducts(filtered) }, 1000)
-    }
+        const newActiveIndex = activeCategory === index ? null : index;
+        const newCategoryId = selectedCategoryId === item.uid ? null : item.uid;
+
+        setActiveCategory(newActiveIndex);
+        setSelectedCategoryId(newCategoryId);
+
+        // 👉 NEW: update ref immediately so filterProducts always sees latest value
+        selectedCategoryRef.current = newCategoryId;
+
+        const query = searchParams.toString(); // always call once
+        const isQueryEmpty = query === "";
+
+        setSortedProducts([]);
+
+        setTimeout(() => {
+
+            // 1️⃣ NO category selected + NO search params  → show all products
+            if (newCategoryId === null && isQueryEmpty) {
+                setSortedProducts(products);
+                return;
+            }
+
+            // 2️⃣ NO category selected + search params NOT empty → show filtered API data
+            if (newCategoryId === null && !isQueryEmpty) {
+                filterProducts(query);
+                return;
+            }
+
+            // 3️⃣ Category selected + NO search params → filter by category only
+            if (newCategoryId !== null && isQueryEmpty) {
+                const filtered = products.filter(product =>
+                    product.categories.some(
+                        category =>
+                            category.is_main === 1 &&
+                            category.uid === newCategoryId
+                    )
+                );
+                setSortedProducts(filtered);
+                return;
+            }
+
+            // 4️⃣ Category selected + search params NOT empty → filtered API data + category filter
+            if (newCategoryId !== null && !isQueryEmpty) {
+                filterProducts(query);
+                return;
+            }
+
+        }, 500);
+    };
 
 
     const [allFilters, setAllFilters] = useState([])
@@ -308,7 +381,7 @@ export default function SaleClient({ slug }) {
     const [isFeatured, setIsFeatured] = useState([])
     const [isStock, setIsStock] = useState([])
     const [clearFilters, setClearFilters] = useState(false)
-
+    
 
     const filterProducts = async (filter) => {
         const api = `/api/v1/products/by-category?categorySlug=${childSlug}&${filter}&per_page=60`;
@@ -317,55 +390,21 @@ export default function SaleClient({ slug }) {
             setClearFilters(true);
             const response = await axios.get(`${url}${api}`);
             let data = response.data.products;
-            if (!data.length > 0) {
-                setNoProducts(true);
-            } else {
-                setNoProducts(false)
+            
+            let finalData = data;
+
+            if (selectedCategoryRef.current !== null) {
+                finalData = data.filter(product =>
+                    product.categories.some(category =>
+                        category.is_main === 1 &&
+                        category.uid === selectedCategoryRef.current
+                    )
+                );
             }
-            setSortedProducts(data)
-            console.log("sale data filtered", data)
-            // switch (selectedRelevanceValue) {
-            //     case "Recent":
-            //         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            //         break;
-            //     case "By Price (Low to High)":
-            //         data.sort((a, b) => a.sale_price - b.sale_price);
-            //         break;
-            //     case "By Price (High to Low)":
-            //         data.sort((a, b) => b.sale_price - a.sale_price);
-            //         break;
-            //     case "Alphabetic (A to Z)":
-            //         data.sort((a, b) => a.name.localeCompare(b.name));
-            //         break;
-            //     case "Alphabetic (Z to A)":
-            //         data.sort((a, b) => b.name.localeCompare(a.name));
-            //         break;
-            //     case "By Ratings (Low to High)":
-            //         data.sort(
-            //             (a, b) =>
-            //                 parseFloat(a.average_rating) - parseFloat(b.average_rating)
-            //         );
-            //         break;
-            //     case "By Ratings (High to Low)":
-            //         data.sort(
-            //             (a, b) =>
-            //                 parseFloat(b.average_rating) - parseFloat(a.average_rating)
-            //         );
-            //         break;
 
-            //     default:
-            //         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            // }
+            setNoProducts(finalData.length === 0)
 
-            // setSortedProducts(response.data.products);
-            // setTotalPages(response.data.pagination);
-            // if (!response.data.products.length > 0) {
-            //     setFilterState(true);
-            //     // setNoProducts(true);
-            // } else {
-            //     setFilterState(false);
-            //     // setNoProducts(false)
-            // }
+            setSortedProducts(finalData);
         } catch (error) {
             console.error("Internal Server Error", error);
             setClearFilters(false);
@@ -373,8 +412,6 @@ export default function SaleClient({ slug }) {
             setClearFilters(false);
         }
     };
-
-
 
     const fetchFilters = async () => {
         const api = `/api/v1/products/by-category/filters?categorySlug=${childSlug}`;
@@ -419,8 +456,10 @@ export default function SaleClient({ slug }) {
     };
 
     const handleColorCheck = (value) => {
+        console.log("see value", value)
         const params = new URLSearchParams(window.location.search);
         const updatedColorValue = colorValue?.includes(value) ? [] : [value];
+        console.log("updated color value", updatedColorValue)
 
         setColorValue(updatedColorValue);
 
@@ -442,8 +481,12 @@ export default function SaleClient({ slug }) {
             .replace(/\+/g, " ");
         const pathname = window.location.pathname;
 
+        console.log("query string", queryString);
+
+
         // ✅ Update the URL
         router.replace(`${pathname}?${queryString}`, { shallow: true });
+        console.log("full query", `${pathname}?${queryString}`)
 
         // ✅ Call API after updating query
         filterProducts(queryString);
@@ -477,7 +520,7 @@ export default function SaleClient({ slug }) {
         filterProducts(ratingString);
     };
 
-    const handleColllectionSelect = (value) => {
+    const handleCollectionSelect = (value) => {
         const params = new URLSearchParams(window.location.search);
         const updatedCollectionValue = collectionValue?.includes(value.uid)
             ? []
@@ -623,7 +666,6 @@ export default function SaleClient({ slug }) {
         setStockOpen((prevOpen) => (prevOpen === type ? "" : type));
     };
 
-
     const handleClearFilters = () => {
         setPriceRange([priceRange[0], priceRange[1]]);
         setColorValue([]);
@@ -632,6 +674,7 @@ export default function SaleClient({ slug }) {
         setBrandValue([]);
         setIsFeatured([]);
         setIsStock([]);
+        setSortedProducts(products)
 
         const pathname = window.location.pathname;
         router.replace(pathname, { shallow: true });
@@ -639,15 +682,6 @@ export default function SaleClient({ slug }) {
         fetchFilters();
         filterProducts("");
     };
-
-    useEffect(() => { console.log("all filters", allFilters) }, [allFilters])
-
-
-
-
-
-
-
 
     useDisableBodyScroll(cartSection, quickViewClicked)
 
@@ -875,7 +909,7 @@ export default function SaleClient({ slug }) {
                                                         placeholder="checkbox"
                                                         value={item.uid}
                                                         checked={collectionValue?.includes(item.uid)}
-                                                        onChange={(e) => handleColllectionSelect(item)}
+                                                        onChange={(e) => handleCollectionSelect(item)}
                                                         className="custom-checkbox"
                                                         id={`collection-${index}`}
                                                     />
@@ -1031,7 +1065,7 @@ export default function SaleClient({ slug }) {
                                     <button className="mobile-sale-product-show-filter-button" onClick={() => setShowMobileFilters(true)}>
                                         <CiCircleList size={15} color="#000" /> Show Filters
                                     </button>
-                                    <h3 className="sale-products-total-len">{sortedProducts?.length} Items</h3>
+                                    <h3 className="sale-products-total-len">{sortedProducts?.length > 0 ? sortedProducts?.length : ''} {sortedProducts?.length > 0 ? 'Products Found' : 'No Products Found'} </h3>
                                 </div>
 
                                 <div className={`active-sale-cards ${showFilters ? 'grid-col-3' : ''}  increase-columns ${activeGrid === 'single-col' ? 'offer-cards-single-grid' : 'offer-cards-dual-col'}`}>
@@ -1162,7 +1196,7 @@ export default function SaleClient({ slug }) {
                     handleRating={handleRatingFilter}
                     handleCategory={handleCategorySelect}
                     handlePriceRange={handleRangeChange}
-                    handleColllectionSelect={handleColllectionSelect}
+                    handleCollectionSelect={handleCollectionSelect}
                     handleBrandSelect={handleBrandSelect}
                     handleFeatured={handleFeatured}
                     handleStock={handleStock}
@@ -1170,8 +1204,6 @@ export default function SaleClient({ slug }) {
                 />
 
             </div>
-
-
         </>
     )
 }
