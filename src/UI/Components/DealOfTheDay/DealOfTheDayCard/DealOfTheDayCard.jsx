@@ -27,6 +27,7 @@ const DealOfTheDayCard = ({
     dicountPercent
   }) => {
 
+    // console.log("dod data", dealDayData)
     
     const formatePrice = (price) => {
       return new Intl.NumberFormat('en-us', {
@@ -51,7 +52,7 @@ const DealOfTheDayCard = ({
           <div 
             className='deal-of-the-day-price'
           >
-            <p>{formatePrice(newPrice)}</p>
+            <p>{parseInt(newPrice) === 0 || newPrice === '' ? formatePrice(price) : formatePrice(newPrice)}</p>
             {isDiscountable ? <del>{formatePrice(price)}</del> : <></>}
               
           </div>
@@ -106,7 +107,7 @@ const DealOfTheDayCard = ({
           
             <div 
             className='mobile-view-deal-of-the-day-price'>
-              <p>{formatePrice(newPrice)}</p>
+              <p>{parseInt(newPrice) === 0 || newPrice === '' ? formatePrice(price) : formatePrice(newPrice)}</p>
               {isDiscountable ? <del>{formatePrice(price)}</del> : <></>}
           </div>
         </div>

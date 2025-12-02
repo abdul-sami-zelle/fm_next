@@ -50,6 +50,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
   };
 
 
+
   useEffect(() => {
     if (dealEndTime) {
       const timer = setInterval(() => {
@@ -110,6 +111,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
           newPrice
         };
       });
+
 
     return productWithDiscount;
   };
@@ -228,7 +230,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
                   rating={items.rating}
                   review={'200'}
                   price={items.regular_price}
-                  newPrice={items.newPrice}
+                  newPrice={items.sale_price}
                   descount={items.disc}
                   // handleCartSection={addToCart0(items, 0, 1)}
                   dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
