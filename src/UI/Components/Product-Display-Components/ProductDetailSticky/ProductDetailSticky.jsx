@@ -433,10 +433,10 @@ const ProductDetailSticky = (
               } */}
 
 
-              <div className="sale_banner_product_page">
+              {/* <div className="sale_banner_product_page">
 
                 <Image src={`${url}/uploads/black_friday.jpg`} width={230} height={70} alt='tag-img' />
-                {/* <div className="main_sale_name">
+                <div className="main_sale_name">
                   FREE DELIVERY ON ORDERS ABOVE $500
                 </div>
 
@@ -444,9 +444,9 @@ const ProductDetailSticky = (
 
                 <div className="sale_banner_restr">
                   MILEAGE RESTRICTIONS MAY APPLY.
-                </div> */}
+                </div>
 
-              </div>
+              </div> */}
 
 
 
@@ -530,19 +530,19 @@ const ProductDetailSticky = (
                 } */}
 
 
-                <div className="sale_banner_product_page">
+                {/* <div className="sale_banner_product_page">
 
                   <Image src={`${url}/uploads/black_friday.jpg`} width={230} height={70} alt='tag-img' />
 
-                  {/* <div className="main_sale_name">
+                  <div className="main_sale_name">
                     FREE DELIVERY ON ORDERS ABOVE $500
                   </div>
 
                   <div className="sale_banner_restr">
                     MILEAGE RESTRICTIONS MAY APPLY.
-                  </div> */}
+                  </div>
 
-                </div>
+                </div> */}
 
                 <h3>{product?.name}</h3>
                 {/* <p>SKU : {product.sku}</p> */}
