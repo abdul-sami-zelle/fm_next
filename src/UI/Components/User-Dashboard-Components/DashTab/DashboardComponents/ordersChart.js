@@ -1,63 +1,11 @@
+'use client'
+import dynamic from "next/dynamic";
 import React, { useEffect } from "react";
-import Chart from "react-apexcharts";
+// import Chart from "react-apexcharts";
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const BarChart = ({data}) => {
   const [chartOptions, setChartOptions] = React.useState(null)
-    // series: [
-    //   {
-    //     data: data?.summary?.orderStats.map(item => item.count),
-    //   },
-    //   // {
-    //   //   data: [53, 32, 33, 52, 13, 44, 32],
-    //   // },
-    // ],
-    // options: {
-    //   chart: {
-    //     type: "bar",
-    //     background: "#fff",
-    //     toolbar: {
-    //     show: false, // This will remove the hamburger menu
-    //   },
-    //   },
-    //   plotOptions: {
-    //     bar: {
-    //       horizontal: false,
-    //       borderRadius: 10, // Adjust radius of the bars
-    //       dataLabels: {
-    //         position: "top",
-    //       },
-    //     },
-    //   },
-    //   colors: ["var(--tertiary-color)", "#76A7D4"], // Colors for the bars
-    //   states: {
-    //     hover: {
-    //       enable: false
-    //       // filter: {
-    //       //   type: "lighten",
-    //       //   value: 0.2,
-    //       // },
-    //     },
-    //   },
-    //   stroke: {
-    //     show: true,
-    //     width: 1,
-    //     colors: ["#fff"],
-    //   },
-    //   grid: {
-    //     show: true,
-    //     borderColor: "#e0e0e0", // Color of the grid lines
-    //     strokeDashArray: 4, // Dash array for dotted lines
-    //     position: "back",
-    //   },
-    //   tooltip: {
-    //     shared: true,
-    //     intersect: false,
-    //   },
-    //   xaxis: {
-    //     // categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
-    //     categories: data?.summary?.orderStats.map(item => item.date),
-    //   },
-    // },
 
     useEffect(() => {
     if (data?.summary?.orderStats?.length > 0) {
@@ -122,12 +70,15 @@ const BarChart = ({data}) => {
   return (
     <div className="bar_chart_order_stats">
       <h3>Order Statistics</h3>
-      <Chart
-        options={chartOptions.options}
-        series={chartOptions.series}
-        type="bar"
-        height={305}
-      />
+      {chartOptions !== null && (
+        <Chart
+          key={chartOptions.series[0]}
+          options={chartOptions.options}
+          series={chartOptions.series}
+          type="bar"
+          height={305}
+        />
+      )}
     </div>
   );
 };

@@ -2,11 +2,14 @@ import SaleClient from "@/UI/Components/SaleClient/SaleClient";
 
 
 export async function generateMetadata({ params }) {
+  const resolvedParam = await params
   const { slug } = params;
+
+  
 
   try {
     const res = await fetch(
-      `https://fmapi.myfurnituremecca.com/api/v1/productCategory/get-seo?slug=${params.slug}`,
+      `https://fmapi.myfurnituremecca.com/api/v1/productCategory/get-seo?slug=${resolvedParam.slug}`,
       { cache: "no-store" }
     );
 
@@ -14,7 +17,7 @@ export async function generateMetadata({ params }) {
 
     if (!res.ok) {
       return {
-        title: `${params.name} - Furniture Mecca`,
+        title: `${resolvedParam.slug} - Furniture Mecca`,
         description: "Browse our collection of quality furniture.",
       };
     }
@@ -24,14 +27,14 @@ export async function generateMetadata({ params }) {
 
     if (!seoData || seoData.length === 0) {
       return {
-        title: `${params.name} - Furniture Mecca`,
+        title: `${resolvedParam.slug} - Furniture Mecca`,
         description: "Browse our collection of quality furniture.",
       };
     }
 
     if (seoData || seoData.length > 0) {
       return {
-        title: `${seoData[0].name} - Furniture Mecca`,
+        title: `${resolvedParam.slug} - Furniture Mecca`,
         description: "Browse our collection of quality furniture.",
       };
     }

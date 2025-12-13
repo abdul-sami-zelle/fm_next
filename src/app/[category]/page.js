@@ -2,7 +2,8 @@ import CategoriesClient from "@/UI/Components/CategoryClient/CategoryClient";
 
 
 export async function generateMetadata({ params }) {
-  const { category } = params;
+  const resolvedParam = await params
+  const { category } = resolvedParam;
 
 
   try {
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }) {
 
     if (!res.ok) {
       return {
-        title: `${params.category} - Furniture Mecca`,
+        title: `${category} - Furniture Mecca`,
         description: "Browse our collection of quality furniture.",
       };
     }
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }) {
 
     if (!seoData || seoData.length === 0) {
       return {
-        title: `${params.category} - Furniture Mecca`,
+        title: `${category} - Furniture Mecca`,
         description: "Browse our collection of quality furniture.",
       };
     }
@@ -73,9 +74,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Category({ params }) {
+  const resolvedParams = await params;
+  const {category} = resolvedParams;
 
-
-  return <CategoriesClient category={params.category} />
+  return <CategoriesClient category={category} />
 }
 
 

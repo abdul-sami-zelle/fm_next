@@ -27,7 +27,6 @@ const DealOfTheDayCard = ({
     dicountPercent
   }) => {
 
-    // console.log("dod data", dealDayData)
     
     const formatePrice = (price) => {
       return new Intl.NumberFormat('en-us', {

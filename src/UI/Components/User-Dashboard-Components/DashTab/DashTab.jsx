@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import './DashTab.css';
 import DashboardTab from './DashboardComponents/dashTab';

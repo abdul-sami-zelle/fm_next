@@ -1,7 +1,9 @@
 import ProductArchive from './productArchive';
 
 export async function generateMetadata({ params }) {
-  const subcategorySlug = params['product-archive'];
+  const resolvedParam = await params
+  const subcategorySlug = resolvedParam['product-archive'];
+  
 
   try {
     const res = await fetch(

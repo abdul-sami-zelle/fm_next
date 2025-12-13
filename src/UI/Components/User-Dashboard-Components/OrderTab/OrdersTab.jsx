@@ -138,9 +138,22 @@ const OrdersTab = ({ data }) => {
     <div className='dash-orders-main-container'>
       {loading && <Loader />}
       <table className='order-table'>
+        {/* [
+          'Order Number',
+          'Invoice',
+          'Date',
+          'Status',
+          'Total',
+          'Action'
+        ],
+        <tr>
+              {items.tableHeadData.map((headItems, headItemIndex) => (
+                <th className={headItems === 'Date' || headItems === 'Order Number' ? 'action-td' : ''} key={headItemIndex}>{headItems}</th>
+              ))}
+            </tr> */}
         {ordersData.map((items, index) => (
           <>
-            <tr key={index}>
+            <tr>
               {items.tableHeadData.map((headItems, headItemIndex) => (
                 <th className={headItems === 'Date' || headItems === 'Order Number' ? 'action-td' : ''} key={headItemIndex}>{headItems}</th>
               ))}

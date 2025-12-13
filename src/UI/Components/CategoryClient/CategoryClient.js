@@ -104,6 +104,7 @@ const CategoriesClient = ({ category }) => {
   const {showDeliveryMessage} = useGlobalContext();
   const categoryRef = useRef()
 
+
   return (
     <div ref={categoryRef}>
       <LatestModulerBanner

@@ -276,7 +276,6 @@ export default function SaleClient({ slug }) {
     const [selectedCategoryId, setSelectedCategoryId] = useState(null)
     const searchParams = useSearchParams()
     const selectedCategoryRef = useRef(null);
-    console.log("searc params", searchParams.toString())
 
     // const handleFilterProduct = (item, index) => {
     //     const newActiveIndex = activeCategory === index ? null : index;
@@ -456,10 +455,8 @@ export default function SaleClient({ slug }) {
     };
 
     const handleColorCheck = (value) => {
-        console.log("see value", value)
         const params = new URLSearchParams(window.location.search);
         const updatedColorValue = colorValue?.includes(value) ? [] : [value];
-        console.log("updated color value", updatedColorValue)
 
         setColorValue(updatedColorValue);
 
@@ -481,12 +478,10 @@ export default function SaleClient({ slug }) {
             .replace(/\+/g, " ");
         const pathname = window.location.pathname;
 
-        console.log("query string", queryString);
 
 
         // ✅ Update the URL
         router.replace(`${pathname}?${queryString}`, { shallow: true });
-        console.log("full query", `${pathname}?${queryString}`)
 
         // ✅ Call API after updating query
         filterProducts(queryString);
