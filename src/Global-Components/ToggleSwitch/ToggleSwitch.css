@@ -264,7 +264,7 @@
     /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
 }
 
-.checkbox-wrapper-7 .tgl::-moz-selection,
+/* .checkbox-wrapper-7 .tgl::-moz-selection,
 .checkbox-wrapper-7 .tgl:after::-moz-selection,
 .checkbox-wrapper-7 .tgl:before::-moz-selection,
 .checkbox-wrapper-7 .tgl *::-moz-selection,
@@ -278,6 +278,19 @@
 .checkbox-wrapper-7 .tgl *:after::selection,
 .checkbox-wrapper-7 .tgl *:before::selection,
 .checkbox-wrapper-7 .tgl+.tgl-btn::selection {
+    background: none;
+} */
+
+/* Base element selection */
+.checkbox-wrapper-7 .tgl::selection,
+.checkbox-wrapper-7 .tgl::after,
+.checkbox-wrapper-7 .tgl::before,
+.checkbox-wrapper-7 .tgl *::selection {
+    background: none;
+}
+
+/* Adjacent button */
+.checkbox-wrapper-7 .tgl + .tgl-btn::selection {
     background: none;
 }
 

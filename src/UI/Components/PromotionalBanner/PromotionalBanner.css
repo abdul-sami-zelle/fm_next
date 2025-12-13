@@ -132,7 +132,7 @@
   color: #FFF;
 }
 
-.divider:nth-last-of-type() {
+.divider:last-of-type {
     display: none;
 }
 
