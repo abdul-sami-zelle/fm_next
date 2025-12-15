@@ -1,5 +1,4 @@
 import UserDashboardWrapper from "@/UI/Components/UserDashClient/UserDashboardWrapper";
-import UserDashboardClient from "@/UI/Components/UserDashClient/UserDashClient";
 
 export async function generateMetadata() {
   return {

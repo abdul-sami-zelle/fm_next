@@ -1,14 +1,12 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import './PromotionalBanner.css';
-// import { Link, useNavigate } from 'react-router-dom';
 import Link from 'next/link'
 
 import { useUserDashboardContext } from '../../../context/userDashboardContext/userDashboard';
 import { url, useDisableBodyScroll } from '../../../utils/api';
-// import crossButton from '../../../Assets/icons/close-btn.png'
 import Image from 'next/image';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
@@ -27,10 +25,10 @@ const PromotionalBanner = (
   const [currentIndex, setCurrentIndex] = useState(0);
   const dynamicHeading = [0, 1, 2]
   useEffect(() => {
-    const intervelId = setInterval(() => {
+    const intervalId = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % dynamicHeading.length)
     }, 5000)
-    return () => clearInterval(intervelId);
+    return () => clearInterval(intervalId);
   }, [])
 
 
@@ -38,10 +36,6 @@ const PromotionalBanner = (
   const { setUserToken, setSigninClicked } = useUserDashboardContext();
   const [isTokenValid, setIsTokenValid] = useState(false);
   const { info } = useGlobalContext()
-
-
-
-
 
   const handleUserLogin = async (clickType) => {
     const token = localStorage.getItem('userToken');
@@ -73,12 +67,10 @@ const PromotionalBanner = (
     setIsTokenValid(false)
   }
 
-
   // Indicator
   const bannerLinks = [
     { label: 'Blogs', link: '/blogs' },
     { label: 'Log In', link: '' },
-    // { label: 'Sign up', link: '' },
     { label: 'Stores', link: '/store-locator' },
     { label: 'Track Order', link: 'https://track.myfurnituremecca.com/' },
     { label: 'Financing', link: '/financing' },
@@ -92,29 +84,6 @@ const PromotionalBanner = (
   const activeIndexRef = useRef(activeIndex);
   const hoverIndexRef = useRef(null);
   const [mounted, setMounted] = useState(false);
-
-
-  // Find the initial active index
-  const getInitialIndex = () => {
-    let idx = bannerLinks.findIndex(item => item.link && pathname.startsWith(item.link));
-    if (idx === -1) {
-      idx = bannerLinks.findIndex(item => item.label === 'Track Order');
-    }
-    return idx !== -1 ? idx : 0;
-  };
-
-  // const moveIndicator = () => {
-  //   const index = hoverIndexRef.current != null ? hoverIndexRef.current : activeIndexRef.current;
-  //   if (lastMovedIndex.current === index) return;
-  //   const link = linksRef.current[index];
-  //   const indicator = indicatorRef.current;
-  //   if (link && indicator) {
-  //     indicator.style.width = `${link.offsetWidth}px`;
-  //     indicator.style.left = `${link.offsetLeft}px`;
-  //     indicator.style.opacity = '1';
-  //     lastMovedIndex.current = index;
-  //   }
-  // };
 
   const moveIndicator = () => {
     const index = hoverIndexRef.current != null
@@ -141,11 +110,20 @@ const PromotionalBanner = (
     }
   };
 
-  useEffect(() => {
-    moveIndicator();
-    // after first paint, enable transitions
-    requestAnimationFrame(() => setMounted(true));
-  }, []);
+  // useEffect(() => {
+  //   moveIndicator();
+  //   requestAnimationFrame(() => setMounted(true));
+  // }, []);
+
+  useLayoutEffect(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        lastMovedIndex.current = null;
+        moveIndicator();
+        setMounted(true)
+      })
+    })
+  }, [])
 
   const handleHover = (index) => {
     hoverIndexRef.current = index;
@@ -157,10 +135,6 @@ const PromotionalBanner = (
     moveIndicator();
   };
 
-  const handleClick = (index) => {
-    setActiveIndex(index);
-    activeIndexRef.current = index;
-  };
 
   useEffect(() => {
     moveIndicator();
@@ -270,9 +244,6 @@ const PromotionalBanner = (
             })
           }
 
-
-
-
           <span className="indicator" ref={indicatorRef}></span>
 
         </div>
@@ -293,7 +264,6 @@ const PromotionalBanner = (
               {info.locationData.zipCode} {info.locationData.stateCode}
             </Link>
           )}
-          {/* <Link href={'#'}> {info.locationData.zipCode} {info.locationData.stateCode}</Link> */}
         </div>
       </div>
 
