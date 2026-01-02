@@ -58,7 +58,6 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
                 (
                   <FinancingAccount
                     topHeadng={'Look up your financing account.'}
-                    buttonText={'Look Up Financing'}
                     askQuestion={'Need To Apply?'}
                     applyText={'Apply Now'}
                   />
@@ -67,7 +66,6 @@ const PaymentMethod = ({ handleSubmitOrder }) => {
                   (
                     <FinancingAccount
                       topHeadng={'Look up your lease account.'}
-                      buttonText={'Look Up Lease'}
                       askQuestion={'Need To Apply?'}
                       applyText={'Apply Now'}
                     />

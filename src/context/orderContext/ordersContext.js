@@ -109,6 +109,37 @@ export const MyOrdersProvider = ({ children }) => {
         status: ''
     })
 
+
+    const [acimaDetails, setAcimaDetails] = useState({
+        first_name: '',
+        last_name: '',
+        address_1: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: 'US',
+        email: '',
+        phone: '',
+        alt_phone: '',
+        address2: '',
+        monthly_net: ''
+    })
+
+    const [acimaErrors, setAcimaErrors] = useState({
+        first_name: '',
+        last_name: '',
+        address_1: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: '',
+        email: '',
+        phone: '',
+        alt_phone: '',
+        address2: '',
+        monthly_net: ''
+    })
+
     const getBillingData = async (userId, authToken) => {
         try {
             if (!authToken) {
@@ -312,6 +343,8 @@ export const MyOrdersProvider = ({ children }) => {
             expiry_date: '',
             sec_code: '',
         })
+
+
     const sendProducts = async () => {
 
         // Basic validation for credit card fields
@@ -505,6 +538,10 @@ export const MyOrdersProvider = ({ children }) => {
             errorDetails,
             error, 
             setError,
+            acimaDetails, 
+            setAcimaDetails,
+            acimaErrors, 
+            setAcimaErrors,
         }}>
             {children}
         </MyOrderContext.Provider>

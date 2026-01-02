@@ -3,11 +3,6 @@ import './CreditCard.css'
 import { useMyOrders } from '@/context/orderContext/ordersContext';
 import { useGlobalContext } from '@/context/GlobalContext/globalContext';
 
-// import masterCard from '../../../../Assets/icons/mastercard-1.png';
-// import visaCard from '../../../../Assets/icons/visa-1.png'
-// import americanExpressCard from '../../../../Assets/icons/ae-1.png';
-// import discover from '../../../../Assets/icons/discover-1.png'
-// import paypal from '../../../../Assets/icons/paypal-1.png'
 
 
 
@@ -23,9 +18,6 @@ const CreditCard = () => {
     } = useMyOrders();
 
     const nameRef = useRef(null)
-    const cardRef = useRef(null)
-    const expiryRef = useRef(null)
-    const svcCodeRef = useRef(null)
 
 
     const detectCardType = (cardNumber) => {
@@ -45,7 +37,6 @@ const CreditCard = () => {
 
         return ''; // Default to empty string if no match found
     };
-
 
     useEffect(() => {
 
@@ -145,7 +136,6 @@ const CreditCard = () => {
                             className="input-field-email"
                             onFocus={() => setFocusedField("expiry_date")}
                             onBlur={() => setFocusedField("")}
-                            // onChange={handleDeliveryInfo}
                             name='expiry_date'
                             readOnly={isDeliveryAllowed}
                             value={creditCardData.expiry_date}
@@ -185,7 +175,6 @@ const CreditCard = () => {
                             className="input-field-email"
                             onFocus={() => setFocusedField("sec_code")}
                             onBlur={() => setFocusedField("")}
-                            // onChange={handleDeliveryInfo}
                             name='sec_code'
                             readOnly={isDeliveryAllowed}
                             value={creditCardData.sec_code}

@@ -29,25 +29,27 @@
 
 .payment-type-financing-inputs-main{
     display: flex;
+    flex-direction: column;
+    gap: 15px;
     align-items: center;
     justify-content: center;
     width: 100%;
 }
 
-.payment-type-financing-inputs-main > button {
+.acima-method-input-dual-fields {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
+    gap: 15px;
+}
+
+.acima-method-single-input {
+    display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 500;
-    background-color: transparent;
-    cursor: pointer;
-    padding: 10px;
+    width: 49%;
+
 }
 
 .payment-type-financing-apply{

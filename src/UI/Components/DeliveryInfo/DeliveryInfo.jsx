@@ -64,7 +64,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
             }
         });
 
-        if (Object.keys(newErrors).length > 0) {
+        if (Object.keys(newErrors)?.length > 0) {
             setError((prev) => ({ ...prev, ...newErrors }));
             console.error("Errors found: ", newErrors);
             return false
@@ -187,10 +187,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 </div>
             )}
 
-
-
-
-
             <p>All Fields Required Unless indicated Optional </p>
 
             <div className='delivery-form-signup-container'>
@@ -222,8 +218,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 </div>
                 {!userId && !userToken && <span>Already have an account <p onClick={handleNavigateToSignup}>SIGN IN</p></span>}
                 {!userId && !userToken && <p>You Can Create an Account After Checkout.</p>}
-
-
 
             </div>
 
@@ -282,8 +276,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <div className='delivery-info-email-and-phone'>
 
-
-
                     <div
                         onClick={() => {isDeliveryAllowed ? undefined : phoneRef.current?.focus()}}
                         style={{ border: error.phone ? '1px solid var(--orange-outline)' : '' }}
@@ -306,8 +298,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onChange={handleNestedValueChange}
                         />
                     </div>
-
-
 
                     <div
                         onClick={() => {isDeliveryAllowed ? undefined : altPhoneRef.current?.focus()}}
@@ -333,8 +323,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     </div>
 
                 </div>
-
-
 
                 <div
                     onClick={() => {isDeliveryAllowed ? undefined : addressOneRef.current?.focus()}}
@@ -406,7 +394,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     </div>
 
-
                     <div
                         onClick={() => {isDeliveryAllowed ? undefined : stateRef.current?.focus()}}
                         style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
@@ -430,7 +417,6 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onChange={handleNestedValueChange}
                         />
                     </div>
-
 
                     <div
                         onClick={() => {isDeliveryAllowed ? undefined : cityRef.current?.focus()}}
@@ -457,14 +443,9 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                     </div>
 
-                    
-
-
-
                 </div>
 
                 <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true : false)}>Change Zipcode?</button>
-
 
             </div>
 
