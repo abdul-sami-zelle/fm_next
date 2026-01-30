@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
 
     if (!res.ok) {
       return {
-        title: `${params.category} - Furniture Mecca`,
+        title: `Free Delivery & Free Setup | ${params.category} – Tax Refund Furniture Sale | Furniture Mecca`,
         description: "Explore our products collection.",
       };
     }
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
 
     if (!seoData || seoData.length === 0) {
       return {
-        title: `${params.category} - Furniture Mecca`,
+        title: `Free Delivery & Free Setup | ${params.category} – Tax Refund Furniture Sale | Furniture Mecca`,
         description: "Explore our Categories collection.",
       };
     }
@@ -35,14 +35,14 @@ export async function generateMetadata({ params }) {
       : `https://fmapi.myfurnituremecca.com${meta.og_image.startsWith("/") ? meta.og_image : `/${meta.og_image}`}`;
 
     return {
-      title: `${meta.title} - Furniture Mecca` || `${seoData[0].name} - Furniture Mecca`,
+      title: `Free Delivery & Free Setup | ${meta.title} – Tax Refund Furniture Sale | Furniture Mecca` || `Free Delivery & Free Setup | ${seoData[0].name} – Tax Refund Furniture Sale | Furniture Mecca`,
       description: meta.description || "Explore our category collection.",
       keywords: meta.keywords || undefined,
       alternates: {
         canonical: meta.canonical_url || `https://myfurnituremecca.com/${slug}`,
       },
       openGraph: {
-        title: `${meta.og_title} - Furniture Mecca` || meta.title,
+        title: `Free Delivery & Free Setup | ${meta.og_title} – Tax Refund Furniture Sale | Furniture Mecca` || `Free Delivery & Free Setup | ${meta.title} – Tax Refund Furniture Sale | Furniture Mecca`,
         description: meta.og_description || meta.description,
         url: `https://myfurnituremecca.com/${slug}`,
         siteName: "Furniture Mecca",
@@ -58,7 +58,7 @@ export async function generateMetadata({ params }) {
       },
       twitter: {
         card: "summary_large_image",
-        title: `${meta.x_title} - Furniture Mecca` || meta.title,
+        title: `Free Delivery & Free Setup | ${meta.x_title} – Tax Refund Furniture Sale | Furniture Mecca` || `Free Delivery & Free Setup | ${meta.title} – Tax Refund Furniture Sale | Furniture Mecca`,
         description: meta.x_description || meta.description,
         images: [imageUrl],
       },
@@ -66,7 +66,7 @@ export async function generateMetadata({ params }) {
   } catch (error) {
     console.error("Error fetching SEO data:", error);
     return {
-      title: "Category - Furniture Mecca",
+      title: "Free Delivery & Free Setup | Category - Furniture Mecca",
       description: "Explore our Category collection.",
     };
   }

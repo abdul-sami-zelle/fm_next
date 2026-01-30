@@ -17,10 +17,10 @@ export async function generateMetadata(props) {
   const meta = seoData?.[0]?.meta || {};
 
   return {
-    title: meta.title || "Product - Furniture Mecca",
+    title: meta.title ? `Free Delivery & Free Setup | ${meta.title} – Tax Refund Furniture Sale | Furniture Mecca` : "Free Delivery & Free Setup | Product - Tax Refund Furniture Sale | Furniture Mecca",
     description: meta.description || "Browse our collection of quality furniture.",
     openGraph: {
-      title: meta.og_title || meta.title,
+      title: `Free Delivery & Free Setup | ${meta.og_title} – Tax Refund Furniture Sale | Furniture Mecca` || `Free Delivery & Free Setup | ${meta.title} – Tax Refund Furniture Sale | Furniture Mecca`,
       description: meta.og_description || meta.description,
       url: `https://myfurnituremecca.com/product/${slug}`,
       images: [

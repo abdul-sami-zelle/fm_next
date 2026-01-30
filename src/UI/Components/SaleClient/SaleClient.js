@@ -720,7 +720,7 @@ export default function SaleClient({ slug }) {
                             >
                                 {saleCategories.map((item, index) => (
                                     <div key={index} onClick={() => handleFilterProduct(item, index)} className={`offer-category-image-single-item-container ${activeCategory === index ? 'active-selected-category' : ''}`}>
-                                        <Image src={url + item.filterImage} width={90} height={90} alt="image" />
+                                        {item?.filterImage && <Image src={url + item?.filterImage} width={90} height={90} alt="image" />}
                                     </div>
                                 ))}
                             </div>

@@ -2,13 +2,13 @@ import ClientLayout from "@/Global-Components/ClientLayout/ClientLayout";
 import Script from "next/script";
 
 export const metadata = {
-  title: "Luxurious Furniture, Rugs and Mattress Online Store Philadelphia - Furniture Mecca",
+  title: "Free Delivery & Free Setup | Tax Refund Furniture Sale – Save Up to 75% Furniture Mecca",
   description:
-    "Furniture Mecca has the largest selection of quality furniture, rugs, mattresses and other stylish furnishings items for great prices.",
+    "Free Delivery & FREE Setup on all furniture during our Tax Refund Sale! Save up to 75% on living room, bedroom & dining sets. Limited-time offer—shop now!",
   openGraph: {
-    title: "Luxurious Furniture, Rugs and Mattress Online Store Philadelphia - Furniture Mecca",
+    title: "Free Delivery & Free Setup | Tax Refund Furniture Sale – Save Up to 75% Furniture Mecca",
     description:
-      "Furniture Mecca has the largest selection of quality furniture, rugs, mattresses and other stylish furnishings items for great prices.",
+      "Free Delivery & FREE Setup on all furniture during our Tax Refund Sale! Save up to 75% on living room, bedroom & dining sets. Limited-time offer—shop now!",
     url: "https://myfurnituremecca.com/home-furniture-mecca",
     siteName: "Furniture Mecca",
     images: [
