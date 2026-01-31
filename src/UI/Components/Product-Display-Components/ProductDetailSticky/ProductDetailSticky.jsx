@@ -447,11 +447,11 @@ const ProductDetailSticky = (
                 </div>
 
               </div> */}
-                <div className="sale_banner_product_page">
+                {/* <div className="sale_banner_product_page">
 
                 <Image src={`${url}/uploads/offers/offer_2.jpeg`} width={230} height={70} alt='tag-img' />
 
-              </div>
+              </div> */}
 
 
 
@@ -549,9 +549,9 @@ const ProductDetailSticky = (
 
                 </div> */}
 
-                <div className="sale_banner_product_page">
+                {/* <div className="sale_banner_product_page">
                   <Image src={`${url}/uploads/offers/offer_2.jpeg`} width={230} height={70} alt='tag-img' />
-                </div>
+                </div> */}
 
                 <h3>{product?.name}</h3>
                 {/* <p>SKU : {product.sku}</p> */}
