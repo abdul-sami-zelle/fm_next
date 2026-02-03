@@ -579,6 +579,28 @@
 }
 
 
+
+.blinking {
+  font-weight: 600;
+  animation: swapColors 0.5s infinite steps(1);
+}
+
+@keyframes swapColors {
+  0% {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+  50% {
+    background-color: var(--text);
+    color: var(--bg);
+  }
+  100% {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+}
+
+
 .text-tag-free-delivery {
     padding: 4px 10px;
     font-size: 14px;

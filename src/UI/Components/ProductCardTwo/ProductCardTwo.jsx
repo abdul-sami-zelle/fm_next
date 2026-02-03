@@ -51,7 +51,7 @@ const ProductCardTwo = ({
 
 
     const [isImageLoaded, setImageLoaded] = useState(false);
-    const {isDeliveryAllowed} = useGlobalContext();
+    const { isDeliveryAllowed } = useGlobalContext();
 
     // Product Main Image Show And Hover Image Show states
     const [hoveredImage, setHoveredImage] = useState()
@@ -255,7 +255,18 @@ const ProductCardTwo = ({
                                         {tags?.text}
                                     </div>
 
-                                    {(!colTwo && showExtraLines) && <div className='text-tag' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px" }} >
+                                    {(!colTwo && showExtraLines) && <div className='text-tag extra_tag blinking'
+                                        // style={{ 
+                                        //     backgroundColor: productTag?.bg_color, 
+                                        //     color: productTag?.text_color, 
+                                        //     borderRadius: "3px" 
+                                        //     }} 
+                                        style={{
+                                            "--bg": productTag?.bg_color,
+                                            "--text": productTag?.text_color,
+                                            borderRadius: "3px"
+                                        }}
+                                    >
                                         {productTag?.text}
                                     </div>}
                                 </div>
@@ -465,7 +476,13 @@ const ProductCardTwo = ({
                     <div className='product-card-content-bottom-section'>
 
                         {/* Monbile View Tag */}
-                        {(colTwo || !showExtraLines) && <div className='text-tag-free-delivery' style={{ backgroundColor: productTag?.bg_color, color: productTag?.text_color, borderRadius: "3px", marginTop: showExtraLines ? "5px" : "10px" }} >
+                        {(colTwo || !showExtraLines) && <div className='text-tag-free-delivery blinking' 
+                           style={{
+                                            "--bg": productTag?.bg_color,
+                                            "--text": productTag?.text_color,
+                                            borderRadius: "3px",
+                                             marginTop: showExtraLines ? "5px" : "10px" 
+                                        }} >
                             {productTag?.text}
                         </div>}
 
@@ -535,7 +552,7 @@ const ProductCardTwo = ({
                                     <h3 className={`get-by-delivery ${colTwo ? 'apply-col-two-styling' : ''}`}>{getDeliveryDate()}</h3>
                                 </span>
 
-                                <button disabled={isQuickView} style={{opacity: isQuickView ? 0.4 : 1 , cursor: isQuickView ? 'not-allowed' : 'pointer'}} className={`card-two-quick-view-button ${colTwo ? 'apply-col-two-styling' : ''}`}
+                                <button disabled={isQuickView} style={{ opacity: isQuickView ? 0.4 : 1, cursor: isQuickView ? 'not-allowed' : 'pointer' }} className={`card-two-quick-view-button ${colTwo ? 'apply-col-two-styling' : ''}`}
                                     onClick={(e) => {
                                         e.stopPropagation();      // stop event bubbling to <Link>
                                         e.preventDefault();
