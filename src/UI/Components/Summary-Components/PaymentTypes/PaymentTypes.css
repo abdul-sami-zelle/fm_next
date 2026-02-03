@@ -45,6 +45,10 @@
   transition: all 0.3s ease-in-out;
 }
 
+.payment-select-option.disabled{
+  cursor: not-allowed;
+}
+
 /* Custom radio button */
 .payment-select-option input[type="radio"] {
   appearance: none;

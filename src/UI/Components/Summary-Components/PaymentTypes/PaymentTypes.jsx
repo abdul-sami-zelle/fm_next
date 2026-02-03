@@ -17,12 +17,14 @@ const PaymentTypes = ({
       sign: "Credit/Debit Card",
       logo: "/Assets/icons/card-2.png",
       paymentMethodId: "9879079j7mummjh",
+      enable: true
     },
     {
       type: "acima-leasing",
       sign: "Acima Leasing",
       logo: "/Assets/icons/acima-2.png",
       paymentMethodId: "19783168sagsk879",
+      enable: false
     },
     // {type: 'paypal',sign: 'Paypal', logo: '/Assets/icons/paypal-2.png'},
     // {type: 'finance-account', sign: 'Finance Account', paymentMethodId: '961803160m79delmiw'},
@@ -56,9 +58,11 @@ const PaymentTypes = ({
   }, []);
 
   const handleSelectPaymentType = (type) => {
-    setSelectedPaymentType(type.type);
-    onSelectLabel(type.type);
-    checkPaymentMethodById(type.paymentMethodId);
+    if (type.enable) {
+      setSelectedPaymentType(type.type);
+      onSelectLabel(type.type);
+      checkPaymentMethodById(type.paymentMethodId);
+    }
   };
 
   const handlePaymentMethod = (type) => {
@@ -72,9 +76,8 @@ const PaymentTypes = ({
           <label
             key={index}
             onClick={() => handleSelectPaymentType(item)}
-            className={`payment-select-option ${
-              selectedPaymentType === item.type ? "select-payment" : ""
-            }`}
+            className={`payment-select-option ${selectedPaymentType === item.type ? "select-payment" : ""
+              } ${item.enable === false ? "disabled" : ""}`}
           >
             <input
               type="radio"
