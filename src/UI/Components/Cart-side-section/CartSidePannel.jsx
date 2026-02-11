@@ -106,7 +106,7 @@ const CartSidePannel = (
           {/* </div> */}
 
           <div className='mobile-professional-assembly-and-protection'>
-
+{/* 
             {cartData?.products?.length > 0 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label-one'>
@@ -118,13 +118,10 @@ const CartSidePannel = (
                   />
                  White Glove (+ ${totalProtectionValue})
                 </label>
-                {/* {isProfessionalAssembly ? ( */}
                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
-                {/* ) : (
-                    <p className='cart-protection-plan-cart-desc'>({formatedPrice(totalProtectionValue)})</p>
-                  )} */}
+              
               </div>
-            ) : (<></>)}
+            ) : (<></>)} */}
 
             {cartData?.products?.length > 1 ? (
               <div className='proffesional-assembly-check-sec'>
@@ -148,7 +145,7 @@ const CartSidePannel = (
         <div className='cart-side-section-buttons'>
 
           <div className='desktop-protextion-and-assembily-contianer'>
-            {cartData?.products?.length > 0 ? (
+            {/* {cartData?.products?.length > 0 ? (
               <div className='proffesional-assembly-check-sec'>
                 <label className='order-summary-proffesional-check-item-label-one'>
                   <input
@@ -161,7 +158,7 @@ const CartSidePannel = (
                 </label>
                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
               </div>
-            ) : (<></>)}
+            ) : (<></>)} */}
 
             {cartData?.products?.length > 1 ? (
               <div className='proffesional-assembly-check-sec'>

@@ -110,7 +110,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
 
 
                     <div className='side-cart-mobile-professional-assembly-contianer'>
-                        {cartProducts?.products?.length > 0 && (
+                        {/* {cartProducts?.products?.length > 0 && (
                             <div className='proffesional-assembly-check-sec'>
                                 {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label-one'>
@@ -125,7 +125,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                                 </label>
                                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
                             </div>
-                        )}
+                        )} */}
 
                         {cartProducts?.products?.length > 1 && (
                             <div className='proffesional-assembly-check-sec'>
@@ -146,7 +146,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     </div>
 
                     <div className='side-cart-desktop-professional-assembly'>
-                        {cartProducts?.products?.length > 0 && (
+                        {/* {cartProducts?.products?.length > 0 && (
                             <div className='proffesional-assembly-check-sec'>
                                 {isDeliveryAllowed && <div className='proffesional-assembly-disable-overlay'></div>}
                                 <label className='order-summary-proffesional-check-item-label-one'>
@@ -161,7 +161,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                                 </label>
                                 <p className='order-summary-proffesional-check-item-detail'>Full-service delivery to your room of choice, unpacking, assembly and trash removal. Our most popular option!</p>
                             </div>
-                        )}
+                        )} */}
 
                         {cartProducts?.products?.length > 1 && (
                             <div className='proffesional-assembly-check-sec'>

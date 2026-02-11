@@ -150,12 +150,17 @@ const CartProducts = ({ handleLocationModal }) => {
                                     </div>
                                 </div>
 
-                                <div className='cart-protect-card' onClick={isDeliveryAllowed ? undefined : selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse}>
+                                <div className='cart-protect-card' style={{
+                                    opacity:"0.2",
+                                    cursor:"not-allowed"
+                                }} onClick={()=>{}
+                                    // isDeliveryAllowed ? undefined : selectedOption?.id !== 'METHOD-3' ? handleCartAssembly : handleCartAssemblyFalse
+                                    }>
                                     {selectedOption?.id === 'METHOD-3' || isDeliveryAllowed && <div className='professional-assembly-disable'></div>}
                                     <Image src={'/Assets/icon/professional-assembly.svg'} alt='guard icon' width={80} height={80} className='cart-protection-card-icon' />
 
                                     <div className='cart-protection-plan-details-container'>
-                                        <p className='cart-protection-plan-card-header'>White Glove</p>
+                                        <p className='cart-protection-plan-card-header'>White Glove (Currently Not Available)</p>
                                         <p className='cart-protection-plan-cart-desc'>{formatedPrice(199)}</p>
                                     </div>
                                     <div className='cart-protection-checkbox-container'>
