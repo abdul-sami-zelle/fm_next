@@ -255,17 +255,17 @@ const ProductCardTwo = ({
                                         {tags?.text}
                                     </div>
 
-                                    {(!colTwo && showExtraLines) && <div className='text-tag extra_tag blinking'
-                                        // style={{ 
-                                        //     backgroundColor: productTag?.bg_color, 
-                                        //     color: productTag?.text_color, 
-                                        //     borderRadius: "3px" 
-                                        //     }} 
+                                    {(!colTwo && showExtraLines) && <div className='text-tag extra_tag'
                                         style={{
-                                            "--bg": productTag?.bg_color,
-                                            "--text": productTag?.text_color,
+                                            backgroundColor: productTag?.bg_color,
+                                            color: productTag?.text_color,
                                             borderRadius: "3px"
                                         }}
+                                    // style={{
+                                    //     "--bg": productTag?.bg_color,
+                                    //     "--text": productTag?.text_color,
+                                    //     borderRadius: "3px"
+                                    // }}
                                     >
                                         {productTag?.text}
                                     </div>}
@@ -476,13 +476,20 @@ const ProductCardTwo = ({
                     <div className='product-card-content-bottom-section'>
 
                         {/* Monbile View Tag */}
-                        {(colTwo || !showExtraLines) && <div className='text-tag-free-delivery blinking' 
-                           style={{
-                                            "--bg": productTag?.bg_color,
-                                            "--text": productTag?.text_color,
-                                            borderRadius: "3px",
-                                             marginTop: showExtraLines ? "5px" : "10px" 
-                                        }} >
+                        {(colTwo || !showExtraLines) && <div className='text-tag-free-delivery'
+                            //    style={{
+                            //                     "--bg": productTag?.bg_color,
+                            //                     "--text": productTag?.text_color,
+                            //                     borderRadius: "3px",
+                            //                      marginTop: showExtraLines ? "5px" : "10px" 
+                            //                 }}
+                            style={{
+                                backgroundColor: productTag?.bg_color,
+                                color: productTag?.text_color,
+                                borderRadius: "3px",
+                                marginTop: showExtraLines ? "5px" : "10px" 
+                            }}
+                        >
                             {productTag?.text}
                         </div>}
 
