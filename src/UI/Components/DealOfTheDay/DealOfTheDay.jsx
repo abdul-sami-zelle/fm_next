@@ -4,19 +4,17 @@ import DealOfTheDayCard from './DealOfTheDayCard/DealOfTheDayCard';
 import { calculateDiscountPercentage } from '../../../utils/api';
 import { useSingleProductContext } from '../../../context/singleProductContext/singleProductContext';
 import { useList } from '../../../context/wishListContext/wishListContext';
-import { toast } from 'react-toastify';
 import ShareProduct from '../ShareProduct/ShareProduct';
 import DealOfTheMonthShimmer from './DealOfTheMonthShimmer/DealOfTheMonthShimmer';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import { fetcher } from '@/utils/Fetcher';
-import SwiperSlider from '@/UI/Sliders/SwiperSlider/SwiperSlider';
 import SnakBar from '@/Global-Components/SnakeBar/SnakBar';
 import ArrowSlider from '@/UI/Sliders/ArrowsSlider/ArrowSlider';
 import { useIsTab } from '@/utils/isMobile';
 import { useCart } from '@/context/cartContext/cartContext';
 
-const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, }) => {
+const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts, api, api2 }) => {
 
   const router = useRouter();
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -28,7 +26,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     const now = new Date().getTime();
     const difference = targetDate - now;
     const padZero = (num) => String(num).padStart(2, '0');
-
     let timeLeft = {};
     if (difference > 0) {
       timeLeft = {
@@ -45,11 +42,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
         seconds: 0,
       };
     }
-
     return timeLeft;
   };
-
-
 
   useEffect(() => {
     if (dealEndTime) {
@@ -66,7 +60,16 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
   // Fetcher
   const [dealCounter, setDealCounter] = useState(0)
-  const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(api, fetcher, {
+  // const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(api, fetcher, {
+  //   revalidateOnFocus: false,
+  //   revalidateOnReconnect: false,
+  //   shouldRetryOnError: false,
+  //   dedupingInterval: 1000 * 60 * 60 * 24 * 365
+  // })
+
+  const activeApi = api2 || api;
+
+  const { data: dealData, error: dealError, isLoading: dealLoading } = useSWR(activeApi, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     shouldRetryOnError: false,
@@ -80,13 +83,30 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     }, 1000)
   }
 
-  useEffect(() => {
-    if (dealData) {
-      setAllProducts(dealData.products)
-      setDealEndTime(dealData.dealOfMonthTiming.datetime);
-    }
-  }, [dealData])
+  // useEffect(() => {
+  //   if (dealData) {
+  //     setAllProducts(dealData?.products)
+  //     setDealEndTime(dealData?.dealOfMonthTiming?.datetime);
+  //   }
+  // }, [dealData])
 
+
+  useEffect(() => {
+    if (!dealData) return;
+
+    // API2 response
+    if (dealData?.data) {
+      setAllProducts(dealData?.data?.products || []);
+      setDealEndTime(dealData?.data?.datetime);
+    }
+
+    // API1 response (existing)
+    else {
+      setAllProducts(dealData?.products || []);
+      setDealEndTime(dealData?.dealOfMonthTiming?.datetime);
+    }
+
+  }, [dealData])
   const getPublishedProducts = () => {
     const productWithDiscount = allProducts
       .filter((product) => product.parent === 0) // Add filter condition here
@@ -135,10 +155,8 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
 
   const handleWishList = async (item) => {
-
     const userId = localStorage.getItem('uuid');
     const getToken = localStorage.getItem('userToken');
-
     setShowSnakeBar(true)
     if (isInWishList(item._id)) {
       removeFromList(item._id);
@@ -149,7 +167,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
 
       setSnakeBarMessage('added to wishlist')
     }
-
     if (userId && getToken) {
       const api = `${url}/api/v1/web-users/wishlist/${userId}`;
 
@@ -179,11 +196,7 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
     setSelectedUid(items.uid);
   }
 
-  const {addToCart0} = useCart()
-
   const isTab = useIsTab()
-
-
 
   if (!allProducts.length > 0) {
     return
@@ -201,7 +214,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
       <div className='deal-of-the-day-outer-container'>
         <div className='mobile-view-deal-of-the-day-timer-and-product-count'>
           <div className='mobile-view-timer'>
-            {/* <p>{days}d: {hours}h: {minutes}m: {seconds}s</p> */}
             <p>{days}d: {hours}h: {minutes}m: {seconds}s</p>
           </div>
           <h3 className='mobile-view-deal-of-the-day-product-count'>{productCount} Products</h3>
@@ -232,7 +244,6 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
                   price={items.regular_price}
                   newPrice={items.sale_price}
                   descount={items.disc}
-                  // handleCartSection={addToCart0(items, 0, 1)}
                   dicountPercent={calculateDiscountPercentage(items.sale_price, items.regular_price)}
                   handleDealCardClick={() => handleDealCardClick(items)}
                   handleWishListClick={() => handleWishList(items)}
@@ -243,13 +254,11 @@ const DealOfTheDay = ({ dealEndTime, setDealEndTime, allProducts, setAllProducts
               showArrows={true}
               arrowLeftPosition={true}
               eachSlide={true}
-              // loop={true}
               spaceBetween={isTab ? 10 : 35}
-              // spaceBetween={35}
               breakpoints={{
                 0: { slidesPerView: 1 },
-                600: {slidesPerView: 2},
-                768: {slidesPerView: 3},
+                600: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
                 1024: { slidesPerView: 4 },
               }}
             />

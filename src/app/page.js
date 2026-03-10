@@ -121,6 +121,7 @@ const Home = () => {
         dealEndTime={dealEndTime}
         setDealEndTime={setDealEndTime}
         api={`${url}/api/v1/products/get-deal-of-month-products?limit=10`}
+        api2={`${url}/api/v1/deal_of_the_month/getDealOfTheMonthTime`}
       />
       {landingPageFOEB && (
         <FurnitureForBudget budgetCardData={landingPageFOEB} />

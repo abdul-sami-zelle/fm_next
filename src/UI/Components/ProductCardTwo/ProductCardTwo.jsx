@@ -259,7 +259,8 @@ const ProductCardTwo = ({
                                         style={{
                                             backgroundColor: productTag?.bg_color,
                                             color: productTag?.text_color,
-                                            borderRadius: "3px"
+                                            borderRadius: "3px",
+                                            fontWeight:"600"
                                         }}
                                     // style={{
                                     //     "--bg": productTag?.bg_color,
@@ -487,7 +488,8 @@ const ProductCardTwo = ({
                                 backgroundColor: productTag?.bg_color,
                                 color: productTag?.text_color,
                                 borderRadius: "3px",
-                                marginTop: showExtraLines ? "5px" : "10px" 
+                                marginTop: showExtraLines ? "5px" : "10px" ,
+                                fontWeight:"600"
                             }}
                         >
                             {productTag?.text}

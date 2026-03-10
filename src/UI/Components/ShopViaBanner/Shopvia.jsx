@@ -114,9 +114,9 @@ const Shopvia = () => {
         </div>
         {swipeContent ? (
           <span className='webiste-update-main-contianer'>
-            <p className='rotate-message-maintanance'>FREE DELIVERY ON ORDERS ABOVE $500. MILEAGE RESTRICTIONS MAY APPLY</p>
+            <p className='rotate-message-maintanance'>FREE DELIVERY ON ORDERS ABOVE $899. MILEAGE RESTRICTIONS MAY APPLY</p>
             <i className='mobile-message'>
-              <p>FREE DELIVERY ON ORDERS ABOVE $500.</p>
+              <p>FREE DELIVERY ON ORDERS ABOVE $899.</p>
               <p>MILEAGE RESTRICTIONS MAY APPLY</p>
             </i>
           </span>
