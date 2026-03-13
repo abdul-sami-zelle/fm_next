@@ -245,7 +245,7 @@ const MobileFooter = ({ checkoutPage }) => {
             <div className='footer-mobile-copy-sight-and-manage-by'>
                 <span className='mobile-footer-copy-rights'>
                     <FaRegCopyright color='#FFF' size={15} />
-                    <p>2020 - 2025 Furniture Mecca. All Rights Reserved.</p>
+                    <p>2020 - 2026 Furniture Mecca. All Rights Reserved.</p>
                 </span>
 
                 <div className='mobile-view-right'>

@@ -375,7 +375,7 @@ const Footer = ({ notLandingPage, checkoutPage }) => {
                     </div>
                 </div>
                 <div className='footer-rights-reserved-container'>
-                    <p>2020 - 2025 Furniture Mecca. All Rights Reserved</p>
+                    <p>2020 - 2026 Furniture Mecca. All Rights Reserved</p>
                     <p>
                         Designed & Managed By <Link target='_blank' href={'https://zellesolutions.com/'}> Zelle Solutions</Link>
                     </p>
