@@ -23,12 +23,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-  },
-
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  }
 };
 
 export default nextConfig;
