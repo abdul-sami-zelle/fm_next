@@ -125,7 +125,7 @@ const HomeScreen = ({
           {/* {!videoLoaded && ( */}
             <img
               className="background-placeholder"
-              src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
+              src={`https://fmapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
               alt="AI Chatbot Placeholder"
             />
           {/* )} */}
@@ -139,7 +139,7 @@ const HomeScreen = ({
             onCanPlayThrough={handleVideoCanPlay}
             onEnded={handleVideoEnded}
           >
-            <source src={`https://devapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4`} />
+            <source src={`https://fmapi.myfurnituremecca.com/uploads/zoe/video.mp4" type="video/mp4`} />
             Your browser does not support the video tag.
           </video> */}
 
@@ -182,7 +182,7 @@ const HomeScreen = ({
                     <div className="avatar-image-inner">
                       <img
                         // src="https://cdn.servicebell.com/assets/bella-idle-default.c62aea33..jpeg"
-                        src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
+                        src={`https://fmapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`}
                         alt="AI Avatar"
                         className="avatar-image"
                       />

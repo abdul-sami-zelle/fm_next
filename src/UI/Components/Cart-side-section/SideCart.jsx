@@ -187,7 +187,7 @@ const SideCart = ({ isCartOpen, handleCloseSideCart }) => {
                     </div>
 
                     <div className='side-cart-navigation-buttons-contianer'>
-                        <button  disabled={isDeliveryAllowed} className={`side-cart-navigate-to-cart`} onClick={handleCLoseCartPanel}>
+                        <button  disabled={isDeliveryAllowed} className={`side-cart-navigate-to-cart`} onClick={handleCloseSideCart}>
                             Keep Shopping
                         </button>
                         <button disabled={isDeliveryAllowed} className={`side-cart-navigate-to-checkout ${isDeliveryAllowed ? 'disable-cart-button' : ''}`} onClick={handleCLoseCartPanel}>

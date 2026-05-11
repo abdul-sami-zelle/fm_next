@@ -22,17 +22,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'devapi.myfurnituremecca.com',
         pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'ashleyfurniture.scene7.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'api.crescentcare.co',
-        pathname: '/**',
-      },
+      }
     ],
   },
 };

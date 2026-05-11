@@ -2,16 +2,6 @@
 
 import { useEffect } from "react";
 
-// Zelle Solutions
-
-// export const url = `https://fm.skyhub.pk`
-// export const url = `https://fm.zellehost.com`
-
-
-// Development Apis
-// export const roomApi = `https://roomapidev.myfurnituremecca.com`
-// export const url = `https://devapi.myfurnituremecca.com`;
-// export const siteUrl = `https://fmnext.myfurnituremecca.com`
 
 // Production Apis
 export const roomApi = `https://roomapi.myfurnituremecca.com`

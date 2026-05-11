@@ -49,7 +49,7 @@ const QuickView = ({ setQuickViewProduct, quickViewClose, quickViewShow, }) => {
             color: setQuickViewProduct?.default_attributes?.find(item => item.type === 'color')?.options[0]?.name,
             brand: setQuickViewProduct?.brand !== '' ? setQuickViewProduct?.brand : 'Furniture Mecca',
             category: setQuickViewProduct?.categories?.find(item => item.is_main === 1)?.name,
-            stock: setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Out Of Stock',
+            stock: setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'instock' ? 'In Stock' : setQuickViewProduct?.manage_stock?.stock_status?.toLowerCase() === 'backorder' ? 'Back Order' : 'Back Order',
             mpn: setQuickViewProduct?.mpn,
             gtin: setQuickViewProduct?.gtin,
             protection: 'Available'

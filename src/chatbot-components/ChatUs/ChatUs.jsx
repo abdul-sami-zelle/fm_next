@@ -504,7 +504,7 @@ const ChatUs = ({ onBack, onClose }) => {
             <RiArrowLeftSLine className="back-chat-icon" onClick={onBack} />
             <div className="supportperson">
               <div className="avatarwrapper">
-                <img src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`} />
+                <img src={`https://fmapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`} />
                 <span className="ailabeltxt">AI</span>
               </div>
               <div className="messageinfo chat-top">
@@ -539,7 +539,7 @@ const ChatUs = ({ onBack, onClose }) => {
                   "yes-no-buttons",
                 ].includes(msg.type) && (
                   <div className="avatarwrapper1">
-                    <img src={`https://devapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`} />
+                    <img src={`https://fmapi.myfurnituremecca.com/uploads/zoe/zoe.jpg`} />
                     <span className="ailabeltxt1">AI</span>
                   </div>
                 )}

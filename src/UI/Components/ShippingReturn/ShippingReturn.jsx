@@ -10,7 +10,7 @@ const ShippingReturn = () => {
       <h3>Shipping & Returns</h3>
       <div className='stock-shipping-and-return-section'>
         <div className='stock-or-out-of-stock-section'>
-            <h3>This Item is Out of Stock</h3>
+            <h3>This Item is Back Order</h3>
             <p>back in stock Dec 23 2024</p>
         </div>
         <div className='shipping-section'>

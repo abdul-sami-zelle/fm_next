@@ -44,7 +44,7 @@ export const ProductProvider = ({ children }) => {
             reviewCount: '197', priceTag: 1998, totalPrice: 0 , financingAdd: '12 most special financing', learnMore: 'Learn more', colorVariation: [
                 {color: 'brown', hexa: '#FF0000'},
                 {color: 'black', hexa: '#B78953'},
-            ], deliveryTime: 'Get it in 3 to 4 days', stock: 'Out Of Stock'
+            ], deliveryTime: 'Get it in 3 to 4 days', stock: 'Back Order'
         },
         {id: 3, slug: `trevor-brown 90''-manual-reclining-sofa-&-79''-console-loveseat-03`, heart: heartImg, mainImage: webImage, productTitle: `Trevor Brown 90'' Manual Reclining Sofa & 79'' Console Loveseat 03`, ratingStars: [
                     {icon: star, title: 'filled'},
