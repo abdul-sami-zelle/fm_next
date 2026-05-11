@@ -48,7 +48,7 @@ const OrderViewModal = ({ viewModal, setViewModal, orderId }) => {
         },
         {
             section: 'Payment Method:', details: [
-                { name: orderData?.payment_method === 'cybersource_credit_card' && 'Credit Card', valOne: orderData?.transaction_id }
+                { name: (orderData?.payment_method === 'cybersource_credit_card' || data.payment_method === 'authorize_net' ) && 'Credit Card', valOne: orderData?.transaction_id }
             ]
         },
     ]

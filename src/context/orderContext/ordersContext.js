@@ -29,6 +29,7 @@ export const MyOrdersProvider = ({ children }) => {
             first_name: "",
             last_name: "",
             address_1: "",
+            address_2: "",
             city: "",
             state: "",
             postal_code: "",
@@ -53,6 +54,7 @@ export const MyOrdersProvider = ({ children }) => {
             first_name: "",
             last_name: "",
             address_1: "",
+            address_2: "",
             city: "",
             state: "",
             postal_code: "",
@@ -66,6 +68,7 @@ export const MyOrdersProvider = ({ children }) => {
             first_name: "",
             last_name: "",
             address_1: "",
+            address_2: "",
             city: "",
             state: "",
             postal_code: "",
@@ -114,6 +117,7 @@ export const MyOrdersProvider = ({ children }) => {
         first_name: '',
         last_name: '',
         address_1: '',
+        address_2: "",
         city: '',
         state: '',
         postal_code: '',
@@ -129,6 +133,7 @@ export const MyOrdersProvider = ({ children }) => {
         first_name: '',
         last_name: '',
         address_1: '',
+        address_2: "",
         city: '',
         state: '',
         postal_code: '',
@@ -163,6 +168,7 @@ export const MyOrdersProvider = ({ children }) => {
                         first_name: response.data.data.billing_address.first_name,
                         last_name: response.data.data.billing_address.last_name,
                         address_1: response.data.data.billing_address.address_1,
+                        address_2: response?.data?.data?.billing_address?.address_2,
                         email: response.data.data.email,
                         phone: response.data.data.billing_address.phone,
                         alt_phone: response.data.data.billing_address.alt_phone
@@ -222,6 +228,8 @@ export const MyOrdersProvider = ({ children }) => {
 
     };
 
+
+
     const handleZipCode = async (zipCode) => {
 
         try {
@@ -231,8 +239,8 @@ export const MyOrdersProvider = ({ children }) => {
                 const result = await response.json();
                 setOrderPayload(prevData => ({
                     ...prevData,
-                    billing: {
-                        ...prevData.billing,
+                    shipping: {
+                        ...prevData.shipping,
                         city: result.city,
                         state: result.state
                     }
@@ -251,8 +259,8 @@ export const MyOrdersProvider = ({ children }) => {
 
         setOrderPayload(prevData => ({
             ...prevData,
-            billing: {
-                ...prevData.billing,
+            shipping: {
+                ...prevData.shipping,
                 postal_code: zipCode
             }
         }));
@@ -276,12 +284,25 @@ export const MyOrdersProvider = ({ children }) => {
     const handleNestedValueChangeShipping = (e) => {
         const { name, value } = e.target;
 
-        setOrderPayload((prevOrders) => ({
-            ...prevOrders,
+        const formattedValue =
+            name === "phone" || name === "alt_phone"
+                ? formatPhoneNumber(value)
+                : value;
+
+        setOrderPayload((prev) => ({
+            ...prev,
             shipping: {
-                ...prevOrders.shipping,
-                [name]: value, // Update the specific field in billing
+                ...prev.shipping,
+                [name]: formattedValue,
             },
+
+            // ✅ ALWAYS sync ONLY these fields
+            billing: ["first_name", "last_name", "email", "phone", "alt_phone"].includes(name)
+                ? {
+                    ...prev.billing,
+                    [name]: formattedValue,
+                }
+                : prev.billing,
         }));
 
         setEmptyField((prev) => ({ ...prev, [name]: "" }));
@@ -338,11 +359,11 @@ export const MyOrdersProvider = ({ children }) => {
     }
 
     const [error, setError] = useState({
-            card_holder_name: '',
-            card_number: '',
-            expiry_date: '',
-            sec_code: '',
-        })
+        card_holder_name: '',
+        card_number: '',
+        expiry_date: '',
+        sec_code: '',
+    })
 
 
     const sendProducts = async () => {
@@ -376,7 +397,7 @@ export const MyOrdersProvider = ({ children }) => {
                     attributes: product?.attributes
                 })),
                 professional_assembled: cartProducts?.is_professional_assembly,
-                shipping_handling:1,
+                shipping_handling: 1,
                 cart_protected: cartProducts?.is_all_protected,
                 tax: calculateTotalTax(subTotal, parseFloat(totalTax?.tax_value)),
                 shipping_cost: getShippingInfo(selectedOption)?.cost,
@@ -504,6 +525,78 @@ export const MyOrdersProvider = ({ children }) => {
     }, [orderPayload]);
 
 
+    const handleShippingZipChange = async (e) => {
+        const zipCode = e.target.value;
+
+        // Update ZIP immediately
+        setOrderPayload((prev) => ({
+            ...prev,
+            shipping: {
+                ...prev.shipping,
+                postal_code: zipCode,
+            },
+        }));
+
+        // Call API only when 5 digits
+        if (zipCode.length === 5 && /^\d{5}$/.test(zipCode)) {
+            try {
+                const response = await fetch(`https://zip.getziptastic.com/v2/US/${zipCode}`);
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    setOrderPayload((prev) => ({
+                        ...prev,
+                        shipping: {
+                            ...prev.shipping,
+                            city: result.city || "",
+                            state: result.state || "",
+                        },
+                    }));
+                }
+            } catch (error) {
+                console.error("ZIP API Error:", error);
+            }
+        }
+    };
+
+
+    const handleBillingZipChange = async (e) => {
+        const zipCode = e.target.value;
+
+        // Update ZIP immediately
+        setOrderPayload((prev) => ({
+            ...prev,
+            billing: {
+                ...prev.billing,
+                postal_code: zipCode,
+            },
+        }));
+
+        // Call API only when 5 digits
+        if (zipCode.length === 5 && /^\d{5}$/.test(zipCode)) {
+            try {
+                const response = await fetch(`https://zip.getziptastic.com/v2/US/${zipCode}`);
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    setOrderPayload((prev) => ({
+                        ...prev,
+                        billing: {
+                            ...prev.billing,
+                            city: result.city || "",
+                            state: result.state || "",
+                        },
+                    }));
+                }
+            } catch (error) {
+                console.error("ZIP API Error:", error);
+            }
+        }
+    };
+
+
     return (
         <MyOrderContext.Provider value={{
             orderPayload,
@@ -536,12 +629,14 @@ export const MyOrdersProvider = ({ children }) => {
             showWarning,
             setShowWarning,
             errorDetails,
-            error, 
+            error,
             setError,
-            acimaDetails, 
+            acimaDetails,
             setAcimaDetails,
-            acimaErrors, 
+            acimaErrors,
             setAcimaErrors,
+            handleBillingZipChange,
+            handleShippingZipChange
         }}>
             {children}
         </MyOrderContext.Provider>

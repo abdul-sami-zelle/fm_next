@@ -408,7 +408,7 @@ const Cart = () => {
               </div>}
               <div className='cart-order-summary-price-detail-single-item'>
                 <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
-                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal + (!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? furnitureAssemblyValue : 0)), parseFloat(totalTax?.tax_value))) : 0}</p>
+                <p className='cart-order-summary-price-detail-single-item-price'>{totalTax ? formatedPrice(calculateTotalTax((subTotal + (selectedOption?.cost || 0) +(!isProfessionalAssembly && selectedOption?.id !== 'METHOD-3' ? furnitureAssemblyValue : 0)), parseFloat(totalTax?.tax_value))) : 0}</p>
               </div>
 
             </div>

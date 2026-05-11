@@ -11,11 +11,12 @@ import { LiaShippingFastSolid } from "react-icons/lia"
 import { BsShop } from "react-icons/bs";
 import { useCart } from '@/context/cartContext/cartContext';
 import LocationPopUp from '../LocationPopUp/LocationPopUp';
+import InputText from '@/Global-Components/InputText/InputText';
 
 const DeliveryInfo = forwardRef((props, ref) => {
 
 
-    const {isDeliveryAllowed} = useGlobalContext();
+    const { isDeliveryAllowed } = useGlobalContext();
     const navigate = useRouter()
     const signupEmailRef = useRef(null)
     const firstNameRef = useRef(null)
@@ -40,7 +41,11 @@ const DeliveryInfo = forwardRef((props, ref) => {
     const {
         orderPayload,
         handleNestedValueChange,
-        handleZipCodeChange
+        handleZipCodeChange,
+        setOrderPayload,
+        handleBillingZipChange,
+        handleShippingZipChange,
+        handleNestedValueChangeShipping
     } = useMyOrders();
 
     const [error, setError] = useState({})
@@ -52,28 +57,87 @@ const DeliveryInfo = forwardRef((props, ref) => {
     }
 
 
-    const handleSubmitDeliveryInfo = () => {
-        let newErrors = {};
+    // const handleSubmitDeliveryInfo = () => {
+    //     let newErrors = {};
 
-        Object.keys(orderPayload?.billing).forEach((field) => {
-            if (field === 'address2') return;
-            if (field === 'alt_phone') return;
+    //     Object.keys(orderPayload?.billing).forEach((field) => {
+    //         if (field === 'address2') return;
+    //         if (field === 'alt_phone') return;
 
-            if (!orderPayload?.billing?.[field]?.trim()) {
-                newErrors[field] = `Required`;
-            }
-        });
+    //         if (!orderPayload?.billing?.[field]?.trim()) {
+    //             newErrors[field] = `Required`;
+    //         }
+    //     });
 
-        if (Object.keys(newErrors)?.length > 0) {
-            setError((prev) => ({ ...prev, ...newErrors }));
-            console.error("Errors found: ", newErrors);
-            return false
+    //     if (Object.keys(newErrors)?.length > 0) {
+    //         setError((prev) => ({ ...prev, ...newErrors }));
+    //         console.error("Errors found: ", newErrors);
+    //         return false
+    //     }
+
+    //     setError({});
+    //     props.onSubmit();
+    //     return true;
+    // }
+
+      const handleSubmitDeliveryInfo = () => {
+    let newErrors = {};
+
+    if (selectedOption?.id === 'METHOD-3') {
+      Object.keys(orderPayload?.shipping).forEach((field) => {
+        if (field === "address_2") return;
+        if (field === "address_1") return;
+        if (field === "zip") return;
+        if (field === "city") return;
+        if (field === "state") return;
+        if (field === "alt_phone") return;
+
+        if (!orderPayload?.shipping?.[field]?.trim()) {
+          newErrors[field] = `Required`;
         }
+      });
 
-        setError({});
-        props.onSubmit();
-        return true;
+      Object.keys(orderPayload?.billing).forEach((field) => {
+        if (field === "address_2") return;
+        if (field === "alt_phone") return;
+
+        if (!orderPayload?.billing?.[field]?.trim()) {
+          newErrors[field] = `Required`;
+        }
+      });
+
+    } else {
+      Object.keys(orderPayload?.shipping).forEach((field) => {
+        if (field === "address_2") return;
+        if (field === "alt_phone") return;
+
+        if (!orderPayload?.shipping?.[field]?.trim()) {
+          newErrors[field] = `Required`;
+        }
+      });
+
+      if (orderPayload?.shipToDiffAdd) {
+        Object.keys(orderPayload?.billing).forEach((field) => {
+          if (field === "address_2") return;
+          if (field === "alt_phone") return;
+
+          if (!orderPayload?.billing?.[field]?.trim()) {
+            newErrors[field] = `Required`;
+          }
+        });
+      }
     }
+
+    if (Object.keys(newErrors).length > 0) {
+      setError((prev) => ({ ...prev, ...newErrors }));
+      console.error("Errors found: ", newErrors);
+      return false;
+    }
+
+    setError({});
+    props.onSubmit();
+    return true;
+  };
 
     useImperativeHandle(ref, () => ({
         validateAndSubmit: handleSubmitDeliveryInfo,
@@ -193,7 +257,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 <h3>Your Information</h3>
 
                 <div
-                    onClick={() => {isDeliveryAllowed ? undefined : emailRef.current?.focus()}}
+                    onClick={() => { isDeliveryAllowed ? undefined : emailRef.current?.focus() }}
                     style={{ border: error.email ? '1px solid var(--orange-outline)' : '' }}
                     className={`delivery-input-container-email ${focusedField === 'email' || orderPayload.billing?.email ? "focused" : ""}`}
                 >
@@ -211,8 +275,8 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         onFocus={() => setFocusedField("email")}
                         onBlur={() => setFocusedField("")}
                         name='email'
-                        value={orderPayload.billing?.email}
-                        onChange={handleNestedValueChange}
+                        value={orderPayload.shipping?.email}
+                        onChange={handleNestedValueChangeShipping}
 
                     />
                 </div>
@@ -229,7 +293,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     <div
                         className={`delivery-input-container ${focusedField === 'first_name' || orderPayload.billing?.first_name ? "focused" : ""}`}
                         style={{ border: error.first_name ? '1px solid var(--orange-outline)' : '' }}
-                        onClick={() => {isDeliveryAllowed ? undefined : firstNameRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : firstNameRef.current?.focus() }}
                     >
                         {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
@@ -244,14 +308,14 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField("first_name")}
                             onBlur={() => setFocusedField("")}
                             name='first_name'
-                            value={orderPayload.billing?.first_name}
-                            onChange={handleNestedValueChange}
+                            value={orderPayload.shipping?.first_name}
+                            onChange={handleNestedValueChangeShipping}
 
                         />
                     </div>
 
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : lastNameRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : lastNameRef.current?.focus() }}
                         style={{ border: error.last_name ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container ${focusedField === 'last_name' || orderPayload.billing?.last_name ? "focused" : ""}`}
                     >
@@ -267,9 +331,9 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             className="input-field-email"
                             onFocus={() => setFocusedField("last_name")}
                             onBlur={() => setFocusedField("")}
-                            onChange={handleNestedValueChange}
+                            onChange={handleNestedValueChangeShipping}
                             name='last_name'
-                            value={orderPayload.billing?.last_name}
+                            value={orderPayload.shipping?.last_name}
                         />
                     </div>
                 </div>
@@ -277,7 +341,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                 <div className='delivery-info-email-and-phone'>
 
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : phoneRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : phoneRef.current?.focus() }}
                         style={{ border: error.phone ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-phone ${focusedField === 'phone' || orderPayload.billing?.phone ? "focused" : ""}`}
                     >
@@ -294,13 +358,13 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField("phone")}
                             onBlur={() => setFocusedField("")}
                             name='phone'
-                            value={orderPayload.billing?.phone}
-                            onChange={handleNestedValueChange}
+                            value={orderPayload.shipping?.phone}
+                            onChange={handleNestedValueChangeShipping}
                         />
                     </div>
 
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : altPhoneRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : altPhoneRef.current?.focus() }}
                         style={{ border: error.alt_phone ? '1px solid var(--orange-outline)' : '' }}
                         className={`delivery-input-container-phone ${focusedField === 'alt_phone' || orderPayload.billing?.alt_phone ? "focused" : ""}`}
                     >
@@ -317,17 +381,17 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField("alt_phone")}
                             onBlur={() => setFocusedField("")}
                             name='alt_phone'
-                            value={orderPayload.billing?.alt_phone}
-                            onChange={handleNestedValueChange}
+                            value={orderPayload.shipping?.alt_phone}
+                            onChange={handleNestedValueChangeShipping}
                         />
                     </div>
 
                 </div>
 
                 <div
-                    onClick={() => {isDeliveryAllowed ? undefined : addressOneRef.current?.focus()}}
+                    onClick={() => { isDeliveryAllowed ? undefined : addressOneRef.current?.focus() }}
                     style={{ border: error.address_1 ? '1px solid var(--orange-outline)' : '' }}
-                    className={`delivery-input-container ${focusedField === 'address_1' || orderPayload.billing?.address_1 ? "focused" : ""}`}
+                    className={`delivery-input-container ${focusedField === 'address_1' || orderPayload.shipping?.address_1 ? "focused" : ""}`}
                 >
                     {isDeliveryAllowed && <div className='input-overlay'></div>}
                     <label
@@ -342,14 +406,25 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         onFocus={() => setFocusedField("address_1")}
                         onBlur={() => setFocusedField()}
                         name='address_1'
-                        onChange={handleNestedValueChange}
-                        value={orderPayload.billing?.address_1}
+                        onChange={handleNestedValueChangeShipping}
+                        value={orderPayload.shipping?.address_1}
                     />
                 </div>
 
-                <div
-                    onClick={() => {isDeliveryAllowed ? undefined : addressTwoRef.current?.focus()}}
-                    className={`delivery-input-container ${focusedField === 'address2' || orderPayload.billing?.address2 ? "focused" : ""}`}
+   <InputText
+                            label={"Apt, Suite, Building, (Optional)"}
+                            payload={orderPayload}
+                            error={error.address_2}
+                            isAllowed={isDeliveryAllowed}
+                            input_name={"address_2"}
+                            value={orderPayload?.shipping?.address_2}
+                            onChange={handleNestedValueChangeShipping}
+                        />
+
+
+                {/* <div
+                    onClick={() => { isDeliveryAllowed ? undefined : addressTwoRef.current?.focus() }}
+                    className={`delivery-input-container ${focusedField === 'address2' || orderPayload.shipping?.address_2 ? "focused" : ""}`}
                 >
                     {isDeliveryAllowed && <div className='input-overlay'></div>}
                     <label className="floating-label">Apt, Suite, Building, (Optional)</label>
@@ -360,16 +435,16 @@ const DeliveryInfo = forwardRef((props, ref) => {
                         onFocus={() => setFocusedField("address2")}
                         onBlur={() => setFocusedField("")}
                         name='address2'
-                        value={orderPayload.billing?.address2}
-                        onChange={handleNestedValueChange}
+                        value={orderPayload.shipping?.address_2}
+                        onChange={handleNestedValueChangeShipping}
                     />
-                </div>
+                </div> */}
 
                 <div className='delivery-options-city-and-state'>
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : postalCodeRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : postalCodeRef.current?.focus() }}
                         style={{ border: error.postal_code ? '1px solid var(--orange-outline)' : '' }}
-                        className={`delivery-input-container-postal-code ${focusedField === 'postal_code' || orderPayload.billing?.postal_code ? "focused" : ""}`}
+                        className={`delivery-input-container-postal-code ${focusedField === 'postal_code' || orderPayload.shipping?.postal_code ? "focused" : ""}`}
                     >
                         {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
@@ -384,7 +459,7 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onFocus={() => setFocusedField('postal_code')}
                             onBlur={() => setFocusedField("")}
                             name='postal_code'
-                            value={orderPayload.billing?.postal_code}
+                            value={orderPayload.shipping?.postal_code}
                             onChange={handleZipCodeChange}
                             maxLength={5}
                             // readOnly={editZip}
@@ -395,9 +470,9 @@ const DeliveryInfo = forwardRef((props, ref) => {
                     </div>
 
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : stateRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : stateRef.current?.focus() }}
                         style={{ border: error.state ? '1px solid var(--orange-outline)' : '' }}
-                        className={`delivery-input-container ${focusedField === 'state' || orderPayload.billing?.state ? "focused" : ""}`}
+                        className={`delivery-input-container ${focusedField === 'state' || orderPayload.shipping?.state ? "focused" : ""}`}
                     >
                         {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
@@ -413,15 +488,15 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onBlur={() => setFocusedField("")}
                             name='state'
                             readOnly
-                            value={orderPayload.billing?.state}
-                            onChange={handleNestedValueChange}
+                            value={orderPayload.shipping?.state}
+                            onChange={handleNestedValueChangeShipping}
                         />
                     </div>
 
                     <div
-                        onClick={() => {isDeliveryAllowed ? undefined : cityRef.current?.focus()}}
+                        onClick={() => { isDeliveryAllowed ? undefined : cityRef.current?.focus() }}
                         style={{ border: error.city ? '1px solid var(--orange-outline)' : '' }}
-                        className={`delivery-input-container ${focusedField === 'city' || orderPayload.billing?.city ? "focused" : ""}`}
+                        className={`delivery-input-container ${focusedField === 'city' || orderPayload.shipping?.city ? "focused" : ""}`}
                     >
                         {isDeliveryAllowed && <div className='input-overlay'></div>}
                         <label
@@ -437,8 +512,8 @@ const DeliveryInfo = forwardRef((props, ref) => {
                             onBlur={() => setFocusedField("")}
                             name='city'
                             readOnly
-                            value={orderPayload.billing?.city}
-                            onChange={handleNestedValueChange}
+                            value={orderPayload.shipping?.city}
+                            onChange={handleNestedValueChangeShipping}
                         />
 
                     </div>
@@ -447,6 +522,97 @@ const DeliveryInfo = forwardRef((props, ref) => {
 
                 <button className='edit-or-not-zip-code' onClick={() => setEditZip((prev) => prev === false ? true : false)}>Change Zipcode?</button>
 
+                {selectedOption?.id !== 'METHOD-3' && <div style={{
+                    display: "flex",
+                    width: "100%",
+                    gap: "20px",
+                    marginTop: "10px"
+                }}>
+
+                    <h3 className="heading_3_checkout" >Billing Address</h3>
+                    <label className='email-blast-label' style={{ width: "fit-content" }}>
+                        <input
+                            type="checkbox"
+                            className='checkout-email-blast-checkbox'
+                            checked={!orderPayload.shipToDiffAdd}
+                            value={!orderPayload.shipToDiffAdd}
+                            onChange={(e) => {
+                                const checked = !e.target.checked;
+
+                                setOrderPayload(prev => ({
+                                    ...prev,
+                                    shipToDiffAdd: checked
+                                }));
+                            }}
+                            required
+                        />
+                        same as shipping Address
+                    </label>
+
+                </div>}
+
+
+                {
+                    orderPayload.shipToDiffAdd === true && selectedOption?.id !== 'METHOD-3' && <>
+
+
+                        <InputText
+                            label={"Address *"}
+                            payload={orderPayload}
+                            error={error.address_1}
+                            isAllowed={isDeliveryAllowed}
+                            input_name={"address_1"}
+                            value={orderPayload?.billing?.address_1}
+                            onChange={handleNestedValueChange}
+                        />
+
+                        <InputText
+                            label={"Apt, Suite, Building, (Optional)"}
+                            payload={orderPayload}
+                            error={error.address_2}
+                            isAllowed={isDeliveryAllowed}
+                            input_name={"address_2"}
+                            value={orderPayload?.billing?.address_2}
+                            onChange={handleNestedValueChange}
+                        />
+
+                        <div className="delivery-options-city-and-state">
+                            <InputText
+                                label={"Zip Code *"}
+                                payload={orderPayload}
+                                error={error.postal_code}
+                                isAllowed={isDeliveryAllowed}
+                                input_name={"postal_code"}
+                                value={orderPayload?.billing?.postal_code}
+                                onChange={handleBillingZipChange}
+                                maxLen={5}
+                                readOnly={false}
+                            />
+
+                            <InputText
+                                label={"State *"}
+                                payload={orderPayload}
+                                error={error.state}
+                                isAllowed={isDeliveryAllowed}
+                                input_name={"state"}
+                                value={orderPayload?.billing?.state}
+                                onChange={handleNestedValueChange}
+                                readOnly={false}
+                            />
+
+                            <InputText
+                                label={"City *"}
+                                payload={orderPayload}
+                                error={error.city}
+                                isAllowed={isDeliveryAllowed}
+                                input_name={"city"}
+                                value={orderPayload?.billing?.city}
+                                onChange={handleNestedValueChange}
+                                readOnly={false}
+                            />
+                        </div>
+                    </>
+                }
             </div>
 
             <LocationPopUp

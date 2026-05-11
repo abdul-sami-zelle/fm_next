@@ -512,11 +512,11 @@ export const GlobalContextProvider = ({ children }) => {
         ? parseFloat(furnitureAssemblyValue) || 0
         : 0;
 
-    const shippingCost = parseFloat(getShippingInfo(selectedOption)?.cost) || 0;
-
+     const shippingCost = parseFloat(getShippingInfo(selectedOption)?.cost) || 0;
+    console.log(shippingCost)
     return (
       subTotal1 +
-      calculateTotalTax(subTotal1 + deliverySetup, taxValue) +
+      calculateTotalTax(subTotal1 + deliverySetup + shippingCost, taxValue) +
       shippingCost +
       deliverySetup
     );

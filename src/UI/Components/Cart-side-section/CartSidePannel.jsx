@@ -182,11 +182,11 @@ const CartSidePannel = (
           </div>
 
           <div className='cart-section-view-cart-and-checkout-btn'>
-            <button className='cart-side-section-view-cart' onClick={handleCLoseCartPanel}>
-              View Cart
+            <button className='cart-side-section-view-cart' onClick={handleCartSectionClose}>
+              Keep Shopping
             </button>
-            <button onClick={navigateToCheckout} className='cart-side-section-checkout'>
-              Checkout
+            <button onClick={handleCLoseCartPanel} className='cart-side-section-checkout'>
+              View Cart
             </button>
           </div>
         </div>

@@ -437,7 +437,7 @@ const CheckoutClient = () => {
                 <div className='cart-order-summary-price-detail-single-item'>
 
                   <p className='cart-order-summary-price-detail-single-item-title'>{`Tax (${totalTax?.tax_name})`}</p>
-                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(calculateTotalTax(subTotalValue + assemblyValue, taxRate))}</p>
+                  <p className='cart-order-summary-price-detail-single-item-price'>{formatedPrice(calculateTotalTax(subTotalValue + assemblyValue + (selectedOption?.cost || 0) , taxRate))}</p>
                 </div>
                 
 

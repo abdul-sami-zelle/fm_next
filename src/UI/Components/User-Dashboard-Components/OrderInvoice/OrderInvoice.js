@@ -92,7 +92,7 @@ const generateInvoicePDF = (data) => {
 
 
 
-    doc.text(data.payment_method === 'cybersource_credit_card' ? 'Credit Card' : 'Credit Card', 160, 58);
+    doc.text((data.payment_method === 'cybersource_credit_card'  || data.payment_method === 'authorize_net' )? 'Credit Card' : 'Credit Card', 160, 58);
     doc.text(data.transaction_id.toString(), 160, 62);
 
     const body = data.items.map((item) => {
