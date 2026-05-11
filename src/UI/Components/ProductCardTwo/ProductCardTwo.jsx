@@ -236,7 +236,7 @@ const ProductCardTwo = ({
                             isOutOfStock ? (
                                 <span
                                     data-tooltip-id="my-tooltip"
-                                    data-tooltip-content="Available in 7 to 8 weeks"
+                                    data-tooltip-content="Available in 5 to 6 weeks"
                                     className={`product-archive-out-of-stock-tag ${colTwo ? 'apply-col-two-styling' : ''}`}>Back Order</span>
 
                             ) : (
