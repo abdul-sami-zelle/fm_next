@@ -42,6 +42,13 @@
 }
 
 
+.heading_3_checkout{
+        font-size: var(--sub-section-size);
+    line-height: var(--sub-section-height);
+    font-weight: var(--sub-section-weight);
+    color: var(--text-primary);
+}
+
 .cart-delivary-card {
     display: flex;
     align-items: center;
