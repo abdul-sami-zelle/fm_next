@@ -53,7 +53,7 @@ const Nav = ({ navLinks, sale_data, headerOffer }) => {
                     ))}
 
                     {/* Sale Offer  */}
-                    <h3 className={`nav-item ${activeIndex === `/sale/${headerOffer.category_slug}` ? 'active' : ''}`}>
+                    {/* <h3 className={`nav-item ${activeIndex === `/sale/${headerOffer.category_slug}` ? 'active' : ''}`}>
                         <Link
                             href={`/call/${headerOffer.category_slug}`}
                             state={{ headerOffer }} // Passing data via state
@@ -61,7 +61,7 @@ const Nav = ({ navLinks, sale_data, headerOffer }) => {
                         >
                             {headerOffer.category} 🔥
                         </Link>
-                    </h3>
+                    </h3> */}
 
                     {/* Sale category with different redirection */}
                     <h3 className={`nav-item ${activeIndex === `/sale/${sale_data.category_slug}` ? 'active' : ''}`}>

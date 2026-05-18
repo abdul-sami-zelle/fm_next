@@ -363,7 +363,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
                 {items.mob_img === '' ? (
                   <Image src={`/Assets/mobile-nav-assets/living-room-set.png`} width={70} height={60} alt='nav-icon' />
                 ) : (
-                  <Image src={`${url}${items.mob_img}`} width={70} height={60} alt='nav-icon' />
+                  <Image src={`${url}${items?.mob_img}`} width={70} height={60} alt='nav-icon' />
                 )}
 
                 <p>{items.category}</p>
@@ -374,14 +374,9 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             </Link>
           ))}
 
-          <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container' onClick={handleNavbarClose}>
+          {/* <Link href={`/call/${headerOffer.category_slug}`} className='mobile-nav-single-link-container' onClick={handleNavbarClose}>
             <div className='mobile-nav-single-item-name-anchor' >
-              {/* {headerOffer.mob_img === '' ? (
-              <Image src={'/Assets/mobile-nav-assets/living-room-set.png'} width={70} height={60} alt='nav-icon' />
-              ) : (
-                  <Image src={url+headerOffer.mob_img} width={70} height={60} alt='nav-icon' />
-                )} */}
-
+           
                 {!headerOffer?.mob_img
                 ? (
                   <Image
@@ -404,7 +399,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
             <span>
               <MdKeyboardArrowRight size={20} color='#595959' />
             </span>
-          </Link>
+          </Link> */}
 
           <Link href={`/sale/${sale_data.category_slug}`} className='mobile-nav-single-link-container' onClick={handleNavbarClose}>
             <div className='mobile-nav-single-item-name-anchor' >
@@ -424,7 +419,7 @@ const MobileNavbar = ({ showMobileNav, setMobileNavVisible, headerData, sale_dat
                   />
                 ) : (
                   <Image
-                    src={url + sale_data.mob_img}
+                    src={url + sale_data?.mob_img}
                     width={70}
                     height={60}
                     alt="nav-icon"

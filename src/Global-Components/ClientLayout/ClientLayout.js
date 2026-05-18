@@ -50,7 +50,7 @@ export default function ClientLayout({ children }) {
               <GlobalContextProvider>
                 <BlogsProvider>
                   <ActiveSalePageProvider>
-                    <LastCallProvider>
+                    {/* <LastCallProvider> */}
                       <WishListProvider>
                         <LPContentProvider>
                           <OrderProvivder>
@@ -91,7 +91,7 @@ export default function ClientLayout({ children }) {
                           </OrderProvivder>
                         </LPContentProvider>
                       </WishListProvider>
-                    </LastCallProvider>
+                    {/* </LastCallProvider> */}
                   </ActiveSalePageProvider>
                 </BlogsProvider>
               </GlobalContextProvider>

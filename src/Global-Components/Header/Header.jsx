@@ -151,7 +151,7 @@ const Header = ({ checkoutPage }) => {
     if (headerContent) {
       setHeaderData(headerContent.data[0].categories)
       setHeaderSale(headerContent.data[0].sale)
-      setHeaderOffer(headerContent.data[0].lastCall)
+      // setHeaderOffer(headerContent.data[0].lastCall)
     }
   }, [headerContent])
 
